@@ -2169,7 +2169,7 @@ slaveof  <ip><port>
 
 - Slave启动成功连接到master后会发送一个sync命令
 
-- Master接到命令启动后台的存盘bgsave进程，同时收集所有接收到的用于修改数据集命令， 在后台进程执行完毕之后，master将传送整个数据文件到slave,以完成一次完全同步
+- Master接到命令启动后台的存盘bgsave进程，同时收集所有接收到的用于修改数据集命令（repl_buffer）， 在后台进程执行完毕之后，master将传送整个rdb数据文件到slave,以完成一次完全同步
 
   ![image-20211101223935750](https://gitee.com/wowosong/pic-md/raw/master/20211101223935.png)
 
@@ -2309,7 +2309,7 @@ cluster-config-file nodes-6379.conf 设定节点配置文件名
 
 cluster-node-timeout 15000  设定节点失联时间，超过该时间（毫秒），集群自动进行主从切换。
 
-```
+```shell
 include /root/myredis/redis.conf
 pidfile /var/run/redis_16309.pid
 port 16309
