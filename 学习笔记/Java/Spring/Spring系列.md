@@ -1,0 +1,14432 @@
+# Spring系列
+
+# Spring系列第1篇：spring是什么？我们为什么要学习它？
+
+## 环境
+
+> 1.  jdk1.8
+> 2.  idea
+> 3.  maven-3.6.1
+> 4.  spring-5.2.3.RELEASE
+>
+> 整个spring系列使用官方最新版本5.2.3.RELEASE，会有大量案例，都是通过maven来管理的，所以
+>
+> maven是必备技能，对这块不熟悉的可以去看一下：Maven高手系列
+
+## 为什么需要学习spring？
+
+1.  最大程度的简化了开发
+
+> spring是一个非常优秀的java框架，其目标是为了简化java企业级开发，spring出来已经十几年了，这期间也一直围绕着这个目标在进行，像后面需要学习的springmvc、springboot、springcloud，这些技术也都是围绕着简化开发的目标在努力，到目前为止已经做的足够好了，可以说spring除了不能帮助我们实现业务逻辑代码之外，其他的事情spring都尽量去帮我们简化了， 使用spring可以帮助我们节约大量开发时间。
+>
+> 不使用spring的情况下，开发一个项目可能需要2个月，用了spring可能1个月都不需要，你说这样的技术你想学么？
+
+2.  大量公司使用
+
+> 目前99%的公司使用了spring，可以去各大招聘网站看一下，spring算是必备技能，所以一定要掌 握。
+
+3.  顶级的源码设计
+
+> spring框架源码设计非常优秀，在java开源项目中可以说是顶级的，个人到目前为止还没有发现比spring代码更优秀的开源项目，所以想提升代码能力的，强烈建议多看看spring的源码；关于提升代码能力的，还可以去看一下jdk的源码，也是非常棒的，里面有很多大师的杰作。
+
+## 什么是spring？
+
+> spring是一个简化java企业级开发的一个框架，内部包含了很多技术，比如：控制反转&依赖注入、面向切面编程、spring事务管理、通过spring集成其他框架、springmvc、springboot、springcloud等等，这些都是围绕简化开发展开的技术，后面会对每个知识点详细介绍。
+
+## 感受一下spring的强大
+
+> 先让大家感受一下spring的强大，来激发大家学习的兴趣。
+>
+> 我们需要为移动端提供api接口，接口数据以json格式输出，使用java技术，实现过程大家应该比较熟悉，如下：
+
+1.  使用idea创建一个web项目
+2.  创建servlet，servlet中写业务代码，组装需要数据，将数据以json格式输出
+3.  在web.xml中配置servlet信息
+4.  将项目部署到tomcat中
+
+原生的web项目开发过程都是上面这样，和业务相关的其实只有第2步，而其他几个步骤是每个web项目都需要的，像比较大的项目，会有很多web模块，每个模块都需要重复这些1/3/4操作步骤，还是相当繁琐的，也会耗费大量时间。
+
+如果使用springboot来实现，过程会简化很多，来感受一下：
+
+ 打开idea，点击File->New->Project ，如下：
+
+![image-20211030154812977](https://gitee.com/wowosong/pic-md/raw/master/20211030154813.png)
+
+<img src="https://gitee.com/wowosong/pic-md/raw/master/20211030154833.png" alt="image-20211030154833218" style="zoom:67%;" />
+
+点击Spring Initializr->Next ，如下图：
+
+<img src="https://gitee.com/wowosong/pic-md/raw/master/20211030154859.png" alt="image-20211030154859116" style="zoom:67%;" />
+
+
+
+输入项目坐标信息，如下图：
+
+> <img src="https://gitee.com/wowosong/pic-md/raw/master/20211030154924.png" alt="image-20211030154923998" style="zoom:67%;" />
+
+选择Web->Spring Web->Spring Boot(2.24)->Next ，如下图：
+
+<img src="https://gitee.com/wowosong/pic-md/raw/master/20211030155100.png" alt="image-20211030155100681" style="zoom:67%;" />
+
+点击Finish ，完成项目的创建，如下图：
+
+<img src="https://gitee.com/wowosong/pic-md/raw/master/20211030155137.png" alt="image-20211030155137795" style="zoom:67%;" />
+
+
+
+项目结构如下图：
+
+<img src="https://gitee.com/wowosong/pic-md/raw/master/20211030155209.png" alt="image-20211030155209206" style="zoom:67%;" />
+
+目前为止我们还未写一行代码，下面我们创建一个类HelloWorldController ，代码如下：
+
+```java
+package com.javacode2018; 
+import org.springframework.web.bind.annotation.RequestMapping; 
+import org.springframework.web.bind.annotation.RestController; 
+/**
+大家先不用关注项目中代码什么意思，主要关注一下效果。
+下面我们来启动项目。
+注意项目中有一个自动生成的类： 
+com.javacode2018.SpringDemo1Application ，
+这个类包含了
+main方法，说明是可以运行的，我们运行一下，控制台输出：
+* 公众号：  喔喔松Java，工作10年的前阿里P7分享Java、算法、数据库方面的技术干货！坚信用技术改变 命运，让家人过上更体面的生活! */
+@RestController @RequestMapping("/helloWorld") 
+public class HelloWorldController { 
+  @RequestMapping("/index")
+  public String index() { 
+    return "hello world!";
+  } 
+}
+```
+
+大家先不用关注项目中代码什么意思，主要关注一下效果。下面我们来启动项目。
+
+注意项目中有一个自动生成的类： com.javacode2018.SpringDemo1Application ，这个类包含了
+
+main方法，说明是可以运行的，我们运行一下，控制台输出：
+
+. _ _ _
+
+> / / '_ _ _(_)_ _     ( ( ) | '_ | '_| | '_ / _` |    
+>
+> / )| |_)| | | | | || (_| | ) ) ) ) ' | | . |_| |_|_| |_ , | / / / /
+>
+> =========|_|==============| /=/_/_/_/
+>
+> :: Spring Boot :: (v2.2.4.RELEASE)
+>
+> 2020-02-03 17:42:52.965 INFO 985848 --- [ main]
+>
+> com.javacode2018.SpringDemo1Application : Starting SpringDemo1Application on DESKTOP-3OB6NA3 with PID 985848 (E:springspring-demo1targetclasses started by Think in E:springspring-demo1)
+>
+> 2020-02-03 17:42:52.968 INFO 985848 --- [ main]
+>
+> com.javacode2018.SpringDemo1Application to default profiles: default
+>
+> : No active profile set, falling back
+>
+> 2020-02-03 17:42:55.440 INFO 985848 --- [ main]
+>
+> o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8080 (http)
+>
+> 2020-02-03 17:42:55.450 INFO 985848 --- [ main]
+>
+> o.apache.catalina.core.StandardService : Starting service [Tomcat] 2020-02-03 17:42:55.451 INFO 985848 --- [ main]
+>
+> org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.30]
+>
+> 2020-02-03 17:42:55.554 INFO 985848 --- [ main] o.a.c.c.C.[Tomcat].
+>
+> [localhost].[/] : Initializing Spring embedded WebApplicationContext 2020-02-03 17:42:55.554 INFO 985848 --- [ main]
+>
+> o.s.web.context.ContextLoader : Root WebApplicationContext: initialization completed in 2546 ms
+>
+> 2020-02-03 17:42:55.691 INFO 985848 --- [ main]
+>
+> o.s.s.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+>
+> 2020-02-03 17:42:55.800 INFO 985848 --- [ main]
+>
+> o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 8080 (http) with context path ''
+>
+> 2020-02-03 17:42:55.802 INFO 985848 --- [ main]
+>
+> com.javacode2018.SpringDemo1Application : Started SpringDemo1Application in
+>
+> 3.219 seconds (JVM running for 4.096)
+
+打开浏览器，访问下面地址：
+
+```
+http://localhost:8080/helloWorld/index
+```
+
+效果如下图：
+
+![image-20211030155616579](https://gitee.com/wowosong/pic-md/raw/master/20211030155616.png)
+
+此时我们需要的功能已经实现了，然而到目前为止，只有HelloWorldController 代码是我们写的，而我们没有去创建servlet、将返回的结果以json格式输出、配置web.xml，没有将项目发布到tomcat，没 有去启动tomcat，而只启动了一个main方法，是不是非常神奇。创建servlet、通过response将数据以json格式输出、配置web.xml、发布项目到tomcat、启动tomcat等这些操作并不是说不需要，而是springboot内部已经帮我们实现了，对于开发者来说这些都被隐藏了，springboot让我们更关注业务代 码的实现，从而最大限度的帮我们提升开发效率，简化项目的开发过程。
+
+## 总结
+
+> 这篇文章主要是让大家了解一下spring是什么，总的来说spring是一个非常优秀的java框架，这个框架 的目标是为了简化企业级开发中需要用到的各种技术而存在的，后面的文章我们将一一介绍spring是如何做到简化项目开发的，如何让我们的项目更容易维护和扩展的，敬请期待！
+
+# Spring系列第2篇：控制反转（IoC）与依赖注入（DI）
+
+> Spring中有3个核心的概念：**控制反转(Ioc)、依赖注入(DI)、面向切面编程(AOP)**，spring中其他的技术都是依靠3个核心的技术建立起来的，所以玩spring需要先对这3个概念有个深入的理解。
+>
+> 本文我们先介绍其中的两个：控制反转和依赖注入，而aop我们后面有专门的文章详解。
+
+## 引出spring
+
+> 有2个类，A和B，如下：
+>
+> ```java
+> public class A{
+> 	public void m1(){}
+> }
+> public class B{
+> 	public void m1();
+> }
+> ```
+>
+> 上面2个类都有同样的m1方法。
+>
+> 现在我们调用B的m1方法完成一些事情，而B中的m1方法需要调用A中的m1方法才可以完成这个事情，所以B的代码变成了下面这样：
+>
+> ```java
+> public class B{ 
+>   private A a; // @1
+>   public B(){ 
+>     this.a = new A(); //@2
+>  }
+>   public void m1(){
+>     this.a.m1(); //@3
+>   } 
+> }
+> ```
+>
+> 分析一下上面代码：
+>
+> @1：B类中声明了一个A类型的属性a 
+>
+> @2：new了一个A对象，赋给了a属性
+>
+> @3：B类中的m1方法中去调用a.m1()完成业务操作
+
+#### 先说一下什么是依赖关系？
+
+> 当a对象完成某些操作需要调用b对象中的方法来实现时，说明a依赖于对象b，a和b是依赖关系。上面代码中B的m1需要调用A的m1方法，说明了B依赖于A
+
+#### 上面代码存在一些问题问题
+
+> **B类中a对象的创建被写死在B的构造方法中了，如果我们想在创建不同的B对象的时候，使用不同的a对 象，此时是无能为力的；代码也不利于测试，由于B中a的创建被写死在构造方法中了，我们想测试一下 B中不同a对象的效果，此时只能去修改B中的构造方法。**
+>
+> 上面代码需要优化，B中a对象的创建不能写死，可以让外部传入进去，调整一下变成了下面这样：
+>
+> ```java
+> public class B{
+> private A a;
+> public B(A a){
+> this.a = a;
+> } p
+> ublic void m1(){
+> this.a.m1();
+> }
+> }
+> ```
+>
+> 上面代码可以在创建B对象的时候，将外部创建好的a对象传入进去，此时a的控制权交给了使用者，创建B对象如下：
+>
+> ```java
+> A a = new A();
+> B b = new B(a);
+> b.m1();
+> ```
+>
+> 上面代码我们再扩展一下，如果B类中还需要依赖很多类似于A的对象，比如需要依赖于C、D、E、F或者更多对象，首先是需要调整B的构造方法，修改老的构造方法不是很好，可以在B中新增一些构造方 法。
+>
+> 但是使用B的时候就变成了下面这样：
+>
+> ```java
+> A a = new A();
+> C c = new C();
+> D d = new D();
+> E e = new E();
+> F f = new F();
+> ...
+> B b = new B(a,c,d,e,f,...);
+> b.m1();
+> ```
+>
+> 使用者创建B对象之前，需要先将B依赖的对象都给创建好，然后B依赖的这些对象传递给B对象，如果 有很多地方都需要用到B类型的对象，都采用这种new的写法，代码量比较大，也不方便维护，如果B中新增了依赖，又需采用new的方式先创建好被依赖的对象，然后将被依赖的对象填充给B对象。
+>
+> 上面创建对象之前，需要先将被依赖对象通过new的方式创建好，然后将其传递给B，这些工作都是B的使用者自己去做的，所有对象的创建都是由使用者自己去控制的，弊端上面也说了，代码量也比较大， 代码耦合度比较高（依赖有调整，改动也比较大），也不利于扩展。
+>
+> 那么有没有更好的方式来解决这些问题呢？
+>
+> 上面B对象以及B依赖的对象都是使用者自己主动去控制其创建的，能不能找一个第三方来把这个事情给 做了，比如给第三方一个清单，清单中告诉第三方我需要用到B对象以及B需要依赖的对象，然后由这个 第三方去负责创建和组装B对象，使用者需要使用B对象的时候，只需要向第三方发起一个查找，如果第 三方那边有B对象，直接将其内部组装好的B对象返回就可以了，整个系统中所有需要用到的对象都可以 列个清单，让第三方帮忙创造，用的时候只需要向第三方索取就可以了，当B中依赖的对象有新增或者 删除的时候，只需要去调整一下清单就可以了，这个事情spring已经帮我们实现了。
+
+## spring容器
+
+> spring容器的概念，容器这个名字起的相当好，容器可以放很多东西，我们的程序启动的时候会创建
+>
+> spring容器，会给spring容器一个清单，清单中列出了需要创建的对象以及对象依赖关系，spring容器 会创建和组装好清单中的对象，然后将这些对象存放在spring容器中，当程序中需要使用的时候，可以到容器中查找获取，然后直接使用。
+
+## IOC：控制反转
+
+> 使用者之前使用B对象的时候都需要自己去创建和组装，而现在这些创建和组装都交给spring容器去给完成了，使用者只需要去spring容器中查找需要使用的对象就可以了；这个过程中B对象的创建和组装过程被反转了，之前是使用者自己主动去控制的，现在交给spring容器去创建和组装了，对象的构建过程被反转了，所以叫做控制反转；IOC是是面相对象编程中的一种设计原则，主要是为了降低系统代码 的耦合度，让系统利于维护和扩展。
+
+## DI：依赖注入
+
+> 依赖注入是spring容器中创建对象时给其设置依赖对象的方式，比如给spring一个清单，清单中列出了需要创建B对象以及其他的一些对象（可能包含了B类型中需要依赖对象），此时spring在创建B对象的时候，会看B对象需要依赖于哪些对象，然后去查找一下清单中有没有包含这些被依赖的对象，如果有 就去将其创建好，然后将其传递给B对象；可能B需要依赖于很多对象，B创建之前完全不需要知道其他对象是否存在或者其他对象在哪里以及被他们是如何创建，而spring容器会将B依赖对象主动创建好并 将其注入到B中去，比如spring容器创建B的时候，发现B需要依赖于A，那么spring容器在清单中找到A 的定义并将其创建好之后，注入到B对象中。
+
+## 总结
+
+1.  IOC控制反转，是一种设计理念，将对象创建和组装的主动控制权利交给了spring容器去做，控制的动作被反转了，降低了系统的耦合度，利于系统维护和扩展，**主要就是指需要使用的对象的组装 控制权被反转了，之前是自己要做的，现在交给spring容器做了**。
+
+2.  DI依赖注入，表示spring容器中创建对象时给其设置依赖对象的方式，通过某些注入方式可以让系统更灵活，比如自动注入等可以让系统变的很灵活，这个后面的文章会细说。
+
+3.  spring容器：主要负责容器中对象的创建、组装、对象查找、对象生命周期的管理等等操作。
+
+4.  **下一篇开始详细讲解spring的使用了**
+
+# Spring系列第3篇：Spring容器基本使用及原理
+
+## 环境
+
+1.  jdk1.8
+2.  idea
+2.  maven-3.6.1
+2.  spring-5.2.3.RELEASE
+
+## IOC容器
+
+> IOC容器是具有依赖注入功能的容器，负责**对象的实例化、对象的初始化，对象和对象之间依赖关系配 置、对象的销毁、对外提供对象的查找**等操作，对象的整个生命周期都是由容器来控制。我们需要使用 的对象都由ioc容器进行管理，不需要我们再去手动通过new的方式去创建对象，由ioc容器直接帮我们组装好，当我们需要使用的时候直接从ioc容器中直接获取就可以了。
+
+#### 那么spring ioc容器是如何知道需要管理哪些对象呢？
+
+需要我们给ioc容器提供一个配置清单，这个配置**支持xml格式**和**java注解的方式**，在配置文件中列出需 要让ioc容器管理的对象，以及可以指定让ioc容器如何构建这些对象，当spring容器启动的时候，就会去加载这个配置文件，然后将这些对象给组装好以供外部访问者使用。
+
+> 这里所说的IOC容器也叫spring容器。
+
+## Bean概念
+
+> 由spring容器管理的对象统称为Bean对象。Bean就是普通的java对象，和我们自己new的对象其实是 一样的，只是这些对象是由spring去创建和管理的，我们需要在配置文件中告诉spring容器需要创建哪些bean对象，所以需要先在配置文件中定义好需要创建的bean对象，这些配置统称为bean定义配置元数据信息，spring容器通过读取这些bean配置元数据信息来构建和组装我们需要的对象。
+
+## Spring容器使用步骤
+
+1.  引入spring相关的maven配置
+
+2.  创建bean配置文件，比如bean xml配置文件
+
+3.  在bean xml文件中定义好需要spring容器管理的bean对象
+
+4.  创建spring容器，并给容器指定需要装载的bean配置文件，当spring容器启动之后，会加载这些 配置文件，然后创建好配置文件中定义好的bean对象，将这些对象放在容器中以供使用
+
+5.  通过容器提供的方法获取容器中的对象，然后使用
+
+## Spring容器对象
+
+> spring内部提供了很多表示spring容器的接口和对象，我们来看看比较常见的几个容器接口和具体的实现类。
+
+### BeanFactory接口
+
+> spring容器中具有代表性的容器就是BeanFactory接口，这个是spring容器的顶层接口，提供了容器最 基本的功能。
+>
+> **常用的几个方法**
+>
+> ```java
+> //按bean的id或者别名查找容器中的bean
+> Object getBean(String name) throws BeansException
+> //这个是一个泛型方法，按照bean的id或者别名查找指定类型的bean，返回指定类型的bean对象
+> <T> T getBean(String name, Class<T> requiredType) throws BeansException;
+> //返回容器中指定类型的bean对象
+> <T> T getBean(Class<T> requiredType) throws BeansException;
+> //获取指定类型bean对象的获取器，这个方法比较特别，以后会专门来讲
+> <T> ObjectProvider<T> getBeanProvider(Class<T> requiredType);
+> ```
+
+### ApplicationContext接口
+
+> org.springframework.context.ApplicationContext
+>
+> 这个接口继承了BeanFactory接口，所以内部包含了BeanFactory所有的功能，并且在其上进行了扩 展，增加了很多企业级功能，比如AOP、国际化、事件支持等等。。
+
+### ClassPathXmlApplicationContext类
+
+> org.springframework.context.support.ClassPathXmlApplicationContext
+>
+> 这个类实现了ApplicationContext接口，注意一下这个类名称包含了ClassPath Xml，说明这个容器类可以从classpath中加载bean xml配置文件，然后创建xml中配置的bean对象，一会后面的案例就会用到这个类。
+
+### AnnotationConfigApplicationContext类
+
+> org.springframework.context.annotation.AnnotationConfigApplicationContext
+>
+> 这个类也实现了ApplicationContext接口，注意其类名包含了Annotation和config两个单词，上面我们有说过，bean的定义支持xml的方式和注解的方式，当我们使用注解的方式定义bean的时候，就需要用到这个容器来装载了，这个容器内部会解析注解来构建构建和管理需要的bean。
+>
+> 注解的方式相对于xml方式更方便一些，也是我们比较推荐的方式，后面我们会大量使用这种方式，具 体会详解。
+
+## 案例
+
+> 来个helloworld来详细看一下spring如何使用。
+
+### 创建项目spring-series
+
+> 使用idea创建maven项目spring-series，项目坐标：
+>
+> ```
+> <groupId>com.javacode2018</groupId>
+> <artifactId>spring-series</artifactId>
+> <packaging>pom</packaging>
+> <version>1.0-SNAPSHOT</version>
+> ```
+>
+> spring-series项目中创建一个子模块lesson-001 ，项目maven父子结构，如下图：
+>
+
+![image-20220111234238735](https://gitee.com/wowosong/pic-md/raw/master/20220111234239.png)
+
+### spring-series/pom.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<modelVersion>4.0.0</modelVersion>
+<groupId>com.javacode2018</groupId>
+<artifactId>spring-series</artifactId>
+<packaging>pom</packaging>
+<version>1.0-SNAPSHOT</version>
+<modules>
+<module>lesson-001</module>
+</modules>
+<properties>
+<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+<!-- 配置maven编译的时候采用的编译器版本 -->
+<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+<!-- 指定源代码是什么版本的，如果源码和这个版本不符将报错，maven中执行编译的时候会用
+到这个配置，默认是1.5，这个相当于javac命令后面的-source参数 -->
+<maven.compiler.source>1.8</maven.compiler.source>
+<!-- 该命令用于指定生成的class文件将保证和哪个版本的虚拟机进行兼容，maven中执行编译
+的时候会用到这个配置，默认是1.5，这个相当于javac命令后面的-target参数 -->
+<maven.compiler.target>1.8</maven.compiler.target>
+<spring.version>5.2.3.RELEASE</spring.version>
+</properties>
+<dependencyManagement>
+<dependencies>
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-core</artifactId>
+<version>${spring.version}</version>
+</dependency>
+<dependency>
+<groupId>org.springframework</groupId>目前我们使用spring最新的版本 5.2.3.RELEASE ，需要引入spring提供的3个构件
+lesson-001\pom.xml
+lesson-001中创建HelloWord类
+<artifactId>spring-context</artifactId>
+<version>${spring.version}</version>
+</dependency>
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-beans</artifactId>
+<version>${spring.version}</version>
+</dependency>
+</dependencies>
+</dependencyManagement>
+</project>
+```
+
+> 目前我们使用spring最新的版本 5.2.3.RELEASE ，需要引入spring提供的3个构件
+
+```
+spring-core、spring-context、spring-beans
+```
+
+### lesson-001pom.xml
+
+> **lesson-001中创建HelloWord类**
+>
+> HelloWord中我们创建了一个say方法，里面会输一段文字。
+
+### 使用spring容器
+
+> 下面我们通过spring容器来创建HelloWord对象，并从容器中获取这个对象，然后调用其say方法输出 文字。
+
+### 创建bean xml配置文件
+
+> 新建一个文件，文件路径如下：
+>
+> bean.xml内容如下：
+>
+> 上面就是bean的定义文件，每个xml中可以定义多个bean元素，通过bean元素定义需要spring容器管 理的对象，bean元素需指定id和class属性
+>
+> id表示这个bean的标识，在容器中需要唯一，可以通过这个id从容器中获取这个对象； class用来指定这个bean的完整类名
+>
+> 上面的配置文件中我们定义了一个helloWorld 标识的HellWorld类型 的bean对象。
+
+### 创建测试类
+
+> 创建一个Client类，如下：
+>
+> 上面main方法中有容器的详细使用步骤，需要先创建容器对象，创建容器的对象的时候需要指定bean xml文件的位置，容器启动之后会加载这些配文件，然后将这些对象构建好。
+>
+> 代码中通过容器提供的getBean方法从容器中获取了HellWorld对象，第一个参数就是xml中bean的
+>
+> id，第二个参数为bean对应的Class对象。
+>
+> **运行输出**
+
+## 总结
+
+> 本文主要介绍了spring容器的概念、bean的概念、常见的spring容器，以及spring容器的使用步骤；下 一篇我们将详解bean的定义。
+
+# Spring系列第4篇：xml中bean定义详解
+
+## 本文内容
+
+1.  bean xml配置文件
+
+2.  bean元素详解
+
+3.  名称和别名详解
+
+4.  alias元素详解
+
+5.  通过import元素引入外部配置
+
+## 环境
+
+1.  jdk1.8
+2.  idea
+2.  maven-3.6.1
+2.  spring-5.2.3.RELEASE
+
+## bean概念回顾
+
+> 我们再来回顾一下，被spring管理的对象统称为bean，我们程序中需要用到很多对象，我们将这些对象让spring去帮我们创建和管理，我们可以通过bean xml配置文件告诉spring容器需要管理哪些bean，
+>
+> spring帮我们创建和组装好这些bean对象；那么我们如何从spring中获取想要的bean对象呢，我们需 要给bean定义一个名称，spring内部将这些名称和具体的bean对象进行绑定，然后spring容器可以通 过这个的名称找对我们需要的对象，这个名称叫做bean的名称，在一个spring容器中需要是唯一的。
+
+## bean xml配置文件格式
+
+> bean xml文件用于定义spring容器需要管理的bean，常见的格式如下：
+>
+> beans是根元素，下面可以包含任意数量的import、bean、alias元素，下面我们对每个元素进行详 解。
+
+## bean元素
+
+> 用来定义一个bean对象。
+
+### 格式
+
+> **bean名称**
+>
+> 每个bean都有一个名称，叫做bean名称，bean名称在一个spring容器中必须唯一，否则会报错，通过
+>
+> bean名称可以从spring容器获取对应的bean对象。
+
+### bean别名
+
+> 先来说一下什么是别名？
+>
+> 相当于人的外号一样，一个人可能有很多外号，当别人喊这个人的名称或者外号的时候，都可以 找到这个人。那么bean也一样，也可以给bean起几个外号，这个外号在spring中叫做bean的别 名，spring容器允许使用者通过名称或者别名获取对应的bean对象。
+
+### bean名称别名定义规则
+
+> 名称和别名可以通过bean元素中的id和name来定义，具体定义规则如下：：
+
+1.  当id存在的时候，不管name有没有，取id为bean的名称
+
+2.  当id不存在，此时需要看name，name的值可以通过,;或者空格 分割，最后会按照分隔符得到一个String数组，数组的第一个元素作为bean的名称，其他的作为bean的别名
+
+3.  当id和name都存在的时候，id为bean名称，name用来定义多个别名
+
+4.  当id和name都不指定的时候，bean名称自动生成，生成规则下面详细说明
+
+### 案例
+
+> 下面演示一下bean名称和别名的各种写法。
+>
+> 我们来写个java来输出上面所有bean的名称和其别名，如下：
+>
+> 上面有2个新的方法：
+>
+> getAliases：通过bean名称获取这个bean的所有别名
+>
+> getBeanDefinitionNames：返回spring容器中定义的所有bean的名称 运行输出：
+
+### id和name都未指定
+
+> 当id和name都未指定的时候，bean的名称和别名又是什么呢？此时由spring自动生成，bean名称为：
+>
+> 上面的编号是从0开始的，同种类型的没有指定名称的依次递增。如：
+>
+> 下面定义了2个UserModel和2个String类型的bean，这些bean都没有指定id和name。
+>
+> 我们再次运行一下上面Client类的main方法，输出：
+>
+> 注意看一下上面最后4行的输出，bean名称和别名都是自动生成的，未指定id和name的bean对象，第一个会有别名，别名为完整的类名。bean名称为完整类名#编号。
+
+## alias元素
+
+> alias元素也可以用来给某个bean定义别名，语法：
+>
+> 如：
+>
+> 上面第一行通过bean元素定义了一个名称为user6的UserModel对象，后面2行给user6这个bean定义 了2个别名，分别是user6_1和user6_2。
+>
+> 运行Client，会输出一行：
+
+## import元素
+
+> 当我们的系统比较大的时候，会分成很多模块，每个模块会对应一个bean xml文件，我们可以在一个总的bean xml中对其他bean xml进行汇总，相当于把多个bean xml的内容合并到一个里面了，可以通过import元素引入其他bean配置文件。
+>
+> 语法：<import resource="其他配置文件的位置" />
+>
+> 如：
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+<import resource="user.xml" />
+<import resource="order.xml" />
+</beans>
+```
+
+## 总结
+
+> 本文主要介绍了xml bean的定义，名称和别名的使用，通过import元素引入外部配置文件。
+
+# Spring系列第5篇：容器创建bean实例有多少种？
+
+## 本文内容
+
+1.  通过反射调用构造方法创建bean对象
+
+2.  通过静态工厂方法创建bean对象
+
+3.  通过实例工厂方法创建bean对象
+
+4.  通过FactoryBean创建bean对象
+
+> Spring容器内部创建bean实例对象常见的有4种方式。
+
+## 通过反射调用构造方法创建bean对象
+
+> 调用类的构造方法获取对应的bean实例，是使用最多的方式，这种方式只需要在xml bean元素中指定class属性，spring容器内部会自动调用该类型的构造方法来创建bean对象，将其放在容器中以供使用。
+
+### 语法
+
+```
+<bean id="bean名称" name="bean名称或者别名" class="bean的完整类型名称">
+  <constructor-arg index="0" value="bean的值" ref="引用的bean名称" />
+  <constructor-arg index="1" value="bean的值" ref="引用的bean名称" />
+  <constructor-arg index="2" value="bean的值" ref="引用的bean名称" />
+  ....
+  <constructor-arg index="n" value="bean的值" ref="引用的bean名称" />
+</bean>
+```
+
+> constructor-arg用于指定构造方法参数的值
+>
+> index：构造方法中参数的位置，从0开始，依次递增
+>
+> value：指定参数的值
+>
+> ref：当插入的值为容器内其他bean的时候，这个值为容器中对应bean的名称
+
+### 案例 {#案例}
+
+#### UserModel类
+
+> **beans.xml配置**
+>
+> 上面这2种写法，spring容器创建这两个UserModel的时候，都会通过反射的方式去调用UserModel类 中对应的构造函数来创建UserModel对象。
+
+#### 测试用例
+
+> 代码中会输出spring容器中所有bean的名称和其对应的bean对象。
+>
+> **运行输出**
+
+## 通过静态工厂方法创建bean对象
+
+> 我们可以创建静态工厂，内部提供一些静态方法来生成所需要的对象，将这些静态方法创建的对象交给
+>
+> spring以供使用。
+
+### 语法
+
+> class：指定静态工厂完整的类名
+>
+> factory-method：静态工厂中的静态方法，返回需要的对象。
+>
+> constructor-arg用于指定静态方法参数的值，用法和上面介绍的构造方法一样。
+>
+> spring容器会自动调用静态工厂的静态方法获取指定的对象，将其放在容器中以供使用。
+
+### 案例 {#案例-2}
+
+#### 定义静态工厂
+
+> 创建一个静态工厂类，用于生成UserModel对象。
+
+#### beans.xml配置 {#beans.xml配置-1}
+
+> 上面配置中，spring容器启动的时候会自动调用UserStaticFactory中的buildUser1静态方法获取UserModel对象，将其作为createBeanByStaticFactoryMethod1名称对应的bean对象放在spring容器 中。
+>
+> 会调用UserStaticFactory的buildUser2方法，并且会传入2个指定的参数，得到返回的UserModel对象，将其作为createBeanByStaticFactoryMethod2名称对应的bean对象放在spring容器中。
+
+#### 运行Client
+
+> 从输出中可以看出，两个静态方法都被调用了，createBeanByStaticFactoryMethod1对应的bean对象是通过buildUser1方法创建的；createBeanByStaticFactoryMethod2对应的bean对象是通过
+>
+> buildUser2方法创建的。
+
+## 通过实例工厂方法创建bean对象
+
+> 让spring容器去调用某些对象的某些实例方法来生成bean对象放在容器中以供使用。
+
+### 语法 {#语法}
+
+> spring容器以factory-bean的值为bean名称查找对应的bean对象，然后调用该对象中factory-method
+>
+> 属性值指定的方法，将这个方法返回的对象作为当前bean对象放在容器中供使用。
+
+### 案例 {#案例}
+
+#### 定义一个实例工厂
+
+> 内部写2个方法用来创建UserModel对象。
+
+#### beans.xml
+
+> createBeanByBeanMethod1对应的bean是通过userFactory的buildUser1方法生成的。createBeanByBeanMethod2对应的bean是通过userFactory的buildUser2方法生成的。 **运行Client**
+
+## 通过FactoryBean来创建bean对象
+
+> 前面我们学过了BeanFactory接口，BeanFactory是spring容器的顶层接口，而这里要说的是FactoryBean，也是一个接口，这两个接口很容易搞混淆，FactoryBean可以让spring容器通过这个接口的实现来创建我们需要的bean对象。
+>
+> FactoryBean接口源码：
+>
+> 接口中有3个方法，前面2个方法需要我们去实现，getObject方法内部由开发者自己去实现对象的创
+>
+> 建，然后将创建好的对象返回给Spring容器，getObjectType需要指定我们创建的bean的类型；最后一 个方法isSingleton表示通过这个接口创建的对象是否是单例的，如果返回false，那么每次从容器中获取 对象的时候都会调用这个接口的getObject() 去生成bean对象。
+
+### 语法 {#语法-2}
+
+> **案例**
+
+#### 创建一个FactoryBean实现类
+
+> @1：返回了一个创建好的UserModel对象@2：返回对象的Class对象
+>
+> @3：返回true，表示创建的对象是单例的，那么我们每次从容器中获取这个对象的时候都是同一个对 象
+>
+> @4：此处用到了一个count，通过这个一会可以看出isSingleton不同返回值的时候从容器获取的bean
+>
+> 是否是同一个
+
+#### bean xml配置
+
+> **Client代码**
+>
+> 运行输出
+>
+> 注意最后4行输出，有3行输出的都是同一个createByFactoryBean，程序中通过getBean从spring容器中查找createByFactoryBean了3次，3次结果都是一样的，说明返回的都是同一个UserModel对象。
+>
+> 下面我们将UserFactoryBean中的isSingleton调整一下，返回false
+>
+> 当这个方法返回false的时候，表示由这个FactoryBean创建的对象是多例的，那么我们每次从容器中
+>
+> getBean的时候都会去重新调用FactoryBean中的getObject方法获取一个新的对象。
+>
+> 再运行一下Client，最后4行输出：
+>
+> 这3次获取的对象不一样了。
+
+## 总结 {#总结}
+
+> spring容器提供了4种创建bean实例的方式，除了构造函数的方式，其他几种方式可以让我们手动去控制对象的创建，这几种方式大家都掌握一下，能够灵活使用。
+>
+> **案例代码**
+
+# Spring系列第6篇：bean作用域scope详解
+
+## 本文内容 {#本文内容}
+
+1.  详细介绍5中bean的sope及使用注意点
+
+2.  自定义作用域的实现
+
+> 应用中，有时候我们需要一个对象在整个应用中只有一个，有些对象希望每次使用的时候都重新创建一 个，spring对我们这种需求也提供了支持，在spring中这个叫做bean的作用域，xml中定义bean的时 候，可以通过scope属性指定bean的作用域，如：
+>
+> spring容器中scope常见的有5种，下面我们分别来介绍一下。
+
+## singleton
+
+> 当scope的值设置为singleton的时候，整个spring容器中只会存在一个bean实例，通过容器多次查找bean的时候（调用BeanFactory的getBean方法或者bean之间注入依赖的bean对象的时候），返回的都是同一个bean对象，singleton是scope的默认值，所以spring容器中默认创建的bean对象是单例 的，通常spring容器在启动的时候，会将scope为singleton的bean创建好放在容器中（有个特殊的情 况，当bean的lazy被设置为true的时候，表示懒加载，那么使用的时候才会创建），用的时候直接返回。
+
+### 案例 {#案例}
+
+#### bean xml配置
+
+> **BeanScopeModel代码**
+>
+> 上面构造方法中输出了一段文字，一会我们可以根据输出来看一下这个bean什么时候创建的，是从容器中获取bean的时候创建的还是容器启动的时候创建的。
+
+#### 测试用例
+
+> 上面代码中before方法上面有@Before注解，这个是junit提供的功能，这个方法会在所有@Test标注的 方法之前之前运行，before方法中我们对容器进行初始化，并且在容器初始化前后输出了一段文字。
+>
+> 上面代码中，singletonBean方法中，3次获取singletonBean对应的bean。
+
+#### 运行测试用例
+
+> **结论**
+>
+> 从输出中得到2个结论
+>
+> 前3行的输出可以看出，BeanScopeModel的构造方法是在容器启动过程中调用的，说明这个
+>
+> bean实例在容器启动过程中就创建好了，放在容器中缓存着最后3行输出的是一样的，说明返回的是同一个bean对象
+
+### 单例bean使用注意
+
+> **单例bean是整个应用共享的，所以需要考虑到线程安全问题，之前在玩springmvc的时候， springmvc中controller默认是单例的，有些开发者在controller中创建了一些变量，那么这些变量实 际上就变成共享的了，controller可能会被很多线程同时访问，这些线程并发去修改controller中的共 享变量，可能会出现数据错乱的问题；所以使用的时候需要特别注意。**
+
+## prototype
+
+> 如果scope被设置为prototype类型的了，表示这个bean是多例的，通过容器每次获取的bean都是不同 的实例，每次获取都会重新创建一个bean实例对象。
+
+### 案例 {#案例-3}
+
+#### bean xml配置
+
+> **新增一个测试用例**
+>
+> ScopeTest中新增一个方法
+
+#### 运行测试用例
+
+> **结论**
+>
+> 输出中可以看出，容器启动过程中并没有去创建BeanScopeModel对象，3次获取prototypeBean得到 的都是不同的实例，每次获取的时候才会去调用构造方法创建bean实例。
+
+### 多例bean使用注意
+
+#### 多例bean每次获取的时候都会重新创建，如果这个bean比较复杂，创建时间比较长，会影响系统的性 能，这个地方需要注意。
+
+> **下面要介绍的3个：request、session、application都是在spring web容器环境中才会有的。**
+
+## request
+
+> 当一个bean的作用域为request，表示在一次http请求中，一个bean对应一个实例；对每个http请求都 会创建一个bean实例，request结束的时候，这个bean也就结束了，request作用域用在spring容器的web环境中，这个以后讲springmvc的时候会说，spring中有个web容器接口
+>
+> WebApplicationContext，这个里面对request作用域提供了支持，配置方式：
+
+## session
+
+> 这个和request类似，也是用在web环境中，session级别共享的bean，每个会话会对应一个bean实 例，不同的session对应不同的bean实例，springmvc中我们再细说。
+
+## application
+
+> 全局web应用级别的作用于，也是在web环境中使用的，一个web应用程序对应一个bean实例，通常情 况下和singleton效果类似的，不过也有不一样的地方，singleton是每个spring容器中只有一个bean实 例，一般我们的程序只有一个spring容器，但是，一个应用程序中可以创建多个spring容器，不同的容器中可以存在同名的bean，但是sope=aplication的时候，不管应用中有多少个spring容器，这个应用 中同名的bean只有一个。
+
+## 自定义scope
+
+> 有时候，spring内置的几种sope都无法满足我们的需求的时候，我们可以自定义bean的作用域。
+
+### 自定义Scope 3步骤
+
+#### 第1步：实现Scope接口
+
+> 我们来看一下这个接口定义
+
+#### 第2步：将自定义的scope注册到容器
+
+> 需要调用org.springframework.beans.factory.config.ConfigurableBeanFactory#registerScope的方 法，看一下这个方法的声明
+
+#### 第3步：使用自定义的作用域
+
+> 定义bean的时候，指定bean的scope属性为自定义的作用域名称。
+
+### 案例 {#案例}
+
+#### 需求
+
+> 下面我们来实现一个线程级别的bean作用域，同一个线程中同名的bean是同一个实例，不同的线程中的bean是不同的实例。
+
+#### 实现分析
+
+> 需求中要求bean在线程中是贡献的，所以我们可以通过ThreadLocal来实现，ThreadLocal可以实现线 程中数据的共享。
+>
+> 下面我们来上代码。
+
+#### ThreadScope
+
+> @1：定义了作用域的名称为一个常量thread，可以在定义bean的时候给scope使用
+
+#### BeanScopeModel
+
+> 上面的构造方法中会输出当前线程的信息，到时候可以看到创建bean的线程。
+
+#### bean配置文件
+
+> beans-thread.xml内容
+>
+> 注意上面的scope是我们自定义的，值为thread
+
+#### 测试用例 {#测试用例}
+
+> 注意上面代码，重点在@1，这个地方向容器中注册了自定义的ThreadScope。
+>
+> @2：创建了2个线程，然后在每个线程中去获取同样的bean 2次，然后输出，我们来看一下效果。
+
+#### 运行输出
+
+> 从输出中可以看到，bean在同样的线程中获取到的是同一个bean的实例，不同的线程中bean的实例是不同的。
+
+## 总结 {#总结-3}
+
+1.  spring容器自带的有2种作用域，分别是singleton和prototype；还有3种分别是spring web容器环境中才支持的request、session、application
+
+2.  singleton是spring容器默认的作用域，一个spring容器中同名的bean实例只有一个，多次获取得 到的是同一个bean；单例的bean需要考虑线程安全问题
+
+3.  prototype是多例的，每次从容器中获取同名的bean，都会重新创建一个；多例bean使用的时候 需要考虑创建bean对性能的影响
+
+4.  一个应用中可以有多个spring容器
+
+5.  自定义scope 3个步骤，实现Scope接口，将实现类注册到spring容器，使用自定义的sope
+
+> **案例源码**
+
+# Spring系列第7篇：依赖注入之手动注入
+
+## 本文内容 {#本文内容-2}
+
+1.  #### 主要介绍xml中依赖注入的配置
+
+2.  **构造器注入的3种方式详解**
+
+3.  #### set方法注入详解
+
+4.  **注入容器中的其他bean的2种方式**
+
+5.  **其他常见类型注入详解**
+
+## 依赖回顾
+
+> 通常情况下，系统中类和类之间是有依赖关系的，如果一个类对外提供的功能需要通过调用其他类的方 法来实现的时候，说明这两个类之间存在依赖关系，如：
+>
+> UserController中的insert方法中需要调用userService的insert方法，说明UserController依赖于UserService，如果userService不存在，此时UserControler无法对外提供insert操作。
+>
+> 那么我们创建UserController对象的时候如何将给userService设置值呢？通常有2中方法。
+
+### 依赖对象的初始化方式
+
+#### 通过构造器设置依赖对象
+
+> UserController中添加一个有参构造方法，如下：
+
+#### 通过set方法设置依赖对象
+
+> 可以在UserController中给userService添加一个set方法，如：
+>
+> 上面这些操作，将被依赖的对象设置到依赖的对象中，spring容器内部都提供了支持，这个在spirng中叫做依赖注入。
+
+## spring依赖注入
+
+> spring中依赖注入主要分为手动注入和自动注入，本文我们主要说一下手动注入，手动注入需要我们明确配置需要注入的对象。
+>
+> 刚才上面我们回顾了，将被依赖方注入到依赖方，通常有2种方式：构造函数的方式和set属性的方式，
+>
+> spring中也是通过这两种方式实现注入的，下面详解2种方式。
+
+## 通过构造器注入
+
+> 构造器的参数就是被依赖的对象，构造器注入又分为3种注入方式：
+>
+> 根据构造器参数索引注入根据构造器参数类型注入根据构造器参数名称注入
+
+## 根据构造器参数索引注入
+
+### 用法
+
+> constructor-arg用户指定构造器的参数index：构造器参数的位置，从0开始
+>
+> value：构造器参数的值，value只能用来给简单的类型设置值，value对应的属性类型只能为byte,int,long,float,double,boolean,Byte,Long,Float,Double,枚举，spring容器内部注入的时候会将value的值转换为对应的类型。
+
+### 案例 {#案例-4}
+
+#### UserModel.java
+
+> 注意上面的3个构造函数。
+
+#### diByConstructorParamIndex.xml
+
+> 上面创建UserModel实例代码相当于下面代码：
+
+#### 工具类IoUtils.java
+
+> **测试用例DiTest.java**
+
+#### 效果
+
+> 运行diByConstructorParamIndex输出
+
+### 优缺点
+
+#### 参数位置的注入对参数顺序有很强的依赖性，若构造函数参数位置被人调整过，会导致注入出错。
+
+> **不过通常情况下，不建议去在代码中修改构造函数，如果需要新增参数的，可以新增一个构造函数来实 现，这算是一种扩展，不会影响目前已有的功能。**
+
+## 根据构造器参数类型注入
+
+### 用法
+
+> constructor-arg 用 户 指 定 构 造 器 的 参 数 type：构造函数参数的完整类型，如：java.lang.String,int,double value：构造器参数的值，value只能用来给简单的类型设置值
+
+### 案例 {#案例}
+
+#### diByConstructorParamType.xml
+
+> 上面创建UserModel实例代码相当于下面代码：
+
+#### 新增测试用例
+
+> DiTest类中新增一个测试用例
+
+#### 效果
+
+> 运行diByConstructorParamType输出
+
+### 优缺点
+
+> **实际上按照参数位置或者按照参数的类型注入，都有一个问题，很难通过bean的配置文件，知道这个 参数是对应UserModel中的那个属性的，代码的可读性不好，比如我想知道这每个参数对应UserModel中的那个属性，必须要去看UserModel的源码，下面要介绍按照参数名称注入的方式比上 面这2种更优秀一些。**
+
+## 根据构造器参数名称注入
+
+### 用法 {#用法}
+
+> constructor-arg用户指定构造器的参数name：构造参数名称
+>
+> value：构造器参数的值，value只能用来给简单的类型设置值
+
+### 关于方法参数名称的问题
+
+> java通过反射的方式可以获取到方法的参数名称，不过源码中的参数通过编译之后会变成class对象，通常情况下源码变成class文件之后，参数的真实名称会丢失，参数的名称会变成arg0,arg1,arg2这样的， 和实际参数名称不一样了，**如果需要将源码中的参数名称保留在编译之后的class文件中，编译的时候 需要用下面的命令**：
+>
+> 但是我们难以保证编译代码的时候，操作人员一定会带上-parameters参数，所以方法的参数可能在
+>
+> class文件中会丢失，导致反射获取到的参数名称和实际参数名称不符，这个我们需要先了解一下。
+>
+> **参数名称可能不稳定的问题，spring提供了解决方案，通过ConstructorProperties注解来定义参数的 名称，将这个注解加在构造方法上面**，如下：
+
+### 案例 {#案例-5}
+
+#### CarModel.java
+
+> **diByConstructorParamName.xml**
+>
+> 上面创建CarModel实例代码相当于下面代码：
+
+#### 新增测试用例
+
+> DiTest类中新增一个测试用例
+
+#### 效果 {#效果}
+
+> 运行diByConstructorParamName输出
+
+## setter注入
+
+#### 通常情况下，我们的类都是标准的javabean，javabean类的特点： 属性都是private访问级别的
+
+> **属性通常情况下通过一组setter（修改器）和getter（访问器）方法来访问**
+
+#### setter方法，以 set 开头，后跟首字母大写的属性名，如：setUserName，简单属性一般只有一个方法参数，方法返回值通常为void;
+
+> ![](media/image10.png){width="0.21875in" height="0.13541666666666666in"}**getter方法，一般属性以** get **开头，对于boolean类型一般以** is **开头，后跟首字母大写的属性**
+
+#### 名，如：getUserName，isOk；
+
+> spring对符合javabean特点类，提供了setter方式的注入，会调用对应属性的setter方法将被依赖的对 象注入进去。
+>
+> **用法**
+>
+> property用于对属性的值进行配置，可以有多个name：属性的名称
+>
+> value：属性的值**案例****MenuModel.java**
+
+#### diBySetter.xml
+
+> **新增测试用例**
+>
+> DiTest类中添加一个测试方法
+
+#### 效果 {#效果-2}
+
+> 运行diBySetter输出
+
+### 优缺点 {#优缺点}
+
+#### setter注入相对于构造函数注入要灵活一些，构造函数需要指定对应构造函数中所有参数的值，而setter注入的方式没有这种限制，不需要对所有属性都进行注入，可以按需进行注入。
+
+> 上面介绍的都是注入普通类型的对象，都是通过value属性来设置需要注入的对象的值的，value属性的值是String类型的，spring容器内部自动会将value的值转换为对象的实际类型。
+>
+> **若我们依赖的对象是容器中的其他bean对象的时候，需要用下面的方式进行注入。**
+
+## 注入容器中的bean
+
+#### 注入容器中的bean有两种写法：
+
+> **ref属性方式**
+>
+> **内置bean的方式**
+>
+> **ref属性方式**
+>
+> 将上面介绍的constructor-arg或者property元素的value属性名称替换为ref，ref属性的值为容器中其他bean的名称，如：
+>
+> 构造器方式，将value替换为ref：
+>
+> setter方式，将value替换为ref：
+
+### 内置bean的方式
+
+> 构造器的方式：
+>
+> setter方式：
+
+### 案例 {#案例-6}
+
+#### PersonModel.java
+
+> PersonModel中有依赖于2个对象UserModel、CarModel，下面我们通过spring将UserModel和CarModel创建好，然后注入到PersonModel中，下面创建bean配置文件
+
+#### diBean.xml
+
+> **新增测试用例**
+>
+> DiTest中新增一个测试方法
+
+#### 效果 {#效果}
+
+> 运行diBean用例，输出：
+
+## 其他类型注入
+
+### 注入java.util.List（list元素）
+
+> **注入java.util.Set（set元素）**
+
+### 注入java.util.Map（map元素）
+
+> **注入数组（array元素）**
+
+### 注入java.util.Properties（props元素）
+
+> Properties类相当于键值都是String类型的Map对象，使用props进行注入，如下：
+
+### 案例 {#案例}
+
+> 对于上面这些类型来个综合案例。
+
+#### DiOtherTypeModel.java
+
+> 上面这个类中包含了刚才我们介绍的各种类型，下面来进行注入。
+
+#### diOtherType.xml
+
+> <bean id="diOtherType" class="com.javacode2018.lesson001.demo5.DiOtherTypeModel">
+>
+> <!-- 注入java.util.List对象 -->
+>
+> <property name="list1">
+>
+> <list>
+>
+> <value>Spring</value>
+>
+> <value>SpringBoot</value>
+>
+> </list>
+>
+> </property>
+>
+> <!-- 注入java.util.Set对象 -->
+>
+> <property name="set1">
+>
+> <set>
+>
+> <ref bean="user1"/>
+>
+> <ref bean="user2"/>
+>
+> <ref bean="user1"/>
+>
+> </set>
+>
+> </property>
+>
+> <!-- 注入java.util.Map对象 -->
+>
+> <property name="map1">
+>
+> <map>
+>
+> <entry key="  喔喔松Java" value="30"/>
+>
+> <entry key="路人" value="28"/>
+>
+> </map>
+>
+> </property>
+>
+> <!-- 注入数组对象 -->
+>
+> <property name="array1">
+>
+> <array>
+>
+> <value>10</value>
+>
+> <value>9</value>
+>
+> <value>8</value>
+>
+> </array>
+>
+> </property>
+>
+> <!-- 注入java.util.Properties对象 -->
+>
+> <property name="properties1">
+>
+> <props>
+>
+> <prop key="key1">java高并发系列</prop>
+>
+> <prop key="key2">mybatis系列</prop>
+>
+> <prop key="key3">mysql系列</prop>
+>
+> </props>
+>
+> </property>
+>
+> </bean>
+>
+> </beans>
+
+#### 新增测试用例 {#新增测试用例}
+
+> DiTest类中新增一个方法
+
+#### 效果 {#效果-3}
+
+> 运行测试用例输出：
+
+## 总结 {#总结}
+
+1.  #### 本文主要讲解了xml中bean的依赖注入，都是采用硬编码的方式进行注入的，这种算是手动的方 式
+
+2.  **注入普通类型通过value属性或者value元素设置注入的值；注入对象如果是容器的其他bean的时 候，需要使用ref属性或者ref元素或者内置bean元素的方式**
+
+3.  #### 还介绍了其他几种类型List、Set、Map、数组、Properties类型的注入，多看几遍加深理解
+
+4.  **后面我们将介绍spring为我们提供的更牛逼的自动注入**
+
+> **案例源码**
+
+# Spring系列第8篇：依赖注入之自动注入（autowire）详解
+
+> Spring系列第8篇，在此也感谢各位一路的支持，请大家帮忙点个再看并转发到朋友圈让更多的朋友一起学习，感激不尽！
+
+## 本文内容 {#本文内容}
+
+#### 手动注入的不足Class.isAssignableFrom方法介绍3种自动注入方式详解及案例
+
+> **按名称自动注入按类型自动注入**
+
+#### 按构造器进行自动注入
+
+> **按类型自动注入某种类型的所有bean给List和Map（重点）**
+
+#### autowire=default介绍总结
+
+> **案例源码**
+
+## 手动注入的不足
+
+> 上篇文章中介绍了依赖注入中的手动注入，所谓手动注入是指在xml中采用硬编码的方式来配置注入的 对象，比如通过构造器注入或者set方法注入，这些注入的方式都存在不足，比如下面代码：
+>
+> 使用spring容器来管理，xml配置如下：
+>
+> 上面的注入存在的问题：
+
+#### 如果需要注入的对象比较多，比如A类中有几十个属性，那么上面的property属性是不是需要写 几十个，此时配置文件代码量暴增
+
+> **如果A类中新增或者删除了一些依赖，还需要手动去调整bean xml中的依赖配置信息，否则会报错**
+
+#### 总的来说就是不利于维护和扩展
+
+> **为了解决上面这些问题，spring为我们提供了更强大的功能：自动注入**
+>
+> 在介绍自动注入之前需要先介绍一些基础知识。
+
+## Class.isAssignableFrom方法
+
+### 用法 {#用法}
+
+> isAssignableFrom是Class类中的一个方法，看一下这个方法的定义：
+>
+> 用法如下：
+>
+> 用来判断c2和c1是否相等，或者c2是否是c1的子类。
+>
+> **案例**
+
+## 自动注入
+
+> 自动注入是采用约定大约配置的方式来实现的，程序和spring容器之间约定好，遵守某一种都认同的规则，来实现自动注入。
+>
+> xml中可以在bean元素中通过autowire属性来设置自动注入的方式：
+
+#### byteName：按照名称进行注入byType：按类型进行注入
+
+> **constructor：按照构造方法进行注入default：默认注入方式**
+>
+> 下面我们详解每种注入方式的用法。
+
+## 按照名称进行注入（byName）
+
+### 用法 {#用法-2}
+
+> autowire设置为byName
+>
+> spring容器会按照set属性的名称去容器中查找同名的bean对象，然后将查找到的对象通过set方 法注入到对应的bean中，未找到对应名称的bean对象则set方法不进行注入
+>
+> 需要注入的set属性的名称和被注入的bean的名称必须一致。来看看案例吧。
+
+### 案例 {#案例}
+
+#### DiByName.java
+
+> return desc;
+>
+> }
+>
+> public void setDesc(String desc) { this.desc = desc;
+>
+> }
+>
+> @Override
+>
+> public String toString() { return "Service1{" +
+>
+> "desc='" + desc + ''' + '}';
+>
+> }
+>
+> }
+>
+> public static class Service2 { //@1 private String desc;
+>
+> public String getDesc() { return desc;
+>
+> }
+>
+> public void setDesc(String desc) { this.desc = desc;
+>
+> }
+>
+> @Override
+>
+> public String toString() { return "Service2{" +
+>
+> "desc='" + desc + ''' + '}';
+>
+> }
+>
+> }
+>
+> private Service1 service1;//@3 private Service2 service2;//@4
+>
+> public Service1 getService1() { return service1;
+>
+> }
+>
+> public void setService1(Service1 service1) { System.out.println("setService1->" + service1); this.service1 = service1;
+>
+> }
+>
+> public Service2 getService2() { return service2;
+>
+> }
+>
+> public void setService2(Service2 service2) { System.out.println("setService2->" + service2); this.service2 = service2;
+>
+> }
+>
+> @Override
+>
+> public String toString() { return "DiAutowireByName{" +
+>
+> 这个类中有2个属性，名称为：
+>
+> service1 service2
+>
+> 这两个属性都有对应的set方法。
+>
+> 下面我们在bean xml中定义2个和这2个属性同名的bean，然后使用按照名称进行自动注入。
+
+#### diAutowireByName.xml
+
+> 上面注释认真看一下。
+>
+> @1：定义了一个名称为service1的bean @2：定义了一个名称为service2的bean
+>
+> @3：定义diAutowireByName需要将autowire的值置为byName，表示按名称进行自动注入。
+>
+> spring容器创建diAutowireByName对应的bean时，会遍历DiAutowireByName类中的所有set 方法，然后得到set对应的属性名称列表：{"service1","service2"}，然后遍历这属性列表，在容器中查找和属性同名的bean对象，然后调用属性对应的set方法，将bean对象注入进去
+
+#### 测试用例 {#测试用例-2}
+
+> **效果**
+>
+> 运行diAutowireByName输出：
+
+### 优缺点 {#优缺点-2}
+
+> 按名称进行注入的时候，要求名称和set属性的名称必须同名，相对于硬编码的方式注入，确实节省了不少代码。
+
+## 按照类型进行自动注入
+
+### 用法 {#用法}
+
+> autowire设置为byType
+>
+> spring容器会遍历x类中所有的set方法，会在容器中查找和set参数类型相同的bean对象，将其通 过set方法进行注入，未找到对应类型的bean对象则set方法不进行注入。
+>
+> **需要注入的set属性的类型和被注入的bean的类型需要满足isAssignableFrom关系。**
+>
+> 按照类型自动装配的时候，如果按照类型找到了多个符合条件的bean，系统会报错。
+>
+> **set方法的参数如果是下面的类型或者下面类型的数组的时候，这个set方法会被跳过注入：**
+>
+> **Object,Boolean,boolean,Byte,byte,Character,char,Double,double,Float,float,Integer,i nt,Long,Short,shot,Enum,CharSequence,Number,Date,java.time.temporal.Temporal,j ava.net.URI,java.net.URI,java.util.Locale,java.lang.Class**
+>
+> 来看看案例吧。
+
+### 案例 {#案例-7}
+
+#### DiByType.java
+
+> DiAutowireByType类中有2个set方法分别来注入Service1和Service2，两个set方法中都输出了一 行文字，一会执行的时候可以通过这个输出可以看出set方法是否被调用了。
+
+#### diAutowireByName.xml
+
+> 上面定义了3个bean，前2个bean并没有指定名称
+>
+> 第3个bean的autowire为 byType 表示按类型进行注入，会按照set方法的参数类型进行注入。
+
+#### 测试用例 {#测试用例}
+
+> DiAutowireTest类中添加一个方法
+
+#### 效果 {#效果}
+
+> 运行diAutowireByType输出：
+
+### 优缺点 {#优缺点}
+
+> 相对于手动注入，节省了不少代码，新增或者删除属性，只需要增减对应的set方法就可以了，更容易扩展了。
+
+## 注入类型匹配的所有bean(重点)
+
+### 按照类型注入还有2中比较牛逼的用法
+
+#### 一个容器中满足某种类型的bean可以有很多个，将容器中某种类型中的所有bean，通过set方法 注入给一个java.util.List<需要注入的Bean的类型或者其父类型或者其接口>对象
+
+> **将容器中某种类型中的所有bean，通过set方法注入给一个java.util.Map<String,需要注入的**
+
+#### Bean的类型或者其父类型或者其接口>对象
+
+> 来看个案例就懂了。
+
+### 案例 {#案例}
+
+#### DiAutowireByTypeExtend.java
+
+> import java.util.Map;
+>
+> /**
+>
+> * 满足条件的bean注入到集合中(重点)
+>
+> */
+>
+> public class DiAutowireByTypeExtend {
+>
+> //定义了一个接口
+>
+> public interface IService1 {
+>
+> }
+>
+> public static class BaseServie { private String desc;
+>
+> public String getDesc() { return desc;
+>
+> }
+>
+> public void setDesc(String desc) { this.desc = desc;
+>
+> }
+>
+> @Override
+>
+> public String toString() { return "BaseServie{" +
+>
+> "desc='" + desc + ''' + '}';
+>
+> }
+>
+> }
+>
+> //Service1实现了IService1接口
+>
+> public static class Service1 extends BaseServie implements IService1 {
+>
+> }
+>
+> //Service1实现了IService1接口
+>
+> public static class Service2 extends BaseServie implements IService1 {
+>
+> }
+>
+> private List<IService1> serviceList;//@1 private List<BaseServie> baseServieList;//@2 private Map<String, IService1> service1Map;//@3
+>
+> private Map<String, BaseServie> baseServieMap;//@4
+>
+> public List<IService1> getServiceList() { return serviceList;
+>
+> }
+>
+> public void setServiceList(List<IService1> serviceList) {//@5 this.serviceList = serviceList;
+>
+> }
+>
+> public List<BaseServie> getBaseServieList() { return baseServieList;
+>
+> }
+>
+> public void setBaseServieList(List<BaseServie> baseServieList) {//@6 this.baseServieList = baseServieList;
+>
+> @1,@2,@3,@4：定义了4个属性，都是泛型类型的，都有对应的set方法。
+>
+> @5：参数类型是List<BaseServie>，这个集合集合中元素的类型是BaseServie，spring会找到容器中所有满足BaseServie.isAssignableFrom(bean的类型)的bean列表，将其通过@5的set方法进 行注入。
+>
+> @6：同@5的代码
+>
+> @7：这个参数类型是一个map了，map的key是string类型，value是IService1类型，spring容器会将所有满足IService1类型的bean找到，按照name->bean对象这种方式丢到一个map中，然后 调用@7的set方法进行注入，最后注入的这个map就是bean的名称和bean对象进行映射的一个map对象。
+>
+> @8：同@7的代码
+>
+> @9：重写了toString方法，输出的时候好看一些
+
+#### 测试用例 {#测试用例-3}
+
+> DiAutowireTest新增一个方法：
+
+#### 效果 {#效果-4}
+
+> 运行diAutowireByTypeExtend输出：
+>
+> 下面我们来介绍另外一种自动注入方式。
+
+## 按照构造函数进行自动注入
+
+### 用法 {#用法-3}
+
+> autowire设置为constructor
+>
+> **spring会找到x类中所有的构造方法（一个类可能有多个构造方法），然后将这些构造方法进行排 序（先按修饰符进行排序，public的在前面，其他的在后面，如果修饰符一样的，会按照构造函 数参数数量倒叙，也就是采用贪婪的模式进行匹配，spring容器会尽量多注入一些需要的对象） 得到一个构造函数列表，会轮询这个构造器列表，判断当前构造器所有参数是否在容器中都可以 找到匹配的bean对象，如果可以找到就使用这个构造器进行注入，如果不能找到，那么就会跳过 这个构造器，继续采用同样的方式匹配下一个构造器，直到找到一个合适的为止。**
+>
+> 来看看案例吧。
+
+### 案例 {#案例-8}
+
+#### DiAutowireByConstructor.java
+
+> */
+>
+> public class DiAutowireByConstructor {
+>
+> public static class BaseServie { private String desc;
+>
+> public String getDesc() { return desc;
+>
+> }
+>
+> public void setDesc(String desc) { this.desc = desc;
+>
+> }
+>
+> @Override
+>
+> public String toString() { return "BaseServie{" +
+>
+> "desc='" + desc + ''' + '}';
+>
+> }
+>
+> }
+>
+> //Service1实现了IService1接口
+>
+> public static class Service1 extends BaseServie {
+>
+> }
+>
+> //Service1实现了IService1接口
+>
+> public static class Service2 extends BaseServie {
+>
+> }
+>
+> private Service1 service1; private Service2 service2;
+>
+> public DiAutowireByConstructor() { //@0
+>
+> }
+>
+> public DiAutowireByConstructor(Service1 service1) { //@1 System.out.println("DiAutowireByConstructor(Service1 service1)"); this.service1 = service1;
+>
+> }
+>
+> public DiAutowireByConstructor(Service1 service1, Service2 service2) { //@2 System.out.println("DiAutowireByConstructor(Service1 service1, Service2
+>
+> service2)");
+>
+> this.service1 = service1; this.service2 = service2;
+>
+> }
+>
+> public Service1 getService1() { return service1;
+>
+> }
+>
+> public void setService1(Service1 service1) { this.service1 = service1;
+>
+> }
+>
+> public Service2 getService2() { return service2;
+>
+> 加微信itsoku，发送：1024，获取 10T 高质量计算机学习视频！！
+>
+> @1：1个参数的构造函数@2：2个参数的构造函数
+>
+> 2个有参构造函数第一行都打印了一段文字，一会在输出中可以看到代码是调用了那个构造函数创 建对象。
+
+#### diAutowireByConstructor.xml
+
+> **测试用例**
+>
+> DiAutowireTest新增一个方法
+
+#### 效果 {#效果}
+
+> 运行diAutowireByConstructor输出：
+>
+> 从输出中可以看到调用的是DiAutowireByConstructor类中的第一个构造函数注入了service1 bean。
+>
+> 构造函数匹配采用贪婪匹配，多个构造函数结合容器找到一个合适的构造函数，最匹配的就是第 一个有参构造函数，而第二个有参构造函数的第二个参数在spring容器中找不到匹配的bean对 象，所以被跳过了。
+>
+> 我们在diAutowireByConstructor.xml加入Service2的配置：
+>
+> 再来运行一下diAutowireByConstructor输出：
+>
+> 此时可以看到第二个有参构造函数被调用了，满足了贪婪方式的注入原则，最大限度的注入所有依赖的 对象。
+
+## autowire=default
+
+### 用法 {#用法}
+
+> bean xml的根元素为beans，注意根元素有个default-autowire 属性，这个属性可选值有(no|byName|byType|constructor|default)，这个属性可以批量设置当前文件中所有bean的自动注入 的方式，bean元素中如果省略了autowire属性，那么会取 default-autowire 的值作为其autowire 的值，而每个bean元素还可以单独设置自己的autowire 覆盖default-autowire 的配置，如下：
+
+### 案例 {#案例}
+
+#### diAutowireByDefault.xml
+
+> http://www.springframework.org/schema/beans/spring-beans-4.3.xsd" default-autowire="byName"> //@1
+>
+> <bean id="service1" class="com.javacode2018.lesson001.demo6.DiAutowireByName$Service1">
+>
+> <property name="desc" value="service1"/>
+>
+> </bean>
+>
+> <bean id="service2" class="com.javacode2018.lesson001.demo6.DiAutowireByName$Service2">
+>
+> <property name="desc" value="service2"/>
+>
+> </bean>
+>
+> <bean id="service2-1" class="com.javacode2018.lesson001.demo6.DiAutowireByName$Service2">
+>
+> <property name="desc" value="service2-1"/>
+>
+> </bean>
+>
+> <!-- autowire：default，会采用beans中的default-autowire指定的配置 -->
+>
+> <bean id="diAutowireByDefault1" class="com.javacode2018.lesson001.demo6.DiAutowireByName" autowire="default"/>
+>
+> //@2
+>
+> <!-- autowire：default，会采用beans中的default-autowire指定的配置，还可以使用手动的方式自动注入进行覆盖，手动的优先级更高一些 -->
+>
+> <bean id="diAutowireByDefault2" class="com.javacode2018.lesson001.demo6.DiAutowireByName" autowire="default">
+>
+> //@3
+>
+> <property name="service2" ref="service2-1"/>
+>
+> </bean>
+>
+> </beans>
+>
+> 注意上面的@1配置的default-autowire="byName"，表示全局默认的自动注入方式是：按名称注入
+>
+> @2和@3的autowire=default ，那么注入方式会取default-autowire 的值。
+
+#### 测试用例 {#测试用例-4}
+
+> DiAutowireTest中新增一个方法
+
+#### 效果 {#效果-5}
+
+> 运行diAutowireByDefault输出
+
+## 总结 {#总结-4}
+
+#### xml中手动注入存在的不足之处，可以通过自动注入的方式来解决，本文介绍了3中自动注入：通 过名称自动注入、通过类型自动注入、通过构造器自动注入
+
+> **按类型注入中有个比较重要的是注入匹配类型所有的bean，可以将某种类型所有的bean注入给一 个List对象，可以将某种类型的所有bean按照** bean名称**-**>bean对象 **的映射方式注入给一个Map对象，这种用法比较重要，用途比较大，要掌握**
+>
+> **spring中还有其他自动注入的方式，用起来会更爽，后面的文章中我们会详细介绍。**
+>
+> **案例源码**
+
+# Spring系列第9篇：depend-on干什么的？
+
+> **本文主要讨论一下bean的创建和销毁的顺序，如何来干预bean的创建和销毁的顺序。**
+>
+> **无依赖bean创建和销毁的顺序**
+>
+> 我们先来看一下没有任何依赖的bean的创建和销毁的顺序。下面的xml中定义了3个bean：
+>
+> 注意上面xml中bean定义顺序是：bean3、bean2、bean1。对应java代码如下：
+>
+> 上面代码中使用到了DisposableBean接口，这个是spring容器提供的一个接口，这个接口中有个destroy方法，我们的bean类可以实现这个接口，当我们调用容器的close方法关闭容器的时候， spring会调用容器中所有bean的destory方法，用来做一些清理的工作，这个以后还会细讲的。
+>
+> 上面几个类中构造方法和destory方法中都有输出。
+>
+> 下面我们来搞个测试用例看一下spring容器启动和关闭的过程中，定义的3个bean的创建和销毁的顺序。
+>
+> 运行上面的normalBean方法，输出：
+>
+> bean的定义结合上面输出我们来对比一下：
+
++--------------------+----------------+----------------+
+| > **bean定义顺序** | > **创建顺序** | > **销毁顺序** |
++--------------------+----------------+----------------+
+| > bean3            | > bean3        | > bean1        |
++--------------------+----------------+----------------+
+| > bean2            | > bean2        | > bean2        |
++--------------------+----------------+----------------+
+| > bean1            | > bean1        | > bean3        |
++--------------------+----------------+----------------+
+
+> 从输出中可以得到2点结论：
+
+1.  #### bean对象的创建顺序和bean xml中定义的顺序一致
+
+2.  **bean销毁的顺序和bean xml中定义的顺序相反**
+
+## 通过构造器强依赖bean创建和销毁顺序
+
+> 我们将上面案例改造一下，通过构造函数注入的方式使bean之间产生强依赖。
+>
+> 代码解释：
+>
+> @1：创建Bean2的时候需要传入一个bean1对象，对bean1产生了强依赖@2：创建Bean3的时候需要传入一个bean2对象，对bean2产生了强依赖 依赖关系是：
+>
+> 对应的配置(strongDependenceBean.xml)：
+>
+> 注意上面xml中bean定义顺序是：bean3、bean2、bean1。
+>
+> @1：bean3中通过构造器注入bean2 @2：bean2中通过构造器注入bean1
+>
+> DependOnTest中创建一个测试用例，如下：
+>
+> 运行strongDependenceBean方法输出：
+>
+> bean的定义结合上面输出我们来对比一下：
+
++--------------------+----------------------------------+----------------+----------------+
+| > **bean定义顺序** | > **依赖顺序（下面依赖上面的）** | > **创建顺序** | > **销毁顺序** |
++--------------------+----------------------------------+----------------+----------------+
+| > bean3            | > bean1                          | > bean1        | > bean3        |
++--------------------+----------------------------------+----------------+----------------+
+| > bean2            | > bean2                          | > bean2        | > bean2        |
++--------------------+----------------------------------+----------------+----------------+
+| > bean1            | > bean3                          | > bean3        | > bean1        |
++--------------------+----------------------------------+----------------+----------------+
+
+> 从输出中可以得到2点结论：
+
+1.  #### bean对象的创建顺序和bean依赖的顺序一致
+
+2.  **bean销毁的顺序和bean创建的顺序相反**
+
+## 通过depend-on干预bean创建和销毁顺序
+
+> 上面看到了对于无依赖的bean，通过定义的顺序确实可以干预bean的创建顺序，通过强依赖也可以干预bean的创建顺序。
+>
+> 那么如果xml中定义的bean特别多，而有些bean之间也没有强依赖关系，此时如果想去调整bean的创建和销毁的顺序，得去调整xml中bean的定义顺序，或者去加强依赖，这样是非常不好的，spring中可以通过depend-on来解决这些问题，在不调整bean的定义顺序和强加依赖的情况下，可以通过通过depend-on属性来设置当前bean的依赖于哪些bean，那么可以保证depend-on指定的bean在当前bean之前先创建好，销毁的时候在当前bean之后进行销毁。
+
+#### depend-on使用方式：
+
+> **depend-on：设置当前bean依赖的bean名称，可以指定多个，多个之间可以用",;空格"进行分割**
+
+#### 上面不管bean2,bean2,bean4在任何地方定义，都可以确保在bean1创建之前，会先将bean2,bean3,bean4创建好，表示bean1依赖于这3个bean，可能bean1需要用到bean2、bean3、bean4中生成的一些资源或者其他的功能等，但是又没有强制去在bean1类中通过属性定义强依赖的方 式去依赖于bean2、bean3、bean4；当然销毁的时候也会先销毁当前bean，再去销毁被依赖的bean，即先销毁bean1，再去销毁depend-on指定的bean。
+
+> 下面我们来个案例看一下：
+>
+> dependOnBean.xml
+>
+> 上面xml中先定义的bean3，然后定义了bean2和bean1，并且指定了bean3的depend- on="bean2,bean1"，根据depend-on的规则，所以会先创建bean2和bean1,然后再创建bean3，销毁的时候，会按照和创建相反的顺序来，即：bean1、bean2、bean3，下面我们来看看效果是不是这样：
+>
+> 上面xml对应的java代码如下：
+>
+> DependOnTest中创建测试用例：
+>
+> 运行dependOnBean方法输出：
+
+## 总结 {#总结-5}
+
+1.  #### 无依赖的bean创建顺序和定义的顺序一致，销毁顺序刚好相反
+
+2.  **通过构造器强依赖的bean，会先创建构造器参数中对应的bean，然后才会创建当前bean，销毁 顺序刚好相反**
+
+3.  **depend-on可以指定档期bean依赖的bean，通过这个可以确保depend-on指定的bean在当前bean创建之前先创建好，销毁顺序刚好相反**
+
+## 问题？
+
+> 通过setter方式注入依赖的bean的时候，bean的创建顺序和销毁的顺序是什么样的？大家可以研究一下，欢迎留言。
+>
+> **案例源码**
+
+# Spring系列第10篇：primary可以解决什么问题？
+
+## 存在的问题以及解决方案
+
+> 直接上案例，通过案例来看技术是如何使用的：
+>
+> 上面代码很简单，@1：定义了一个接口IService，@2和@3创建了两个类都实现了IService接口。 下面我们通过spring来定义ServiceA和ServiceB两个bean，配置文件（normalBean.xml）如下：
+>
+> 来个测试用例来从spring容器中获取上面定义的bean对象，如下：
+>
+> 注意@1的代码，从spring容器中在容器中查找NormalBean.IService.class类型的bean对象，我们来运行一下看看效果，部分输出如下：
+>
+> 发生异常了，错误中有一段提示比较重要，如下：
+>
+> 这个详细说出了错误原因：spring容器中定义了2个bean，分别是serviceA和serviceB，这两个bean对象都实现了IService接口，而用例中我们想从容器中获取IService接口对应的bean，此时容器中有2个候 选者（serviceA和serviceB）满足我们的需求，此时spring容器不知道如何选择，到底是返回serviceA 呢还是返回serviceB呢？spring容器也懵逼了，所以报错了。
+>
+> 再来看一个通过setter方法注入的案例：
+>
+> 下面我们通过xml来定义SetterBean，并且使用setter方式将IService注入到SetterBean中，配置如 下：
+>
+> 注意上面setterBean的定义，autowire="byType"采用了按照类型自动注入的方式，容器启动的时候， 会自动取调用SetterBean的setService方法，在容器中查找和这个方法参数类型匹配的bean，将查找的bean通过setService方法注入进去。
+>
+> 来个测试用例，PrimaryTest中加个方法：
+>
+> 运行输出：
+>
+> 错误中重点信息：
+>
+> 容器中去找IService接口对应的bean，期望有一个匹配的，实际上却找到了2个匹配的，不知道如何选 择，报错了。
+>
+> 上面2个案例报的异常都是下面这个异常：
+
+#### 当希望从容器中获取到一个bean对象的时候，容器中却找到了多个匹配的bean，此时spring不知道如 何选择了，处于懵逼状态，就会报这个异常。
+
+> **spring中可以通过bean元素的primary属性来解决这个问题，可以通过这个属性来指定当前bean为主 要候选者，当容器查询一个bean的时候，如果容器中有多个候选者匹配的时候，此时spring会返回主 要的候选者。**
+>
+> 下面我们使用primary来解决上面案例的问题：
+>
+> spring配置文件如下：
+>
+> 上面配置中我们将serviceA的primary属性置为true了，将其置为主要候选者，容器中如果查找bean的 时候，如果有多个匹配的，就以他为主。
+>
+> 我们来个测试用例：
+>
+> @1：从容器中查找IService类型匹配的bean，这个接口有2个实现类（ServiceA和Service2），这类在容器中都定义了，但是serviceA为主要的bean，所以这行代码会返回serviceA
+>
+> @2：从容器中查找PrimaryBean类型的bean，容器中有一个，这个bean按照byType默认注入IService 接口匹配的bean，注入的时候如果候选者有多个，以primary="true"的bean为主来注入，所以此处会 注入service2
+>
+> 我们来运行一下，看看和分析的是否一致，运行输出：
+>
+> 上面输出确实都是ServiceA，和我们分析的一致。
+>
+> 还有当候选者中如果有多个bean都将primary置为true，此时spring还是会懵逼的，也会报错，不知道 如何选择了。
+
+## 总结 {#总结}
+
+> **当从容器中查找一个bean的时候，如果容器中出现多个Bean候选者时，可以通过primary="true"将 当前bean置为首选者，那么查找的时候就会返回主要的候选者，否则将抛出异常。**
+>
+> **案例源码**
+
+# Spring系列第11篇：bean中的autowire-candidate属性 又是干什么的？
+
+## autowire-candidate到底是干什么的？
+
+> 上一篇文章<span class="underline">S</span> <span class="underline">pring系列第10篇：primary可以解决什么问题？</span>中遇到的问题我们再来回顾一下，当容器中某种类型的bean存在多个的时候，此时如果我们从容器中查找这种类型的bean的时候，会报下面这个异常：
+
+#### 原因：当从容器中按照类型查找一个bean对象的时候，容器中却找到了多个匹配的bean，此时spring 不知道如何选择了，处于懵逼状态，就会报这个异常。
+
+> 这种异常主要出现在2种场景中：
+>
+> **场景1：**
+>
+> 从容器容器中查找符合指定类型的bean，对应BeanFactory下面的方法：
+
+### 场景2：
+
+> 自动注入方式设置为byType的时候，如下：
+>
+> setterBean的autowire设置的是byType，即按setter方法的参数类型自动注入，SetterBean的
+>
+> setService的类型是IService，而IService类有2个实现类：ServiceA和ServiceB，而容器容器中刚好有 这2个实现类的bean：serviceA和serviceB，所以上面代码会报错，不知道注入的时候选择那个对象注 入。
+
+#### 我们可以通过primary属性来指定一个主要的bean，当从容器中查找的时候，如果有多个候选的bean 符合查找的类型，此时容器将返回primary="true"的bean对象。
+
+> spring还有一种方法也可以解决这个问题，可以设置某个bean是否在自动注入的时候是否为作为候选bean，通过bean元素的autowire-candidate属性类配置，如下：
+>
+> autowire-candidate：设置当前bean在被其他对象作为自动注入对象的时候，是否作为候选bean，默 认值是true。
+>
+> 来举例说明一下，以上面的setter注入的案例先来说一下注入的过程：
+
+#### 容器在创建setterBean的时候，发现其autowire为byType，即按类型自动注入，此时会在SetterBean类中查找所有setter方法列表，其中就包含了setService方法，setService方法参数类型是IService，然后就会去容器中按照IService类型查找所有符合条件的bean列表，此时容器中会返回满 足IService这种类型并且autowire-candidate="true"的bean，刚才有说过bean元素的autowire- candidate的默认值是true，所以容器中符合条件的候选bean有2个：serviceA和serviceB， setService方法只需要一个满足条件的bean，此时会再去看这个列表中是否只有一个主要的bean（即bean元素的primary="ture"的bean），而bean元素的primary默认值都是false，所以没有 primary为true的bean，此时spring容器懵了，不知道选哪个了，此时就报错了，抛出NoUniqueBeanDefinitionException异常
+
+> 从上面过程中可以看出将某个候选bean的primary置为true就可以解决问题了。
+>
+> 或者只保留一个bean的autowire-candidate为true，将其余的满足条件的bean的autowire-candidate 置为false，此时也可以解决这个问题，下面我们使用autowire-candidate来解决上面问题看一下效果：
+
+#### SetterBean.java
+
+> **autowireCandidateBean.xml**
+>
+> 上面我们将serviceA的autowire-candidate置为false了，serviceA在被其他bean自动按照类型注 入的时候，将不再放入候选名单中
+
+#### 测试用例 {#测试用例}
+
+> @1：查找容器中SetterBean类型的bean对象
+>
+> @2：查找容器中SetterBean.IService接口类型的bean，实际上面容器中serviceA和serviceB都是这种 类型的
+>
+> 下面我们运行一下，看看输出：
+>
+> 注意一下输出，2行输出中都是ServiceB，因为serviceB的autowire-candidate是默认值true，自动注 入的时候作为候选bean，而serviceA的autowire-candidate是false，自动注入的时候不作为候选
+>
+> bean，所以上面输出的都是serviceB。
+
+## autowire-candidates属性解析源码
+
+> beans元素是xml中定义bean的根元素，beans元素有个default-autowire-candidates属性，用于定义 哪些bean可以作为候选者，default-autowire-candidates的值是个通配符如：
+>
+> 再来说一下bean元素的autowire-candidate属性，这个属性有3个可选值：
+>
+> default：这个是默认值，autowire-candidate如果不设置，其值就是default true：作为候选者
+>
+> false：不作为候选者
+>
+> spring中由beans元素的default-autowire-candidates和bean元素的autowire-candidate来决定最终bean元素autowire-candidate的值，我们来看一下bean元素autowire-candidates的解析源码：
+>
+> 主要代码如下：
+>
+> 如果上面判断都没有进去，autowireCandidate属性默认值就是true，这个在下面定义的：
+
+#### 所有的bean元素最后都会被解析为spring中的
+
+> **org.springframework.beans.factory.config.BeanDefinition对象，关于BeanDefinition以后我 们会细说**。
+
+## 问题
+
+#### 对上面的案例做个扩展，SetterBean类中加个方法：
+
+> **@0：需要注入一个IService的集合，判断一下@1输出的是容器中的serviceA，还是serviceB，还是2**
+>
+> **个都有呢？为什么？**
+>
+> **案例源码**
+
+# Spring系列第12篇：lazy-init：bean延迟初始化
+
+## bean初始化的2种方式
+
+1.  实时初始化
+
+2.  延迟初始化
+
+## bean实时初始化
+
+> 在容器启动过程中被创建组装好的bean，称为实时初始化的bean，spring中默认定义的bean都是实时 初始化的bean，这些bean默认都是单例的，在容器启动过程中会被创建好，然后放在spring容器中以供使用。
+
+### 实时初始化bean的有一些优点
+
+1.  更早发下bean定义的错误：实时初始化的bean如果定义有问题，会在容器启动过程中会抛出异常，让开发者快速发现问题
+
+2.  查找bean更快：容器启动完毕之后，实时初始化的bean已经完全创建好了，此时被缓存在spring 容器中，当我们需要使用的时候，容器直接返回就可以了，速度是非常快的
+
+### 案例 {#案例-9}
+
+#### ActualTimeBean类
+
+> 一会我们在spring中创建上面这个对象，构造函数中会输出一段话，这段话会在spring容器创建过程中输出。
+
+#### actualTimeBean.xml
+
+> **测试用例**
+>
+> 注意上面代码，容器启动前后有输出，运行actualTimeBean 输出：
+>
+> 可以看出actualTimeBean 这个bean是在容器启动过程中被创建好的。
+
+## 延迟初始化的bean
+
+> 从上面我们可以看出，实时初始化的bean都会在容器启动过程中创建好，如果程序中定义的bean非常多，并且有些bean创建的过程中比较耗时的时候，会导致系统消耗的资源比较多，并且会让整个启动 时间比较长，这个我估计大家都是有感受的，使用spring开发的系统比较大的时候，整个系统启动耗时是比较长的，基本上多数时间都是在创建和组装bean。
+
+#### spring对这些问题也提供了解决方案：bean延迟初始化。
+
+> 所谓延迟初始化，就是和实时初始化刚好相反，延迟初始化的bean在容器启动过程中不会创建，而是需要使用的时候才会去创建，先说一下bean什么时候会被使用：
+
+1.  被其他bean作为依赖进行注入的时候，比如通过property元素的ref属性进行引用，通过构造器注入、通过set注入、通过自动注入，这些都会导致被依赖bean的创建
+
+2.  开发者自己写代码向容器中查找bean的时候，如调用容器的getBean方法获取bean。
+
+> 上面这2中情况会导致延迟初始化的bean被创建。
+>
+> **延迟bean的配置**
+>
+> 在bean定义的时候通过lazy-init 属性来配置bean是否是延迟加载，true：延迟初始化，false：实时初始化
+>
+> 我们来2个案例看一下效果。
+
+### 案例1
+
+#### LazyInitBean类
+
+> **lazyInitBean.xml**
+>
+> 注意上面的lazy-init="true" 表示定义的这个bean是延迟初始化的bean。
+
+#### 测试用例 {#测试用例}
+
+> LazyBeanTest中加个方法
+>
+> 注意上面的输出，容器启动前后有输出，然后又从容器中查找LazyInitBean。
+
+#### 运行输出
+
+> 执行lazyInitBean方法，输出：
+>
+> 代码结合输出可以看出来，LazyInitBean在容器启动过程中并没有创建，当我们调用
+>
+> context.getBean 方法的时候，LazyInitBean才被创建的。
+
+### 案例2
+
+> 上面这种方式是我们主动从容器中获取bean的时候，延迟初始化的bean才被容器创建的，下面我们再来看一下当延迟初始化的bean被其他实时初始化的bean依赖的时候，是什么时候创建的。
+
+#### ActualTimeDependencyLazyBean类
+
+> ActualTimeDependencyLazyBean类中有个lazyInitBean属性，对应的有get和set方法，我们将 通过set方法将lazyInitBean对象注入。
+
+#### actualTimeDependencyLazyBean.xml
+
+> 注意上面定义了2个bean：
+>
+> lazyInitBean：lazy-init为true，说明这个bean是延迟创建的
+>
+> actualTimeDependencyLazyBean： 通 过 property 元 素 来 注 入 lazyInitBean， actualTimeDependencyLazyBean中没有指定lazy-init，默认为false，表示是实时创建的bean， 会在容器创建过程中被初始化
+
+#### 测试用例 {#测试用例-5}
+
+> LazyBeanTest中加个方法，如下：
+
+#### 运行输出 {#运行输出}
+
+> 从容器中可以看到，xml中定义的2个bean都在容器启动过程中被创建好了。
+>
+> 有些朋友比较迷茫，lazyInitBean的lazy-init为true，怎么也在容器启动过程中被创建呢？
+>
+> 由于actualTimeDependencyLazyBean 为实时初始化的bean，而这个bean在创建过程中需要用到<span class="underline">lazyInitBean</span> ，此时容器会去查找lazyInitBean 这个bean，然后会进行初始化，所以这2个bean都在容器启动过程中被创建的。
+
+## 总结 {#总结-6}
+
+> **延迟初始化的bean无法在程序启动过程中迅速发现bean定义的问题，第一次获取的时候可能耗时会比 较长。在实际工作中用的比较少，作为了解，以后碰到的时候会有个印象。**
+>
+> **案例源码**
+
+# Spring系列第13篇：使用继承简化bean配置(abstract & parent)
+
+## 先来看一个案例
+
+### ServiceA.java
+
+> **ServiceB.java**
+>
+> 上面类中有2个属性，下面我们再创建一个ServiceC类，和ServiceB中的内容一样。
+
+### ServiceC.java
+
+> 下面我们使用spring来创建上面3个类对应的bean。
+
+### beanExtend.xml
+
+> 创建测试用例。
+
+### BeanExtendTest.java
+
+> **运行输出**
+
+## 通过继承优化代码
+
+> 我们再回头去看一下上面xml中，serviceB和serviceC两个bean的定义如下：
+>
+> 这2个bean需要注入的属性的值是一样的，都需要注入name和serviceA两个属性，并且2个属性的值也 是一样的，我们可以将上面的公共的代码抽取出来，通过spring中继承的方式来做到代码重用。
+>
+> 可以将上面xml调整一下，我们来新建一个extendBean.xml ，内容如下：
+
+#### 上面多了一个baseService的bean，这个bean没有指定class对象，但是多了一个abstract="true"的 属性，表示这个bean是抽象的，abstract为true的bean在spring容器中不会被创建，只是会将其当做bean定义的模板，而serviceB和serviceC的定义中多了一个属性parent，用来指定当前bean的父bean名称，此处是baseService，此时serviceB和serviceC会继承baseService中定义的配置信息。
+
+> 来个测试用例看一下效果:
+>
+> 运行输出：
+>
+> 输出和上面案例的输出基本一致。
+>
+> 但是这次bean xml中bean的定义简化了很多，将公共的bean配置提取出来了，通过parent属性来配置需要继承的bean。
+>
+> **子bean中也可以重新定义父bean中已经定义好的配置，这样子配置会覆盖父bean中的配置信息**，我 们将extendBean.xml 中serviceC 的定义改一下：
+>
+> 运行extendBean 输出：
+>
+> 从输出中可以看出serviceC中的name对父bean中name的值进行了覆盖。我们再来从容器中获取一下baseService ，如下：
+>
+> 运行会输出：
+>
+> 会报BeanIsAbstractException 异常，因为baseService 是抽象的，不能够创建这个bean实例。
+
+## 总结 {#总结}
+
+1.  #### bean元素的abstract属性为true的时候可以定义某个bean为一个抽象的bean，相当于定义了一个bean模板，spring容器并不会创建这个bean，从容器中查找abstract为true的bean的时候， 会报错BeanIsAbstractException异常
+
+2.  **bean元素的parent属性可以指定当前bean的父bean，子bean可以继承父bean中配置信息，也可以自定义配置信息，这样可以覆盖父bean中的配置**
+
+> **案例源码**
+
+# Spring系列第14篇：lookup-method和replaced- method比较陌生，怎么玩的？
+
+## lookup-method：方法查找
+
+> **通常情况下，我们使用的bean都是单例的，如果一个bean需要依赖于另一个bean的时候，可以在当 前bean中声明另外一个bean引用，然后注入依赖的bean，此时被依赖的bean在当前bean中自始至 终都是同一个实例。**
+>
+> **先来个案例回顾一下**
+>
+> 上面2个类，ServiceA和ServiceB，而ServiceB中需要用到ServiceA，可以通过setServiceA将serviceA 注入到ServiceB中，spring配置如下：
+>
+> 上面serviceA的scope是prototype，表示serviceA是多例的，每次从容器中获取serviceA都会返 回一个新的对象。
+>
+> 而serviceB的scope没有配置，默认是单例的，通过property元素将serviceA注入。来个测试案例，如下：
+>
+> @1和@2从容器中按照类型查找ServiceA对应的bean。@3：从容器中获取ServiceB
+>
+> @4和@5：获取serviceB中的serviceA对象运行normalBean() 看一下效果：
+>
+> 从输出中可以看出，@1和@2输出了不同的ServiceA，而@4和@5输出的是同一个serviceA，这是因为serviceB是单例的，serviceB中的serviceA会在容器创建serviceB的时候，从容器中获取一个serviceA 将其注入到serviceB中，所以自始至终serviceB中的serviceA都是同一个对象。
+>
+> 如果我们希望beanB中每次使用beanA的时候beanA都是一个新的实例，我们怎么实现呢？
+>
+> 我们可以在serviceB中加个方法去获取serviceA，这个方法中我们主动去容器中获取serviceA，那么每次获取到的都是不同的serviceA实例。
+>
+> 那么问题来了，我们如何在serviceB中获取到spring容器呢？
+>
+> spring中有个接口ApplicationContextAware ：
+>
+> 上面这个接口有一个方法setApplicationContext ，这个接口给了自定义的bean中获取applicationContext的能力，当我们的类实现这个接口之后，spring容器创建bean对象的时候，如果bean实现了这个接口，那么容器会自动调用setApplicationContext 方法，将容器对象applicationContext 传入，此时在我们的bean对象中就可以使用容器的任何方法了。
+>
+> 下面我们就通过ApplicationContextAware 接口来实现单例bean中使用多例bean的案例。**单 例 bean 中 使 用 多 例 bean：ApplicationContext 接 口 的 方 式** **ServiceA.java**
+
+#### ServiceB.java
+
+> 注意上面代码，ServiceB实现了ApplicationContextAware接口，然后实现了这个接口中的
+>
+> setApplicationContext方法，spring容器在创建ServiceB的时候会自动调用setApplicationContext方法。
+>
+> @3：从容器中主动去获取ServiceA，这样每次获取到的ServiceA都是一个新的实例。@2：say方法中调用getServiceA方法获取ServiceA对象，然后将其输出。
+
+#### alicationcontextaware.xml
+
+> 上面定义了2个bean，第一个是多例的。
+
+#### 测试用例 {#测试用例}
+
+> 运行输出：
+>
+> 最后2行是是serviceB中的say方法输出的，可以看出serviceB是一个对象，而serviceA是不同的对象。
+
+### 单例bean中使用多例bean：lookup-method方式实现
+
+> 上面这种方式实现了单例bean中使用多例bean的需求，但是用到spring中的接口ApplicationContextAware ，此时对spring的api有耦合的作用，我们一直推行高内聚低耦合，所以我们得寻求更好的办法。
+>
+> 能不能有这样的功能，当serviceB中调用getServiceA的时候，系统自动将这个方法拦截，然后去spring 容器中查找对应的serviceA对象然后返回，spring中的lookup-method就可以实现这样的功能。
+>
+> 下面我们使用lookup-method来实现一下。
+
+#### ServiceA.java
+
+> **ServiceB.java**
+
+#### 注意上面的@1，这个方法中返回了一个null对象，下面我们通过spring来创建上面2个bean对象，然 后让spring对上面的getServiceA方法进行拦截，返回指定的bean，如下：
+
+> **lookupmethod.xml**
+>
+> 注意上面的配置，重点在于这行配置：
+>
+> 当我们调用serviceB 中的getServiceA 方法的时候，这个方法会拦截，然后会按照lookup-method 元素中bean属性的值作为bean的名称去容器中查找对应bean，然后作为getServiceA的返回值返回， 即调用getServiceA方法的时候，会从spring容器中查找id为serviceA 的bean然后返回。
+
+#### 测试用例 {#测试用例-6}
+
+> LookupMethodTest中加个方法，如下：
+>
+> 运行看看效果：
+>
+> 注意最后2行的输出，serviceA是调用this.getServiceA()方法获取 ，源码中这个方法返回的是null，但是spring内部对这个方法进行了拦截，每次调用这个方法的时候，都会去容器中查找serviceA，然后返 回，所以上面最后2行的输出中serviceA是有值的，并且是不同的serviceA实例。
+
+#### lookup-method：看其名字，就知道意思：方法查找，调用name属性指定的方法的时候，spring会 对这个方法进行拦截，然后去容器中查找lookup-method元素中bean属性指定的bean，然后将找到 的bean作为方法的返回值返回。
+
+> **这个地方底层是使用cglib代理实现的，后面有篇文章会详细介绍代理的2种实现，到时候大家注意下，**
+
+#### spring中很多牛逼的功能都是靠代理实现的。
+
+> spring提供的还有一个功能，同样可以可以解决上面单例bean中用到多例bean的问题，也就是下面我们要说的replaced-method。
+
+## replaced-method：方法替换
+
+> replaced-method：方法替换，比如我们要调用serviceB中的getServiceA的时候，我们可以对serviceB 这个bean中的getServiceA方法进行拦截，把这个调用请求转发到一个替换者处理。这就是replaced- method可以实现的功能，比lookup-method更强大更灵活。
+
+#### replaced-method的使用3个步骤步骤一：定义替换者
+
+> 自定义一个替换者，替换者需要实现spring中的MethodReplacer接口，看一下这个接口的定义：
+>
+> 当调用目标对象需要被替换的方法的时候，这个调用请求会被转发到上面的替换者的
+>
+> reimplement方法进行处理。
+>
+> 如：
+>
+> **步骤二：定义替换者bean**
+>
+> **步骤二：通过replaced-method元素配置目标bean需要被替换的方法**
+>
+> 注意上面的replaced-method 元素的2个属性：
+>
+> name： 用 于 指 定 当 前 bean 需 要 被 替 换 的 方 法 replacer：替换者，即实现了MethodReplacer接口的类对应的bean
+>
+> 上面配置中当调用serviceB 的getServiceA的时候，会自动调用serviceAMethodReplacer 这个
+>
+> bean中的reimplement 方法进行处理。
+
+#### 案例 {#案例}
+
+> **ServiceA.java**
+>
+> **ServiceB.java**
+>
+> 上面getServiceA需要返回一个ServiceA对象，此处返回的是null，下面我们通过spring对这个方法进行替换，然后从容器中获取ServiceA然后返回，下面我们来看看替换者的代码。
+>
+> **替换者ServiceBMethodReplacer.java**
+>
+> 这个替换者会替换ServiceB中的getServiceA方法
+>
+> **spring中bean配置文件：replacedmethod.xml**
+>
+> **测试用例ReplacedMethodTest**
+>
+> **运行输出**
+>
+> 从输出中可以看出结果和lookup-method案例效果差不多，实现了单例bean中使用多例bean的案例。 输出中都有CGLIB这样的字样，说明这玩意也是通过cglib实现的。
+
+## 总结 {#总结-7}
+
+1.  #### lookup-method：方法查找，可以对指定的bean的方法进行拦截，然后从容器中查找指定的bean作为被拦截方法的返回值
+
+2.  **replaced-method：方法替换，可以实现bean方法替换的效果，整体来说比lookup-method更灵活一些**
+
+3.  **单例bean中使用多例bean，本文中列出了3种方式，大家消化一下。**
+
+> **案例源码**
+
+# Spring系列第15篇：代理详解（java动态代理&CGLIB代理)
+
+> 若有收获，点个在看、转发朋友圈，让更多朋友一起学习！
+>
+> 代理spring中用到的挺多的，比如上篇文章中的lookup-method和replaced-method，以及后面我们要 学的aop、spring中的事务、spring中解析@configuration注解等等，这些都是依靠代理来实现的，所 以我们先把代理拿出来讲讲，有利于我们理解其他内容。
+
+## 本文内容 {#本文内容-3}
+
+1.  #### 为什么需要用代理
+
+2.  **jdk动态代理玩法详解**
+
+3.  **cglib代理常见的各种玩法详解**
+
+## 为什么要用代理
+
+> 我们先来看一个案例。
+>
+> 有一个接口IService，如下：
+>
+> 接口有2个实现类ServiceA和ServiceB，如下：
+>
+> 来个测试用例来调用上面类的方法，如下：
+>
+> 上面的代码很简单，就不解释了，我们运行一下m1()方法，输出：
+
+#### 上面是我们原本的程序，突然领导有个需求：调用IService接口中的任何方法的时候，需要记录方法的 耗时。
+
+> **此时你会怎么做呢？**
+
+#### IService接口有2个实现类ServiceA和ServiceB，我们可以在这两个类的所有方法中加上统计耗时的代 码，如果IService接口有几十个实现，是不是要修改很多代码，所有被修改的方法需重新测试？是不是 非常痛苦，不过上面这种修改代码的方式倒是可以解决问题，只是增加了很多工作量（编码 & 测试）。
+
+> **突然有一天，领导又说，要将这些耗时统计发送到监控系统用来做监控报警使用。 此时是不是又要去一个修改上面的代码？又要去测试？此时的系统是难以维护。**
+
+#### 还有假如上面这些类都是第三方以jar包的方式提供给我们的，此时这些类都是class文件，此时我们无 法去修改源码。
+
+> **比较好的方式**：可以为IService接口创建一个代理类，通过这个代理类来间接访问IService接口的实现 类，在这个代理类中去做耗时及发送至监控的代码，代码如下：
+>
+> ServiceProxy是IService接口的代理类，target为被代理的对象，即实际需要访问的对象，也实现了
+>
+> IService接口，上面的3个方法中加了统计耗时的代码，当我们需要访问IService的其他实现类的时候， 可以通过ServiceProxy来间接的进行访问，用法如下：
+>
+> 上面代码重点在于@1和@2，创建的是代理对象ServiceProxy，ServiceProxy构造方法中传入了被代理 访问的对象，现在我们访问ServiceA或者ServiceB，都需要经过 ServiceProxy ，运行输出：
+>
+> 上面实现中我们没有去修改ServiceA和ServiceB中的方法，只是给IService接口创建了一个代理类，通 过代理类去访问目标对象，需要添加的一些共有的功能都放在代理中，当领导有其他需求的时候，我们 只需修改ServiceProxy的代码，方便系统的扩展和测试。
+>
+> 假如现在我们需要给系统中所有接口都加上统计耗时的功能，若按照上面的方式，我们需要给每个接口 创建一个代理类，此时代码量和测试的工作量也是巨大的，那么我们能不能写一个通用的代理类，来满 足上面的功能呢？
+
+#### 通用代理的2种实现：
+
+1.  **jdk动态代理**
+
+2.  **cglib代理**
+
+## jdk动态代理详解
+
+> jdk中为实现代理提供了支持，主要用到2个类：
+>
+> **jdk自带的代理使用上面有个限制，只能为接口创建代理类，如果需要给具体的类创建代理类，需要用 后面要说的cglib**
+>
+> **java.lang.reflect.Proxy**
+>
+> 这是jdk动态代理中主要的一个类，里面有一些静态方法会经常用到，我们来熟悉一下：
+
+#### getProxyClass方法
+
+> 为指定的接口创建代理类，返回代理类的Class对象
+>
+> 参数说明：
+>
+> loader：定义代理类的类加载器
+>
+> interfaces：指定需要实现的接口列表，创建的代理默认会按顺序实现interfaces指定的接口
+
+#### newProxyInstance方法
+
+> 创建代理类的实例对象
+>
+> 这个方法先为指定的接口创建代理类，然后会生成代理类的一个实例，最后一个参数比较特殊，是
+>
+> InvocationHandler类型的，这个是个借口如下：
+>
+> 上面方法会返回一个代理对象，当调用代理对象的任何方法的时候，会就被InvocationHandler 接口的invoke 方法处理，所以主要代码需要卸载invoke 方法中，稍后会有案例细说。
+
+#### isProxy方法
+
+> 判断指定的类是否是一个代理类
+
+#### getInvocationHandler方法
+
+> 获取代理对象的InvocationHandler 对象
+>
+> **上面几个方法大家熟悉一下，下面我们来看创建代理具体的2种方式。**
+
+### 创建代理：方式一
+
+#### 步骤
+
+> **案例**
+>
+> **先来个接口IService**
+>
+> **创建IService接口的代理对象**
+>
+> **运行输出**
+
+### 创建代理：方式二
+
+> 创建代理对象有更简单的方式。
+
+#### 步骤
+
+> **案例**
+>
+> 运行输出：
+
+### 案例：任意接口中的方法耗时统计
+
+#### 下面我们通过jdk动态代理实现一个通用的代理，解决统计所有接口方法耗时的问题。
+
+> 主要的代码在代理处理器InvocationHandler 实现上面，如下：
+>
+> 上面主要是createProxy 方法用来创建代理对象，2个参数：
+>
+> target：目标对象，需要实现targetInterface接口targetInterface：需要创建代理的接口
+>
+> invoke方法中通过method.invoke(this.target, args) 调用目标方法，然后统计方法的耗时。
+
+#### 测试用例 {#测试用例}
+
+> **运行输出**
+
+#### 我们再来的接口，也需要统计耗时的功能，此时我们无需去创建新的代理类即可实现同样的功能，如 下：
+
+> **IUserService接口**
+
+#### IUserService接口实现类：
+
+> **测试用例**
+
+#### 运行输出： {#运行输出-2}
+
+> **上面当我们创建一个新的接口的时候，不需要再去新建一个代理类了，只需要使用**
+>
+> CostTimeInvocationHandler.createProxy **创建一个新的代理对象就可以了，方便了很多。**
+
+### Proxy使用注意
+
+1.  #### jdk中的Proxy只能为接口生成代理类，如果你想给某个类创建代理类，那么Proxy是无能为力 的，此时需要我们用到下面要说的cglib了。
+
+2.  **Proxy类中提供的几个常用的静态方法大家需要掌握**
+
+3.  #### 通过Proxy创建代理对象，当调用代理对象任意方法时候，会被InvocationHandler接口中的
+
+> **invoke方法进行处理，这个接口内容是关键**
+
+## cglib代理详解
+
+### 什么是cglib
+
+> jdk动态代理只能为接口创建代理，使用上有局限性。实际的场景中我们的类不一定有接口，此时如果 我们想为普通的类也实现代理功能，我们就需要用到cglib来实现了。
+>
+> cglib是一个强大、高性能的字节码生成库，它用于在运行时扩展Java类和实现接口；本质上它是通过动态的生成一个子类去覆盖所要代理的类（非final修饰的类和方法）。Enhancer可能是CGLIB中最常用的 一个类，和jdk中的Proxy不同的是，Enhancer既能够代理普通的class，也能够代理接口。Enhancer创建一个被代理对象的子类并且拦截所有的方法调用（包括从Object中继承的toString和hashCode方
+>
+> 法）。Enhancer不能够拦截final方法，例如Object.getClass()方法，这是由于Java final方法语义决定的。基于同样的道理，Enhancer也不能对final类进行代理操作。
+>
+> CGLIB作为一个开源项目，其代码托管在github，地址为：
+
+### cglib组成结构
+
+> ![](media/image11.png){width="0.16666666666666666in" height="0.16666666666666666in"}/img/1.png)
+>
+> CGLIB底层使用了ASM（一个短小精悍的字节码操作框架）来操作字节码生成新的类。除了CGLIB库外，脚本语言（如Groovy和BeanShell）也使用ASM生成字节码。ASM使用类似SAX的解析器来实现高 性能。我们不鼓励直接使用ASM，因为它需要对Java字节码的格式足够的了解。
+>
+> spring已将第三方cglib jar包中所有的类集成到spring自己的jar包中，本系列内容都是和spring相关的，为了方便，我们直接使用spring内部已集成的来讲解
+
+### 5个案例来演示cglib常见的用法
+
+#### 案例1：拦截所有方法（MethodInterceptor）
+
+> 创建一个具体的类，如下：
+>
+> 下面我们为这个类创建一个代理，代理中实现打印每个方法的调用日志。
+>
+> 上面代码中的注释很详细，列出了给指定的类创建代理的具体步骤，整个过程中主要用到了
+>
+> Enhancer类和 MethodInterceptor 接口。
+>
+> enhancer.setSuperclass 用来设置代理类的父类，即需要给哪个类创建代理类，此处是
+>
+> Service1
+>
+> enhancer.setCallback 传递的是MethodInterceptor 接口类型的参数， MethodInterceptor
+>
+> 接口有个intercept 方法，这个方法会拦截代理对象所有的方法调用。
+>
+> 还有一个重点是Object result = methodProxy.invokeSuper(o, objects); 可以调用被代理类，也就是Service1类中的具体的方法，从方法名称的意思可以看出是调用父类，实际对某个类创建代理，cglib底层通过修改字节码的方式为Service1类创建了一个子类。
+>
+> 运行输出：
+>
+> 从输出中可以看出Service1中的2个方法都被 MethodInterceptor 中的invoke 拦截处理了。
+
+#### 案例2：拦截所有方法（MethodInterceptor）
+
+> 在创建一个类，如下：
+>
+> 这个类和上面的Service1类似，有点不同是@1，在m1方法中调用了m2方法。 下面来采用案例1中同样的方式来给Service2创建代理，如下：
+>
+> 注意上面@1的代码，只调用了m1方法，看一下输出效果：
+>
+> 从输出中可以看出m1和m2方法都被拦截器处理了，而m2方法是在Service1的m1方法中调用的，也被 拦截处理了。
+>
+> spring中的@configuration注解就是采用这种方式实现的，给大家上个@configuration案例眼熟一下：
+>
+> 上面代码中C2和C3依赖于C1，都是通过构造器注入C1，注意代码中的@1和@2都是调用c1方法获取容器中的C1，如何确保多次获取的C1都是一个的？这个地方就是使用cglib代理拦截@Bean 注解的方法来实现的。
+
+#### 案例3：拦截所有方法并返回固定值（FixedValue）
+
+> 当调用某个类的任何方法的时候，都希望返回一个固定的值，此时可以使用FixedValue 接口，如下：
+>
+> 上面创建的代理对象，调用其任意方法返回的都是"  喔喔松"。案例代码如下：
+>
+> 创建一个类Service3，如下：
+>
+> 对用的测试用例：
+>
+> @1、@2、@3调用了代理对象的3个方法，运行输出： 运行输出：
+>
+> 可以看出输出的都是一个拱顶的值。
+
+#### 案例4：直接放行，不做任何操作（NoOp.INSTANCE）
+
+> Callback 接口下面有个子接口org.springframework.cglib.proxy.NoOp ，将这个作为Callback的时候，被调用的方法会直接放行，像没有任何代理一样，感受一下效果：
+>
+> 运行输出：
+>
+> 从输出中可以看出，被调用的方法没有被代理做任何处理，直接进到目标类Service3的方法中了。
+
+#### 案例5：不同的方法使用不同的拦截器（CallbackFilter）
+
+> 有个类如下：
+
+#### 需求，给这个类创建一个代理需要实现下面的功能：
+
+1.  **以insert开头的方法需要统计方法耗时**
+
+2.  **以get开头的的方法直接返回固定字符串** 欢迎和【  喔喔松java】一起学spring！
+
+> 下来看代码，然后再解释：
+>
+> enhancer.setSuperclass(Service4.class);
+>
+> // 创 建 2 个 Callback Callback[] callbacks = {
+>
+> //这个用来拦截所有insert开头的方法new MethodInterceptor() {
+>
+> @Override
+>
+> public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
+>
+> long starTime = System.nanoTime();
+>
+> Object result = methodProxy.invokeSuper(o, objects); long endTime = System.nanoTime(); System.out.println(method + "，耗时(纳秒):" + (endTime -
+>
+> starTime));
+
+}
+
+},
+
+> return result;
+>
+> //下面这个用来拦截所有get开头的方法，返回固定值的new FixedValue() {
+>
+> @Override
+>
+> public Object loadObject() throws Exception { return "  喔喔松Java";
+>
+> }
+>
+> }
+>
+> };
+>
+> enhancer.setCallbackFilter(new CallbackFilter() { @Override
+>
+> public int accept(Method method) { return 0;
+>
+> }
+>
+> });
+>
+> //调用enhancer的setCallbacks传递Callback数组enhancer.setCallbacks(callbacks);
+>
+> /**
+
+-   设置过滤器CallbackFilter
+
+-   CallbackFilter用来判断调用方法的时候使用callbacks数组中的哪个Callback来处理当前方
+
+> 法
+
+-   返回的是callbacks数组的下标
+
+> */
+>
+> enhancer.setCallbackFilter(new CallbackFilter() { @Override
+>
+> public int accept(Method method) {
+
+//获取当前调用的方法的名称
+
+> String methodName = method.getName();
+>
+> /**
+
+-   方法名称以insert开头，
+
+-   返回callbacks中的第1个Callback对象来处理当前方法，
+
+-   否则使用第二个Callback处理被调用的方法
+
+> */
+>
+> return methodName.startsWith("insert") ? 0 : 1;
+>
+> }
+>
+> });
+>
+> Service4 proxy = (Service4) enhancer.create(); System.out.println(" ");
+>
+> proxy.insert1();
+>
+> System.out.println(" ");
+>
+> proxy.insert2();
+>
+> System.out.println(" ");
+>
+> System.out.println(proxy.get1());
+>
+> 运行输出：
+>
+> 代码说明：
+>
+> 由于需求中要对不同的方法做不同的处理，所以需要有2个Callback对象，当调用代理对象的方法的时候，具体会走哪个Callback呢，此时会通过 CallbackFilter 中的accept 来判断，这个方法
+>
+> 上面这个案例还有一种简单的实现，见案例6
+
+#### 案例6：对案例5的优化（CallbackHelper）
+
+> cglib中有个CallbackHelper类，可以对案例5的代码进行有环，CallbackHelper类相当于对一些代码进行了封装，方便实现案例5的需求，实现如下：
+>
+> 运行输出：
+>
+> 输出效果和案例4一模一样的，上面重点在于CallbackHelper ，里面做了一些封装，有兴趣的可以去看一下源码，比较简单。
+
+#### 案例6：实现通用的统计任意类方法耗时代理类
+
+> 直接上代码，比较简单，如下：
+>
+> 我们可以直接使用上面的静态方法createProxy 来为目标对象target创建一个代理对象，被代理的对象自动实现方法调用耗时统计。
+>
+> @1：调用被代理对象的方法获取真正的结果。使用非常简单，来个测试用例，如下：
+>
+> 运行输出：
+
+## CGLIB和Java动态代理的区别
+
+1.  #### Java动态代理只能够对接口进行代理，不能对普通的类进行代理（因为所有生成的代理类的父类 为Proxy，Java类继承机制不允许多重继承）；CGLIB能够代理普通类；
+
+2.  **Java动态代理使用Java原生的反射API进行操作，在生成类上比较高效；CGLIB使用ASM框架直接对字节码进行操作，在类的执行过程中比较高效**
+
+3.  **代理的就介绍到这里，spring中很多地方会用到这块，所以大家一定要熟悉，欢迎大家留言交流**
+
+> **案例源码**
+
+# Spring系列第16篇：深入理解java注解（预备知识）
+
+#### 最近有个朋友去阿里面试，被面试官来了个灵魂拷问：
+
+1.  **注解是干什么的？**
+
+2.  #### 一个注解可以使用多次么？如何使用？
+
+3.  **@Inherited是做什么的？**
+
+4.  **@Target中的** TYPE_PARAMETER和TYPE_USER **用在什么地方？**
+
+5.  #### 泛型中如何使用注解？
+
+6.  **注解定义可以实现继承么？**
+
+7.  #### spring中对注解有哪些增强？@Aliasfor注解是干什么的？
+
+> **第1个他回答上来了，后面的几个直接懵了，然后就没有然后了。之后跑来问我，然后我让他看本文，准备下次去吊打面试官。**
+>
+> **本文内容**
+>
+> **带你玩转java注解，解决上面的所有问题。**
+
+## 什么是注解？
+
+> 代码中注释大家都熟悉吧，注释是给开发者看的，可以提升代码的可读性和可维护性，但是对于java编译器和虚拟机来说是没有意义的，编译之后的字节码文件中是没有注释信息的；而注解和注释有点类 似，唯一的区别就是注释是给人看的，而注释是给编译器和虚拟机看的，编译器和虚拟机在运行的过程 中可以获取注解信息，然后可以根据这些注解的信息做各种想做的事情。比如：大家对@Override应该比较熟悉，就是一个注解，加在方法上，标注当前方法重写了父类的方法，当编译器编译代码的时候， 会对@Override标注的方法进行验证，验证其父类中是否也有同样签名的方法，否则报错，通过这个注解是不是增强了代码的安全性。
+>
+> **总的来说：注解是对代码的一种增强，可以在代码编译或者程序运行期间获取注解的信息，然后根据这 些信息做各种牛逼的事情。**
+
+## 注解如何使用？
+
+#### 3个步骤：
+
+1.  **定义注解**
+
+2.  #### 使用注解
+
+3.  **获取注解信息做各种牛逼的事情**
+
+## 定义注解
+
+> 关于注解的定义，先来几个问题：
+
+1.  如何为注解定义参数？
+
+2.  注解可以用在哪里？
+
+3.  注解会被保留到什么时候？
+
+### 定义注解语法
+
+> jdk中注解相关的类和接口都定义在java.lang.annotation 包中。
+>
+> 注解的定义和我们常见的类、接口类似，只是注解使用@interface 来定义，如下定义一个名称为
+>
+> MyAnnotation 的注解：
+
+### 注解中定义参数
+
+> 注解有没有参数都可以，定义参数如下：
+>
+> 注解中可以定义多个参数，参数的定义有以下特点：
+
+1.  访问修饰符必须为public，不写默认为public
+
+2.  该元素的类型只能是基本数据类型、String、Class、枚举类型、注解类型（体现了注解的嵌套效果）以及上述类型的一位数组
+
+3.  该元素的名称一般定义为名词，如果注解中只有一个元素，请把名字起为value（后面使用会带来便利操作）
+
+4.  ![](media/image12.png){width="0.20833333333333334in" height="0.13541666666666666in"}参数名称后面的() 不是定义方法参数的地方，也不能在括号中定义任何参数，仅仅只是一个特殊
+
+> 的语法
+
+5.  default 代表默认值，值必须和第2点定义的类型一致
+
+6.  如果没有默认值，代表后续使用注解时必须给该类型元素赋值
+
+### 指定注解的使用范围：@Target
+
+> 使用@Target注解定义注解的使用范围，如下：
+>
+> 上面指定了MyAnnotation 注解可以用在类、接口、注解类型、枚举类型以及方法上面，**自定义注解上也可以不使用@Target注解，如果不使用，表示自定义注解可以用在任何地方**。
+>
+> 看一下@Target 源码：
+>
+> 有一个参数value，是ElementType类型的一个数组，再来看一下 ElementType ，是个枚举，源码如下：
+
+### 指定注解的保留策略：@Retention
+
+> 我们先来看一下java程序的3个过程
+
+1.  源码阶段
+
+2.  源码被编译为字节码之后变成class文件
+
+3.  字节码被虚拟机加载然后运行
+
+> 那么自定义注解会保留在上面哪个阶段呢？可以通过@Retention 注解来指定，如：
+>
+> 上面指定了MyAnnotation 只存在于源码阶段，后面的2个阶段都会丢失。来看一下@Retention
+>
+> 有一个value参数，类型为RetentionPolicy枚举，如下：
+
+## 使用注解
+
+### 语法 {#语法}
+
+> 将注解加载使用的目标上面，如下：
+>
+> 直接来案例说明。
+
+### 无参注解
+
+> @1：Ann1为无参注解
+>
+> @2：类上使用@Ann1注解，没有参数
+
+### 一个参数的注解
+
+> **一个参数为value的注解，可以省略参数名称**
+>
+> 只有一个参数，名称为value的时候，使用时参数名称可以省略
+>
+> @1：注解之后一个参数，名称为value @2：使用注解，参数名称value省略了
+
+### 数组类型参数
+
+> @1：name的类型是一个String类型的数组
+>
+> @2：name有多个值的时候，需要使用{}包含起来@3：如果name只有一个值，{}可以省略
+
+### 为参数指定默认值
+
+> 通过default为参数指定默认值，用的时候如果没有设置值，则取默认值，没有指定默认值的参数，使用的时候必须为参数设置值，如下：
+>
+> @1：数组类型通过{}指定默认值
+>
+> @2：数组类型参数，默认值只有一个省略了{}符号@3：默认值为30
+>
+> @4：未指定默认值
+>
+> @5：age=32对默认值进行了覆盖，并且为address指定了值
+
+### 综合案例
+
+> 上面演示了自定义注解在在类、字段、构造器、方法参数、方法、本地变量上的使用，@Ann6注 解有个elementType 参数，我想通过这个参数的值来告诉大家对应@Target中的那个值来限制使用目标的，大家注意一下上面每个elementType 的值。
+
+### @Target(ElementType.TYPE_PARAMETER)
+
+> 这个是1.8加上的，用来标注类型参数，类型参数一般在类后面声明或者方法上声明，这块需要先了解
+>
+> 一下泛型<span class="underline">泛</span> <span class="underline">型，有点难度，会让很多人懵逼，那是因为你没有看这篇文章！</span>不然理解起来比较吃力，来
+>
+> 个案例感受一下：
+>
+> 类和方法上面可以声明泛型类型的变量，上面有3个泛型类型变量，我们运行一下看看效果：
+
+### @Target(ElementType.TYPE_USE)
+
+> 这个是1.8加上的，能用在任何类型名称上，来个案例感受一下：
+>
+> 类后面的V1、V2都是类型名称，Map后面的尖括号也是类型名称，m1方法前面也定义了一个类型变量，名称为T
+
+## 注解信息的获取
+
+> 为了运行时能准确获取到注解的相关信息，Java在java.lang.reflect 反射包下新增了AnnotatedElement 接口，它主要用于表示目前正在虚拟机中运行的程序中已使用注解的元素，通过该接口提供的方法可以利用反射技术地读取注解的信息，看一下UML图:
+
+![](media/image13.png){width="5.947222222222222in" height="0.7902777777777777in"}
+
+> Package：用来表示包的信息Class：用来表示类的信息Constructor：用来表示构造方法信息Field：用来表示类中属性信息Method：用来表示方法信息
+>
+> Parameter： 用 来 表 示 方 法 参 数 信 息 TypeVariable：用来表示类型变量信息，如：类上定义的泛型类型变量，方法上面定义的泛型类型 变量
+
+### AnnotatedElement常用方法
+
+> fdsfd
+
++----------------------------+----------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------+
+| > **返回值**               | > **方法名称**                                                       | > **说明**                                                                                                         |
++----------------------------+----------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------+
+| > <A extends Annotation> | > getAnnotation(Class<A> annotationClass)                          | > 该元素如果存在指定类型的注解，则返回这些注解，否则返回 null。                                                    |
++----------------------------+----------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------+
+| > Annotation[]           | > getAnnotations()                                                   | > 返回此元素上存在的所有注解，包括从父类继承的                                                                     |
++----------------------------+----------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------+
+| > boolean                  | > isAnnotationPresent(Class<? extends Annotation> annotationClass) | > 如果指定类型的注解存在于此元素上，则返回 true，否则返回 false。                                                  |
++----------------------------+----------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------+
+| > Annotation[]           | > getDeclaredAnnotations()                                           | > 返回直接存在于此元素上的所有注解，注意，不包括父类的注解，调用者可以随意修改返回的数组；这不会对其他调用者返回的 |
+|                            |                                                                      | >                                                                                                                  |
+|                            |                                                                      | > 数组产生任何影响，没有则返回长度为0的数组                                                                        |
++----------------------------+----------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------+
+
+### 案例 {#案例-10}
+
+#### 要解析的列如下
+
+> package com.javacode2018.lesson001.demo18;
+>
+> import java.lang.annotation.ElementType; import java.lang.annotation.Retention; import java.lang.annotation.RetentionPolicy; import java.lang.annotation.Target;
+>
+> import java.util.Map;
+>
+> @Target({ElementType.PACKAGE, ElementType.TYPE, ElementType.FIELD, ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.TYPE_PARAMETER, ElementType.TYPE_USE})
+>
+> @Retention(RetentionPolicy.RUNTIME) @interface Ann11 {
+>
+> String value();
+>
+> }
+>
+> @Target({ElementType.PACKAGE, ElementType.TYPE, ElementType.FIELD, ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.TYPE_PARAMETER, ElementType.TYPE_USE})
+>
+> @Retention(RetentionPolicy.RUNTIME) @interface Ann11_0 {
+>
+> int value();
+>
+> }
+>
+> @Ann11("用在了类上") @Ann11_0(0)
+>
+> public class UseAnnotation11<@Ann11("用在了类变量类型V1上") @Ann11_0(1) V1, @Ann11("用在了类变量类型V2上") @Ann11_0(2) V2> {
+>
+> @Ann11("用在了字段上") @Ann11_0(3)
+>
+> private String name;
+>
+> private Map<@Ann11("用在了泛型类型上,String") @Ann11_0(4) String, @Ann11("用在了泛型类型上,Integer") @Ann11_0(5) Integer> map;
+>
+> @Ann11("用在了构造方法上") @Ann11_0(6)
+>
+> public UseAnnotation11() { this.name = name;
+>
+> }
+>
+> @Ann11("用在了返回值上") @Ann11_0(7)
+>
+> public String m1(@Ann11("用在了参数上") @Ann11_0(8) String name) { return null;
+>
+> }
+
+#### 解析类上的注解解析这部分
+
+> **代码**
+>
+> **运行输出**
+>
+> **解析类上的类型变量**
+>
+> 解析类名后面的尖括号的部分，即下面的部分：
+>
+> **用例代码**
+>
+> **运行输出**
+
+#### 解析字段name上的注解用例代码
+
+> **运行输出**
+
+#### 解析泛型字段map上的注解用例代码
+
+> **运行输出**
+
+#### 解析构造函数上的注解用例代码
+
+> **运行输出**
+
+#### 解析m1方法上的注解用例代码
+
+> **运行输出**
+
+#### 解析m1方法参数注解用例代码
+
+> **运行输出**
+>
+> **上面参数名称为arg0，如果想让参数名称和源码中真实名称一致，操作如下：**
+
+## @Inherit：实现类之间的注解继承
+
+### 用法 {#用法-4}
+
+> 来看一下这个注解的源码
+>
+> 我们通过@Target元注解的属性值可以看出，这个@Inherited 是专门修饰注解的。
+>
+> **作用：让子类可以继承父类中被@Inherited修饰的注解，注意是继承父类中的，如果接口中的注解也 使用@Inherited修饰了，那么接口的实现类是无法继承这个注解的**
+
+### 案例 {#案例}
+
+> @1：定义了一个注解A1，上面使用了@Inherited，表示这个具有继承功能@2：定义了一个注解A2，上面使用了@Inherited，表示这个具有继承功能@3：定义接口I1，上面使用了@A1注解
+>
+> @4：定义了一个C1类，使用了A2注解@5：C2继承了C1并且实现了I1接口
+>
+> @6：获取C2上以及从父类继承过来的所有注解，然后输出
+>
+> 运行输出：
+>
+> **从输出中可以看出类可以继承父类上被@Inherited修饰的注解，而不能继承接口上被@Inherited修饰的注解，这个一定要注意**
+
+## @Repeatable重复使用注解
+
+> 来看一段代码：
+>
+> 上面代码会报错，原因是：UseAnnotation12上面重复使用了@Ann12注解，默认情况下@Ann12注解 是不允许重复使用的。
+>
+> 像上面这样，如果我们想重复使用注解的时候，需要用到@Repeatable 注解
+
+### 使用步骤
+
+#### 先定义容器注解
+
+> 容器注解中必须有个value类型的参数，参数类型为子注解类型的数组。
+
+#### 为注解指定容器
+
+> 要让一个注解可以重复使用，需要在注解上加上@Repeatable注解，@Repeatable中value的值为容器 注解，如下代码中的@2
+
+#### 使用注解 {#使用注解}
+
+> 重复使用相同的注解有2种方式，如下面代码
+
+1.  重复使用注解，如下面的类上重复使用@Ann12注解
+
+2.  通过容器注解来使用更多个注解，如下面的字段v1上使用@Ann12s容器注解
+
+#### 获取注解信息
+
+> 运行输出：
+>
+> 上面就是java中注解的功能，下面我们来介绍spring对于注解方面的支持。
+
+## 先来看一个问题
+
+> 代码如下：
+>
+> @0：A1注解value参数值默认为a @1：B1注解上使用到了@A1注解
+>
+> @2：B1注解value参数值默认为b
+>
+> @2：UseAnnotation13上面使用了@B1注解，value参数的值为：  喔喔松java
+>
+> test1方法中使用到了spring中的一个类 AnnotatedElementUtils ，通过这个工具类可以很方便的获取注解的各种信息，方法中的2行代码用于获取UseAnnotation13类上B1注解和A1注解的信 息。
+>
+> 运行test1方法输出：
+>
+> 上面用法很简单，没什么问题。
+>
+> **此时有个问题：此时如果想在** UseAnnotation13 **上给B1上的A1注解设置值是没有办法的，注解定义无法继承导致的，如果注解定义上面能够继承，那用起来会爽很多，spring通过@Aliasfor方法解决了 这个问题。**
+
+## Spring @AliasFor：对注解进行增强
+
+> 直接上案例，然后解释代码。
+
+### 案例1：通过@AliasFor解决刚才难题
+
+> 运行输出：
+>
+> 注意上面diam的@3只使用了B14注解，大家认真看一下，上面输出汇总可以看出A14的value值和B14 的a14Value参数值一样，说明通过B14给A14设置值成功了。
+>
+> 重点在于代码@5，这个地方使用到了@AliasFor 注解：
+>
+> **这个相当于给某个注解指定别名，即将B1注解中** a14Value **参数作为** A14 **中** value **参数的别名，当给**B1的a14Value **设置值的时候，就相当于给** A14的value设置值 **，有个前提是@AliasFor注解的**annotation **参数指定的注解需要加载当前注解上面，如：@6**
+
+### 案例2：同一个注解中使用@AliasFor
+
+> 注意上面代码，A15注解中（@1和@2）的2个参数都设置了@AliasFor，@AliasFor如果不指定annotation 参数的值，那么annotation 默认值就是当前注解，所以上面2个属性互为别名，当给v1设置值的时候也相当于给v2设置值，当给v2设置值的时候也相当于给v1设置值。
+>
+> 运行输出
+>
+> 从输出中可以看出v1和v2的值始终是相等的，上面如果同时给v1和v2设置值的时候运行代码会报错。
+>
+> 我们回头来看看@AliasFor的源码：
+>
+> AliasFor注解中value 和attribute 互为别名，随便设置一个，同时会给另外一个设置相同的值。
+
+### 案例2：@AliasFor中不指定value和attribute
+
+> 当@AliasFor中不指定value或者attribute的时候，自动将@AliasFor修饰的参数作为value和attribute的值，如下@AliasFor注解的value参数值为name
+>
+> 运行输出：
+
+## 总结 {#总结}
+
+#### 到目前为止文章开头的问题，想必各位都可以回答上来了，文章内容比较多，大家最好去敲一遍，加深 理解。
+
+> **欢迎留言！**
+
+## 案例源码
+
+> **Spring系列第17篇：@Configration和@Bean注解**
+
+#### 上次去头条面试，如下：
+
+> **面试官**：spring中，类上加不加@Configuration注解，有什么区别？
+>
+> **我**：当某个类上有@Configuration注解的时候，可以在这个类中使用@Bean注解向spring容器中注册
+>
+> bean；如果不加@Configuration注解，不能通过@Bean注解注册bean。
+>
+> **面试官**：你确定不用@Configuration注解，不能通过@Bean注解来注册bean？
+>
+> **我**：看着面试官，犹豫了10秒钟，说：不加@Configuration通过@Bean注解也可以注册bean **面试官**：你确定可以注册？
+>
+> **我**：嗯。。。。嗯。。。。嗯，我确定可以注册**面试官**：那加不加到底有什么区别呢？
+>
+> **我**：好像没有什么区别啊
+>
+> **面试官**：好像没区别。。。。先回去等通知吧！ 结果可想而知，没戏了！
+>
+> 回去之后立即看spring的源码，终于搞清了这个问题，原来加不加@Configuration还是有相当大的区别 的。
+>
+> 下面我们就来看看@Configuration注解到底是干什么的，加不加到底有什么区别，下次你们去面试的时候就可以给面试官吹吹了。
+>
+> 之前我们都是通过xml的方式定义bean，里面会写很多bean元素，然后spring启动的时候，就会读取
+>
+> bean xml配置文件，然后解析这些配置，然后会将这些bean注册到spring容器中，供使用者使用。
+>
+> jdk1.5里面有了注解的功能，spring也没闲着，觉得注解挺好用的，就将注解加了进来，让我们通过注解的方式来定义bean，用起来能达到xml中定义bean一样的效果，并且更简洁一些，这里面需要用到的注解就有@Configuration 注解和@Bean 注解。
+
+## @Configuration注解
+
+### 用法 {#用法}
+
+> @Configuration这个注解可以加在类上，让这个类的功能等同于一个bean xml配置文件，如下：
+>
+> 上面代码类似于下面的xml：
+>
+> 通过AnnotationConfigApplicationContext 来加载@Configuration 修饰的类，如下：
+>
+> 此时ConfigBean类中没有任何内容，相当于一个空的xml配置文件，此时我们要在ConfigBean类中注 册bean，那么我们就要用到@Bean注解了。
+
+### 总结一下
+
+> @Configuration 使用步骤：
+
+1.  在类上使用@Configuration 注解
+
+2.  通过AnnotationConfigApplicationContext 容器来加@Configuration 注解修饰的类
+
+## @Bean注解
+
+### 用法 {#用法-5}
+
+> 这个注解类似于bean xml配置文件中的bean元素，用来在spring容器中注册一个bean。
+>
+> @Bean注解用在方法上，表示通过方法来定义一个bean，默认将方法名称作为bean名称，将方法返回值作为bean对象，注册到spring容器中。
+>
+> 如：
+>
+> @Bean注解还有很多属性，我们来看一下其源码：
+>
+> @1：说明这个注解可以用在方法和注解类型上面。每个参数含义：
+
+1.  value和name是一样的，设置的时候，这2个参数只能选一个，原因是@AliasFor导致的
+
+> @AliasFor这个注解不清楚的可以看这个文章：<span class="underline">详</span> <span class="underline">解注解</span>
+
+2.  value：字符串数组，第一个值作为bean的名称，其他值作为bean的别名
+
+3.  autowire：这个参数上面标注了@Deprecated，表示已经过期了，不建议使用了
+
+4.  autowireCandidate：是否作为其他对象注入时候的候选bean，之前的文章中专门介绍过这个属性，不清楚的可以去看看：<span class="underline">a</span> <span class="underline">utowire-candidate详解</span>
+
+5.  initMethod：bean初始化的方法，这个和生命周期有关，以后详解
+
+6.  destroyMethod：bean销毁的方法，也是和生命周期相关的，以后详解
+
+### 案例 {#案例-11}
+
+#### User类
+
+> **Bean配置类：ConfigBean**
+>
+> 上面通过@Bean注解定义了3个bean，比较简单
+
+#### 来个测试类
+
+> @1：通过AnnotationConfigApplicationContext 来加载配置类ConfigBean ，会将配置类中所有的bean注册到spring容器中
+>
+> for循环中输出了bean名称、别名、bean对象
+
+#### 运行test1方法输出
+
+> bean名
+>
+> 称 :org.springframework.context.annotation.internalConfigurationAnnotationProcess or,别名:[],bean对
+>
+> 象 :org.springframework.context.annotation.ConfigurationClassPostProcessor@3bd82c f5
+>
+> bean名
+>
+> 称:org.springframework.context.annotation.internalAutowiredAnnotationProcessor,别 名:[],bean对
+>
+> 象 :org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProce ssor@544fa968
+>
+> bean名
+>
+> 称:org.springframework.context.annotation.internalCommonAnnotationProcessor,别名: [],bean对
+>
+> 象 :org.springframework.context.annotation.CommonAnnotationBeanPostProcessor@247b ddad
+>
+> bean名称:org.springframework.context.event.internalEventListenerProcessor,别名: [],bean对
+>
+> 象 :org.springframework.context.event.EventListenerMethodProcessor@d35dea7 bean名称:org.springframework.context.event.internalEventListenerFactory,别名: [],bean对
+>
+> 象 :org.springframework.context.event.DefaultEventListenerFactory@7770f470 bean名称:configBean,别名:[],bean对
+>
+> 象 :com.javacode2018.lesson001.demo20.ConfigBean$$EnhancerBySpringCGLIB$$dde45976 @5e5d171f
+>
+> bean名称:user1,别名:[],bean对象:com.javacode2018.lesson001.demo20.User@24313fcc bean名称:user2Bean,别名:[],bean对象:com.javacode2018.lesson001.demo20.User@7d20d0b bean名称:user3Bean,别名:[user3BeanAlias2, user3BeanAlias1],bean对
+>
+> 象:com.javacode2018.lesson001.demo20.User@77f1baf5
+>
+> 上面的输出，我们主要关注与最后4行，前面的可以先忽略。
+>
+> 从输出中可以看出，有个名称为configBean 的bean，正是ConfigBean这个类型，可以得出，被
+>
+> @Configuration修饰的类，也被注册到spring容器中了
+>
+> 最后3行输出就是几个User的bean对象了。
+>
+> **上面的用法应该很多人都比较熟悉，下面的属于重点了。**
+
+## 去掉@Configuration会怎么样？
+
+> 我们来看一下没有@Configuration的时候，什么效果。
+
+#### 新建一个ConfigBean1类
+
+> 内容和ConfigBean类一样，只是将@Configuration注解去掉了，如下：
+
+#### 来个测试用例test2
+
+> 代码类似于test1，给spring容器传递 ConfigBean1
+
+#### 运行输出 {#运行输出}
+
+> bean名
+>
+> 称 :org.springframework.context.annotation.internalConfigurationAnnotationProcess or,别名:[],bean对
+>
+> 象 :org.springframework.context.annotation.ConfigurationClassPostProcessor@333291 e3
+>
+> bean名
+>
+> 称:org.springframework.context.annotation.internalAutowiredAnnotationProcessor,别 名:[],bean对
+>
+> 象 :org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProce ssor@479d31f3
+>
+> bean名
+>
+> 称:org.springframework.context.annotation.internalCommonAnnotationProcessor,别名: [],bean对
+>
+> 象 :org.springframework.context.annotation.CommonAnnotationBeanPostProcessor@40ef 3420
+>
+> bean名称:org.springframework.context.event.internalEventListenerProcessor,别名: [],bean对
+>
+> 象:org.springframework.context.event.EventListenerMethodProcessor@498d318c bean名称:org.springframework.context.event.internalEventListenerFactory,别名: [],bean对
+>
+> 象 :org.springframework.context.event.DefaultEventListenerFactory@6e171cd7 bean名称:configBean1,别名:[],bean对
+>
+> 象:com.javacode2018.lesson001.demo20.ConfigBean1@402bba4f
+>
+> bean名称:user1,别名:[],bean对象:com.javacode2018.lesson001.demo20.User@795cd85e bean名称:user2Bean,别名:[],bean对
+>
+> 象:com.javacode2018.lesson001.demo20.User@59fd97a8
+>
+> bean名称:user3Bean,别名:[user3BeanAlias2, user3BeanAlias1],bean对象:com.javacode2018.lesson001.demo20.User@f5ac9e4
+
+#### 分析结果
+
+> 我们将2个输出的最后4行拿来对比一下：
+>
+> **有@Configuration注解的**
+>
+> **没有@Configuration注解的**
+>
+> **对比得出**
+
+1.  对比最后3行，可以看出：**有没有@Configuration注解，@Bean都会起效，都会将@Bean修饰 的方法作为bean注册到容器中**
+
+2.  两个内容的第一行有点不一样，被@Configuration修饰的bean最后输出的时候带有EnhancerBySpringCGLIB 的字样，而没有@Configuration注解的bean没有Cglib的字样；有EnhancerBySpringCGLIB 字样的说明这个bean被cglib处理过的，变成了一个代理对象。
+
+> **目前为止我们还是看不出二者本质上的区别，继续向下看。**
+
+## @Configuration加不加到底区别在哪？
+
+> 通常情况下，bean之间是有依赖关系的，我们来创建个有依赖关系的bean，通过这个案例你就可以看出根本的区别了。
+
+### 再来一个加@Configuration的案例
+
+> 定义2个类。
+
+#### ServiceA
+
+> **ServiceB**
+>
+> 上面定义了2个类，ServiceB依赖于ServiceA，ServiceB通过构造器注入ServiceA。 来个@Configuration类管理上面对象。
+
+#### ConfigBean2
+
+> 上面通过@Bean注解，向容器中注册了3个bean
+>
+> 注意@1和@2，通过this.serviceA()获取需要注入的ServiceA对象。上面每个方法第一行都输出了一行日志。
+>
+> **重点关注一下@0这行日志会输出几次，大家先思考一下1次还是3次？**
+>
+> **测试用例**
+
+#### 运行输出 {#运行输出-3}
+
+> 截取了几行输出如下：
+
+#### 分析结果
+
+> 从输出中可以看出
+
+1.  #### 前三行可以看出，被@Bean修饰的方法都只被调用了一次，这个很关键
+
+2.  **最后三行中可以看出都是同一个ServiceA对象，都是** ServiceA@41a2befb **这个实例**
+
+#### 这是为什么？
+
+> **被@Configuration修饰的类，spring容器中会通过cglib给这个类创建一个代理，代理会拦截所有被**@Bean **修饰的方法，默认情况（bean为单例）下确保这些方法只被调用一次，从而确保这些bean是同一个bean，即单例的。**
+>
+> 至于底层是如何实现的，可以去看一下公众号里面这篇文章：详解java中的动态代理和cglib代理。
+>
+> 现在各位应该感受到了，我写的文章前后一般都是有依赖的，所以也建议大家按顺序看，这样知识就是 贯通的。
+
+### 不加的案例
+
+> 我们再来看看将ConfigBean2上的的@Configuration去掉，效果如何，代码就不写了，直接上输出结 果：
+
+#### 结果分析
+
+1.  **serviceA()方法被调用了3次**
+
+2.  #### configBean2这个bean没有代理效果了
+
+3.  **最后3行可以看出，几个ServiceA对象都是不一样的**
+
+## spring这块的源码
+
+> spring中用下面这个类处理@Configuration这个注解：
+>
+> 这里面重点关注这几个方法：
+>
+> 最后一个方法会创建cglib代理，大家可以设置断点进去看看，有问题欢迎交流。
+
+## 总结 {#总结-8}
+
+1.  #### 到目前为止加不加@Configuration注解，有什么区别，大家估计比我都清楚了
+
+2.  **@Configuration注解修饰的类，会被spring通过cglib做增强处理，通过cglib会生成一个代理对 象，代理会拦截所有被@Bean注解修饰的方法，可以确保一些bean是单例的**
+
+3.  #### 不管@Bean所在的类上是否有@Configuration注解，都可以将@Bean修饰的方法作为一个
+
+> **bean注册到spring容器中**
+>
+> **案例源码**
+
+# Spring系列第18篇：@ComponentScan、@ComponentScans详解
+
+## 灵魂拷问
+
+1.  @ComponentScan注解是做什么的？
+
+2.  basePackages的方式和basePackageClasses的方式有什么区别？你建议用哪个？为什么？
+
+3.  useDefaultFilters有什么用？
+
+4.  常见的过滤器有哪些类型？说说你知道的几个
+
+5.  @ComponentScan是在哪个类中处理的？说一下大概的解析过程？
+
+> 这些问题如果都ok，恭喜你，太优秀了，不知道没关系，一起来看看。
+
+## 背景介绍
+
+> 到目前为止，介绍了2种注册bean的方式：
+
+1.  xml中bean元素的方式
+
+2.  @Bean注解标注方法的方式
+
+> 通常情况下，项目中大部分类都需要交给spring去管理，按照上面这2种方式，代码量还是挺大的。
+>
+> 为了更方便bean的注册，Spring提供了批量的方式注册bean，方便大量bean批量注册，spring中的
+>
+> @ComponentScan就是干这个事情的。
+
+## @ComponentScan
+
+> @ComponentScan用于批量注册bean。
+>
+> 这个注解会让spring去扫描某些包及其子包中所有的类，然后将满足一定条件的类作为bean注册到
+>
+> spring容器容器中。
+>
+> 具体需要扫描哪些包？以及这些包中的类满足什么条件时被注册到容器中，这些都可以通过这个注解中 的参数动态配置。
+>
+> 先来看一下这个注解的定义：
+>
+> 定义上可以看出此注解可以用在任何类型上面，不过我们通常将其用在类上面。 常用参数：
+>
+> value：指定需要扫描的包，如：com.javacode2018
+>
+> basePackages：作用同value；value和basePackages不能同时存在设置，可二选一
+>
+> basePackageClasses：指定一些类，spring容器会扫描这些类所在的包及其子包中的类nameGenerator：自定义bean名称生成器
+>
+> resourcePattern：需要扫描包中的那些资源，默认是：**/*.class，即会扫描指定包中所有的class文件
+>
+> useDefaultFilters：对扫描的类是否启用默认过滤器，默认为true
+>
+> includeFilters：过滤器：用来配置被扫描出来的那些类会被作为组件注册到容器中
+>
+> excludeFilters：过滤器，和includeFilters作用刚好相反，用来对扫描的类进行排除的，被排除的类不会被注册到容器中
+>
+> lazyInit：是否延迟初始化被注册的bean
+>
+> @1：@Repeatable(ComponentScans.class)，这个注解可以同时使用多个。
+
+#### @ComponentScan工作的过程：
+
+1.  **Spring会扫描指定的包，且会递归下面子包，得到一批类的数组**
+
+2.  #### 然后这些类会经过上面的各种过滤器，最后剩下的类会被注册到容器中
+
+> **所以玩这个注解，主要关注2个问题：**
+>
+> **第一个：需要扫描哪些包？通过** value、backPackages、basePackageClasses **这3个参数来控制**
+>
+> **第二：过滤器有哪些？通过** useDefaultFilters、includeFilters、excludeFilters **这3个参数来控制过滤器**
+
+#### 这两个问题搞清楚了，就可以确定哪些类会被注册到容器中。
+
+> **默认情况下，任何参数都不设置的情况下，此时，会将@ComponentScan修饰的类所在的包作为扫描 包；默认情况下useDefaultFilters为true，这个为true的时候，spring容器内部会使用默认过滤器， 规则是：凡是类上有** @Repository、@Service、@Controller、@Component **这几个注解中的任何一个的，那么这个类就会被作为bean注册到spring容器中，所以默认情况下，只需在类上加上这几个注 解中的任何一个，这些类就会自动交给spring容器来管理了。**
+
+## @Component、@Repository、@Service、@Controller
+
+> 这几个注解都是spring提供的。
+>
+> 先说一下@Component 这个注解，看一下其定义：
+>
+> 从定义中可以看出，这个注解可以用在任何类型上面。
+>
+> 通常情况下将这个注解用在类上面，标注这个类为一个组件，默认情况下，被扫描的时候会被作 为bean注册到容器中。
+>
+> value参数：被注册为bean的时候，用来指定bean的名称，如果不指定，默认为类名首字母小写。如：类UserService对应的beanname为userService
+>
+> 再来看看@Repository 源码如下：
+>
+> Repository上面有@Component注解。
+>
+> value参数上面有@AliasFor(annotation = Component.class) ，设置value参数的时候，也相当于给@Component 注解中的value设置值。
+>
+> 其他两个注解@Service、@Controller 源码和@Repository 源码类似。
+>
+> 这4个注解本质上是没有任何差别，都可以用在类上面，表示这个类被spring容器扫描的时候，可以作为一个bean组件注册到spring容器中。
+>
+> spring容器中对这4个注解的解析并没有进行区分，统一采用@Component 注解的方式进行解析，所以这几个注解之间可以相互替换。
+>
+> spring提供这4个注解，是为了让系统更清晰，通常情况下，系统是分层结构的，多数系统一般分为controller层、service层、dao层。
+>
+> @controller通常用来标注controller层组件，@service注解标注service层的组件，@Repository标注dao层的组件，这样可以让整个系统的结构更清晰，当看到这些注解的时候，会和清晰的知道属于哪个 层，对于spring来说，将这3个注解替换成@Component注解，对系统没有任何影响，产生的效果是一样的。
+>
+> 下面通过案例来感受@ComponentScan各种用法。
+
+## 案例1：任何参数未设置
+
+#### UserController
+
+> **UserService**
+
+#### UserDao
+
+> **UserModel**
+>
+> 上面几个类中，分别使用了4种注解。
+
+#### @CompontentScan修饰的类
+
+> **上面几个类的结构图**
+>
+> fsdfds
+
+![](media/image14.png){width="4.375in" height="2.1354166666666665in"}
+
+#### 测试用例 {#测试用例}
+
+> @1：使用AnnotationConfigApplicationContext作为ioc容器，将ScanBean 作为参数传入。
+>
+> 默认会扫描ScanBean 类所在的包中的所有类，类上有@Component、@Repository、
+>
+> @Service、@Controller任何一个注解的都会被注册到容器中
+
+#### 运行输出 {#运行输出}
+
+> 部分输出如下：
+>
+> 注意最后4行这几个bean，都被注册成功了。
+
+## 案例2：指定需要扫描的包
+
+> 指定需要扫毛哪些包，可以通过value或者basePackage来配置，二者选其一，都配置运行会报错，下 面我们通过value来配置。
+
+#### ScanBean2
+
+> 上面指定了2需要扫描的包，这两个包中有2个类。
+
+#### 测试用例 {#测试用例-7}
+
+> ComponentScanTest中新增个方法
+
+#### 运行输出 {#运行输出-4}
+
+> 截取了关键几行如下：
+>
+> 可以看出只有controller包和service包中的2个类被注册为bean了。
+
+#### 注意
+
+> **指定包名的方式扫描存在的一个隐患，若包被重名了，会导致扫描会失效，一般情况下面我们使用**
+
+#### basePackageClasses的方式来指定需要扫描的包，这个参数可以指定一些类型，默认会扫描这些类所 在的包及其子包中所有的类，这种方式可以有效避免这种问题。
+
+> 下面来看一下basePackageClasses的方式。
+
+## 案例：basePackageClasses指定扫描范围
+
+> 我们可以在需要扫描的包中定义一个标记的接口或者类，他们的唯一的作用是作为
+>
+> basePackageClasses的值，其他没有任何用途。
+
+#### 下面我们定义这样一个接口
+
+> **再来定义2个类，用@Component注解标记**
+
+#### 来一个@CompontentScan标记的类
+
+> **测试用例**
+>
+> ComponentScanTest中新增个方法
+>
+> **运行输出**
+
+## includeFilters的使用
+
+### 用法 {#用法}
+
+> 再来看一下includeFilters这个参数的定义：
+>
+> 是一个Filter 类型的数组，**多个Filter之间为或者关系，即满足任意一个就可以了**，看一下 Filter 的代码：
+>
+> 可以看出Filter也是一个注解，参数：
+>
+> **type： 过 滤 器 的 类 型 ， 是 个 枚 举 类 型 ，5 种 类 型** ANNOTATION：通过注解的方式来筛选候选者，即判断候选者是否有指定的注解ASSIGNABLE_TYPE：通过指定的类型来筛选候选者，即判断候选者是否是指定的类型ASPECTJ：ASPECTJ表达式方式，即判断候选者是否匹配ASPECTJ表达式REGEX：正则表达式方式，即判断候选者的完整名称是否和正则表达式匹配CUSTOM：用户自定义过滤器来筛选候选者，对候选者的筛选交给用户自己来判断
+>
+> **value：和参数classes效果一样，二选一classes：3种情况如下**
+>
+> 当type=FilterType.ANNOTATION时，通过classes参数可以指定一些注解，用来判断被扫描的类 上是否有classes参数指定的注解
+>
+> 当type=FilterType.ASSIGNABLE_TYPE时，通过classes参数可以指定一些类型，用来判断被扫描 的类是否是classes参数指定的类型
+>
+> 当type=FilterType.CUSTOM时，表示这个过滤器是用户自定义的，classes参数就是用来指定用 户自定义的过滤器，自定义的过滤器需要实现org.springframework.core.type.filter.TypeFilter接 口
+>
+> **pattern：2种情况如下**
+>
+> 当type=FilterType.ASPECTJ时，通过pattern来指定需要匹配的ASPECTJ表达式的值当type=FilterType.REGEX时，通过pattern来自正则表达式的值
+
+### 案例：扫描包含注解的类
+
+#### 需求
+
+> 我们自定义一个注解，让标注有这些注解的类自动注册到容器中
+
+#### 代码实现
+
+> 下面的代码都在com.javacode2018.lesson001.demo22.test3 包中。
+>
+> **定义一个注解**
+>
+> **创建一个类，使用这个注解标注**
+>
+> **再来一个类，使用spring中的** @Compontent **标注**
+>
+> **再来一个类，使用@CompontentScan标注**
+>
+> 上面指定了Filter的type为注解的类型，只要类上面有 @MyBean 注解的，都会被作为bean注册到容器中。
+>
+> **测试用例**
+>
+> ComponentScanTest中新增个测试用例
+>
+> **运行输出，截取了主要的几行**
+>
+> **Service1上标注了** @MyBean **注解，被注册到容器了，但是** Service2 **上没有标注** @MyBean **啊，怎么也被注册到容器了？**
+>
+> **原因：Service2上标注了** @Compontent **注解，而@CompontentScan注解中的** useDefaultFilters **默认是** true **，表示也会启用默认的过滤器，而默认的过滤器会将标注有** @Component、@Repository、@Service、@Controller **这几个注解的类也注册到容器中**
+>
+> 如果我们只想将标注有@MyBean 注解的bean注册到容器，需要将默认过滤器关闭，即：
+>
+> useDefaultFilters=false，我们修改一下ScanBean3的代码如下：
+>
+> 再次运行test3 输出：
+
+#### 扩展：自定义注解支持定义bean名称
+
+> 上面的自定义的@MyBean注解，是无法指定bean的名称的，可以对这个注解做一下改造，加个value 参数来指定bean的名称，如下：
+>
+> 重点在于@1和@2这2个地方的代码，通过上面的参数可以间接给@Component注解中的value设置值。
+>
+> 这块用到了@AliasFor注解，对这块不了解的，可以去看一下：j<span class="underline">ava注解详解及spring对注解的增 强</span>
+>
+> 修改一下Service1的代码：
+>
+> 运行test3用例输出：
+>
+> 此时bean名称就变成了service1Bean 。
+
+### 案例：包含指定类型的类
+
+> 下面的代码都位于com.javacode2018.lesson001.demo22.test4 包中。
+
+#### 来个接口
+
+> 让spring来进行扫描，类型满足IService的都将其注册到容器中。
+
+#### 来2个实现类
+
+> **来一个@CompontentScan标注的类**
+>
+> @1：被扫描的类满足IService.class.isAssignableFrom(被扫描的类) 条件的都会被注册到
+>
+> spring容器中
+
+#### 来个测试用例
+
+> ComponentScanTest中新增个测试用例
+>
+> **运行输出**
+
+## 自定义Filter
+
+### 用法 {#用法-6}
+
+> 有时候我们需要用到自定义的过滤器，使用自定义过滤器的步骤：
+>
+> 来看一下TypeFilter 这个接口的定义：
+>
+> 是一个函数式接口，包含一个match方法，方法返回boolean类型，有2个参数，都是接口类型的，下面介绍一下这2个接口。
+
+#### MetadataReader接口
+
+> **类元数据读取器，可以读取一个类上的任意信息，如类上面的注解信息、类的磁盘路径信息、类的**
+
+#### class对象的各种信息，spring进行了封装，提供了各种方便使用的方法。
+
+> 看一下这个接口的定义：
+
+#### MetadataReaderFactory接口
+
+> **类元数据读取器工厂，可以通过这个类获取任意一个类的MetadataReader对象。**
+>
+> 源码：
+
+### 自定义Filter案例
+
+#### 需求 {#需求}
+
+> 我们来个自定义的Filter，判断被扫描的类如果是 IService 接口类型的，就让其注册到容器中。
+
+#### 代码实现
+
+> 来个自定义的TypeFilter类：
+
+#### 来一个@CompontentScan标注的类
+
+> @1：type为FilterType.CUSTOM，表示Filter是用户自定义的，classes为自定义的过滤器
+
+#### 再来个测试用例
+
+> ComponentScanTest中新增个测试用例
+>
+> **运行输出**
+
+## excludeFilters
+
+> **配置排除的过滤器，满足这些过滤器的类不会被注册到容器中，用法上面和includeFilters用一样，这 个我就不演示了，可以自己玩玩**
+
+## @ComponentScan重复使用
+
+> 从这个注解的定义上可以看出这个注解可以同时使用多个，如：
+>
+> 还有一种写法，使用@ComponentScans的方式：
+
+## Spring中这块的源码
+
+#### @CompontentScan注解是被下面这个类处理的
+
+> **这个类非常非常关键，主要用户bean的注册，前面我们介绍的@Configuration,@Bean注解也是被这 个类处理的。**
+>
+> 还有下面这些注解：
+
+#### 以上这些注解都是被ConfigurationClassPostProcessor这个类处理的，内部会递归处理这些注解， 完成bean的注册。
+
+> **以@CompontentScan来说一下过程，第一次扫描之后会得到一批需要注册的类，然后会对这些需要 注册的类进行遍历，判断是否有上面任意一个注解，如果有，会将这个类交给**
+
+#### ConfigurationClassPostProcessor继续处理，直到递归完成所有bean的注册。
+
+> **想成为高手，这个类是必看的。**
+
+## 总结 
+
+#### @ComponentScan用于批量注册bean，spring会按照这个注解的配置，递归扫描指定包中的所 有类，将满足条件的类批量注册到spring容器中
+
+1.  **可以通过value、basePackages、basePackageClasses 这几个参数来配置包的扫描范围**
+
+2.  #### 可以通过useDefaultFilters、includeFilters、excludeFilters这几个参数来配置类的过滤器， 被过滤器处理之后剩下的类会被注册到容器中
+
+3.  **指定包名的方式配置扫描范围存在隐患，包名被重命名之后，会导致扫描实现，所以一般我们在需 要扫描的包中可以创建一个标记的接口或者类，作为basePackageClasses的值，通过这个来控 制包的扫描范围**
+
+4.  **@CompontScan注解会被ConfigurationClassPostProcessor类递归处理，最终得到所有需要 注册的类。**
+
+> **案例源码**
+
+# Spring系列第19篇：@Import批量注册bean
+
+## 先看几个问题
+
+1.  @Import你用过么？是做什么的？
+
+2.  @Import使用有几种方式？有何区别？
+
+3.  DeferredImportSelector是做什么的？他和ImportSelector有什么区别？
+
+4.  可以介绍介绍一下spring中哪些功能是通过@Import来实现的？
+
+5.  可以介绍一下spring中是如何解析@Import注解的么？
+
+## @Import出现的背景
+
+> 目前为止，注解的方式批量注册bean，前面2篇文章中，我们介绍了2种方式： 到目前，我们知道的批量定义bean的方式有2种：
+
+1.  @Configuration结合@Bean注解的方式
+
+2.  @CompontentScan扫描包的方式
+
+> 下面我们来看几个问题。
+
+### 问题1
+
+> 如果需要注册的类是在第三方的jar中，那么我们如果想注册这些bean有2种方式：
+
+1.  通过@Bean标注方法的方式，一个个来注册
+
+2.  @CompontentScan的方式：默认的@CompontentScan是无能为力的，默认情况下只会注册@Compontent标注的类，此时只能自定义@CompontentScan中的过滤器来实现了
+
+> 这2种方式都不是太好，每次有变化，调整的代码都比较多。
+
+### 问题2
+
+> 通常我们的项目中有很多子模块，可能每个模块都是独立开发的，最后通过jar的方式引进来，每个模块 中都有各自的@Configuration、@Bean标注的类，或者使用@CompontentScan标注的类，**被**
+>
+> **@Configuration、@Bean、@CompontentScan标注的类，我们统称为bean配置类，配置类可以用 来注册bean**，此时如果我们只想使用其中几个模块的配置类，怎么办？
+>
+> @Import可以很好的解决这2个问题，下面我们来看@Import怎么玩的。
+
+## @Import使用
+
+> 先看Spring对它的注释，总结下来作用就是和xml配置的 <import />标签作用一样，允许通过它引入@Configuration标注的类 ， 引入ImportSelector接口和ImportBeanDefinitionRegistrar接口的实现， 也包括 @Component注解的普通类。
+
+#### 总的来说：@Import可以用来批量导入需要注册的各种类，如普通的类、配置类，完后完成普通类和 配置类中所有bean的注册。
+
+> @Import的源码：
+>
+> @Import可以使用在任何类型上，通常情况下，类和注解上用的比较多。
+>
+> value：一个Class数组，设置需要导入的类，可以是@Configuration标注的列，可以是
+>
+> ImportSelector接口或者ImportBeanDefinitionRegistrar接口类型的，或者需要导入的普通组件 类。
+>
+> **使用步骤**
+
+1.  将@Import标注在类上，设置value参数
+
+2.  将@Import标注的类作为AnnotationConfigApplicationContext构造参数创建
+
+> AnnotationConfigApplicationContext对象
+
+3.  使用AnnotationConfigApplicationContext对象
+
+### @Import的value常见的有5种用法
+
+1.  #### value为普通的类
+
+2.  **value为@Configuration标注的类**
+
+3.  #### value为@CompontentScan标注的类
+
+4.  **value为ImportBeanDefinitionRegistrar接口类型**
+
+5.  #### value为ImportSelector接口类型
+
+6.  **value为DeferredImportSelector接口类型**
+
+> 下面我们通过案例来一个个详细介绍。
+
+## value为普通的类
+
+> 来2个类
+
+### Service1
+
+> **Service2**
+
+### 总配置类：使用@Import标注
+
+> @Import中导入了2个普通的类：Service1、Service2，这两个类会被自动注册到容器中
+
+### 测试用例 {#测试用例}
+
+> **运行输出**
+>
+> 部分输出如下：
+
+### 结果分析
+
+> 从输出中可以看出：
+
+1.  Service1和Service2成功注册到容器了。
+
+2.  通过@Import导入的2个类，bean名称为完整的类名
+
+> 我们也可以指定被导入类的bean名称，使用@Compontent注解就可以了，如下：
+>
+> 再次运行test1输出：
+
+### 总结一下
+
+#### 按模块的方式进行导入，需要哪个导入哪个，不需要的时候，直接修改一下总的配置类，调整一下
+
+> **@Import就可以了，非常方便。**
+
+## value为@Configuration标注的配置类
+
+> 项目比较大的情况下，会按照模块独立开发，每个模块在maven中就表现为一个个的构建，然后通过坐标的方式进行引入需要的模块。
+>
+> 假如项目中有2个模块，2个模块都有各自的配置类，如下
+
+### 模块1配置类
+
+> **模块2配置类**
+
+### 总配置类：通过@Import导入2个模块的配置类
+
+> @1导入了2个模块中的模块配置类，可以按需导入。
+
+### 测试用例 {#测试用例-8}
+
+> ImportTest中新增个方法
+>
+> **运行输出**
+
+## value为@CompontentScan标注的类
+
+> 项目中分多个模块，每个模块有各自独立的包，我们在每个模块所在的包中配置一个
+>
+> @CompontentScan类，然后通过@Import来导入需要启用的模块。
+
+### 定义模块1
+
+> 2个组件和一个组件扫描类，模块1所有类所在的包为：
+
+#### 组件1：Module1Service1
+
+> **组件2：Module1Service2**
+
+#### 组件扫描类：CompontentScanModule1
+
+> 负责扫描当前模块中的组件
+
+### 同样的方式定义模块2
+
+> 2个组件和一个组件扫描类，模块1所有类所在的包为：
+
+#### 组件1：Module2Service1
+
+> **组件2：Module2Service2**
+
+#### 组件扫描类：CompontentScanModule1
+
+> 负责扫描当前模块中的组件
+
+### 总配置类：通过@Import导入每个模块中的组件扫描类
+
+> @1导入了2个模块中的组件扫描类，可以按需导入。
+
+### 测试用例 {#测试用例}
+
+> ImportTest中新增个方法
+
+### 运行输出 {#运行输出-5}
+
+> 部分输出如下：
+>
+> 两个模块中通过@Compontent定义的4个bean都输出了。
+>
+> 如果只想注册模块1中的bean，只需要修改一下@Import，去掉CompontentScanModule2，如下：
+>
+> 再次运行输出：
+>
+> 此时模块2的bean就没有了。
+
+## 先来了解一下相关的几个接口
+
+### ImportBeanDefinitionRegistrar接口
+
+> **这个接口提供了通过spring容器api的方式直接向容器中注册bean**。 接口的完整名称：
+>
+> 源码：
+>
+> 2个默认方法，都可以用来调用spring容器api来注册bean。
+
+#### 2个方法中主要有3个参数importingClassMetadata
+
+> AnnotationMetadata类型的，通过这个可以获取被@Import注解标注的类所有注解的信息。
+>
+> **registry**
+>
+> BeanDefinitionRegistry类型，是一个接口，内部提供了注册bean的各种方法。
+>
+> **importBeanNameGenerator**
+>
+> BeanNameGenerator类型，是一个接口，内部有一个方法，用来生成bean的名称。 关于BeanDefinitionRegistry和BeanNameGenerator接口在来细说一下。**BeanDefinitionRegistry接口：bean定义注册器**
+>
+> bean定义注册器，提供了bean注册的各种方法，来看一下源码：
+>
+> 基本上所有bean工厂都实现了这个接口，让bean工厂拥有bean注册的各种能力。上面我们用到的AnnotationConfigApplicationContext 类也实现了这个接口。
+
+### BeanNameGenerator接口：bean名称生成器
+
+> bean名称生成器，这个接口只有一个方法，用来生成bean的名称：
+>
+> spring内置了3个实现
+
+#### DefaultBeanNameGenerator
+
+> 默认bean名称生成器，xml中bean未指定名称的时候，默认就会使用这个生成器，默认为：完整的类名#bean编号
+
+#### AnnotationBeanNameGenerator
+
+> 注解方式的bean名称生成器，比如通过@Component(bean名称)的方式指定bean名称，如果没有通过 注解方式指定名称，默认会将完整的类名作为bean名称。
+
+#### FullyQualifiedAnnotationBeanNameGenerator
+
+> 将完整的类名作为bean的名称
+
+### BeanDefinition接口：bean定义信息
+
+> 用来表示bean定义信息的接口，我们向容器中注册bean之前，会通过xml或者其他方式定义bean的各种配置信息，bean的所有配置信息都会被转换为一个BeanDefinition对象，然后通过容器中BeanDefinitionRegistry接口中的方法，将BeanDefinition注册到spring容器中，完成bean的注册操作。
+>
+> 这个接口有很多实现类，有兴趣的可以去看看源码，BeanDefinition的各种用法，以后会通过专题细说。
+
+## value为ImportBeanDefinitionRegistrar接口类型
+
+### 用法（4个步骤）
+
+> **案例**
+>
+> 来2个普通的类。
+
+#### Service1
+
+> **Service2**
+>
+> 这个类中需要注入Service1
+>
+> 来个类实现ImportBeanDefinitionRegistrar接口，然后在里面实现上面2个类的注册，如下：
+
+#### MyImportBeanDefinitionRegistrar
+
+> 注意上面的registerBeanDefinitions方法，内部注册了2个bean，Service1和Service2。
+>
+> 上面使用了BeanDefinitionBuilder这个类，这个是BeanDefinition的构造器，内部提供了很多静态方法方便构建BeanDefinition对象。
+>
+> 上面定义的2个bean，和下面xml方式效果一样：
+
+#### 来个测试用例
+
+> ImportTest中新增个方法
+>
+> **运行输出**
+
+## value为ImportSelector接口类型
+
+> 先来看一下ImportSelector接口
+
+### ImportSelector接口
+
+> 导入选择器，看一下源码：
+
+### 用法（4个步骤）
+
+> **案例**
+
+#### 来个普通类：Service1
+
+> **来个@Configuration标注的配置类：Module1Config**
+>
+> 上面定义了两个string类型的bean：name和address
+
+#### 下面自定义一个ImportSelector，然后返回上面2个类的名称
+
+> **来个@Import标注的类，导入MyImportSelector**
+
+#### 新增测试用例 {#新增测试用例-2}
+
+> ImportTest中新增个方法
+
+#### 运行输出 {#运行输出-6}
+
+> 部分输出如下：
+>
+> 输出中可以看到Service1以及Module1Config中定义的2个bean都有了。
+
+## 来一个牛逼的案例
+
+### 需求 {#需求-2}
+
+> 凡是类名中包含service的，调用他们内部任何方法，我们希望调用之后能够输出这些方法的耗时。
+
+### 实现分析
+
+> 之前我们讲过代理， 此处我们就可以通过代理来实现，bean实例创建的过程中，我们可以给这些bean 生成一个代理，在代理中统计方法的耗时，这里面有2点：
+
+1.  创建一个代理类，通过代理来间接访问需要统计耗时的bean对象
+
+2.  拦截bean的创建，给bean实例生成代理生成代理
+
+### 具体实现
+
+#### 先来两个Service类
+
+> **Service1**
+>
+> **Service2**
+>
+> **创建统计耗时的代理类**
+>
+> 下面我们使用cglib来实现一个代理类，如下：
+>
+> createProxy方法可以用来给某个对象生成代理对象
+>
+> 需要了解cglib的可以看：<span class="underline">代</span> <span class="underline">理详解（</span>J<span class="underline">ava动态代理&cglib代理）</span>
+
+#### 拦截bean实例的创建，返回代理对象
+
+> 这里我们需要用到spring中的一个接口：
+>
+> 这个接口是bean处理器，内部有2个方法，分别在bean初始化前后会进行调用，以后讲声明周期的时候还会细说的，这里你只需要知道bean初始化之后会调用postProcessAfterInitialization 方法就行，这个方法中我们会给bean创建一个代理对象。
+>
+> 下面我们创建一个BeanPostProcessor实现类：
+>
+> @1：使用上面创建代理类来给当前bean对象创建一个代理
+>
+> 需要将MethodCostTimeProxyBeanPostProcessor注册到容器中才会起作用，下面我们通过@Import 结合ImportSelector的方式来导入这个类，将其注册到容器中。
+
+#### MethodCostTimeImportSelector
+
+> **来一个@Import来导入MethodCostTimeImportSelector**
+>
+> 下面我们使用注解的方式，在注解上使用@Import，如下：
+
+#### 来一个总的配置类
+
+> 上面使用了@CompontentScan注解，此时会将Servce1和Service2这两个类注册到容器中。
+>
+> @1：此处使用了@EnableMethodCostTime注解，而@EnableMethodCostTime注解上使用了@Import(MethodCostTimeImportSelector.class)，此时MethodCostTimeImportSelector类中 的MethodCostTimeProxyBeanPostProcessor会被注册到容器，会拦截bean的创建，创建耗时 代理对象。
+
+#### 来个测试用例 {#来个测试用例}
+
+> ImportTest中新增个方法
+>
+> 上面会调用service1和service2的方法
+
+#### 运行输出 {#运行输出}
+
+> **太牛逼了，需求实现了。**
+
+#### 如果我们不想开启方法耗时统计，只需要将MainConfig6上的@EnableMethodCostTime去掉就可以 了，用起来是不是特别爽。
+
+> **spring中有很多类似的注解，以@EnableXXX开头的注解，基本上都是通过上面这种方式实现的， 如：**
+>
+> 继续向下看，还有一个更牛逼的接口DeferredImportSelector。
+
+## DeferredImportSelector接口
+
+#### 先给你透露一下，springboot中的核心功能@EnableAutoConfiguration就是靠
+
+> **DeferredImportSelector来实现的。**
+>
+> DeferredImportSelector是ImportSelector的子接口，既然是ImportSelector的子接口，所以也可以通 过@Import进行导入，这个接口和ImportSelector不同地方有两点：
+
+1.  延迟导入
+
+2.  指定导入的类的处理顺序
+
+> **延迟导入**
+>
+> 比如@Import的value包含了多个普通类、多个@Configuration标注的配置类、多个ImportSelector接口的实现类，多个ImportBeanDefinitionRegistrar接口的实现类，还有DeferredImportSelector接口 实现类，此时spring处理这些被导入的类的时候，**会将DeferredImportSelector类型的放在最后处 理，会先处理其他被导入的类，其他类会按照value所在的前后顺序进行处理**。
+>
+> 那么我们是可以做很多事情的，比如我们可以在DeferredImportSelector导入的类中判断一下容器中是 否已经注册了某个bean，如果没有注册过，那么再来注册。
+>
+> 以后我们会讲到另外一个注解@Conditional，这个注解可以按条件来注册bean，比如可以判断某个
+>
+> bean不存在的时候才进行注册，某个类存在的时候才进行注册等等各种条件判断，通过@Conditional
+>
+> 来结合DeferredImportSelector可以做很多事情。
+
+### 来个延迟导入的案例
+
+> 来3个配置类，每个配置类中都通过@Bean定一个string类型的bean，内部输出一句文字。
+
+#### Configuration1
+
+> **Configuration2**
+
+#### Configuration3
+
+> **来一个ImportSelector实现类，导入Configuration1**
+
+#### 来一个DeferredImportSelector实现类，导入Configuration2
+
+> **来一个总的配置类**
+>
+> 注意上面的@Import中被导入类的顺序：
+>
+> DeferredImportSelector1->Configuration3->ImportSelector1
+>
+> 下面来个测试用例，看一下3个配置文件中@Bean标注的方法被执行的先后顺序。
+
+#### 测试用例 {#测试用例-9}
+
+> ImportTest中新增个方法
+
+#### 运行输出 {#运行输出-7}
+
+> **输出的结果结合一下@Import中被导入的3个类的顺序，可以看出DeferredImportSelector1是被最后处理的，其他2个是按照value中所在的先后顺序处理的。**
+
+### 指定导入的类的处理顺序
+
+> 当@Import中有多个DeferredImportSelector接口的实现类时候，可以指定他们的顺序，指定顺序常见
+>
+> 2种方式
+
+#### 实现Ordered接口的方式
+
+> value的值越小，优先级越高。
+
+#### 实现Order注解的方式
+
+> value的值越小，优先级越高。下面我们来个案例感受一下。
+
+### 来个指定导入类处理顺序的案例
+
+> 来2个配置类，内部都有一个@Bean标注的方法，用来注册一个bean，方法内部输出一行文字
+
+#### Configuration1
+
+> **Configuration2**
+>
+> 来2个DeferredImportSelector实现类，分别来导入上面2个配置文件，顺便通过Ordered接口指定一下 顺序
+
+#### DeferredImportSelector1
+
+> **DeferredImportSelector2**
+
+#### DeferredImportSelector1的order为2，DeferredImportSelector2的order为1，order值越小优 先级越高。
+
+> 来个总的配置类，引入上面两个ImportSelector
+
+#### MainConfig8
+
+> **测试用例**
+>
+> ImportTest中新增个方法
+
+#### 运行输出 {#运行输出}
+
+> **结果配合order的值，按照order从小到大来处理，可以看出DeferredImportSelector2先被处理的。**
+
+## Spring中这块的源码
+
+#### @Import注解是被下面这个类处理的
+
+> 前面介绍的@Configuration、@Bean、@CompontentScan、@CompontentScans都是被这个 类处理的，这个类是高手必经之路，建议花点时间研究研究。
+
+## 案例源码
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+## 总结 {#总结-9}
+
+1.  @Import可以用来批量导入任何普通的组件、配置类，将这些类中定义的所有bean注册到容器中
+
+2.  @Import常见的5种用法需要掌握
+
+3.  掌握ImportSelector、ImportBeanDefinitionRegistrar、DeferredImportSelector的用法
+
+4.  DeferredImportSelector接口可以实现延迟导入、按序导入的功能
+
+5.  spring中很多以@Enable开头的都是使用@Import集合ImportSelector方式实现的
+
+6.  BeanDefinitionRegistry接口：bean定义注册器，这个需要掌握常见的方法
+
+# Spring系列第20篇：@Conditional通过条件来控制bean
+
+> **的注册**
+
+## 先看几个问题
+
+1.  @Conditional是做什么的?
+
+2.  @Conditional多个条件是什么逻辑关系？
+
+3.  条件判断在什么时候执行？
+
+4.  ConfigurationCondition和Condition有什么区别？什么时候使用ConfigurationCondition？
+
+5.  多个Condition执行的顺序是什么样的？可以配置优先级么？
+
+6.  可以介绍一下@Conditional常见的一些用法么？
+
+## @Conditional注解
+
+#### @Conditional注解是从spring4.0才有的，可以用在任何类型或者方法上面，通过@Conditional注解 可以配置一些条件判断，当所有条件都满足的时候，被@Conditional标注的目标才会被spring容器处 理。
+
+> 比如可以通过@Conditional来控制bean是否需要注册，控制被@Configuration标注的配置类是需要需 要被解析等。
+>
+> 效果就像这段代码，相当于在spring容器解析目标前面加了一个条件判断：
+>
+> @Conditional源码：
+>
+> 这个注解只有一个value参数，Condition类型的数组，Condition是一个接口，表示一个条件判断，内 部有个方法返回true或false，当所有Condition都成立的时候，@Conditional的结果才成立。
+>
+> 下面我们来看一下Condition接口。
+
+## Condition接口
+
+> 用来表示条件判断的接口，源码如下：
+>
+> 是一个函数式接口，内部只有一个matches方法，用来判断条件是否成立的，2个参数：
+>
+> context：条件上下文，ConditionContext接口类型的，可以用来获取容器中的个人信息metadata：用来获取被@Conditional标注的对象上的所有注解信息
+
+## ConditionContext接口
+
+> 这个接口中提供了一些常用的方法，可以用来获取spring容器中的各种信息，看一下源码：
+
+## 比较关键性的问题：条件判断在什么时候执行？
+
+> Spring对配置类的处理主要分为2个阶段：
+
+### 配置类解析阶段
+
+> 会得到一批配置类的信息，和一些需要注册的bean
+
+### bean注册阶段
+
+> 将配置类解析阶段得到的配置类和需要注册的bean注册到spring容器中
+
+### 看一下什么是配置类
+
+> 类中有下面任意注解之一的就属于配置类：
+
+1.  类上有@Compontent注解
+
+2.  类上有@Configuration注解
+
+3.  类上有@CompontentScan注解
+
+4.  类上有@Import注解
+
+5.  类上有@ImportResource注解
+
+6.  类中有@Bean标注的方法
+
+> 判断一个类是不是一个配置类，是否的是下面这个方法，有兴趣的可以看一下：
+>
+> org.springframework.context.annotation.ConfigurationClassUtils#isConfigurationCandidate spring中处理这2个过程会循环进行，直到完成所有配置类的解析及所有bean的注册。
+
+### Spring对配置类处理过程
+
+> 源码位置：
+>
+> 整个过程大致的过程如下：
+
+1.  通常我们会通过new AnnotationConfigApplicationContext()传入多个配置类来启动spring容器
+
+2.  spring对传入的多个配置类进行解析
+
+3.  配置类解析阶段：这个过程就是处理配置类上面6中注解的过程，此过程中又会发现很多新的配置 类，比如@Import导入的一批新的类刚好也符合配置类，而被@CompontentScan扫描到的一些类刚好也是配置类；此时会对这些新产生的配置类进行同样的过程解析
+
+4.  bean注册阶段：配置类解析后，会得到一批配置类和一批需要注册的bean，此时spring容器会将这批配置类作为bean注册到spring容器，同样也会将这批需要注册的bean注册到spring容器
+
+5.  经过上面第3个阶段之后，spring容器中会注册很多新的bean，这些新的bean中可能又有很多新 的配置类
+
+6.  Spring从容器中将所有bean拿出来，遍历一下，会过滤得到一批未处理的新的配置类，继续交给第3步进行处理
+
+7.  step3到step6，这个过程会经历很多次，直到完成所有配置类的解析和bean的注册
+
+> 从上面过程中可以了解到：
+
+1.  可以在配置类上面加上@Conditional注解，来控制是否需要解析这个配置类，配置类如果不被解析，那么这个配置上面6种注解的解析都会被跳过
+
+2.  可以在被注册的bean上面加上@Conditional注解，来控制这个bean是否需要注册到spring容器中
+
+3.  如果配置类不会被注册到容器，那么这个配置类解析所产生的所有新的配置类及所产生的所有新的
+
+> bean都不会被注册到容器
+>
+> 一个配置类被spring处理有2个阶段：配置类解析阶段、bean注册阶段（将配置类作为bean被注册到
+>
+> spring容器)。
+>
+> 如果将Condition接口的实现类作为配置类上@Conditional中，那么这个条件会对两个阶段都有效，此 时通过Condition是无法精细的控制某个阶段的，如果想控制某个阶段，比如可以让他解析，但是不能让他注册，此时就就需要用到另外一个接口了：ConfigurationCondition
+
+## ConfigurationCondition接口
+
+> 看一下这个接口的源码：
+>
+> ConfigurationCondition接口相对于Condition接口多了一个getConfigurationPhase方法，用来指定条 件判断的阶段，是在解析配置类的时候过滤还是在创建bean的时候过滤。
+
+## @Conditional使用的3步骤
+
+1.  自定义一个类，实现Condition或ConfigurationCondition接口，实现matches方法
+
+2.  在目标对象上使用@Conditional注解，并指定value的指为自定义的Condition类型
+
+3.  启动spring容器加载资源，此时@Conditional就会起作用了
+
+## 案例1：阻止配置类的处理
+
+> 在配置类上面使用@Conditional，这个注解的value指定的Condition当有一个为false的时候，spring 就会跳过处理这个配置类。
+>
+> 自定义一个Condition类：
+>
+> matches方法内部我们可以随意发挥，此处为了演示效果就直接返回false。来个配置类，在配置类上面使用上面这个条件，此时会让配置类失效，如下：
+>
+> @1：使用了自定义的条件类
+>
+> @2：通过@Bean标注这name这个方法，如果这个配置类成功解析，会将name方法的返回值作为bean注册到spring容器
+>
+> 来个测试类，启动spring容器加载MainConfig3配置类，如下：
+>
+> test3中，从容器中获取String类型的bean，运行test3没有任何输出。我们可以将MainConfig3上面的@Conditional去掉，再次运行输出：
+
+## 案例2：阻止bean的注册
+
+> 来个配置类，如下：
+>
+> 上面2个方法上面使用了@Bean注解来定义了2个bean，name方法上面使用了@Conditional注解，这 个条件会在name这个bean注册到容器之前会进行判断，当条件为true的时候，name这个bean才会被 注册到容器。
+>
+> ConditionTest中新增个测试用例来加载上面这个配置类，从容器中获取String类型所有bean输出，代 码如下：
+>
+> 运行输出：
+>
+> 可以看到容器中只有一个address被注册了，而name这个bean没有被注册。
+
+## 案例3：bean不存在的时候才注册
+
+### 需求 {#需求}
+
+> IService接口有两个实现类Service1和Service1，这两个类会放在2个配置类中通过@Bean的方式来注册到容器，此时我们想加个限制，只允许有一个IService类型的bean被注册到容器。
+>
+> 可以在@Bean标注的2个方法上面加上条件限制，当容器中不存在IService类型的bean时，才将这个方 法定义的bean注册到容器，下面来看代码实现。
+
+### 代码实现 {#代码实现}
+
+#### 条件判断类：OnMissingBeanCondition
+
+> 上面matches方法中会看容器中是否存在IService类型的bean，不存在的时候返回true
+
+#### IService接口
+
+> **接口有2个实现类**
+>
+> **Service1**
+>
+> **Service2**
+
+#### 来一个配置类负责注册Service1到容器
+
+> @1：方法之前使用了条件判断
+
+#### 再来一个配置类负责注册Service2到容器
+
+> @1：方法之前使用了条件判断
+
+#### 来一个总的配置类，导入另外2个配置类
+
+> @1：通过@Import将其他2个配置类导入
+
+#### 来个测试用例 {#来个测试用例-2}
+
+> ConditionTest新增一个方法，方法中从容器中获取IService类型的bean，然后输出：
+>
+> 运行输出：
+>
+> 可以看出容器中只有一个IService类型的bean。
+>
+> 可以将@Bean标注的2个方法上面的@Conditional去掉，再运行会输出：
+>
+> 此时没有条件限制，2个Service都会注册到容器。
+
+## 案例4：根据环境选择配置类
+
+> 平常我们做项目的时候，有开发环境、测试环境、线上环境，每个环境中有些信息是不一样的，比如数 据库的配置信息，下面我们来模拟不同环境中使用不同的配置类来注册不同的bean。
+
+### 自定义一个条件的注解
+
+> @1：注意这个注解比较特别，这个注解上面使用到了@Conditional注解，这个地方使用到了一个自定义Conditione类：EnvCondition
+>
+> @2：枚举，表示环境，定义了3个环境@3：这个参数用指定环境
+>
+> 上面这个注解一会我们会用在不同环境的配置类上面
+
+### 下面来3个配置类
+
+> 让3个配置类分别在不同环境中生效，会在这些配置类上面使用上面自定义的@EnvConditional注解来做条件限定。
+>
+> 每个配置类中通过@Bean来定义一个名称为name的bean，一会通过输出这个bean来判断哪个配置类生效了。
+>
+> 下面来看3个配置类的代码
+
+#### 测试环境配置类
+
+> @1指定的测试环境
+
+#### 开发环境配置类
+
+> @1：指定的开发环境
+
+#### 生产环境配置类
+
+> @1：指定的生产环境
+
+### 下面来看一下条件类：EnvCondition
+
+> 条件类会解析配置类上面@EnvConditional注解，得到环境信息。 然后和目前的环境对比，决定返回true还是false，如下：
+>
+> @1：这个用来指定当前使用的环境，此处假定当前使用的是开发环境，这个我们以后可以任意发 挥，比如将这些放到配置文件中，此处方便演示效果。
+
+### 来个测试用例 {#来个测试用例}
+
+> **运行输出**
+>
+> 可以看到开发环境生效了。
+>
+> 修改一下EnvCondition的代码，切换到生产环境：
+>
+> 再次运行test2方法输出：
+>
+> 生产环境配置类生效了。
+
+## 案例5：Condition指定优先级
+
+### 多个Condition按顺序执行
+
+> @Condtional中value指定多个Condtion的时候，默认情况下会按顺序执行，还是通过代码来看一下效 果。
+>
+> 下面代码中定义了3个Condition，每个Condition的matches方法中会输出当前类名，然后在配置类上 面同时使用这3个Condition：
+>
+> 来个测试用例
+>
+> 运行输出：
+>
+> 上面有多行输出，是因为spring解析整个配置类的过程中，有好几个地方都会执行条件判断。咱们只用关注前3行，可以看出输出的属性和@Conditional中value值的顺序是一样的。
+
+### 指定Condition的顺序
+
+> 自定义的Condition可以实现PriorityOrdered接口或者继承Ordered接口，或者使用@Order注解，通 过这些来指定这些Condition的优先级。
+
+#### 排序规则：先按PriorityOrdered排序，然后按照order的值进行排序；也就是：PriorityOrdered asc,order值 asc
+
+> 看案例代码：
+>
+> @1：Condition1通过@Order指定顺序，值为1
+>
+> @2：Condition2通过实现了Ordered接口来指定顺序，@3：getOrder方法返回1
+>
+> @4：Condition3实现了PriorityOrdered接口，实现这个接口需要重写getOrder方法，返回1000 @5：Condtion顺序为1、2、3
+>
+> 根据排序的规则，PriorityOrdered的会排在前面，然后会再按照order升序，最后可以顺序是：
+>
+> 来个测试用例看看效果是不是我们分析的这样：
+>
+> 运行test6，部分输出如下：
+>
+> 结果和我们分析的一致。
+
+## 案例6：ConfigurationCondition使用
+
+> ConfigurationCondition使用的比较少，很多地方对这个基本上也不会去介绍，Condition接口基本上 可以满足99%的需求了，但是springboot中却大量用到了ConfigurationCondition这个接口。
+>
+> ConfigurationCondition通过解释比较难理解，来个案例感受一下：
+
+### 来一个普通的类：Service
+
+> **来一个配置类，通过配置类注册上面这个Service**
+
+### 再来一个配置类：BeanConfig2
+
+> **来一个总的配置类**
+>
+> 上面通过@Import引入了另外2个配置类
+
+### 来个测试用例加载MainConfig7配置类
+
+> 上面从容器中获取String类型的bean，然后输出。
+
+### 运行输出 {#运行输出}
+
+> **现在我们有个需求**
+>
+> 当容器中有Service这种类型的bean的时候，BeanConfig2才生效。
+>
+> 很简单吧，加个Condition就行了，内部判断容器中是否有Service类型的bean，继续
+
+### 来个自定义的Condition
+
+> 上面代码很简单，判断容器中是否有IService类型的bean。
+
+### BeanConfig2上使用Condition条件判断
+
+> **再次运行test7输出**
+>
+> 无任何输出
+
+### 为什么？
+
+> 在文章前面我们说过，配置类的处理会依次经过2个阶段：配置类解析阶段和bean注册阶段， Condition接口类型的条件会对这两个阶段都有效，解析阶段的时候，容器中是还没有Service这个bean 的，配置类中通过@Bean注解定义的bean在bean注册阶段才会被注册到spring容器，所以BeanConfig2在解析阶段去容器中是看不到Service这个bean的，所以就被拒绝了。
+>
+> **此时我们需要用到ConfigurationCondition了，让条件判断在bean注册阶段才起效。**
+
+### 自定义一个ConfigurationCondition类
+
+> @1：指定条件在bean注册阶段，这个条件才有效
+>
+> matches方法中的内容直接复制过来，判断规则不变。
+
+### 修改BeanConfig2的类容
+
+> **再次运行test7输出**
+>
+> 此时name这个bean被输出了。
+>
+> 可以再试试将BeanConfig1中service方法上面的@Bean去掉，此时Service就不会被注册到容器，再运行一下test7，会发现没有输出了，此时BeanConfig2会失效。
+
+#### 判断bean存不存在的问题，通常会使用ConfigurationCondition这个接口，阶段为：
+
+> **REGISTER_BEAN，这样可以确保条件判断是在bean注册阶段执行的。**
+>
+> 对springboot比较熟悉的，它里面有很多@Conditionxxx这样的注解，可以去看一下这些注解，很多都 实现了ConfigurationCondition接口。
+
+## Spring中这块的源码
+
+#### @Conditional注解是被下面这个类处理的
+
+> **又是这个类，说了很多次了，非常重要的一个类，大家下去了多撸一下这个类的源码，这样理解起来更 顺畅一些。**
+
+## 案例源码 {#案例源码}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+## 总结 {#总结}
+
+1.  @Conditional注解可以标注在spring需要处理的对象上（配置类、@Bean方法），相当于加了个 条件判断，通过判断的结果，让spring觉得是否要继续处理被这个注解标注的对象
+
+2.  spring处理配置类大致有2个过程：解析配置类、注册bean，这两个过程中都可以使用@Conditional来进行控制spring是否需要处理这个过程
+
+3.  Condition默认会对2个过程都有效
+
+4.  ConfigurationCondition控制得更细一些，可以控制到具体那个阶段使用条件判断
+
+# Spring系列第21篇：注解实现依赖注入（@Autowired、@Resource、@Primary、@Qulifier）
+
+## 先来看几个问题
+
+1.  通过注解的方式注入依赖对象，介绍一下你知道的几种方式
+
+2.  @Autowired和@Resource有何区别
+
+3.  说一下@Autowired查找候选者的过程
+
+4.  说一下@Resource查找候选者的过程
+
+5.  @Qulifier有哪些用法？
+
+6.  @Qulifier加在类上面是干什么用的？
+
+7.  @Primary是做什么的？
+
+8.  泛型注入用过么？
+
+> **这些问题如果你都ok，那么恭喜你，很厉害。**
+
+## 本文内容 {#本文内容-4}
+
+1.  介绍spring中通过注解实现依赖注入的所有方式
+
+> @Autowired注解@Qualifier注解@Resource注解@Primary注解
+>
+> @Bean中注入的几种方式
+
+2.  将指定类型的所有bean，注入到集合中
+
+3.  将指定类型的所有bean，注入到map中
+
+4.  注入泛型
+
+5.  依赖注入源码方面的一些介绍
+
+> **本文内容比较多，所有知识点均有详细案例，大家一定要敲一遍，加深理解。**
+
+## @Autowired：注入依赖对象
+
+### 作用
+
+#### 实现依赖注入，spring容器会对bean中所有字段、方法进行遍历，标注有@Autowired注解的，都会 进行注入。
+
+> 看一下其定义：
+>
+> 可以用在构造器、方法、方法参数、字段、注解上。参数：
+>
+> required：标注的对象是否必须注入，可能这个对象在容器中不存在，如果为true的时候，找不到匹配的候选者就会报错，为false的时候，找不到也没关系 。
+
+### @Autowire查找候选者的过程
+
+#### 查找过程有点复杂，看不懂的可以先跳过，先看后面案例，本文看完之后，可以回头再来看这个过程。
+
+> **@Autowired标注在字段上面：假定字段类型为一个自定义的普通的类型，候选者查找过程如下**
+
+![](media/image15.jpeg){width="6.019444444444445in" height="10.250694444444445in"}
+
+#### @Autowired标注在方法上或者方法参数上面：假定参数类型为为一个自定义的普通的类型，候选者查 找过程如下：
+
+> ![](media/image16.jpeg){width="6.132638888888889in" height="10.890277777777778in"}
+>
+> ![](media/image17.jpeg){width="6.144444444444445in" height="1.9194444444444445in"}
+>
+> 上图中深色的表示方法注入和字段注入查找过程的不同点。
+>
+> 上图中展示的是方法中只有一个参数的情况，如果有多个参数，就重复上面的过程，直到找到所有需要 注入的参数。
+
+#### 将指定类型的所有bean注入到Collection中
+
+> 如果被注入的对象是Collection类型的，可以指定泛型的类型，然后会按照上面的方式查找所有满足泛型类型所有的bean
+
+#### 将指定类型的所有bean注入到Map中
+
+> 如果被注入的对象是Map类型的，可以指定泛型的类型，key通常为String类型，value为需要查找的
+>
+> bean的类型，然后会按照上面方式查找所有注入value类型的bean，将bean的name作为key，bean对 象作为value，放在HashMap中，然后注入。
+
+#### @Autowired查找候选者可以简化为下面这样
+
+> **概括为：先按类型找，然后按名称找**
+
+### 案例1：@Autowired标注在构造器上，通过构造器注入依赖对象
+
+#### Service1 {#service1-3}
+
+> **Service2**
+>
+> Service2中依赖于Service1，有2个构造方法@1：无参构造器
+>
+> @2：有参构造器，可以通过这个传入依赖的Service1
+>
+> @3：重写了toString方法，一会打印测试的时候方便查看
+
+#### 来个总的配置文件
+
+> @1：会自动扫描当前类所在的包，会将Service1和Service2注册到容器。
+
+#### 来个测试用例 {#来个测试用例-3}
+
+> main方法中启动容器，加载MainConfig0配置类，然后输出容器中所有的bean
+
+#### 运行部分输出
+
+> 输出中可以看出调用了Service2的无参构造器，service2中的service1为null
+
+#### 通过@Autowired指定注入的构造器
+
+> 在Service2有参有参构造器上面加上@Autowired注解，如下：
+
+#### 再次运行test0()
+
+> Service2有参构造器被调用了，service2中的service1有值了。
+
+### 案例2：@Autowired标注在方法上，通过方法注入依赖的对象
+
+#### Service1 {#service1-2}
+
+> **Service2**
+>
+> @1：方法上标注了@Autowired，spring容器会调用这个方法，从容器中查找Service1类型的bean，然后注入。
+
+#### 来个总的配置文件
+
+> **来个测试用例**
+>
+> InjectTest中加个方法
+
+#### 运行输出 {#运行输出-8}
+
+> 通过injectService1方法成功注入service1
+
+### 案例3：@Autowired标注在setter方法上，通过setter方法注入
+
+> 上面2种通过构造器，和通过普通的一个方法注入，不是很常见，可以将@Autowired标注在set方法上面，来注入指定的对象
+
+#### Service1
+
+> **Service2**
+>
+> @1：标准的set方法，方法上使用了 @Autowired，会通过这个方法注入Service1类型的bean对象。
+
+#### 来个总的配置文件 {#来个总的配置文件}
+
+> **来个测试用例**
+>
+> **运行输出**
+
+### 案例4：@Autowired标注在方法参数上
+
+#### Service1
+
+> **Service2**
+>
+> @1：方法上标注了@Autowired，表示会将这个方法作为注入方法，这个方法有2个参数，spring
+>
+> 查找这2个参数对应的bean，然后注入。
+>
+> 第一个参数对应的bean是存在的，第二个是一个String类型的，我们并没有定义String类型
+>
+> bean，一会看看效果
+
+#### 来个总的配置文件 {#来个总的配置文件-2}
+
+> **来个测试用例**
+
+#### 运行输出 {#运行输出-9}
+
+> 报错了，从错误信息中可以看出，通过injectService1方法注入的时候，第二个参数为String类 型，spring从容器中没有找到String类型的候选bean，所以报错了。
+
+#### 我们可以这么做
+
+> **多个参数的时候，方法上面的@Autowire默认对方法中所有参数起效，如果我们想对某个参数进行特 定的配置，可以在参数上加上@Autowired，这个配置会覆盖方法上面的@Autowired配置。**
+>
+> 在第二个参数上面加上@Autowired，设置required为false：表示这个bean不是强制注入的，能找到就 注入，找不到就注入一个null对象，调整一下代码，如下：
+>
+> 此时方法的第一个参数被方法上面的@Autowired约束第二个参数受@Autowired(required = false)约束
+
+#### 再次运行输出
+
+> 注入成功了，service1有值，name为null **案例5：@Autowired用在字段上****Service1**
+
+#### Service2 {#service2-1}
+
+> **Service3**
+>
+> @1和@2：定义了2个字段，上面都标注了@Autowired，spring会去容器中按照类型查找这2种类型的bean，然后设置给这2个属性。
+
+#### 来个总的配置文件 {#来个总的配置文件}
+
+> **来个测试用例**
+
+#### 运行输出 {#运行输出}
+
+> service3中标注@Autowired的2个属性都有值了，都被注入成功了。
+
+### 案例6：@Autowire标注字段，多个候选者的时候，按字段名称注入
+
+#### IService接口
+
+> **接口来2个实现**
+>
+> 2个实现类上都标注了@Component注解，都会被注册到容器中。
+>
+> **Service0**
+>
+> **Service1**
+
+#### 来个Service2
+
+> @1：标注了@Autowired注解，需要注入类型为IService类型的bean，满足这种类型的有2个： service0和service1
+>
+> 按照上面介绍的候选者查找过程，最后会注入和字段名称一样的bean，即：service1
+
+#### 来个总的配置类，负责扫描当前包中的组件
+
+> **来个测试用例**
+
+#### 运行输出 {#运行输出-10}
+
+> 注意最后一行，service2中的service1被注入了bean：service1
+
+### 案例7：将指定类型的所有bean，注入到Collection、Map中
+
+#### 注入到Collection中
+
+> **被注入的类型为Collection类型或者Collection子接口类型，注意必须是接口类型**，如：
+
+#### 会在容器中找到所有IService类型的bean，放到这个集合中。 注入到Map中
+
+> **被注入的类型为Map类型或者Map子接口类型，注意必须是接口类型**，如：
+
+#### 会在容器中找到所有IService类型的bean，放到这个Map中，key为bean的名称，value为bean对象。
+
+> 来看案例代码。
+
+#### 来个接口
+
+> **来2个实现类，标注@Component注解**
+>
+> **Service0**
+>
+> **Service1**
+
+#### 再来个类Service2
+
+> @1：注入IService类型的所有bean @2：注入一个map
+
+#### 来个总的配置类
+
+> **来个测试用例**
+
+#### 运行输出 {#运行输出}
+
+> 注意看一下上面services和serviceMap的值。
+
+### @Autowired源码
+
+> spring使用下面这个类处理@Autowired注解
+
+## @Resource：注意依赖对象
+
+### 作用
+
+#### 和@Autowired注解类似，也是用来注入依赖的对象的，spring容器会对bean中所有字段、方法进行 遍历，标注有@Resource注解的，都会进行注入。
+
+> 看一下这个注解定义：
+>
+> 这个注解是javax中定义的，并不是spring中定义的注解。
+>
+> 从定义上可以见，这个注解可以用在任何类型上面、字段、方法上面。注意点：
+>
+> **用在方法上的时候，方法参数只能有一个。**
+
+### @Resource查找候选者的过程
+
+#### 查找过程有点复杂，看不懂的可以先跳过，先看后面案例，本文看完之后，可以回头再来看这个过程。
+
+> **@Resource标注在字段上面：假定字段类型为一个自定义的普通的类型，候选者查找过程如下**
+
+![](media/image18.jpeg){width="6.185416666666667in" height="5.334722222222222in"}
+
+#### @Autowired标注在方法上或者方法参数上面：假定参数类型为为一个自定义的普通的类型，候选者查 找过程如下：
+
+> ![](media/image19.jpeg){width="6.097222222222222in" height="8.799305555555556in"}
+>
+> **将指定类型的所有bean注入到Collection中**
+>
+> 如果被注入的对象是Collection类型的，可以指定泛型的类型，然后会按照上面的方式查找所有满足泛型类型所有的bean
+
+#### 将指定类型的所有bean注入到Map中
+
+> 如果被注入的对象是Map类型的，可以指定泛型的类型，key通常为String类型，value为需要查找的
+>
+> bean的类型，然后会按照上面方式查找所有注入value类型的bean，将bean的name作为key，bean对 象作为value，放在HashMap中，然后注入。
+
+#### @Resource查找候选者可以简化为
+
+> **概括为：先按名称找，然后按类型找**
+
+### 案例1：将@Resource标注在字段上
+
+#### IService接口
+
+> **2个实现类****Service0**
+>
+> @Component标注的bean名称默认为service0
+>
+> **Service1**
+>
+> @Component标注的bean名称默认为service1
+>
+> 再来一个类
+>
+> @1：字段名称为service1，按照字段名称查找bean，会找到Service1
+
+#### 来个配置类
+
+> **测试用例**
+
+#### 运行输出 {#运行输出-11}
+
+> 最后一行可以看出注入了service1
+
+#### 如果将Service2中的代码调整一下
+
+> 此时会注入service0这个bean
+>
+> 同样@Resource可以用在方法上，也可以将所有类型的bean注入到Collection、Map中，这里就不演示 了，重点了解一下候选者查找的过程，使用上就比较简单了，@Resource的其他案例，大家可以自己写写练练。
+>
+> 下面来说另外几个注解，也是比较重要的。
+
+### @Resource源码
+
+> spring使用下面这个类处理@Resource注解
+
+## @Qualifier：限定符
+
+### 作用 {#作用}
+
+> 这个单词的意思是：限定符。
+
+#### 可以在依赖注入查找候选者的过程中对候选者进行过滤。
+
+> 看一下其定义：
+>
+> 可以用在字段、方法、参数、任意类型、注解上面有一个参数value
+>
+> 还是来看案例，通过案例理解更容易。
+
+### 案例1：用在类上
+
+> 用在类上，你可以理解为给通过@Qulifier给这个bean打了一个标签。
+
+#### 先来一个接口
+
+> **来3个实现类**
+
+#### 前2个@Qulifier的value为tag1，第3个实现类为tag2 Service1
+
+> @1：tag1 Service2
+>
+> @1：tag1
+
+#### Service3
+
+> @1：tag2
+
+#### 来一个类，来注入上面几个bean
+
+> @1：限定符的值为tag1，此时会将类上限定符为tag1的所有bean注入进来@2：限定符的值为tag2，此时会将类上限定符为tag2的所有bean注入进来
+
+#### 来个配置类
+
+> **测试用例**
+>
+> 运行输出
+>
+> 注意第一行的输出，看一下serviceMap1和serviceMap2的值。
+>
+> serviceMap1注入了@Qulifier的value为tag1的所有IService类型的bean serviceMap1注入了@Qulifier的value为tag2的所有IService类型的bean 实现了bean分组的效果。
+
+### 案例2：@Autowired结合@Qulifier指定注入的bean
+
+> 被注入的类型有多个的时候，可以使用@Qulifier来指定需要注入那个bean，将@Qulifier的value设置 为需要注入bean的名称
+>
+> 看案例代码
+
+#### 来个接口 {#来个接口}
+
+> **有2个实现类**
+>
+> 2个实现类上面没有使用@Qulifier注解了
+>
+> **Service1**
+>
+> **Service2**
+>
+> 我们可以知道上面2个bean的名称分别为：service1、service2
+
+#### 来个类，注入IService类型的bean
+
+> **@1：这里限定符的值为service2，容器中IService类型的bean有2个[service1和service2]，当类上 没有标注@Qualifier注解的时候，可以理解为：bean的名称就是限定符的值，所以@1这里会匹配到service2**
+
+#### 来个配置类 {#来个配置类}
+
+> **来个测试用例**
+
+#### 运行输出 {#运行输出}
+
+> 从第一行可以看出注入了service1
+
+### 案例3：用在方法参数上
+
+#### 代码 {#代码-1}
+
+> @1：方法上标注了@Autowired注解，说明会被注入依赖，2个参数上分别使用了限定符来指定具体需要注入哪个bean
+
+#### 测试用例 {#测试用例-10}
+
+> **运行输出**
+>
+> 第一行中的
+>
+> s1：service2 s2：service1
+
+### 案例4：用在setter方法上
+
+> 不管是用在setter方法还是普通方法上面，都是一样的效果
+
+#### 代码 {#代码}
+
+> 上面2个setter方法上都有@Autowired注解，并且结合了@Qulifier注解来限定需要注入哪个bean
+
+#### 测试用例 {#测试用例}
+
+> 运行输出
+>
+> 输出中可以看出：s1为service2，s2为service1
+
+## @Primary：设置为主要候选者
+
+> 注入依赖的过程中，当有多个候选者的时候，可以指定哪个候选者为主要的候选者。 看一下其定义
+>
+> 可以用在类上或者方法上面。
+>
+> 通常定义bean常见的有2种方式：
+>
+> 方式1：在类上标注@Component注解，此时可以配合@Primary，标注这个bean为主要候选者
+>
+> 方式2：在配置文件中使用@Bean注解标注方法，来注册bean，可以在@Bean标注的方法上加上
+>
+> @Primary，标注这个bean为主要候选bean。
+>
+> 看案例。
+
+### 案例1：用在类上
+
+#### 来个接口 {#来个接口-2}
+
+> **2个实现类****Service1**
+>
+> **Service2**
+>
+> Service2上面使用了@Primary，表示这是个主要的候选者
+
+#### 再来个类，注入IService类型的bean
+
+> @1：容器中IService类型的bean有2个，但是service2为主要的候选者，所以此处会注入service2
+
+#### 总的配置类
+
+> **测试用例**
+>
+> **运行输出**
+
+### 案例2：用在方法上，结合@Bean使用
+
+#### 来个接口 {#来个接口}
+
+> **2个实现类****Service1**
+
+#### Service2 {#service2-2}
+
+> **InjectService**
+>
+> 使用了@Autowired，需要注入
+
+#### 来个配置类，通过@Bean定义上面3个类型的bean
+
+> 上面是一个配置类，定义了3个bean @1：这个bean被标注为主要的候选者
+
+#### 来个测试用例 {#来个测试用例-4}
+
+> **运行输出**
+>
+> 注意最后一行，service1注入的是service2这个bean
+
+## @Bean定义bean时注入依赖的几种方式
+
+### 常见3种方式
+
+1.  硬编码方式
+
+2.  @Autowired、@Resource的方式
+
+3.  @Bean标注的方法参数的方式
+
+### 方式1：硬编码方式
+
+> 来3个类
+
+#### Service1
+
+> **Service2**
+
+#### Service3
+
+> 上面类中会用到service1和service2，提供了对应的setter方法，一会我们通过setter方法注入依赖对象
+
+#### 来个配置类，通过@Bean的方式创建上面对象
+
+> 上面代码中通过@Bean定义了3个bean
+>
+> Service3中需要用到Service1和Service2，注意@1和@2直接调用当前方法获取另外2个bean，注入到service3中
+
+#### 测试用例 {#测试用例}
+
+> **运行输出**
+
+### 方式2：@Autowired、@Resource的方式
+
+> 这种方式就不讲了直接在需要注入的对象上面加上这2个注解的任意一个就行了，可以参考文章前面的 部分。
+
+### 方式3：@Bean标注的方法使用参数来进行注入
+
+> @0：这个地方是关键，方法上标注了@Bean，并且方法中是有参数的，spring调用这个方法创建bean的时候，会将参数中的两个参数注入进来。
+>
+> 注入对象的查找逻辑可以参考上面@Autowired标注方法时查找候选者的逻辑。来个测试用例
+>
+> 运行输出
+>
+> 同样注入成功了。
+
+### 其他
+
+#### @Bean标注的方法参数上使用@Autowired注解
+
+> @0：方法由2个参数，第二个参数上标注了@Autowired(required = false)，说明第二个参数候选者不是必须的，找不到会注入一个null对象；第一个参数候选者是必须的，找不到会抛出异常
+
+#### @Bean结合@Qualifier
+
+> Service1,Service2,Service3都实现了IService接口
+>
+> @1,@2,@3这3个方法上面使用了@Bean注解，用来定义3个bean，这3个方法上还是用了@Qualifier注解，用来给这些bean定义标签，service1()方法类似于下面的写法：
+>
+> 再回到MainConfig17中的@4：参数中需要注入Map<String, IService>，会查找IService类型的bean，容器中有3个，但是这个参数前面加上了@Qualifier限定符，值为tag1，所以会通过这个 过滤，最后满足的候选者为：[service1,service]
+>
+> 对应测试用例
+>
+> 运行输出
+>
+> 注意最后一行serviceMap1，注入了service1和service2
+
+## 泛型注入
+
+### 先来2个普通的类
+
+#### UserModel
+
+> **OrderModel**
+>
+> 记住上面2个普通的类UserModel和OrderModel，一会下面会用到。
+
+### 来个泛型接口
+
+> 上面是个泛型类，类名后面后尖括号
+
+### 来2个实现类
+
+> 两个实现类都会标注@Compontent，交给spring容器管理
+
+#### UserDao
+
+> @1：指定了IDao后面泛型的类型为UserModel
+
+#### OrderDao
+
+> @1：指定了IDao后面泛型的类型为OrderModel
+
+### 在来个泛型类型
+
+> BaseService同样是个泛型类
+>
+> @1：这个地方要注意了，上面使用了@Autowired，来注入IDao对象
+
+### BaseService来2个子类
+
+> 两个子类都会标注@Compontent，交给spring容器管理
+
+#### UserService
+
+> @1：指定了BaseService后面泛型的类型为UserModel
+
+#### OrderService
+
+> @1：指定了BaseService后面泛型的类型为OrderModel
+>
+> **UserService和OrderService继承了BaseService，所以一会BaseService中的dao属性会被注入，一 会我们关注一下dao这个属性的值，会是什么样的**
+
+### 来个总的配置类
+
+> 上面有@CompontentScan注解，会自动扫描当前包中的所有类，并进行自动注入
+
+### 来个测试用例 {#来个测试用例}
+
+> 上面代码中会将两个service中的dao输出，我们来看一下效果
+
+### 运行输出 {#运行输出-12}
+
+> 结果就是重点了，dao属性并没有指定具体需要注入那个bean，此时是根据尖括号中的泛型类型来匹配的，这个功能也是相当厉害的。
+
+## 总结 {#总结-10}
+
+#### 这篇文中内容比较多，每个案例大家都要去敲一遍，不清楚的，可以留言，或者直接微信中@我
+
+1.  需要掌握@Autowired注解和@Resource注解中候选者查找的过程
+
+2.  @Autowired：先通过类型找，然后通过名称找
+
+3.  @Resource：先通过名称找，然后通过类型找
+
+4.  @Autowired和@Resource，建议开发中使用@Autowired来实现依赖注入，spring的注解用起来更名正言顺一些
+
+5.  @Qulifier：限定符，可以用在类上；也可以用在依赖注入的地方，可以对候选者的查找进行过滤
+
+6.  @Primary：多个候选者的时候，可以标注某个候选者为主要的候选者
+
+7.  @Bean中注入依赖的3种方式需要掌握
+
+8.  掌握泛型注入的使用
+
+9.  **主要还是掌握候选者的查找过程，过程熟悉了，其他的都是小意思，回头再去看看上面的几个查找 的流程图。**
+
+## 案例源码 {#案例源码-2}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第22篇：@Scope、@DependsOn、@ImportResource、@Lazy
+
+## 面试问题
+
+1.  @Scope是做什么的？常见的用法有几种？
+
+2.  @DependsOn是做什么的？常见的用法有几种？
+
+3.  @ImportResource干什么的？通常用在什么地方？
+
+4.  @Lazy做什么的，通常用在哪些地方？常见的用法有几种？
+
+> 上面几个问题中涉及到了4个注解，都是比较常用的，下面我们来一一介绍。
+
+## @Scope：指定bean的作用域
+
+### 用法 {#用法}
+
+> 关于什么是bean的作用域，可以去看一下之前的一篇文章：<span class="underline">S</span> <span class="underline">pring系列第6篇：玩转bean scope，避免</span>
+>
+> <span class="underline">跳</span> <span class="underline">坑里！</span>
+>
+> @Scope用来配置bean的作用域，等效于bean xml中的bean元素中的scope属性。看一下其源码：
+>
+> @Scope可以用在类上和方法上
+>
+> 参数：value和scopeName效果一样，用来指定bean作用域名称，如：singleton、prototype
+
+### 常见2种用法
+
+1.  和@Compontent一起使用在类上
+
+2.  和@Bean一起标注在方法上
+
+### 案例1：和@Compontent一起使用在类上
+
+> 上面定义了一个bean，作用域为单例的。
+>
+> @1：ConfigurableBeanFactory接口中定义了几个作用域相关的常量，可以直接拿来使用，如： String SCOPE_SINGLETON = "singleton";
+>
+> String SCOPE_PROTOTYPE = "prototype";
+
+### 案例2：和@Bean一起标注在方法上
+
+> @Bean标注在方法上，可以通过这个方法来向spring容器中注册一个bean，在此方法上加上@Scope可 以指定这个bean的作用域，如：
+
+## @DependsOn：指定当前bean依赖的bean
+
+### 用法 {#用法-7}
+
+> 前面有篇文章中介绍了bean xml中depend-on的使用，建议先看一下：<span class="underline">Spring系列第9篇：depend-on</span>
+>
+> <span class="underline">到</span> <span class="underline">底是干什么的？</span>
+>
+> @DependsOn等效于bean xml中的bean元素中的depend-on属性。
+>
+> spring在创建bean的时候，如果bean之间没有依赖关系，那么spring容器很难保证bean实例创建的顺 序，如果想确保容器在创建某些bean之前，需要先创建好一些其他的bean，可以通过@DependsOn来实现，**@DependsOn可以指定当前bean依赖的bean，通过这个可以确保@DependsOn指定的bean 在当前bean创建之前先创建好**
+>
+> 看一下其源码：
+>
+> 可以用在任意类型和方法上。
+>
+> value：string类型的数组，用来指定当前bean需要依赖的bean名称，可以确保当前容器在创建 被@DependsOn标注的bean之前，先将value指定的多个bean先创建好。
+
+### 常见2种用法
+
+1.  和@Compontent一起使用在类上
+
+2.  和@Bean一起标注在方法上
+
+### 案例1：和@Compontent一起使用在类上
+
+> 下面定义3个bean：service1、service2、service3；service1需要依赖于其他2个service，需要确保容 器在创建service1之前需要先将其他2个bean先创建好。
+>
+> 看代码：
+
+#### Service2 {#service2}
+
+> **Service3**
+
+#### Service1
+
+> @1：使用了@DependsOn，指定了2个bean：service2和service3，那么spring容器在创建上面这个service1的时候会先将@DependsOn中指定的2个bean先创建好
+
+#### 来个配置类 {#来个配置类-2}
+
+> **测试用例**
+
+#### 运行输出 {#运行输出}
+
+> 从输出中可以看到，spring容器在创建service1之前，先将service2和service3创建好了。
+
+### 案例2：和@Bean一起标注在方法上
+
+> 下面通过配置文件的方式来创建bean，如下：
+>
+> 上面是一个spring的配置类，类中3个方法定义了3个bean
+>
+> @1：这个地方使用了@DependsOn，表示service1这个bean创建之前，会先创建好service2和service3
+>
+> 来个测试用例
+>
+> 运行输出
+
+## @ImportResource：配置类中导入bean定义的配置文件
+
+### 用法 {#用法}
+
+> 有些项目，前期可能采用xml的方式配置bean，后期可能想采用spring注解的方式来重构项目，但是有些老的模块可能还是xml的方式，spring为了方便在注解方式中兼容老的xml的方式，提供了
+>
+> @ImportResource注解来引入bean定义的配置文件。
+>
+> bean定义配置文件：目前我们主要介绍了xml的方式，还有一种properties文件的方式，以后我们会介 绍，此时我们还是以引入bean xml来做说明。
+>
+> 看一下这个注解的定义：
+>
+> **通常将其用在配置类上。**
+>
+> 有3个参数：
+>
+> value和locations效果一样，只能配置其中一个，是一个string类型的数组，用来指定需要导 入的配置文件的路径。
+>
+> reader：用来指定bean定义的读取器，目前我们知道的配置bean的方式有xml文件的方
+>
+> 式，注解的方式，其实还有其他的方式，比如properties文件的方式，如果用其他的方式， 你得告诉spring具体要用那种解析器去解析这个bean配置文件，这个解析器就是BeanDefinitionReader，以后我们讲BeanDefinition的时候再细说。
+
+### 资源文件路径的写法
+
+> 通常我们的项是采用maven来组织的，配置文件一般会放在resources目录，这个目录中的文件被编译 之后会在target/classes目录中。
+>
+> spring中资源文件路径最常用的有2种写法：
+
+1.  **以classpath:开头**：检索目标为当前项目的classes目录
+
+2.  **以classpath*:开头**：检索目标为当前项目的classes目录，以及项目中所有jar包中的目录，如果你确定jar不是检索目标，就不要用这种方式，由于需要扫描所有jar包，所以速度相对于第一种会
+
+> 慢一些
+>
+> 那我们再来说classpath:和classpath*:后面的部分，后面的部分是确定资源文件的位置地方，几种常见 的如下：
+
+#### 相对路径的方式
+
+> **/：绝对路径的方式**
+
+#### *：文件通配符的方式
+
+> 会匹配test5目录中所有以beans-开头的xml结尾的文件
+
+#### *：目录通配符的方式
+
+> 会匹配demo27中所有子目录中所有以beans-开头的xml结尾的文件，注意这个地方只包含
+>
+> demo27的子目录，不包含子目录的子目录，不会进行递归
+
+#### **：递归任意子目录的方式
+
+> **会递归当前目录以及下面任意级的子目录
+>
+> ok，继续回到@ImportResource上来，来看案例
+
+### 案例代码 {#案例代码-1}
+
+> 来2个类，这两个类我们分别用2个xml来定义bean
+
+#### ServiceA
+
+> **ServiceB**
+
+#### beans1.xml来定义serviceA这个bean，如下
+
+> **beans2.xml来定义serviceB这个bean，如下**
+
+#### 下面来个配置类，来引入上面2个配置文件
+
+> 这个类上使用了@Configurable表示这是个配置类
+>
+> 并且使用了@ImportResource注解来导入上面2个配置文件
+
+#### 来个测试用例加载上面这个配置类
+
+> 上面会输出MainConfig5配置类中所有定义的bean
+
+#### 运行输出 {#运行输出-13}
+
+> 从输出中可以看出2个xml中定义的bean也被注册了
+
+## @Lazy：延迟初始化
+
+### 用法 {#用法-8}
+
+> @Lazy等效于bean xml中bean元素的lazy-init属性，可以实现bean的延迟初始化。
+
+#### 所谓延迟初始化：就是使用到的时候才会去进行初始化。
+
+> 来看一下其定义：
+>
+> 可以用在任意类型、方法、构造器、参数、字段上面参数：
+>
+> value：boolean类型，用来配置是否应发生延迟初始化，默认为true。
+
+### 常用3种方式
+
+1.  和@Compontent一起标注在类上，可以是这个类延迟初始化
+
+2.  和@Configuration一起标注在配置类中，可以让当前配置类中通过@Bean注册的bean延迟初始化
+
+3.  和@Bean一起使用，可以使当前bean延迟初始化
+
+> 来看一下这3种方式案例代码。
+
+### 案例1：和@Compontent一起使用
+
+#### Service1
+
+> @1：使用到了@Lazy，默认值为true，表示会被延迟初始化，在容器启动过程中不会被初始化， 当从容器中查找这个bean的时候才会被初始化。
+
+#### 配置类
+
+> **测试用例**
+>
+> 运行输出
+>
+> 可以看出service1这个bean在spring容器启动过程中并没有被创建，而是在我们调用getBean进 行查找的时候才进行创建的，此时起到了延迟创建的效果。
+
+### 案例2：和@Configuration一起使用加在配置类上
+
+> @Lazy和@Configuration一起使用，此时配置类中所有通过@Bean方式注册的bean都会被延迟初始 化，不过也可以在@Bean标注的方法上使用@Lazy来覆盖配置类上的@Lazy配置，看下面代码：
+
+#### 配置类MainConfig7
+
+> @1：配置类上使用了@Lazy，此时会对当前类中所有@Bean标注的方法生效
+>
+> @2：这个方法上面使用到了@Lazy(false)，此时age这个bean不会被延迟初始化。其他2个bean
+>
+> 会被延迟初始化。
+
+#### 测试用例 {#测试用例-11}
+
+> 上面会输出配置类中定义的3个bean的信息。
+
+#### 运行输出 {#运行输出}
+
+> 输出中可以看到age是在容器启动过程中创建的，其他2个是在通过getBean查找的时候才创建的。
+
+## 总结 {#总结}
+
+1.  本文介绍的几个注解也算是比较常用的，大家一定要熟悉他们的用法
+
+2.  @Scope：用来定义bean 的作用域；2种用法：第1种：标注在类上；第2种：和@Bean一起标注在方法上
+
+3.  @DependsOn：用来指定当前bean依赖的bean，可以确保在创建当前bean之前，先将依赖的bean创建好；2种用法：第1种：标注在类上；第2种：和@Bean一起标注在方法上
+
+4.  @ImportResource：标注在配置类上，用来引入bean定义的配置文件
+
+5.  @Lazy：让bean延迟初始化；常见3种用法：第1种：标注在类上；第2种：标注在配置类上，会对配置类中所有的@Bean标注的方法有效；第3种：和@Bean一起标注在方法上
+
+## 案例源码 {#案例源码}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第23篇：Bean生命周期详解
+
+## 来看几个问题
+
+1.  想不想面试的时候每月多1万？
+
+2.  想不想进入公司架构组？
+
+3.  想不想成为项目组的负责人？
+
+4.  想不想成为spring的高手，超越99%的对手？
+
+> 那么本文内容是你必须要掌握的。
+>
+> 本文主要详解bean的生命周期，分为12个环节，每个环节中spring都提供了一些扩展点，我们都将进行详细说明，让大家全面掌握这块的知识。
+
+## Spring bean生命周期12个环节
+
+1.  阶段1：Bean元信息配置阶段
+
+2.  阶段2：Bean元信息解析阶段
+
+3.  阶段3：将Bean注册到容器中
+
+4.  阶段4：BeanDefinition合并阶段
+
+5.  阶段5：Bean Class加载阶段
+
+6.  阶段6：Bean实例化阶段（2个小阶段）
+
+> Bean实例化前阶段Bean实例化阶段
+
+7.  阶段7：合并后的BeanDefinition处理
+
+8.  阶段8：属性赋值阶段（3个小阶段）
+
+> Bean实例化后阶段Bean属性赋值前阶段Bean属性赋值阶段
+
+9.  阶段9：Bean初始化阶段（5个小阶段）
+
+> Bean Aware接口回调阶段Bean初始化前阶段
+>
+> Bean初始化阶段Bean初始化后阶段
+
+10. 阶段10：所有单例bean初始化完成后阶段
+
+11. 阶段11：Bean的使用阶段
+
+12. 阶段12：Bean销毁前阶段
+
+13. 阶段13：Bean销毁阶段
+
+## 阶段1：Bean元信息配置阶段
+
+> 这个阶段主要是bean信息的定义阶段。
+
+### Bean信息定义4种方式
+
+> API的方式Xml文件方式
+>
+> properties文件的方式注解的方式
+
+### API的方式
+
+> 先来说这种方式，因为其他几种方式最终都会采用这种方式来定义bean配置信息。
+>
+> **Spring容器启动的过程中，会将Bean解析成Spring内部的BeanDefinition结构**。 不管是是通过xml 配置文件的<Bean> 标签，还是通过注解配置的@Bean ，还是@Compontent 标注的类，还是扫描得到的类，它最终都会被解析成一个BeanDefinition对象，最后我们的Bean工厂就会根据这份Bean的定义 信息，对bean进行实例化、初始化等等操作。
+>
+> 你可以把BeanDefinition丢给Bean工厂，然后Bean工厂就会根据这个信息帮你生产一个Bean实例，拿 去使用。
+>
+> BeanDefinition里面里面包含了bean定义的各种信息，如：bean对应的class、scope、lazy信息、dependOn信息、autowireCandidate（是否是候选对象）、primary（是否是主要的候选者）等信息。
+>
+> BeanDefinition是个接口，有几个实现类，看一下类图：
+>
+> ![](media/image20.png){width="5.803472222222222in" height="0.9986111111111111in"}
+
+#### BeanDefinition接口：bean定义信息接口
+
+> 表示bean定义信息的接口，里面定义了一些获取bean定义配置信息的各种方法，来看一下源码：
+>
+> boolean isLazyInit();
+>
+> /**
+>
+> * 设置此bean依赖于初始化的bean的名称,bean工厂将保证dependsOn指定的bean会在当前bean初始化之前先初始化好
+>
+> */
+>
+> void setDependsOn(@Nullable String... dependsOn);
+>
+> /**
+>
+> * 返回此bean所依赖的bean名称
+>
+> */ @Nullable
+>
+> String[] getDependsOn();
+>
+> /**
+
+-   设置此bean是否作为其他bean自动注入时的候选者
+
+-   autowireCandidate
+
+> */
+>
+> void setAutowireCandidate(boolean autowireCandidate);
+>
+> /**
+
+-   返回此bean是否作为其他bean自动注入时的候选者
+
+> */
+>
+> boolean isAutowireCandidate();
+>
+> /**
+
+-   设置此bean是否为自动注入的主要候选者
+
+-   primary：是否为主要候选者
+
+> */
+>
+> void setPrimary(boolean primary);
+>
+> /**
+
+-   返回此bean是否作为自动注入的主要候选者
+
+> */
+>
+> boolean isPrimary();
+>
+> /**
+
+-   指定要使用的工厂bean（如果有）。这是要对其调用指定工厂方法的bean的名称。
+
+-   factoryBeanName：工厂bean名称
+
+> */
+>
+> void setFactoryBeanName(@Nullable String factoryBeanName);
+>
+> /**
+
+-   返回工厂bean名称（如果有）（对应xml中bean元素的factory-bean属性）
+
+> */ @Nullable
+>
+> String getFactoryBeanName();
+>
+> /**
+
+-   指定工厂方法（如果有）。此方法将使用构造函数参数调用，如果未指定任何参数，则不使用任何参 数调用。该方法将在指定的工厂bean（如果有的话）上调用，或者作为本地bean类上的静态方法调用。
+
+-   factoryMethodName：工厂方法名称
+
+> */
+>
+> void setFactoryMethodName(@Nullable String factoryMethodName);
+>
+> /**
+
+-   返回工厂方法名称（对应xml中bean的factory-method属性）
+
+> */
+>
+> @Nullable
+>
+> String getFactoryMethodName();
+>
+> /**
+
+-   返回此bean的构造函数参数值
+
+> */
+>
+> ConstructorArgumentValues getConstructorArgumentValues();
+>
+> /**
+
+-   是否有构造器参数值设置信息（对应xml中bean元素的<constructor-arg />子元素）
+
+> */
+>
+> default boolean hasConstructorArgumentValues() { return !getConstructorArgumentValues().isEmpty();
+>
+> }
+
+/**
+
+-   获取bean定义是配置的属性值设置信息
+
+*/
+
+> MutablePropertyValues getPropertyValues();
+>
+> /**
+
+-   这个bean定义中是否有属性设置信息（对应xml中bean元素的<property />子元素）
+
+> */
+>
+> default boolean hasPropertyValues() { return !getPropertyValues().isEmpty();
+>
+> }
+>
+> /**
+
+-   设置bean初始化方法名称
+
+*/
+
+> void setInitMethodName(@Nullable String initMethodName);
+
+/**
+
+-   bean初始化方法名称
+
+> */ @Nullable
+>
+> String getInitMethodName();
+
+/**
+
+-   设置bean销毁方法的名称
+
+*/
+
+> void setDestroyMethodName(@Nullable String destroyMethodName);
+
+/**
+
+-   bean销毁的方法名称
+
+> */ @Nullable
+>
+> String getDestroyMethodName();
+>
+> /**
+
+-   设置bean的role信息
+
+> */
+>
+> void setRole(int role);
+>
+> /**
+
+-   bean定义的role信息
+
+> */
+>
+> int getRole();
+
+/**
+
+-   设置bean描述信息
+
+*/
+
+> void setDescription(@Nullable String description);
+>
+> /**
+
+-   bean描述信息
+
+> */ @Nullable
+>
+> String getDescription();
+>
+> /**
+
+-   bean类型解析器
+
+> */
+>
+> ResolvableType getResolvableType();
+>
+> /**
+
+-   是否是单例的bean
+
+> */
+>
+> boolean isSingleton();
+>
+> /**
+
+-   是否是多列的bean
+
+> */
+>
+> boolean isPrototype();
+>
+> /**
+
+-   对应xml中bean元素的abstract属性，用来指定是否是抽象的
+
+> */
+>
+> boolean isAbstract();
+>
+> /**
+
+-   返回此bean定义来自的资源的描述（以便在出现错误时显示上下文）
+
+> */ @Nullable
+>
+> String getResourceDescription();
+>
+> @Nullable
+>
+> BeanDefinition getOriginatingBeanDefinition();
+>
+> }
+>
+> BeanDefinition接口上面还继承了2个接口：
+>
+> AttributeAccessor BeanMetadataElement
+>
+> **AttributeAccessor接口：属性访问接口**
+>
+> 这个接口相当于key->value数据结构的一种操作，BeanDefinition继承这个，内部实际上是使用了
+>
+> LinkedHashMap来实现这个接口中的所有方法，通常我们通过这些方法来保存BeanDefinition定义过 程中产生的一些附加信息。
+>
+> **BeanMetadataElement接口**
+>
+> 看一下其源码：
+>
+> BeanDefinition继承这个接口，getSource返回BeanDefinition定义的来源，比如我们通过xml定义BeanDefinition的，此时getSource就表示定义bean的xml资源；若我们通过api的方式定义BeanDefinition，我们可以将source设置为定义BeanDefinition时所在的类，出错时，可以根据这个来源方便排错。
+
+#### RootBeanDefinition类：表示根bean定义信息
+
+> 通常bean中没有父bean的就使用这种表示
+
+#### ChildBeanDefinition类：表示子bean定义信息
+
+> 如果需要指定父bean的，可以使用ChildBeanDefinition来定义子bean的配置信息，里面有个
+>
+> parentName 属性，用来指定父bean的名称。
+
+#### GenericBeanDefinition类：通用的bean定义信息
+
+> 既可以表示没有父bean的bean配置信息，也可以表示有父bean的子bean配置信息，这个类里面也有
+>
+> parentName属性，用来指定父bean的名称。
+
+#### ConfigurationClassBeanDefinition类：表示通过配置类中@Bean方法定义bean信息
+
+> 可以通过配置类中使用@Bean来标注一些方法，通过这些方法来定义bean，这些方法配置的bean信息最后会转换为ConfigurationClassBeanDefinition类型的对象
+
+#### AnnotatedBeanDefinition接口：表示通过注解的方式定义的bean信息
+
+> 里面有个方法
+>
+> 用来获取定义这个bean的类上的所有注解信息。
+
+#### BeanDefinitionBuilder：构建BeanDefinition的工具类
+
+> spring中为了方便操作BeanDefinition，提供了一个类： BeanDefinitionBuilder ，内部提供了很多静态方法，通过这些方法可以非常方便的组装BeanDefinition对象，下面我们通过案例来感受一下。
+
+#### 案例1：组装一个简单的bean 来个简单的类
+
+> **测试用例**
+>
+> 等效于
+>
+> **运行输出**
+>
+> **案例2：组装一个有属性的bean** **代码**
+>
+> @1：调用addPropertyValue给Car中的name设置值@2：创建了一个spring容器
+>
+> @3：将carBeanDefinition这个bean配置信息注册到spring容器中，bean的名称为car @4：从容器中获取car这个bean，最后进行输出
+>
+> **运行输出**
+>
+> 第二行输出了从容器中获取的car这个bean实例对象。
+
+#### 案例3：组装一个有依赖关系的bean 再来个类
+
+> 下面这个类中有个car属性，我们通过spring将这个属性注入进来。
+>
+> **重点代码**
+>
+> @1：注入依赖的bean，需要使用addPropertyReference方法，2个参数，第一个为属性的名称，第二 个为需要注入的bean的名称
+>
+> 上面代码等效于
+>
+> **运行输出**
+>
+> **案例4：来2个有父子关系的bean**
+>
+> 等效于
+>
+> **运行输出**
+>
+> **案例5：通过api设置（Map、Set、List）属性**
+>
+> 下面我们来演示注入List、Map、Set，内部元素为普通类型及其他bean元素。
+>
+> **来个类**
+>
+> **注意：上面省略了get和set方法，大家写的时候记得补上****先用xml来定义一个CompositeObj的bean，如下**
+>
+> **下面我们采用纯api的方式实现，如下**
+>
+> stringMap.put("系列3", "mysql系列");
+>
+> ManagedMap<String, RuntimeBeanReference> stringCarMap = new ManagedMap<>(); stringCarMap.put("car1", new RuntimeBeanReference("car1")); stringCarMap.put("car2", new RuntimeBeanReference("car2"));
+>
+> //下面我们使用原生的api来创建BeanDefinition
+>
+> GenericBeanDefinition compositeObj = new GenericBeanDefinition(); compositeObj.setBeanClassName(CompositeObj.class.getName()); compositeObj.getPropertyValues().add("name", "  喔喔松Java").
+>
+> add("salary", 50000).
+>
+> add("car1", new RuntimeBeanReference("car1")). add("stringList", stringList).
+>
+> add("carList", carList). add("stringSet", stringSet). add("carSet", carSet). add("stringMap", stringMap). add("stringCarMap", stringCarMap);
+>
+> //将上面bean 注册到容器
+>
+> DefaultListableBeanFactory factory = new DefaultListableBeanFactory(); factory.registerBeanDefinition("car1", car1); factory.registerBeanDefinition("car2", car2); factory.registerBeanDefinition("compositeObj", compositeObj);
+>
+> //下面我们将容器中所有的bean输出
+>
+> for (String beanName : factory.getBeanDefinitionNames()) { System.out.println(String.format("%s->%s", beanName,
+>
+> factory.getBean(beanName)));
+>
+> }
+>
+> }
+>
+> 有几点需要说一下：
+>
+> RuntimeBeanReference： 用 来 表 示 bean 引 用 类 型 ， 类 似 于 xml 中 的 ref ManagedList：属性如果是List类型的，t需要用到这个类进行操作，这个类继承了ArrayList ManagedSet：属性如果是Set类型的，t需要用到这个类进行操作，这个类继承了LinkedHashSet
+>
+> ManagedMap：属性如果是Map类型的，t需要用到这个类进行操作，这个类继承了LinkedHashMap
+>
+> 上面也就是这几个类结合的结果。
+>
+> **看一下效果，运行输出**
+
+### Xml文件方式
+
+> 这种方式已经讲过很多次了，大家也比较熟悉，即通过xml的方式来定义bean，如下
+>
+> xml中的bean配置信息会被解析器解析为BeanDefinition对象，一会在第二阶段详解。
+
+### properties文件的方式
+
+> 这种方式估计大家比较陌生，将bean定义信息放在properties文件中，然后通过解析器将配置信息解析为BeanDefinition对象。
+>
+> properties内容格式如下：
+
+### 注解的方式
+
+> 常见的2种：
+
+1.  类上标注@Compontent注解来定义一个bean
+
+2.  配置类中使用@Bean注解来定义bean
+
+### 小结
+
+> **bean注册者只识别BeanDefinition对象，不管什么方式最后都会将这些bean定义的信息转换为BeanDefinition对象，然后注册到spring容器中。**
+
+## 阶段2：Bean元信息解析阶段
+
+> Bean元信息的解析就是将各种方式定义的bean配置信息解析为BeanDefinition对象。
+
+### Bean元信息的解析主要有3种方式
+
+1.  xml文件定义bean的解析
+
+2.  properties文件定义bean的解析
+
+3.  注解方式定义bean的解析
+
+### XML方式解析：XmlBeanDefinitionReader
+
+> spring中提供了一个类XmlBeanDefinitionReader ，将xml中定义的bean解析为BeanDefinition对象。
+>
+> 直接来看案例代码
+
+#### 来一个bean xml配置文件
+
+> 上面注册了4个bean，不多解释了。
+
+#### 将bean xml解析为BeanDefinition对象
+
+> 上面注释比较详细，这里就不解释了。
+>
+> 注意一点：创建XmlBeanDefinitionReader的时候需要传递一个bean注册器
+>
+> (BeanDefinitionRegistry)，解析过程中生成的BeanDefinition会丢到bean注册器中。
+
+#### 运行输出 {#运行输出-14}
+
+> 共注册了 4 个bean car:
+>
+> beanDefinitionClassName： org.springframework.beans.factory.support.GenericBeanDefinition
+>
+> beanDefinition：Generic bean: class [com.javacode2018.lesson002.demo1.Car]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0;
+>
+> autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [com/javacode2018/lesson002/demo2/beans.xml]
+>
+> bean：Car{name='奥迪'}
+>
+> car1:
+>
+> beanDefinitionClassName： org.springframework.beans.factory.support.GenericBeanDefinition
+>
+> beanDefinition：Generic bean: class [com.javacode2018.lesson002.demo1.Car]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null;
+>
+> factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [com/javacode2018/lesson002/demo2/beans.xml]
+>
+> bean：Car{name='保时捷'}
+>
+> car2:
+>
+> beanDefinitionClassName： org.springframework.beans.factory.support.GenericBeanDefinition
+>
+> beanDefinition：Generic bean with parent 'car1': class [null]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null;
+>
+> factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [com/javacode2018/lesson002/demo2/beans.xml]
+>
+> bean：Car{name='保时捷'}
+>
+> user:
+>
+> beanDefinitionClassName： org.springframework.beans.factory.support.GenericBeanDefinition
+>
+> beanDefinition：Generic bean: class [com.javacode2018.lesson002.demo1.User]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null;
+>
+> factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [com/javacode2018/lesson002/demo2/beans.xml]
+>
+> bean：User{name='  喔喔松Java', car=Car{name='奥迪'}}
+>
+> 上面的输出认真看一下，这几个BeanDefinition都是 GenericBeanDefinition 这种类型的，也就是说
+>
+> xml中定义的bean被解析之后都是通过GenericBeanDefinition 这种类型表示的。
+
+### properties文件定义bean的解析：PropertiesBeanDefinitionReader
+
+> spring中提供了一个类XmlBeanDefinitionReader ，将xml中定义的bean解析为BeanDefinition对象，过程和xml的方式类似。
+>
+> 来看案例代码。
+>
+> 下面通过properties文件的方式实现上面xml方式定义的bean。
+
+#### 来个properties文件：beans.properties
+
+> **将bean properties文件解析为BeanDefinition对象**
+
+#### 运行输出 {#运行输出}
+
+> user:
+>
+> beanDefinitionClassName： org.springframework.beans.factory.support.GenericBeanDefinition
+>
+> beanDefinition：Generic bean: class [com.javacode2018.lesson002.demo1.User]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null;
+>
+> factoryMethodName=null; initMethodName=null; destroyMethodName=null bean：User{name='  喔喔松Java', car=Car{name='奥迪'}}
+>
+> car1:
+>
+> beanDefinitionClassName： org.springframework.beans.factory.support.GenericBeanDefinition
+>
+> beanDefinition：Generic bean: class [com.javacode2018.lesson002.demo1.Car]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null;
+>
+> factoryMethodName=null; initMethodName=null; destroyMethodName=null bean：Car{name='保时捷'}
+>
+> car:
+>
+> beanDefinitionClassName： org.springframework.beans.factory.support.GenericBeanDefinition
+>
+> beanDefinition：Generic bean: class [com.javacode2018.lesson002.demo1.Car]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null;
+>
+> factoryMethodName=null; initMethodName=null; destroyMethodName=null bean：Car{name='奥迪'}
+>
+> car2:
+>
+> beanDefinitionClassName： org.springframework.beans.factory.support.GenericBeanDefinition
+>
+> beanDefinition：Generic bean with parent 'car1': class [null]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null;
+>
+> factoryMethodName=null; initMethodName=null; destroyMethodName=null bean：Car{name='保时捷'}
+>
+> 输出和xml方式输出基本上一致。
+>
+> properties方式使用起来并不是太方便，所以平时我们很少看到有人使用。
+
+### 注解方式：PropertiesBeanDefinitionReader
+
+> 注解的方式定义的bean，需要使用PropertiesBeanDefinitionReader这个类来进行解析，方式也和上面2种方式类似，直接来看案例。
+
+#### 通过注解来标注2个类
+
+> **Service1**
+>
+> 这个类上面使用了3个注解，这些注解前面都介绍过，可以用来配置bean的信息上面这个bean是个多例的。
+>
+> **Service2**
+>
+> @1：标注了@Autowired，说明需要注入这个对象
+
+#### 注解定义的bean解析为BeanDefinition，如下：
+
+> **运行输出**
+>
+> 输出中可以看出service1这个bean的beanDefinition中lazyInit确实为true，primary也为true，scope 为prototype，说明类Service1注解上标注3个注解信息被解析之后放在了beanDefinition中。
+>
+> **注意下：最后一行中的service1为什么为null，不是标注了@Autowired么？** 这个地方提前剧透一下，看不懂的没关系，这篇文章都结束之后，就明白了。 调整一下上面的代码，加上下面@1这行代码，如下：
+>
+> 再次运行一下，最后一行有值了：
+>
+> **目前进行到第二个阶段了，还有14个阶段，本文内容比较长，建议先收藏起来，慢慢看，咱们继续。**
+
+## 阶段3：Spring Bean注册阶段
+
+> bean注册阶段需要用到一个非常重要的接口：BeanDefinitionRegistry
+
+### Bean注册接口：BeanDefinitionRegistry
+
+> 这个接口中定义了注册bean常用到的一些方法，源码如下：
+>
+> public interface BeanDefinitionRegistry extends AliasRegistry {
+>
+> /**
+
+-   注册一个新的bean定义
+
+-   beanName：bean的名称
+
+-   beanDefinition：bean定义信息
+
+> */
+>
+> void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) throws BeanDefinitionStoreException;
+>
+> /**
+
+-   通过bean名称移除已注册的bean
+
+-   beanName：bean名称
+
+> */
+>
+> void removeBeanDefinition(String beanName) throws NoSuchBeanDefinitionException;
+>
+> /**
+
+-   通过名称获取bean的定义信息
+
+-   beanName：bean名称
+
+> */
+>
+> BeanDefinition getBeanDefinition(String beanName) throws NoSuchBeanDefinitionException;
+>
+> /**
+
+-   查看beanName是否注册过
+
+> */
+>
+> boolean containsBeanDefinition(String beanName);
+>
+> /**
+
+-   获取已经定义（注册）的bean名称列表
+
+> */
+>
+> String[] getBeanDefinitionNames();
+>
+> /**
+
+-   返回注册器中已注册的bean数量
+
+> */
+>
+> int getBeanDefinitionCount();
+>
+> /**
+
+-   确定给定的bean名称或者别名是否已在此注册表中使用
+
+-   beanName：可以是bean名称或者bean的别名
+
+> */
+>
+> boolean isBeanNameInUse(String beanName);
+>
+> }
+
+### 别名注册接口：AliasRegistry
+
+> BeanDefinitionRegistry 接口继承了AliasRegistry 接口，这个接口中定义了操作bean别名的一些方法，看一下其源码：
+
+### BeanDefinitionRegistry唯一实现：DefaultListableBeanFactory
+
+> spring中BeanDefinitionRegistry接口有一个唯一的实现类：
+>
+> 大家可能看到有很多类也实现了BeanDefinitionRegistry 接口，比如我们经常用到的AnnotationConfigApplicationContext ，但实际上其内部是转发给了DefaultListableBeanFactory 进行处理的，所以真正实现这个接口的类是
+>
+> 大家再回头看一下开头的几个案例，都使用的是DefaultListableBeanFactory 作为bean注册器，此时你们应该可以理解为什么了。
+>
+> 下面我们来个案例演示一下上面常用的一些方法。
+
+### 案例 {#案例}
+
+#### 代码 {#代码}
+
+> **运行输出**
+>
+> **下面要介绍的从阶段4到阶段14，也就是从：** BeanDefinition合并阶段 **到** Bean初始化完成阶段 **，都是在调用getBean从容器中获取bean对象的过程中发送的操作，要注意细看了，大家下去了建议去看getBean这个方法的源码，以下过程均来自于这个方法：**
+
+## 阶段4：BeanDefinition合并阶段
+
+### 合并阶段是做什么的？
+
+> 可能我们定义bean的时候有父子bean关系，此时子BeanDefinition中的信息是不完整的，比如设置属 性的时候配置在父BeanDefinition中，此时子BeanDefinition中是没有这些信息的，需要将子bean的BeanDefinition和父bean的BeanDefinition进行合并，得到最终的一个RootBeanDefinition ，合并之后得到的RootBeanDefinition 包含bean定义的所有信息，包含了从父bean中继继承过来的所有信息，后续bean的所有创建工作就是依靠合并之后BeanDefinition来进行的。
+>
+> 合并BeanDefinition会使用下面这个方法：
+>
+> **bean定义可能存在多级父子关系，合并的时候进进行递归合并，最终得到一个包含完整信息的RootBeanDefinition**
+
+### 案例 {#案例-12}
+
+#### 来一个普通的类
+
+> **通过xml定义3个具有父子关系的bean**
+>
+> lesson2相当于lesson1的儿子，lesson3相当于lesson1的孙子。
+
+#### 解析xml注册bean
+
+> 下面将解析xml，进行bean注册，然后遍历输出bean的名称，解析过程中注册的原始的
+>
+> BeanDefinition，合并之后的BeanDefinition，以及合并前后BeanDefinition中的属性信息
+
+#### 运行输出 {#运行输出-15}
+
+> 解 析 xml 过 程 中 注 册 的 beanDefinition：Generic bean: class [com.javacode2018.lesson002.demo4.LessonModel]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true;
+>
+> primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [com/javacode2018/lesson002/demo4/beans.xml]
+>
+> beanDefinition中的属性信息PropertyValues: length=0
+>
+> 合 并 之 后 得 到 的 mergedBeanDefinition：Root bean: class [com.javacode2018.lesson002.demo4.LessonModel]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true;
+>
+> primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [com/javacode2018/lesson002/demo4/beans.xml]
+>
+> mergedBeanDefinition中的属性信息PropertyValues: length=0
+>
+> lesson2
+>
+> 解析xml过程中注册的beanDefinition：Generic bean with parent 'lesson1': class [null]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null;
+>
+> factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [com/javacode2018/lesson002/demo4/beans.xml]
+>
+> beanDefinition中的属性信息PropertyValues: length=2; bean property 'name'; bean
+>
+> property 'lessonCount'
+>
+> 合 并 之 后 得 到 的 mergedBeanDefinition：Root bean: class [com.javacode2018.lesson002.demo4.LessonModel]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true;
+>
+> primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [com/javacode2018/lesson002/demo4/beans.xml]
+>
+> mergedBeanDefinition中的属性信息PropertyValues: length=2; bean property 'name';
+>
+> bean property 'lessonCount'
+>
+> lesson3
+>
+> 解析xml过程中注册的beanDefinition：Generic bean with parent 'lesson2': class [null]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null;
+>
+> factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [com/javacode2018/lesson002/demo4/beans.xml]
+>
+> beanDefinition中的属性信息PropertyValues: length=1; bean property 'description'
+>
+> 合 并 之 后 得 到 的 mergedBeanDefinition：Root bean: class [com.javacode2018.lesson002.demo4.LessonModel]; scope=singleton; abstract=false;
+>
+> lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [com/javacode2018/lesson002/demo4/beans.xml]
+>
+> mergedBeanDefinition中的属性信息PropertyValues: length=3; bean property 'name';
+>
+> bean property 'lessonCount'; bean property 'description'
+>
+> 从输出的结果中可以看到，合并之前，BeanDefinition是不完整的，比lesson2和lesson3中的class是
+>
+> null，属性信息也不完整，但是合并之后这些信息都完整了。
+>
+> 合并之前是GenericBeanDefinition 类型的，合并之后得到的是RootBeanDefinition 类型的。
+>
+> 获取lesson3合并的BeanDefinition时，内部会递归进行合并，先将lesson1和lesson2合并，然后将
+>
+> lesson2再和lesson3合并，最后得到合并之后的BeanDefinition。
+>
+> **后面的阶段将使用合并产生的RootBeanDefinition。**
+
+## 阶段5：Bean Class加载阶段
+
+#### 这个阶段就是将bean的class名称转换为Class类型的对象。
+
+> BeanDefinition中有个Object类型的字段：beanClass
+>
+> 用来表示bean的class对象，通常这个字段的值有2种类型，一种是bean对应的Class类型的对象，另一 种是bean对应的Class的完整类名，第一种情况不需要解析，第二种情况：即这个字段是bean的类名的时候，就需要通过类加载器将其转换为一个Class对象。
+>
+> 此时会对阶段4中合并产生的RootBeanDefinition 中的beanClass 进行解析，将bean的类名转换为
+>
+> Class对象 ，然后赋值给beanClass 字段。
+>
+> 源码位置：
+>
+> 上面得到了Bean Class对象以及合并之后的BeanDefinition，下面就开始进入实例化这个对象的阶段了。
+>
+> **Bean实例化分为3个阶段：前阶段、实例化阶段、后阶段；下面详解介绍。**
+
+## 阶段6：Bean实例化阶段
+
+### 分2个小的阶段
+
+1.  Bean实例化前操作
+
+2.  Bean实例化操作
+
+### Bean实例化前操作
+
+> 先来看一下DefaultListableBeanFactory ，这个类中有个非常非常重要的字段：
+>
+> 是一个BeanPostProcessor 类型的集合
+
+#### BeanPostProcessor是一个接口，还有很多子接口，这些接口中提供了很多方法，spring在bean生命 周期的不同阶段，会调用上面这个列表中的BeanPostProcessor中的一些方法，来对生命周期进行扩 展，bean生命周期中的所有扩展点都是依靠这个集合中的BeanPostProcessor来实现的，所以如果大 家想对bean的生命周期进行干预，这块一定要掌握好。
+
+> **注意：本文中很多以BeanPostProcessor结尾的，都实现了BeanPostProcessor接口，有些是直接实 现的，有些是实现了它的子接口。**
+>
+> Bean实例化之前会调用一段代码：
+>
+> 这段代码在bean实例化之前给开发者留了个口子，开发者自己可以在这个地方直接去创建一个对象作为bean实例，而跳过spring内部实例化bean的过程。
+>
+> 上面代码中轮询beanPostProcessors 列表，如果类型是
+>
+> InstantiationAwareBeanPostProcessor ， 尝试调用InstantiationAwareBeanPostProcessor#postProcessBeforeInstantiation 获取bean的实例对象，如果能够获取到，那么将返回值作为当前bean的实例，那么spring自带的实例化bean的过程就被跳过了。
+>
+> postProcessBeforeInstantiation 方法如下：
+>
+> 这个地方给开发者提供了一个扩展点，允许开发者在这个方法中直接返回bean的一个实例。下面我们来个案例看一下。
+
+#### 案例 {#案例}
+
+> public class InstantiationAwareBeanPostProcessorTest { @Test
+>
+> public void test1() {
+>
+> DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+>
+> //@1
+>
+> // 添 加 一 个 BeanPostProcessor：InstantiationAwareBeanPostProcessor factory.addBeanPostProcessor(new InstantiationAwareBeanPostProcessor() {
+>
+> @Nullable @Override
+>
+> public Object postProcessBeforeInstantiation(Class<?> beanClass,
+>
+> String beanName) throws BeansException {
+>
+> System.out.println("调用postProcessBeforeInstantiation()");
+>
+> //发现类型是Car类型的时候，硬编码创建一个Car对象返回if (beanClass == Car.class) {
+>
+> Car car = new Car(); car.setName("保时捷"); return car;
+>
+> }
+>
+> return null;
+>
+> }
+>
+> });
+>
+> //定义一个car bean,车名为：奥迪
+>
+> AbstractBeanDefinition carBeanDefinition = BeanDefinitionBuilder. genericBeanDefinition(Car.class). addPropertyValue("name", "奥迪"). //@2
+>
+> getBeanDefinition(); factory.registerBeanDefinition("car", carBeanDefinition);
+>
+> //从容器中获取car这个bean的实例，输出
+>
+> System.out.println(factory.getBean("car"));
+>
+> }
+>
+> }
+>
+> @1：创建了一个InstantiationAwareBeanPostProcessor，丢到了容器中的BeanPostProcessor
+>
+> 列表中
+>
+> @2：创建了一个car bean，name为奥迪
+
+#### 运行输出 {#运行输出}
+
+> bean定义的时候，名称为：奥迪，最后输出的为：保时捷
+>
+> 定义和输出不一致的原因是因为我们在InstantiationAwareBeanPostProcessor#postProcessBeforeInstantiation 方法中手动创建了一个实例直接返回了，而不是依靠spring内部去创建这个实例。
+
+#### 小结
+
+> 实际上，在实例化前阶段对bean的创建进行干预的情况，用的非常少，所以大部分bean的创建还会继续走下面的阶段。
+
+### Bean实例化操作
+
+#### 这个过程可以干什么？
+
+> 这个过程会通过反射来调用bean的构造器来创建bean的实例。
+>
+> 具体需要使用哪个构造器，spring为开发者提供了一个接口，允许开发者自己来判断用哪个构造器。看一下这块的代码逻辑：
+>
+> 会调用SmartInstantiationAwareBeanPostProcessor接口的determineCandidateConstructors 方法，这个方法会返回候选的构造器列表，也可以返回空，看一下这个方法的源码：
+>
+> 这个方法有个比较重要的实现类
+>
+> 可以将@Autowired 标注的方法作为候选构造器返回，有兴趣的可以去看一下代码。
+
+#### 案例 {#案例-13}
+
+> **下面我们来个案例，自定义一个注解，当构造器被这个注解标注的时候，让spring自动选择使用这个构 造器创建对象。**
+>
+> **自定义一个注解**
+>
+> 下面这个注解可以标注在构造器上面，使用这个标注之后，创建bean的时候将使用这个构造器。
+>
+> **来个普通的类**
+>
+> 下面这个类3个构造器，其中一个使用@MyAutowried ，让其作为bean实例化的方法。
+>
+> **自定义一个SmartInstantiationAwareBeanPostProcessor**
+>
+> 代码的逻辑：将@MyAutowried 标注的构造器列表返回
+>
+> **来个测试用例**
+>
+> **运行输出**
+>
+> 从输出中可以看出调用了Person中标注@MyAutowired标注的构造器。
+>
+> 到目前为止bean实例化阶段结束了，继续进入后面的阶段。
+
+## 阶段7：合并后的BeanDefinition处理
+
+> 这块的源码如下
+>
+> 会调用MergedBeanDefinitionPostProcessor接口的postProcessMergedBeanDefinition 方法，看一下这个方法的源码：
+>
+> spring会轮询BeanPostProcessor ，依次调用
+>
+> 第一个参数为beanDefinition，表示合并之后的RootBeanDefinition，我们可以在这个方法内部对合并 之后的BeanDefinition 进行再次处理
+>
+> **postProcessMergedBeanDefinition有2个实现类，前面我们介绍过，用的也比较多，面试的时候也 会经常问的：**
+
+## 阶段8：Bean属性设置阶段
+
+### 属性设置阶段分为3个小的阶段
+
+> 实例化后阶段
+>
+> Bean属性赋值前处理Bean属性赋值
+
+### 实例化后阶段
+
+> 会调用InstantiationAwareBeanPostProcessor 接口的postProcessAfterInstantiation 这个方法，调用逻辑如下：
+>
+> 看一下具体的调用逻辑如下：
+>
+> postProcessAfterInstantiation 方法返回false的时候，后续的**Bean属性赋值前处理、Bean**
+>
+> **属性赋值**都会被跳过了。
+>
+> 来看一下postProcessAfterInstantiation 这个方法的定义
+
+#### 来看个案例，案例中返回false，跳过属性的赋值操作。案例
+
+> **来个类**
+>
+> **测试用例**
+>
+> 下面很简单，来注册一个UserModel的bean
+>
+> 上面定义了2个bean：[user1,user2]，获取之后输出
+>
+> **运行输出**
+>
+> 此时UserModel中2个属性都是有值的。
+>
+> 下面来阻止user1的赋值，对代码进行改造，加入下面代码：
+>
+> 再次运行测试输出：
+>
+> user1的属性赋值被跳过了。
+
+### Bean属性赋值前阶段
+
+> 这个阶段会调用InstantiationAwareBeanPostProcessor 接口的postProcessProperties 方法，调用逻辑：
+>
+> 从上面可以看出，如果InstantiationAwareBeanPostProcessor 中的postProcessProperties 和postProcessPropertyValues 都返回空的时候，表示这个bean不需要设置属性，直接返回了，直接进入下一个阶段。
+>
+> 来看一下postProcessProperties 这个方法的定义：
+>
+> PropertyValues中保存了bean实例对象中所有属性值的设置，所以我们可以在这个这个方法中对PropertyValues值进行修改。
+
+#### 这个方法有2个比较重要的实现类
+
+> **AutowiredAnnotationBeanPostProcessor在这个方法中对@Autowired、@Value标注的字段、方法注入值。**
+>
+> **CommonAnnotationBeanPostProcessor在这个方法中对@Resource标注的字段和方法注入值。**
+>
+> **来个案例，我们在案例中对pvs进行修改。****案例**
+>
+> **案例代码**
+>
+> @1：user1这个bean没有设置属性的值
+>
+> @0：这个实现
+>
+> org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor#postProc essProperties 方法，在其内部对 user1 这个bean进行属性值信息进行修改。
+>
+> **运行输出**
+>
+> 上面过程都ok，进入bean赋值操作
+
+### Bean属性赋值阶段
+
+> 这个过程比较简单了，循环处理PropertyValues 中的属性值信息，通过反射调用set方法将属性的值设置到bean实例中。
+>
+> PropertyValues中的值是通过bean xml中property元素配置的，或者调用MutablePropertyValues中add方法设置的值。
+
+## 阶段9：Bean初始化阶段
+
+### 这个阶段分为5个小的阶段
+
+> Bean Aware接口回调Bean初始化前操作Bean初始化操作Bean初始化后操作Bean初始化完成操作
+
+### Bean Aware接口回调
+
+> 这块的源码：
+>
+> 如果我们的bean实例实现了上面的接口，会按照下面的顺序依次进行调用：
+>
+> 来个案例感受一下
+>
+> 来个类，实现上面3个接口。
+>
+> 来个测试类，创建上面这个对象的的bean
+>
+> 运行输出
+
+### Bean初始化前操作
+
+> 这个阶段的源码：
+>
+> 会调用BeanPostProcessor的postProcessBeforeInitialization 方法，若返回null，当前方法将结束。
+
+#### 通常称postProcessBeforeInitialization这个方法为：bean初始化前操作。
+
+> 这个接口有2个实现类，比较重要：
+
+#### ApplicationContextAwareProcessor注入6个Aware接口对象
+
+> 如果bean实现了下面的接口，在ApplicationContextAwareProcessor#postProcessBeforeInitialization 中会依次调用下面接口中的方法，将Aware 前缀对应的对象注入到bean实例中。
+>
+> 从名称上可以看出这个类以ApplicationContext 开头的，说明这个类只能在ApplicationContext
+>
+> 环境中使用。
+
+#### CommonAnnotationBeanPostProcessor调用@PostConstruct标注的方法
+
+> CommonAnnotationBeanPostProcessor#postProcessBeforeInitialization 中会调用bean中所有标注@PostConstruct注解的方法
+>
+> 来个案例，感受一下。
+
+#### 案例来个类
+
+> 下面的类有2个方法标注了@PostConstruct ，并且实现了上面说的那6个Aware接口。
+>
+> package com.javacode2018.lesson002.demo9;
+>
+> import org.springframework.beans.BeansException; import org.springframework.context.*;
+>
+> import org.springframework.core.env.Environment; import org.springframework.core.io.ResourceLoader; import org.springframework.util.StringValueResolver;
+>
+> import javax.annotation.PostConstruct;
+>
+> public class Bean1 implements EnvironmentAware, EmbeddedValueResolverAware, ResourceLoaderAware, ApplicationEventPublisherAware, MessageSourceAware, ApplicationContextAware {
+>
+> @PostConstruct
+>
+> public void postConstruct1() { //@1 System.out.println("postConstruct1()");
+>
+> }
+>
+> @PostConstruct
+>
+> public void postConstruct2() { //@2 System.out.println("postConstruct2()");
+>
+> }
+>
+> @Override
+>
+> public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+>
+> System.out.println("setApplicationContext:" + applicationContext);
+>
+> }
+>
+> @Override
+>
+> public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+>
+> System.out.println("setApplicationEventPublisher:" + applicationEventPublisher);
+>
+> }
+>
+> @Override
+>
+> public void setEmbeddedValueResolver(StringValueResolver resolver) { System.out.println("setEmbeddedValueResolver:" + resolver);
+>
+> }
+>
+> @Override
+>
+> public void setEnvironment(Environment environment) { System.out.println("setEnvironment:" + environment.getClass());
+>
+> }
+>
+> **来个测试案例**
+>
+> **运行输出**
+>
+> 大家可以去看一下AnnotationConfigApplicationContext的源码，其内部会添加很多
+>
+> BeanPostProcessor 到DefaultListableBeanFactory 中。
+
+### Bean初始化阶段
+
+#### 2个步骤
+
+1.  调用InitializingBean接口的afterPropertiesSet方法
+
+2.  调用定义bean的时候指定的初始化方法。
+
+#### 调用InitializingBean接口的afterPropertiesSet方法
+
+> 来看一下InitializingBean这个接口
+>
+> 当我们的bean实现了这个接口的时候，会在这个阶段被调用
+
+#### 调用bean定义的时候指定的初始化方法
+
+> **先来看一下如何指定bean的初始化方法，3种方式****方式1：xml方式指定初始化方法**
+>
+> **方式2：@Bean的方式指定初始化方法**
+>
+> **方式3：api的方式指定初始化方法**
+>
+> 初始化方法最终会赋值给下面这个字段
+
+#### 案例来个类
+
+> **下面我们定义Service这个bean，指定init方法为初始化方法**
+>
+> **运行输出**
+>
+> 调用顺序：InitializingBean中的afterPropertiesSet、然后在调用自定义的初始化方法
+
+### Bean初始化后阶段
+
+> 这块的源码：
+>
+> 调用BeanPostProcessor接口的postProcessAfterInitialization方法 ，返回null的时候，会中断上面的操作。
+
+#### 通常称postProcessAfterInitialization这个方法为：bean初始化后置操作。
+
+> 来个案例：
+>
+> package com.javacode2018.lesson002.demo11;
+>
+> import org.junit.Test;
+>
+> import org.springframework.beans.BeansException;
+>
+> import org.springframework.beans.factory.config.BeanPostProcessor; import org.springframework.beans.factory.support.BeanDefinitionBuilder;
+>
+> import org.springframework.beans.factory.support.DefaultListableBeanFactory; import org.springframework.lang.Nullable;
+>
+> /**
+
+-   {@link BeanPostProcessor#postProcessAfterInitialization(java.lang.Object, java.lang.String)}
+
+-   bean初始化后置处理
+
+> */
+>
+> public class PostProcessAfterInitializationTest {
+>
+> @Test
+>
+> public void test1() {
+>
+> DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+>
+> //加入bean初始化后置处理器方法实现factory.addBeanPostProcessor(new BeanPostProcessor() {
+>
+> @Nullable @Override
+>
+> public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+>
+> System.out.println("postProcessAfterInitialization：" +
+>
+> beanName);
+
+}
+
+});
+
+> return bean;
+>
+> // 下 面 注 册 2 个 String 类 型 的 bean factory.registerBeanDefinition("name",
+>
+> BeanDefinitionBuilder.
+>
+> genericBeanDefinition(String.class). addConstructorArgValue("公众号：【  喔喔松Java】"). getBeanDefinition());
+>
+> factory.registerBeanDefinition("personInformation", BeanDefinitionBuilder.genericBeanDefinition(String.class).
+>
+> addConstructorArgValue("带领大家成为java高手！").
+>
+> getBeanDefinition());
+>
+> System.out.println("-------输出bean信息 ");
+>
+> for (String beanName : factory.getBeanDefinitionNames()) { System.out.println(String.format("%s->%s", beanName,
+>
+> factory.getBean(beanName)));
+>
+> }
+>
+> }
+>
+> }
+>
+> 运行输出
+
+## 阶段10：所有单例bean初始化完成后阶段
+
+> 所有单例bean实例化完成之后，spring会回调下面这个接口：
+>
+> 调用逻辑在下面这个方法中
+>
+> 这个方法内部会先触发所有非延迟加载的单例bean初始化，然后从容器中找到类型是
+>
+> SmartInitializingSingleton 的bean，调用他们的afterSingletonsInstantiated 方法。
+>
+> 有兴趣的可以去看一下带有ApplicationContext的容器，内部最终都会调用上面这个方法触发所有单例
+>
+> bean的初始化。
+>
+> 来个2个案例演示一下SmartInitializingSingleton的使用。
+
+### 案例1：ApplicationContext自动回调SmartInitializingSingleton接口
+
+> Service1：
+>
+> Service2：
+>
+> 自定义一个SmartInitializingSingleton
+>
+> 来个测试类，通过包扫描的方式注册上面3个bean
+>
+> 运行输出
+
+### 案例2：通过api的方式让DefaultListableBeanFactory去回调
+
+> **SmartInitializingSingleton**
+>
+> 上面通过api的方式注册bean
+>
+> 最后调用factory.preInstantiateSingletons 触发所有非lazy单例bean初始化，所有bean装配完毕之后，会回调SmartInitializingSingleton接口。
+
+## 阶段11：Bean使用阶段
+
+> 这个阶段就不说了，调用getBean方法得到了bean之后，大家可以随意使用，任意发挥。
+
+## 阶段12：Bean销毁阶段
+
+### 触发bean销毁的几种方式
+
+1.  调用
+
+> org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#destroyB ean
+
+2.  调用org.springframework.beans.factory.config.ConfigurableBeanFactory#destroySingletons
+
+3.  调用ApplicationContext中的close方法
+
+### Bean销毁阶段会依次执行
+
+1.  轮询beanPostProcessors列表，如果是DestructionAwareBeanPostProcessor这种类型的，会调 用其内部的postProcessBeforeDestruction方法
+
+2.  如果bean实现了org.springframework.beans.factory.DisposableBean接口，会调用这个接口中 的destroy方法
+
+3.  调用bean自定义的销毁方法
+
+### DestructionAwareBeanPostProcessor接口
+
+> 看一下源码：
+>
+> 这个接口有个关键的实现类：
+>
+> **CommonAnnotationBeanPostProcessor#postProcessBeforeDestruction方法中会调用bean中所有标注了@PreDestroy的方法。**
+
+### 再来说一下自定义销毁方法有3种方式
+
+#### 方式1：xml中指定销毁方法
+
+> **方式2：@Bean中指定销毁方法**
+
+#### 方式3：api的方式指定销毁方法
+
+> 初始化方法最终会赋值给下面这个字段
+>
+> 下面来看销毁的案例
+
+### 案例1：自定义DestructionAwareBeanPostProcessor
+
+#### 来个类
+
+> **自定义一个DestructionAwareBeanPostProcessor**
+
+#### 来个测试类
+
+> 上面使用了2种方式来触发bean的销毁[@1和@2]
+
+#### 运行输出 {#运行输出}
+
+> 可以看到postProcessBeforeDestruction被调用了3次，依次销毁3个自定义的bean
+
+### 案例2：触发@PreDestroy标注的方法被调用
+
+> 上面说了这个注解是在CommonAnnotationBeanPostProcessor#postProcessBeforeDestruction 中被处理的，所以只需要将这个加入BeanPostProcessor列表就可以了。
+
+#### 再来个类
+
+> @1：标注了@PreDestroy注解
+
+#### 测试用例 {#测试用例}
+
+> @1：放入了一个自定义的DestructionAwareBeanPostProcessor
+>
+> @2：放入了CommonAnnotationBeanPostProcessor，这个会处理bean中标注@PreDestroy注 解的方法
+>
+> **看效果运行输出**
+
+### 案例3：看一下销毁阶段的执行顺序
+
+> 实际上ApplicationContext内部已经将spring内部一些常见的必须的BeannPostProcessor 自动装配到
+>
+> beanPostProcessors列表中 ，比如我们熟悉的下面的几个：
+>
+> 所以通过ApplicationContext来销毁bean，会触发3中方式的执行。
+>
+> 下面我们就以AnnotationConfigApplicationContext来演示一下销毁操作。
+>
+> 来一个类
+>
+> 上面的类中有2个方法标注了@PreDestroy
+>
+> 这个类实现了DisposableBean接口，重写了接口的中的destroy方法
+>
+> @1：这个destroyMethod我们一会通过@Bean注解的方式，将其指定为自定义方法。 来看测试用例
+>
+> 上面这个类标注了@Configuration，表示是一个配置类，内部有个@Bean标注的方法，表示使用这个方法来定义一个bean。
+>
+> @1：通过destroyMethod属性将customDestroyMethod指定为自定义销毁方法@2：关闭容器，触发bean销毁操作
+>
+> 来运行test1，输出
+>
+> 可以看出销毁方法调用的顺序：
+
+1.  @PreDestroy标注的所有方法
+
+2.  DisposableBean接口中的destroy()
+
+3.  自定义的销毁方法
+
+> 下面来说一个非常非常重要的类，打起精神，一定要注意看。
+
+## AbstractApplicationContext类（非常重要的类）
+
+> 来看一下UML图：
+>
+> ![](media/image21.png){width="5.615972222222222in" height="1.1756944444444444in"}
+
+### BeanFactory接口
+
+> 这个我们已经很熟悉了，Bean工厂的顶层接口
+
+### DefaultListableBeanFactory类
+
+> 实现了BeanFactory接口，可以说这个可以是BeanFactory接口真正的唯一实现，内部真正实现了bean 生命周期中的所有代码。
+>
+> 其他的一些类都是依赖于DefaultListableBeanFactory类，将请求转发给DefaultListableBeanFactory 进行bean的处理的。
+
+### 其他3个类
+
+> 我们经常用到的就是这3个类：
+>
+> AnnotationConfigApplicationContext/ClassPathXmlApplicationContext/FileSystemXmlApplication Context这3个类，他们的主要内部的功能是依赖他的父类AbstractApplicationContext来实现的，所以大家主要看AbstractApplicationContext 这个类。
+
+### AbstractApplicationContext类
+
+> 这个类中有2个比较重要的方法
+>
+> 大家是否注意过我们使用AnnotationConfigApplicationContext 的时候，经常调用reflush方法 ， 这个方法内部就会调用上面这2个方法。
+
+#### 第一个方法：getBeanFactory()
+
+> 返回当前应用上下文中的ConfigurableListableBeanFactory ，这也是个接口类型的，这个接口有一个唯一的实现类： DefaultListableBeanFactory 。
+>
+> 有没有很熟悉，上面说过：DefaultListableBeanFactory是BeanFactory真正的唯一实现。 应用上线文中就会使用这个ConfigurableListableBeanFactory 来操作spring容器。
+
+#### 第二个方法：registerBeanPostProcessors
+
+> **说的通俗点：这个方法就是向ConfigurableListableBeanFactory中注册BeanPostProcessor，内容 会从spring容器中获取所有类型的BeanPostProcessor，将其添加到DefaultListableBeanFactory#beanPostProcessors列表中**
+>
+> 看一下这个方法的源码：
+>
+> 会将请求转发给PostProcessorRegistrationDelegate#registerBeanPostProcessors 。
+>
+> 内部比较长，大家可以去看一下源码，这个方法内部主要用到了4个BeanPostProcessor 类型的List集合。
+
+#### 先说一下：当到方法的时候，spring容器中已经完成了所有Bean的注册。
+
+> spring会从容器中找出所有类型的BeanPostProcessor列表，然后按照下面的规则将其分别放到上面的 4个集合中，上面4个集合中的BeanPostProcessor 会被依次添加到
+>
+> DefaultListableBeanFactory#beanPostProcessors列表中，来看一下4个集合的分别放的是那些BeanPostProcessor：
+>
+> **priorityOrderedPostProcessors（指定优先级的BeanPostProcessor）**
+>
+> 实现org.springframework.core.PriorityOrdered接口的BeanPostProcessor，但是不包含
+>
+> MergedBeanDefinitionPostProcessor类型的
+>
+> **orderedPostProcessors（指定了顺序的BeanPostProcessor）**
+>
+> 实现了org.springframework.core.annotation.Order接口的BeanPostProcessor，但是不包含
+>
+> MergedBeanDefinitionPostProcessor类型的
+>
+> **nonOrderedPostProcessors（未指定顺序的BeanPostProcessor）**
+>
+> 上面2中类型置为以及MergedBeanDefinitionPostProcessor之外的
+>
+> **internalPostProcessors**
+>
+> MergedBeanDefinitionPostProcessor类型的BeanPostProcessor列表。大家可以去看一下CommonAnnotationBeanPostProcessor 和
+>
+> AutowiredAnnotationBeanPostProcessor ，这两个类都实现了PriorityOrdered 接口，但是他们也实现了MergedBeanDefinitionPostProcessor 接口，所以最终他们会被丢到internalPostProcessors 这个集合中，会被放入BeanPostProcessor的最后面。
+
+## Bean生命周期流程图
+
+> ![](media/image22.jpeg){width="6.079861111111111in" height="10.797916666666667in"}
+>
+> ![](media/image23.jpeg){width="6.088888888888889in" height="2.3361111111111112in"}
+>
+> **Spring学习建议**
+>
+> 这里我列一下自己学习spring的一些方法。
+
+#### 看官方文档
+
+> spring中的所有知识点，官网上都有，质量方面是非常高的，可能对英文有些要求，不过可以使用翻译软件翻一下。
+>
+> 官网地址：
+
+#### 看好的视频
+
+> 视频算是学习技术最快的一种方式，视频中可以呈现更多细节的东西，同样的内容，可能视频只需要1 小时，而用文档描述出来可能需要写一整天，视频的信息量更大，让观看者更容易理解一些。
+>
+> 网上关于spring的视频也比较多，质量不一，很难去选择，不过有一套我强烈建议大家去看，这套视频是有门槛的，前提是你对spring要有一定的了解。
+>
+> 就是极客时间上面的《小马哥讲Spring核心编程思想》，这个系列如果你都能看懂，spring方面不说多的，在大部分公司基本上是无敌状态，目前这套课程已经出了一半了，所以的内容我都看过，质量非常 棒，有兴趣的可以扫描下面链接购买。
+
+#### 看源码
+
+> 想窥视spring中的原貌，成为顶尖高手，源码是必须要看的，spring整体的设计是非常优秀的，里面用到了很多设计模式，很多java中的api，看源码的过程中，这些好东西慢慢就变成你自己的了。
+
+#### 写博客
+
+> 技术有没有掌握，你写篇文章就知道了，如果你能通过文章的方式将技术描述出来，让别人能够看懂， 那么说明你确实是掌握了这个技术。写博客的过程中会让你想各种办法去深入了解需要介绍的要点，这 样收获是非常大的。
+
+## 总结 {#总结-11}
+
+> 本文内容比较多，强烈建议大家先收藏，要反复看，反复去联系，一定要掌握。 关于spring方面有任何问题的，欢迎大家留言。
+>
+> 顺便说下：帮忙点个再看，转发到朋友圈，让更多朋友一起学习。
+
+## 案例源码 {#案例源码-3}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第24篇：父子容器
+
+> 又一次被面试官带到坑里面了。面试官：springmvc用过么？ 我：用过啊，经常用呢
+>
+> 面试官：springmvc中为什么需要用父子容器？ 我：嗯。。。没听明白你说的什么。
+>
+> 面试官：就是controller层交给一个spring容器加载，其他的service和dao层交给另外一个spring容器加载，web.xml中有这块配置，这两个容器组成了父子容器的关系。
+>
+> 我：哦，原来是这块啊，我想起来了，我看大家都这么用，所以我也这么用面试官：有没有考虑过为什么？
+>
+> 我：我在网上看大家都这么用，所以我也这么用了，具体也不知道为什么，不过用起来还挺顺手的
+>
+> 面试官：如果只用一个容器可以么，所有的配置都交给一个spring容器加载？ 我：应该不行吧！
+>
+> 面试官：确定不行么？
+>
+> 我：让我想一会。。。。。我感觉是可以的，也可以正常运行。面试官：那我们又回到了开头的问题，为什么要用父子容器呢？ 我：我叫你哥好么，别这么玩我了，被你绕晕了？
+>
+> 面试官：好吧，你回去试试看吧，下次再来告诉我，出门右转，不送！ 我：脸色变绿了，灰头土脸的走了。
+>
+> 回去之后，我好好研究了一番。
+
+## 主要的问题
+
+1.  什么是父子容器？
+
+2.  为什么需要用父子容器？
+
+3.  父子容器如何使用？ 下面我们就来探讨探讨。
+
+## 我们先来看一个案例
+
+> 系统中有2个模块：module1和module2，两个模块是独立开发的，module2会使用到module1中的一 些类，module1会将自己打包为jar提供给module2使用，我们来看一下这2个模块的代码。
+
+### 模块1
+
+> 放在module1包中，有3个类
+
+#### Service1
+
+> **Service2**
+>
+> 上面2个类，都标注了@Compontent注解，会被spring注册到容器中。
+>
+> @1：Service2中需要用到Service1，标注了@Autowired注解，会通过spring容器注入进来@2：Service2中有个m1方法，内部会调用service的m1方法。
+
+#### 来个spring配置类：Module1Config
+
+> 上面使用了@CompontentScan注解，会自动扫描当前类所在的包中的所有类，将标注有
+>
+> @Compontent注解的类注册到spring容器，即Service1和Service2会被注册到spring容器。
+
+### 再来看模块2
+
+> 放在module2包中，也是有3个类，和模块1中的有点类似。
+
+#### Service1
+
+> 模块2中也定义了一个Service1，内部提供了一个m2方法，如下：
+
+#### Service3
+
+> @1：使用module2中的Service1 @2：使用module1中的Service2
+
+#### 先来思考一个问题
+
+> **上面的这些类使用spring来操作会不会有问题？会有什么问题？**
+>
+> 这个问题还是比较简单的，大部分人都可以看出来，会报错，因为两个模块中都有Service1，被注册到
+>
+> spring容器的时候，bean名称会冲突，导致注册失败。
+
+#### 来个测试类，看一下效果
+
+> @1：将Module1Config、Module2Config 注册到容器，spring内部会自动解析这两个类上面的注解，即： @CompontentScan 注解，然后会进行包扫描，将标注了@Compontent 的类注册到
+>
+> spring容器。
+
+#### 运行test1输出
+
+> 下面是部分输出：
+>
+> service1这个bean的名称冲突了。
+
+#### 那么我们如何解决？
+
+> 对module1中的Service1进行修改？这个估计是行不通的，module1是别人以jar的方式提供给我们 的，源码我们是无法修改的。
+>
+> 而module2是我们自己的开发的，里面的东西我们可以随意调整，那么我们可以去修改一下module2中的Service1，可以修改一下类名，或者修改一下这个bean的名称，此时是可以解决问题的。
+>
+> 不过大家有没有想过一个问题：如果我们的模块中有很多类都出现了这种问题，此时我们一个个去重 构，还是比较痛苦的，并且代码重构之后，还涉及到重新测试的问题，工作量也是蛮大的，这些都是风 险。
+>
+> 而spring中的父子容器就可以很好的解决上面这种问题。
+
+## 什么是父子容器
+
+> 创建spring容器的时候，可以给当前容器指定一个父容器。
+
+### BeanFactory的方式
+
+> **ApplicationContext的方式**
+>
+> 上面代码还是比较简单的，大家都可以看懂。
+>
+> 我们需要了解父子容器的特点，这些是比较关键的，如下。
+
+### 父子容器特点
+
+1.  #### 父容器和子容器是相互隔离的，他们内部可以存在名称相同的bean
+
+2.  **子容器可以访问父容器中的bean，而父容器不能访问子容器中的bean**
+
+3.  #### 调用子容器的getBean方法获取bean的时候，会沿着当前容器开始向上面的容器进行查找，直到 找到对应的bean为止
+
+4.  **子容器中可以通过任何注入方式注入父容器中的bean，而父容器中是无法注入子容器中的bean， 原因是第2点**
+
+## 使用父子容器解决开头的问题
+
+### 关键代码
+
+> **运行输出**
+>
+> 这次正常了。
+
+## 父子容器使用注意点
+
+> 我们使用容器的过程中，经常会使用到的一些方法，这些方法通常会在下面的两个接口中
+>
+> 这两个接口中有很多方法，这里就不列出来了，大家可以去看一下源码，这里要说的是使用父子容器的 时候，有些需要注意的地方。
+>
+> BeanFactory接口，是spring容器的顶层接口，这个接口中的方法是支持容器嵌套结构查找的，比如我 们常用的getBean方法，就是这个接口中定义的，调用getBean方法的时候，会从沿着当前容器向上查 找，直到找到满足条件的bean为止。
+>
+> 而ListableBeanFactory这个接口中的方法是不支持容器嵌套结构查找的，比如下面这个方法
+>
+> 获取指定类型的所有bean名称，调用这个方法的时候只会返回当前容器中符合条件的bean，而不会去递归查找其父容器中的bean。
+>
+> 来看一下案例代码，感受一下：
+>
+> 上面定义了2个容器
+>
+> 父容器：parentFactory，内部定义了一个String类型的bean：userName->  喔喔松Java子容器：childFactory，内部也定义了一个String类型的bean：address->上海
+>
+> @1：调用子容器的getBean方法，获取名称为userName的bean，userName这个bean是在父 容器中定义的，而getBean方法是BeanFactory接口中定义的，支持容器层次查找，所以getBean 是可以找到userName这个bean的
+>
+> @2：调用子容器的getBeanNamesForType方法，获取所有String类型的bean名称，而getBeanNamesForType方法是ListableBeanFactory接口中定义的，这个接口中方法不支持层次 查找，只会在当前容器中查找，所以这个方法只会返回子容器的address
+>
+> 我们来运行一下看看效果：
+>
+> 结果和分析的一致。
+
+#### 那么问题来了：有没有方式解决ListableBeanFactory接口不支持层次查找的问题？
+
+> spring中有个工具类就是解决这个问题的，如下：
+>
+> 这个类中提供了很多静态方法，有很多支持层次查找的方法，源码你们可以去细看一下，名称中包含有
+>
+> Ancestors 的都是支持层次查找的。
+>
+> 在test2方法中加入下面的代码：
+>
+> 运行输出
+>
+> 查找过程是按照层次查找所有满足条件的bean。
+
+## 回头看一下springmvc父子容器的问题
+
+#### 问题1：springmvc中只使用一个容器是否可以？
+
+> 只使用一个容器是可以正常运行的。
+
+#### 问题2：那么springmvc中为什么需要用到父子容器？
+
+> 通常我们使用springmvc的时候，采用3层结构，controller层，service层，dao层；父容器中会包含dao层和service层，而子容器中包含的只有controller层；这2个容器组成了父子容器的关系， controller层通常会注入service层的bean。
+>
+> 采用父子容器可以避免有些人在service层去注入controller层的bean，导致整个依赖层次是比较混乱 的。
+>
+> 父容器和子容器的需求也是不一样的，比如父容器中需要有事务的支持，会注入一些支持事务的扩展组 件，而子容器中controller完全用不到这些，对这些并不关心，子容器中需要注入一下springmvc相关 的bean，而这些bean父容器中同样是不会用到的，也是不关心一些东西，将这些相互不关心的东西隔开，可以有效的避免一些不必要的错误，而父子容器加载的速度也会快一些。
+
+## 总结 {#总结}
+
+1.  本文需掌握父子容器的用法，了解父子容器的特点：子容器可以访问父容器中bean，父容器无法访问子容器中的bean
+
+2.  BeanFactory接口支持层次查找
+
+3.  ListableBeanFactory接口不支持层次查找
+
+4.  BeanFactoryUtils工具类中提供了一些非常实用的方法，比如支持bean层次查找的方法等等
+
+## 案例源码 {#案例源码}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第25篇：@PropertySource、@Value注解及动态刷新实现
+
+> 疫情期间找工作确实有点难度，想拿到满意的薪资，确实要点实力啊！ 面试官：Spring中的@Value用过么，介绍一下
+>
+> 我：@Value可以标注在字段上面，可以将外部配置文件中的数据，比如可以将数据库的一些配置信息放在配置文件中，然后通过@Value的方式将其注入到bean的一些字段中
+>
+> 面试官：那就是说@Value的数据来源于配置文件了？
+>
+> 我：嗯，我们项目最常用更多就是通过@Value来引用Properties文件中的配置 面试官：@Value数据来源还有其他方式么？
+>
+> 我：此时我异常开心，刚好问的我都研究过，我说：当然有，可以将配置信息放在db或者其他存储介质 中，容器启动的时候，可以将这些信息加载到Environment中，@Value中应用的值最终是通过
+>
+> Environment来解析的，所以只需要扩展一下Environment就可以实现了。
+>
+> 面试官：不错嘛，看来你对spring研究的还是可以，是不是喜欢研究spring源码？
+>
+> 我：笑着说，嗯，平时有空的时候确实喜欢捣鼓捣鼓源码，感觉自己对spring了解的还可以，不能算精通，也算是半精通吧
+>
+> 面试官：看着我笑了笑，那@Value的注入的值可以动态刷新么？
+>
+> 我：应该可以吧，我记得springboot中有个@RefreshScope注解就可以实现你说的这个功能 面试官：那你可以说一下@RefreshScope是如何实现的么，可以大概介绍一下？
+>
+> 我：嗯。。。这个之前看过一点，不过没有看懂
+>
+> 面试官：没关系，你可以回去了再研究一下；你期望工资多少？ 我：3万吧
+>
+> 面试官：今天的面试还算是可以的，不过如果@RefreshScope能回答上来就更好了，这块是个加分项， 不过也确实有点难度，2.5万如何？
+>
+> 我：（心中默默想了想：2.5万，就是一个问题没有回答好，砍了5000，有点狠啊，我要回去再研究研究，3万肯定是没问题的），我说：最低2.9万
+>
+> 面试官：那谢谢你，今天面试就到这里，出门右拐，不送！
+>
+> 我有个好习惯，每次面试回去之后，都会进行复盘，把没有搞定的问题一定要想办法搞定，这样才不 虚。
+
+## 这次面试问题如下
+
+1.  @Value的用法
+
+2.  @Value数据来源
+
+3.  @Value动态刷新的问题
+
+> 下面我们一个个来整理一下，将这几个问题搞定，助大家在疫情期间面试能够过关斩将，拿高薪。
+
+## @Value的用法
+
+> 系统中需要连接db，连接db有很多配置信息。
+>
+> 系统中需要发送邮件，发送邮件需要配置邮件服务器的信息。还有其他的一些配置信息。
+>
+> 我们可以将这些配置信息统一放在一个配置文件中，上线的时候由运维统一修改。
+>
+> 那么系统中如何使用这些配置信息呢，spring中提供了@Value注解来解决这个问题。通常我们会将配置信息以key=value的形式存储在properties配置文件中。
+>
+> 通过@Value("${配置文件中的key}")来引用指定的key对应的value。
+
+### @Value使用步骤
+
+#### 步骤一：使用@PropertySource注解引入配置文件
+
+> 将@PropertySource放在类上面，如下
+>
+> @PropertySource注解有个value属性，字符串数组类型，可以用来指定多个配置文件的路径。 如：
+
+#### 步骤二：使用@Value注解引用配置文件的值
+
+> 通过@Value引用上面配置文件中的值： 语法
+>
+> 如：
+>
+> 上面如果password不存在，将123作为值
+>
+> 上面如果password不存在，值为${password} 假如配置文件如下
+>
+> 使用方式如下：
+>
+> 下面来看案例
+
+#### 案例 {#案例}
+
+> **来个配置文件db.properties**
+>
+> **来个配置类，使用@PropertySource引入上面的配置文件**
+>
+> **来个类，使用@Value来使用配置文件中的信息**
+>
+> public class DbConfig {
+>
+> @Value("${jdbc.url}") private String url;
+>
+> @Value("${jdbc.username}") private String username;
+>
+> @Value("${jdbc.password}") private String password;
+>
+> public String getUrl() { return url;
+>
+> }
+>
+> public void setUrl(String url) { this.url = url;
+>
+> }
+>
+> public String getUsername() { return username;
+>
+> }
+>
+> public void setUsername(String username) { this.username = username;
+>
+> }
+>
+> public String getPassword() { return password;
+>
+> }
+>
+> public void setPassword(String password) { this.password = password;
+>
+> }
+>
+> @Override
+>
+> public String toString() { return "DbConfig{" +
+>
+> "url='" + url + ''' +
+>
+> ", username='" + username + ''' + ", password='" + password + ''' + '}';
+>
+> }
+>
+> }
+>
+> 上面重点在于注解@Value注解，注意@Value注解中的
+>
+> **来个测试用例**
+>
+> **运行输出**
+>
+> 上面用起来比较简单，很多用过的人看一眼就懂了，这也是第一个问题，多数人都是ok的，下面来看
+>
+> @Value中数据来源除了配置文件的方式，是否还有其他方式。
+
+## @Value数据来源
+
+> 通常情况下我们@Value的数据来源于配置文件，不过，还可以用其他方式，比如我们可以将配置文件的内容放在数据库，这样修改起来更容易一些。
+>
+> 我们需要先了解一下@Value中数据来源于spring的什么地方。
+>
+> spring中有个类
+>
+> 可以将其理解为一个配置源，里面包含了key->value的配置信息，可以通过这个类中提供的方法获取key对应的value信息
+>
+> 内部有个方法：
+>
+> 通过name获取对应的配置信息。系统有个比较重要的接口
+>
+> 用来表示环境配置信息，这个接口有几个方法比较重要
+>
+> resolvePlaceholders用来解析 ${text} 的，@Value注解最后就是调用这个方法来解析的。
+>
+> getPropertySources返回MutablePropertySources对象，来看一下这个类
+>
+> 内部包含一个propertySourceList 列表。
+>
+> spring容器中会有一个Environment 对象，最后会调用这个对象的resolvePlaceholders 方法解析
+>
+> @Value。
+>
+> 大家可以捋一下，最终解析@Value的过程：
+>
+> 通过上面过程，如果我们想改变@Value数据的来源，只需要将配置信息包装为PropertySource对象， 丢到Environment中的MutablePropertySources内部就可以了。
+>
+> 下面我们就按照这个思路来一个。
+>
+> 来个邮件配置信息类，内部使用@Value注入邮件配置信息
+>
+> 再来个类DbUtil ， getMailInfoFromDb 方法模拟从db中获取邮件配置信息，存放在map中
+>
+> 来个spring配置类
+>
+> 下面是重点代码
+>
+> 注释比较详细，就不详细解释了。直接运行，看效果
+>
+> 有没有感觉很爽，此时你们可以随意修改DbUtil.getMailInfoFromDb ，具体数据是从db中来，来时从redis或者其他介质中来，任由大家发挥。
+>
+> 上面重点是下面这段代码，大家需要理解
+>
+> 咱们继续看下一个问题
+
+#### 如果我们将配置信息放在db中，可能我们会通过一个界面来修改这些配置信息，然后保存之后，希望系 统在不重启的情况下，让这些值在spring容器中立即生效。
+
+> @Value动态刷新的问题的问题，springboot中使用@RefreshScope实现了。
+
+## 实现@Value动态刷新
+
+### 先了解一个知识点
+
+> 这块需要先讲一个知识点，用到的不是太多，所以很多人估计不太了解，但是非常重要的一个点，我们 来看一下。
+>
+> 这个知识点是自定义bean作用域 ，对这块不了解的先看一下这篇文章：<span class="underline">b</span> <span class="underline">ean作用域详解</span> bean作用域中有个地方没有讲，来看一下@Scope这个注解的源码，有个参数是：
+>
+> 这个参数的值是个ScopedProxyMode类型的枚举，值有下面4中
+>
+> 前面3个，不讲了，直接讲最后一个值是干什么的。
+>
+> 当@Scope中proxyMode为TARGET_CLASS的时候，会给当前创建的bean通过cglib生成一个代理对 象，通过这个代理对象来访问目标bean对象。
+>
+> 理解起来比较晦涩，还是来看代码吧，容易理解一些，来个自定义的Scope案例。
+
+#### 自定义一个bean作用域的注解
+
+> @1：使用了@Scope注解，value为引用了一个常量，值为my，一会下面可以看到。
+>
+> @2：注意这个地方，参数名称也是proxyMode，类型也是ScopedProxyMode，而@Scope注解 中有个和这个同样类型的参数，spring容器解析的时候，会将这个参数的值赋给@MyScope注解上面的@Scope注解的proxyMode参数，所以此处我们设置proxyMode值，最后的效果就是直接 改变了@Scope中proxyMode参数的值。此处默认值取的是ScopedProxyMode.TARGET_CLASS
+
+#### @MyScope注解对应的Scope实现如下
+
+> @1：定义了一个常量，作为作用域的值
+>
+> @2：这个get方法是关键，自定义作用域会自动调用这个get方法来创建bean对象，这个地方输出了一行日志，为了一会方便看效果
+>
+> @3：通过objectFactory.getObject()获取bean实例返回。
+
+#### 下面来创建个类，作用域为上面自定义的作用域
+
+> @1：使用了自定义的作用域@MyScope @2：构造函数中输出一行日志
+>
+> @3：给username赋值，通过uuid随机生成了一个
+
+#### 来个spring配置类，加载上面@Compontent标注的组件
+
+> **下面重点来了，测试用例**
+>
+> @1：将自定义作用域注册到spring容器中@2：从容器中获取User对应的bean
+>
+> @3：输出这个bean对应的class，一会认真看一下，这个类型是不是User类型的
+>
+> 代码后面又搞了3次循环，调用user的getUsername方法，并且方法前后分别输出了一行日志。
+
+#### 见证奇迹的时候到了，运行输出
+
+> 从输出的前2行可以看出：
+
+1.  调用context.getBean(User.class)从容器中获取bean的时候，此时并没有调用User的构造函数去 创建User对象
+
+2.  第二行输出的类型可以看出，getBean返回的user对象是一个cglib代理对象。
+
+#### 后面的日志输出可以看出，每次调用user.getUsername方法的时候，内部自动调用了
+
+> **BeanMyScope#get 方法和 User的构造函数。**
+>
+> **通过上面的案例可以看出，当自定义的Scope中proxyMode=ScopedProxyMode.TARGET_CLASS的时候，会给这个bean创建一个代理对象，调用代理对象的任何方法，都会调用这个自定义的作用域实 现类（上面的BeanMyScope）中get方法来重新来获取这个bean对象。**
+
+### 动态刷新@Value具体实现
+
+> 那么我们可以利用上面讲解的这种特性来实现@Value的动态刷新，可以实现一个自定义的Scope，这个自定义的Scope支持@Value注解自动刷新，需要使用@Value注解自动刷新的类上面可以标注这个自定义的注解，当配置修改的时候，调用这些bean的任意方法的时候，就让spring重启初始化一下这个
+>
+> bean，这个思路就可以实现了，下面我们来写代码。
+
+#### 先来自定义一个Scope：RefreshScope
+
+> 要求标注@RefreshScope注解的类支持动态刷新@Value的配置
+>
+> @1：这个地方是个关键，使用的是ScopedProxyMode.TARGET_CLASS
+
+#### 这个自定义Scope对应的解析类
+
+> 下面类中有几个无关的方法去掉了，可以忽略
+>
+> 上面的get方法会先从beanMap中获取，获取不到会调用objectFactory的getObject让spring创建
+>
+> bean的实例，然后丢到beanMap中
+>
+> 上面的clean方法用来清理beanMap中当前已缓存的所有bean
+
+#### 来个邮件配置类，使用@Value注解注入配置，这个bean作用域为自定义的@RefreshScope
+
+> @1：使用了自定义的作用域@RefreshScope
+>
+> @2：通过@Value注入mail.username对一个的值重写了toString方法，一会测试时候可以看效果。
+
+#### 再来个普通的bean，内部会注入MailConfig
+
+> 代码比较简单，重写了toString方法，一会测试时候可以看效果。
+
+#### 来个类，用来从db中获取邮件配置信息
+
+> **来个spring配置类，扫描加载上面的组件**
+
+#### 来个工具类
+
+> 内部有2个方法，如下：
+>
+> updateDbConfig方法模拟修改db中配置的时候需要调用的方法，方法中2行代码，第一行代码调 用refreshMailPropertySource方法修改容器中邮件的配置信息
+>
+> BeanRefreshScope.getInstance().clean()用来清除BeanRefreshScope中所有已经缓存的bean， 那么调用bean的任意方法的时候，会重新出发spring容器来创建bean，spring容器重新创建
+>
+> bean的时候，会重新解析@Value的信息，此时容器中的邮件配置信息是新的，所以@Value注入的信息也是新的。
+>
+> 来个测试用例
+>
+> @1：循环3次，输出mailService的信息
+>
+> @2：循环3次，内部先通过@3来模拟更新db中配置信息，然后在输出mailService信息
+
+#### 见证奇迹的时刻，来看效果
+
+> 上面MailService输出了6次，前3次username的值都是一样的，后面3次username的值不一样了，说明修改配置起效了。
+
+### 小结 {#小结}
+
+> 动态@Value实现的关键是@Scope中proxyMode参数，值为ScopedProxyMode.DEFAULT，会生成一 个代理，通过这个代理来实现@Value动态刷新的效果，这个地方是关键。
+>
+> 有兴趣的可以去看一下springboot中的@RefreshScope注解源码，和我们上面自定义的
+>
+> @RefreshScope类似，实现原理类似的。
+
+## 总结 {#总结-12}
+
+> 本次面试过程中3个问题，我们都搞定了，希望你也已经掌握了，有问题的欢迎给我留言，交流！
+
+## 案例源码 {#案例源码-4}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第26篇：国际化详解
+
+> 上次去一个电商公司面试：
+>
+> 面试官：Spring中国际化这块的东西用过么？可以介绍一下么？
+>
+> 我：spring中对国际化支持挺好的，比较简单，只需要按照语言配置几个properties文件，然后主要注册一个国际化的相关的bean，同时需指定一下配置文件的位置，基本上就可以了
+>
+> 面试官：那如果配置文件内容有变化？你们怎么解决的？
+>
+> 我：这块啊，spring国际化这块有个实现类，可以检测到配置文件的变化，就可以解决你这个问题面试官：那我们是否可以将这些国际化的配置丢到db中去管理呢？
+>
+> 我：这个地方我没有搞过，基本上我们这边都是将国际化的配置文件放在项目中的properties文件中； 不过以我对spring的理解，spring扩展方面是非常优秀的，应该是可以这么做的，自己去实现一下
+>
+> spring国际化相关接口就可以了。
+>
+> 面试官：工资期望多少？ 我：2万
+>
+> 面试官：恭喜你，下周来上班！
+>
+> 为了方便大家，准备把这块知识细化一下，方便大家面试及使用。
+
+## 本次问题
+
+1.  Spring中国际化怎么用？
+
+2.  国际化如何处理资源文件变化的问题？
+
+3.  国际化资源配置放在db中如何实现？
+
+## 先说一下什么是国际化
+
+#### 简单理解，就是对于不同的语言，做出不同的响应。
+
+> 比如页面中有个填写用户信息的表单，有个姓名的输入框浏览器中可以选择语言
+>
+> 选中文的时候会显示：
+>
+> 选英文的时候会显示：
+>
+> 国际化就是做这个事情的，根据不同的语言显示不同的信息。
+>
+> 所以需要支持国际化，得先知道选择的是哪种地区的哪种语言，java中使用java.util.Locale 来表示地区语言这个对象，内部包含了国家和语言的信息。
+>
+> Locale中有个比较常用的构造方法
+>
+> 2个参数：
+>
+> language：语言country：国家
+>
+> 语言和国家这两个参数的值不是乱写的，国际上有统一的标准：
+>
+> 比如language的值：zh表示中文，en表示英语，而中文可能很多地区在用，比如大陆地区可以用：CN，新加坡用：SG；英语也是有很多国家用的，GB表示英国，CA表示加拿大
+>
+> 国家语言简写格式：language-country，如：zh-CN（中文【中国】），zh-SG（中文【新加 坡】），en-GB（英语【英国】），
+>
+> en-CA（英语【加拿大】）。
+>
+> 还有很多，这里就不细说了，国家语言编码给大家提供一个表格：<span class="underline">h</span> <span class="underline">ttp://www.itsoku.com/articl</span> <span class="underline">e</span> <span class="underline">/282</span>
+>
+> **Locale类中已经创建好了很多常用的Locale对象，直接可以拿过来用**，随便列几个看一下：
+>
+> 再回头看前面的问题：页面中显示姓名对应的标签，需要我们根据一个key及Locale信息来获取对应的国际化信息，spring中提供了这部分的实现，下面我们来看详情。
+
+## Spring中国际化怎么用？
+
+### MessageSource接口
+
+> spring中国际化是通过MessageSource这个接口来支持的
+>
+> 内部有3个常用的方法用来获取国际化信息，来看一下
+
+### 常见3个实现类
+
+#### ResourceBundleMessageSource
+
+> 这个是基于Java的ResourceBundle基础类实现，允许仅通过资源名加载国际化资源
+
+#### ReloadableResourceBundleMessageSource
+
+> 这个功能和第一个类的功能类似，多了定时刷新功能，允许在不重启系统的情况下，更新资源的信息
+
+#### StaticMessageSource
+
+> 它允许通过编程的方式提供国际化信息，一会我们可以通过这个来实现db中存储国际化信息的功能。
+
+## Spring中使用国际化的3个步骤
+
+> 通常我们使用spring的时候，都会使用带有ApplicationContext字样的spring容器，这些容器一般是继 承了AbstractApplicationContext接口，而这个接口实现了上面说的国际化接口MessageSource，所以 通常我们用到的ApplicationContext类型的容器都自带了国际化的功能。
+>
+> 通常我们在ApplicationContext类型的容器中使用国际化3个步骤
+
+#### 步骤一：创建国际化文件
+
+> **步骤二：向容器中注册一个MessageSource类型的bean，bean名称必须为：messageSource**
+>
+> **步骤三：调用AbstractApplicationContext中的getMessage来获取国际化信息，其内部将交给第二步中注册的messageSource名称的bean进行处理**
+>
+> **来个案例感受一下**
+
+#### 创建国际化文件
+
+> **国际化文件命名格式：名称_语言_地区.properties**
+>
+> 我们来3个文件，文件都放在下面这个目录中
+>
+> **message.properties**
+>
+> 这个文件名称没有指定Local信息，当系统找不到的时候会使用这个默认的
+>
+> **message_cn_ZH.properties：中文【中国】**
+>
+> **message_en_GB.properties：英文【英国】**
+
+#### spring中注册国际化的bean
+
+> 注意必须是MessageSource类型的，bean名称必须为messageSource，此处我们就使用
+>
+> ResourceBundleMessageSource这个类
+>
+> @1：这个地方的写法需要注意，可以指定国际化化配置文件的位置，格式：路径/文件名称,注意不包含
+
+#### 【语言_国家.properties】含这部分
+
+> **来个测试用例**
+
+#### 运行输出 {#运行输出-16}
+
+> 第一行未指定Locale，此时系统会取默认的locale对象，本地默认的值中文【中国】，即：
+>
+> zh_CN，所以会获取到 message_zh_CN.properties 中的内容。
+>
+> 后面2行，都指定了Locale对象，找到对应的国际化文件，取值。
+
+#### 动态参数使用
+
+> 注意配置文件中的personal_introduction ，个人介绍，比较特别，包含了{0},{1},{0} 这样一部分内容，这个就是动态参数，调用getMessage 的时候，通过第二个参数传递过去，来看一下用法：
+>
+> **运行输出**
+
+## 监控国际化文件的变化
+
+> 用ReloadableResourceBundleMessageSource 这个类，功能和上面案例中的ResourceBundleMessageSource 类似，不过多了个可以监控国际化资源文件变化的功能，有个方法用来设置缓存时间：
+>
+> -1：表示永远缓存 0：每次获取国际化信息的时候，都会重新读取国际化文件
+>
+> 大于0：上次读取配置文件的时间距离当前时间超过了这个时间，重新读取国际化文件
+>
+> 还有个按秒设置缓存时间的方法setCacheSeconds ，和setCacheMillis 类似
+>
+> 下面我们来案例
+>
+> message_zh_CN.properties中新增一行内容
+>
+> 对应的测试用例
+>
+> 上面有个循环，当第一次输出之后，修改一下message_zh_CN.properties 中的address为 上海松江 ， 最后运行结果如下：
+>
+> **使用注意：线上环境，缓存时间最好设置大一点，性能会好一些。**
+
+## 国际化信息存在db中
+
+> 上面我们介绍了一个类： StaticMessageSource ，这个类它允许通过编程的方式提供国际化信息，我们通过这个类来实现从db中获取国际化信息的功能。
+>
+> 这个类中有2个方法比较重要：
+>
+> 通过这两个方法来添加国际化配置信息。下面来看案例
+>
+> 自定义一个StaticMessageSource类
+>
+> 上面的类实现了spring的InitializingBean接口，重写了接口中干掉afterPropertiesSet方法，这个方法会在当前bean初始化之后调用，在这个方法中模拟从db中获取国际化信息，然后调用addMessage来配置国际化信息
+>
+> 来个spring配置类，将MessageSourceFromDb注册到spring容器
+>
+> 上测试用例
+>
+> 运行输出
+
+## bean名称为什么必须是messageSource
+
+> 上面我容器启动的时候会调用refresh 方法，过程如下：
+
+## 自定义bean中使用国际化
+
+> 自定义的bean如果想使用国际化，比较简单，只需实现下面这个接口，spring容器会自动调用这个方法，将MessageSource 注入，然后我们就可以使用MessageSource 获取国际化信息了。
+
+## 总结 {#总结}
+
+> **本文介绍了国际化的使用，涉及到了java中的Locale类，这个类用来表示语言国家信息，获取国际化信 息的时候需要携带这个参数，spring中通过** MessageSource **接口来支持国际化的功能，有3个常用的实现类需要了解，** StaticMessageSource **支持硬编码的方式配置国际化信息。**
+
+#### 如果需要spring支撑国际化，需要注册一个bean名称为messageSource的MessageSource，这个一 定要注意。
+
+> 到此，上面面试的3个问题，大家都能轻松应对了。
+
+## 案例源码 {#案例源码}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第27篇：事件详解
+
+> 又被面试官刁难了
+>
+> 面试官：Spring中的事件用过么？ 我：用过
+>
+> 面试官：可以介绍一下为什么需要使用事件么？
+>
+> 我：使用事件的模式可以对系统进行解耦，事件源发布一个事件，事件监听器可以消费这个事件，而事 件源不用关注发布的事件有哪些监听器，这可以可以对系统进行解耦
+>
+> 面试官：Spring事件的实现有几种方式？
+>
+> 我：整体来说2种方式，第一种是通过接口的方式，第二种是在方法上使用注解的方式 面试官：Spring中事件监听器的处理是同步方式还是异步方式？
+>
+> 我：不好意思，没听懂问题
+>
+> 面试官：事件的发布和事件监听器的执行是否在同一个线程中运行？ 我：在一个线程中执行，是同步的方式
+>
+> 面试官：是否支持异步方式？ 我：支持
+>
+> 面试官：你确定么？
+>
+> 我：嗯。。。，这块没有用过，不过我感觉是可以的，事件监听器中的逻辑一般不是主要业务，可以不 再当前线程中执行。
+>
+> 面试官：那spring中事件监听器支持自定义顺序么？ 我：这个不知道
+>
+> 面试官：行吧，今天的面试到此为止吧，回去之后巩固下自己的技术，多看看源码
+>
+> 我：好的。。。。此时脑子里已经是浆糊了。
+>
+> 回去之后赶紧将spring事件这块源码翻出来又好好研究了几遍。
+
+## 面试过程中的主要问题
+
+1.  为什么需要使用事件这种模式？
+
+2.  spring中实现事件有几种方式？
+
+3.  spring中事件监听器消费事件是否支持异步模式？
+
+4.  spring中事件监听器消费事件是否支持自定义顺序？
+
+> 下面我们就一个个来介绍。
+
+## 为什么需要使用时间这种模式？
+
+> 先来看一个业务场景：
+>
+> 产品经理：路人，这两天你帮我实现一个注册的功能
+>
+> 我：注册功能比较简单，将用户信息入库就可以了，伪代码如下：
+>
+> 过了几天，产品经理：路人，注册成功之后，给用户发送一封注册成功的邮件我：修改了一下上面注册代码，如下：
+>
+> 由于修改了注册接口，所以所有调用这个方法的地方都需要重新测试一遍，让测试的兄弟们帮忙跑了一 遍。
+>
+> 又过了几天，产品经理：路人，注册成功之后，给用户发一下优惠券我：好的，又调整了一下代码
+>
+> 我：测试的兄弟们，辛苦一下大家，注册接口又修改了，帮忙再过一遍。
+>
+> 过了一段时间，公司效益太好，产品经理：路人，注册的时候，取消给用户发送优惠券的功能。 我：又跑去调整了一下上面代码，将发送优惠券的功能干掉了，如下
+>
+> 由于调整了代码，而注册功能又属于核心业务，所以需要让测试再次帮忙过一遍，又要麻烦测试来一遍 了。
+>
+> 突然有一天，产品经理：路人，注册接口怎么这么慢啊，并且还经常失败？你这让公司要损失多少用户 啊
+>
+> 我：赶紧跑去查看了一下运行日志，发现注册的时候给用户发送邮件不稳定，依赖于第三方邮件服务 器，耗时比较长，并且容易失败。
+>
+> 跑去给产品经理说：由于邮件服务器不稳定的原因，导致注册不稳定。产品经理：邮件你可以不发，但是你得确保注册功能必须可以用啊。
+>
+> 我想了想，将上面代码改成了下面这样，发送邮件放在了子线程中执行：
+>
+> 又过了几天，产品经理又跑来了说：路人，最近效益不好，需要刺激用户消费，注册的时候继续发送优 惠券。
+>
+> 我：倒，这是玩我么，反反复复让我调整注册的代码，让我改还好，让测试也反反复复来回搞，这是要 玩死我们啊。
+>
+> 花了点时间，好好复盘整理了一下：发现问题不在于产品经理，从业务上来看，产品提的这些需求都是 需求合理的，而结果代码反复调整、测试反复测试，以及一些次要的功能导致注册接口不稳定，这些问 题归根到底，主要还是我的设计不合理导致的，将注册功能中的一些次要的功能耦合到注册的方法中 了，并且这些功能可能会经常调整，导致了注册接口的不稳定性。
+>
+> 其实上面代码可以这么做：
+>
+> 找3个人：注册器、路人A、路人B。
+>
+> 注册器：负责将用户信息落库，落库成功之后，喊一声：用户XXX注册成功了。
+>
+> 路人A和路人B，竖起耳朵，当听到有人喊：XXX注册成功 的声音之后，立即行动做出下面反应： 路人A：负责给XXX发送一封注册邮件
+>
+> 路人B：负责给XXX发送优惠券
+>
+> 我们来看一下：
+>
+> 注册器只负责将用户信息落库，及广播一条用户注册成功的消息。
+>
+> A和B相当于一个监听者，只负责监听用户注册成功的消息，当听到有这个消息产生的时候，A和B就去做自己的事情。
+>
+> 这里面注册器是感知不到A/B存在的，A和B也不用感知注册器的存在，A/B只用关注是否有人广播：
+>
+> XXX注册成功了 的消息，当AB听到有人广播注册成功的消息，他们才做出反应，其他时间闲着休息。
+>
+> 这种方式就非常好：
+>
+> 当不想给用户发送优惠券的时候，只需要将B去掉就行了，此时基本上也不用测试，注册一下B的代码就 行了。
+>
+> 若注册成功之后需要更多业务，比如还需要给用户增加积分，只需新增一个监听者C，监听到注册成功 消息后，负责给用户添加积分，此时根本不用去调整注册的代码，开发者和测试人员只需要确保监听者 C中的正确性就可以了。
+>
+> 上面这种模式就是事件模式。
+
+## 事件模式中的几个概念
+
+> **事件源**：事件的触发者，比如上面的注册器就是事件源。
+>
+> **事件**：描述发生了什么事情的对象，比如上面的：xxx注册成功的事件
+>
+> **事件监听器**：监听到事件发生的时候，做一些处理，比如上面的：路人A、路人B
+
+## 下面我们使用事件模式实现用户注册的业务
+
+> 我们先来定义和事件相关的几个类。
+
+### 事件对象
+
+> 表示所有事件的父类，内部有个source字段，表示事件源；我们自定义的事件需要继承这个类。
+
+### 事件监听器
+
+> ![](media/image24.png){width="0.13541666666666666in" height="0.13541666666666666in"}我们使用一个接口来表示事件监听器，是个泛型接口，后面的类型E 表示当前监听器需要监听的事件类型，此接口中只有一个方法，用来实现处理事件的业务；其定义的监听器需要实现这个接 口。
+
+### 事件广播器
+
+> 负责事件监听器的管理（注册监听器&移除监听器，将事件和监听器关联起来）
+>
+> 负责事件的广播（将事件广播给所有的监听器，对该事件感兴趣的监听器会处理该事件）
+
+### 事件广播默认实现
+
+> package com.javacode2018.lesson003.demo1.test0.event;
+>
+> import java.lang.reflect.ParameterizedType; import java.lang.reflect.Type;
+>
+> import java.util.ArrayList; import java.util.List; import java.util.Map;
+>
+> import java.util.concurrent.ConcurrentHashMap;
+>
+> /**
+>
+> * 事件广播器简单实现
+>
+> */
+>
+> public class SimpleEventMulticaster implements EventMulticaster {
+>
+> private Map<Class<?>, List<EventListener>> eventObjectEventListenerMap = new ConcurrentHashMap<>();
+>
+> @Override
+>
+> public void multicastEvent(AbstractEvent event) { List<EventListener> eventListeners =
+>
+> this.eventObjectEventListenerMap.get(event.getClass()); if (eventListeners != null) {
+>
+> for (EventListener eventListener : eventListeners) { eventListener.onEvent(event);
+>
+> }
+>
+> }
+>
+> }
+>
+> @Override
+>
+> public void addEventListener(EventListener<?> listener) { Class<?> eventType = this.getEventType(listener); List<EventListener> eventListeners =
+>
+> this.eventObjectEventListenerMap.get(eventType); if (eventListeners == null) {
+>
+> eventListeners = new ArrayList<>(); this.eventObjectEventListenerMap.put(eventType, eventListeners);
+>
+> }
+>
+> eventListeners.add(listener);
+>
+> }
+>
+> @Override
+>
+> public void removeEventListener(EventListener<?> listener) { Class<?> eventType = this.getEventType(listener); List<EventListener> eventListeners =
+>
+> this.eventObjectEventListenerMap.get(eventType); if (eventListeners != null) {
+>
+> eventListeners.remove(listener);
+>
+> }
+>
+> }
+>
+> /**
+
+-   获取事件监听器需要监听的事件类型
+
+*
+
+-   @param listener
+
+-   @return
+
+> **上面3个类支撑了整个时间模型，下面我们使用上面三个类来实现注册的功能，目标是：高内聚低耦 合，让注册逻辑方便扩展。**
+
+### 自定义用户注册成功事件类
+
+> 继承了AbstractEvent 类
+
+### 用户注册服务
+
+> 负责实现用户注册逻辑
+>
+> @0：事件发布者
+>
+> @1：registerUser这个方法负责用户注册，内部主要做了2个事情@2：模拟将用户信息落库
+>
+> @3：使用事件发布者eventPublisher发布用户注册成功的消息:
+
+### 下面我们使用spring来将上面的对象组装起来
+
+> 上面有2个方法，负责向spring容器中注册2个bean。
+>
+> @1：向spring容器中注册了一个bean： 事件发布者 ，方法传入了EventListener 类型的List， 这个地方会将容器中所有的事件监听器注入进来，丢到EventMulticaster 中。
+>
+> @2：向spring容器中注册了一个bean： 用户注册服务
+
+### 来个测试用例模拟用户注册
+
+> **运行输出**
+
+### 添加注册成功发送邮件功能
+
+> 下面添加一个注册成功发送邮件的功能，只需要自定义一个监听用户注册成功事件的监听器就可以了， 其他代码不需要任何改动，如下
+>
+> 上面这个类使用了@Component ，会被自动扫描注册到spring容器。
+
+### 再次运行测试用例输出
+
+> **小结**
+>
+> 上面将注册的主要逻辑（用户信息落库）和次要的业务逻辑（发送邮件）通过事件的方式解耦了。次要 的业务做成了可插拔的方式，比如不想发送邮件了，只需要将邮件监听器上面的@Component 注释就可以了，非常方便扩展。
+>
+> 上面用到的和事件相关的几个类，都是我们自己实现的，其实这些功能在spring中已经帮我们实现好了，用起来更容易一些，下面带大家来体验一下。
+
+## Spring中实现事件模式
+
+### 事件相关的几个类
+
+> Spring中事件相关的几个类需要先了解一下，下面来个表格，将spring中事件相关的类和我们上面自定义的类做个对比，方便大家理解
+
++-----------------------------------------------------------------------+--------------------------+------------------------+
+| > **spring中事件类**                                                  | > **我们自定义的事件类** | > **作用**             |
++-----------------------------------------------------------------------+--------------------------+------------------------+
+| > org.springframework.context.ApplicationEvent                        | > AbstractEvent          | > 表示事件对象的父类   |
++-----------------------------------------------------------------------+--------------------------+------------------------+
+| > org.springframework.context.ApplicationListener                     | > EventListener          | > 事件监听器接口       |
++-----------------------------------------------------------------------+--------------------------+------------------------+
+| > org.springframework.context.event.ApplicationEventMulticaster       | > EventPublisher         | > 事件广播器           |
++-----------------------------------------------------------------------+--------------------------+------------------------+
+| > org.springframework.context.event.SimpleApplicationEventMulticaster | > SimpleEventMulticaster | > 事件广播器的简单实现 |
++-----------------------------------------------------------------------+--------------------------+------------------------+
+
+> 这些类和我们自定义的类中代码有点类似，有兴趣的可以去看一下源码，这里就不列出来了。
+
+### 硬编码的方式使用spring事件3步骤
+
+#### 步骤1：定义事件
+
+> 自定义事件，需要继承ApplicationEvent 类，
+
+#### 步骤2：定义监听器
+
+> 自定义事件监听器，需要实现ApplicationListener 接口，这个接口有个方法onApplicationEvent
+>
+> 需要实现，用来处理感兴趣的事件。
+
+#### 步骤3：创建事件广播器
+
+> 创建事件广播器ApplicationEventMulticaster ，这是个接口，你可以自己实现这个接口，也可以直接使用系统给我们提供的SimpleApplicationEventMulticaster ，如下：
+
+#### 步骤4：向广播器中注册事件监听器
+
+> 将事件监听器注册到广播器ApplicationEventMulticaster 中，如：
+
+#### 步骤5：通过广播器发布事件
+
+> 广播事件，调用ApplicationEventMulticaster#multicastEvent方法 广播事件，此时广播器中对这个事件感兴趣的监听器会处理这个事件。
+>
+> 下面我们来个案例将这5个步骤串起来感受一下。
+
+### 案例 {#案例-14}
+
+> 实现功能：电商中订单创建成功之后，给下单人发送一封邮件，发送邮件的功能放在监听器中实现。 下面上代码
+
+#### 来个事件类：订单创建成功事件
+
+> **来个监听器：负责监听订单成功事件，发送邮件**
+
+#### 测试用例 {#测试用例-12}
+
+> **运行输出**
+
+### ApplicationContext容器中事件的支持
+
+> 上面演示了spring中事件的使用，那么平时我们使用spring的时候就这么使用？ 非也非也，上面只是我给大家演示了一下原理。
+>
+> 通常情况下，我们会使用以ApplicationContext 结尾的类作为spring的容器来启动应用，下面2个是比较常见的
+>
+> 来看一个类图
+
+![](media/image25.png){width="5.477083333333334in" height="1.7305555555555556in"}
+
+> 对这个图我们来解释一下：
+>
+> 上面第三条，说明了AbstractApplicationContext 内部已经集成了事件广播器
+>
+> ApplicationEventMulticaster ，说明AbstractApplicationContext 内部是具体事件相关功能
+>
+> 的，这些功能是通过其内部的ApplicationEventMulticaster 来实现的，也就是说将事件的功能委托给了内部的ApplicationEventMulticaster 来实现。
+
+### ApplicationEventPublisher接口
+
+> 上面类图中多了一个新的接口ApplicationEventPublisher ，来看一下源码
+>
+> 这个接口用来发布事件的，内部定义2个方法都是用来发布事件的。
+>
+> spring中不是有个ApplicationEventMulticaster 接口么，此处怎么又来了一个发布事件的接口？
+>
+> 这个接口的实现类中，比如AnnotationConfigApplicationContext 内部将这2个方法委托给
+>
+> ApplicationEventMulticaster#multicastEvent 进行处理了。
+>
+> 所以调用AbstractApplicationContext中的publishEvent 方法，也实现广播事件的效果，不过使用
+>
+> AbstractApplicationContext 也只能通过调用publishEvent 方法来广播事件。
+
+### 获取ApplicationEventPublisher对象
+
+> 如果我们想在普通的bean中获取ApplicationEventPublisher 对象，需要实现
+>
+> spring容器会自动通过上面的setApplicationEventPublisher 方法将
+>
+> ApplicationEventPublisher 注入进来，此时我们就可以使用这个来发布事件了。
+
+### Spring为了简化事件的使用，提供了2种使用方式
+
+1.  #### 面相接口的方式
+
+2.  **面相@EventListener注解的方式**
+
+## 面相接口的方式
+
+### 案例 {#案例}
+
+> 实现用户注册成功后发布事件，然后在监听器中发送邮件的功能。
+
+#### 用户注册事件
+
+> 需要继承ApplicationEvent
+
+#### 发送邮件监听器
+
+> 需实现ApplicationListener 接口
+
+#### 用户注册服务
+
+> 内部提供用户注册的功能，并发布用户注册事件
+>
+> ![](media/image26.png){width="0.20833333333333334in" height="0.13541666666666666in"}注意上面实现了ApplicationEventPublisherAware接口 ，spring容器会通过@1 将
+>
+> ApplicationEventPublisher 注入进来，然后我们就可以使用这个来发布事件了。
+
+#### 来个spring配置类
+
+> **上测试用例**
+>
+> **运行输出**
+
+### 原理
+
+> spring容器在创建bean的过程中，会判断bean是否为ApplicationListener 类型，进而会将其作为监听器注册到AbstractApplicationContext#applicationEventMulticaster 中，这块的源码在下面这个方法中，有兴趣的可以看一下
+
+### 小结 {#小结}
+
+> 从上面这个案例中可以看出，事件类、监听器类都是通过基于spring中的事件相关的一些接口来实现事件的功能，这种方式我们就称作面相接口的方式。
+
+## 面相@EventListener注解方式
+
+### 用法 {#用法}
+
+> 上面是通过接口的方式创建一个监听器，spring还提供了通过@EventListener 注解的方式来创建一个监听器，直接将这个注解标注在一个bean的方法上，那么这个方法就可以用来处理感兴趣的事件，使 用更简单，如下，方法参数类型为事件的类型：
+
+### 案例 {#案例-15}
+
+> 注册成功之后：来2个监听器：一个负责发送邮件、一个负责发送优惠券。其他代码都不上了，和上面案例中的一样，主要看监听器的代码，如下：
+>
+> 这块案例代码
+>
+> 运行结果
+
+### 原理
+
+> spring中处理@EventListener注解源码位于下面的方法中
+>
+> EventListenerMethodProcessor实现了SmartInitializingSingleton接口，SmartInitializingSingleton接 口中的afterSingletonsInstantiated 方法会在所有单例的bean创建完成之后被spring容器调用， 这块的内容可以去看一下：<span class="underline">B</span> <span class="underline">ean生命周期详解</span>
+
+### idea对注解的方式支持比较好
+
+> 注解的方式实现监听器，idea对这块支持比较好，时间发布的地方会显示一个耳机 ，点击这个耳机 的时候，spring会帮我们列出这个事件有哪些监听器
+>
+> ![](media/image27.jpeg){width="6.168055555555555in" height="2.042361111111111in"}
+>
+> 点击耳机 列出了2个监听器，可以快速定位到监听器，如下
+
+![](media/image28.jpeg){width="6.098611111111111in" height="1.2527777777777778in"}
+
+> 同样监听器的地方也有一个广播的图标，如下图
+>
+> ![](media/image29.jpeg){width="6.186805555555556in" height="2.5625in"}
+>
+> 点击上面这个广播 的图标，可以快速导航到事件发布的地方，相当方便。
+
+## 监听器支持排序功能
+
+> 如果某个事件有多个监听器，默认情况下，监听器执行顺序是无序的，不过我们可以为监听器指定顺 序。
+
+### 通过接口实现监听器的情况
+
+> 如果自定义的监听器是通过ApplicationListener接口实现的，那么指定监听器的顺序有三种方式
+
+#### 方式1：实现org.springframework.core.Ordered接口
+
+> 需要实现一个getOrder方法，返回顺序值，值越小，顺序越高
+
+#### 方式2：实现org.springframework.core.PriorityOrdered接口
+
+> PriorityOrdered接口继承了方式一中的Ordered接口，所以如果你实现PriorityOrdered接口，也需要 实现getOrder方法。
+
+#### 方式3：类上使用@org.springframework.core.annotation.Order注解
+
+> 看一下这个注解的源码
+>
+> value属性用来指定顺序
+>
+> **这几种方式排序规则**
+
+### 通过@EventListener实现事件监听器的情况
+
+> 可以在标注@EventListener 的方法上面使用@Order(顺序值) 注解来标注顺序，如：
+
+### 案例 {#案例}
+
+> 上面会先发送优惠券、然后再发送邮件。上面输出中顺便将线程信息也输出了。
+>
+> 对应测试用例
+>
+> 运行输出
+>
+> 从输出中可以看出上面程序的执行都在主线程中执行的，说明监听器中的逻辑和注册逻辑在一个线程中 执行的，此时如果监听器中的逻辑比较耗时或者失败，直接会导致注册失败，通常我们将一些非主要逻 辑可以放在监听器中执行，至于这些非主要逻辑成功或者失败，最好不要对主要的逻辑产生影响，所以 我们最好能将监听器的运行和主业务隔离开，放在不同的线程中执行，主业务不用关注监听器的结果， spring中支持这种功能，下面继续看。
+
+## 监听器异步模式
+
+### 先来看看到底如何实现？
+
+> 监听器最终是通过ApplicationEventMulticaster 内部的实现来调用的，所以我们关注的重点就是这个类，这个类默认有个实现类SimpleApplicationEventMulticaster ，这个类是支持监听器异步调用的，里面有个字段：
+>
+> 高并发比较熟悉的朋友对Executor 这个接口是比较熟悉的，可以用来异步执行一些任务。
+>
+> 我们常用的线程池类java.util.concurrent.ThreadPoolExecutor 就实现了Executor 接口。
+>
+> 再来看一下SimpleApplicationEventMulticaster 中事件监听器的调用，最终会执行下面这个方法
+>
+> ![](media/image30.png){width="0.20833333333333334in" height="0.13541666666666666in"}上面的invokeListener 方法内部就是调用监听器，从代码@1 可以看出，如果当前executor 不为
+>
+> 空，监听器就会被异步调用，所以如果需要异步只需要让executor 不为空就可以了，但是默认情况下executor 是空的，此时需要我们来给其设置一个值，下面我们需要看容器中是如何创建广播器的，我们在那个地方去干预。
+>
+> 通常我们使用的容器是AbstractApplicationContext 类型的，需要看一下AbstractApplicationContext 中广播器是怎么初始化的，就是下面这个方法，容器启动的时候会被调用，用来初始化AbstractApplicationContext 中的事件广播器applicationEventMulticaster
+>
+> 上面逻辑解释一下：判断spring容器中是否有名称为applicationEventMulticaster 的bean，如果有就将其作为事件广播器，否则创建一个SimpleApplicationEventMulticaster作为广播器，并将其注册到spring容器中。
+>
+> 从上面可以得出结论：我们只需要自定义一个类型为SimpleApplicationEventMulticaster 名称为applicationEventMulticaster 的bean就可以了，顺便给executor 设置一个值，就可以实现监听器异步执行了。
+
+### 具体实现如下
+
+> package com.javacode2018.lesson003.demo1.test5;
+>
+> import org.springframework.context.annotation.Bean;
+>
+> import org.springframework.context.annotation.ComponentScan; import org.springframework.context.annotation.Configuration;
+>
+> import org.springframework.context.event.ApplicationEventMulticaster; import org.springframework.context.event.SimpleApplicationEventMulticaster;
+>
+> import org.springframework.scheduling.concurrent.ThreadPoolExecutorFactoryBean;
+>
+> import java.util.concurrent.Executor;
+>
+> @ComponentScan @Configuration
+>
+> public class MainConfig5 { @Bean
+>
+> public ApplicationEventMulticaster applicationEventMulticaster() { //@1
+>
+> //创建一个事件广播器SimpleApplicationEventMulticaster result = new
+>
+> SimpleApplicationEventMulticaster();
+>
+> //给广播器提供一个线程池，通过这个线程池来调用事件监听器Executor executor =
+>
+> this.applicationEventMulticasterThreadPool().getObject();
+>
+> //设置异步执行器result.setTaskExecutor(executor);//@1 return result;
+>
+> }
+>
+> @Bean
+>
+> public ThreadPoolExecutorFactoryBean applicationEventMulticasterThreadPool()
+>
+> {
+>
+> ThreadPoolExecutorFactoryBean result = new
+>
+> ThreadPoolExecutorFactoryBean(); result.setThreadNamePrefix("applicationEventMulticasterThreadPool-"); result.setCorePoolSize(5);
+>
+> return result;
+>
+> }
+>
+> }
+>
+> @1：定义了一个名称为applicationEventMulticaster 的事件广播器，内部设置了一个线程池用来异步调用监听器
+>
+> 这段代码对应的测试用例
+>
+> 运行输出
+>
+> 此时实现了监听器异步执行的效果。
+
+## 关于事件使用建议
+
+1.  spring中事件是使用接口的方式还是使用注解的方式？具体使用哪种方式都可以，不过在公司内部最好大家都统一使用一种方式
+
+2.  异步事件的模式，通常将一些非主要的业务放在监听器中执行，因为监听器中存在失败的风险，所 以使用的时候需要注意。如果只是为了解耦，但是被解耦的次要业务也是必须要成功的，可以使用 消息中间件的方式来解决这些问题。
+
+3.  事件的使用就到这里，有问题的欢迎留言讨论。
+
+## 案例源码 {#案例源码-5}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第28篇：循环bean详解
+
+> 今天要说的是spring中循环依赖的问题，最近有大量粉丝问这个问题，也是高薪面试中经常会被问到的一个问题。
+>
+> 关于循环依赖的问题，来感受一下连环炮，试试自己否可以过关斩将，轻松应对。
+
+1.  什么是循环依赖？
+
+2.  如何检测是否存在循环依赖？
+
+3.  如何解决循环依赖？
+
+4.  多例的情况下，循环依赖问题为什么无法解决？
+
+5.  单例的情况下，虽然可以解决循环依赖，是否存在其他问题？
+
+6.  为什么采用三级缓存解决循环依赖？如果直接将早期bean丢到二级缓存可以么？
+
+> 前面4个ok的，超越了80%的人，后面2个难度指数递增，能回答出来的算是千分之一，如果能回答上来，会让面试官相当佩服你的。
+>
+> 下面我们来一个个突破。
+
+## 什么是循环依赖？
+
+> 这个很好理解，多个bean之间相互依赖，形成了一个闭环。比如：A依赖于B、B依赖于C、C依赖于A。
+>
+> 代码中表示：
+
+## 如何检测是否存在循环依赖？
+
+> 检测循环依赖比较简单，使用一个列表来记录正在创建中的bean，bean创建之前，先去记录中看一下自己是否已经在列表中了，如果在，说明存在循环依赖，如果不在，则将其加入到这个列表，bean创 建完毕之后，将其再从这个列表中移除。
+>
+> 源码方面来看一下，spring创建单例bean时候，会调用下面方法
+>
+> singletonsCurrentlyInCreation 就 是 用 来 记 录 目 前 正 在 创 建 中 的 bean 名 称 列 表 ， this.singletonsCurrentlyInCreation.add(beanName) 返回false ，说明beanName已经在当前列表中了，此时会抛循环依赖的异常BeanCurrentlyInCreationException ，这个异常对应的源码：
+>
+> 上面是单例bean检测循环依赖的源码，再来看看非单例bean的情况。
+>
+> 以prototype情况为例，源码位于org.springframework.beans.factory.support.AbstractBeanFactory#doGetBean 方法中，将主要代码列出来看一下：
+
+## Spring如何解决循环依赖的问题
+
+> 这块建议大家先看一下：<span class="underline">详</span> <span class="underline">解spring bean的生命周期</span>。
+>
+> spring创建bean主要的几个步骤：
+
+1.  #### 步骤1：实例化bean，即调用构造器创建bean实例
+
+2.  **步骤2：填充属性，注入依赖的bean，比如通过set方式、@Autowired注解的方式注入依赖的**
+
+#### bean
+
+3.  **步骤3：bean的初始化，比如调用init方法等。**
+
+> 从上面3个步骤中可以看出，注入依赖的对象，有2种情况：
+
+1.  通过步骤1中构造器的方式注入依赖
+
+2.  通过步骤2注入依赖
+
+> 先来看构造器的方式注入依赖的bean，下面两个bean循环依赖
+>
+> 构造器的情况比较容易理解，实例化ServiceA的时候，需要有serviceB，而实例化ServiceB的时候需要有serviceA，构造器循环依赖是无法解决的，大家可以尝试一下使用编码的方式创建上面2个对象，是无法创建成功的！
+>
+> 再来看看非构造器的方式注入相互依赖的bean，以set方式注入为例，下面是2个单例的bean：
+>
+> serviceA和serviceB：
+>
+> 如果我们采用硬编码的方式创建上面2个对象，过程如下：
+>
+> 由于单例bean在spring容器中只存在一个，所以spring容器中肯定是有一个缓存来存放所有已创建好的单例bean；获取单例bean之前，可以先去缓存中找，找到了直接返回，找不到的情况下再去创建，创 建完毕之后再将其丢到缓存中，可以使用一个map来存储单例bean，比如下面这个
+>
+> 下面来看一下spring中set方法创建上面2个bean的过程
+>
+> 卧槽，上面过程死循环了，怎么才能终结？
+>
+> 可以在第3步后加一个操作：将实例化好的serviceA丢到singletonObjects中，此时问题就解决了。
+>
+> spring中也采用类似的方式，稍微有点区别，上面使用了一个缓存，而spring内部采用了3级缓存来解决这个问题，我们一起来细看一下。
+>
+> 3级缓存对应的代码：
+>
+> 下面来看spring中具体的过程，我们一起来分析源码开始的时候，获取serviceA，会调用下面代码
+>
+> @1：查看缓存中是否已经有这个bean了，如下：
+>
+> 然后进入下面方法，会依次尝试从3级缓存中查找bean，注意下面的第2个参数，为ture的时候，才会从第3级中查找，否则只会查找1、2级缓存
+>
+> 刚开始，3个缓存中肯定是找不到的，会返回null，接着会执行下面代码准备创建serviceA
+>
+> @1：进入getSingleton 方法，而getSingleton 方法代码比较多，为了方便大家理解，无关的代码我给剔除了，如下：
+>
+> ![](media/image31.jpeg){width="6.13125in" height="3.1645833333333333in"}上面@1和@2是关键代码，先来看一下@1，这个是一个ObjectFactory类型的，从外面传入的，如下
+>
+> 红框中的createBean 最终会调用下面这个方法
+>
+> 其内部主要代码如下：
+
+#### 这里需要理解一下什么是早期bean？
+
+> **刚刚实例化好的bean就是早期的bean，此时bean还未进行属性填充，初始化等操作**
+>
+> ![](media/image32.png){width="0.20833333333333334in" height="0.13541666666666666in"}@1 ：通过addSingletonFactory 用于将早期的bean暴露出去，主要是将其丢到第3级缓存中，代码如下：
+>
+> 上面的方法执行之后，serviceA就被丢到第3级的缓存中了。
+>
+> 后续的过程serviceA开始注入依赖的对象，发现需要注入serviceB，会从容器中获取serviceB，而
+>
+> serviceB的获取又会走上面同样的过程实例化serviceB，然后将serviceB提前暴露出去，然后serviceB 开始注入依赖的对象，serviceB发现自己需要注入serviceA，此时去容器中找serviceA，找serviceA会先去缓存中找，会执行getSingleton("serviceA",true) ，此时会走下面代码：
+>
+> 上面的方法走完之后，serviceA会被放入二级缓存earlySingletonObjects 中，会将serviceA返回， 此时serviceB中的serviceA注入成功，serviceB继续完成创建，然后将自己返回给serviceA，此时
+>
+> serviceA通过set方法将serviceB注入。
+>
+> serviceA创建完毕之后，会调用addSingleton 方法将其加入到缓存中，这块代码如下：
+>
+> 到此，serviceA和serviceB之间的循环依赖注入就完成了。
+>
+> 下面捋一捋整个过程：
+
+## 循环依赖无法解决的情况
+
+#### 只有单例的bean会通过三级缓存提前暴露来解决循环依赖的问题，而非单例的bean，每次从容器中获 取都是一个新的对象，都会重新创建，所以非单例的bean是没有缓存的，不会将其放到三级缓存中。那
+
+> 就会有下面几种情况需要注意。
+>
+> 还是以2个bean相互依赖为例：serviceA和serviceB
+>
+> **情况1**
+
+#### 条件
+
+> serviceA：多例serviceB：多例**结果**
+>
+> 此时不管是任何方式都是无法解决循环依赖的问题，最终都会报错，因为每次去获取依赖的bean都会重 新创建。
+
+### 情况2
+
+#### 条件
+
+> serviceA：单例serviceB：多例**结果**
+>
+> 若使用构造器的方式相互注入，是无法完成注入操作的，会报错。
+>
+> 若采用set方式注入，所有bean都还未创建的情况下，若去容器中获取serviceB，会报错，为什么？我 们来看一下过程：
+>
+> 这个有演示的源码，位置：
+>
+> **在这里给大家留个问题，如果此处不是去获取serviceB，而是先去获取serviceA呢，会不会报错？欢 迎各位留言。**
+
+## 探讨：为什么需要用3级缓存
+
+### 问题
+
+#### 如果只使用2级缓存，直接将刚实例化好的bean暴露给二级缓存出是否可以否？
+
+> 先下个结论吧：不行。
+
+### 原因
+
+#### 这样做是可以解决：早期暴露给其他依赖者的bean和最终暴露的bean不一致的问题。
+
+> 若将刚刚实例化好的bean直接丢到二级缓存中暴露出去，如果后期这个bean对象被更改了，比如可能在上面加了一些拦截器，将其包装为一个代理了，那么暴露出去的bean和最终的这个bean就不一样
+>
+> 的，将自己暴露出去的时候是一个原始对象，而自己最终却是一个代理对象，最终会导致被暴露出去的 和最终的bean不是同一个bean的，将产生意向不到的效果，而三级缓存就可以发现这个问题，会报
+>
+> 错。
+>
+> 下面我们通过代码来演示一下效果。
+
+### 案例 {#案例-16}
+
+> 下面来2个bean，相互依赖，通过set方法相互注入，并且其内部都有一个m1方法，用来输出一行日志。
+
+#### Service1
+
+> **Service2**
+>
+> ![](media/image33.png){width="0.20833333333333334in" height="0.13541666666666666in"}注意上面的@1 ，service2的m1方法中会调用service1的m1方法。
+
+#### 需求 {#需求-3}
+
+> 在service1上面加个拦截器，要求在调用service1的任何方法之前需要先输出一行日志
+
+#### 实现
+
+> 新增一个Bean后置处理器来对service1对应的bean进行处理，将其封装为一个代理暴露出去。
+>
+> 上面的postProcessAfterInitialization 方法内部会在service1初始化之后调用，内部会对
+>
+> service1这个bean进行处理，返回一个代理对象，通过代理来访问service1的方法，访问service1中的任何方法之前，会先输出： 你好，service1 。
+>
+> 代码中使用了ProxyFactory ，这块不熟悉的没关系，后面介绍aop的时候会细说。
+
+#### 来个配置类 {#来个配置类}
+
+> **来个测试用例**
+
+#### 运行：报错了
+
+> 可以看出是AbstractAutowireCapableBeanFactory.java:624 这个地方整出来的异常，将这块代码贴出来给大家看一下：
+>
+> 上面代码主要用来判断当有循环依赖的情况下，早期暴露给别人使用的bean是否和最终的bean不一样的情况下，会抛出一个异常。
+>
+> 我们再来通过代码级别的来解释上面代码：
+>
+> @1：调用getSingleton(beanName, false)方法，这个方法用来从3个级别的缓存中获取bean，但是注意了，这个地方第二个参数是false，此时只会尝试从第1级和第2级缓存中获取bean，如果能够获取 到，说明了什么？说明了第2级缓存中已经有这个bean了，而什么情况下第2级缓存中会有bean？说明这个bean从第3级缓存中已经被别人获取过，然后从第3级缓存移到了第2级缓存中，说明这个早期的bean被别人通过getSingleton(beanName, true)获取过
+>
+> ![](media/image34.png){width="0.20833333333333334in" height="0.13541666666666666in"}@2：这个地方用来判断早期暴露的bean和最终spring容器对这个bean走完创建过程之后是否还是同一个bean，上面我们的service1被代理了，所以这个地方会返回false，此时会走到 @3
+>
+> @3： allowRawInjectionDespiteWrapping 这个参数用来控制是否允许循环依赖的情况下，早期暴露给被人使用的bean在后期是否可以被包装，通俗点理解就是：是否允许早期给别人使用的bean和最终bean不一致的情况，这个值默认是false，表示不允许，也就是说你暴露给别人的bean和你最终的bean 需要是一直的，你给别人的是1，你后面不能将其修改成2了啊，不一样了，你给我用个鸟。
+>
+> 而上面代码注入到service2中的service1是早期的service1，而最终spring容器中的service1变成一个代 理对象了，早期的和最终的不一致了，而allowRawInjectionDespiteWrapping 又是false，所以报异常了。
+>
+> 那么如何解决这个问题：
+>
+> 很简单，将allowRawInjectionDespiteWrapping 设置为true就可以了，下面改一下代码如下：
+>
+> 上面代码中将allowRawInjectionDespiteWrapping 设置为true了，是通过一个BeanFactoryPostProcessor 来实现的，后面会有一篇文章来详解BeanFactoryPostProcessor ，目前你只需要知道BeanFactoryPostProcessor 可以在bean创建之前用来干预BeanFactory 的创建过程，可以用来修改BeanFactory 中的一些配置。
+
+#### 再次输出
+
+> 此时正常了，我们继续，看看我们加在service1 上的拦截器起效了没有，上面代码中加入下面代码：
+>
+> ![](media/image35.png){width="0.21875in" height="0.13541666666666666in"}上面为了区分结果，使用了 格式的几行日志将输出结果分开了，来运行一下，输出：
+>
+> 从输出中可以看出。
+>
+> service2.m1()对应输出：
+>
+> service1.m1()对应输出：
+>
+> 而service2.m1方法中调用了service1.m1,这个里面拦截器没有起效啊，但是单独调用service1.m1方法，却起效了，说明service2中注入的service1不是代理对象，所以没有加上拦截器的功能，那是因为service2中注入的是早期的service1，注入的时候service1还不是一个代理对象，所以没有拦截器中的 功能。
+>
+> 再看看最后一行输出为false，说明service2中的service1确实和spring容器中的service1不是一个对象了。
+>
+> ok，那么这种情况是不是很诧异，如何解决这个问题？
+>
+> 既然最终service1是一个代理对象，那么你提前暴露出去的时候，注入到service2的时候，你也必须得 是个代理对象啊，需要确保给别人和最终是同一个对象。
+>
+> 这个怎么整？继续看暴露早期bean的源码，注意了下面是重点：
+>
+> 注意有个getEarlyBeanReference 方法，来看一下这个方法是干什么的，源码如下：
+>
+> 从3级缓存中获取bean的时候，会调用上面这个方法来获取bean，这个方法内部会看一下容器中是否有SmartInstantiationAwareBeanPostProcessor 这种处理器，然后会依次调用这种处理器中的getEarlyBeanReference 方法，那么思路来了，我们可以自定义一个SmartInstantiationAwareBeanPostProcessor ，然后在其getEarlyBeanReference 中来创建代理不就可以了，聪明，我们来试试，将MethodBeforeInterceptor 代码改成下面这样：
+>
+> 对应测试用例
+>
+> 运行输出
+
+## 单例bean解决了循环依赖，还存在什么问题？
+
+> 循环依赖的情况下，由于注入的是早期的bean，此时早期的bean中还未被填充属性，初始化等各种操作，也就是说此时bean并没有被完全初始化完毕，此时若直接拿去使用，可能存在有问题的风险。
+
+## 总结 {#总结-13}
+
+> 到目前为止，开头连环炮的问题，大家肯定都知道答案了，如果有不清楚的，欢迎留言。
+
+## 案例源码 {#案例源码}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+## 课后问题？
+
+> 有两个bean：serviceA(单例)，serviceB(多例)，他们之间相互依赖，通过set方法相互注入依赖。若两个bean都还未创建的时候，从容器中获取serviceA会不会报错？
+>
+> 欢迎留言讨论，可以将查找的过程写出来。
+
+# Spring系列第29篇：BeanFactory扩展
+
+> **（BeanFactoryPostProcessor、**
+
+# BeanDefinitionRegistryPostProcessor）
+
+#### Spring中有2个非常重要的接口：BeanFactoryPostProcessor和
+
+> **BeanDefinitionRegistryPostProcessor，这2个接口面试中也会经常问到，本文我们一起来拿下他们 俩。**
+>
+> **先来看几个问题**
+
+1.  BeanFactoryPostProcessor是做什么的？
+
+2.  BeanDefinitionRegistryPostProcessor是干什么的？
+
+3.  BeanFactoryPostProcessor和BeanDefinitionRegistryPostProcessor有什么区别？
+
+4.  这几个接口的执行顺序是什么样的？
+
+## Spring容器中主要的4个阶段
+
+> 阶段1：Bean注册阶段，此阶段会完成所有bean的注册 阶段2：BeanFactory后置处理阶段
+>
+> 阶段3：注册BeanPostProcessor
+>
+> 阶段4：bean创建阶段，此阶段完成所有单例bean的注册和装载操作，这个阶段不是我们本文关注的重点，有兴趣的，可以去看之前的文章中有详细介绍：<span class="underline">B</span> <span class="underline">ean生命周期详解</span>
+>
+> 本文介绍的2个接口主要和前2个阶段有关系，下面我们主要来看前2个阶段。
+
+## 阶段1：Bean注册阶段
+
+### 概述
+
+> spring中所有bean的注册都会在此阶段完成，按照规范，所有bean的注册必须在此阶段进行，其他阶段不要再进行bean的注册。
+>
+> 这个阶段spring为我们提供1个接口：BeanDefinitionRegistryPostProcessor，spring容器在这个阶段 中会获取容器中所有类型为BeanDefinitionRegistryPostProcessor 的bean，然后会调用他们的postProcessBeanDefinitionRegistry 方法，源码如下，方法参数类型是BeanDefinitionRegistry ，这个类型大家都比较熟悉，即bean定义注册器，内部提供了一些方法可
+>
+> 以用来向容器中注册bean。
+>
+> 这个接口还继承了BeanFactoryPostProcessor 接口，这个大家先不用关心，一会阶段2中会介绍。
+>
+> 当容器中有多个BeanDefinitionRegistryPostProcessor 的时候，可以通过下面任意一种方式来指定顺序
+
+1.  实现org.springframework.core.PriorityOrdered 接口
+
+2.  实现org.springframework.core.Ordered 接口
+
+> 执行顺序：
+>
+> 下面通过案例来感受一下效果。
+
+### 案例1：简单实用
+
+> 此案例演示BeanDefinitionRegistryPostProcessor 的简单使用
+
+#### 自定义一个BeanDefinitionRegistryPostProcessor
+
+> 下面我们定义了一个类，需要实现BeanDefinitionRegistryPostProcessor 接口，然后会让我们实现2个方法，大家重点关注postProcessBeanDefinitionRegistry 这个方法，另外一个方法来自于BeanFactoryPostProcessor ，一会我们后面在介绍这个方法，在postProcessBeanDefinitionRegistry 方法中，我们定义了一个bean，然后通过registry 将其注册到容器了，代码很简单
+
+#### 同包中来个配置类
+
+> **测试用例**
+>
+> **运行输出**
+
+### 案例2：多个指定顺序
+
+> 下面我们定义2个BeanDefinitionRegistryPostProcessor ，都实现Ordered 接口，第一个order的值为2，第二个order的值为1，我们来看一下具体执行的顺序。
+
+#### 第一个
+
+> **第二个**
+>
+> 上面2个类中的postProcessBeanDefinitionRegistry方法第一行都有输出，一个可以通过运行结果看到执行的顺序。
+
+#### 同包中添加配置类
+
+> **测试案例**
+>
+> **运行输出**
+
+### 小结 {#小结-2}
+
+> BeanDefinitionRegistryPostProcessor 有个非常重要的实现类：
+>
+> 这个类可能有些人不熟悉，下面这些注解大家应该比较熟悉吧，这些注解都是在上面这个类中实现的， 通过这些注解来实现bean的批量注册
+>
+> 有兴趣的朋友可以去看一下ConfigurationClassPostProcessor#postProcessBeanDefinitionRegistry 研究一下上面这些注解的解析过程，可以学到很多东西。
+
+## 阶段2：BeanFactory后置处理阶段
+
+### 概述
+
+> 到这个阶段的时候，spring容器已经完成了所有bean的注册，这个阶段中你可以对BeanFactory中的一 些信息进行修改，比如修改阶段1中一些bean的定义信息，修改BeanFactory的一些配置等等，此阶段spring也提供了一个接口来进行扩展： BeanFactoryPostProcessor ，简称bfpp ，接口中有个方法postProcessBeanFactory ，spring会获取容器中所有BeanFactoryPostProcessor类型的bean，然后调用他们的postProcessBeanFactory ，来看一下这个接口的源码：
+>
+> 当容器中有多个BeanFactoryPostProcessor 的时候，可以通过下面任意一种方式来指定顺序
+
+1.  实现org.springframework.core.PriorityOrdered 接口
+
+2.  实现org.springframework.core.Ordered 接口
+
+> 执行顺序：
+>
+> 下面通过案例来感受一下效果。
+
+### 案例 {#案例}
+
+> 这个案例中演示，在BeanFactoryPostProcessor来修改bean中已经注册的bean定义的信息，给一个
+>
+> bean属性设置一个值。
+
+#### 先来定义一个bean
+
+> 上面这个bean有个name字段，并没有设置值，下面我们在BeanFactoryPostProcessor来对其设置值。
+
+#### 自定义的BeanFactoryPostProcessor
+
+> 下面代码中，我们先获取lessonModel 这个bean的定义信息，然后给其name 属性设置了一个值。
+
+#### 测试用例 {#测试用例-13}
+
+> **运行输出**
+>
+> 结果中可以看出，通过BeanFactoryPostProcessor 修改了容器中已经注册的bean定义信息。
+
+### 这个接口的几个重要实现类
+
+#### PropertySourcesPlaceholderConfigurer
+
+> 这个接口做什么的，大家知道么？来看一段代码
+>
+> 这个大家比较熟悉吧，spring就是在
+>
+> PropertySourcesPlaceholderConfigurer#postProcessBeanFactory 中来处理xml中属性中的
+>
+> ${xxx} ，会对这种格式的进行解析处理为真正的值。
+
+#### CustomScopeConfigurer
+
+> 向容器中注册自定义的Scope对象，即注册自定义的作用域实现类，关于自定义的作用域，不了解的朋友，建议先看一下：<span class="underline">S</span> <span class="underline">pring系列第6篇：玩转bean scope，避免跳坑里！</span>
+>
+> 这个用法比较简单，定义一个CustomScopeConfigurer 的bean就可以了，然后通过这个类来注册自定义的bean。
+
+#### EventListenerMethodProcessor
+
+> 处理@EventListener 注解的，即spring中事件机制，需要了解spring事件的：<span class="underline">s</span> <span class="underline">pring事件机制详解</span>还有一些实现类，这里就不介绍了。
+
+### 使用注意
+
+> BeanFactoryPostProcessor 接口的使用有一个需要注意的地方，在其postProcessBeanFactory 方法中，强烈禁止去通过容器获取其他bean，此时会导致bean的提前初始化，会出现一些意想不到的问 题，因为这个阶段中BeanPostProcessor 还未准备好，本文开头4个阶段中有介绍， BeanPostProcessor 是在第3个阶段中注册到spring容器的，而BeanPostProcessor 可以对bean的创建过程进行干预，比如spring中的aop就是在 BeanPostProcessor 的一些子类中实现的， @Autowired 也是在BeanPostProcessor 的子类中处理的，此时如果去获取bean，此时bean不会被BeanPostProcessor 处理，所以创建的bean可能是有问题的，还是通过一个案例给大家演示一下把， 通透一些。
+
+#### 来一个简单的类
+
+> @1：使用了@Autowired，会指定注入
+
+### 来个配置类 {#来个配置类-3}
+
+> 配置类中定义了2个UserModel类型的bean：user1、user2
+>
+> 并且定义了一个String类型的bean：name，这个会注入到UserModel中的name属性中去。
+
+#### 测试用例 {#测试用例}
+
+> 输出容器中所有UserModel类型的bean
+
+#### 运行输出 {#运行输出-17}
+
+> 效果不用多解释，大家一看就懂，下面来重点。
+
+### 添加一个BeanFactoryPostProcessor
+
+> 在postProcessBeanFactory 方法中去获取一下user1这个bean
+
+#### 再次运行输出
+
+> 注意，user1中的name变成null了，什么情况？
+>
+> 是因为@Autowired注解是在 AutowiredAnnotationBeanPostProcessor 中解析的，spring容器调用BeanFactoryPostProcessor#postProcessBeanFactory 的使用，此时spring容器中还没有AutowiredAnnotationBeanPostProcessor ，所以此时去获取user1这个bean的时候，@Autowired 并不会被处理，所以name是null。
+
+## 源码
+
+### 4个阶段的源码
+
+> 4个阶段的源码为位于下面这个方法中
+>
+> 这个方法中截取部分代码如下：
+>
+> 阶段1和阶段2的源码位于下面方法中，代码比较简单，强烈建议大家去看一下，几分钟就可以看懂了。
+
+## 总结 {#总结}
+
+1.  注意spring的4个阶段：bean定义阶段、BeanFactory后置处理阶段、BeanPostProcessor注册阶 段、单例bean创建组装阶段
+
+2.  BeanDefinitionRegistryPostProcessor会在第一个阶段被调用，用来实现bean的注册操作，这个 阶段会完成所有bean的注册
+
+3.  BeanFactoryPostProcessor会在第2个阶段被调用，到这个阶段时候，bean此时已经完成了所有bean的注册操作，这个阶段中你可以对BeanFactory中的一些信息进行修改，比如修改阶段1中一 些bean的定义信息，修改BeanFactory的一些配置等等
+
+4.  阶段2的时候，2个禁止操作：禁止注册bean、禁止从容器中获取bean
+
+5.  本文介绍的2个接口的实现类可以通过PriorityOrdered 接口或者Ordered 接口来指定顺序
+
+## 案例源码 {#案例源码-6}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+## 课后作业
+
+> 2个问题，欢迎留言讨论，会有红包惊喜哦！
+
+### 问题1
+
+> 大家去读一下
+>
+> org.springframework.context.support.AbstractApplicationContext#invokeBeanFactoryPostProces sors的源码，将内部主要的执行过程通过文字描述出来，然后留言
+
+### 问题2
+
+> BeanPostProcessor和BeanFactoryPostProcessors有何区别？留言
+
+# Spring系列第30篇：jdk动态代理和cglib代理
+
+> Spring中有个非常重要的知识点，AOP，即面相切面编程，spring中提供的一些非常牛逼的功能都是通 过aop实现的，比如下面这些大家比较熟悉的功能
+
+1.  spring事务管理：@Transactional
+
+2.  spring异步处理：@EnableAsync
+
+3.  spring缓存技术的使用：@EnableCaching
+
+4.  spring中各种拦截器：@EnableAspectJAutoProxy
+
+> 大家想玩转spring，成为一名spring高手，aop是必须要掌握的，aop这块东西比较多，我们将通过三 四篇文章来详解介绍这块的内容，由浅入深，让大家全面掌握这块知识。
+>
+> 说的简单点，spring中的aop就是依靠代理实现的各种功能，通过代理来对bean进行增强。
+>
+> spring中的aop功能主要是通过2种代理来实现的
+
+1.  jdk动态代理
+
+2.  cglib代理
+
+> 继续向下之前，必须先看一下这篇文章：<span class="underline">S</span> <span class="underline">pring系列第15篇：代理详解（Java动态代理&cglib代理）？</span>
+>
+> spring aop中用到了更多的一些特性，上面这边文章中没有介绍到，所以通过本文来做一个补充，这2 篇文章看过之后，再去看spring aop的源码，理解起来会容易一些，这2篇算是最基础的知识，所以一定要消化理解，不然aop那块的原理你很难了解，会晕车，
+
+## jdk动态代理
+
+### 特征
+
+1.  只能为接口创建代理对象
+
+2.  创建出来的代理都是java.lang.reflect.Proxy的子类
+
+### 案例 {#案例-17}
+
+> 案例源码位置：
+>
+> 有2个接口
+>
+> 下面的类实现了上面2个接口
+>
+> 下面通过jdk动态代理创建一个代理对象，实现上面定义的2个接口，将代理对象所有的请求转发给
+>
+> Service去处理，需要在代理中统计2个接口中所有方法的耗时。
+>
+> 比较简单，自定义一个InvocationHandler
+>
+> 测试方法
+>
+> target.getClass().getClassLoader(),
+>
+> new Class[]{IService1.class, IService2.class}, //创建的代理对象实现了2个
+>
+> 接口
+>
+> costTimeInvocationHandler);
+>
+> //判断代理对象是否是Service类型的，肯定是false咯System.out.println(String.format("proxyObject instanceof Service = %s",
+>
+> proxyObject instanceof Service));
+>
+> // 判 断 代 理 对 象 是 否 是 IService1 类 型 的 ， 肯 定 是 true System.out.println(String.format("proxyObject instanceof IService1 = %s",
+>
+> proxyObject instanceof IService1));
+>
+> // 判 断 代 理 对 象 是 否 是 IService2 类 型 的 ， 肯 定 是 true System.out.println(String.format("proxyObject instanceof IService2 = %s",
+>
+> proxyObject instanceof IService2));
+>
+> //将代理转换为IService1类型
+>
+> IService1 service1 = (IService1) proxyObject;
+>
+> //调用IService2的m1方法service1.m1();
+>
+> //将代理转换为IService2类型
+>
+> IService2 service2 = (IService2) proxyObject;
+>
+> //调用IService2的m2方法service2.m2();
+>
+> //输出代理的类型
+>
+> System.out.println("代理对象的类型:" + proxyObject.getClass());
+>
+> }
+>
+> 运行输出
+>
+> m1方法和m2方法被CostTimeInvocationHandler#invoke 给增强了，调用目标方法的过程中统计了耗时。
+>
+> 最后一行输出可以看出代理对象的类型，类名中包含了$Proxy 的字样，所以以后注意，看到这种字样的，基本上都是通过jdk动态代理创建的代理对象。
+>
+> 下面来说cglib代理的一些特殊案例。
+
+## cglib代理
+
+### cglib的特点
+
+1.  cglib弥补了jdk动态代理的不足，jdk动态代理只能为接口创建代理，而cglib非常强大，不管是接 口还是类，都可以使用cglib来创建代理
+
+2.  cglib创建代理的过程，相当于创建了一个新的类，可以通过cglib来配置这个新的类需要实现的接口，以及需要继承的父类
+
+3.  cglib可以为类创建代理，但是这个类不能是final类型的，cglib为类创建代理的过程，实际上为通过继承来实现的，相当于给需要被代理的类创建了一个子类，然后会重写父类中的方法，来进行增 强，继承的特性大家应该都知道，final修饰的类是不能被继承的，final修饰的方法不能被重写，
+
+> static修饰的方法也不能被重写，private修饰的方法也不能被子类重写，而其他类型的方法都可以 被子类重写，被重写的这些方法可以通过cglib进行拦截增强
+
+### cglib整个过程如下
+
+1.  Cglib根据父类,Callback, Filter 及一些相关信息生成key
+
+2.  然后根据key 生成对应的子类的二进制表现形式
+
+3.  使用ClassLoader装载对应的二进制,生成Class对象,并缓存
+
+4.  最后实例化Class对象,并缓存
+
+### 案例1：为多个接口创建代理
+
+> 代码比较简单，定义了2个接口，然后通过cglib来创建一个代理类，代理类会实现这2个接口，通过
+>
+> setCallback来对2个接口的方法进行增强。
+>
+> 运行输出
+>
+> 上面创建的代理类相当于下面代码
+
+### 案例2：为类和接口同时创建代理
+
+> 下面定义了2个接口：IService1和IService2，2个接口有个实现类：Service，然后通过cglib创建了个代理类，实现了这2个接口，并且将Service类作为代理类的父类。
+>
+> System.out.println("m2");
+>
+> }
+>
+> }
+>
+> public static void main(String[] args) { Enhancer enhancer = new Enhancer();
+>
+> //设置代理类的父类
+>
+> enhancer.setSuperclass(Service.class);
+>
+> //设置代理对象需要实现的接口
+>
+> enhancer.setInterfaces(new Class[]{IService1.class, IService2.class});
+>
+> //通过Callback来对被代理方法进行增强enhancer.setCallback(new MethodInterceptor() {
+>
+> @Override
+>
+> public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
+>
+> long startime = System.nanoTime();
+>
+> Object result = methodProxy.invokeSuper(o, objects); //调用父类中
+>
+> 的方法
+
+startime));
+
+}
+
+});
+
+> System.out.println(method + "，耗时(纳秒):" + (System.nanoTime() - return result;
+>
+> //创建代理对象
+>
+> Object proxy = enhancer.create();
+>
+> //判断代理对象是否是Service类型的
+>
+> System.out.println("proxy instanceof Service" + (proxy instanceof Service));
+>
+> if (proxy instanceof Service) { Service service = (Service) proxy; service.m1();
+>
+> service.m2();
+>
+> }
+>
+> //看一下代理对象的类型System.out.println(proxy.getClass());
+>
+> //输出代理对象的父类
+>
+> System.out.println("代理类的父类：" + proxy.getClass().getSuperclass());
+>
+> //看一下代理类实现的接口
+>
+> System.out.println("创建代理类实现的接口如下：");
+>
+> for (Class<?> cs : proxy.getClass().getInterfaces()) { System.out.println(cs);
+>
+> }
+>
+> }
+>
+> }
+>
+> 运行输出
+>
+> 输出中可以代理对象的类型是：
+>
+> 带有$$EnhancerByCGLIB$$ 字样的，在调试spring的过程中，发现有这样字样的，基本上都是cglib创建的代理对象。
+>
+> 上面创建的代理类相当于下面代码
+
+### 案例3：LazyLoader的使用
+
+> LazyLoader是cglib用于实现懒加载的callback。当被增强bean的方法初次被调用时，会触发回调，之 后每次再进行方法调用都是对LazyLoader第一次返回的bean调用，hibernate延迟加载有用到过这个。
+>
+> 看案例吧，通过案例理解容易一些。
+>
+> 运行输出
+>
+> 当第1次调用say方法的时候，会被cglib拦截，进入lazyLoader的loadObject内部，将这个方法的返回值作为say方法的调用者，loadObject中返回了一个  喔喔松Java 的UserModel，cglib内部会将
+>
+> loadObject方法的返回值和say方法关联起来，然后缓存起来，而第2次调用say方法的时候，通过方法 名去缓存中找，会直接拿到第1次返回的UserModel，所以第2次不会进入到loadObject方法中了。
+>
+> 将下代码拆分开来
+>
+> 相当于下面的代码
+>
+> 下面通过LazyLoader实现延迟加载的效果。
+
+### 案例4：LazyLoader实现延迟加载
+
+> 博客的内容一般比较多，需要用到内容的时候，我们再去加载，下面来模拟博客内容延迟加载的效果。
+>
+> @1：调用blogContentModel.getContent()方法的时候，才会通过LazyLoader#loadObject方法 从db中获取到博客内容信息
+>
+> 运行输出
+
+### 案例5：Dispatcher
+
+> Dispatcher和LazyLoader作用很相似，区别是用Dispatcher的话每次对增强bean进行方法调用都会触发回调。
+>
+> 看案例代码
+>
+> 运行输出
+
+### 案例6：通过Dispathcer对类扩展一些接口
+
+> 下面有个UserService类，我们需要对这个类创建一个代理。
+>
+> 代码中还定义了一个接口：IMethodInfo，用来统计被代理类的一些方法信息，有个实现类：
+>
+> DefaultMethodInfo。
+>
+> 通过cglib创建一个代理类，父类为UserService，并且实现IMethodInfo接口，将接口IMethodInfo所有方法的转发给DefaultMethodInfo处理，代理类中的其他方法，转发给其父类UserService处理。
+>
+> 这个代码相当于对UserService这个类进行了增强，使其具有了IMethodInfo接口中的功能。
+>
+> private Class<?> targetClass;
+>
+> public DefaultMethodInfo(Class<?> targetClass) { this.targetClass = targetClass;
+>
+> }
+>
+> @Override
+>
+> public int methodCount() {
+>
+> return targetClass.getDeclaredMethods().length;
+>
+> }
+>
+> @Override
+>
+> public List<String> methodNames() {
+>
+> return Arrays.stream(targetClass.getDeclaredMethods()). map(Method::getName). collect(Collectors.toList());
+>
+> }
+>
+> }
+>
+> public static void main(String[] args) { Class<?> targetClass = UserService.class; Enhancer enhancer = new Enhancer();
+>
+> //设置代理的父类
+>
+> enhancer.setSuperclass(targetClass);
+>
+> //设置代理需要实现的接口列表
+>
+> enhancer.setInterfaces(new Class[]{IMethodInfo.class});
+>
+> //创建一个方法统计器
+>
+> IMethodInfo methodInfo = new DefaultMethodInfo(targetClass);
+>
+> //创建会调用器列表，此处定义了2个，第1个用于处理UserService中所有的方法，第2个用来处 理IMethodInfo接口中的方法
+>
+> Callback[] callbacks = {
+>
+> new MethodInterceptor() { @Override
+>
+> public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
+>
+> return methodProxy.invokeSuper(o, objects);
+>
+> }
+>
+> },
+>
+> new Dispatcher() { @Override
+>
+> public Object loadObject() throws Exception {
+
+/**
+
+-   用来处理代理对象中IMethodInfo接口中的所有方法
+
+-   所以此处返回的为IMethodInfo类型的对象，
+
+-   将由这个对象来处理代理对象中IMethodInfo接口中的所有方法
+
+*/
+
+> return methodInfo;
+>
+> }
+>
+> }
+>
+> };
+>
+> enhancer.setCallbacks(callbacks); enhancer.setCallbackFilter(new CallbackFilter() {
+>
+> @Override
+>
+> public int accept(Method method) {
+>
+> //当方法在IMethodInfo中定义的时候，返回callbacks中的第二个元素
+>
+> return method.getDeclaringClass() == IMethodInfo.class ? 1 : 0;
+>
+> }
+>
+> 运行输出
+
+### 案例7：cglib中的NamingPolicy接口
+
+> 接口NamingPolicy表示生成代理类的名字的策略，通过 Enhancer.setNamingPolicy 方法设置命名策略。
+>
+> 默认的实现类：DefaultNamingPolicy， 具体cglib动态生成类的命名控制。
+>
+> DefaultNamingPolicy中有个getTag方法。
+>
+> DefaultNamingPolicy生成的代理类的类名命名规则：
+>
+> 如：
+>
+> 自定义NamingPolicy，通常会继承DefaultNamingPolicy来实现，spring中默认就提供了一个，如下
+>
+> 案例代码
+>
+> 输出
+
+## Objenesis：实例化对象的一种方式
+
+> 先来看一段代码，有一个有参构造函数：
+
+#### 大家来思考一个问题：如果不使用这个有参构造函数的情况下，如何创建这个对象？
+
+> 通过反射？大家可以试试，如果不使用有参构造函数，是无法创建对象的。
+>
+> cglib中提供了一个接口：Objenesis，通过这个接口可以解决上面这种问题，它专门用来创建对象，即 使你没有空的构造函数，都木有问题，它不使用构造方法创建Java对象，所以即使你有空的构造方法， 也是不会执行的。
+>
+> 用法比较简单：
+>
+> 输出
+>
+> 大家可以在User类中加一个默认构造函数，来验证一下上面的代码会不会调用默认构造函数？
+>
+> 再次运行会发现，并不会调用默认构造函数。
+>
+> 如果需要多次创建User对象，可以写成下面方式重复利用
+>
+> 运行输出
+>
+> 代码位置
+
+## 总结 {#总结-14}
+
+1.  代理这2篇文章是spring aop的基础，基础牢靠了，才能走的更远，大家一定要将这2篇文章中的内容吃透，全面掌握jdk动态代理和cglib代理的使用
+
+2.  这些知识点spring aop中全部都用到了，大家消化一下，下一篇讲解spring aop具体是如何玩的
+
+## 案例源码 {#案例源码}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第31篇：Aop概念详解
+
+## 本文主要内容
+
+1.  什么是Aop？
+
+2.  Spring AOP中重要的一些概念详解
+
+3.  Spring AOP 硬编码实现
+
+## 什么是AOP？
+
+> ![](media/image36.png){width="1.6770833333333333in" height="4.947916666666667in"}先看一下传统程序的流程，比如银行系统会有一个取款流程
+>
+> 我们可以把方框里的流程合为一个，另外系统还会有一个查询余额流程，我们先把这两个流程放到一 起：
+>
+> ![](media/image37.png){width="2.1979166666666665in" height="3.84375in"}
+>
+> 有没有发现，这个两者有一个相同的验证流程，我们先把它们圈起来再说下一步：
+
+![](media/image38.png){width="2.3958333333333335in" height="3.84375in"}
+
+> 上面只是2个操作，如果有更多的操作，验证用户的功能是不是需要写很多次？
+>
+> 有没有想过可以把这个验证用户的代码是提取出来，不放到主流程里去呢，这就是AOP的作用了，有了AOP，你写代码时不要把这个验证用户步骤写进去，即完全不考虑验证用户，你写完之后，在另我一个地方，写好验证用户的代码，然后告诉Spring你要把这段代码加到哪几个地方，Spring就会帮你加过 去，而不要你自己Copy过去，如果你有多个控制流呢，这个写代码的方法可以大大减少你的时间。
+>
+> 再举一个通用的例子，经常在debug的时候要打log吧，你也可以写好主要代码之后，把打log的代码写到另一个单独的地方，然后命令AOP把你的代码加过去，注意AOP不会把代码加到源文件里，但是它会正确的影响最终的机器代码。
+>
+> 现在大概明白了AOP了吗，我们来理一下头绪，上面那个方框像不像个平面，你可以把它当块板子，这块板子插入一些控制流程，这块板子就可以当成是AOP中的一个切面。所以AOP的本质是在一系列纵向的控制流程中，把那些相同的子流程提取成一个横向的面，这句话应该好理解吧，我们把纵向流程画成 一条直线，然把相同的部分以绿色突出，如下图左，而AOP相当于把相同的地方连一条横线，如下图 右，这个图没画好，大家明白意思就行。
+
+![](media/image39.png){width="1.7083333333333333in" height="2.3645833333333335in"}
+
+> 这个验证用户这个子流程就成了一个条线，也可以理解成一个切面，这里的切面只插了两三个流程，如 果其它流程也需要这个子流程，也可以插到其它地方去。
+>
+> **通熟易懂的理解为：在程序中具有公共特性的某些类/某些方法上进行拦截, 在方法执行的前面/后面/执行结果返回后增加执行一些方法。**
+
+## 先来考虑几个问题
+
+1.  aop中用什么来表示这些公共的功能？
+
+2.  aop中如何知道这些公共的功能用到哪些类的那些方法中去？
+
+3.  aop中需要将这些公共的功能用在目标方法的什么地方，前面？后面？还是其他什么地方？
+
+4.  aop底层是用什么实现的？
+
+> spring中有些概念，不是太好理解，带着这些问题，理解起来会容易很多，概念理解了，后面的路会容易很多，下面我们先来理解概念。
+
+## Spring中AOP一些概念
+
+### 目标对象(target)
+
+> 目标对象指将要被增强的对象，即包含主业务逻辑的类对象。
+
+### 连接点( JoinPoint)
+
+> 连接点，程序运行的某一个点，比如执行某个方法，在Spring AOP中Join Point总是表示一个方法的执行
+
+### 代理对象(Proxy)
+
+> AOP中会通过代理的方式，对目标对象生成一个代理对象，代理对象中会加入需要增强功能，通过代理对象来间接的方式目标对象，起到增强目标对象的效果。
+
+### 通知(Advice)
+
+> 需要在目标对象中增强的功能，如上面说的：业务方法前验证用户的功能、方法执行之后打印方法的执 行日志。
+>
+> 通知中有2个重要的信息：**方法的什么地方**，**执行什么操作**，这2个信息通过通知来指定。方法的什么地方？之前、之后、包裹目标方法、方法抛出异常后等。
+>
+> 如：
+>
+> 在方法执行之前验证用户是否有效。
+>
+> 在方法执行之后，打印方法的执行耗时。
+>
+> 在方法抛出异常后，记录异常信息发送到mq。
+
+### 切入点(Pointcut )
+
+> 用来指定需要将通知使用到哪些地方，比如需要用在哪些类的哪些方法上，切入点就是做这个配置的。
+
+### 切面（Aspect）
+
+> 通知（Advice）和切入点（Pointcut）的组合。切面来定义在哪些地方（Pointcut）执行什么操作
+>
+> （Advice）。
+
+### 顾问（Advisor)
+
+> Advisor 其实它就是 Pointcut 与 Advice 的组合，Advice 是要增强的逻辑，而增强的逻辑要在什么地方执行是通过Pointcut来指定的，所以 Advice 必需与 Pointcut 组合在一起，这就诞生了 Advisor 这个类，spring Aop中提供了一个Advisor接口将Pointcut 与 Advice 的组合起来。
+>
+> Advisor有好几个称呼：顾问、通知器。
+>
+> 其中这4个：连接点( JoinPoint)、通知(advise)、切入点(pointcut)、顾问（advisor)，在spring中都定义了接口和类来表示这些对象，下面我们一个个来看一下。
+
+## 连接点（JoinPoint）
+
+### JoinPoint接口
+
+> 几个重要的子接口和实现类，如下：
+
+![](media/image40.png){width="2.875in" height="4.96875in"}
+
+### Invocation接口
+
+> **MethodInvocation接口**
+
+## 通知(Advice)
+
+> 通知中用来实现被增强的逻辑，通知中有2个关注点，再强调一下：方法的什么地方，执行什么操作。
+
+### Advice接口
+
+> 通知的顶层接口，这个接口内部没有定义任何方法。
+
+### Advice 4个子接口
+
+![](media/image41.png){width="5.774305555555555in" height="0.8201388888888889in"}
+
+> **MethodBeforeAdvice接口**
+>
+> 方法执行前通知，需要在目标方法执行前执行一些逻辑的，可以通过这个实现。
+>
+> 通俗点说：需要在目标方法执行之前增强一些逻辑，可以通过这个接口来实现。before方法：在调用给定方法之前回调。
+>
+> 如同
+
+### AfterReturningAdvice接口
+
+> 方法执行后通知，需要在目标方法执行之后执行增强一些逻辑的，可以通过这个实现。
+
+#### 不过需要注意一点：目标方法正常执行后，才会回调这个接口，当目标方法有异常，那么这通知会被跳 过。
+
+> 如同
+
+### ThrowsAdvice接口
+
+> 此接口上没有任何方法，因为方法由反射调用，实现类必须实现以下形式的方法，前3个参数是可选 的，最后一个参数为需要匹配的异常的类型。
+>
+> 有效方法的一些例子如下：
+
+### MethodInterceptor接口
+
+> 方法拦截器，这个接口最强大，可以实现上面3种类型的通知，上面3种通知最终都通过适配模式将其转 换为MethodInterceptor方式去执行。
+>
+> 使用方式如：
+
+### 拦截器链
+
+> 一个目标方法中可以添加很多Advice，这些Advice最终都会被转换为MethodInterceptor 类型的方法拦截器，最终会有多个MethodInterceptor ，这些MethodInterceptor 会组成一个方法调用链。
+>
+> ![](media/image42.png){width="6.052083333333333in" height="5.041666666666667in"}Aop内部会给目标对象创建一个代理，代理对象中会放入这些MethodInterceptor 会组成一个方法调用链，当调用代理对象的方法的时候，会按顺序执行这些方法调用链，一个个执行，最后会通过反射再 去调用目标方法，进而对目标方法进行增强。
+
+## 切入点(PointCut)
+
+> 通知（Advice）用来指定需要增强的逻辑，但是哪些类的哪些方法中需要使用这些通知呢？这个就是通过切入点来配置的，切入点在spring中对应了一个接口
+
+### PointCut接口
+
+> **ClassFilter接口**
+>
+> 比较简单，用来过滤类的
+
+### MethodMatcher接口
+
+> 用来过滤方法的。
+>
+> 我估计大家看MethodMatcher还是有点晕的，为什么需要2个maches方法？什么是动态匹配？ 比如下面一个类
+>
+> work方法表示当前用户的工作方法，内部可以实现一些工作的逻辑。
+>
+> 我们希望通过aop对这个类进行增强，调用这个方法的时候，当传入的用户名是 路人的粉丝的 的时候， 需要先进行问候，其他用户的时候，无需问候，将这个问题的代码可以放在MethodBeforeAdvice中实 现，这种情况就是当参数满足一定的条件了，才会使用这个通知，不满足的时候，通知无效，此时就可 以使用上面的动态匹配来实现，MethodMatcher类中3个参数的matches方法可以用来对目标方法的参 数做校验。
+>
+> 来看一下MethodMatcher 过滤的整个过程
+>
+> 通过上面的过程，大家可以看出来，如果isRuntime 为false的时候，只需要对方法名称进行校验，当目标方法调用多次的时候，实际上第一步的验证结果是一样的，所以如果isRuntime 为false的情况， 可以将验证结果放在缓存中，提升效率，而spring内部就是这么做的， isRuntime 为true的时候，需要每次都进行校验，效率会低一些，不过对性能的影响基本上可以忽略。
+
+## 顾问(Advisor)
+
+> 通知定义了需要做什么，切入点定义了在哪些类的哪些方法中执行通知，那么需要将他们2个组合起来 才有效啊。
+>
+> 顾问（Advisor）就是做这个事情的
+
+### Advisor接口
+
+> 上面这个接口通常不会直接使用，这个接口有2个子接口，通常我们会和这2个子接口来打交道，下面看 一下这2个子接口。
+
+![](media/image43.png){width="4.333333333333333in" height="1.3020833333333333in"}
+
+### PointcutAdvisor接口
+
+> 通过名字就能看出来，这个和Pointcut有关，内部有个方法用来获取Pointcut ，AOP使用到的大部分
+>
+> Advisor都属于这种类型的。
+>
+> 在目标方法中实现各种增强功能基本上都是通过PointcutAdvisor来实现的。
+
+### IntroductionAdvisor接口
+
+> 这个接口，估计大家比较陌生，干什么的呢？
+
+#### 一个Java类，没有实现A接口，在不修改Java类的情况下，使其具备A接口的功能。可以通过
+
+> **IntroductionAdvisor给目标类引入更多接口的功能，这个功能是不是非常牛逼。**
+
+## 案例 {#案例}
+
+> 上面都是一些概念，看起来比较枯燥乏味，下面来个使用硬编码的方式来用一下上面提到的一些类或者 接口，加深理解。
+
+### 来个类
+
+> 下面通过aop来实现一些需求，对work方法进行增强。
+
+### 案例1
+
+> 需求：在work方法执行之前，打印一句：你好：userName 下面直接上代码，注释比较详细，就不细说了。
+>
+> 运行输出
+>
+> 上面是采用硬编码的方式来感受一下aop的用法，大家看了上面代码之后，估计会有疑问：我晕，这么 复杂？？？
+>
+> 如果大家有使用过spring中的aop经验，可能只需要几行代码就实现了上面的功能，的确，spring中把整个功能简化了很多，不过我们得去了解他的内部是如何实现的，然后才能走的更远。
+
+### 案例2
+
+> 需求：统计一下work方法的耗时，将耗时输出
+>
+> @Override
+>
+> public boolean matches(Method method, Class<?> targetClass, Object... args) {
+>
+> return false;
+>
+> }
+>
+> };
+>
+> }
+>
+> };
+>
+> //创建通知，需要拦截方法的执行，所以需要用到MethodInterceptor类型的通知MethodInterceptor advice = new MethodInterceptor() {
+>
+> @Override
+>
+> public Object invoke(MethodInvocation invocation) throws Throwable { System.out.println("准备调用:" + invocation.getMethod());
+>
+> long starTime = System.nanoTime(); Object result = invocation.proceed(); long endTime = System.nanoTime();
+>
+> System.out.println(invocation.getMethod() + "，调用结束！");
+>
+> System.out.println("耗时(纳秒):" + (endTime - starTime)); return result;
+>
+> }
+>
+> };
+>
+> //创建Advisor，将pointcut和advice组装起来
+>
+> DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, advice);
+>
+> //通过spring提供的代理创建工厂来创建代理ProxyFactory proxyFactory = new ProxyFactory();
+>
+> //为工厂指定目标对象proxyFactory.setTarget(target);
+>
+> //调用addAdvisor方法，为目标添加增强的功能，即添加Advisor，可以为目标添加很多个Advisor proxyFactory.addAdvisor(advisor);
+>
+> //通过工厂提供的方法来生成代理对象
+>
+> UserService userServiceProxy = (UserService) proxyFactory.getProxy();
+>
+> //调用代理的work方法userServiceProxy.work("路人");
+>
+> }
+>
+> 运行输出
+
+### 案例3
+
+> 需求：userName中包含"粉丝"关键字，输出一句：感谢您一路的支持
+>
+> 此处需要用到 MethodMatcher 中的动态匹配了，通过参数来进行判断。
+>
+> ![](media/image44.png){width="0.20833333333333334in" height="0.13541666666666666in"}![](media/image45.png){width="0.20833333333333334in" height="0.13541666666666666in"}重点在于Pointcut中的getMethodMatcher方法，返回的MethodMatcher， @1 必须返回true，此时才会进入到@2 中对参数进行校验。
+>
+> 代码如下：
+>
+> @Test
+>
+> public void test2() {
+>
+> //定义目标对象
+>
+> UserService target = new UserService();
+>
+> //创建pointcut，用来拦截UserService中的work方法Pointcut pointcut = new Pointcut() {
+>
+> @Override
+>
+> public ClassFilter getClassFilter() {
+>
+> //判断是否是UserService类型的
+>
+> return clazz -> UserService.class.isAssignableFrom(clazz);
+>
+> }
+>
+> @Override
+>
+> public MethodMatcher getMethodMatcher() { return new MethodMatcher() {
+>
+> @Override
+>
+> public boolean matches(Method method, Class<?> targetClass) {
+>
+> //判断方法名称是否是work
+>
+> return "work".equals(method.getName());
+>
+> }
+>
+> @Override
+>
+> public boolean isRuntime() {
+>
+> return true; // @1：注意这个地方要返回true
+>
+> }
+>
+> @Override
+>
+> public boolean matches(Method method, Class<?> targetClass, Object... args) {
+>
+> // @2：isRuntime为true的时候，会执行这个方法
+>
+> if (Objects.nonNull(args) && args.length == 1) { String userName = (String) args[0];
+>
+> return userName.contains("粉丝");
+>
+> }
+>
+> return false;
+>
+> }
+>
+> };
+>
+> }
+>
+> };
+>
+> //创建通知，此处需要在方法之前执行操作，所以需要用到MethodBeforeAdvice类型的通知MethodBeforeAdvice advice = (method, args, target1) ->
+>
+> System.out.println("感谢您一路的支持!");
+>
+> //创建Advisor，将pointcut和advice组装起来
+>
+> DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, advice);
+>
+> //通过spring提供的代理创建工厂来创建代理ProxyFactory proxyFactory = new ProxyFactory();
+>
+> //为工厂指定目标对象proxyFactory.setTarget(target);
+>
+> //调用addAdvisor方法，为目标添加增强的功能，即添加Advisor，可以为目标添加很多个Advisor proxyFactory.addAdvisor(advisor);
+>
+> //通过工厂提供的方法来生成代理对象
+>
+> UserService userServiceProxy = (UserService) proxyFactory.getProxy();
+>
+> 运行输出
+
+### 本文案例代码入口
+
+> **上面的一些案例中都用到了** ProxyFactory **这个类，内部将各种对象进行组装，然后创建代理对象，**
+>
+> ProxyFactory **这块关联的的东西挺多的，下一篇文章将详说这块的东西，是非常重要的内容。**
+
+## 课后问题
+
+> 对上面案例进行改造，实现下面需求：
+
+1.  work方法执行之后，打印一句：再见：userName
+
+2.  在work方法中抛出一个异常，然后通过aop中的ThrowsAdvice类型的通知来拦截这个异常信息， 然后将异常错误信息打印出来
+
+> 欢迎大家留言。
+
+## 总结 {#总结}
+
+> 这篇文章中主要介绍了一些概念性的东西，不是太好理解，建议大家多看几遍，有关的类和接口大家也 去看看源码，理解起来也会容易一些，也欢迎大家留言一起交流这块的东西。
+
+## 案例源码 {#案例源码-7}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第32篇：AOP核心源码、原理详解
+
+#### 本文目标：带领大家阅读aop的源码，深入理解aop的原理，内容有点长，消化需要大概一周时间，做 好准备
+
+> 阅读本文之前，需要先掌握下面3篇文章内容，不然会比较吃力。
+
+1.  <span class="underline">S</span> <span class="underline">pring系列第15篇：代理详解（java动态代理&CGLIB代理)</span>
+
+2.  <span class="underline">S</span> <span class="underline">pring系列第30篇：jdk动态代理和cglib代理</span>
+
+3.  <span class="underline">S</span> <span class="underline">pring系列第31篇：Aop概念详解</span>
+
+> **本文主要分4部分**
+
+1.  Aop原理介绍
+
+2.  介绍aop相关的一些类
+
+3.  通过源码详解aop代理的创建过程
+
+4.  通过源码详解aop代理的调用过程
+
+5.  Aop代理一些特性的使用案例
+
+## Spring AOP原理
+
+> 原理比较简单，主要就是使用jdk动态代理和cglib代理来创建代理对象，通过代理对象来访问目标对象，而代理对象中融入了增强的代码，最终起到对目标对象增强的效果。
+
+## aop相关的一些类
+
+1.  连接点（JoinPoint）相关类
+
+2.  通知（Advice）相关的类
+
+3.  切入点（Pointcut）相关的类
+
+4.  切面（Advisor）相关的类
+
+## 连接点（JoinPoint）相关类
+
+### JoinPoint接口
+
+> 这个接口表示一个通用的运行时连接点（在AOP术语中）
+>
+> 几个重要的子接口和实现类，如下：
+
+![](media/image46.png){width="2.8854166666666665in" height="4.96875in"}
+
+### Invocation接口
+
+> 此接口表示程序中的调用，调用是一个连接点，可以被拦截器拦截。
+
+### MethodInvocation接口
+
+> 用来表示连接点中方法的调用，可以获取调用过程中的目标方法。
+
+### ProxyMethodInvocation接口
+
+> 表示代理方法的调用
+>
+> 通俗点理解：连接点表示方法的调用过程，内部包含了方法调用过程中的所有信息，比如被调用的方 法、目标、代理对象、执行拦截器链等信息。
+>
+> 上面定义都是一些接口，最终有2个实现。
+
+### ReflectiveMethodInvocation
+
+> 当代理对象是采用jdk动态代理创建的，通过代理对象来访问目标对象的方法的时，最终过程是由
+>
+> ReflectiveMethodInvocation来处理的，内部会通过递归调用方法拦截器，最终会调用到目标方法。
+
+### CglibMethodInvocation
+
+> 功能和上面的类似，当代理对象是采用cglib创建的，通过代理对象来访问目标对象的方法的时，最终过程是由CglibMethodInvocation来处理的，内部会通过递归调用方法拦截器，最终会调用到目标方法。
+>
+> 这2个类源码稍后详解。
+
+## 通知相关的类
+
+> 通知用来定义需要增强的逻辑。
+
+![](media/image47.png){width="6.0055555555555555in" height="1.2034722222222223in"}
+
+### Advice接口
+
+> 通知的底层接口
+
+### BeforeAdvice接口
+
+> 方法前置通知，内部空的
+
+### Interceptor接口
+
+> 此接口表示通用拦截器
+
+### MethodInterceptor接口
+
+> 方法拦截器，所有的通知均需要转换为MethodInterceptor类型的，最终多个MethodInterceptor组成一个方法拦截器连。
+
+### AfterAdvice接口
+
+> 后置通知的公共标记接口
+
+### MethodBeforeAdvice接口
+
+> 方法执行前通知，需要在目标方法执行前执行一些逻辑的，可以通过这个实现。
+>
+> 通俗点说：需要在目标方法执行之前增强一些逻辑，可以通过这个接口来实现。before方法：在调用给定方法之前回调。
+>
+> 如同
+
+### AfterReturningAdvice接口
+
+> 方法执行后通知，需要在目标方法执行之后执行增强一些逻辑的，可以通过这个实现。
+
+#### 不过需要注意一点：目标方法正常执行后，才会回调这个接口，当目标方法有异常，那么这通知会被跳 过。
+
+> 如同
+
+### ThrowsAdvice接口
+
+> 此接口上没有任何方法，因为方法由反射调用，实现类必须实现以下形式的方法，前3个参数是可选 的，最后一个参数为需要匹配的异常的类型。
+>
+> 有效方法的一些例子如下：
+
+### 通知包装器
+
+#### 负责将各种非MethodInterceptor类型的通知(Advice)包装为MethodInterceptor类型。
+
+> **刚才有说过：Aop中所有的Advice最终都会转换为MethodInterceptor类型的，组成一个方法调用 链，然后执行**
+>
+> 3个包装器类
+>
+> MethodBeforeAdviceInterceptor AfterReturningAdviceInterceptor ThrowsAdviceInterceptor
+
+### MethodBeforeAdviceInterceptor类
+
+> 这个类实现了MethodInterceptor 接口，负责将MethodBeforeAdvice 方法前置通知包装为MethodInterceptor 类型，创建这个类型的对象的时候需要传递一个MethodBeforeAdvice 类型的参数，重点是invoke 方法
+
+### AfterReturningAdviceInterceptor类
+
+> 这个类实现了MethodInterceptor 接口，负责将AfterReturningAdvice 方法后置通知包装为MethodInterceptor 类型，创建这个类型的对象的时候需要传递一个AfterReturningAdvice 类型的参数，重点是invoke 方法
+
+### ThrowsAdviceInterceptor类
+
+> 这个类实现了MethodInterceptor 接口，负责将ThrowsAdvice 异常通知包装为MethodInterceptor 类型，创建这个类型的对象的时候需要传递一个Object 类型的参数，通常这个参数是ThrowsAdvice 类型的，重点是invoke 方法
+>
+> */
+>
+> public int getHandlerMethodCount() { return this.exceptionHandlerMap.size();
+>
+> }
+>
+> @Override
+>
+> public Object invoke(MethodInvocation mi) throws Throwable { try {
+>
+> //调用通知链
+>
+> return mi.proceed();
+>
+> }
+>
+> catch (Throwable ex) {
+>
+> //获取异常通知中自定义的处理异常的方法
+>
+> Method handlerMethod = getExceptionHandler(ex);
+>
+> //当处理的方法不为空
+>
+> if (handlerMethod != null) {
+>
+> //调用异常处理方法
+>
+> invokeHandlerMethod(mi, ex, handlerMethod);
+>
+> }
+>
+> //继续向外抛出异常throw ex; //@1
+>
+> }
+>
+> }
+>
+> /**
+>
+> * 获取throwsAdvice中处理exception参数指定的异常的方法
+>
+> */ @Nullable
+>
+> private Method getExceptionHandler(Throwable exception) {
+>
+> //获取异常类型
+>
+> Class<?> exceptionClass = exception.getClass();
+>
+> //从缓存中获取异常类型对应的方法
+>
+> Method handler = this.exceptionHandlerMap.get(exceptionClass);
+>
+> //来一个循环，查询处理方法，循环条件：方法为空 && 异常类型!=Throwable while (handler == null && exceptionClass != Throwable.class) {
+>
+> //获取异常的父类型
+>
+> exceptionClass = exceptionClass.getSuperclass();
+>
+> //从缓存中查找异常对应的处理方法
+>
+> handler = this.exceptionHandlerMap.get(exceptionClass);
+>
+> }
+>
+> //将查找结果返回return handler;
+>
+> }
+>
+> //通过反射调用异常通知中的异常方法
+>
+> private void invokeHandlerMethod(MethodInvocation mi, Throwable ex, Method method) throws Throwable {
+>
+> //构建方法请求参数
+>
+> Object[] handlerArgs;
+>
+> //若只有1个参数，参数为：异常对象
+>
+> if (method.getParameterCount() == 1) { handlerArgs = new Object[] {ex};
+>
+> }
+>
+> else {
+>
+> //4个参数（方法、方法请求参数、目标对象、异常对象）
+>
+> handlerArgs = new Object[] {mi.getMethod(), mi.getArguments(), mi.getThis(), ex};
+>
+> 从上面可以看出，异常通知，自定义处理异常的方法有几个特点
+
+1.  方法名称必须为afterThrowing
+
+2.  方法参数必须1个或4个，最后一个参数是Throwable 类型或其子类型
+
+3.  ![](media/image48.png){width="0.20833333333333334in" height="0.13541666666666666in"}可以在异常处理中记录一些异常信息，这个还是比较有用的，但是注意一点目标方法抛出的异常最 后还是会向外继续抛出@1
+
+#### 光讲源码，大家看着枯燥乏味，来点案例。
+
+> 先来一个类，用来模拟用户资金操作：充值、提现、查询资金余额；提现的时候余额不足的时候，会抛 出异常。
+
+### 案例1：前置通知拦截非法访问
+
+> 资金操作的所有方法都需要验证用户名，当用户名不是"路人"的时候，直接抛出非法访问异常。
+>
+> 运行输出
+
+### 案例2：通过异常通知记录异常
+
+> 通过异常通知来捕获所有方法的运行，发现异常之后，通知开发修复bug。
+>
+> 运行输出
+
+## 切入点(PointCut)相关类
+
+> 通知（Advice）用来指定需要增强的逻辑，但是哪些类的哪些方法中需要使用这些通知呢？这个就是通过切入点来配置的。
+
+![](media/image49.png){width="5.895833333333333in" height="2.1694444444444443in"}
+
+### PointCut接口
+
+> **ClassFilter接口**
+>
+> 类过滤器。
+
+### MethodMatcher接口
+
+> 方法过滤器。
+>
+> 我估计大家看MethodMatcher还是有点晕的，为什么需要2个maches方法？什么是动态匹配？ 比如下面一个类
+>
+> work方法表示当前用户的工作方法，内部可以实现一些工作的逻辑。
+>
+> 我们希望通过aop对这个类进行增强，调用这个方法的时候，当传入的用户名是 路人的粉丝的 的时候， 需要先进行问候，其他用户的时候，无需问候，将这个问题的代码可以放在MethodBeforeAdvice中实 现，这种情况就是当参数满足一定的条件了，才会使用这个通知，不满足的时候，通知无效，此时就可 以使用上面的动态匹配来实现，MethodMatcher类中3个参数的matches方法可以用来对目标方法的参 数做校验。
+>
+> 来看一下MethodMatcher 过滤的整个过程
+>
+> 通过上面的过程，大家可以看出来，如果isRuntime 为false的时候，只需要对方法名称进行校验，当目标方法调用多次的时候，实际上第一步的验证结果是一样的，所以如果isRuntime 为false的情况， 可以将验证结果放在缓存中，提升效率，而spring内部就是这么做的， isRuntime 为false的时候，需要每次都进行校验，效率会低一些，不过对性能的影响基本上可以忽略。
+
+## 顾问(Advisor)
+
+> 通知定义了需要做什么，切入点定义了在哪些类的哪些方法中执行通知，那么需要将他们2个组合起来 才有效啊。
+>
+> 顾问（Advisor）就是做这个事情的。
+>
+> 在spring aop中，你可以将advisor理解为切面，切面中通常有2个关键信息：
+
+1.  需要增强的目标方法列表，这个通过切入点(Pointcut)来指定
+
+2.  需要在目标方法中增强的逻辑，这个通过(Advice)通知来指定
+
+> ![](media/image50.png){width="4.635416666666667in" height="2.21875in"}
+
+### Advisor接口
+
+> 上面这个接口通常不会直接使用，这个接口有2个子接口，通常我们会和这2个子接口来打交道，下面看 一下这2个子接口。
+
+### PointcutAdvisor接口
+
+> 通过名字就能看出来，这个和Pointcut有关，内部有个方法用来获取Pointcut ，AOP使用到的大部分
+>
+> Advisor都属于这种类型的。
+>
+> 在目标方法中实现各种增强功能基本上都是通过PointcutAdvisor来实现的。
+
+### DefaultPointcutAdvisor类
+
+> PointcutAdvisor的默认实现，这是最常用的Advisor实现，它可以用于任何Pointcut和Advice类型，代码相当简单，里面定义了2个属性：pointcut和advisor，由使用者指定。
+
+### IntroductionAdvisor接口
+
+> 这个接口，估计大家比较陌生，干什么的呢？
+
+#### 一个Java类，没有实现A接口，在不修改Java类的情况下，使其具备A接口的功能。可以通过
+
+> **IntroductionAdvisor给目标类引入更多接口的功能，这个功能是不是非常牛逼。**
+>
+> 下面开始2个重点工作。
+>
+> 通过源码介绍aop中代理创建过程
+>
+> 通过源码介绍代理方法的调用执行过程
+
+## 代理创建过程源码解析
+
+### 先看一段代码
+
+> 我们将上面代码拆分一下，变成下面这样
+>
+> //1.创建代理所需参数配置（如：采用什么方式的代理、通知列表等） AdvisedSupport advisedSupport = new AdvisedSupport();
+>
+> //如：添加一个前置通知
+>
+> advisedSupport.addAdvice(new MethodBeforeAdvice() { @Override
+>
+> public void before(Method method, Object[] args, @Nullable Object target) throws Throwable {
+>
+> String userName = (String) args[0];
+>
+> //如果不是路人的时候，抛出非法访问异常if (!"路人".equals(userName)) {
+>
+> throw new RuntimeException(String.format("[%s]非法访问!", userName));
+>
+> }
+>
+> }
+>
+> });
+>
+> //设置被代理的目标对象
+>
+> FundsService target = new FundsService(); advisedSupport.setTarget(target);
+>
+> //2.根据配置信息获取AopProxy对象，AopProxy用来负责创建最终的代理对象
+>
+> // AopProxy接口有2个实现类（JDK动态代理、cglib代理）
+>
+> // 具体最终会使用哪种方式，需要根据AdvisedSupport中指定的参数来判断
+>
+> // 创建AopProxy使用了简单工厂模式
+>
+> AopProxyFactory aopProxyFactory = new DefaultAopProxyFactory();
+>
+> //通过AopProxy工厂获取AopProxy对象
+>
+> AopProxy aopProxy = aopProxyFactory.createAopProxy(advisedSupport);
+>
+> //3.通过AopProxy创建代理对象
+>
+> Object proxy = aopProxy.getProxy();
+>
+> 从上面可以看出创建代理有3个步骤。
+
+### 创建代理3大步骤
+
+1.  创建代理所需参数配置
+
+2.  根据代理参数获取AopProxy对象
+
+3.  通过AopProxy获取代理对象
+
+### 创建代理所需参数配置
+
+> 创建代理所需参数配置主要是通过AdvisedSupport 这个类来做的，看一下类图，下面一个个来介绍。
+
+![](media/image51.png){width="3.4895833333333335in" height="2.21875in"}
+
+### 根据代理参数获取AopProxy对象
+
+#### TargetClassAware接口
+
+> 比较简单的一个接口，定义了一个方法，用来获取目标对象类型。所谓目标对象：就是被代理对象，比如上面的fundsService 对象。
+
+#### ProxyConfig类
+
+> 这个类比较关键了，代理配置类，内部包含了创建代理时需要配置的各种参数。
+
+#### Advised接口
+
+> 这个接口中定义了操作Aop代理配置的各种方法（比如指定被代理的目标对象、添加通知、添加顾问等 等）。
+>
+> 所有由spring aop创建的代理对象默认都会实现这个接口。
+
+/**
+
+> * 返回配置是否已冻结，被冻结之后，无法修改已创建好的代理对象中的通知
+
+*/
+
+> boolean isFrozen();
+>
+> /**
+>
+> * 是否对目标类直接创建代理，而不是对接口创建代理，通俗点讲：如果是通过cglib创建代理，此方法返回true，否则返回false
+
+*/
+
+> boolean isProxyTargetClass();
+>
+> /**
+>
+> * 获取配置中需要代理的接口列表
+
+*/
+
+> Class<?>[] getProxiedInterfaces();
+>
+> /**
+>
+> * 判断某个接口是否被代理
+
+*/
+
+> boolean isInterfaceProxied(Class<?> intf);
+>
+> /**
+>
+> * 设置被代理的目标源，创建代理的时候，通常需要传入被代理的对象，最终被代理的对象会被包装为
+>
+> TargetSource类型的
+>
+> */
+>
+> void setTargetSource(TargetSource targetSource);
+>
+> /**
+>
+> * 返回被代理的目标源
+>
+> */
+>
+> TargetSource getTargetSource();
+>
+> /**
+>
+> * 设置是否需要将代理暴露在ThreadLocal中，这样可以在线程中获取到被代理对象，这个配置挺有用的，稍后会举例说明使用场景
+>
+> */
+>
+> void setExposeProxy(boolean exposeProxy);
+>
+> /**
+>
+> * 返回exposeProxy
+>
+> */
+>
+> boolean isExposeProxy();
+>
+> /**
+
+-   设置此代理配置是否经过预筛选，以便它只包含适用的顾问(匹配此代理的目标类)。
+
+-   默认设置是"假"。如果已经对advisor进行了预先筛选，则将其设置为"true"
+
+-   这意味着在为代理调用构建实际的advisor链时可以跳过ClassFilter检查。
+
+> */
+>
+> void setPreFiltered(boolean preFiltered);
+>
+> /**
+
+-   返回preFiltered
+
+> */
+>
+> boolean isPreFiltered();
+>
+> /**
+
+-   返回代理配置中干掉所有Advisor列表
+
+> */
+>
+> Advisor[] getAdvisors();
+>
+> /**
+
+-   添加一个Advisor
+
+> */
+>
+> void addAdvisor(Advisor advisor) throws AopConfigException;
+>
+> /**
+
+-   指定的位置添加一个Advisor
+
+> */
+>
+> void addAdvisor(int pos, Advisor advisor) throws AopConfigException;
+>
+> /**
+
+-   移除一个Advisor
+
+> */
+>
+> boolean removeAdvisor(Advisor advisor);
+>
+> /**
+
+-   移除指定位置的Advisor
+
+> */
+>
+> void removeAdvisor(int index) throws AopConfigException;
+>
+> /**
+
+-   查找某个Advisor的位置
+
+> */
+>
+> int indexOf(Advisor advisor);
+>
+> /**
+
+-   对advisor列表中的a替换为b
+
+> */
+>
+> boolean replaceAdvisor(Advisor a, Advisor b) throws AopConfigException;
+>
+> /**
+
+-   添加一个通知
+
+> */
+>
+> void addAdvice(Advice advice) throws AopConfigException;
+>
+> /**
+
+-   向指定的位置添加一个通知
+
+> */
+>
+> void addAdvice(int pos, Advice advice) throws AopConfigException;
+>
+> /**
+
+-   移除一个通知
+
+> */
+>
+> boolean removeAdvice(Advice advice);
+>
+> /**
+
+-   获取通知的位置
+
+> */
+>
+> int indexOf(Advice advice);
+>
+> /**
+
+-   将代理配置转换为字符串，这个方便排错和调试使用的
+
+> */
+>
+> String toProxyConfigString();
+
+#### AdvisedSupport类
+
+> 这个类是个重点，AOP代理配置管理器的基类，继承了ProxyConfig 并且实现了Advised 接口，创建
+>
+> aop代理之前，所有需要配置的信息都是通过这个类来操作的。
+>
+> 比如：设置是否为目标类创建代理、设置目标对象、配置通知列表等等。
+>
+> package org.springframework.aop.framework;
+>
+> public class AdvisedSupport extends ProxyConfig implements Advised {
+>
+> public static final TargetSource EMPTY_TARGET_SOURCE = EmptyTargetSource.INSTANCE;
+>
+> TargetSource targetSource = EMPTY_TARGET_SOURCE;
+>
+> /** 建议器是否已经针对特定的目标类进行筛选 */ private boolean preFiltered = false;
+>
+> /** 调用链工厂，用来获取目标方法的调用链 */
+>
+> AdvisorChainFactory advisorChainFactory = new DefaultAdvisorChainFactory();
+>
+> /** 方法调用链缓存：以方法为键，以顾问链表为值的缓存。 */
+>
+> private transient Map<MethodCacheKey, List<Object>> methodCache;
+>
+> //代理对象需要实现的接口列表。保存在列表中以保持注册的顺序，以创建具有指定接口顺序的JDK代
+>
+> 理。
+>
+> private List<Class<?>> interfaces = new ArrayList<>();
+>
+> //配置的顾问列表。所有添加的Advise对象都会被包装为Advisor对象private List<Advisor> advisors = new ArrayList<>();
+>
+> //数组更新了对advisor列表的更改，这更容易在内部操作。private Advisor[] advisorArray = new Advisor[0];
+>
+> //无参构造方法
+>
+> public AdvisedSupport() {
+>
+> this.methodCache = new ConcurrentHashMap<>(32);
+>
+> }
+>
+> //有参构造方法，参数为：代理需要实现的接口列表
+>
+> public AdvisedSupport(Class<?>... interfaces) { this();
+>
+> setInterfaces(interfaces);
+>
+> }
+>
+> //设置需要被代理的目标对象，目标对象会被包装为TargetSource格式的对象public void setTarget(Object target) {
+>
+> setTargetSource(new SingletonTargetSource(target));
+>
+> }
+>
+> //设置被代理的目标源@Override
+>
+> public void setTargetSource(@Nullable TargetSource targetSource) {
+>
+> this.targetSource = (targetSource != null ? targetSource : EMPTY_TARGET_SOURCE);
+>
+> }
+>
+> //获取被代理的目标源@Override
+>
+> public TargetSource getTargetSource() { return this.targetSource;
+>
+> }
+>
+> //设置被代理的目标类
+>
+> public void setTargetClass(@Nullable Class<?> targetClass) { this.targetSource = EmptyTargetSource.forClass(targetClass);
+>
+> }
+>
+> //获取被代理的目标类型@Override @Nullable
+>
+> public Class<?> getTargetClass() {
+>
+> return this.targetSource.getTargetClass();
+>
+> }
+>
+> /**
+
+-   设置此代理配置是否经过预筛选，这个什么意思呢：通过目标方法调用代理的时候，
+
+-   需要通过匹配的方式获取这个方法上的调用链列表，查找过程需要2个步骤：
+
+-   第一步：类是否匹配，第二步：方法是否匹配，当这个属性为true的时候，会直接跳过第一步，这 个懂了不
+
+> */ @Override
+>
+> public void setPreFiltered(boolean preFiltered) { this.preFiltered = preFiltered;
+>
+> }
+>
+> // 返回preFiltered @Override
+>
+> public boolean isPreFiltered() { return this.preFiltered;
+>
+> }
+>
+> /**
+
+-   设置顾问链工厂，当调用目标方法的时候，需要获取这个方法上匹配的Advisor列表，
+
+-   获取目标方法上匹配的Advisor列表的功能就是AdvisorChainFactory来负责的
+
+> */
+>
+> public void setAdvisorChainFactory(AdvisorChainFactory advisorChainFactory)
+>
+> {
+>
+> Assert.notNull(advisorChainFactory, "AdvisorChainFactory must not be
+>
+> null");
+
+}
+
+> this.advisorChainFactory = advisorChainFactory;
+>
+> // 返回顾问链工厂对象
+>
+> public AdvisorChainFactory getAdvisorChainFactory() { return this.advisorChainFactory;
+>
+> }
+>
+> //设置代理对象需要实现的接口
+>
+> public void setInterfaces(Class<?>... interfaces) {
+>
+> Assert.notNull(interfaces, "Interfaces must not be null"); this.interfaces.clear();
+>
+> for (Class<?> ifc : interfaces) { addInterface(ifc);
+>
+> }
+>
+> }
+>
+> //为代理对象添加需要实现的接口
+>
+> public void addInterface(Class<?> intf) { Assert.notNull(intf, "Interface must not be null"); if (!intf.isInterface()) {
+>
+> throw new IllegalArgumentException("[" + intf.getName() + "] is not an interface");
+>
+> }
+>
+> if (!this.interfaces.contains(intf)) { this.interfaces.add(intf); adviceChanged();
+>
+> }
+>
+> }
+>
+> //移除代理对象需要实现的接口
+>
+> public boolean removeInterface(Class<?> intf) { return this.interfaces.remove(intf);
+>
+> }
+>
+> //获取代理对象需要实现的接口列表@Override
+>
+> public Class<?>[] getProxiedInterfaces() {
+>
+> return ClassUtils.toClassArray(this.interfaces);
+>
+> }
+>
+> //判断代理对象是否需要实现某个接口@Override
+>
+> public boolean isInterfaceProxied(Class<?> intf) { for (Class<?> proxyIntf : this.interfaces) {
+>
+> if (intf.isAssignableFrom(proxyIntf)) { return true;
+>
+> }
+>
+> }
+>
+> return false;
+>
+> }
+>
+> //获取配置的所有顾问列表@Override
+>
+> public final Advisor[] getAdvisors() { return this.advisorArray;
+>
+> }
+>
+> //添加顾问@Override
+>
+> public void addAdvisor(Advisor advisor) { int pos = this.advisors.size(); addAdvisor(pos, advisor);
+>
+> }
+>
+> //指定的位置添加顾问@Override
+>
+> public void addAdvisor(int pos, Advisor advisor) throws AopConfigException {
+>
+> //这块先忽略，以后讲解
+>
+> if (advisor instanceof IntroductionAdvisor) { validateIntroductionAdvisor((IntroductionAdvisor) advisor);
+>
+> }
+>
+> addAdvisorInternal(pos, advisor);
+>
+> }
+>
+> //移除指定的顾问@Override
+>
+> public boolean removeAdvisor(Advisor advisor) { int index = indexOf(advisor);
+>
+> if (index == -1) { return false;
+>
+> }
+>
+> else {
+>
+> removeAdvisor(index); return true;
+>
+> }
+>
+> }
+>
+> //移除指定位置的顾问@Override
+>
+> public void removeAdvisor(int index) throws AopConfigException {
+>
+> //当配置如果是冻结状态，是不允许对顾问进行修改的，否则会抛出异常if (isFrozen()) {
+>
+> throw new AopConfigException("Cannot remove Advisor: Configuration is frozen.");
+>
+> }
+>
+> if (index < 0 || index > this.advisors.size() - 1) {
+>
+> throw new AopConfigException("Advisor index " + index + " is out of
+>
+> bounds: " +
+>
+> advisors.");
+
+}
+
+> "This configuration only has " + this.advisors.size() + "
+>
+> //移除advisors中的顾问
+>
+> Advisor advisor = this.advisors.remove(index); if (advisor instanceof IntroductionAdvisor) {
+>
+> IntroductionAdvisor ia = (IntroductionAdvisor) advisor;
+>
+> // We need to remove introduction interfaces. for (Class<?> ifc : ia.getInterfaces()) {
+>
+> removeInterface(ifc);
+>
+> }
+>
+> }
+>
+> // 更 新 advisorArray updateAdvisorArray();
+>
+> //通知已改变，内部会清除方法调用链缓存信息。adviceChanged();
+>
+> }
+>
+> @Override
+>
+> public int indexOf(Advisor advisor) { Assert.notNull(advisor, "Advisor must not be null"); return this.advisors.indexOf(advisor);
+>
+> }
+>
+> @Override
+>
+> public boolean replaceAdvisor(Advisor a, Advisor b) throws AopConfigException {
+>
+> Assert.notNull(a, "Advisor a must not be null"); Assert.notNull(b, "Advisor b must not be null"); int index = indexOf(a);
+>
+> if (index == -1) { return false;
+>
+> }
+>
+> removeAdvisor(index); addAdvisor(index, b); return true;
+>
+> }
+>
+> //批量添加顾问
+>
+> public void addAdvisors(Advisor... advisors) { addAdvisors(Arrays.asList(advisors));
+>
+> }
+>
+> //批量添加顾问
+>
+> public void addAdvisors(Collection<Advisor> advisors) {
+>
+> //配置如果是冻结状态，会抛出异常if (isFrozen()) {
+>
+> throw new AopConfigException("Cannot add advisor: Configuration is
+>
+> frozen.");
+>
+> }
+>
+> if (!CollectionUtils.isEmpty(advisors)) { for (Advisor advisor : advisors) {
+>
+> if (advisor instanceof IntroductionAdvisor) { validateIntroductionAdvisor((IntroductionAdvisor) advisor);
+>
+> }
+>
+> Assert.notNull(advisor, "Advisor must not be null"); this.advisors.add(advisor);
+>
+> }
+>
+> updateAdvisorArray(); adviceChanged();
+>
+> }
+>
+> }
+>
+> //此方法先忽略，用来为目标类引入接口的
+>
+> private void validateIntroductionAdvisor(IntroductionAdvisor advisor) { advisor.validateInterfaces();
+>
+> // If the advisor passed validation, we can make the change. Class<?>[] ifcs = advisor.getInterfaces();
+>
+> for (Class<?> ifc : ifcs) { addInterface(ifc);
+>
+> }
+>
+> }
+>
+> //指定的位置添加顾问
+>
+> private void addAdvisorInternal(int pos, Advisor advisor) throws AopConfigException {
+>
+> Assert.notNull(advisor, "Advisor must not be null"); if (isFrozen()) {
+>
+> throw new AopConfigException("Cannot add advisor: Configuration is
+>
+> frozen.");
+>
+> }
+>
+> if (pos > this.advisors.size()) {
+>
+> throw new IllegalArgumentException(
+>
+> "Illegal position " + pos + " in advisor list with size " + this.advisors.size());
+>
+> }
+>
+> this.advisors.add(pos, advisor); updateAdvisorArray(); adviceChanged();
+>
+> }
+>
+> //将advisorArray和advisors保持一致
+>
+> protected final void updateAdvisorArray() {
+>
+> this.advisorArray = this.advisors.toArray(new Advisor[0]);
+>
+> }
+>
+> //获取顾问列表
+>
+> protected final List<Advisor> getAdvisorsInternal() { return this.advisors;
+>
+> }
+>
+> //添加通知@Override
+>
+> public void addAdvice(Advice advice) throws AopConfigException { int pos = this.advisors.size();
+>
+> addAdvice(pos, advice);
+>
+> }
+>
+> //指定的位置添加通知@Override
+>
+> public void addAdvice(int pos, Advice advice) throws AopConfigException {
+>
+> //此处会将advice通知包装为DefaultPointcutAdvisor类型的Advisor addAdvisor(pos, new DefaultPointcutAdvisor(advice));
+>
+> }
+>
+> //移除通知@Override
+>
+> public boolean removeAdvice(Advice advice) throws AopConfigException { int index = indexOf(advice);
+>
+> if (index == -1) { return false;
+>
+> }
+>
+> else {
+>
+> removeAdvisor(index); return true;
+>
+> }
+>
+> }
+>
+> //获取通知的位置@Override
+>
+> public int indexOf(Advice advice) { Assert.notNull(advice, "Advice must not be null"); for (int i = 0; i < this.advisors.size(); i++) {
+>
+> Advisor advisor = this.advisors.get(i); if (advisor.getAdvice() == advice) {
+>
+> return i;
+>
+> }
+>
+> }
+>
+> return -1;
+>
+> }
+>
+> //是否包含某个通知
+>
+> public boolean adviceIncluded(@Nullable Advice advice) {
+>
+> if (advice != null) {
+>
+> for (Advisor advisor : this.advisors) { if (advisor.getAdvice() == advice) {
+>
+> return true;
+>
+> }
+>
+> }
+>
+> }
+>
+> return false;
+>
+> }
+>
+> //获取当前配置中某种类型通知的数量
+>
+> public int countAdvicesOfType(@Nullable Class<?> adviceClass) { int count = 0;
+>
+> if (adviceClass != null) {
+>
+> for (Advisor advisor : this.advisors) {
+>
+> if (adviceClass.isInstance(advisor.getAdvice())) { count++;
+>
+> }
+>
+> }
+>
+> }
+>
+> return count;
+>
+> }
+>
+> //基于当前配置，获取给定方法的方法调用链列表（即org.aopalliance.intercept.MethodInterceptor对象列表）
+>
+> public List<Object> getInterceptorsAndDynamicInterceptionAdvice(Method method, @Nullable Class<?> targetClass) {
+>
+> MethodCacheKey cacheKey = new MethodCacheKey(method);
+>
+> //先从缓存中获取
+>
+> List<Object> cached = this.methodCache.get(cacheKey);
+>
+> //缓存中没有时，从advisorChainFactory中获取if (cached == null) {
+>
+> cached = this.advisorChainFactory.getInterceptorsAndDynamicInterceptionAdvice(
+>
+> this, method, targetClass); this.methodCache.put(cacheKey, cached);
+>
+> }
+>
+> return cached;
+>
+> }
+>
+> //通知更改时调用，会清空当前方法调用链缓存protected void adviceChanged() {
+>
+> this.methodCache.clear();
+>
+> }
+>
+> //将other中的配置信息复制到当前对象中
+>
+> protected void copyConfigurationFrom(AdvisedSupport other) { copyConfigurationFrom(other, other.targetSource, new ArrayList<>
+>
+> (other.advisors));
+>
+> }
+>
+> //将other中的配置信息复制到当前对象中
+>
+> protected void copyConfigurationFrom(AdvisedSupport other, TargetSource targetSource, List<Advisor> advisors) {
+>
+> copyFrom(other); this.targetSource = targetSource;
+>
+> this.advisorChainFactory = other.advisorChainFactory;
+>
+> this.interfaces = new ArrayList<>(other.interfaces); for (Advisor advisor : advisors) {
+>
+> if (advisor instanceof IntroductionAdvisor) { validateIntroductionAdvisor((IntroductionAdvisor) advisor);
+>
+> }
+>
+> Assert.notNull(advisor, "Advisor must not be null"); this.advisors.add(advisor);
+>
+> }
+>
+> updateAdvisorArray(); adviceChanged();
+>
+> }
+>
+> //构建此AdvisedSupport的仅配置副本，替换TargetSource。AdvisedSupport getConfigurationOnlyCopy() {
+>
+> AdvisedSupport copy = new AdvisedSupport(); copy.copyFrom(this);
+>
+> copy.targetSource = EmptyTargetSource.forClass(getTargetClass(), getTargetSource().isStatic());
+>
+> copy.advisorChainFactory = this.advisorChainFactory; copy.interfaces = this.interfaces;
+>
+> copy.advisors = this.advisors; copy.updateAdvisorArray(); return copy;
+>
+> }
+>
+> }
+>
+> 上面几个类有几个结论，这里说一下。
+
+1.  配置中添加的Advice对象最终都会被转换为DefaultPointcutAdvisor对象，此时
+
+> DefaultPointcutAdvisor未指定pointcut，大家可以去看一下DefaultPointcutAdvisor中pointcut
+>
+> 有个默认值，默认会匹配任意类的任意方法。
+
+2.  当配置被冻结的时候，即frozen为true的时，此时配置中的Advisor列表是不允许修改的。
+
+3.  上面的getInterceptorsAndDynamicInterceptionAdvice 方法，通过代理调用目标方法的时候，最后需要通过方法和目标类的类型，从当前配置中会获取匹配的方法拦截器列表，获取方法拦 截器列表是由AdvisorChainFactory 负责的。getInterceptorsAndDynamicInterceptionAdvice 会在调用代理的方法时会执行，稍后在执行阶段会详解。
+
+4.  目标方法和其关联的方法拦截器列表会被缓存在methodCache 中，当顾问列表有变化的时候，
+
+> methodCache 缓存会被清除。
+>
+> **配置阶段完成之后，下面进入AopProxy获取阶段。**
+
+### 根据配置获取AopProxy
+
+> 这个阶段对应的代码：
+>
+> 此阶段会根据AdvisedSupport中配置信息，判断具体是采用cglib的方式还是采用jdk动态代理的方式获 取代理对象，先看一下涉及到的一些类。
+>
+> ![](media/image52.png){width="4.770833333333333in" height="4.010416666666667in"}
+
+#### AopProxy接口
+
+> 这个接口定义了一个方法，用来创建最终的代理对象，这个接口有2个实现类
+>
+> CglibAopProxy：采用cglib的方式创建代理对象
+>
+> JkdDynamicAopProxy：采用jdk动态代理的方式创建代理对象
+>
+> AopProxy的2个实现类，实现了上面定义的2个方法，稍后在代理的创建阶段详细介绍。
+
+#### AopProxyFactory接口
+
+> 通过名称就可以看出来，是一个工厂，负责创建AopProxy，使用的是简单工厂模式。
+>
+> 接口中定义了一个方法，会根据Aop的配置信息AdvisedSupport来获取AopProxy对象，主要是判断采 用cglib的方式还是采用jdk动态代理的方式。
+
+#### DefaultAopProxyFactory类
+
+> AopProxyFactory接口的默认实现，代码比较简单，我们来细看一下
+
+### 代理创建阶段
+
+> 到目前为止我们已经根据aop配置信息得到了AopProxy对象了，下面就可以调用AopProxy.getProxy方 法获取代理对象了。
+>
+> AopProxy.createAopProxy方法返回的结果有2种情况
+>
+> JdkDynamicAopProxy：以jdk动态代理的方式创建代理ObjenesisCglibAopProxy：以cglib的方式创建动态代理
+>
+> 项目详解这2个类的源码 。
+
+#### JdkDynamicAopProxy类
+
+> **作用：采用jdk动态代理的方式创建代理对象，并处理代理对象的所有方法调用。**
+>
+> @Override
+>
+> public Object getProxy(@Nullable ClassLoader classLoader) { if (logger.isTraceEnabled()) {
+>
+> logger.trace("Creating JDK dynamic proxy: " + this.advised.getTargetSource());
+>
+> }
+>
+> //@0：根据advised的信息获取代理需要被代理的所有接口列表Class<?>[] proxiedInterfaces =
+>
+> AopProxyUtils.completeProxiedInterfaces(this.advised, true);
+>
+> //查找被代理的接口中是否定义了equals、hashCode方法findDefinedEqualsAndHashCodeMethods(proxiedInterfaces);
+>
+> /**
+
+-   这个大家应该很熟悉吧，通过jdk动态代理创建代理对象，注意最后一个参数是this
+
+-   表示当前类，当前类是InvocationHandler类型的，当调用代理对象的任何方法的时候
+
+-   都会被被当前类的 invoke 方法处理
+
+> */
+>
+> return Proxy.newProxyInstance(classLoader, proxiedInterfaces, this);
+>
+> }
+>
+> //判断需要代理的接口中是否定义了这几个方法（equals、hashCode） private void findDefinedEqualsAndHashCodeMethods(Class<?>[]
+>
+> proxiedInterfaces) {
+>
+> for (Class<?> proxiedInterface : proxiedInterfaces) {
+>
+> //获取接口中定义的方法
+>
+> Method[] methods = proxiedInterface.getDeclaredMethods(); for (Method method : methods) {
+>
+> //是否是equals方法
+>
+> if (AopUtils.isEqualsMethod(method)) { this.equalsDefined = true;
+>
+> }
+>
+> //是否是hashCode方法
+>
+> if (AopUtils.isHashCodeMethod(method)) { this.hashCodeDefined = true;
+>
+> }
+>
+> //如果发现这2个方法都定义了，结束循环查找
+>
+> if (this.equalsDefined && this.hashCodeDefined) { return;
+>
+> }
+>
+> }
+>
+> }
+>
+> }
+>
+> // 这个方法比较关键了，当在程序中调用代理对象的任何方法，最终都会被下面这个invoke方法处理
+>
+> public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+>
+> //旧的代理对象
+>
+> Object oldProxy = null;
+>
+> //用来标记是否需要将代理对象暴露在ThreadLocal中boolean setProxyContext = false;
+>
+> //获取目标源
+>
+> TargetSource targetSource = this.advised.targetSource;
+>
+> //目标对象
+>
+> Object target = null;
+>
+> //下面进入代理方法的处理阶段try {
+>
+> // 处理equals方法：被代理的接口中没有定义equals方法 && 当前调用是equals方法
+>
+> 加微信itsoku，发送：1024，获取 10T 高质量计算机学习视频！！
+>
+> if (!this.equalsDefined && AopUtils.isEqualsMethod(method)) {
+>
+> // 直接调用当前类中的equals方法
+>
+> return equals(args[0]);
+>
+> hashCode方法
+>
+> {
+>
+> }
+>
+> // 处理hashCode方法：被代理的接口中没有定义hashCode方法 && 当前调用是
+>
+> else if (!this.hashCodeDefined && AopUtils.isHashCodeMethod(method))
+>
+> // 直接调用当前类中的hashCode方法
+>
+> return hashCode();
+>
+> }
+>
+> /**
+
+-   方法来源于 DecoratingProxy 接口，这个接口中定义了一个方法
+
+-   用来获取原始的被代理的目标类，主要是用在嵌套代理的情况下（所谓嵌套代理：代理对 象又被作为目标对象进行了代理）
+
+> */
+>
+> else if (method.getDeclaringClass() == DecoratingProxy.class) {
+>
+> // 调用AopProxyUtils工具类的方法，内部通过循环遍历的方式，找到最原始的被代
+>
+> 理的目标类
+>
+> return AopProxyUtils.ultimateTargetClass(this.advised);
+>
+> }
+>
+> // 方法来源于 Advised 接口，代理对象默认情况下会实现 Advised 接口，可以通过代理对象来动态向代理对象中添加通知等
+>
+> else if (!this.advised.opaque && method.getDeclaringClass().isInterface() &&
+>
+> method.getDeclaringClass().isAssignableFrom(Advised.class))
+>
+> {
+>
+> 接口中的所有方法
+>
+> method, args);
+
+}
+
+> // this.advised是AdvisedSupport类型的，AdvisedSupport实现了Advised
+>
+> // 所以最终通过通过反射方式交给this.advised来响应当前调用
+>
+> return AopUtils.invokeJoinpointUsingReflection(this.advised,
+>
+> // 用来记录方法返回值
+>
+> Object retVal;
+>
+> 过静态方法
+>
+> //是否需要在threadLocal中暴露代理对象if (this.advised.exposeProxy) {
+>
+> // 将代理对象暴露在上线文中，即暴露在threadLocal中，那么在当前线程中可以通
+>
+> // AopContext#currentProxy获取当前被暴露的代理对象，这个是非常有用的，稍
+>
+> 后用案例来讲解，瞬间就会明白
+>
+> oldProxy = AopContext.setCurrentProxy(proxy);
+>
+> // 将setProxyContext标记为true setProxyContext = true;
+>
+> }
+>
+> // 通过目标源获取目标对象
+>
+> target = targetSource.getTarget();
+>
+> // 获取目标对象类型
+>
+> Class<?> targetClass = (target != null ? target.getClass() : null);
+>
+> // @1：获取当前方法的拦截器链List<Object> chain =
+>
+> this.advised.getInterceptorsAndDynamicInterceptionAdvice(method, targetClass);
+>
+> // 拦截器链为空的情况下，表示这个方法上面没有找到任何增强的通知，那么会直接通过反射直接调用目标对象
+>
+> if (chain.isEmpty()) {
+>
+> // 获取方法请求的参数（有时候方法中有可变参数，所谓可变参数就是带有省略号(...)这种格式的参数，传入的参数类型和这种类型不一样的时候，会通过下面的adaptArgumentsIfNecessary方法进行转换）
+>
+> Object[] argsToUse = AopProxyUtils.adaptArgumentsIfNecessary(method, args);
+>
+> //通过反射直接调用目标方法
+>
+> retVal = AopUtils.invokeJoinpointUsingReflection(target, method,
+>
+> argsToUse);
+>
+> 方法拦截器链）
+
+}
+
+else {
+
+> // 创建一个方法调用器（包含了代理对象、目标对象、调用的方法、参数、目标类型、
+>
+> MethodInvocation invocation =
+>
+> new ReflectiveMethodInvocation(proxy, target, method,
+>
+> args, targetClass, chain);
+>
+> // @3：通过拦截器链一个个调用最终到目标方法的调用retVal = invocation.proceed();
+>
+> }
+>
+> // 下面会根据方法返回值的类型，做一些处理，比如方法返回的类型为自己，则最后需要将返回值置为代理对象
+>
+> Class<?> returnType = method.getReturnType(); if (retVal != null && retVal == target &&
+>
+> returnType != Object.class && returnType.isInstance(proxy)
+>
+> &&
+>
+> !RawTargetAccess.class.isAssignableFrom(method.getDeclaringClass())) {
+>
+> // 将返回值设置为代理对象
+>
+> retVal = proxy;
+>
+> }
+>
+> // 方法的返回值类型returnType为原始类型（即int、byte、double等这种类型的）
+>
+> && retVal为null，
+>
+> // 此时如果将null转换为原始类型会报错，所以此处直接抛出异常
+>
+> else if (retVal == null && returnType != Void.TYPE && returnType.isPrimitive()) {
+>
+> throw new AopInvocationException(
+>
+> "Null return value from advice does not match primitive return type for: " + method);
+>
+> }
+>
+> // 返回方法调用结果
+>
+> return retVal;
+>
+> }
+>
+> finally {
+>
+> // 目标对象不为null && 目标源不是静态的
+>
+> //所谓静态的，你可以理解为是否是单例的
+>
+> // isStatic为true，表示目标对象是单例的，同一个代理对象中所有方法共享一个目标对
+>
+> 象
+>
+> // isStatic为false的时候，通常每次调用代理的方法，target对象是不一样的，所以
+>
+> 方法调用万之后需要进行释放，可能有些资源清理，连接的关闭等操作
+>
+> if (target != null && !targetSource.isStatic()) {
+>
+> // 必须释放来自TargetSource中的目标对象
+>
+> targetSource.releaseTarget(target);
+>
+> }
+>
+> // setProxyContext为ture if (setProxyContext) {
+>
+> // 需要将旧的代理再放回到上线文中
+>
+> AopContext.setCurrentProxy(oldProxy);
+>
+> 关于上面代码，有几点细说一下
+>
+> **@0：completeProxiedInterfaces方法**
+>
+> ![](media/image53.png){width="0.20833333333333334in" height="0.13541666666666666in"}@0 处的代码如下，根据代理配置信息，获取需要被代理的所有接口
+>
+> AopProxyUtils.completeProxiedInterfaces 方法源码如下
+>
+> 上面的方法执行完毕之后，会得到一个被代理的接口列表，默认情况下会得到下面的一个列表
+>
+> 最终创建出来的代理对象，默认会实现上面列的所有接口，后面3个接口是aop中自动给我们加上的。
+>
+> **@1：getInterceptorsAndDynamicInterceptionAdvice**
+>
+> 这个方法位于AdvisedSupport 中，根据方法和目标类型获取方法上面匹配的拦截器链
+
+#### 从advisorChainFactory中获取拦截器链稍后细说，我们把这个阶段叫做连接器链的获取阶段。
+
+> **@3：ReflectiveMethodInvocation.proceed()**
+>
+> ![](media/image54.png){width="0.15486111111111112in" height="0.13194444444444445in"}这个是一次会调用拦截器链，最终会调用到目标方法，获得目标方法的返回值，里面的细节见后面的代
+
+#### JdkDynamicAopProxy小结
+
+1.  被创建的代理对象默认会实现SpringProxy,Advised,DecoratingProxy 3个接口
+
+2.  SpringProxy 这个接口中没有任何方法，只是起一个标记作用，用来标记代理对象是使用spring aop创建的
+
+3.  代理对象默认都会实现Advised 接口，所以可以通过这个接口动态变更代理对象中的通知
+
+4.  DecoratingProxy 接口中定义了一个方法getDecoratedClass ，用来获取被代理的原始目标对象的类型
+
+> 下面来看另外一个类： ObjenesisCglibAopProxy ，这个继承了CglibAopProxy ，大部分逻辑都在
+>
+> CglibAopProxy 中，所以我们主要看CglibAopProxy 中代码。
+
+#### CglibAopProxy类
+
+> **作用：采用cglib代理的方式创建代理对象，并处理代理对象的所有方法调用。**
+>
+> 以getProxy 方法为入口，通过方法一个个来解说。
+>
+> **getProxy方法**
+>
+> 上面方法中有2个点比较难，需要说明，分别是@1：getCallbacks方法 和@2:创建
+>
+> **@1：getCallbacks方法**
+>
+> 通过被代理的类来获取Callback 列表， Callback 是用来处理代理对象的方法调用的，代理对象中可能有很多方法，每个方法可能采用不同的处理方式，所以会有多个Callback
+>
+> }
+>
+> // targetDispatcher会直接调用目标方法Callback targetDispatcher = (isStatic ?
+>
+> new StaticDispatcher(this.advised.getTargetSource().getTarget()) : new SerializableNoOp());
+>
+> Callback[] mainCallbacks = new Callback[] { aopInterceptor, // 处理匹配到拦截器的方法targetInterceptor, // 处理未匹配到拦截器的方法
+>
+> new SerializableNoOp(),
+>
+> targetDispatcher, // 处理未匹配到拦截器的方法，和targetInterceptor有何不同呢？ 目标方法如果返回值的结果是目标对象类型的，会使用 targetInterceptor 处理，内部会返回代理对象
+>
+> this.advisedDispatcher, // 处理Advised接口中定义的方法
+>
+> new EqualsInterceptor(this.advised), // 处理equals方法
+>
+> new HashCodeInterceptor(this.advised) // 处理hashCode方法
+>
+> };
+>
+> Callback[] callbacks;
+>
+> // 如果被代理的对象是单例的 && 配置是冻结的，此时会进行优化，怎么优化呢？
+>
+> // 配置冻结的情况下，生成好的代理中通知是无法修改的，所以可以提前将每个方法对应的拦截器链找到给缓存起来
+>
+> // 调用方法的时候，就直接从缓存中可以拿到方法对应的缓存信息，效率会高一些
+>
+> if (isStatic && isFrozen) {
+>
+> Method[] methods = rootClass.getMethods();
+>
+> Callback[] fixedCallbacks = new Callback[methods.length]; this.fixedInterceptorMap = new HashMap<>(methods.length);
+>
+> // 获取每个方法的调用链，然后给缓存在fixedInterceptorMap中
+>
+> for (int x = 0; x < methods.length; x++) { Method method = methods[x]; List<Object> chain =
+>
+> this.advised.getInterceptorsAndDynamicInterceptionAdvice(method, rootClass); fixedCallbacks[x] = new FixedChainStaticTargetInterceptor(
+>
+> chain, this.advised.getTargetSource().getTarget(), this.advised.getTargetClass());
+>
+> this.fixedInterceptorMap.put(method, x);
+>
+> }
+>
+> callbacks = new Callback[mainCallbacks.length + fixedCallbacks.length]; System.arraycopy(mainCallbacks, 0, callbacks, 0, mainCallbacks.length); System.arraycopy(fixedCallbacks, 0, callbacks, mainCallbacks.length,
+>
+> fixedCallbacks.length);
+>
+> this.fixedInterceptorOffset = mainCallbacks.length;
+>
+> }
+>
+> else {
+>
+> callbacks = mainCallbacks;
+>
+> }
+>
+> return callbacks;
+>
+> }
+>
+> **@2:创建ProxyCallbackFilter对象**
+>
+> 这块重点在于ProxyCallbackFilter 中的accept 方法，这个方法会根据目标放，获取目标对方最后会让callbacks列表中的哪个Callback处理，大家可以看一下源码，比较简单。
+>
+> 上面getCallbacks 方法中涉及到了5个类如下
+>
+> DynamicAdvisedInterceptor StaticUnadvisedExposedInterceptor StaticUnadvisedInterceptor
+>
+> DynamicUnadvisedInterceptor StaticDispatcher
+>
+> 后面4个比较简单，大家可以去看一下源码，主要来看第一个类，基本上代理对象中的大部分自定义的 方法都会进入到这个类的intercept 方法中进行处理，代码如下
+>
+> **DynamicAdvisedInterceptor类**
+>
+> retVal = methodProxy.invoke(target, argsToUse);
+>
+> }
+>
+> 方法拦截器链）
+
+else {
+
+> // 创建一个方法调用器（包含了代理对象、目标对象、调用的方法、参数、目标类型、
+>
+> // @2：并执行方法调用器的processd()方法，此方法会一次执行方法调用链，最终
+>
+> 会调用目标方法，获取返回结果
+>
+> retVal = new CglibMethodInvocation(proxy, target, method, args, targetClass, chain, methodProxy).proceed();
+>
+> }
+>
+> // 处理方法返回结果：会根据方法返回值的类型，做一些处理，比如方法返回的类型为自己，则最后需要将返回值置为代理对象
+>
+> retVal = processReturnType(proxy, target, method, retVal); return retVal;
+>
+> }
+>
+> finally {
+>
+> // 目标对象不为null && 目标源不是静态的
+>
+> //所谓静态的，你可以理解为是否是单例的
+>
+> // isStatic为true，表示目标对象是单例的，同一个代理对象中所有方法共享一个目标对
+>
+> 象
+>
+> // isStatic为false的时候，通常每次调用代理的方法，target对象是不一样的，所以
+>
+> 方法调用万之后需要进行释放，可能有些资源清理，连接的关闭等操作
+>
+> if (target != null && !targetSource.isStatic()) { targetSource.releaseTarget(target);
+>
+> }
+>
+> // setProxyContext为ture if (setProxyContext) {
+>
+> // 需要将旧的代理再放回到上线文中
+>
+> AopContext.setCurrentProxy(oldProxy);
+>
+> }
+>
+> }
+>
+> }
+>
+> }
+>
+> ![](media/image55.png){width="0.21875in" height="0.13541666666666666in"}![](media/image56.png){width="0.20833333333333334in" height="0.13541666666666666in"}上面代码中2个重点： @1 和@2
+>
+> @1：获取当前方法的拦截器链，这个在JdkDynamicAopProxy的也有，稍后说。
+>
+> @2：调用CglibMethodInvocation.proceed() ，内部会一次调用方法拦截器链，最终会调用目标方法，获取目标方法返回值，这个稍后放在代理方法处理阶段详解。
+>
+> 下面来看一下方法拦截器链的获取。
+
+#### 方法拦截器链的获取
+
+> **我们在创建代理的时候，增强的代码通常都放在Advise通知中，但是最终调用方法的时候，这些通知都 会被转换为MethodInterceptor来执行，调用方法的过程中，需要先获取方法上匹配的所有方法连接器连，然后依次执行，最终会调用到目标方法。**
+>
+> 获取方法对应的拦截器链，对应下面这段代码
+>
+> 会调用DefaultAdvisorChainFactory#getInterceptorsAndDynamicInterceptionAdvice方法 获取方法上匹配的拦截器链。
+>
+> 涉及到的类
+
+![](media/image57.png){width="5.975694444444445in" height="3.426388888888889in"}
+
+> **AdvisorChainFactory接口**
+>
+> 拦截器链工厂接口，定义了一个方法，用来获取方法匹配的拦截器链列表
+>
+> **DefaultAdvisorChainFactory类**
+>
+> AdvisorChainFactory接口的默认实现。
+>
+> public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializable {
+>
+> @Override
+>
+> public List<Object> getInterceptorsAndDynamicInterceptionAdvice( Advised config, Method method, @Nullable Class<?> targetClass) {
+>
+> // 获取Advisor适配器注册器，前面我们有提到过一个知识点：所有的Advisor最终都会转换为
+>
+> MethodInterceptor类型的，
+>
+> // 然后注册方法调用链去执行，AdvisorAdapterRegistry就是搞这个事情的,
+>
+> // 其内部会将非MethodInterceptor类型通知通过适配器转换为MethodInterceptor类型
+>
+> AdvisorAdapterRegistry registry = GlobalAdvisorAdapterRegistry.getInstance();
+>
+> //获取配置中的Advisor列表
+>
+> Advisor[] advisors = config.getAdvisors();
+>
+> List<Object> interceptorList = new ArrayList<>(advisors.length);
+>
+> //获取被调用方法所在类实际的类型
+>
+> Class<?> actualClass = (targetClass != null ? targetClass : method.getDeclaringClass());
+>
+> Boolean hasIntroductions = null;
+>
+> //遍历Advisor列表，找到和actualClass和方法匹配的所有方法拦截器
+>
+> （MethodInterceptor）链列表
+>
+> for (Advisor advisor : advisors) {
+>
+> //判断是否是PointcutAdvisor类型的，这种类型的匹配分为2个阶段，先看类是否匹配， 然后再看方法是否匹配
+>
+> if (advisor instanceof PointcutAdvisor) {
+>
+> PointcutAdvisor pointcutAdvisor = (PointcutAdvisor) advisor;
+>
+> // 如果isPreFiltered为ture，表示类以及匹配过，不需要看类是否匹配了
+>
+> if (config.isPreFiltered() || pointcutAdvisor.getPointcut().getClassFilter().matches(actualClass)) {
+>
+> MethodMatcher mm = pointcutAdvisor.getPointcut().getMethodMatcher();
+>
+> boolean match;
+>
+> if (mm instanceof IntroductionAwareMethodMatcher) { if (hasIntroductions == null) {
+>
+> hasIntroductions = hasMatchingIntroductions(advisors, actualClass);
+>
+> }
+>
+> match = ((IntroductionAwareMethodMatcher) mm).matches(method, actualClass, hasIntroductions);
+>
+> }
+>
+> else {
+>
+> //方法是否匹配
+>
+> match = mm.matches(method, actualClass);
+>
+> }
+>
+> //方法匹配
+>
+> if (match) {
+>
+> // 通过AdvisorAdapterRegistry的getInterceptors将advisor转
+>
+> 换为MethodInterceptor列表
+>
+> MethodInterceptor[] interceptors =
+>
+> registry.getInterceptors(advisor);
+>
+> //方法是否动态匹配
+>
+> if (mm.isRuntime()) {
+>
+> //轮询连接器，将其包装为InterceptorAndDynamicMethodMatcher对象，后续方法调用的时候可以做动态匹配
+>
+> for (MethodInterceptor interceptor : interceptors) {
+>
+> 下面来看AdvisorAdapterRegistry这个接口。
+>
+> **AdvisorAdapterRegistry接口**
+>
+> AdvisorAdapter注册器，AdvisorAdapter可以将Advisor中的Advice适配为MethodInterceptor
+>
+> **DefaultAdvisorAdapterRegistry类**
+>
+> AdvisorAdapterRegistry的默认实现，目前里面做的事情主要是将负责将前置通知，异常通知，后置通 知转换为MethodInterceptor类型的，源码比较简单，大家看一下就懂了。
+>
+> public class DefaultAdvisorAdapterRegistry implements AdvisorAdapterRegistry, Serializable {
+>
+> //AdvisorAdapter转换器列表，AdvisorAdapter负责将Advisor中的Advice转换为MethodInterceptor类型的
+>
+> private final List<AdvisorAdapter> adapters = new ArrayList<>(3);
+>
+> //默认会注册3个AdvisorAdapter，这3个负责将前置通知，异常通知，后置通知转换为MethodInterceptor类型的
+>
+> public DefaultAdvisorAdapterRegistry() { registerAdvisorAdapter(new MethodBeforeAdviceAdapter()); registerAdvisorAdapter(new AfterReturningAdviceAdapter()); registerAdvisorAdapter(new ThrowsAdviceAdapter());
+>
+> }
+>
+> @Override
+>
+> public Advisor wrap(Object adviceObject) throws UnknownAdviceTypeException { if (adviceObject instanceof Advisor) {
+>
+> return (Advisor) adviceObject;
+>
+> }
+>
+> if (!(adviceObject instanceof Advice)) {
+>
+> throw new UnknownAdviceTypeException(adviceObject);
+>
+> }
+>
+> Advice advice = (Advice) adviceObject;
+>
+> if (advice instanceof MethodInterceptor) {
+>
+> // So well-known it doesn't even need an adapter. return new DefaultPointcutAdvisor(advice);
+>
+> }
+>
+> //轮询adapters
+>
+> for (AdvisorAdapter adapter : this.adapters) {
+>
+> //adapter是否支持适配advice这个通知
+>
+> if (adapter.supportsAdvice(advice)) {
+>
+> return new DefaultPointcutAdvisor(advice);
+>
+> }
+>
+> }
+>
+> throw new UnknownAdviceTypeException(advice);
+>
+> }
+>
+> //将Advisor对象转换为MethodInterceptor列表，不过通常情况下一个advisor会返回一个MethodInterceptor
+>
+> @Override
+>
+> public MethodInterceptor[] getInterceptors(Advisor advisor) throws UnknownAdviceTypeException {
+>
+> List<MethodInterceptor> interceptors = new ArrayList<>(3); Advice advice = advisor.getAdvice();
+>
+> if (advice instanceof MethodInterceptor) { interceptors.add((MethodInterceptor) advice);
+>
+> }
+>
+> //轮询adapters
+>
+> for (AdvisorAdapter adapter : this.adapters) {
+>
+> //先看一下adapter是否支持适配advice这个通知if (adapter.supportsAdvice(advice)) {
+>
+> //如果匹配，这调用适配器的getInterceptor方法将advisor转换为MethodInterceptor
+>
+> interceptors.add(adapter.getInterceptor(advisor));
+>
+> }
+>
+> }
+>
+> **AdvisorAdapter接口**
+>
+> **MethodBeforeAdviceAdapter类**
+>
+> 适配MethodBeforeAdvice 前置通知，负责将MethodBeforeAdvice 类型的通知转换为
+>
+> MethodBeforeAdviceInterceptor 类型的
+>
+> **MethodBeforeAdviceInterceptor类**
+>
+> 将MethodBeforeAdvice 通知适配为MethodInterceptor 类型的，代码很简单，大家一看就懂。
+>
+> **AfterReturningAdviceAdapter类**
+>
+> 适配AfterReturningAdvice 后置通知，负责将AfterReturningAdvice 类型的通知转换为
+>
+> AfterReturningAdviceInterceptor 类型的
+>
+> **AfterReturningAdviceInterceptor类**
+>
+> 将AfterReturningAdvice 通知适配为MethodInterceptor 类型的，代码很简单，大家一看就懂。
+>
+> **ThrowsAdviceAdapter类**
+>
+> 适配ThrowsAdvice 前置通知，负责将MethodBeforeAdvice 类型的通知转换为
+>
+> MethodBeforeAdviceInterceptor 类型的
+>
+> **MethodBeforeAdviceInterceptor类**
+>
+> 将ThrowsAdvice 通知适配为MethodInterceptor 类型的，代码很简单，大家一看就懂。
+>
+> this.exceptionHandlerMap.put(throwableParam, method);
+>
+> }
+>
+> }
+>
+> }
+>
+> //如果exceptionHandlerMap，抛出异常，所以最少要有一个异常处理方法 if (this.exceptionHandlerMap.isEmpty()) {
+>
+> throw new IllegalArgumentException(
+>
+> "At least one handler method must be found in class [" + throwsAdvice.getClass() + "]");
+>
+> }
+>
+> }
+>
+> /**
+>
+> * 获取异常通知中自定义的处理异常方法的数量
+>
+> */
+>
+> public int getHandlerMethodCount() { return this.exceptionHandlerMap.size();
+>
+> }
+>
+> @Override
+>
+> public Object invoke(MethodInvocation mi) throws Throwable { try {
+>
+> //调用通知链
+>
+> return mi.proceed();
+>
+> }
+>
+> catch (Throwable ex) {
+>
+> //获取异常通知中自定义的处理异常的方法
+>
+> Method handlerMethod = getExceptionHandler(ex);
+>
+> //当处理的方法不为空
+>
+> if (handlerMethod != null) {
+>
+> //调用异常处理方法
+>
+> invokeHandlerMethod(mi, ex, handlerMethod);
+>
+> }
+>
+> //继续向外抛出异常throw ex; //@1
+>
+> }
+>
+> }
+>
+> /**
+>
+> * 获取throwsAdvice中处理exception参数指定的异常的方法
+>
+> */ @Nullable
+>
+> private Method getExceptionHandler(Throwable exception) {
+>
+> //获取异常类型
+>
+> Class<?> exceptionClass = exception.getClass();
+>
+> //从缓存中获取异常类型对应的方法
+>
+> Method handler = this.exceptionHandlerMap.get(exceptionClass);
+>
+> //来一个循环，查询处理方法，循环条件：方法为空 && 异常类型!=Throwable while (handler == null && exceptionClass != Throwable.class) {
+>
+> //获取异常的父类型
+>
+> exceptionClass = exceptionClass.getSuperclass();
+>
+> //从缓存中查找异常对应的处理方法
+>
+> handler = this.exceptionHandlerMap.get(exceptionClass);
+>
+> }
+>
+> //将查找结果返回return handler;
+
+## 代理方法的调用过程（拦截器链的执行）
+
+### 拦截器链执行过程
+
+> 到目前，已经获取到代理对象，接着会开始使用这个代理对象，在代理对象上执行一些方法调用，此时 会依次调用此方法上的所有MethodInterceptor，最终会调用到目标上对应的方法，执行过程如下图
+>
+> ![](media/image58.jpeg){width="6.122916666666667in" height="5.353472222222222in"}
+>
+> jdk动态代理方式创建代理最终会调用ReflectiveMethodInvocation#proceed 方法。
+>
+> cglib方式创建的代理最终会调用 CglibAopProxy.CglibMethodInvocation#proceed 方法。下面来看一下这个两个类的代码。
+
+### ReflectiveMethodInvocation类
+
+> protected final List<?> interceptorsAndDynamicMethodMatchers;
+>
+> //当前正在调用的连接器索引
+>
+> private int currentInterceptorIndex = -1;
+>
+> //构造器
+>
+> protected ReflectiveMethodInvocation(
+>
+> Object proxy, @Nullable Object target, Method method, @Nullable Object[] arguments,
+>
+> @Nullable Class<?> targetClass, List<Object> interceptorsAndDynamicMethodMatchers) {
+>
+> this.proxy = proxy; this.target = target;
+>
+> this.targetClass = targetClass;
+>
+> //获取桥接方法，关于什么是桥接方法，比较简单，百度一下，这里不做说明this.method = BridgeMethodResolver.findBridgedMethod(method); this.arguments = AopProxyUtils.adaptArgumentsIfNecessary(method,
+>
+> arguments);
+>
+> this.interceptorsAndDynamicMethodMatchers = interceptorsAndDynamicMethodMatchers;
+>
+> }
+>
+> //这里是重点，用来处理被调用的方法，会递归进行调用，所有的拦截器都执行完毕之后，会通过反射 调用目标方法
+>
+> public Object proceed() throws Throwable {
+>
+> // 拦截器都执行完毕之后，通过反射调用目标对象中的方法
+>
+> if (this.currentInterceptorIndex == this.interceptorsAndDynamicMethodMatchers.size() - 1) {
+>
+> return invokeJoinpoint();
+>
+> }
+>
+> //获取++this.currentInterceptorIndex指定的拦截器Object interceptorOrInterceptionAdvice =
+
+this.interceptorsAndDynamicMethodMatchers.get(++this.currentInterceptorIndex);
+
+//判断拦截器是否是InterceptorAndDynamicMethodMatcher，这种表示是动态拦截器，
+
+> // 所谓动态拦截器就是要根据方法的参数的值来判断拦截器是否需要执行
+>
+> if (interceptorOrInterceptionAdvice instanceof InterceptorAndDynamicMethodMatcher) {
+>
+> InterceptorAndDynamicMethodMatcher dm = (InterceptorAndDynamicMethodMatcher)
+>
+> interceptorOrInterceptionAdvice;
+>
+> Class<?> targetClass = (this.targetClass != null ? this.targetClass
+>
+> : this.method.getDeclaringClass());
+>
+> //判断动态拦截器是否需要执行
+>
+> if (dm.methodMatcher.matches(this.method, targetClass, this.arguments)) {
+>
+> //执行当前拦截器的调用
+>
+> return dm.interceptor.invoke(this);
+>
+> }
+>
+> else {
+>
+> //如果不匹配，直接递归进入下一个拦截器的调用return proceed();
+>
+> }
+>
+> }
+>
+> else {
+>
+> //执行拦截器的调用
+
+## ProxyFactory简化代理的创建
+
+> 上面代理的整个创建过程和使用过程还是挺复杂的，spring在AdvisedSupport 类的基础上又添加2个子类
+>
+> ProxyCreatorSupport ProxyFactory
+>
+> 通过这2个子类，将步骤稍微简化了一些，这2个类的代码比较简单，上面的如果理解了，看这2个类的代码会非常的轻松，源码这里就不细说了。
+>
+> ProxyCreatorSupport 用来对代理的创建提供支持，内部添加了AopProxyFactory 对象的引用，将代理的创建过程给简化了。
+>
+> ProxyFactory 类继承了ProxyCreatorSupport ，让创建代理的过程更简单了，如果采用硬编码的方式，通常我们会使用ProxyFactory 来创建代理对象，代码只需要下面几行了
+
+## 案例 {#案例-18}
+
+> 下面来一些案例，通过案例理解会更容易一些。
+
+### 案例1 {#案例1}
+
+> 这个案例主要看一下生成的代理对象的一些信息。
+>
+> import com.javacode2018.aop.demo4.FundsService; import org.springframework.aop.MethodBeforeAdvice; import org.springframework.aop.framework.ProxyFactory;
+>
+> import org.springframework.aop.support.DefaultPointcutAdvisor; import org.springframework.lang.Nullable;
+>
+> import java.lang.reflect.Method;
+>
+> public class AopTest5 {
+>
+> public static void main(String[] args) { ProxyFactory proxyFactory = new ProxyFactory(); proxyFactory.setTarget(new FundsService());
+>
+> proxyFactory.addAdvisor(new DefaultPointcutAdvisor(new MethodBeforeAdvice() {
+>
+> @Override
+>
+> public void before(Method method, Object[] args, @Nullable Object target) throws Throwable {
+>
+> System.out.println(method);
+>
+> }
+>
+> }));
+>
+> //创建代理对象
+>
+> Object proxy = proxyFactory.getProxy(); System.out.println("代理对象的类型：" + proxy.getClass());
+>
+> System.out.println("代理对象的父类：" + proxy.getClass().getSuperclass());
+>
+> System.out.println("代理对象实现的接口列表");
+>
+> for (Class<?> cf : proxy.getClass().getInterfaces()) { System.out.println(cf);
+>
+> }
+>
+> }
+>
+> }
+>
+> 运行输出
+>
+> 输出中可以看出默认帮我们实现了3个接口[SpringProxy,Advised,Factory]
+
+### 案例2：代理接口
+
+> 有接口的情况默认会通过jdk动态代理的方式生成代理，下面来看一下。来个接口
+>
+> 实现类
+>
+> 测试案例
+>
+> 运行输出
+>
+> 从第一行输出中可以看出是采用jdk动态代理方式创建的代理
+>
+> 第二行验证了，所有通过jdk动态代理方式创建的代理对象都是Proxy的子类
+>
+> 输出的接口列表中可以看出，默认帮我们实现了3个接口[SpringAop,Advised,DecoratingProxy]
+
+### 案例3：强制使用cglib代理
+
+> 在案例2中加入下面代码，设置proxyTargetClass 为true ，会强制使用cglib代理。
+
+### 案例4：将代理暴露在threadLocal中
+
+> 先来看一段代码， Service 类中有2个方法，m1方法中会调用m2，通过aop代理对这个类创建了一个代理，通过代理来统计所有调用方法的耗时
+>
+> 运行输出
+
+#### 为什么没有输出m2方法的耗时?
+
+> 原因：m2方法是在m1方法中通过this的方式来调用的，this实际上指向的是上面代码中的 target 对象。
+>
+> 那么我们如何能让此处的m2也能被增强，你需要通过代理来调用m2方法才可以，可以将代理对象暴露 在threadLocal中，然后在m1方法中获取到threadLoca中的代理对象，通过代理对象来调用m2就可以 了。
+>
+> 需要调整改动2处。
+>
+> 第1处：配置代理创建时，将其暴露出去
+>
+> 第2处：m1中调用m2的方法需要修改为下面这样
+>
+> 再次执行，结果如下
+>
+> 这个功能还是挺有用的，以后我估计大家是可以用到的。
+
+## 总结 {#总结-15}
+
+> 本文内容比较多，大家好好吸收一下，有问题的欢迎留言。
+>
+> 下一篇文章将深入详解介绍spring中如何将aop搞成自动化的，东西也是比较多的，敬请期待。
+
+## 案例源码 {#案例源码}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第33篇：ProxyFactoryBean创建AOP代理
+
+## Aop相关阅读
+
+> 阅读本文之前，需要先掌握下面3篇文章内容，不然会比较吃力。
+
+1.  <span class="underline">Spring系列第15篇：代理详解（java动态代理&CGLIB代理)</span>
+
+2.  <span class="underline">Spring系列第30篇：jdk动态代理和cglib代理</span>
+
+3.  <span class="underline">Spring系列第31篇：Aop概念详解</span>
+
+4.  <span class="underline">Spring系列第32篇：AOP核心源码、原理详解</span>
+
+> 本文继续Aop。
+
+## AOP创建代理的方式主要分为2大类
+
+### 手动方式
+
+> 也称为手动的方式，需要通过硬编码一个个创建代理。
+
+### 自动化的方式
+
+> 也称为批量的方式，批量的方式用在spring环境中，通过bean后置处理器来对符合条件的bean创建代理
+>
+> 手动的方式基本上是采用硬编码的方式，相对来说更灵活一些，可以脱离spring环境使用，而自动化的方式主要用在spring环境中，和spring集成起来更容易一些，更强大一些。
+>
+> AOP创建代理相关的类
+>
+> ![](media/image59.png){width="5.966666666666667in" height="2.5305555555555554in"}
+>
+> 左边的ProxyCreatorSupport 下面的都是手动的方式，有3个类。
+>
+> 右边的AbstractAutoProxyCreator 下面挂的都是自动创建代理的方式，主要有5个实现类。
+
+## 手动3种方式
+
+![](media/image60.png){width="5.902083333333334in" height="1.207638888888889in"}
+
+### ProxyFactory方式
+
+> 这种是硬编码的方式，可以脱离spring直接使用，用到的比较多，自动化方式创建代理中都是依靠ProxyFactory 来实现的，所以这种方式的原理大家一定要了解，上篇文章中已经有介绍过了，不清楚的可以去看一下：<span class="underline">S</span> <span class="underline">pring系列第32篇：AOP核心源码、原理详解</span>
+
+### AspectJProxyFactory方式
+
+> AspectJ是一个面向切面的框架，是目前最好用，最方便的AOP框架，Spring将其集成进来了，通过Aspectj提供的一些功能实现aop代理非常方便，下篇文章将详解。
+
+### ProxyFactoryBean方式
+
+> Spring环境中给指定的bean创建代理的一种方式，本文主要介绍这个。
+
+## ProxyFactoryBean
+
+> 这个类实现了一个接口FactoryBean ， FactoryBean 不清楚的可以看一下：<span class="underline">S</span> <span class="underline">pring系列第5篇：创建</span> <span class="underline">b</span> <span class="underline">ean实例这些方式你们都知道？</span>
+>
+> ProxyFactoryBean 就是通过FactoryBean 的方式来给指定的bean创建一个代理对象。创建代理，有3个信息比较关键：
+
+1.  需要增强的功能，这个放在通知（Advice）中实现
+
+2.  目标对象（target）：表示你需要给哪个对象进行增强
+
+3.  代理对象（proxy）：将增强的功能和目标对象组合在一起，然后形成的一个代理对象，通过代理对象来访问目标对象，起到对目标对象增强的效果。
+
+> 使用ProxyFactoryBean 也是围绕着3部分来的， ProxyFactoryBean 使用的步骤：
+>
+> 上案例。
+>
+> 来个类Service1
+>
+> 需求
+>
+> 在spring容器中注册上面这个类的bean，名称为service1 ，通过代理的方式来对这个bean进行增强，来2个通知
+>
+> 一个前置通知：在调用service1 中的任意方法之前，输出一条信息：准备调用xxxx方法一个环绕通知：复制统计所有方法的耗时。
+>
+> 下面是代码的实现
+>
+> public Service1 service1() { return new Service1();
+>
+> }
+>
+> //注册一个前置通知@Bean
+>
+> public MethodBeforeAdvice beforeAdvice() { MethodBeforeAdvice advice = new MethodBeforeAdvice() {
+>
+> @Override
+>
+> public void before(Method method, Object[] args, @Nullable Object target) throws Throwable {
+>
+> System.out.println("准备调用：" + method);
+>
+> }
+>
+> };
+>
+> return advice;
+>
+> }
+>
+> //注册一个后置通知@Bean
+>
+> public MethodInterceptor costTimeInterceptor() {
+>
+> MethodInterceptor methodInterceptor = new MethodInterceptor() { @Override
+>
+> public Object invoke(MethodInvocation invocation) throws Throwable { long starTime = System.nanoTime();
+>
+> Object result = invocation.proceed(); long endTime = System.nanoTime();
+>
+> System.out.println(invocation.getMethod() + ",耗时(纳秒)：" +
+>
+> (endTime - starTime));
+>
+> return result;
+>
+> }
+>
+> };
+>
+> return methodInterceptor;
+>
+> }
+>
+> //注册ProxyFactoryBean @Bean
+>
+> public ProxyFactoryBean service1Proxy() {
+>
+> //1.创建ProxyFactoryBean
+>
+> ProxyFactoryBean proxyFactoryBean = new ProxyFactoryBean();
+>
+> //2.设置目标对象的bean名称proxyFactoryBean.setTargetName("service1");
+>
+> //3.设置拦截器的bean名称列表，此处2个（advice1和advice2) proxyFactoryBean.setInterceptorNames("beforeAdvice",
+>
+> "costTimeInterceptor");
+>
+> return proxyFactoryBean;
+>
+> }
+>
+> }
+>
+> 下面启动spring容器，并获取代理对象
+>
+> 运行输出
+>
+> 从输出中可以看到，目标对象service1 已经被增强了。
+
+## ProxyFactoryBean中的interceptorNames
+
+> interceptorNames 用来指定拦截器的bean名称列表，常用的2种方式。
+>
+> 批量的方式非批量的方式
+
+### 批量的方式
+
+#### 使用方法
+
+> ![](media/image61.png){width="0.14583333333333334in" height="0.13541666666666666in"}需要匹配的bean名称后面跟上一个* ，可以用来批量的匹配，如： interceptor* ，此时spring会从容器中找到下面2中类型的所有bean，bean名称以interceptor 开头的将作为增强器
+>
+> 这个地方使用的时候需要注意，批量的方式注册的时候，如果增强器的类型不是上面2种类型的，比如 下面3种类型通知，我们需要将其包装为Advisor 才可以，而MethodInterceptor 是Interceptor 类型的，可以不用包装为Advisor 类型的。
+>
+> 下面来个案例感受一下。
+
+#### 案例 {#案例}
+
+> 下面批量注册2个增强器。
+>
+> package com.javacode2018.aop.demo8.test2;
+>
+> import com.javacode2018.aop.demo8.test1.Service1; import org.aopalliance.intercept.MethodInterceptor; import org.aopalliance.intercept.MethodInvocation; import org.springframework.aop.Advisor;
+>
+> import org.springframework.aop.MethodBeforeAdvice;
+>
+> import org.springframework.aop.framework.ProxyFactoryBean; import org.springframework.aop.support.DefaultPointcutAdvisor; import org.springframework.context.annotation.Bean;
+>
+> import org.springframework.lang.Nullable;
+>
+> import java.lang.reflect.Method;
+>
+> public class MainConfig2 {
+>
+> //注册目标对象@Bean
+>
+> public Service1 service1() { return new Service1();
+>
+> }
+>
+> //定义一个增强器：interceptor1，内部是一个前置通知，需要将其包装为Advisor类型的@Bean
+>
+> public Advisor interceptor1() {
+>
+> MethodBeforeAdvice advice = new MethodBeforeAdvice() { @Override
+>
+> public void before(Method method, Object[] args, @Nullable Object target) throws Throwable {
+>
+> System.out.println("准备调用：" + method);
+>
+> }
+>
+> };
+>
+> DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(); advisor.setAdvice(advice);
+>
+> return advisor;
+>
+> }
+>
+> //定义一个增强器：interceptor2 @Bean
+>
+> public MethodInterceptor interceptor2() {
+>
+> MethodInterceptor methodInterceptor = new MethodInterceptor() { @Override
+>
+> public Object invoke(MethodInvocation invocation) throws Throwable { long starTime = System.nanoTime();
+>
+> Object result = invocation.proceed(); long endTime = System.nanoTime();
+>
+> System.out.println(invocation.getMethod() + ",耗时(纳秒)：" +
+>
+> (endTime - starTime));
+>
+> return result;
+>
+> }
+>
+> };
+>
+> return methodInterceptor;
+>
+> }
+>
+> 上面定义了2个增强器：
+>
+> interceptor1：前置通知，包装为Advisor类型了
+>
+> interceptor2：环绕通知，MethodInterceptor类型的测试代码
+>
+> 运行输出
+
+### 非批量的方式
+
+#### 用法 {#用法-9}
+
+> 非批量的方式，需要注册多个增强器，需明确的指定多个增强器的bean名称，多个增强器按照参数中指定的顺序执行，如
+>
+> advice1、advice2 对应的bean类型必须为下面列表中指定的类型，类型这块比匹配的方式范围广一些
+>
+> 下面来个案例。
+
+#### 案例 {#案例-19}
+
+> 这次给service1 来3个通知：前置、环绕、后置
+>
+> 测试代码
+>
+> 运行输出
+
+## 源码解析
+
+> 重点在于下面这个方法
+>
+> 源码：
+>
+> initializeAdvisorChain 方法，用来初始化advisor(拦截器)链，是根据 interceptorNames 配置， 找到spring容器中符合条件的拦截器，将其放入创建aop代理的配置中
+>
+> @1：addGlobalAdvisor 批量的方式Advisor，看一下源码，比较简单
+>
+> 对AdvisorAdapterRegistry 不清楚的，看一下上一篇文章：<span class="underline">Spring系列第32篇：AOP核心源码、原理详解</span>
+>
+> advisorAdapterRegistry#wrap 方法将adviceObject 包装为Advisor 对象，代码如下，比较简单
+
+## 总结 {#总结}
+
+1.  spring中创建代理主要分为2种：手动方式和自动化的方式
+
+2.  手动方式采用硬编码的方式，一次只能给一个目标对象创建代理对象，相对来说灵活一下，对开发 者来说更灵活一些，通常可以独立spring环境使用；自动化的方式主要在spring环境中使用，通常是匹配的方式来为符合条件的目标bean创建代理，使用起来更简单一些
+
+3.  本文介绍的ProxyFactoryBean 用来在spring环境中给指定的bean创建代理对象，用到的不是太
+
+> 多，大家可以作为了解即可
+
+# Spring系列第34篇：@Aspect中@Pointcut 12种用法
+
+> **本文主要内容：掌握@Pointcut的12种用法。**
+>
+> **Aop相关阅读**
+>
+> 阅读本文之前，需要先掌握下面几篇篇文章内容，不然会比较吃力。
+
+1.  <span class="underline">Spring系列第15篇：代理详解（java动态代理&CGLIB代理)</span>
+
+2.  <span class="underline">Spring系列第30篇：jdk动态代理和cglib代理</span>
+
+3.  <span class="underline">Spring系列第31篇：Aop概念详解</span>
+
+4.  <span class="underline">Spring系列第32篇：AOP核心源码、原理详解</span>
+
+5.  <span class="underline">Spring系列第33篇：ProxyFactoryBean创建AOP代理</span>
+
+> 本文继续AOP，目前手动Aop中三种方式已经介绍2种了，本文将介绍另外一种： AspectJProxyFactory ，可能大家对这个比较陌生，但是@Aspect 这个注解大家应该很熟悉吧，通过这个注解在spring环境中实现aop特别的方便。
+>
+> 而AspectJProxyFactory 这个类可以通过解析@Aspect 标注的类来生成代理aop代理对象，对开发者来说，使创建代理变的更简洁了。
+
+![](media/image60.png){width="5.902083333333334in" height="1.207638888888889in"}
+
+## 先了解几个概念
+
+> 文中会涉及几个概念，先了解一下。
+
+### target
+
+> 用来表示目标对象，即需要通过aop来增强的对象。
+
+### proxy
+
+> 代理对象，target通过aop增强之后生成的代理对象。
+
+## AspectJ
+
+### AspectJ是什么?
+
+> AspectJ是一个面向切面的框架，是目前最好用，最方便的AOP框架，和spring中的aop可以集成在一起 使用，通过Aspectj提供的一些功能实现aop代理变得非常方便。
+
+### AspectJ使用步骤
+
+> 先来个案例，感受一下AspectJ是多么的方便。来个类
+>
+> 通过AspectJ 来对Service1 进行增强，来2个通知，一个前置通知，一个异常通知，这2个通知需要对Service1 中的所有方法生效，实现如下：
+>
+> @1：类上使用@Aspect标注
+>
+> @2：通过@Pointcut注解标注在方法上面，用来定义切入点
+>
+> @3：使用@Before标注在方法上面，定义了一个前置通知，通过value引用了上面已经定义的切入点，表示这个通知会对Service1中的所有方法生效，在通知中可以通过这个 类名.方法名() 引用@Pointcut 定义的切入点，表示这个通知对这些切入点有效，若@Before和@Pointcut 在一个类的时候，直接通过方法名() 引用当前类中定义的切入点
+>
+> @4：这个使用@AfterThrowing 定义了一个异常通知，也是对通过value引用了上面已经定义的切入点，表示这个通知会对Service1中的所有方法生效，若Service1中的方法抛出了Exception类型的异常，都会回调afterThrowing 方法。
+>
+> 来个测试类
+>
+> 运行输出
+>
+> 使用是不是特方便。
+
+### AspectJProxyFactory原理
+
+> @Aspect 标注的类上，这个类中，可以通过通过@Pointcut 来定义切入点，可以通过@Before、@Around、@After、@AfterRunning、@AfterThrowing 标注在方法上来定义通知，定义好了之后，将@Aspect 标注的这个类交给AspectJProxyFactory 来解析生成Advisor 链，进而结合目标对象一起来生成代理对象，大家可以去看一下源码，比较简单，这里就不多解释了。
+>
+> 本文的重点在@Aspect 标注的类上， @Aspect 中有2个关键点比较重要
+>
+> @Pointcut：标注在方法上，用来定义切入点，有11种用法，本文主要讲解这11种用法。@Aspect类中定义通知：可以通过@Before、@Around、@After、@AfterRunning、@AfterThrowing 标注在方法上来定义通知，这个下一篇介绍。
+
+## @Pointcut的12种用法
+
+### 作用 {#作用-2}
+
+> 用来标注在方法上来定义切入点。
+
+### 定义
+
+> 格式：@ 注解(value="表达标签 (表达式格式)")
+>
+> 如：
+
+### 表达式标签（10种）
+
+> execution：用于匹配方法执行的连接点within：用于匹配指定类型内的方法执行
+>
+> this：用于匹配当前AOP代理对象类型的执行方法；注意是AOP代理对象的类型匹配，这样就可能包 括 引 入 接 口 也 类 型 匹 配 target：用于匹配当前目标对象类型的执行方法；注意是目标对象的类型匹配，这样就不包括引入接口也类型匹配
+>
+> args：用于匹配当前执行的方法传入的参数为指定类型的执行方法 @within：用于匹配所以持有指定注解类型内的方法 @target：用于匹配当前目标对象类型的执行方法，其中目标对象持有指定的注解@args：用于匹配当前执行的方法传入的参数持有指定注解的执行 @annotation：用于匹配当前执行方法持有指定注解的方法
+>
+> bean：Spring AOP扩展的，AspectJ没有对于指示符，用于匹配特定名称的Bean对象的执行方法
+>
+> **10种标签组成了12种用法**
+
+### 1、execution
+
+> 使用execution(方法表达式) 匹配方法执行。
+
+#### execution格式
+
+> 其中带 ?号的 modifiers-pattern?，declaring-type-pattern?，hrows-pattern?是可选项ret-type-pattern,name-pattern, parameters-pattern是必选项
+>
+> modifier-pattern? 修饰符匹配，如public 表示匹配公有方法
+>
+> ret-type-pattern 返回值匹配，* 表示任何返回值，全路径的类名等
+>
+> declaring-type-pattern? 类路径匹配
+>
+> name-pattern 方法名匹配，* 代表所有，set*，代表以set开头的所有方法
+>
+> (param-pattern) 参数匹配，指定方法参数(声明的类型)，(..)代表所有参数，(*,String)代表第一个参数为任何值,第二个为String类型，(..,String)代表最后一个参数是String类型
+>
+> throws-pattern? 异常类型匹配
+
+#### 举例说明
+
++------------------------------------------------+------------------------------------------------------+
+| > **表达式**                                   | **描述**                                             |
++------------------------------------------------+------------------------------------------------------+
+| > public *.*(..)                             | 任何公共方法的执行                                   |
++------------------------------------------------+------------------------------------------------------+
+| > * com.javacode2018..IPointcutService.* ()  | com.javacode2018包及所有子包下                       |
+|                                                |                                                      |
+|                                                | IPointcutService接口中的任何无参方法                 |
++------------------------------------------------+------------------------------------------------------+
+| > * com.javacode2018..*.*(..)               | com.javacode2018包及所有子包下任何类的任何方法       |
++------------------------------------------------+------------------------------------------------------+
+| > * com.javacode2018..IPointcutService. ()    | com.javacode2018包及所有子包下                       |
+|                                                |                                                      |
+|                                                | IPointcutService接口的任何只有一个参数方法           |
++------------------------------------------------+------------------------------------------------------+
+| > * com.javacode2018..IPointcutService+.* () | com.javacode2018包及所有子包下                       |
+|                                                |                                                      |
+|                                                | IPointcutService接口及子类型的的任何无参方法         |
++------------------------------------------------+------------------------------------------------------+
+| > * Service1.*(String)                       | 匹配Service1中只有1个参数的且参数类型是String 的方法 |
++------------------------------------------------+------------------------------------------------------+
+| > * Service1.*(*,String)                    | 匹配Service1中只有2个参数的且第二个参数类型是        |
+|                                                |                                                      |
+|                                                | String的方法                                         |
++------------------------------------------------+------------------------------------------------------+
+| > * Service1.*(..,String)                    | 匹配Service1中最后1个参数类型是String的方法          |
++------------------------------------------------+------------------------------------------------------+
+
+> **类型匹配语法**
+>
+> 很多地方会按照类型的匹配，先来说一下类型匹配的语法。首先让我们来了解下AspectJ类型匹配的通配符：
+>
+> *****：匹配任何数量字符
+>
+> **..**：匹配任何数量字符的重复，如在类型模式中匹配任何数量子包；而在方法参数模式中匹配任何 数量参数（0个或者多个参数）
+>
+> **+：**匹配指定类型及其子类型；仅能作为后缀放在类型模式后边
+
++---------------------+---------------------------------------------------------------------------------------------------+
+| > **表达式**        | > **说明**                                                                                        |
++---------------------+---------------------------------------------------------------------------------------------------+
+| > java.lang.String  | > 匹配String类型                                                                                  |
++---------------------+---------------------------------------------------------------------------------------------------+
+| > java.*.String    | > 匹配java包下的任何一级子包 下的String类型，如匹配java.lang.String， 但不匹配java.lang.ss.String |
++---------------------+---------------------------------------------------------------------------------------------------+
+| > java..*          | > 匹配java包及任何子包下的任何类型，如匹配java.lang.String、                                      |
+|                     | >                                                                                                 |
+|                     | > java.lang.annotation.Annotation                                                                 |
++---------------------+---------------------------------------------------------------------------------------------------+
+| > java.lang.*ing   | > 匹配任何java.lang包下的以ing结尾的类型                                                          |
++---------------------+---------------------------------------------------------------------------------------------------+
+| > java.lang.Number+ | > 匹配java.lang包下的任何Number类型及其子类型，如匹配                                             |
+|                     | >                                                                                                 |
+|                     | > java.lang.Number，也匹配java.lang.Integer、java.math.BigInteger                                 |
++---------------------+---------------------------------------------------------------------------------------------------+
+
+### 2、within
+
+#### 用法 {#用法}
+
+> within(类型表达式) ：目标对象target的类型是否和within中指定的类型匹配
+
++-----------------------------------------------+-------------------------------------------------------------------------+
+| > **表达式**                                  | > **描述**                                                              |
++-----------------------------------------------+-------------------------------------------------------------------------+
+| > within(com.javacode2018..*)                | > com.javacode2018包及子包下的任何方法执行                              |
++-----------------------------------------------+-------------------------------------------------------------------------+
+| > within(com.javacode2018..IPointcutService+) | > com.javacode2018包或所有子包下                                        |
+|                                               | >                                                                       |
+|                                               | > IPointcutService类型及子类型的任何方法                                |
++-----------------------------------------------+-------------------------------------------------------------------------+
+| > within(com.javacode2018.Service1)           | > 匹配类com.javacode2018.Service1中定义的所有方法，不包含其子类中的方法 |
++-----------------------------------------------+-------------------------------------------------------------------------+
+
+#### 匹配原则
+
+> **案例**
+>
+> 有2个类，父子关系父类C1
+>
+> 子类C2
+>
+> 来个Aspect类
+>
+> ![](media/image62.png){width="0.20833333333333334in" height="0.13541666666666666in"}![](media/image62.png){width="0.20833333333333334in" height="0.13541666666666666in"}注意@1 匹配的类型是C1 ，也就是说被代理的对象的类型必须是C1类型的才行，需要和C1完全匹配
+>
+> ![](media/image63.png){width="0.20833333333333334in" height="0.13541666666666666in"}下面我们对C2 创建代理
+>
+> 运行输出
+>
+> 原因是目标对象是C2类型的，C2虽然是C1的子类，但是within中表达式指定的是要求类型必须是C1类 型的才匹配。
+>
+> 如果将within表达式修改为下面任意一种就可以匹配了
+>
+> 再次运行输出
+
+### 3、this
+
+#### 用法 {#用法-10}
+
+> this(类型全限定名) ：通过aop创建的代理对象的类型是否和this中指定的类型匹配；注意判断的目标是代理对象；this中使用的表达式必须是类型全限定名，不支持通配符。
+
+#### 匹配原则
+
+> **案例**
+>
+> 来个接口
+>
+> 来个实现类
+>
+> 来个@Aspect类
+>
+> 测试代码
+>
+> 运行输出
+>
+> 从输出中可以看出m1方法没有被增强，原因：this表达式要求代理对象必须是Service3类型的，输出中 可以看出代理对象并不是Service3类型的，此处代理对象proxy是使用jdk动态代理生成的。
+>
+> 我们可以将代码调整一下，使用cglib来创建代理
+>
+> 再次运行，会发现m2被拦截了，结果如下
+
+### 4、target
+
+#### 用法 {#用法}
+
+> target(类型全限定名) ：判断目标对象的类型是否和指定的类型匹配；注意判断的是目标对象的类型； 表达式必须是类型全限定名，不支持通配符。
+
+#### 匹配原则 {#匹配原则}
+
+> **案例**
+>
+> 加微信itsoku，发送：1024，获取 10T 高质量计算机学习视频！！
+>
+> 测试代码
+>
+> 运行输出
+>
+> **within、this、target对比**
+
++------------------+----------------+---------------------------------------------------+
+| > **表达式标签** | **判断的对象** | **判断规则(x：指表达式中指定的类型)**             |
++------------------+----------------+---------------------------------------------------+
+| > **within**     | target对象     | target.getClass().equals(表达式中指定的类型)      |
++------------------+----------------+---------------------------------------------------+
+| > **this**       | proxy对象      | x.getClass().isAssignableFrom(proxy.getClass());  |
++------------------+----------------+---------------------------------------------------+
+| > **target**     | target对象     | x.getClass().isAssignableFrom(target.getClass()); |
++------------------+----------------+---------------------------------------------------+
+
+### 5、args
+
+#### 用法 {#用法-11}
+
+> args(参数类型列表) 匹配当前执行的方法传入的参数是否为args中指定的类型；注意是匹配传入的参数类型，不是匹配方法签名的参数类型；参数类型列表中的参数必须是类型全限定名，不支持通配符； args属于动态切入点，也就是执行方法的时候进行判断的，这种切入点开销非常大，非特殊情况最好不要使用。
+
+#### 举例说明
+
++-------------------+----------------------------------------------------+
+| > **表达式**      | **描述**                                           |
++-------------------+----------------------------------------------------+
+| > args(String)    | 匹配只有一个参数且传入的参数类型是String类型的方法 |
++-------------------+----------------------------------------------------+
+| > args(*,String) | 匹配只有2个参数的且第2个参数类型是String的方法     |
++-------------------+----------------------------------------------------+
+| > args(..,String) | 匹配最后1个参数类型是String的方法                  |
++-------------------+----------------------------------------------------+
+
+> **案例**
+>
+> 下面的m1方法参数是Object类型的。
+>
+> Aspect类
+>
+> 测试代码，调用2次m1方法，第一次传入一个String类型的，第二次传入一个int类型的，看看效果
+>
+> 运行输出
+>
+> 输出中可以看出，m1第一次调用被增强了，第二次没有被增强。
+>
+> **args会在调用的过程中对参数实际的类型进行匹配，比较耗时，慎用。**
+
+### 6、@within
+
+#### 用法 {#用法}
+
+> @within(注解类型) ：匹配指定的注解内定义的方法。
+
+#### 匹配规则
+
+> 调用目标方法的时候，通过java中Method.getDeclaringClass() 获取当前的方法是哪个类中定义的，然后会看这个类上是否有指定的注解。
+>
+> 来看3个案例。
+
+#### 案例1 {#案例1-2}
+
+> **目标对象上有@within中指定的注解，这种情况时，目标对象的所有方法都会被拦截。** **来个注解**
+>
+> **来个目标类，用@Ann9标注**
+>
+> **来个Aspect类**
+>
+> **测试代码**
+>
+> m1方法在类S9中定义的，S9上面有Ann9注解，所以匹配成功
+>
+> **运行输出**
+>
+> **案例2**
+>
+> **定义注解时未使用** @Inherited **，说明子类无法继承父类上的注解**，这个案例中我们将定义一个这样的注解，将注解放在目标类的父类上，来看一下效果。
+>
+> **定义注解Ann10**
+>
+> **来2个父子类**
+>
+> 注意：
+>
+> S10Parent为父类，并且使用了Anno10注解，内部定义了2个方法大家注意一下
+>
+> 而S10位代理的目标类，继承了S10Parent，内部重写了父类的m2方法，并且又新增了一个m3方 法
+>
+> **来个Aspect类**
+>
+> **测试用例**
+>
+> S10为目标类，依次执行代理对象的m1、m2、m3方法，最终会调用目标类target中对应的方 法。
+>
+> **运行输出**
+>
+> **分析结果**
+>
+> 从输出中可以看出，只有m1方法被拦截了，其他2个方法没有被拦截。
+>
+> 确实是这样的，m1方法的是由S10Parent定义的，这个类上面有Ann10注解。
+>
+> 而m2方法虽然也在S10Parent中定义了，但是这个方法被子类S10重写了，所以调用目标对象中的m2 方法的时候，此时发现m2方法是由S10定义的，而 S10.class.getAnnotation(Ann10.class) 为空， 所以这个方法不会被拦截。
+>
+> 同样m3方法也是S10中定义的，也不会被拦截。
+
+#### 案例3
+
+> 对案例2进行改造，在注解的定义上面加上@Inherited ，此时子类可以继承父类的注解，此时3个方法都会被拦截了。
+>
+> 下面上代码，下面代码为案例2代码的一个拷贝，不同地方只是注解的定义上多了@Inherited
+>
+> **定义注解Ann11**
+>
+> **2个父子类**
+>
+> **Aspect类**
+>
+> **测试用例**
+>
+> **运行输出**
+>
+> 这次3个方法都被拦截了。
+
+### 7、@target
+
+#### 用法 {#用法-12}
+
+> @target(注解类型) ：判断目标对象target类型上是否有指定的注解；@target中注解类型也必须是全限定类型名。
+
+#### 匹配规则
+
+> 2种情况可以匹配
+>
+> 注解直接标注在目标类上
+>
+> 注解标注在父类上，但是注解必须是可以继承的，即定义注解的时候，需要使用@Inherited 标注
+
+#### 案例1 {#案例1}
+
+> **注解直接标注在目标类上，这种情况目标类会被匹配到。****自定义一个注解** Ann6
+>
+> ![](media/image64.png){width="0.22916666666666666in" height="0.15625in"}**目标类** S6 **上直接使用** @Ann1
+>
+> **测试代码**
+>
+> **运行输出**
+
+#### 案例2
+
+> **注解标注在父类上，注解上没有** @Inherited **，这种情况下，目标类无法匹配到，下面看代码****注解Ann7**
+>
+> ![](media/image65.png){width="0.22916666666666666in" height="0.15625in"}**来2个父子类，父类上有** @Ann7 **，之类** S7 **为目标类**
+>
+> **来个Aspect类**
+>
+> **测试代码**
+>
+> **运行输出**
+>
+> **分析结果**
+>
+> @Ann7标注在了父类上，但是@Ann7定义的时候没有使用@Inherited ，说明之类无法继承父类上面的注解，所以上面的目标类没有被拦截，下面我们将@Ann7 的定义改一下，加上@Inherited
+>
+> **再次运行输出**
+>
+> 此时目标对象被拦截了。
+
+### 8、@args
+
+#### 用法 {#用法}
+
+> @args(注解类型)：方法参数所属的类上有指定的注解；注意不是参数上有指定的注解，而是参数类型的类上有指定的注解。
+
+#### 案例1 {#案例1-3}
+
+> 可以匹配下面的代码，m1方法的第一个参数类型是Car类型，Car类型上有注解Ann8
+
+#### 案例2 {#案例2}
+
+> 可以匹配下面代码
+
+#### 案例3 {#案例3}
+
+> 这个案例代码，大家自己写一下，体验一下。
+
+### 9、@annotation
+
+#### 用法 {#用法-13}
+
+> @annotation(注解类型)：匹配被调用的方法上有指定的注解。
+
+#### 案例 {#案例}
+
+> **定义一个注解，可以用在方法上**
+>
+> **定义2个类**
+>
+> S12Parent为父类，内部定义了2个方法，2个方法上都有@Ann12注解
+>
+> S12是代理的目标类，也是S12Parent的子类，内部重写了m2方法，重写之后m2方法上并没有@Ann12注解，S12内部还定义2个方法m3和m4，而m3上面有注解@Ann12
+>
+> **来个Aspect类**
+>
+> 当被调用的目标方法上有@Ann12注解的时，会被beforeAdvice处理。
+>
+> **测试用例**
+>
+> S12作为目标对象，创建代理，然后分别调用4个方法
+>
+> **运行输出**
+>
+> **分析结果**
+>
+> m1方法位于S12Parent中，上面有@Ann12注解，被拦截了，m3方法上有@Ann12注解，被拦截了， 而m4上没有@Ann12注解，没有被拦截，这3个方法的执行结果都很容易理解。
+>
+> 重点在于m2方法的执行结果，没有被拦截，m2方法虽然在S12Parent中定义的时候也有@Ann12注解标注，但是这个方法被S1给重写了，在S1中定义的时候并没有@Ann12注解，代码中实际上调用的是S1 中的m2方法，发现这个方法上并没有@Ann12注解，所以没有被拦截。
+
+### 10、bean
+
+#### 用法 {#用法}
+
+> bean(bean名称)：这个用在spring环境中，匹配容器中指定名称的bean。
+
+#### 案例 {#案例-20}
+
+> **来个类BeanService**
+>
+> **来个Aspect类**
+>
+> **来个spring配置类**
+>
+> 这个配置类中有个@EnableAspectJAutoProxy ，这个注解大家可能比较陌生，这个属于aop中自动代理的范围，后面会有文章详细介绍这块，这里大家暂时先不用关注。
+>
+> **测试用例**
+>
+> 下面启动spring容器，加载配置类MainConfig13，然后分别获取beanService1和
+>
+> beanService2，调用他们的m1方法，看看效果
+>
+> **运行输出**
+>
+> beanService2的m1方法被拦截了。
+
+### 11、reference pointcut
+
+> 表示引用其他命名切入点。
+>
+> 有时，我们可以将切入专门放在一个类中集中定义。
+>
+> 其他地方可以通过引用的方式引入其他类中定义的切入点。语法如下：
+>
+> 若引用同一个类中定义切入点，包名和类名可以省略，直接通过方法就可以引用。 比如下面，我们可以将所有切入点定义在一个类中
+>
+> 下面顶一个一个Aspect类，来引用上面的切入点
+
+![](media/image66.jpeg){width="6.143055555555556in" height="2.795138888888889in"}
+
+### 12、组合型的pointcut
+
+> Pointcut定义时，还可以使用&&、||、!运算符。&&：多个匹配都需要满足
+>
+> ||：多个匹配中只需满足一个
+>
+> !：匹配不满足的情况下
+
+## 总结 {#总结-16}
+
+> 本文详解了@Pointcut的12种用法，案例大家一定要敲一遍，敲的过程中，会遇到问题，然后解决问题，才能够加深理解。
+>
+> ![](media/image67.jpeg){width="6.113888888888889in" height="5.29375in"}有问题的也欢迎大家留言交流，谢谢！
+
+## 案例源码 {#案例源码-8}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第35篇：@Aspect中5中通知详解
+
+> 本文内容：详解@Aspect中5中通知的使用。
+
+## Aop相关阅读
+
+> 阅读本文之前，需要先掌握下面几篇文章内容，不然会比较吃力。
+
+1.  <span class="underline">Spring系列第15篇：代理详解（java动态代理&CGLIB代理)</span>
+
+2.  <span class="underline">Spring系列第30篇：jdk动态代理和cglib代理</span>
+
+3.  <span class="underline">Spring系列第31篇：Aop概念详解</span>
+
+4.  <span class="underline">Spring系列第32篇：AOP核心源码、原理详解</span>
+
+5.  <span class="underline">Spring系列第33篇：ProxyFactoryBean创建AOP代理</span>
+
+6.  <span class="underline">Spring系列第34篇：@Aspect中@Pointcut 12种用法</span>
+
+## @Aspect中有5种通知
+
+1.  @Before：前置通知, 在方法执行之前执行
+
+2.  @Aroud：环绕通知, 围绕着方法执行
+
+3.  @After：后置通知, 在方法执行之后执行
+
+4.  @AfterReturning：返回通知, 在方法返回结果之后执行
+
+5.  @AfterThrowing：异常通知, 在方法抛出异常之后
+
+> 这几种通知用起来都比较简单，都是通过注解的方式，将这些注解标注在@Aspect类的方法上，这些方法就会对目标方法进行拦截，下面我们一个个来看一下。
+
+## @Before：前置通知
+
+### 介绍
+
+> 定义一个前置通知
+
+1.  类上需要使用@Aspect 标注
+
+2.  任意方法上使用@Before 标注，将这个方法作为前置通知，目标方法被调用之前，会自动回调这个方法
+
+3.  被@Before 标注的方法参数可以为空，或者为JoinPoint 类型，当为JoinPoint 类型时，必须为
+
+> 第一个参数
+
+4.  被@Before 标注的方法名称可以随意命名，符合java规范就可以，其他通知也类似
+
+> @Before 中value的值为切入点表达式，也可以采用引用的方式指定切入点，如：
+>
+> 此时，before方法上面的切入引用了pc方法上面的@Pointcut 的值
+
+![](media/image68.jpeg){width="6.169444444444444in" height="2.691666666666667in"}
+
+### 案例 {#案例}
+
+> 来个普通的service
+>
+> 给上面的类定义一个前置通知， Service1 中的所有方法执行执行，输出一段文字我是前置通知!
+>
+> 测试代码
+>
+> 运行输出
+
+### 对应的通知类
+
+> @Before通知最后会被解析为下面这个通知类
+
+## 通知中获取被调方法信息
+
+> 通知中如果想获取被调用方法的信息，分2种情况
+
+1.  非环绕通知，可以将org.aspectj.lang.JoinPoint 作为通知方法的第1个参数，通过这个参数获取被调用方法的信息
+
+2.  如果是环绕通知，可以将org.aspectj.lang.ProceedingJoinPoint 作为方法的第1个参数，通过这个参数获取被调用方法的信息
+
+### JoinPoint：连接点信息
+
+> 提供访问当前被通知方法的目标对象、代理对象、方法参数等数据：
+
+### ProceedingJoinPoint：环绕通知连接点信息
+
+> 用于环绕通知，内部主要关注2个方法，一个有参的，一个无参的，用来继续执行拦截器链上的下一个 通知。
+
+### Signature：连接点签名信息
+
+> 注意JoinPoint#getSignature() 这个方法，用来获取连接点的签名信息，这个比较重要
+>
+> 通常情况，spring中的aop都是用来对方法进行拦截，所以通常情况下连接点都是一个具体的方法，
+>
+> Signature 有个子接口
+>
+> JoinPoint#getSignature() 都可以转换转换为MethodSignature 类型，然后可以通过这个接口提供的一些方法来获取被调用的方法的详细信息。
+>
+> 下面对上面的前置通知的案例改造一下，获取被调用方法的详细信息，新建一个Aspect类：
+>
+> 测试用例
+>
+> 运行输出
+
+## @Around：环绕通知
+
+### 介绍
+
+> 环绕通知会包裹目标目标方法的执行，可以在通知内部调用ProceedingJoinPoint.process 方法继续执行下一个拦截器。
+>
+> 用起来和@Before类似，但是有2点不一样
+
+1.  若需要获取目标方法的信息，需要将ProceedingJoinPoint作为第一个参数
+
+2.  通常使用Object类型作为方法的返回值，返回值也可以为void
+
+### 特点
+
+> 环绕通知比较特殊，其他4种类型的通知都可以用环绕通知来实现。
+
+### 案例 {#案例-21}
+
+> 通过环绕通知来统计方法的耗时。
+>
+> 测试用例
+>
+> 运行输出
+
+### 对应的通知类
+
+> @Around通知最后会被解析为下面这个通知类
+
+## @After：后置通知
+
+### 介绍 {#介绍}
+
+> 后置通知，在方法执行之后执行，用法和前置通知类似。
+
+### 特点
+
+#### 不管目标方法是否有异常，后置通知都会执行
+
+> 这种通知无法获取方法返回值
+>
+> 可以使用JoinPoint 作为方法的第一个参数，用来获取连接点的信息
+
+### 案例 {#案例}
+
+> 在Service1 中任意方法执行完毕之后，输出一行日志。
+>
+> 测试案例
+>
+> 运行输出
+
+### 对应的通知类 {#对应的通知类}
+
+> @After通知最后会被解析为下面这个通知类
+>
+> 这个类中有invoke 方法，这个方法内部会调用被通知的方法，其内部采用try..finally 的方式实现的，所以不管目标方法是否有异常，通知一定会被执行。
+
+## @AfterReturning：返回通知
+
+### 用法 {#用法-14}
+
+> 返回通知，在方法返回结果之后执行。
+
+### 特点 {#特点}
+
+> 可以获取到方法的返回值
+>
+> 当目标方法返回异常的时候，这个通知不会被调用，这点和@After通知是有区别的
+
+### 案例 {#案例-22}
+
+> 后置通知中打印出方法及返回值信息。
+>
+> 注意@AfterReturning 注解，用到了2个参数
+>
+> value： 用 来 指 定 切 入 点 returning：用来指定返回值对应方法的参数名称，返回值对应方法的第二个参数，名称为retVal
+
+### 对应的通知类 {#对应的通知类-2}
+
+> @AfterReturning通知最后会被解析为下面这个通知类
+
+## @AfterThrowing：异常通知
+
+### 用法 {#用法}
+
+> 在方法抛出异常之后会回调@AfterThrowing 标注的方法。
+>
+> @AfterThrowing标注的方法可以指定异常的类型，当被调用的方法触发该异常及其子类型的异常之后，会触发异常方法的回调。也可以不指定异常类型，此时会匹配所有异常。
+
+#### 未指定异常类型
+
+> 未指定异常类型，可以匹配所有异常类型，如下
+
+#### 指定异常类型
+
+> 通过@AfterThrowing 的throwing 指定参数异常参数名称，我们用方法的第二个参数用来接收异常，第二个参数名称为e，下面的代码，当目标方法发生IllegalArgumentException 异常及其子类型异常时，下面的方法会被回调。
+
+### 特点 {#特点-2}
+
+> 不论异常是否被异常通知捕获，异常还会继续向外抛出。
+
+### 案例 {#案例}
+
+> Service1中加了login方法，用户名不是   喔喔松java 时抛出异常。
+>
+> 来个异常通知
+>
+> 测试用例
+>
+> 运行输出
+
+### 对应的通知类 {#对应的通知类}
+
+> @AfterThrowing通知最后会被解析为下面这个通知类
+>
+> 来看一下这个类的invoke 方法，这个方法是关键
+
+## 几种通知对比
+
+------------------ ---------------- ------------------ ------------------------------
+  **通知类型**       **执行时间点**   **可获取返回值**   **目标方法异常时是否会执行**
+  @Before           方法执行之前     否                 是
+  @Around           环绕方法执行     是                 自己控制
+  @After            方法执行后       否                 是
+  @AfterReturning   方法执行后       是                 否
+  @AfterThrowing    方法发生异常后   否                 是
+------------------ ---------------- ------------------ ------------------------------
+
+![](media/image69.jpeg){width="6.110416666666667in" height="4.243055555555555in"}
+
+> **案例源码**
+>
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第36篇：@EnableAspectJAutoProxy、@Aspect中通知顺序详解
+
+> **这是aop最后一篇文章了，本文带你深入理解@EnableAspectJAutoProxy，这篇文章可能会颠覆你以 前所掌握的一些知识，让你醍醐灌顶，欣喜若狂！**
+>
+> **1、Aop相关阅读**
+>
+> 阅读本文之前，需要先掌握下面几篇文章内容，不然会比较吃力。
+
+1.  <span class="underline">Spring系列第15篇：代理详解（java动态代理&CGLIB代理)</span>
+
+2.  <span class="underline">Spring系列第30篇：jdk动态代理和cglib代理</span>
+
+3.  <span class="underline">Spring系列第31篇：Aop概念详解</span>
+
+4.  <span class="underline">Spring系列第32篇：AOP核心源码、原理详解</span>
+
+5.  <span class="underline">Spring系列第33篇：ProxyFactoryBean创建AOP代理</span>
+
+6.  <span class="underline">Spring系列第34篇：@Aspect中@Pointcut 12种用法</span>
+
+7.  <span class="underline">Spring系列第35篇：@Aspect中5中通知详解</span>
+
+> 目前为止，上面的文章基本上都是硬编码的方式一个个为目标对象创建代理的，但是，我们使用spring 的过程中，可能需要对大量bean创建代理，比如我们需拦截所有的service的方法，打印耗时日志，对大量service bean做权限校验，做事务处理等等，这些功能都可以通过aop的方式来实现，若采用硬编码的方式一个个创建，那是相当难受的事情。
+>
+> Spring中提供了批量的方式，为容器中符合条件的bean，自动创建代理对象，也就是我们本文要说的
+
+## 2、@EnableAspectJAutoProxy自动为bean创建代理对象
+
+> @EnableAspectJAutoProxy 可以自动为spring容器中符合条件的bean创建代理对象， @EnableAspectJAutoProxy 需要结合@Aspect 注解一起使用。用法比较简单，下面我们通过案例来看一下。
+>
+> 先在com.javacode2018.aop.demo11.test1 包中定义2个bean UserService bean
+>
+> CarService bean
+>
+> 通过Aspect来定义一个前置通知，需要拦截上面2个bean的所有方法，在方法执行之前输出一行日志
+>
+> Aspect1中有4个关键信息
+>
+> @1：使用 @Component 将这个类注册到spring容器；
+>
+> @2：使用 @Aspect 标注着是一个 AspectJ 来定义通知的配置类；
+>
+> @3：定义切入点，目前的配置，会拦截test1包及其子包中所有类的所有方法，而CarService和UserService刚好满足，所以会被拦截；
+>
+> @4：定义一个前置通知，这个通知会对@3定义的切入点起效； @5：目标方法执行执行，输出一行日志；
+>
+> 下面来一个spring配置类
+>
+> @1：@ComponentScan 注解的作用会扫描当前包中的类，将标注有 @Component 的类注册到
+>
+> spring容器；
+>
+> @2：@EnableAspectJAutoProxy 这个注解比较关键，用来启用自动代理的创建，简单点理解： 会找到容器中所有标注有@Aspect注解的bean以及Advisor类型的bean，会将他们转换为Advisor 集合，spring会通过Advisor集合对容器中满足切入点表达式的bean生成代理对象，整个都是
+>
+> spring容器启动的过程中自动完成的，原理稍后介绍。
+>
+> 下面来测试用例代码，启动spring容器，加载配置类，验证
+>
+> 运行输出
+
+## 3、通知执行顺序
+
+> 允许spring容器中通过Advisor 、@Aspect 来定义通知，当spring容器中存在多个Advisor、@Aspect时，组成的拦截器调用链顺序是什么样的呢？在介绍这个之前，我们需要先回顾一下aop中4种通知相关知识。
+
+### spring aop中4种通知（Advice）
+
+> ![](media/image70.png){width="0.15625in" height="0.13194444444444445in"}所有的通知最终都需要转换为MethodInterceptor 类型的通知，然后组成一个MethodInterceptor列表 ，我们称之为方法调用链或者拦截器链，上面列表中后面3通过下面的转换器将其包装为MethodInterceptor 类型的通知：
+>
+> 下面我们再来看一下4种通知的用法和执行过程，以方便我们理解其执行顺序。
+
+#### org.aopalliance.intercept.MethodInterceptor：方法拦截器
+
+> 方法拦截器，这个比较强大，可以在方法执行前后执行一些增强操作，其他类型的通知最终都会被包装 为 MethodInterceptor 来执行。
+>
+> 下面我们自定义一个MethodInterceptor
+
+#### org.springframework.aop.MethodBeforeAdvice：方法前置通知
+
+> 方法前置通知，可以在方法之前定义增强操作。下面我们自定义一个MethodBeforeAdvice
+
+#### MethodBeforeAdvice最终会被包装为MethodBeforeAdviceInterceptor类型，然后放到拦截器链中去执行，通过MethodBeforeAdviceInterceptor代码可以理解MethodBeforeAdvice的执行过程
+
+> **org.springframework.aop.AfterReturningAdvice：方法返回通知**
+>
+> 方法返回通知，用来在方法执行完毕之后执行一些增强操作。下面我们自定义一个AfterReturningAdvice
+
+#### AfterReturningAdvice最终会被包装为AfterReturningAdviceInterceptor类型，然后放到拦截器链中去执行，通过AfterReturningAdviceInterceptor代码可以理解AfterReturningAdvice的执行过程
+
+> **org.springframework.aop.ThrowsAdvice：异常通知**
+>
+> 当目标方法发生异常时，可以通过 ThrowsAdvice 来指定需要回调的方法，我们在此可以记录一些异常信息，或者将异常信息发送到监控系统等。
+>
+> 下面我们自定义一个ThrowsAdvice
+>
+> **ThrowsAdvice最终会被包装为ThrowsAdviceInterceptor类型，然后放到拦截器链中去执行，通过ThrowsAdviceInterceptor代码可以理解ThrowsAdvice的执行过程，ThrowsAdviceInterceptor 构造参数传入一个自定义的 ThrowsAdvice 对象**
+
+### 拦截器链执行过程
+
+> 假如目标方法上面有好几个通知，调用目标方法执行，spring会将所有的通知转换得到一个MethodInterceptor 列表，然后依次按照下面的方式执行，会先调用第一个拦截器的MethodInterceptor#invoke(MethodInvocation invocation) 方法，会传递一个MethodInvocation 类型的参数，在此方法中，我们可以调用MethodInvocation#processd 方法去执行第二个拦截器，然后依次按照这样的过程执行，到了最后一个MethodInterceptor 中，再次调用MethodInvocation#processd 时，会调用目标方法。
+
+### ![](media/image71.png){width="5.589583333333334in" height="4.4847222222222225in"}4种通知的执行顺序
+
+> 结合上面的过程，假如目标方法上面依次添加了下面4种通知，我们来分析一下他们的执行过程
+>
+> 根据通知的规定，非MethodInterceptor 类型的通知，都会被包装为MethodInterceptor 类型的， 上面除了第一个之外，其他3个都会被转换为MethodInterceptor ，转换之后变成了下面这样：
+>
+> 根据通知链的执行过程，最终变成了下面这样：
+>
+> 将上面4个通知用到下面目标对象中
+>
+> 执行下面代码生成代理，然后通过代理调用say方法
+>
+> 被4个拦截器链包裹之后， System.out.println(proxy.say("路人")); 执行过程变成了下面这样
+>
+> 再次简化
+>
+> 最终会输出
+>
+> 上案例代码，我们来看一下最终的执行结果是不是和我们分析的一样，下面为需要被代理的类
+>
+> Service3 以及需要使用的4个通知。
+>
+> 对应测试代码
+>
+> 运行输出
+>
+> 和我们上面分析的确实一模一样。
+
+## 4、单个@Aspect中多个通知的执行顺序
+
+> @Aspect 标注的类中可以使用下面5种注解来定义通知
+
+#### 当单个 @Aspect 中定义了多种类型的通知时，@EnableAspectJAutoProxy内部会对其进行排序，排序顺序如下
+
+> 下面我们来个@Aspect 类，同时定义5种通知，然后来一步步分析一下其执行的属性。
+>
+> 上面会拦截com.javacode2018.aop.demo11.test4.Service4 这个类中的所有方法，下面是
+>
+> Service4 的源码。
+>
+> 来个spring的配置类，使用@EnableAspectJAutoProxy 标注
+>
+> 测试代码
+>
+> 运行依次输出如下
+
+#### 卧槽，这输出好像和我们上面说的不一样的，上面说的会按照下面的顺序执行，这到底是什么情况？
+
+> **别急，排序规则和输出结果都没有问题，听我慢慢分析，下面的分析非常重要，注意看了**
+
+## 5、@Aspect中5种通知回顾
+
+### 5种通知对应的Advice类
+
+> @Aspect中通过5中注解来定义通知，这些注解最终都需要转换为Advice去执行，转换关系如下
+
+------------------ -------------------------------------------------------------
+  **通知**           **对应的Advice类**
+  @AfterThrowing    org.springframework.aop.aspectj.AspectJAfterThrowingAdvice
+  @AfterReturning   org.springframework.aop.aspectj.AspectJAfterReturningAdvice
+  @After            org.springframework.aop.aspectj.AspectJAfterAdvice
+  @Around           org.springframework.aop.aspectj.AspectJAroundAdvice
+  @Before           org.springframework.aop.aspectj.AspectJMethodBeforeAdvice
+------------------ -------------------------------------------------------------
+
+> 重点就在于表格右边的Advice类，当了解这些Advice的源码之后，他们的执行顺序大家就可以理解了， 我们来看一下这些类的源码，重点看invoke 方法
+
+### @AfterThrowing：AspectJAfterThrowingAdvice
+
+> 实现了 接口，不需要进行包装。
+
+### @AfterReturning：AspectJAfterReturningAdvice
+
+> 源码：
+>
+> 实现了 接口，是一个方法返回通知，不
+>
+> 是MethodInterceptor 类型的，所以最终需包装为MethodInterceptor 类型，变成下面这样
+
+### @After：AspectJAfterAdvice
+
+> 源码：
+>
+> 实现了 MethodInterceptor 接口，所以最终执行的时候不需要进行包装。
+>
+> **注意 invoke 方法内部使用了 try...finally 的方式，@After方法的调用放在了finally中，所以不管是否有异常，@After类型的通知都会被执行。**
+
+### @Around：AspectJAroundAdvice
+
+> 源码：
+>
+> 实现了 MethodInterceptor 接口，最终执行的时候也不需要进行包装。
+
+### @Before：AspectJMethodBeforeAdvice
+
+> 源码：
+
+实现了 MethodBeforeAdvice 接口，是一个前置通知，不是
+
+MethodInterceptor 类型的，所以最终需包装为MethodInterceptor 类型，变成下面这样
+
+## 6、分析单个@Aspect中多个通知执行顺序
+
+> 大家对@Aspect中5种通知内容理解之后，我们再回头看一下代码Aspect4 中定义的5个通知
+>
+> 我们给出的结论是，会按照下面的顺序执行
+>
+> 按照上面的顺序，一步步来分析。
+>
+> 先执行第1个通知@AfterThrowing ，变成下面这样
+>
+> mi.processed() 会执行第2个通知@AfterReturning ，变成了下面这样
+>
+> 继续mi.proceed() 执行第3个通知@After ，变成了下面这样
+>
+> 继续mi.proceed() 执行第4个通知@Around ，变成了下面这样
+>
+> 继续joinPoint.proceed() 执行第5个通知@Before ，变成了下面这样
+>
+> 继续joinPoint.proceed() 会调用目标方法，变成了下面这样
+>
+> ![](media/image72.png){width="0.20833333333333334in" height="0.13541666666666666in"}将上面的@1 替换为目标方法的调用，就变成下面这样了
+>
+> 所以最终输出
+
+## 7、@EnableAspectJAutoProxy中为通知指定顺序
+
+> @EnableAspectJAutoProxy 用在spring环境中，可以通过@Aspect 以及Advisor 来定义多个通知， 当spring容器中有多个@Aspect、Advisor 时，他们的顺序是什么样的呢？
+>
+> 我们先看一下如何为@Aspect 、 自定义Advisor 指定顺序。
+
+### 为@Aspect指定顺序：用@Order注解
+
+> 需要在@Aspect 标注的类上使用@org.springframework.core.annotation.Order 注解，值越小， 通知的优先级越高。
+
+### 为Advisor指定顺序：实现Ordered接口
+
+> 自定义的Advisor 通过org.springframework.core.Ordered 接口来指定顺序，这个接口有个
+>
+> public int getOrder() 方法，用来返回通知的顺序。
+>
+> spring为我们提供了一个Advisor 类型的抽象类org.springframework.aop.support.AbstractPointcutAdvisor ，这个类实现了Ordered 接口， spring中大部分Advisor 会是继承AbstractPointcutAdvisor ，若需要自定义Advisor ，也可以继承这个类，这个类的getOrder 方法比较关键，来看一下
+>
+> Spring为我们提供了一个默认的 Advisor 类： DefaultPointcutAdvisor ，这个类就继承了
+>
+> AbstractPointcutAdvisor ，通常我们可以直接使用DefaultPointcutAdvisor 来自定义通知。
+
+## 8、多个@Aspect、Advisor排序规则
+
+### 排序规则
+
+#### 1、在spring容器中获取@Aspect、Advisor类型的所有bean，得到一个列表 list1 2、对list1按照order的值升序排序，得到结果list2
+
+> **3、然后再对list2中@Aspect类型的bean内部的通知进行排序，规则**
+>
+> 4、最后运行的时候会得到上面排序产生的方法调用链列表去执行。
+
+### 案例 {#案例-23}
+
+> 下面我们定义2个@Aspect类，一个Advisor类，并且给这3个都指定，然后来验证一下通知执行的顺 序。
+
+#### 先定义目标类
+
+> **Aspect1：第2个@Aspect**
+
+#### Aspect1：第2个@Aspect
+
+> **自定义一个Advisor**
+
+#### 来个spring配置类 {#来个spring配置类}
+
+> 标注@EnableAspectJAutoProxy 来启用自动化的aop功能
+
+#### 测试代码 {#测试代码-1}
+
+> **运行输出**
+
+#### 结果分析 {#结果分析}
+
+> 下面我们一步步来推出结果为什么是上面这样。
+>
+> 先获取spring容器中@Aspect、Advisor类型的所有bean，根据其order升序排序，得到：
+>
+> 然后对每个Aspect 内部的通知进行排序，根据单个@Aspect 内部通知排序规则，可以得到：
+>
+> 下面将代码拿过来一步步填充。先对Aspect1 进行填充，得到：
+>
+> ![](media/image73.png){width="0.20833333333333334in" height="0.13541666666666666in"}@1 执行mi.proceed() 会调用下一个拦截器，即Advisor1 中定义的拦截器，然后会得到下面代码：
+>
+> ![](media/image74.png){width="0.20833333333333334in" height="0.13541666666666666in"}@2 执行mi.proceed() 会调用下一个拦截器，即Aspect2 中定义的拦截器，而Aspect2 和Aspect1 类似，然后会得到下面代码：
+>
+> ![](media/image75.png){width="0.20833333333333334in" height="0.13541666666666666in"}@3 继续执行mi.proceed() ，此时会调用目标方法say("路人") ，然后就进化成下面这样了
+>
+> 再来和输出结果对比一下，是完全一致的。
+
+## 9、@EnableAspectJAutoProxy另外2个功能
+
+> 这个注解还有2个参数，大家看一下下面的注释，比较简单，就不用案例演示了。
+
+## 10、@EnableAspectJAutoProxy原理
+
+> @EnableAspectJAutoProxy 会在spring容器中注册一个bean
+>
+> AnnotationAwareAspectJAutoProxyCreator 是 BeanPostProcessor 类 型 的 ， BeanPostProcessor 大家应该比较熟悉了，bean后置处理器，可以在bean声明周期中对bean进行操作，比如对bean生成代理等；而AnnotationAwareAspectJAutoProxyCreator 就是对符合条件的
+>
+> bean，自动生成代理对象，源码就这里就不细说了，有兴趣的可以从
+>
+> postProcessAfterInitialization 方法看，比较简单。
+
+## 11、总结 {#总结}
+
+> 今天内容还是挺多的，大家好好消化一下。
+>
+> 主要要掌握@EnableAspectJAutoProxy 中多个@Aspect、Advisor 时，通知的执行顺序，这个多看看，要理解其原理，记起来才会更容易，用起来也会更顺手。
+>
+> **如发现文章有错误、对内容有疑问，都可以在文章下面留言，或者加我微信（itsoku）交流，每周会挑 选出一位热心小伙伴，送上一份精美的小礼品，快来关注我吧！**
+
+## 12、案例源码 {#案例源码-9}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第37篇：@EnableAsync & @Async 实现方法异步调用
+
+## 1、本文内容 {#本文内容}
+
+> 详解 @EnableAsync & @Async，主要分下面几个点进行介绍。
+
+1.  #### 作用 {#作用}
+
+2.  **用法**
+
+3.  #### 获取异步执行结果
+
+4.  **自定义异步执行的线程池**
+
+5.  #### 自定义异常处理
+
+6.  **线程隔离**
+
+7.  **源码 & 原理**
+
+## 2、作用 {#作用-3}
+
+#### spring容器中实现bean方法的异步调用。
+
+> 比如有个logService的bean，logservice中有个log方法用来记录日志，当调用logService.log(msg)
+>
+> 的时候，希望异步执行，那么可以通过@EnableAsync & @Async 来实现。
+
+## 3、用法 {#用法-15}
+
+### 2步
+
+1.  需要异步执行的方法上面使用@Async 注解标注，若bean中所有的方法都需要异步执行，可以直接将@Async 加载类上。
+
+2.  将@EnableAsync 添加在spring配置类上，此时@Async 注解才会起效。
+
+### 常见2种用法 {#常见2种用法}
+
+1.  无返回值的
+
+2.  可以获取返回值的
+
+## 4、无返回值的
+
+### 用法 {#用法-16}
+
+> 方法返回值不是Future 类型的，被执行时，会立即返回，并且无法获取方法返回值，如：
+
+### 案例 {#案例}
+
+> 实现日志异步记录的功能。
+>
+> LogService.log方法用来异步记录日志，需要使用@Async 标注
+>
+> 来个spring配置类，需要加上@EnableAsync 开启bean方法的异步调用.
+>
+> 测试代码
+>
+> 运行输出
+>
+> 前2行输出，可以看出logService.log 立即就返回了，后面2行来自于log方法，相差2秒左右。前面2行在主线程中执行，后面2行在异步线程中执行。
+
+## 5、获取异步返回值
+
+### 用法 {#用法}
+
+> 若需取异步执行结果，方法返回值必须为Future 类型，使用spring提供的静态方法
+>
+> org.springframework.scheduling.annotation.AsyncResult#forValue 创建返回值，如：
+
+### 案例 {#案例-24}
+
+> 场景：电商中商品详情页通常会有很多信息：商品基本信息、商品描述信息、商品评论信息，通过3个 方法来或者这几个信息。
+>
+> 这3个方法之间无关联，所以可以采用异步的方式并行获取，提升效率。
+>
+> 下面是商品服务，内部3个方法都需要异步，所以直接在类上使用@Async 标注了，每个方法内部休眠
+>
+> 500毫秒，模拟一下耗时操作。
+>
+> 来个spring配置类，需要加上@EnableAsync 开启bean方法的异步调用.
+>
+> 测试代码
+>
+> 运行输出
+>
+> 3个方法总计耗时500毫秒左右。
+>
+> 如果不采用异步的方式，3个方法会同步执行，耗时差不多1.5秒，来试试，将 GoodsService 上的
+>
+> @Async 去掉，然后再次执行测试案例，输出
+>
+> 这个案例大家可以借鉴一下，**按照这个思路可以去优化一下你们的代码，方法之间无关联的可以采用异 步的方式，并行去获取，最终耗时为最长的那个方法，整体相对于同步的方式性能提升不少。**
+
+## 6、自定义异步执行的线程池
+
+> 默认情况下， @EnableAsync 使用内置的线程池来异步调用方法，不过我们也可以自定义异步执行任务的线程池。
+
+### 有2种方式来自定义异步处理的线程池
+
+#### 方式1
+
+> **在spring容器中定义一个线程池类型的bean，bean名称必须是taskExecutor**
+
+#### 方式2
+
+> 定义一个bean，实现AsyncConfigurer接口中的getAsyncExecutor方法 ，这个方法需要返回自定义的线程池，案例代码：
+>
+> import java.util.concurrent.Executor;
+>
+> @EnableAsync
+>
+> public class MainConfig3 {
+>
+> @Bean
+>
+> public LogService logService() { return new LogService();
+>
+> }
+>
+> /**
+
+-   定义一个AsyncConfigurer类型的bean，实现getAsyncExecutor方法，返回自定义的线程池
+
+> *
+
+-   @param executor
+
+-   @return
+
+> */ @Bean
+>
+> public AsyncConfigurer asyncConfigurer(@Qualifier("logExecutors") Executor executor) {
+>
+> return new AsyncConfigurer() { @Nullable
+>
+> @Override
+>
+> public Executor getAsyncExecutor() { return executor;
+>
+> }
+>
+> };
+>
+> }
+>
+> /**
+
+-   定义一个线程池，用来异步处理日志方法调用
+
+*
+
+-   @return
+
+> */ @Bean
+>
+> public Executor logExecutors() {
+>
+> ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor(); executor.setCorePoolSize(10);
+>
+> executor.setMaxPoolSize(100);
+>
+> //线程名称前缀
+>
+> executor.setThreadNamePrefix("log-thread-"); //@1 return executor;
+>
+> }
+>
+> }
+>
+> ![](media/image76.png){width="0.20833333333333334in" height="0.13541666666666666in"}@1 自定义的线程池中线程名称前缀为log-thread- ，运行下面测试代码
+>
+> 输出
+>
+> 最后2行日志中线程名称是log-thread- ，正是我们自定义线程池中的线程。
+
+## 7、自定义异常处理
+
+> 异步方法若发生了异常，我们如何获取异常信息呢？此时可以通过自定义异常处理来解决。
+
+### 异常处理分2种情况
+
+1.  当返回值是Future的时候，方法内部有异常的时候，异常会向外抛出，可以对Future.get采用
+
+> try..catch来捕获异常
+
+2.  当返回值不是Future的时候，可以自定义一个bean，实现AsyncConfigurer接口中的
+
+> getAsyncUncaughtExceptionHandler方法，返回自定义的异常处理器
+
+### 情况1：返回值为Future类型
+
+#### 用法 {#用法-17}
+
+> 通过try..catch来捕获异常，如下
+
+#### 案例 {#案例}
+
+> LogService中添加一个方法，返回值为Future，内部抛出一个异常，如下：
+>
+> 测试代码如下
+>
+> 运行输出
+
+### 情况2：无返回值异常处理
+
+#### 用法 {#用法}
+
+> 当返回值不是Future的时候，可以自定义一个bean，实现 AsyncConfigurer接口中的getAsyncUncaughtExceptionHandler方法 ，返回自定义的异常处理器，当目标方法执行过程中抛出异常的时候，此时会自动回调AsyncUncaughtExceptionHandler#handleUncaughtException 这个方法，可以在这个方法中处理异常，如下：
+>
+> @Nullable @Override
+>
+> public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler()
+>
+> {
+>
+> return new AsyncUncaughtExceptionHandler() { @Override
+>
+> public void handleUncaughtException(Throwable ex, Method method,
+>
+> Object... params) {
+>
+> 方法中处理异常
+
+}
+
+};
+
+> }
+>
+> };
+>
+> }
+>
+> //当目标方法执行过程中抛出异常的时候，此时会自动回调这个方法，可以在这个
+
+#### 案例 {#案例-25}
+
+> LogService中添加一个方法，内部抛出一个异常，如下：
+>
+> 来个spring配置类，通过AsyncConfigurer 来自定义异常处理器AsyncUncaughtExceptionHandler
+>
+> 运行输出
+
+## 8、线程池隔离
+
+### 什么是线程池隔离？
+
+> 一个系统中可能有很多业务，比如充值服务、提现服务或者其他服务，这些服务中都有一些方法需要异 步执行，默认情况下他们会使用同一个线程池去执行，如果有一个业务量比较大，占用了线程池中的大 量线程，此时会导致其他业务的方法无法执行，那么我们可以采用线程隔离的方式，对不同的业务使用 不同的线程池，相互隔离，互不影响。
+>
+> @Async 注解有个value 参数，用来指定线程池的bean名称，方法运行的时候，就会采用指定的线程池来执行目标方法。
+
+### 使用步骤 {#使用步骤}
+
+1.  在spring容器中，自定义线程池相关的bean
+
+2.  @Async("线程池bean名称")
+
+### 案例 {#案例}
+
+> 模拟2个业务：异步充值、异步提现；2个业务都采用独立的线程池来异步执行，互不影响。
+>
+> **异步充值服务**
+>
+> **异步提现服务**
+>
+> **spring配置类**
+>
+> 注意@0、@1、@2、@3、@4 这几个地方的代码，采用线程池隔离的方式，注册了2个线程池，分别用来处理上面的2个异步业务。
+>
+> **测试代码**
+>
+> **运行输出**
+>
+> 输出中可以看出2个业务使用的是不同的线程池执行的。
+
+## 9、源码 & 原理
+
+> 内 部 使 用 aop 实 现 的 ，@EnableAsync 会 引 入 一 个 bean 后 置 处 理 器 ： AsyncAnnotationBeanPostProcessor ，将其注册到spring容器，这个bean后置处理器在所有bean 创建过程中，判断bean的类上是否有@Async注解或者类中是否有@Async标注的方法，如果有，会通过aop给这个bean生成代理对象，会在代理对象中添加一个切面：
+>
+> org.springframework.scheduling.annotation.AsyncAnnotationAdvisor，这个切面中会引入一个拦截器：AnnotationAsyncExecutionInterceptor，方法异步调用的关键代码就是在这个拦截器的invoke方法中实现的，可以去看一下。
+
+## ![](media/image77.jpeg){width="6.0465277777777775in" height="2.8333333333333335in"}10、总结 {#总结-17}
+
+> **11、案例源码**
+>
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第38篇：@Scheduled & @EnableScheduling定时器详解
+
+> spring中单。
+>
+> 这2个注解，可以用来快速开发定时器，使用特别的简
+
+## 如何使用？
+
+### 用法 {#用法-18}
+
+> 1、需要定时执行的方法上加上@Scheduled注解，这个注解中可以指定定时执行的规则，稍后详细介绍。
+>
+> 2、Spring容器中使用@EnableScheduling开启定时任务的执行，此时spring容器才可以识别@Scheduled标注的方法，然后自动定时执行。
+
+### 案例 {#案例-26}
+
+> db中有很多需要推送的任务，然后将其检索出来，推送到手机端，来个定时器，每秒一次从库中检测需 要推送的消息，然后推送到手机端。
+>
+> 来个spring配置类，需要使用@EnableScheduling 标注
+>
+> 测试类
+>
+> 运行输出，每秒会输出一次，如下：
+
+## @Scheduled配置定时规则
+
+> @Scheduled可以用来配置定时器的执行规则，非常强大，@Scheduled中主要有8个参数，我们一一来 了解一下。
+
+### cron
+
+> 该参数接收一个cron表达式 ， cron表达式 是一个字符串，字符串以5或6个空格隔开，分开共6或7个域，每一个域代表一个含义。
+
+#### cron表达式语法
+
+> 注：[年]不是必须的域，可以省略[年]，则一共6个域
+
++----------+----------+------------+--------------------+--------------------+
+| **序号** | **说明** | > **必填** | > **允许填写的值** | > **允许的通配符** |
++----------+----------+------------+--------------------+--------------------+
+| 1        | 秒       | > 是       | > 0-59             | > , - * /         |
++----------+----------+------------+--------------------+--------------------+
+| 2        | 分       | > 是       | > 0-59             | > , - * /         |
++----------+----------+------------+--------------------+--------------------+
+| 3        | 时       | > 是       | > 0-23             | > , - * /         |
++----------+----------+------------+--------------------+--------------------+
+| 4        | 日       | > 是       | > 1-31             | > , - * ? / L W   |
++----------+----------+------------+--------------------+--------------------+
+| 5        | 月       | > 是       | > 1-12 / JAN-DEC   | > , - * /         |
++----------+----------+------------+--------------------+--------------------+
+| 6        | 周       | > 是       | > 1-7 or SUN-SAT   | > , - * ? / L #  |
++----------+----------+------------+--------------------+--------------------+
+| 7        | 年       | > 否       | > 1970-2099        | > , - * /         |
++----------+----------+------------+--------------------+--------------------+
+
+> **通配符说明:**
+>
+> ![](media/image78.png)表示所有值。 例如:在分的字段上设置 *,表示每一分钟都会触发。
+>
+> ![](media/image79.png)表示不指定值。使用的场景为不需要关心当前设置这个字段的值。例如:要在每月的10号触发一个操作，但不关心是周几，所以需要周位置的那个字段设置为"?" 具体设置为 0 0 0 10 * ?
+>
+> ![](media/image80.png)表示区间。例如 在小时上设置 "10-12",表示 10,11,12点都会触发。
+>
+> ![](media/image81.png)表示指定多个值，例如在周字段上设置 "MON,WED,FRI" 表示周一，周三和周五触发
+>
+> ![](media/image82.png)用于递增触发。如在秒上面设置"5/15" 表示从5秒开始，每增15秒触发(5,20,35,50)。 在日字段上设置'1/3'所示每月1号开始，每隔三天触发一次。
+>
+> ![](media/image83.png)表示最后的意思。在日字段设置上，表示当月的最后一天(依据当前月份，如果是二月还会依据
+>
+> 是否是润年[leap]), 在周字段上表示星期六，相当于"7"或"SAT"。如果在"L"前加上数字，则表示该数据的最后一个。例如在周字段上设置"6L"这样的格式,则表示"本月最后一个星期五"
+>
+> ![](media/image84.png)表示离指定日期的最近那个工作日(周一至周五). 例如在日字段上置"15W"，表示离每月15号最
+>
+> 近的那个工作日触发。如果15号正好是周六，则找最近的周五(14号)触发, 如果15号是周未，则找最近的下周一(16号)触发.如果15号正好在工作日(周一至周五)，则就在该天触发。如果指定格式为"1W",它则表示每月1号往后最近的工作日触发。如果1号正是周六，则将在3号下周一触发。(注，"
+>
+> W"前只能设置具体的数字,不允许区间"-")。
+>
+> ![](media/image85.png)序号(表示每月的第几个周几)，例如在周字段上设置"6#3"表示在每月的第三个周六.注意如果指定"#5",正好第五周没有周六，则不会触发该配置(用在母亲节和父亲节再合适不过了) ；小提
+>
+> 示：'L'和 'W'可以一组合使用。如果在日字段上设置"LW",则表示在本月的最后一个工作日触发；周字段的设置，若使用英文字母是不区分大小写的，即MON与mon相同。
+>
+> **示例**
+>
+> 每隔5秒执行一次：*/5 * * * * ? 每隔1分钟执行一次：0 */1 * * * ? 每天23点执行一次：0 0 23 * * ?
+>
+> 每天凌晨1点执行一次：0 0 1 * * ?
+>
+> 每月1号凌晨1点执行一次：0 0 1 1 * ?
+>
+> 每月最后一天23点执行一次：0 0 23 L * ?
+>
+> 每周星期六凌晨1点实行一次：0 0 1 ? * L
+>
+> 在26分、29分、33分执行一次：0 26,29,33 * * * ?
+>
+> 每天的0点、13点、18点、21点都执行一次：0 0 0,13,18,21 * * ?
+>
+> **cron表达式使用占位符**
+>
+> 另外， cron 属性接收的cron表达式 支持占位符。如：配置文件：
+>
+> 每5秒执行一次：
+
+### zone
+
+> 时区，接收一个java.util.TimeZone#ID 。 cron表达式 会基于该时区解析。默认是一个空字符串，即取服务器所在地的时区。比如我们一般使用的时区Asia/Shanghai 。该字段我们一般留空。
+
+### fixedDelay
+
+> 上一次执行完毕时间点之后多长时间再执行。如：
+
+### fixedDelayString
+
+> 与 意思相同，只是使用字符串的形式。唯一不同的是支持占位符。如：
+>
+> 占位符的使用（配置文件中有配置：time.fixedDelay=5000）
+
+### fixedRate
+
+> 上一次开始执行时间点之后多长时间再执行。如：
+
+### fixedRateString
+
+> 与 意思相同，只是使用字符串的形式，唯一不同的是支持占位符。
+
+### initialDelay
+
+> 第一次延迟多长时间后再执行。如：
+
+### initialDelayString
+
+> 与 意思相同，只是使用字符串的形式，唯一不同的是支持占位符。
+
+## @Schedules注解
+
+> 这个注解不用多解释，看一下源码就知道作用了，当一个方法上面需要同时指定多个定时规则的时候， 可以通过这个来配置
+>
+> 如：
+
+## 为定时器定义线程池
+
+> 定时器默认情况下使用下面的线程池来执行定时任务的
+>
+> 只有一个线程，相当于只有一个干活的人，如果需要定时执行的任务太多，这些任务只能排队执行，会 出现什么问题？
+>
+> 如果有些任务耗时比较长，导致其他任务排队时间比较长，不能有效的正常执行，直接影响到业务。
+>
+> 看下面代码，2个方法，都使用了@Scheduled(fixedRate = 1000) ，表示每秒执行一次，而push1
+>
+> 方法中模拟耗时2秒，方法会中打印出线程名称、时间等信息，一会注意观察输出
+>
+> 运行输出
+>
+> 注意上面的输出，线程名称都是pool-1-thread-1 ，并且有个问题，push2中2次输出时间间隔是2秒， 这就是由于线程池中只有一个线程导致了排队执行而产生的问题。
+>
+> 可以通过自定义定时器中的线程池来解决这个问题，定义一个ScheduledExecutorService 类型的
+>
+> bean，名称为taskScheduler
+>
+> 此时问题就解决了，再次运行一下上面案例代码，结果如下，此时线程名称不一样了，且push2运行正常了
+
+## 源码 & 原理
+
+> 从EnableScheduling 注解开始看，这个注解会导入SchedulingConfiguration 类
+
+![](media/image86.png){width="4.854166666666667in" height="2.1770833333333335in"}
+
+> SchedulingConfiguration 是一个配置类，内部定义了ScheduledAnnotationBeanPostProcessor
+>
+> ![](media/image87.png){width="6.175694444444445in" height="2.2333333333333334in"}类型的bean
+>
+> ScheduledAnnotationBeanPostProcessor 是一个bean后置处理器，内部有个postProcessAfterInitialization 方法，spring中任何bean在初始化完毕之后，会自动调用<span class="underline">postProcessAfterInitialization</span> 方法，而ScheduledAnnotationBeanPostProcessor 在这个方法中会解析bean中标注有@Scheduled 注解的方法，这些方法也就是需要定时执行的方法。
+>
+> ScheduledAnnotationBeanPostProcessor 还实现了一个接口： SmartInitializingSingleton ， SmartInitializingSingleton 中有个方法afterSingletonsInstantiated 会在spring容器中所有单例bean初始化完毕之后调用，定期器的装配及启动都是在这个方法中进行的。
+
+## 案例源码 {#案例源码-10}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第39篇：强大的Spel表达式
+
+> **本文带你玩转spring中强大的spel表达式！**
+>
+> **Spel概述**
+>
+> Spring表达式语言全称为"Spring Expression Language"，缩写为"SpEL"，类似于Struts2x中使用的OGNL表达式语言，能在运行时构建复杂表达式、存取对象图属性、对象方法调用等等，并且能与Spring功能完美整合，如能用来配置Bean定义。
+
+#### 表达式语言给静态Java语言增加了动态功能。
+
+> SpEL是单独模块，只依赖于core模块，不依赖于其他模块，可以单独使用。
+
+## Spel能干什么?
+
+> 表达式语言一般是用最简单的形式完成最主要的工作，减少我们的工作量。
+>
+> SpEL支持如下表达式：
+>
+> **一、基本表达式：** 字面量表达式、关系，逻辑与算数运算表达式、字符串连接及截取表达式、三目运算及Elivis表达式、正则表达式、括号优先级表达式；
+>
+> **二、类相关表达式：** 类类型表达式、类实例化、instanceof表达式、变量定义及引用、赋值表达式、自定义函数、对象属性存取及安全导航表达式、对象方法调用、Bean引用；
+>
+> **三、集合相关表达式：** 内联List、内联数组、集合，字典访问、列表，字典，数组修改、集合投影、集合选择；不支持多维内联数组初始化；不支持内联字典定义；
+>
+> **四、其他表达式**： 模板表达式。
+>
+> **注：SpEL表达式中的关键字是不区分大小写的。**
+
+## SpEL基础
+
+### HelloWorld
+
+> 首先准备支持SpEL的Jar包："org.springframework.expression-3.0.5.RELEASE.jar"将其添加到类路径中。
+>
+> SpEL在求表达式值时一般分为四步，其中第三步可选：首先构造一个解析器，其次解析器解析字符串表达式，在此构造上下文，最后根据上下文得到表达式运算后的值。
+>
+> 让我们看下代码片段吧：
+>
+> 输出
+>
+> 接下来让我们分析下代码：
+
+1.  #### 创建解析器：SpEL使用ExpressionParser接口表示解析器，提供SpelExpressionParser默认实 现；
+
+2.  解析表达式：使用ExpressionParser的parseExpression来解析相应的表达式为Expression对象。
+
+3.  构造上下文：准备比如变量定义等等表达式需要的上下文数据。 4）求值：通过Expression接口的getValue方法根据上下文获得表达式值。是不是很简单，接下来让我们看下其具体实现及原理吧。
+
+### SpEL原理及接口
+
+> SpEL提供简单的接口从而简化用户使用，在介绍原理前让我们学习下几个概念：
+>
+> **一、表达式：** 表达式是表达式语言的核心，所以表达式语言都是围绕表达式进行的，从我们角度来看是
+>
+> "干什么"；
+>
+> **二、解析器：** 用于将字符串表达式解析为表达式对象，从我们角度来看是"谁来干"；
+>
+> **三、上下文：** 表达式对象执行的环境，该环境可能定义变量、定义自定义函数、提供类型转换等等，从我们角度看是"在哪干"；
+>
+> **四、根对象及活动上下文对象：** 根对象是默认的活动上下文对象，活动上下文对象表示了当前表达式操作的对象，从我们角度看是"对谁干"。
+>
+> 理解了这些概念后，让我们看下SpEL如何工作的呢，如图5-1所示：
+
+![](media/image88.jpeg){width="4.5in" height="4.895833333333333in"}
+
+#### 工作原理
+
+> 接下来让我们看下SpEL的主要接口吧：
+
+#### ExpressionParser接口
+
+> 表示解析器，默认实现是org.springframework.expression.spel.standard包中的SpelExpressionParser类，使用parseExpression方法将字符串表达式转换为Expression对象，对于ParserContext接口用于定义字符串表达式是不是模板，及模板开始与结束字符：
+>
+> 来看下示例：
+>
+> 在此我们演示的是使用ParserContext的情况，此处定义了ParserContext实现：定义表达式是模块，表 达式前缀为"#{"，后缀为"}"；使用parseExpression解析时传入的模板必须以"#{"开头，以"}"结尾，
+>
+> 如"#{'Hello '}#{'World!'}"。
+>
+> 默认传入的字符串表达式不是模板形式，如之前演示的Hello World。
+
+#### EvaluationContext接口
+
+> 表示上下文环境，默认实现是org.springframework.expression.spel.support包中的StandardEvaluationContext类，使用setRootObject方法来设置根对象，使用setVariable方法来注册 自定义变量，使用registerFunction来注册自定义函数等等。
+
+#### Expression接口
+
+> 表示表达式对象，默认实现是org.springframework.expression.spel.standard包中的
+>
+> SpelExpression，提供getValue方法用于获取表达式值，提供setValue方法用于设置对象值。
+>
+> 了解了SpEL原理及接口，接下来的事情就是SpEL语法了。
+>
+> **SpEL语法****基本表达式****字面量表达式**
+>
+> SpEL支持的字面量包括：字符串、数字类型（int、long、float、double）、布尔类型、null类型。
+
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **类型** | **示例**                                                                                                                                                                                                   |
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 字符串   | String str1 = parser.parseExpression("'Hello World!'").getValue(String.class);                                                                                                                         |
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 数字类型 | int int1 = parser.parseExpression("1").getValue(Integer.class); long long1 = parser.parseExpression("-1L").getValue(long.class); float float1 = parser.parseExpression("1.1").getValue(Float.class); |
+|          |                                                                                                                                                                                                            |
+|          | double double1 = parser.parseExpression("1.1E+2").getValue(double.class); int hex1 = parser.parseExpression("0xa").getValue(Integer.class);                                                            |
+|          |                                                                                                                                                                                                            |
+|          | long hex2 = parser.parseExpression("0xaL").getValue(long.class);                                                                                                                                         |
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 布尔类型 | boolean true1 = parser.parseExpression("true").getValue(boolean.class); boolean false1 = parser.parseExpression("false").getValue(boolean.class);                                                      |
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| null类型 | Object null1 = parser.parseExpression("null").getValue(Object.class);                                                                                                                                    |
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+> 输出
+
+#### 算数运算表达式
+
+> SpEL支持加(+)、减(-)、乘(*)、除(/)、求余（%）、幂（^）运算。
+
+---------- -----------------------------------------------------------------------------------
+  **类型**   **示例**
+  加减乘除   int result1 = parser.parseExpression("1+2-3*4/2").getValue(Integer.class);//-3
+  求余       int result2 = parser.parseExpression("4%3").getValue(Integer.class);//1
+  幂运算     int result3 = parser.parseExpression("2^3").getValue(Integer.class);//8
+---------- -----------------------------------------------------------------------------------
+
+> SpEL还提供求余（MOD）和除（DIV）而外两个运算符，与"%"和"/"等价，不区分大小写。
+
+#### 关系表达式
+
+> 等于（==）、不等于(!=)、大于(>)、大于等于(>=)、小于(<)、小于等于(<=)，区间（between）运算。如parser.parseExpression("1>2").getValue(boolean.class); 将返回false；
+>
+> 而parser.parseExpression("1 between {1, 2}").getValue(boolean.class); 将返回true。
+>
+> SpEL同样提供了等价的"EQ" 、"NE"、 "GT"、"GE"、 "LT" 、"LE"来表示等于、不等于、大于、大于等于、小于、小于等于，不区分大小写。
+>
+> 输出
+
+#### 逻辑表达式
+
+> 且（and或者&&）、或(or或者||)、非(!或NOT)。
+>
+> 输出
+
+#### 字符串连接及截取表达式
+
+> 使用"+"进行字符串连接，使用"'String'[0] [index]"来截取一个字符，目前只支持截取一个，如"'Hello ' + 'World!'"得到"Hello World!"；而"'Hello World!'[0]"将返回"H"。
+
+#### 三目运算
+
+> 三目运算符 **"表达式1?表达式2:表达式3"**用于构造三目运算表达式，如"2>1?true:false"将返回true； **Elivis运算符**
+>
+> Elivis运算符**"表达式1?:表达式2"**从Groovy语言引入用于简化三目运算符的，当表达式1为非null时则返 回表达式1，当表达式1为null时则返回表达式2，简化了三目运算符方式"表达式1? 表达式1:表达式2"， 如"null?:false"将返回false，而"true?:false"将返回true；
+
+#### 正则表达式
+
+> 使用"str matches regex，如"'123' matches 'd{3}'"将返回true；
+
+#### 括号优先级表达式
+
+> 使用"(表达式)"构造，括号里的具有高优先级。
+
+### 类相关表达式
+
+#### 类类型表达式
+
+> 使用"T(Type)"来表示java.lang.Class实例，"Type"必须是类全限定名，"java.lang"包除外，即该包下的 类可以不指定包名；使用类类型表达式还可以进行访问类静态方法及类静态字段。
+>
+> 具体使用方法如下：
+>
+> 输出
+>
+> 对于java.lang包里的可以直接使用"T(String)"访问；其他包必须是类全限定名；可以进行静态字段访问 如"T(Integer).MAX_VALUE"；也可以进行静态方法访问如"T(Integer).parseInt('1')"。
+
+#### 类实例化
+
+> 类实例化同样使用java关键字"new"，类名必须是全限定名，但java.lang包内的类型除外，如String、
+>
+> Integer。
+>
+> 实例化完全跟Java内方式一样，运行输出
+
+#### instanceof表达式
+
+> SpEL支持instanceof运算符，跟Java内使用同义；如"'haha' instanceof T(String)"将返回true。
+>
+> 输出
+
+#### 变量定义及引用
+
+> 变量定义通过EvaluationContext接口的setVariable(variableName, value)方法定义；在表达式中使用"#variableName" 引用；除了引用自定义变量，SpE还允许引用根对象及当前上下文对象，使
+>
+> 用"#root" 引用根对象，使用"#this" 引用当前上下文对象；
+>
+> 输出
+>
+> 使用"#variable"来引用在EvaluationContext定义的变量；除了可以引用自定义变量，还可以使用
+>
+> "#root"引用根对象，"#this"引用当前上下文对象，此处"#this"即根对象。
+
+#### 自定义函数
+
+> 目前只支持类静态方法注册为自定义函数；SpEL使用StandardEvaluationContext的registerFunction 方法进行注册自定义函数，其实完全可以使用setVariable代替，两者其实本质是一样的；
+>
+> 此处可以看出"registerFunction"和"setVariable"都可以注册自定义函数，但是两个方法的含义不一样， 推荐使用"registerFunction"方法注册自定义函数。
+>
+> 运行输出
+
+#### 表达式赋值
+
+> 使用Expression#setValue 方法可以给表达式赋值
+>
+> 运行输出
+
+#### 对象属性存取及安全导航表达式
+
+> 对象属性获取非常简单，即使用如"a.property.property"这种点缀式获取，SpEL对于属性名首字母是不 区分大小写的；SpEL还引入了Groovy语言中的安全导航运算符"**(对象|属性)?.属性**"，用来避免"?."前边 的表达式为null时抛出空指针异常，而是返回null；修改对象属性值则可以通过赋值表达式或 Expression接口的setValue方法修改。
+>
+> 运行输出
+
+#### 对象方法调用
+
+> 对象方法调用更简单，跟Java语法一样；如"'haha'.substring(2,4)"将返回"ha"；而对于根对象可以直接调用方法；
+
+#### Bean引用
+
+> SpEL支持使用"@"符号来引用Bean，在引用Bean时需要使用BeanResolver接口实现来查找Bean， Spring提供BeanFactoryResolver实现。
+>
+> 运行输出
+
+### 集合相关表达式
+
+#### 内联List
+
+> 从Spring3.0.4开始支持内联List，使用{表达式，......}定义内联List，如"{1,2,3}"将返回一个整型的
+>
+> ArrayList，而"{}"将返回空的List，对于字面量表达式列表，SpEL会使用java.util.Collections.unmodifiableList方法将列表设置为不可修改。
+>
+> 输出
+
+#### 内联数组
+
+> 和Java 数组定义类似，只是在定义时进行多维数组初始化。
+
+#### 集合，字典元素访问
+
+> SpEL目前支持所有集合类型和字典类型的元素访问，使用"集合[索引]"访问集合元素，使用"map[key]"
+>
+> 访问字典元素；
+
+#### 列表，字典，数组元素修改
+
+> 可以使用赋值表达式或Expression接口的setValue方法修改；
+>
+> 输出
+
+#### 集合投影
+
+> 在SQL中投影指从表中选择出列，而在SpEL指根据集合中的元素中通过选择来构造另一个集合，该集合和原集合具有相同数量的元素；SpEL使用"（list|map）.![投影表达式]"来进行投影运算：
+>
+> 对于集合或数组使用如上表达式进行投影运算，其中投影表达式中"#this"代表每个集合或数组元素，可以使用比如"#this.property"来获取集合元素的属性，其中"#this"可以省略。
+>
+> Map投影最终只能得到List结果，如上所示，对于投影表达式中的"#this"将是Map.Entry，所以可以使 用"value"来获取值，使用"key"来获取键。
+
+#### 集合选择
+
+> 在SQL中指使用select进行选择行数据，而在SpEL指根据原集合通过条件表达式选择出满足条件的元素 并构造为新的集合，SpEL使用"(list|map).?[选择表达式]"，其中选择表达式结果必须是boolean类型， 如果true则选择的元素将添加到新集合中，false将不添加到新集合中。
+>
+> 输出
+>
+> 对于集合或数组选择，如"#collection.?[#this>4]"将选择出集合元素值大于4的所有元素。选择表达式必 须返回布尔类型，使用"#this"表示当前元素。
+>
+> 输出
+>
+> 对于字典选择，如"#map.?[#this.key != 'a']"将选择键值不等于"a"的，其中选择表达式中"#this"是Map.Entry类型，而最终结果还是Map，这点和投影不同；集合选择和投影可以一起使用，如"#map.? [key != 'a'].![value+1]"将首先选择键值不等于"a"的，然后在选出的Map中再进行"value+1"的投影。
+
+### 表达式模板
+
+> 模板表达式就是由字面量与一个或多个表达式块组成。每个表达式块由"前缀+表达式+后缀"形式组成， 如"${1+2}"即表达式块。在前边我们已经介绍了使用ParserContext接口实现来定义表达式是否是模板 及前缀和后缀定义。在此就不多介绍了，如"Error ${#v0} ${#v1}"表达式表示由字面量"Error "、模板表达式"#v0"、模板表达式"#v1"组成，其中v0和v1表示自定义变量，需要在上下文定义。
+>
+> 解析表达式的时候需要指定模板，模板通过ParserContext 接口来定义
+>
+> 有个子类，我们直接可以拿来用： TemplateParserContext 。
+>
+> 运行输出
+
+## 在Bean定义中使用spel表达式
+
+### xml风格的配置
+
+> SpEL支持在Bean定义时注入，默认使用"#{SpEL表达式}"表示，其中"#root"根对象默认可以认为是
+>
+> ApplicationContext，只有ApplicationContext实现默认支持SpEL，获取根对象属性其实是获取容器中 的Bean。
+>
+> 如：
+>
+> 模板默认以前缀"#{"开头，以后缀"}"结尾，且不允许嵌套，如"#{'Hello'#{world}}"错误，如"#{'Hello' + world}"中"world"默认解析为Bean。当然可以使用"@bean"引用了。
+>
+> 是不是很简单，除了XML配置方式，Spring还提供一种注解方式@Value，接着往下看吧。
+
+### 注解风格的配置
+
+> 基于注解风格的SpEL配置也非常简单，使用@Value注解来指定SpEL表达式，该注解可以放到字段、方 法及方法参数上。
+>
+> 测试Bean类如下，使用@Value来指定SpEL表达式：
+
+### 在Bean定义中SpEL的问题
+
+> 如果有同学问"#{我不是SpEL表达式}"不是SpEL表达式，而是公司内部的模板，想换个前缀和后缀该如 何实现呢？
+>
+> 我们使用BeanFactoryPostProcessor接口提供postProcessBeanFactory回调方法，它是在IoC容器创 建好但还未进行任何Bean初始化时被ApplicationContext实现调用，因此在这个阶段把SpEL前缀及后 缀修改掉是安全的，具体代码如下：
+>
+> 上测试代码
+>
+> @name：容器中name的bean @msg：容器中msg的bean
+>
+> 下面我们来个配置类，顺便定义name和msg这2个bean，顺便扫描上面2个配置类
+>
+> 测试用例
+>
+> 运行输出
+
+## 总结 {#总结-18}
+
+1.  Spel功能还是比较强大的，可以脱离spring环境独立运行
+
+2.  spel可以用在一些动态规则的匹配方面，比如监控系统中监控规则的动态匹配；其他的一些条件动态判断等等
+
+3.  本文内容比较长，建议大家把案例都敲一遍，可以设置一些断点去研究一下源码，有问题的，欢迎 大家留言交流。
+
+## 案例源码 {#案例源码}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第40篇：缓存使用（@EnableCaching、@Cacheable、@CachePut、@CacheEvict、
+
+> **@Caching、@CacheConfig）**
+>
+> **本文主要详解spring中缓存的使用。**
+>
+> **背景**
+>
+> 缓存大家都有了解过吧，主要用来提升系统查询速度。
+>
+> 比如电商中商品详情信息，这些信息通常不会经常变动但是会高频访问，我们可以将这些信息从db中拿 出来放在缓存中（比如redis中、本地内存中），当获取的时候，先从缓存中获取，缓存中没有的时候， 再从db中获取，然后将其再丢到缓存中，当商品信息被变更之后，可以将缓存中的信息剔除或者将最新 的数据丢到缓存中。
+>
+> Spring中提供了一整套的缓存解决方案，使用起来特别的容易，主要通过注解的方式使用缓存，常用的有5个注解，我们一个个来介绍。
+>
+> 本文中会大量用到spel表达式，对这块不熟悉的建议先看一下：<span class="underline">Spring中Spel详解</span>
+
+## @EnableCaching：启用缓存功能
+
+> 开启缓存功能，配置类中需要加上这个注解，有了这个注解之后，spring才知道你需要使用缓存的功 能，其他和缓存相关的注解才会有效，spring中主要是通过aop实现的，通过aop来拦截需要使用缓存的方法，实现缓存的功能。
+
+## @Cacheable：赋予缓存功能
+
+### 作用 {#作用-4}
+
+> @Cacheable可以标记在一个方法上，也可以标记在一个类上。当标记在一个方法上时表示该方法是支持缓存的，当标记在一个类上时则表示该类所有的方法都是支持缓存的。对于一个支持缓存的方法， Spring会在其被调用后将其返回值缓存起来，以保证下次利用同样的参数来执行该方法时可以直接从缓存中获取结果，而不需要再次执行该方法。Spring在缓存方法的返回值时是以键值对进行缓存的，值就是方法的返回结果，至于键的话，Spring又支持两种策略，默认策略和自定义策略，这个稍后会进行说
+>
+> 明。需要注意的是当一个支持缓存的方法在对象内部被调用时是不会触发缓存功能的。@Cacheable可以指定三个属性，value、key和condition。
+
+### value属性：指定Cache名称
+
+> value和cacheNames属性作用一样，必须指定其中一个，表示当前方法的返回值是会被缓存在哪个Cache上的，对应Cache的名称。其可以是一个Cache也可以是多个Cache，当需要指定多个Cache时其是一个数组。
+>
+> 可以将Cache想象为一个HashMap，系统中可以有很多个Cache，每个Cache有一个名字，你需要将方 法的返回值放在哪个缓存中，需要通过缓存的名称来指定。
+
+#### 案例1 {#案例1}
+
+> 下面list方法加上了缓存的功能，将其结果放在缓存cache1 中。
+>
+> 下面来个配置类MainConfig1 ，必须加上@EnableCaching 注解用来启用缓存功能。
+>
+> 然后在配置类中需要定义一个bean：缓存管理器，类型为CacheManager ， CacheManager 这个是个接口，有好几个实现（比如使用redis、ConcurrentMap来存储缓存信息），此处我们使用ConcurrentMapCacheManager ，内部使用ConcurrentHashMap将缓存信息直接存储在本地jvm内存中，不过线上环境一般是集群的方式，可以通过redis实现，下一篇文章介绍spring缓存集成redis。
+>
+> 来个测试类，2次调用list 方法看看效果
+>
+> 输出
+>
+> 从第一行可以看出，第一次进入到list方法内部了，第二次没有进入list方法内部，而是从缓存中获取的。
+
+### key属性：自定义key
+
+> key属性用来指定Spring缓存方法的返回结果时对应的key的，上面说了你可以将Cache理解为一个
+>
+> hashMap，缓存以key->value的形式存储在hashmap中，value就是需要缓存值（即方法的返回值）
+>
+> key属性支持SpEL表达式；当我们没有指定该属性时，Spring将使用默认策略生成
+>
+> key（org.springframework.cache.interceptor.SimpleKeyGenerator），默认会方法参数创建key。
+>
+> 自定义策略是指我们可以通过SpEL表达式来指定我们的key，这里的SpEL表达式可以使用方法参数及它 们对应的属性，使用方法参数时我们可以直接使用"#参数名"或者"#p参数index"。
+>
+> Spring还为我们提供了一个root对象可以用来生成key，通过该root对象我们可以获取到以下信息。
+
+-------------- ----------------------------- -------------------------
+  **属性名称**   **描述**                      **示例**
+  methodName     当前方法名                    #root.methodName
+  method         当前方法                      #root.method.name
+  target         当前被调用的对象              #root.target
+  targetClass    当前被调用的对象的class       #root.targetClass
+  args           当前方法参数组成的数组        #root.args[0]
+  caches         当前被调用的方法使用的Cache   #root.caches[0].name
+-------------- ----------------------------- -------------------------
+
+> 这里我们主要看一下自定义策略。
+
+#### 案例2 {#案例2-3}
+
+> ArticleService加入下面代码
+>
+> com.javacode2018.cache.CacheTest 新增测试用例
+>
+> 运行输出
+
+### condition属性：控制缓存的使用条件
+
+> 有时候，可能我们希望查询不走缓存，同时返回的结果也不要被缓存，那么就可以通过condition属性 来实现，condition属性默认为空，表示将缓存所有的调用情形，其值是通过spel表达式来指定的，当为true时表示先尝试从缓存中获取；若缓存中不存在，则只需方法，并将方法返回值丢到缓存中；当为 false的时候，不走缓存、直接执行方法、并且返回结果也不会丢到缓存中。
+>
+> 其值spel的写法和key属性类似。
+
+#### 案例3 {#案例3-2}
+
+> ArticleService添加下面代码，方法的第二个参数cache用来控制是否走缓存，将condition的值指定为
+>
+> 来个测试用例，4次调用getById方法，前面2次和最后一次cache参数都是true，第3次为false
+>
+> 运行输出
+>
+> 从输出中可以看出，第1次和第3次，都进到方法里面去了，而2和4走了缓存，第一次执行完毕之后结果被丢到了缓存中，所以2和4这2次获取的结果和第1次是一样的。
+
+### unless属性：控制是否需要将结果丢到缓存中
+
+> 用于否决方法缓存的SpEL表达式。 与condition不同，此表达式是在调用方法后计算的，因此可以引用结果。 默认值为""，这意味着缓存永远不会被否决。
+
+#### 前提是condition为空或者为true的情况下，unless才有效，condition为false的时候，unless无效，unless为true，方法返回结果不会丢到缓存中；unless为false，方法返回结果会丢到缓存中。
+
+> 其值spel的写法和key属性类似。
+
+#### 案例4
+
+> 下面来个案例，当返回结果为null的时候，不要将结果进行缓存，ArticleService添加下面代码
+>
+> 来个测试用例，4次调用findById，前面2次有数据，后面2次返回null，并将缓存中的key打印了出来
+>
+> 运行输出
+>
+> 可以看出文章id为1的结果被缓存了，文件id为3的没有被缓存。
+
+### condition和unless对比
+
+> 缓存的使用过程中有2个点：
+
+1.  查询缓存中是否有数据
+
+2.  如果缓存中没有数据，则去执行目标方法，然后将方法结果丢到缓存中。
+
+> spring中通过condition和unless对这2点进行干预。
+>
+> condition作用域上面2个过程，当为true的时候，会尝试从缓存中获取数据，如果没有，会执行方法， 然后将方法返回值丢到缓存中；如果为false，则直接调用目标方法，并且结果不会放在缓存中。
+>
+> 而unless在condition为true的情况下才有效，用来判断上面第2点中，是否不要将结果丢到缓存中，如 果为true，则结果不会丢到缓存中，如果为false，则结果会丢到缓存中，并且unless中可以使用spel表 达式通过#result来获取方法返回值。
+
+## @CachePut：将结果放入缓存
+
+### 作用 {#作用}
+
+> @CachePut也可以标注在类或者方法上，被标注的方法每次都会被调用，然后方法执行完毕之后，会将方法结果丢到缓存中；当标注在类上，相当于在类的所有方法上标注了@CachePut。
+>
+> 有3种情况，结果不会丢到缓存
+
+1.  当方法向外抛出的时候
+
+2.  condition的计算结果为false的时候
+
+3.  unless的计算结果为true的时候
+
+> 源码和Cacheable类似，包含的参数类似的。
+>
+> value和cacheNames：用来指定缓存名称，可以指定多个key：缓存的key，spel表达式，写法参考@Cacheable中的key
+>
+> condition：spel表达式，写法和@Cacheable中的condition一样，当为空或者计算结果为true的时候，方法的返回值才会丢到缓存中；否则结果不会丢到缓存中
+>
+> unless：当condition为空或者计算结果为true的时候，unless才会起效；true：结果不会被丢到 缓存，false：结果会被丢到缓存。
+
+### 案例5
+
+> 来个案例，实现新增文章的操作，然后将文章丢到缓存中，注意下面@CachePut中的cacheNames、 key 2个参数和案例4中findById方法上@Cacheable中的一样，说明他们共用一个缓存，key也是一样的，那么当add方法执行完毕之后，再去调用findById方法，则可以从缓存中直接获取到数据。
+>
+> 测试用例
+>
+> 运行输出
+>
+> 看几眼输出结果，然后再来看一下findById方法的代码
+>
+> ![](media/image89.png){width="0.21875in" height="0.13541666666666666in"}输出中并没有 这样的内容，说明调用findById方法获取结果是从缓存中得到的。
+
+## @CacheEvict：缓存清理
+
+### 作用 {#作用-5}
+
+> 用来清除缓存的，@CacheEvict也可以标注在类或者方法上，被标注在方法上，则目标方法被调用的时候，会清除指定的缓存；当标注在类上，相当于在类的所有方法上标注了@CacheEvict。
+>
+> 来看一下源码，每个参数的注释大家详细看一下。
+
+### condition属性
+
+> @CacheEvict 注解生效的条件，值为spel表达式，写法参考上面 @Cacheable注解中的condition
+
+### 会清除哪些缓存？
+
+> 默认情况下会清除cacheNames指定的缓存中key参数指定的缓存信息。
+>
+> 但是当 allEntries 为true的时候，会清除 cacheNames 指定的缓存中的所有缓存信息。
+
+### 具体什么时候清除缓存？
+
+> 这个是通过 beforeInvocation 参数控制的，这个参数默认是false，默认会在目标方法成功执行之后执行清除操作，若方法向外抛出了异常，不会执行清理操作；
+>
+> 如果 beforeInvocation 为true，则方法被执行之前就会执行缓存清理操作，方法执行之后不会再执行了。
+
+### 案例6
+
+> ArticleService中新增个方法，使用@CacheEvict标注，这个方法执行完毕之后，会清理cache1中key=findById+参数id 的缓存信息，注意cacheNames和key两个参数的值和findById中这2个参数的值一样。
+>
+> 新增测试用例，注释比较清晰，就不解释了
+>
+> 运行输出
+>
+> ![](media/image90.png){width="0.21875in" height="0.13541666666666666in"}调用了3次findById，第1次，缓存中没有，所以进到方法内部了，然后将结果丢到缓存了，第2次缓存中有，所以从缓存获取，然后执行了delete方法，这个方法执行完毕之后，会清除缓存中文章id为1L的文章信息，最后执行第三次findById方法，此时缓存中没有发现数据，然后进到目标方法内部了，目标方法内部输出了 内容。
+
+## @Caching：缓存注解组
+
+> 当我们在类上或者同一个方法上同时使用@Cacheable、@CachePut和@CacheEvic这几个注解中的多 个的时候，此时可以使用@Caching这个注解来实现。
+
+## @CacheConfig：提取公共配置
+
+> 这个注解标注在类上，可以将其他几个缓存注解（@Cacheable、@CachePut和@CacheEvic）的公共 参数给提取出来放在@CacheConfig中。
+>
+> 比如当一个类中有很多方法都需要使用（@Cacheable、@CachePut和@CacheEvic）这些缓存注解的 时候，大家可以看一下这3个注解的源码，他们有很多公共的属性，比如：cacheNames、keyGenerator、cacheManager、cacheResolver，若这些属性值都是一样的，可以将其提取出来，放在@CacheConfig中，不过这些注解（@Cacheable、@CachePut和@CacheEvic）中也可以指定属性的值对@CacheConfig中的属性值进行覆盖。
+
+## 原理 {#原理}
+
+> spring中的缓存主要是利用spring中aop实现的，通过Aop对需要使用缓存的bean创建代理对象，通过 代理对象拦截目标方法的执行，实现缓存功能。
+>
+> 重点在于@EnableCaching 这个注解，可以从@Import 这个注解看起
+>
+> 最终会给需要使用缓存的bean创建代理对象，并且会在代理中添加一个拦截器org.springframework.cache.interceptor.CacheInterceptor ，这个类中的invoke 方法是关键，会拦截所有缓存相关的目标方法的执行，大家可以去细看一下。
+
+## 总结 {#总结-19}
+
+#### Spring系列到此已经40篇了，能和我一起坚持到现在的，真的不容易。
+
+> **还没有看完的朋友，建议大家按序都看一遍，文章最好按顺序看，前后知识点是有依赖的。 如果前面的文章都看过了，那么本文的原理，不用我介绍了，大家自己很容易就搞懂了。**
+
+## 案例源码 {#案例源码-11}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第41篇：@EnableCaching集成redis缓存
+
+> 上篇文章主要介绍了<span class="underline">spring中缓存的使用</span>，不过文中的案例都是以本地内存作为存储介质的，但是实际上我们的项目上线之后，基本上都会采用集群的方式进行部署，如果将数据存储在本地内存中，集群之 间是无法共享的，我们可以将数据存储在redis中，从而实现缓存的共享，下面我们一起来看下**Spring 中@EnableCaching如何对接redis**。
+
+## 安装redis
+
+> **pom.xml中引入redis配置**
+
+## 项目中创建redis配置文件
+
+> 新建com/javacode2018/cache/demo2/redis.yml ，内容如下：
+
+## 创建redis相关的bean
+
+> @1：开启spring cache功能。
+>
+> @2：自定义spring中cache管理器，这个地方我们定义了一个redis类型的管理器，底层使用redis来作 为缓存的存储介质。
+>
+> @3：通过redis.yml配置文件来创建一个RedissonClient，用于和redis进行交互。
+
+## 来个测试类 {#来个测试类}
+
+> **测试用例**
+
+## 运行输出 {#运行输出-18}
+
+> 此时数据已经进入redis了，我们用redis客户端工具 RedisDesktopManager 来看一下。
+>
+> RedisDesktopManager 下载地址
+>
+> 解压之后，点击下面的直接运行
+
+![](media/image91.png){width="5.692361111111111in" height="2.0756944444444443in"}![](media/image92.png){width="6.147916666666666in" height="1.7743055555555556in"}
+
+## 案例源码 {#案例源码}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+# Spring系列第42篇：JdbcTemplate实现增删改查如此简单？
+
+> 本来这篇文章要写spring事务的，但是事务中大部分案例会用到JdbcTemplate相关的功能，所以先把
+>
+> JdbcTemplate拿出来说一下。
+
+## 什么是JdbcTemplate？
+
+> 大家来回顾一下，java中操作db最原始的方式就是纯jdbc了，是不是每次操作db都需要加载数据库驱动、获取连接、获取PreparedStatement、执行sql、关闭PreparedStatement、关闭连接等等，操作还是比较繁琐的，spring中提供了一个模块，对jdbc操作进行了封装，使其更简单，就是本文要讲的
+>
+> JdbcTemplate，JdbcTemplate是Spring对JDBC的封装，目的是使JDBC更加易于使用。
+>
+> 下面我们来看一下JdbcTemplate到底怎么玩的？
+
+## JdbcTemplate使用步骤
+
+1.  创建数据源DataSource
+
+2.  创建JdbcTemplate，new JdbcTemplate(dataSource)
+
+3.  调用JdbcTemplate的方法操作db，如增删改查
+
+> 输出
+>
+> t_user表数据
+>
+> 上面查询返回了t_user 表所有的记录，返回了一个集合，集合中是一个Map，Map表示一行记录，
+>
+> key为列名，value为列对应的值。
+>
+> 有没有感觉到特别的方便，只需要jdbcTemplate.queryForList("select * from t_user") 这么简单的一行代码，数据就被获取到了。
+>
+> 下面我们继续探索更强大更好用的功能。
+
+## 增加、删除、修改操作
+
+> **JdbcTemplate中以update开头的方法，用来执行增、删、改操作**，下面来看几个常用的。
+
+### 无参情况
+
+#### Api
+
+> **案例**
+
+### 有参情况1
+
+#### Api
+
+> **案例**
+>
+> **sql中使用?作为占位符。**
+
+### 有参情况2
+
+#### Api
+
+> 通过PreparedStatementSetter来设置参数，是个函数式接口，内部有个setValues方法会传递一个
+>
+> PreparedStatement参数，我们可以通这个参数手动的设置参数的值。
+>
+> **案例**
+
+## 获取自增列的值
+
+### Api
+
+> **案例**
+>
+> 输出
+
+## 批量增删改操作
+
+### Api
+
+> **案例**
+
+## 查询操作
+
+### 查询一列单行
+
+#### Api
+
+> **案例**
+>
+> 输出
+>
+> db中对应数据
+
+#### 使用注意
+
+> **若queryForObject中sql查询无结果时，会报错**
+>
+> 如id为0的记录不存在
+>
+> 运行，会弹出一个异常EmptyResultDataAccessException ，期望返回一条记录，但实际上却没有找到记录，和期望结果不符，所以报错了
+>
+> 这种如何解决呢，需要用到查询多行的方式来解决了，即下面要说到的queryForList 相关的方法，无结果的时候会返回一个空的List，我们可以在这个空的List上面做文章。
+
+### 查询一列多行
+
+#### Api
+
+> 以queryForList开头的方法。
+
+#### 注意：
+
+> 上面这个T虽然是泛型，但是只支持Integer.class String.class 这种单数据类型的，自己定义的Bean不支持。（所以用来查询单列数据）
+>
+> elementType：查询结果需要转换为哪种类型？如String、Integer、Double。
+
+#### 案例 {#案例}
+
+> public void test8() {
+>
+> DataSource dataSource = DataSourceUtils.getDataSource(); JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+>
+> //<T> List<T> queryForList(String sql, Class<T> elementType);
+>
+> List<String> list1 = jdbcTemplate.queryForList("select name from t_user where id>131", String.class);
+>
+> System.out.println("list1:" + list1);
+>
+> //<T> List<T> queryForList(String sql, Class<T> elementType, @Nullable Object... args);
+>
+> List<String> list2 = jdbcTemplate.queryForList("select name from t_user where id>?", String.class, 131);
+>
+> System.out.println("list2:" + list2);
+>
+> //<T> List<T> queryForList(String sql, Object[] args, Class<T> elementType);
+>
+> List<String> list3 = jdbcTemplate.queryForList("select name from t_user where id>?", new Object[]{131}, String.class);
+>
+> System.out.println("list3:" + list3);
+>
+> //<T> List<T> queryForList(String sql, Object[] args, int[] argTypes, Class<T> elementType);
+>
+> List<String> list4 = jdbcTemplate.queryForList("select name from t_user where id>?", new Object[]{131}, new int[]{java.sql.Types.INTEGER}, String.class);
+>
+> System.out.println("list4:" + list4);
+>
+> }
+>
+> 输出
+>
+> sql结果：
+
+### 查询单行记录，将记录转换成一个对象
+
+#### Api
+
+> 上面这些方法的参数中都有一个rowMapper参数，行映射器，可以将当前行的结果映射为一个自定义的对象。
+>
+> JdbcTemplate内部会遍历ResultSet，然后循环调用RowMapper#mapRow，得到当前行的结果，将其 丢到List中返回，如下：
+
+#### 案例 {#案例-27}
+
+> 输出
+
+#### 使用注意 {#使用注意}
+
+> **当queryForObject中sql查询无结果的时候，会报错，必须要返回一行记录**
+
+### 查询单行记录，返回指定的javabean
+
+> RowMapper 有个实现了类 BeanPropertyRowMapper，可以将结果映射为javabean。
+
+### 查询多列多行，每行结果为一个Map
+
+#### Api
+
+> 每行结果为一个Map，key为列名小写，value为列对应的值。
+
+#### 案例 {#案例}
+
+> 输出
+
+### 查询多列多行，将结果映射为javabean
+
+#### Api
+
+> **案例**
+>
+> 运行输出
+>
+> 更简单的方式，使用BeanPropertyRowMapper
+>
+> 输出
+
+## 总结 {#总结-20}
+
+1.  使用注意：JdbcTemplate中的getObject开头的方法，要求sql必须返回一条记录，否则会报错
+
+2.  BeanPropertyRowMapper可以将行记录映射为javabean
+
+3.  JdbcTemplate采用模板的方式操作jdbc变的特别的容易，代码特别的简洁，不过其内部没有动态 sql的功能，即通过参数，动态生成指定的sql，mybatis在动态sql方面做的比较好，大家用的时候 可以根据需求进行选择。
+
+## 案例源码 {#案例源码-12}
+
+> **  喔喔松java所有案例代码以后都会放到这个上面，大家watch一下，可以持续关注动态。**
+
+## Spring系列
+
+1.  <span class="underline">Spring系列第1篇：为何要学spring？</span>
+
+2.  <span class="underline">Spring系列第2篇：控制反转（IoC）与依赖注入（DI）</span>
+
+3.  <span class="underline">Spring系列第3篇：Spring容器基本使用及原理</span>
+
+4.  <span class="underline">Spring系列第4篇：xml中bean定义详解(-)</span>
+
+5.  <span class="underline">Spring系列第5篇：创建bean实例这些方式你们都知道？</span>
+
+6.  <span class="underline">Spring系列第6篇：玩转bean scope，避免跳坑里！</span>
+
+7.  <span class="underline">Spring系列第7篇：依赖注入之手动注入</span>
+
+8.  <span class="underline">Spring系列第8篇：自动注入（autowire）详解，高手在于坚持</span>
+
+9.  <span class="underline">Spring系列第9篇：depend-on到底是干什么的？</span>
+
+10. <span class="underline">Spring系列第10篇：primary可以解决什么问题？</span>
+
+11. <span class="underline">Spring系列第11篇：bean中的autowire-candidate又是干什么的？</span>
+
+12. <span class="underline">Spring系列第12篇：lazy-init：bean延迟初始化</span>
+
+13. <span class="underline">Spring系列第13篇：使用继承简化bean配置(abstract & parent)</span>
+
+14. <span class="underline">Spring系列第14篇：lookup-method和replaced-method比较陌生，怎么玩的？</span>
+
+15. <span class="underline">Spring系列第15篇：代理详解（Java动态代理&cglib代理）？</span>
+
+16. <span class="underline">Spring系列第16篇：深入理解java注解及s</span>p<span class="underline">ring对注解的增强（预备知识）</span>
+
+17. <span class="underline">Spring系列第17篇：@Configration和@Bean注解详解(bean批量注册)</span>
+
+18. <span class="underline">Spring系列第18篇：@ComponentScan、@ComponentScans详解(bean批量注册)</span>
+
+19. <span class="underline">Spring系列第18篇：@import详解(bean批量注册)</span>
+
+20. <span class="underline">Spring系列第20篇：@Conditional通过条件来控制bean的注册</span>
+
+21. <span class="underline">Spring系列第21篇：注解实现依赖注入（@Autowired、@Resource、@Primary、@Qulifier）</span>
+
+22. <span class="underline">Spring系列第22篇：@Scope、@DependsOn、@ImportResource、@Lazy 详解</span>
+
+23. <span class="underline">Spring系列第23篇：Bean生命周期详解</span>
+
+24. <span class="underline">Spring系列第24篇：父子容器详解</span>
+
+25. <span class="underline">Spring系列第25篇：@Value【用法、数据来源、动态刷新】</span>
+
+26. <span class="underline">Spring系列第26篇：国际化详解</span>
+
+27. <span class="underline">Spring系列第27篇：spring事件机制详解</span>
+
+28. <span class="underline">Spring系列第28篇：Bean循环依赖详解</span>
+
+29. <span class="underline">Spring系列第29篇：BeanFactory扩展（BeanFactoryPostProcessor、BeanDefinitionRe</span>g<span class="underline">istryPostProcessor）</span>
+
+30. <span class="underline">Spring系列第30篇：jdk动态代理和cglib代理</span>
+
+31. <span class="underline">Spring系列第31篇：aop概念详解</span>
+
+32. <span class="underline">Spring系列第32篇：AOP核心源码、原理详解</span>
+
+33. <span class="underline">Spring系列第33篇：ProxyFactoryBean创建AOP代理</span>
+
+34. <span class="underline">Spring系列第34篇：@Aspect中@Pointcut 12种用法</span>
+
+35. <span class="underline">Spring系列第35篇：@Aspect中5中通知详解</span>
+
+36. <span class="underline">Spring系列第36篇：@EnableAspectJAutoProxy、@Aspect中通知顺序详解</span>
+
+37. <span class="underline">Spring系列第37篇：@EnableAsync & @Async 实现方法异步调用</span>
+
+38. <span class="underline">Spring系列第38篇：@Scheduled & @EnableScheduling定时器详解</span>
+
+39. <span class="underline">Spring系列第39篇：强大的Spel表达式</span>
+
+40. <span class="underline">Spring系列第40篇：缓存使用（@EnableCaching、@Cacheable、@CachePut、@CacheEvict、</span>@<span class="underline">Caching、@CacheConfig）</span>
+
+41. <span class="underline">Spring系列第41篇：@EnableCaching集成redis缓存</span>
+
+## 更多好文章 {#更多好文章-1}
+
+1.  J<span class="underline">ava高并发系列（共34篇）</span>
+
+2.  <span class="underline">M</span>y<span class="underline">Sql高手系列（共27篇）</span>
+
+3.  <span class="underline">Maven高手系列（共10篇）</span>
+
+4.  <span class="underline">M</span>y<span class="underline">batis系列（共12篇）</span>
+
+5.  <span class="underline">聊聊db和缓存一致性常见的实现方式</span>
+
+6.  <span class="underline">接口幂等性这么重要，它是什么？怎么实现？</span>
+
+7.  <span class="underline">泛型，有点难度，会让很多人懵逼，那是因为你没有看这篇文章！</span>
+
