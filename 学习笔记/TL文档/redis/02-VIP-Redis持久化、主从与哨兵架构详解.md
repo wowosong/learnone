@@ -250,96 +250,52 @@ Jedis连接代码示例：
 
 访问代码：
 
-```
+```java
 
 public class JedisSingleTest {
-
     public static void main(String[] args) throws IOException {
-
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-
         jedisPoolConfig.setMaxTotal(20);
-
         jedisPoolConfig.setMaxIdle(10);
-
         jedisPoolConfig.setMinIdle(5);
-
         // timeout，这里既是连接超时又是读写超时，从Jedis 2.8开始有区分connectionTimeout和soTimeout的构造函数
-
         JedisPool jedisPool = new JedisPool(jedisPoolConfig, "192.168.0.60", 6379, 3000, null);
-
         Jedis jedis = null;
-
         try {
-
             //从redis连接池里拿出一个连接执行命令
-
             jedis = jedisPool.getResource();
-
             System.out.println(jedis.set("single", "zhuge"));
-
             System.out.println(jedis.get("single"));
-
             //管道示例
-
             //管道的命令执行方式：cat redis.txt | redis-cli -h 127.0.0.1 -a password - p 6379 --pipe
-
             /*Pipeline pl = jedis.pipelined();
-
             for (int i = 0; i < 10; i++) {
-
                 pl.incr("pipelineKey");
-
                 pl.set("zhuge" + i, "zhuge");
-
             }
-
             List<Object> results = pl.syncAndReturnAll();
-
             System.out.println(results);*/
-
             //lua脚本模拟一个商品减库存的原子操作
-
             //lua脚本命令执行方式：redis-cli --eval /tmp/test.lua , 10
-
             /*jedis.set("product_count_10016", "15");  //初始化商品10016的库存
-
             String script = " local count = redis.call('get', KEYS[1]) " +
-
-                            " local a = tonumber(count) " +
-
-                            " local b = tonumber(ARGV[1]) " +
-
+                           " local a = tonumber(count) " +
+                           " local b = tonumber(ARGV[1]) " +
                             " if a >= b then " +
-
                             "   redis.call('set', KEYS[1], a-b) " +
-
                             "   return 1 " +
-
                             " end " +
-
                             " return 0 ";
-
             Object obj = jedis.eval(script, Arrays.asList("product_count_10016"), Arrays.asList("10"));
-
             System.out.println(obj);*/
-
         } catch (Exception e) {
-
             e.printStackTrace();
-
         } finally {
-
             //注意这里不是关闭连接，在JedisPool模式下，Jedis会被归还给资源池。
-
             if (jedis != null)
-
                 jedis.close();
-
         }
-
     }
-
 }
 ```
 
@@ -353,20 +309,13 @@ pipeline中发送的每个command都会被server立即执行，如果执行失�
 
 详细代码示例见上面jedis连接示例：
 
-```
-
+```java
 Pipeline pl = jedis.pipelined();
-
 for (int i = 0; i < 10; i++) {
-
     pl.incr("pipelineKey");
-
     pl.set("zhuge" + i, "zhuge");
-
     //模拟管道报错
-
     // pl.setbit("zhuge", -1, true);
-
 }
 
 List<Object> results = pl.syncAndReturnAll();
@@ -387,17 +336,13 @@ Redis在2.6推出了脚本功能，允许开发者使用Lua语言编写脚本传
 
 官网文档上有这样一段话：
 
-```plain
-A Redis script is transactional by definition, so everything you can do with a Redis transaction, you can also do with a script, 
 ```
-
-```plain
-and usually the script will be both simpler and faster.
+A Redis script is transactional by definition, so everything you can do with a Redis transaction, you can also do with a script, and usually the script will be both simpler and faster.
 ```
 
 从Redis2.6.0版本开始，通过内置的Lua解释器，可以使用EVAL命令对Lua脚本进行求值。EVAL命令的格式如下：
 
-```plain
+```
 EVAL script numkeys key [key ...] arg [arg ...]　
 ```
 
@@ -425,7 +370,7 @@ script参数是一段Lua脚本程序，它会被运行在Redis服务器上下文
 
 Jedis调用示例详见上面jedis连接示例：
 
-```
+```java
 jedis.set("product_stock_10016", "15");  //初始化商品10016的库存
 
 String script = " local count = redis.call('get', KEYS[1]) " +
@@ -529,37 +474,20 @@ src/redis-cli -p 26379
 
 sentinel集群都启动完毕后，会将哨兵集群的元数据信息写入所有sentinel的配置文件里去(追加在文件的最下面)，我们查看下如下配置文件sentinel-26379.conf，如下所示：
 
-```plain
+```
+
 sentinel known-replica mymaster 192.168.0.60 6380 #代表redis主节点的从节点信息
-```
-
-```plain
 sentinel known-replica mymaster 192.168.0.60 6381 #代表redis主节点的从节点信息
-```
-
-```plain
 sentinel known-sentinel mymaster 192.168.0.60 26380 52d0a5d70c1f90475b4fc03b6ce7c3c56935760f  #代表感知到的其它哨兵节点
-```
-
-```plain
 sentinel known-sentinel mymaster 192.168.0.60 26381 e9f530d3882f8043f76ebb8e1686438ba8bd5ca6  #代表感知到的其它哨兵节点
 ```
 
 当redis主节点如果挂了，哨兵集群会重新选举出新的redis主节点，同时会修改所有sentinel节点配置文件的集群元数据信息，比如6379的redis如果挂了，假设选举出的新主节点是6380，则sentinel文件里的集群元数据信息会变成如下所示：
 
-```plain
+```
 sentinel known-replica mymaster 192.168.0.60 6379 #代表主节点的从节点信息
-```
-
-```plain
 sentinel known-replica mymaster 192.168.0.60 6381 #代表主节点的从节点信息
-```
-
-```plain
 sentinel known-sentinel mymaster 192.168.0.60 26380 52d0a5d70c1f90475b4fc03b6ce7c3c56935760f  #代表感知到的其它哨兵节点
-```
-
-```plain
 sentinel known-sentinel mymaster 192.168.0.60 26381 e9f530d3882f8043f76ebb8e1686438ba8bd5ca6  #代表感知到的其它哨兵节点
 ```
 
@@ -573,370 +501,129 @@ sentinel monitor mymaster 192.168.0.60 6380 2
 
 哨兵的Jedis连接代码：
 
-```plain
+```java
 public class JedisSentinelTest {
-```
-
-```plain
     public static void main(String[] args) throws IOException {
-```
-
-```plain
         JedisPoolConfig config = new JedisPoolConfig();
-```
-
-```plain
         config.setMaxTotal(20);
-```
-
-```plain
         config.setMaxIdle(10);
-```
-
-```plain
         config.setMinIdle(5);
-```
-
-```plain
         String masterName = "mymaster";
-```
-
-```plain
         Set<String> sentinels = new HashSet<String>();
-```
-
-```plain
         sentinels.add(new HostAndPort("192.168.0.60",26379).toString());
-```
-
-```plain
         sentinels.add(new HostAndPort("192.168.0.60",26380).toString());
-```
-
-```plain
         sentinels.add(new HostAndPort("192.168.0.60",26381).toString());
-```
-
-```plain
         //JedisSentinelPool其实本质跟JedisPool类似，都是与redis主节点建立的连接池
-```
-
-```plain
         //JedisSentinelPool并不是说与sentinel建立的连接池，而是通过sentinel发现redis主节点并与其建立连接
-```
-
-```plain
         JedisSentinelPool jedisSentinelPool = new JedisSentinelPool(masterName, sentinels, config, 3000, null);
-```
-
-```plain
         Jedis jedis = null;
-```
-
-```plain
         try {
-```
-
-```plain
             jedis = jedisSentinelPool.getResource();
-```
-
-```plain
             System.out.println(jedis.set("sentinel", "zhuge"));
-```
-
-```plain
             System.out.println(jedis.get("sentinel"));
-```
-
-```plain
         } catch (Exception e) {
-```
-
-```plain
             e.printStackTrace();
-```
-
-```plain
         } finally {
-```
-
-```plain
             //注意这里不是关闭连接，在JedisPool模式下，Jedis会被归还给资源池。
-```
-
-```plain
             if (jedis != null)
-```
-
-```plain
                 jedis.close();
-```
-
-```plain
         }
-```
-
-```plain
     }
-```
-
-```plain
 }
+
 ```
 
 哨兵的Spring Boot整合Redis连接代码见示例项目：redis-sentinel-cluster
 
 1、引入相关依赖：
 
-```plain
+```xml
 <dependency>
-```
-
-```plain
    <groupId>org.springframework.boot</groupId>
-```
-
-```plain
    <artifactId>spring-boot-starter-data-redis</artifactId>
-```
-
-```plain
 </dependency>
-```
-
-```plain
 <dependency>
-```
-
-```plain
    <groupId>org.apache.commons</groupId>
-```
-
-```plain
    <artifactId>commons-pool2</artifactId>
-```
-
-```plain
 </dependency>
 ```
 
 springboot项目核心配置：
 
-```plain
+```yml
 server:
-```
-
-```plain
   port: 8080
-```
-
-```plain
 spring:
-```
-
-```plain
   redis:
-```
-
-```plain
     database: 0
-```
-
-```plain
     timeout: 3000
-```
-
-```plain
     sentinel:    #哨兵模式
-```
-
-```plain
       master: mymaster #主服务器所在集群名称
-```
-
-```plain
      nodes: 192.168.0.60:26379,192.168.0.60:26380,192.168.0.60:26381
-```
-
-```plain
    lettuce:
-```
-
-```plain
       pool:
-```
-
-```plain
         max-idle: 50
-```
-
-```plain
         min-idle: 10
-```
-
-```plain
         max-active: 100
-```
-
-```plain
         max-wait: 1000
 ```
 
 访问代码：
 
-```plain
+```java
+
 @RestController
-```
-
-```plain
 public class IndexController {
-```
-
-```plain
     private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
-```
-
-```plain
     @Autowired
-```
-
-```plain
     private StringRedisTemplate stringRedisTemplate;
-```
-
-```plain
     /**
-```
-
-```plain
      * 测试节点挂了哨兵重新选举新的master节点，客户端是否能动态感知到
-```
-
-```plain
      * 新的master选举出来后，哨兵会把消息发布出去，客户端实际上是实现了一个消息监听机制，
-```
-
-```plain
      * 当哨兵把新master的消息发布出去，客户端会立马感知到新master的信息，从而动态切换访问的masterip
-```
-
-```plain
      *
-```
-
-```plain
      * @throws InterruptedException
-```
-
-```plain
      */
-```
-
-```plain
     @RequestMapping("/test_sentinel")
-```
-
-```plain
     public void testSentinel() throws InterruptedException {
-```
-
-```plain
         int i = 1;
-```
-
-```plain
         while (true){
-```
-
-```plain
             try {
-```
-
-```plain
                 stringRedisTemplate.opsForValue().set("zhuge"+i, i+"");
-```
-
-```plain
                 System.out.println("设置key："+ "zhuge" + i);
-```
-
-```plain
                 i++;
-```
-
-```plain
                 Thread.sleep(1000);
-```
 
-```plain
             }catch (Exception e){
-```
-
-```plain
                 logger.error("错误：", e);
-```
-
-```plain
             }
-```
-
-```plain
         }
-```
-
-```plain
     }
-```
-
-```plain
 }
+
 ```
 
 StringRedisTemplate与RedisTemplate详解
 
 spring 封装了 RedisTemplate 对象来进行对redis的各种操作，它支持所有的 redis 原生的 api。在RedisTemplate中提供了几个常用的接口方法的使用，分别是:
 
-```plain
+```java
 private ValueOperations<K, V> valueOps;
-```
-
-```plain
 private HashOperations<K, V> hashOps;
-```
-
-```plain
 private ListOperations<K, V> listOps;
-```
-
-```plain
 private SetOperations<K, V> setOps;
-```
-
-```plain
 private ZSetOperations<K, V> zSetOps;
 ```
 
 RedisTemplate中定义了对5种数据结构操作
 
-```plain
+```java
 redisTemplate.opsForValue();//操作字符串
-```
-
-```plain
 redisTemplate.opsForHash();//操作hash
-```
-
-```plain
 redisTemplate.opsForList();//操作list
-```
-
-```plain
 redisTemplate.opsForSet();//操作set
-```
-
-```plain
 redisTemplate.opsForZSet();//操作有序set
+
 ```
 
 StringRedisTemplate继承自RedisTemplate，也一样拥有上面这些操作。
