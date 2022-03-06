@@ -122,13 +122,11 @@ SETNX  product:10001  true 		//返回0代表获取锁失败
 DEL  product:10001			//执行完业务释放锁
 
 SET product:10001 true  ex  10  nx	//防止程序意外终止导致死锁
-
-
 ```
 
 ## hash
 
-```
+```shell
 Hash常用操作
 HSET  key  field  value 			//存储一个哈希表key的键值
 HSETNX  key  field  value 		//存储一个不存在的哈希表key的键值

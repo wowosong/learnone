@@ -475,7 +475,6 @@ src/redis-cli -p 26379
 sentinel集群都启动完毕后，会将哨兵集群的元数据信息写入所有sentinel的配置文件里去(追加在文件的最下面)，我们查看下如下配置文件sentinel-26379.conf，如下所示：
 
 ```
-
 sentinel known-replica mymaster 192.168.0.60 6380 #代表redis主节点的从节点信息
 sentinel known-replica mymaster 192.168.0.60 6381 #代表redis主节点的从节点信息
 sentinel known-sentinel mymaster 192.168.0.60 26380 52d0a5d70c1f90475b4fc03b6ce7c3c56935760f  #代表感知到的其它哨兵节点
