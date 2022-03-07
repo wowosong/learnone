@@ -260,7 +260,7 @@ Do you want to proceed with the proposed reshard plan (yes/no)? Yes
 /usr/local/redis-5.0.3/src/redis-cli -a zhuge --cluster del-node 192.168.0.61:8007 2728a594a0498e98e4b83a537e19f9a0a3790f38
 ```
 
- # 查看集群状态，一切还原为最初始状态啦！大功告成!
+**查看集群状态，一切还原为最初始状态啦！大功告成!**
 
 ![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/BB195C96D620421EAA1FBEA9104ED8A8/81676](https://gitee.com/wowosong/pic-md/raw/master/20220306163453.bin)
 

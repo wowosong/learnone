@@ -2,8 +2,6 @@
 
 
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/20210611224838.png)
-
 ​																		**清空数据包流量、清空链、清空规则**
 
 使用下面几个命令可以清空iptables表：
@@ -16,10 +14,6 @@ iptables -t filter -Z
 ```
 
 `-F`清空所有链的规则，`-X`删除自定义的链，`-Z`清空数据包流量。
-
-
-
-![图片](https://gitee.com/wowosong/pic-md/raw/master/20210611224946.png)
 
 ​																								**设置默认策略**
 
@@ -35,10 +29,6 @@ iptables -P FORWARDING DROP
 
 如果信任内部用户，则可以省略上面的OUTPUT。即默认情况下不丢弃所有OUTPUT数据包。在这种情况下，对于拥有的每个防火墙规则要求，只需定义一个规则即可。即只为INPUT定义规则，因为所有数据包的传出都是ACCEPT。
 
-
-
-![图片](https://gitee.com/wowosong/pic-md/raw/master/20210611225031.png)
-
 ​																							**阻止指定的IP地址进入**
 
 ```
@@ -50,7 +40,7 @@ iptables -A INPUT -i ens160 -s "$BLOCK_THIS_IP" -j DROP
 
 定义一个变量，值写入要阻止的ip地址。上面第一条规则的意思是从某个ip进入的流量拒绝掉。第二条规则是阻止某个ip地址从eth0进入的流量。第三条规则指的是拒绝某个ip地址从eth0进入访问tcp协议的流量。
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/20210611225031.png)
+
 
 ​																						**允许外部用户ssh登录本机**
 
@@ -68,7 +58,7 @@ iptables -A INPUT -i ens160 -p tcp -s 192.168.100.0/24 --dport 22 -m state --sta
 iptables -A OUTPUT -o ens160 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
 ```
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/20210611225031.png)
+
 
 ​																					**允许本机使用ssh登录远程主机**
 
@@ -79,7 +69,7 @@ iptables -A OUTPUT -o ens160 -p tcp --dport 22 -m state --state NEW,ESTABLISHED 
 iptables -A INPUT -i ens160 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
 ```
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/l9TfxkE5ib3EZwyZhpyZqFkjvrLRa2HduxPdUN0tXNnCkey9T4gvIheSEVsGwujB5yQ5RMb52sibVs9tUhib7bEqg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
 
 ​																			**使用multiport模块，允许外部访问本机的80,443**
 
@@ -94,7 +84,7 @@ iptables -A OUTPUT -o ens160 -p tcp -m multiport --sports 80,443 -m state --stat
 
 
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/l9TfxkE5ib3EZwyZhpyZqFkjvrLRa2HduxPdUN0tXNnCkey9T4gvIheSEVsGwujB5yQ5RMb52sibVs9tUhib7bEqg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
 
 ​																			**允许本地访问外部的http,https服务**
 
@@ -105,11 +95,11 @@ iptables -A OUTPUT -o ens160 -p tcp -m multiport --dports 80,443 -m state --stat
 iptables -A INPUT -i ens160 -p tcp -m multiport --sports 80,443 -m state --state ESTABLISHED -j ACCEPT
 ```
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/K0TMNq37VN1UvekvLGTOfXYy3AKNJIw46e7fALckeJ4q96uanVibqCy5WYMDAPKjaSib0qHADr4WhltgewTgkg8A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202203071102222.webp)
 
 
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/20210611225315.png)
+
 
 ​																						**允许外部ping本机**
 
@@ -121,7 +111,7 @@ iptables -A OUTPUT -p icmp --icmp-type echo-reply -j ACCEPT
 ```
 
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/20210611225323.png)
+
 
 ​																					**允许本机ping外部**
 
@@ -134,7 +124,7 @@ iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
 
 ![image-20210611225430618](https://gitee.com/wowosong/pic-md/raw/master/20210611225430.png)**
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/20210611225555.png)
+
 
 ​																	防DDOS攻击
 

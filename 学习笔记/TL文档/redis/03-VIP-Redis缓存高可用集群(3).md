@@ -4,7 +4,7 @@
 
 ![img](https://gitee.com/wowosong/pic-md/raw/master/20220306144337.bin)
 
-在redis3.0以前的版本要实现集群一般是借助哨兵sentinel工具来监控master节点的状态，如果master节点异常，则会做主从切换，将某一台slave作为master，哨兵的配置略微复杂，并且性能和高可用性等各方面表现一般，特别是在主从切换的瞬间存在访问瞬断的情况，而且哨兵模式只有一个主节点对外提供服务，没法支持很高的并发，且单个主节点内存也不宜设置得过大，否则会导致持久化文件过大，影响数据恢复或主从同步的效率
+在redis3.0以前的版本要实现集群一般是借助哨兵sentinel工具来监控master节点的状态，如果master节点异常，则会做主从切换，将某一台slave作为master，哨兵的配置略微复杂，并且性能和高可用性等各方面表现一般，特别是在主从切换的瞬间存在**访问瞬断**的情况，而且哨兵模式只有一个主节点对外提供服务，没法支持很高的并发，且单个主节点内存也不宜设置得过大，否则会导致持久化文件过大，影响数据恢复或主从同步的效率
 
 *   ## 高可用集群模式
 
@@ -14,12 +14,11 @@ redis集群是一个由多个主从节点群组成的分布式服务器群，它
 
 # 2、Redis高可用集群搭建
 
-*   redis集群搭建
+* redis集群搭建
 
 redis集群需要至少三个master节点，我们这里搭建三个master节点，并且给每个master再搭建一个slave节点，总共6个redis节点，这里用三台机器部署6个redis实例，每台机器一主一从，搭建集群的步骤如下：
 
 ```shell
-
 第一步：在第一台机器的/usr/local下创建文件夹redis-cluster，然后在其下面分别创建2个文件夾如下
 
 （1）mkdir -p /usr/local/redis-cluster
@@ -86,7 +85,7 @@ redis集群需要至少三个master节点，我们这里搭建三个master节点
 
 （1）连接任意一个客户端即可：./redis-cli -c -h -p (-a访问服务端密码，-c表示集群模式，指定ip地址和端口号）
 
-    如：/usr/local/redis-5.0.3/src/redis-cli -a zhuge -c -h 192.168.0.61 -p 800*
+ 如：/usr/local/redis-5.0.3/src/redis-cli -a zhuge -c -h 192.168.0.61 -p 800*
 
 （2）进行验证： cluster info（查看集群信息）、cluster nodes（查看节点列表）
 
@@ -95,279 +94,108 @@ redis集群需要至少三个master节点，我们这里搭建三个master节点
 （4）关闭集群则需要逐个进行关闭，使用命令：
 
 /usr/local/redis-5.0.3/src/redis-cli -a zhuge -c -h 192.168.0.60 -p 800* shutdown
-
 # 
 ```
 
-3、Java操作redis集群
+# 3、Java操作redis集群
 
 借助redis的java客户端jedis可以操作以上集群，引用jedis版本的maven坐标如下：
 
 ```xml
 <dependency>
-
-<groupId>redis.clients</groupId>
-
- <artifactId>jedis</artifactId>
-
-<version>2.9.0</version>
-
+  <groupId>redis.clients</groupId>
+   <artifactId>jedis</artifactId>
+  <version>2.9.0</version>
 </dependency>
 ```
 
 Java编写访问redis集群的代码非常简单，如下所示：
 
-```plain
+
 public class JedisClusterTest {
-```
-
-```plain
-    public static void main(String[] args) throws IOException {
-```
-
-```plain
-        JedisPoolConfig config = new JedisPoolConfig();
-```
-
-```plain
+```java
+public static void main(String[] args) throws IOException {
+   JedisPoolConfig config = new JedisPoolConfig();
         config.setMaxTotal(20);
-```
-
-```plain
         config.setMaxIdle(10);
-```
-
-```plain
         config.setMinIdle(5);
-```
-
-```plain
         Set<HostAndPort> jedisClusterNode = new HashSet<HostAndPort>();
-```
-
-```plain
         jedisClusterNode.add(new HostAndPort("192.168.0.61", 8001));
-```
-
-```plain
         jedisClusterNode.add(new HostAndPort("192.168.0.62", 8002));
-```
-
-```plain
         jedisClusterNode.add(new HostAndPort("192.168.0.63", 8003));
-```
-
-```plain
         jedisClusterNode.add(new HostAndPort("192.168.0.61", 8004));
-```
-
-```plain
         jedisClusterNode.add(new HostAndPort("192.168.0.62", 8005));
-```
-
-```plain
         jedisClusterNode.add(new HostAndPort("192.168.0.63", 8006));
-```
-
-```plain
-        JedisCluster jedisCluster = null;
-```
-
-```plain
-        try {
-```
-
-```plain
-            //connectionTimeout：指的是连接一个url的连接等待时间
-```
-
-```plain
-            //soTimeout：指的是连接上一个url，获取response的返回等待时间
-```
-
-```plain
-            jedisCluster = new JedisCluster(jedisClusterNode, 6000, 5000, 10, "zhuge", config);
-```
-
-```plain
-            System.out.println(jedisCluster.set("cluster", "zhuge"));
-```
-
-```plain
-            System.out.println(jedisCluster.get("cluster"));
-```
-
-```plain
-        } catch (Exception e) {
-```
-
-```plain
-            e.printStackTrace();
-```
-
-```plain
-        } finally {
-```
-
-```plain
-            if (jedisCluster != null)
-```
-
-```plain
-                jedisCluster.close();
-```
-
-```plain
+       JedisCluster jedisCluster = null
+        try{
+            //connectionTimeout
+            //soTimeout
+            jedisCluster = new JedisCluster(jedisClusterNode, 6000, 5000, 10, 
+            System.out.println(jedisCluster.set("cluster","huangjiusong")
+            System.out.println(jedisCluster.getcluster")
         }
-```
-
-```plain
-    }
-```
-
-```plain
 }
 ```
 
-```plain
+
 运行效果如下：
 ```
-
-```plain
 OK
-```
-
-```plain
 zhuge
 ```
-
 集群的Spring Boot整合Redis连接代码见示例项目：redis-sentinel-cluster
 
 1、引入相关依赖：
 
-```plain
+```xml
 <dependency>
-```
-
-```plain
    <groupId>org.springframework.boot</groupId>
-```
-
-```plain
    <artifactId>spring-boot-starter-data-redis</artifactId>
-```
-
-```plain
 </dependency>
-```
-
-```plain
 <dependency>
-```
-
-```plain
    <groupId>org.apache.commons</groupId>
-```
-
-```plain
    <artifactId>commons-pool2</artifactId>
-```
-
-```plain
 </dependency>
 ```
 
 springboot项目核心配置：
 
-```plain
+```properties
 server:
-```
-
-```plain
   port: 8080
-```
-
-```plain
 spring:
-```
-
-```plain
   redis:
-```
-
-```plain
     database: 0
-```
-
-```plain
     timeout: 3000
-```
-
-```plain
-    password: zhuge
-```
-
-```plain
+		password: zhuge
     cluster:
-```
-
-```plain
-      nodes: 192.168.0.61:8001,192.168.0.62:8002,192.168.0.63:8003,192.168.0.61:8004,192.168.0.62:8005,192.168.0.63:8006
-```
-
-```plain
-   lettuce:
-```
-
-```plain
+    nodes: 192.168.0.61:8001,192.168.0.62:8002,192.168.0.63:8003,192.168.0.61:8004,192.168.0.62:8005,192.168.0.63:8006
+	 lettuce:
       pool:
-```
-
-```plain
         max-idle: 50
-```
-
-```plain
         min-idle: 10
-```
-
-```plain
         max-active: 100
-```
-
-```plain
         max-wait: 1000
 ```
-
 访问代码：
 
 ```java
-
 @RestController
-
 public class IndexController {
-
     private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired
-
     private StringRedisTemplate stringRedisTemplate;
-
     @RequestMapping("/test_cluster")
-
     public void testCluster() throws InterruptedException {
-
        stringRedisTemplate.opsForValue().set("zhuge", "666");
-       
-       System.out.println(stringRedisTemplate.opsForValue().get("zhuge"));
-
+    System.out.println(stringRedisTemplate.opsForValue().get("zhuge"));
     }
-
 }
-# 
+#
 ```
 
-4、Redis集群原理分析
+# 4、Redis集群原理分析
 
 Redis Cluster 将所有数据划分为 16384 个 slots(槽位)，每个节点负责其中一部分槽位。槽位的信息存储于每个节点中。
 
@@ -381,7 +209,7 @@ HASH\_SLOT = CRC16(key) mod 16384
 
 跳转重定位
 
-当客户端向一个错误的节点发出了指令，该节点会发现指令的 key 所在的槽位并不归自己管理，这时它会向客户端发送一个特殊的跳转指令携带目标操作的节点地址，告诉客户端去连这个节点去获取数据。客户端收到指令后除了跳转到正确的节点上去操作，还会同步更新纠正本地的槽位映射表缓存，后续所有 key 将使用新的槽位映射表。
+当客户端向一个错误的节点发出了指令，该节点会发现指令的 key 所在的槽位并不归自己管理，这时它会向客户端发送一个特殊的跳转指令携带目标操作的节点地址，告诉客户端去连这个节点去获取数据。客户端收到指令后除了跳转到正确的节点上去操作，还会同步更新纠**正本地的槽位映射表缓存，后续所有 key 将使用新的槽位映射表**。
 
 ![img](https://gitee.com/wowosong/pic-md/raw/master/20220306144442.bin)
 
@@ -395,7 +223,7 @@ redis cluster节点间采取gossip协议进行通信 
 
 优点在于元数据的更新和读取，时效性非常好，一旦元数据出现变更立即就会更新到集中式的存储中，其他节点读取的时候立即就可以立即感知到；不足在于所有的元数据的更新压力全部集中在一个地方，可能导致元数据的存储压力。 很多中间件都会借助zookeeper集中式存储元数据。
 
-gossip： 
+**gossip：** 
 
 ![https://note.youdao.com/yws/public/resource/218d9ba28237a441217d0e024d410769/xmlnote/362F42FC9DAE4AB8A59C5DC7242EE0F0/101611](assets/1646548981-b6fba580de55ceb6b61bf9db9745cf65.bin)
 
@@ -451,13 +279,12 @@ redis集群没有过半机制会有脑裂问题，网络分区导致脑裂后多
 
 规避方法可以在redis配置里加上参数(这种方法不可能百分百避免数据丢失，参考集群leader选举机制)：
 
-```plain
+
 min-replicas-to-write 1  //写数据成功最少同步的slave数量，这个数量可以模仿大于半数机制配置，比如集群总共三个节点可以配置1，加上leader就是2，超过了半数
-```
 
 注意：这个配置在一定程度上会影响集群的可用性，比如slave要是少于1个，这个集群就算leader正常也不能提供服务了，需要具体场景权衡选择。
 
-集群是否完整才能对外提供服务
+### 集群是否完整才能对外提供服务
 
 当redis.conf的配置cluster-require-full-coverage为no时，表示当负责一个插槽的主库下线且没有相应的从库进行故障恢复时，集群仍然可用，如果为yes则集群不可用。
 
@@ -471,9 +298,7 @@ Redis集群为什么至少需要三个master节点，并且推荐节点数为奇
 
 对于类似mset，mget这样的多个key的原生批量操作命令，redis集群只支持所有key落在同一slot的情况，如果有多个key一定要用mset命令在redis集群上操作，则可以在key的前面加上{XX}，这样参数数据分片hash计算的只会是大括号里的值，这样能确保不同的key能落到同一slot里去，示例如下：
 
-```plain
 mset {user1}:1:name zhuge {user1}:1:age 18
-```
 
 假设name和age计算的hash slot值不一样，但是这条命令在集群下执行，redis只会用大括号里的 user1 做hash slot计算，所以算出来的slot值肯定相同，最后都能落在同一slot。
 
@@ -485,10 +310,8 @@ mset {user1}:1:name zhuge {user1}:1:age 18
 
 不过为了高可用一般都推荐至少部署三个哨兵节点。为什么推荐奇数个哨兵节点原理跟集群奇数个master节点类似。
 
-```plain
-文档：03-VIP-Redis缓存高可用集群.note
-```
 
-```plain
+文档：03-VIP-Redis缓存高可用集群.note
+
 链接：http://note.youdao.com/noteshare?id=218d9ba28237a441217d0e024d410769&sub=8A5B0D9F4F044798BFBDBE12FC00F566
-```
+

@@ -171,7 +171,7 @@ RDB 和 AOF ，我应该用哪一个？
 
 redis主从架构搭建，配置从节点步骤：
 
-```
+```shell
 
 1、复制一份redis.conf文件
 
@@ -207,7 +207,7 @@ redis-cli -p 6380
 
 7、可以自己再配置一个6381的从节点
 
-## 
+##
 ```
 
 ### Redis主从工作原理
@@ -303,7 +303,7 @@ public class JedisSingleTest {
 
 ## 管道（Pipeline）
 
-客户端可以一次性发送多个请求而不用等待服务器的响应，待所有命令都发送完后再一次性读取服务的响应，这样可以极大的降低多条命令执行的网络传输开销，管道执行多条命令的网络开销实际上只相当于一次命令执行的网络开销。需要注意到是用pipeline方式打包命令发送，redis必须在处理完所有命令前先缓存起所有命令的处理结果。打包的命令越多，缓存消耗内存也越多。所以并不是打包的命令越多越好。
+客户端可以一次性发送多个请求而不用等待服务器的响应，待所有命令都发送完后再一次性读取服务的响应，这样可以极大的降低多条命令执行的网络传输开销，管道执行多条命令的网络开销实际上只相当于一次命令执行的网络开销。**需要注意到是用pipeline方式打包命令发送，redis必须在处理完所有命令前先缓存起所有命令的处理结果。打包的命令越多，缓存消耗内存也越多。所以并不是打包的命令越多越好**。
 
 pipeline中发送的每个command都会被server立即执行，如果执行失败，将会在此后的响应中得到信息；也就是pipeline并不是表达“所有command都一起成功”的语义，管道中前面命令失败，后面命令不会有影响，继续执行。
 
@@ -319,9 +319,7 @@ for (int i = 0; i < 10; i++) {
 }
 
 List<Object> results = pl.syncAndReturnAll();
-
 System.out.println(results);
-
 ```
 
 Redis Lua脚本(放在后面Redis高并发分布式锁实战课里详细讲)
@@ -362,8 +360,6 @@ script参数是一段Lua脚本程序，它会被运行在Redis服务器上下文
 4) "second"
 ```
 
-
-
 其中 "return {KEYS\[1\],KEYS\[2\],ARGV\[1\],ARGV\[2\]}" 是被求值的Lua脚本，数字2指定了键名参数的数量， key1和key2是键名参数，分别使用 KEYS\[1\] 和 KEYS\[2\] 访问，而最后的 first 和 second 则是附加参数，可以通过 ARGV\[1\] 和 ARGV\[2\] 访问它们。
 
 在 Lua 脚本中，可以使用redis.call()函数来执行Redis命令
@@ -372,13 +368,11 @@ Jedis调用示例详见上面jedis连接示例：
 
 ```java
 jedis.set("product_stock_10016", "15");  //初始化商品10016的库存
-
 String script = " local count = redis.call('get', KEYS[1]) " +
-
                " local a = tonumber(count) " +
                " local b = tonumber(ARGV[1]) " +
-              " if a >= b then " +
-              "   redis.call('set', KEYS[1], a-b) " +
+               " if a >= b then " +
+               "   redis.call('set', KEYS[1], a-b) " +
                "   return 1 " +
                " end " +
                " return 0 ";
@@ -400,75 +394,41 @@ sentinel哨兵是特殊的redis服务，不提供读写服务，主要用来监�
 
 redis哨兵架构搭建步骤：
 
-```plain
+```shell
 1、复制一份sentinel.conf文件
-```
 
-```plain
 cp sentinel.conf sentinel-26379.conf
-```
 
-```plain
 2、将相关配置修改为如下值：
-```
 
-```plain
 port 26379
-```
 
-```plain
 daemonize yes
-```
 
-```plain
 pidfile "/var/run/redis-sentinel-26379.pid"
-```
 
-```plain
 logfile "26379.log"
-```
 
-```plain
 dir "/usr/local/redis-5.0.3/data"
-```
 
-```plain
 # sentinel monitor <master-redis-name> <master-redis-ip> <master-redis-port> <quorum>
-```
 
-```plain
 # quorum是一个数字，指明当有多少个sentinel认为一个master失效时(值一般为：sentinel总数/2 + 1)，master才算真正失效
-```
 
-```plain
 sentinel monitor mymaster 192.168.0.60 6379 2   # mymaster这个名字随便取，客户端访问时会用到
-```
 
-```plain
 3、启动sentinel哨兵实例
-```
 
-```plain
 src/redis-sentinel sentinel-26379.conf
-```
 
-```plain
 4、查看sentinel的info信息
-```
 
-```plain
 src/redis-cli -p 26379
-```
 
-```plain
 127.0.0.1:26379>info
-```
 
-```plain
 可以看到Sentinel的info里已经识别出了redis的主从
-```
 
-```plain
 5、可以自己再配置两个sentinel，端口26380和26381，注意上述配置文件里的对应数字都要修改
 ```
 
@@ -602,7 +562,7 @@ public class IndexController {
 
 ```
 
-StringRedisTemplate与RedisTemplate详解
+## StringRedisTemplate与RedisTemplate详解
 
 spring 封装了 RedisTemplate 对象来进行对redis的各种操作，它支持所有的 redis 原生的 api。在RedisTemplate中提供了几个常用的接口方法的使用，分别是:
 
@@ -625,11 +585,11 @@ redisTemplate.opsForZSet();//操作有序set
 
 ```
 
-StringRedisTemplate继承自RedisTemplate，也一样拥有上面这些操作。
+**StringRedisTemplate继承自RedisTemplate**，也一样拥有上面这些操作。
 
-StringRedisTemplate默认采用的是String的序列化策略，保存的key和value都是采用此策略序列化保存的。
+**StringRedisTemplate默认采用的是String的序列化策略，保存的key和value都是采用此策略序列化保存的。**
 
-RedisTemplate默认采用的是JDK的序列化策略，保存的key和value都是采用此策略序列化保存的。
+**RedisTemplate默认采用的是JDK的序列化策略，保存的key和value都是采用此策略序列化保存的。**
 
 Redis客户端命令对应的RedisTemplate中的方法列表：
 

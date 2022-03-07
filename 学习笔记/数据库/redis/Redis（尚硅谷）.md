@@ -149,7 +149,7 @@ gcc --version
 
 #### 如果没有准备好C语言编译环境，make会报错—Jemalloc/jemalloc.h：没有那个文件
 
-![image-20211209223817962](https://gitee.com/wowosong/pic-md/raw/master/20211209223818.png)
+![20211209223818](https://gitee.com/wowosong/pic-md/raw/master/202203071426878.png)
 
 #### 解决方案：运行make distclean
 
@@ -2594,7 +2594,9 @@ key对应的数据存在，但在redis中过期，此时若有大量并发请求
 
 redis:命令
 
-\# set sku:1:info "OK" NX PX 10000
+```
+# set sku:1:info "OK" NX PX 10000
+```
 
 EX second ：设置键的过期时间为 second 秒。 **SET key value EX second 效果等同于 SETEX key second value 。**
 
