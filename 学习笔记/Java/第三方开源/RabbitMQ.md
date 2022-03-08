@@ -142,7 +142,7 @@ https://www.rabbitmq.com/download.html
 
 3.安装文件(分别按照以下顺序安装)
 
-```
+```shell
 rpm -ivh erlang-21.3-1.el7.x86_64.rpm
 
 yum install socat -y
