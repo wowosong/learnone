@@ -60,7 +60,6 @@ beanDefinition.setLazyInit(true); // 设置懒加载
 
 
 接下来，我们来介绍几种在Spring源码中所提供的BeanDefinition读取器（BeanDefinitionReader），这些BeanDefinitionReader在我们使用Spring时用得少，但在Spring源码中用得多，相当于Spring源码的基础设施。
-### 
 ### AnnotatedBeanDefinitionReader
 
 
@@ -98,7 +97,6 @@ System.out.println(context.getBean("user"));
 
 
 ClassPathBeanDefinitionScanner是扫描器，但是它的作用和BeanDefinitionReader类似，它可以进行扫描，扫描某个包路径，对扫描到的类进行解析，比如，扫描到的类上如果存在@Component注解，那么就会把这个类解析为一个BeanDefinition，比如：
-​
 
 ```java
 AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
@@ -113,11 +111,10 @@ System.out.println(context.getBean("userService"));
 
 ## BeanFactory
 
-
-BeanFactory表示Bean**工厂**，所以很明显，BeanFactory会负责创建Bean，并且提供获取Bean的API。
+**BeanFactory表示Bean工厂，所以很明显，BeanFactory会负责创建Bean，并且提供获取Bean的API。**
 ​
 
-而ApplicationContext是BeanFactory的一种，在Spring源码中，是这么定义的：
+**而ApplicationContext是BeanFactory的一种，在Spring源码中，是这么定义的：**
 ​
 
 ```java
@@ -129,8 +126,7 @@ public interface ApplicationContext extends EnvironmentCapable, ListableBeanFact
 ```
 
 
-首先，在Java中，接口是可以**多继承**的，我们发现ApplicationContext继承了ListableBeanFactory和HierarchicalBeanFactory，而ListableBeanFactory和HierarchicalBeanFactory都继承至BeanFactory，所以我们可以认为ApplicationContext继承了BeanFactory，相当于苹果继承水果，宝马继承汽车一样，ApplicationContext也是BeanFactory的一种，拥有BeanFactory支持的所有功能，不过ApplicationContext比BeanFactory更加强大，ApplicationContext还基础了其他接口，也就表示ApplicationContext还拥有其他功能，比如MessageSource表示国际化，ApplicationEventPublisher表示事件发布，EnvironmentCapable表示获取环境变量，等等，关于ApplicationContext后面再详细讨论。
-
+首先，在Java中，接口是可以**多继承**的，我们发现ApplicationContext继承了ListableBeanFactory和HierarchicalBeanFactory，而ListableBeanFactory和HierarchicalBeanFactory都继承至BeanFactory，所以我们可以认为ApplicationContext继承了BeanFactory，相当于苹果继承水果，宝马继承汽车一样，ApplicationContext也是BeanFactory的一种，拥有BeanFactory支持的所有功能，不过ApplicationContext比BeanFactory更加强大，ApplicationContext还基础了其他接口，也就表示ApplicationContext还拥有其他功能，**比如MessageSource表示国际化，ApplicationEventPublisher表示事件发布，EnvironmentCapable表示获取环境变量，**等等，关于ApplicationContext后面再详细讨论。
 
 在Spring的源码实现中，当我们new一个ApplicationContext时，其底层会new一个BeanFactory出来，当使用ApplicationContext的某些方法时，比如getBean()，底层调用的是BeanFactory的getBean()方法。
 ​
@@ -149,7 +145,6 @@ beanFactory.registerBeanDefinition("user", beanDefinition);
 
 System.out.println(beanFactory.getBean("user"));
 ```
-
 
 **DefaultListableBeanFactory是非常强大的，支持很多功能，可以通过查看DefaultListableBeanFactory的类继承实现结构来看**
 
@@ -177,10 +172,6 @@ System.out.println(beanFactory.getBean("user"));
 1. ConfigurableListableBeanFactory：继承了ListableBeanFactory、AutowireCapableBeanFactory、ConfigurableBeanFactory
 1. AbstractAutowireCapableBeanFactory：继承了AbstractBeanFactory，实现了AutowireCapableBeanFactory，拥有了自动装配的功能
 1. DefaultListableBeanFactory：继承了AbstractAutowireCapableBeanFactory，实现了ConfigurableListableBeanFactory接口和BeanDefinitionRegistry接口，所以DefaultListableBeanFactory的功能很强大
-
-
-
-
 
 
 
@@ -242,6 +233,7 @@ public MessageSource messageSource() {
 ```
 有了这个Bean，你可以在你任意想要进行国际化的地方使用该MessageSource。
 同时，因为ApplicationContext也拥有国家化的功能，所以可以直接这么用：
+
 ```java
 context.getMessage("test", null, new Locale("en_CN"))
 ```
@@ -377,7 +369,7 @@ public CustomEditorConfigurer customEditorConfigurer() {
 	CustomEditorConfigurer customEditorConfigurer = new CustomEditorConfigurer();
 	Map<Class<?>, Class<? extends PropertyEditor>> propertyEditorMap = new HashMap<>();
     
-    // 表示StringToUserPropertyEditor可以将String转化成User类型，在Spring源码中，如果发现当前对象是String，而需要的类型是User，就会使用该PropertyEditor来做类型转化
+  // 表示StringToUserPropertyEditor可以将String转化成User类型，在Spring源码中，如果发现当前对象是String，而需要的类型是User，就会使用该PropertyEditor来做类型转化
 	propertyEditorMap.put(User.class, StringToUserPropertyEditor.class);
 	customEditorConfigurer.setCustomEditors(propertyEditorMap);
 	return customEditorConfigurer;
@@ -463,7 +455,6 @@ OrderComparator是Spring所提供的一种比较器，可以用来根据@Order�
 
 
 比如：
-​
 
 ```java
 public class A implements Ordered {
@@ -519,7 +510,6 @@ public class Main {
 }
 ```
 另外，Spring中还提供了一个OrderComparator的子类：**AnnotationAwareOrderComparator**，它支持用@Order来指定order值。比如：
-​
 
 ```java
 @Order(3)
@@ -650,7 +640,7 @@ public class ZhouyuFactoryBean implements FactoryBean {
 通过上面这段代码，我们自己创造了一个UserService对象，并且它将成为Bean。但是通过这种方式创造出来的UserService的Bean，**只会经过初始化后**，其他Spring的生命周期步骤是不会经过的，比如依赖注入。
 
 
-有同学可能会想到，通过@Bean也可以自己生成一个对象作为Bean，那么和FactoryBean的区别是什么呢？其实在很多场景下他俩是可以替换的，但是站在原理层面来说的，区别很明显，@Bean定义的Bean是会经过完整的Bean生命周期的。
+有同学可能会想到，**通过@Bean也可以自己生成一个对象作为Bean，那么和FactoryBean的区别是什么呢？其实在很多场景下他俩是可以替换的，但是站在原理层面来说的，区别很明显，@Bean定义的Bean是会经过完整的Bean生命周期的。**
 ​
 
 ## ExcludeFilter和IncludeFilter
@@ -659,7 +649,7 @@ public class ZhouyuFactoryBean implements FactoryBean {
 这两个Filter是Spring扫描过程中用来过滤的。ExcludeFilter表示**排除过滤器**，IncludeFilter表示**包含过滤器**。
 
 
-比如以下配置，表示扫描com.zhouyu这个包下面的所有类，但是排除UserService类，也就是就算它上面有@Component注解也不会成为Bean。
+比如以下配置，表示扫描com.zhouyu这个包下面的所有类，但是排除UserService类，也就是就**算它上面有@Component注解也不会成为Bean。**
 ```java
 @ComponentScan(value = "com.zhouyu",
 		excludeFilters = {@ComponentScan.Filter(
@@ -670,13 +660,14 @@ public class AppConfig {
 ```
 
 
-再比如以下配置，就算UserService类上没有@Component注解，它也会被扫描成为一个Bean。
+再比如以下配置，就算**UserService类上没有@Component注解，它也会被扫描成为一个Bean**。
 ```java
 @ComponentScan(value = "com.zhouyu",
 		includeFilters = {@ComponentScan.Filter(
             	type = FilterType.ASSIGNABLE_TYPE, 
             	classes = UserService.class)})
 public class AppConfig {
+  
 }
 ```
 
@@ -691,7 +682,7 @@ FilterType分为：
 
 
 
-在Spring的扫描逻辑中，默认会添加一个AnnotationTypeFilter给includeFilters，表示默认情况下Spring扫描过程中会认为类上有@Component注解的就是Bean。
+**在Spring的扫描逻辑中，默认会添加一个AnnotationTypeFilter给includeFilters，表示默认情况下Spring扫描过程中会认为类上有@Component注解的就是Bean。**
 
 
 ## MetadataReader、ClassMetadata、AnnotationMetadata
@@ -719,10 +710,9 @@ public class Test {
         
         // 获取一个AnnotationMetadata，并获取类上的注解信息
         AnnotationMetadata annotationMetadata = metadataReader.getAnnotationMetadata();
-		for (String annotationType : annotationMetadata.getAnnotationTypes()) {
-			System.out.println(annotationType);
-		}
-
+        for (String annotationType : annotationMetadata.getAnnotationTypes()) {
+          System.out.println(annotationType);
+        }
 	}
 }
 ```

@@ -2,7 +2,7 @@
 
 锁续命
 
-```
+```java
 RFuture<Boolean> future = commandExecutor.evalWriteAsync(getName(), LongCodec.INSTANCE, RedisCommands.EVAL_BOOLEAN,
         "if (redis.call('hexists', KEYS[1], ARGV[2]) == 1) then " +
             "redis.call('pexpire', KEYS[1], ARGV[1]); " +
