@@ -118,7 +118,7 @@ nginx -t # 检查配置是否有问题
 
 `Nginx` 的典型配置示例：
 
-```
+```shell
 # main段配置信息
 user  nginx; # 运行用户，默认即是nginx，可以不进行设置
 worker_processes  auto; # Nginx 进程数，一般设置为和 CPU 核数一样
@@ -494,7 +494,7 @@ location /test/ {
 
 停止处理请求，直接返回响应码或重定向到其他 `URL` ；执行 `return` 指令后， `location` 中后续指令将不会被执行。
 
-```
+```shell
 return code [text];
 return code URL;
 return URL;
@@ -882,7 +882,7 @@ upstream back_end{
 
 用于配置代理服务器。
 
-```
+```shell
 语法：proxy_pass URL;
 
 上下文：location、if、limit_except
@@ -1443,7 +1443,7 @@ server {
 
 在 `/etc/nginx/conf.d/` 文件夹中新建配置文件 `gzip.conf` ：
 
-```
+```shell
 # # 默认off，是否开启gzip
 gzip on; 
 # 要采用 gzip 压缩的 MIME 文件类型，其中 text/html 被系统强制启用；

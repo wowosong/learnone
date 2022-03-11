@@ -112,7 +112,6 @@ System.out.println(context.getBean("userService"));
 ## BeanFactory
 
 **BeanFactory表示Bean工厂，所以很明显，BeanFactory会负责创建Bean，并且提供获取Bean的API。**
-​
 
 **而ApplicationContext是BeanFactory的一种，在Spring源码中，是这么定义的：**
 ​
@@ -126,7 +125,7 @@ public interface ApplicationContext extends EnvironmentCapable, ListableBeanFact
 ```
 
 
-首先，在Java中，接口是可以**多继承**的，我们发现ApplicationContext继承了ListableBeanFactory和HierarchicalBeanFactory，而ListableBeanFactory和HierarchicalBeanFactory都继承至BeanFactory，所以我们可以认为ApplicationContext继承了BeanFactory，相当于苹果继承水果，宝马继承汽车一样，ApplicationContext也是BeanFactory的一种，拥有BeanFactory支持的所有功能，不过ApplicationContext比BeanFactory更加强大，ApplicationContext还基础了其他接口，也就表示ApplicationContext还拥有其他功能，**比如MessageSource表示国际化，ApplicationEventPublisher表示事件发布，EnvironmentCapable表示获取环境变量，**等等，关于ApplicationContext后面再详细讨论。
+首先，在Java中，接口是可以**多继承**的，我们发现ApplicationContext继承了ListableBeanFactory和HierarchicalBeanFactory，而ListableBeanFactory和HierarchicalBeanFactory都继承至BeanFactory，所以我们可以认为ApplicationContext继承了BeanFactory，相当于苹果继承水果，宝马继承汽车一样，ApplicationContext也是BeanFactory的一种，拥有BeanFactory支持的所有功能，不过ApplicationContext比BeanFactory更加强大，ApplicationContext还继承了其他接口，也就表示ApplicationContext还拥有其他功能，**比如MessageSource表示国际化，ApplicationEventPublisher表示事件发布，EnvironmentCapable表示获取环境变量，**等等，关于ApplicationContext后面再详细讨论。
 
 在Spring的源码实现中，当我们new一个ApplicationContext时，其底层会new一个BeanFactory出来，当使用ApplicationContext的某些方法时，比如getBean()，底层调用的是BeanFactory的getBean()方法。
 ​
@@ -151,7 +150,6 @@ System.out.println(beanFactory.getBean("user"));
 
 ![image](https://gitee.com/wowosong/pic-md/raw/master/202202091707257.png)
 
-
 **这部分现在看不懂没关系，源码熟悉一点后回来再来看都可以。**
 
 
@@ -171,7 +169,7 @@ System.out.println(beanFactory.getBean("user"));
 1. AbstractBeanFactory：实现了ConfigurableBeanFactory接口，继承了FactoryBeanRegistrySupport，这个BeanFactory的功能已经很全面了，但是不能自动装配和获取beanNames
 1. ConfigurableListableBeanFactory：继承了ListableBeanFactory、AutowireCapableBeanFactory、ConfigurableBeanFactory
 1. AbstractAutowireCapableBeanFactory：继承了AbstractBeanFactory，实现了AutowireCapableBeanFactory，拥有了自动装配的功能
-1. DefaultListableBeanFactory：继承了AbstractAutowireCapableBeanFactory，实现了ConfigurableListableBeanFactory接口和BeanDefinitionRegistry接口，所以DefaultListableBeanFactory的功能很强大
+1. DefaultListableBeanFactory：继承了AbstractAutowireCapableBeanFactory，实现了ConfigurableListableBeanFactory接口和BeanDefinitionRegistry接口，所以**DefaultListableBeanFactory的功能很强大**
 
 
 
@@ -206,7 +204,7 @@ System.out.println(beanFactory.getBean("user"));
 
 **这部分现在看不懂没关系，源码熟悉一点后回来再来看都可以。**
 
-1. ConfigurableApplicationContext：继承了ApplicationContext接口，增加了，添加事件监听器、添加BeanFactoryPostProcessor、设置Environment，获取ConfigurableListableBeanFactory等功能
+1. ConfigurableApplicationContext：继承了ApplicationContext接口，增加了添加事件监听器、添加BeanFactoryPostProcessor、设置Environment，获取ConfigurableListableBeanFactory等功能
 1. AbstractApplicationContext：实现了ConfigurableApplicationContext接口
 1. GenericApplicationContext：继承了AbstractApplicationContext，实现了BeanDefinitionRegistry接口，拥有了所有ApplicationContext的功能，并且可以注册BeanDefinition，注意这个类中有一个属性(DefaultListableBeanFactory **beanFactory**)
 1. AnnotationConfigRegistry：可以单独注册某个为类为BeanDefinition（可以处理该类上的**@Configuration注解**，已经可以处理**@Bean注解**），同时可以扫描
@@ -560,8 +558,6 @@ public class Main {
 ```
 
 
-
-
 ## BeanPostProcessor
 BeanPostProcess表示Bena的后置处理器，我们可以定义一个或多个BeanPostProcessor，比如通过一下代码定义一个BeanPostProcessor：
 ​
@@ -593,8 +589,8 @@ public class ZhouyuBeanPostProcessor implements BeanPostProcessor {
 
 一个BeanPostProcessor可以在**任意一个Bean**的**初始化之前**以及**初始化之后**去额外的做一些用户自定义的逻辑，当然，我们可以通过判断beanName来进行针对性处理（针对某个Bean，或某部分Bean）。
 
+**我们可以通过定义BeanPostProcessor来干涉Spring创建Bean的过程。**
 
-我们可以通过定义BeanPostProcessor来干涉Spring创建Bean的过程。
 ## BeanFactoryPostProcessor
 BeanFactoryPostProcessor表示Bean工厂的后置处理器，其实和BeanPostProcessor类似，BeanPostProcessor是干涉Bean的创建过程，BeanFactoryPostProcessor是干涉BeanFactory的创建过程。比如，我们可以这样定义一个BeanFactoryPostProcessor：
 ​
