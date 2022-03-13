@@ -8,12 +8,10 @@ Spring最重要的功能就是帮助程序员创建对象（也就是IOC），�
 
 Bean的生命周期就是指：**在Spring中，一个Bean是如何生成的，如何销毁的**
 
-
 Bean生命周期流程图：[https://www.processon.com/view/link/5f8588c87d9c0806f27358c1](https://www.processon.com/view/link/5f8588c87d9c0806f27358c1)
-​
+![image-20220312162112200](https://gitee.com/wowosong/pic-md/raw/master/20220312162112.png)
 
 附带资料JFR介绍：[https://zhuanlan.zhihu.com/p/122247741](https://zhuanlan.zhihu.com/p/122247741)
-
 
 ## Bean的生成过程
 
@@ -29,6 +27,8 @@ Spring启动的时候会进行扫描，会先调用`org.springframework.context.
 Spring扫描底层流程：[https://www.processon.com/view/link/61370ee60e3e7412ecd95d43](https://www.processon.com/view/link/61370ee60e3e7412ecd95d43)
 **​**
 
+![image-20220312162346993](https://gitee.com/wowosong/pic-md/raw/master/20220312162347.png)
+
 
 1. 首先，通过ResourcePatternResolver获得指定包路径下的所有`.class`文件（Spring源码中将此文件包装成了Resource对象）
 1. 遍历每个Resource对象
@@ -38,7 +38,7 @@ Spring扫描底层流程：[https://www.processon.com/view/link/61370ee60e3e7412
 1. 再基于metadataReader判断是不是对应的类是不是接口或抽象类
 1. 如果筛选通过，那么就表示扫描到了一个Bean，将ScannedGenericBeanDefinition加入结果集
 
-​
+
 
 MetadataReader表示类的元数据读取器，主要包含了一个AnnotationMetadata，功能有
 
@@ -62,7 +62,7 @@ MetadataReader表示类的元数据读取器，主要包含了一个AnnotationMe
 
 
 ### 2. 合并BeanDefinition
-​
+
 
 通过扫描得到所有BeanDefinition之后，就可以根据BeanDefinition创建Bean对象了，但是在Spring中支持父子BeanDefinition，和Java父子类类似，但是完全不是一回事。
 
@@ -165,7 +165,7 @@ public class ZhouyuBeanPostProcessor implements InstantiationAwareBeanPostProces
 	}
 }
 ```
-​
+
 
 userService这个Bean，在实例化前会直接返回一个由我们所定义的UserService对象。如果是这样，表示不需要Spring来实例化了，并且后续的Spring依赖注入也不会进行了，会跳过一些步骤，直接执行初始化后这一步。
 ### 
@@ -230,7 +230,7 @@ public class CommonService {
 	}
 }
 ```
-​
+
 
 Spring发现当前BeanDefinition方法设置了工厂方法后，就会区分这两种方式，然后调用工厂方法得到对象。
 ​
@@ -248,7 +248,7 @@ Spring发现当前BeanDefinition方法设置了工厂方法后，就会区分这
 在实例化时，如果判断出来当前BeanDefinition中没有LookupOverride，那就直接用构造方法反射得到一个实例对象。如果存在LookupOverride对象，也就是类中存在@Lookup注解了的方法，那就会生成一个代理对象。
 ​
 
-​
+
 
 @Lookup注解就是**方法注入**，使用demo如下：
 ```java
@@ -285,7 +285,7 @@ public class ZhouyuMergedBeanDefinitionPostProcessor implements MergedBeanDefini
 	}
 }
 ```
-​
+
 
 在Spring源码中，AutowiredAnnotationBeanPostProcessor就是一个MergedBeanDefinitionPostProcessor，它的postProcessMergedBeanDefinition()中会去查找注入点，并缓存在AutowiredAnnotationBeanPostProcessor对象的一个Map中（injectionMetadataCache）。
 
