@@ -35,7 +35,7 @@ context.close();
 在Spring容器关闭过程时：
 
 1. 首先发布ContextClosedEvent事件
-1. 调用lifecycleProcessor的onCloese()方法
+1. 调用lifecycleProcessor的onClose()方法
 1. 销毁单例Bean
    1. 遍历disposableBeans
       1. 把每个disposableBean从单例池中移除
