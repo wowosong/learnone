@@ -87,21 +87,20 @@
 
 **get方法的定义是：** 方法参数个数为0个，并且 （方法名字以"get"开头 或者 方法名字以"is"开头并且方法的返回类型为boolean）
 
-
 **set方法的定义是：**方法参数个数为1个，并且 （方法名字以"set"开头并且方法返回类型为void）
 
 
-所以，Spring在通过byName的自动填充属性时流程是：
+**所以，Spring在通过byName的自动填充属性时流程是：**
 
-1. 找到所有set方法所对应的XXX部分的名字
-1. 根据XXX部分的名字去获取bean
+1. **找到所有set方法所对应的XXX部分的名字**
+1. **根据XXX部分的名字去获取bean**
 
 
 
-Spring在通过byType的自动填充属性时流程是：
+**Spring在通过byType的自动填充属性时流程是：**
 
-1. 获取到set方法中的唯一参数的参数类型，并且根据该类型去容器中获取bean
-1. 如果找到多个，会报错。
+1. **获取到set方法中的唯一参数的参数类型，并且根据该类型去容器中获取bean**
+1. **如果找到多个，会报错。**
 
 
 
@@ -209,7 +208,7 @@ XML中的autowire控制的是整个bean的所有属性，而@Autowired注解是�
 ### static的字段或方法为什么不支持
 
 
-​
+
 
 ```java
 @Component
@@ -219,7 +218,7 @@ public class OrderService {
 
 }
 ```
-​
+
 
 ```java
 @Component
@@ -240,7 +239,7 @@ public class UserService  {
 1. UserService userService1 = context.getBean("userService")
 1. UserService userService2 = context.getBean("userService")
 
-​
+
 
 问此时，userService1的orderService值是什么？还是它自己注入的值吗？
 ​
@@ -380,7 +379,7 @@ Spring在AutowiredAnnotationBeanPostProcessor的**postProcessProperties()**方�
 1. 将**DependencyDescriptor对象**和所找到的**结果对象beanName**封装成一个**ShortcutDependencyDescriptor对象**作为缓存，比如如果当前Bean是原型Bean，那么下次再来创建该Bean时，就可以直接拿缓存的结果对象beanName去BeanFactory中去那bean对象了，不用再次进行查找了
 1. 利用反射将结果对象赋值给字段。
 
-​
+
 
 ### Set方法注入
 
