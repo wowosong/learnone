@@ -44,7 +44,7 @@ Lambda 是一个**匿名函数**，我们可以把 Lambda表达式理解为是**
  @Override
  public void run() {
  		System.out.println("hello lamda");
- }
+ 	}
  };
  runnable.run();
  //Lambda表达式
@@ -115,7 +115,7 @@ System.out.println(bo.apply(1L,10L));
 
 ```java
 BinaryOperator<Long> bo=(Long x,Long y)->{
-		数据类型可以省略，因为可由编译器推断得出，称为“类型推断”
+		//数据类型可以省略，因为可由编译器推断得出，称为“类型推断”
     System.out.println("方式");
     return x+y;
 };
@@ -123,7 +123,7 @@ BinaryOperator<Long> bo=(Long x,Long y)->{
 
 ### **类型推断**
 
-上述 Lambda 表达式中的参数类型都是由编译器推断得出的。Lambda 表达式中无需指定类型，程序依然可以编译，这是因为 javac 根据程序的上下文，在后台推断出了参数的类型。Lambda 表达式的类型依赖于上下文环境，是由编译器推断出来的。这就是所谓的 “类型推断”
+上述 Lambda 表达式中的参数类型都是由编译器推断得出的。Lambda 表达式中无需指定类型，程序依然可以编译，这是因为 javac 根据程序的上下文，在后台推断出了参数的类型。Lambda 表达式的类型依赖于上下文环境，是由编译器推断出来的。这就是所谓的 **“类型推断”**
 
 ## 2-函数式接口
 
