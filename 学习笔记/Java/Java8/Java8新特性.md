@@ -104,7 +104,7 @@ BinaryOperator<Long> bo=(x,y)->{
 System.out.println(bo.apply(1L,10L));
 ```
 
-语法格式五：当Lambda体只有一条语句时,return与大括号可以省略
+语法格式五：当Lambda体只有一条语句时，return与大括号可以省略
 
 ```java
 BinaryOperator<Long> bo=(x,y)->x+y
@@ -263,13 +263,13 @@ public List<String> filterString(List<String> list, Predicate<String> predicate)
 | BinaryOperator<T>(BiFunction子接口)                    | T,T                      | T                        | 对类型为T的对象进行二元运算，并返回T类型的结果。包含方法为 T apply(T t1,T t2); |
 | BiConsumer<T,U>                                        | T,U                      | void                     | 对类型为T，U参数应用操作。包含方法为void accept(T t,U u)     |
 | ToIntFunction<T> ToLongFunction<T> ToDoubleFunction<T> | T                        | int <br/>long<br/>double | 分别计算int/long/double值的函数                              |
-| IntFunction<R> <br> <LongFunction<R> DoubleFunction<R> | int <br/>long<br/>double | R                        | 参数分别为int/long/double类型的函数                          |
+| IntFunction<R> <br> LongFunction<R> DoubleFunction<R>  | int <br/>long<br/>double | R                        | 参数分别为int/long/double类型的函数                          |
 
 ## 3-方法引用与构造器引用
 
 ### 方法引用
 
-当要传递给Lambda体的操作，已经有实现的方法了，可以使用方法引用！ （实现抽象方法的参数列表，必须与方法引用方法的参数列表保持一致！）方法引用：使用操作符 “**::**” 将方法名和对象或类的名字分隔开来。
+当要传递给Lambda体的操作，已经有实现的方法了，可以使用方法引用！ （**实现抽象方法的参数列表，必须与方法引用方法的参数列表保持一致！**）方法引用：使用操作符 “**::**” 将方法名和对象或类的名字分隔开来。
 
 如下三种主要使用情况： 
 
@@ -329,7 +329,7 @@ System.out.println(apply1.length);
 
 了解Stream
 
-Java8中有两大最为重要的改变。第一个是 Lambda 表达式；另外一个则是 **Stream API(java.util.stream.\*)**。Stream 是 Java8 中处理集合的关键抽象概念，它可以指定你希望对集合进行的操作，可以执行非常复杂的查找、过滤和映射数据等操作。使用Stream API 对集合数据进行操作，就类似于使用 SQL 执行的数据库查询。也可以使用 Stream API 来并行执行操作。简而言之，Stream API 提供了一种高效且易于使用的处理数据的方式。
+Java8中有两大最为重要的改变**。第一个是 Lambda 表达式；另外一个则是 Stream API(java.util.stream.\*)。**Stream 是 Java8 中处理集合的关键抽象概念，它可以指定你希望对集合进行的操作，可以执行非常复杂的查找、过滤和映射数据等操作。使用Stream API 对集合数据进行操作，就类似于使用 SQL 执行的数据库查询。也可以使用 Stream API 来并行执行操作。简而言之，Stream API 提供了一种高效且易于使用的处理数据的方式。
 
 ### 什么是Stream
 
@@ -382,7 +382,7 @@ Stream<String> stringStream1 = list.parallelStream();
 
 **由数组创建流**
 
-Java8 中的 Arrays 的静态方法 stream() 可以获取数组流： 
+**Java8 中的 Arrays 的静态方法 stream() 可以获取数组流：** 
 
 ⚫ static <T> Stream<T> stream(T[] array): 返回一个流
 
@@ -402,7 +402,7 @@ Stream<Employee> employeeStream = Arrays.stream(employees);
 
 **由值创建流**
 
-可以使用静态方法 Stream.of(), 通过显示值
+**可以使用静态方法 Stream.of(), 通过显示值**
 
 创建一个流。它可以接收任意数量的参数。 
 
@@ -486,7 +486,7 @@ Stream<Employee> sorted = employeeList.stream().sorted((x, y) -> Integer.compare
 | anyMatch(Predicate p)  | 检查是否至少匹配一个元素 |
 | noneMatch(Predicate p) | 检查是否没有匹配所有元素 |
 | findFirst()            | 返回第一个元素           |
-| findAny()              | 返回当前流中的 任意元素  |
+| findAny()              | 返回当前流中的任意元素   |
 
 ```java
 Optional<Integer> first = collect1.stream().findFirst();
@@ -606,7 +606,7 @@ System.out.println(offsetDateTime);
 
 ### **Duration** **和** **Period**
 
-⚫ Duration:用于计算两个“时间”间隔
+⚫ **Duration:用于计算两个“时间”间隔**
 
 ```java
 Instant instant=Instant.now();
@@ -623,7 +623,7 @@ long l = Duration.between(instant, instant1).toMillis();
 System.out.println(l);
 ```
 
-⚫ Period:用于计算两个“日期”间隔
+⚫ **Period:用于计算两个“日期”间隔**
 
 ```java
 LocalDate localDate=LocalDate.of(2021,6,21);
@@ -690,7 +690,7 @@ System.out.println(now1);
 
 ## 6-**Optional** **类**
 
-Optional<T> 类(java.util.Optional) 是一个容器类，代表一个值存在或不存在，原来用 null 表示一个值不存在，现在 Optional 可以更好的表达这个概念。并且可以避免空指针异常。
+**Optional<T> 类(java.util.Optional) 是一个容器类，代表一个值存在或不存在，原来用 null 表示一个值不存在，现在 Optional 可以更好的表达这个概念。并且可以避免空指针异常。**
 
 **常用方法：**
 
@@ -729,7 +729,7 @@ System.out.println(employee);
 
 ### **接口中的默认方法**
 
-Java 8中允许接口中包含具有具体实现的方法，该方法称为“默认方法”，默认方法使用 default 关键字修饰。
+**Java 8中允许接口中包含具有具体实现的方法，该方法称为“默认方法”，默认方法使用 default 关键字修饰。**
 
 ```java
 interface MyFunc<T> {
@@ -742,11 +742,11 @@ interface MyFunc<T> {
 
 **接口默认方法的”类优先”原则**
 
-若一个接口中定义了一个默认方法，而另外一个父类或接口中又定义了一个同名的方法时
+**若一个接口中定义了一个默认方法，而另外一个父类或接口中又定义了一个同名的方法时**
 
 ⚫ 选择父类中的方法。如果一个父类提供了具体的实现，那么接口中具有相同名称和参数的默认方法会被忽略。 
 
-⚫ 接口冲突。如果一个父接口提供一个默认方法，而另一个接口也提供了一个具有相同名称和参数列表的方法（不管方法是否是默认方法），那么必须覆盖该方法来解决冲突
+⚫ 接口冲突。如果一个父接口提供一个默认方法，而另一个接口也提供了一个具有相同名称和参数列表的方法（不管方法是否是默认方法），那么**必须覆盖该方法来解决冲突**
 
 ```java
 接口默认方法的“类优先”原则
