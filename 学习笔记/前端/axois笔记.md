@@ -1,4 +1,8 @@
-# axios从入门到源码分析 
+# axios从入门到源码分析
+
+安装json-server:npm install -g json-server 
+
+启用json-server: json-server.cmd -w db.json  -p 3001(windows)
 
 ## 1. 前后台交互的基本过程
     1. 前后应用从浏览器端向服务器发送HTTP请求(请求报文)
@@ -19,12 +23,14 @@
 
 ## 4. post请求体文本参数格式
 
-    1. Content-Type: application/x-www-form-urlencoded;charset=utf-8
-        用于键值对参数，参数的键值用=连接, 参数之间用&连接
-        例如: name=%E5%B0%8F%E6%98%8E&age=12
-    2. Content-Type: application/json;charset=utf-8
-        用于json字符串参数
-        例如: {"name": "%E5%B0%8F%E6%98%8E", "age": 12}
+```json
+1. Content-Type: application/x-www-form-urlencoded;charset=utf-8
+    用于键值对参数，参数的键值用=连接, 参数之间用&连接
+    例如: name=%E5%B0%8F%E6%98%8E&age=12
+2. Content-Type: application/json;charset=utf-8
+    用于json字符串参数
+    例如: {"name": "%E5%B0%8F%E6%98%8E", "age": 12}
+```
 
 ## 5. 常见响应状态码
 
