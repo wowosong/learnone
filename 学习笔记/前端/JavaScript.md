@@ -155,16 +155,16 @@ ECMAScript、DOM和BOM。
 **其他不建议使用的标识符**
 |      |      |      |       |      |        |
 | ---- | ---- | ---- |  ---- | ---- |  ----  |
-| abstract | double |  goto|  native | static | boolean| 
-| enum|  implements | package | super|  byte|  export| 
-| import |  private | synchronize|  char | extends | int| 
-| protected | throws|  class | final | interface|  public| 
-| transient |  const|  float|  long | short|  volatile| 
-| arguments | encodeURI | Infinity|  Number | RegExp|  undefined| 
+| abstract | double |  goto |  native | static | boolean | 
+| enum |  implements | package | super|  byte|  export | 
+| import |  private | synchronize|  char | extends | int | 
+| protected | throws |  class | final | interface|  public | 
+| transient |  const |  float |  long | short|  volatile| 
+| arguments | encodeURI | Infinity |  Number | RegExp|  undefined | 
 | isFinite |  Object | String | Boolean | Error | RangeError| 
-| parseFloat | SyntaxError|  Date|  eval|  JSON | ReferenceError| 
-| TypeError | decodeURI| EvalError | Math | URIError| decodeURIComponent| 
-| Function | NaN |  isNaN | parseInt|  Array | encodeURICOmponent| 
+| parseFloat | SyntaxError|  Date|  eval|  JSON | ReferenceError | 
+| TypeError | decodeURI | EvalError | Math | URIError | decodeURIComponent | 
+| Function | NaN |  isNaN | parseInt|  Array | encodeURICOmponent | 
 ## **变量**
 
 • 变量的作用是给某一个值或对象标注名称。
@@ -277,13 +277,13 @@ ECMAScript、DOM和BOM。
 • 其他的数据类型也可以通过Boolean()函数转换为布尔类型。
 
 • 转换规则：
-| 数据类型 | 转换为true | 转换为false|
-| ---- | ---- |---- |
-|  Boolean | true | false |
-| String    | 任何非空字符串 |“”（空字符串）|
-| Number|  任何非0数字 | 0和NaN|
-| Object|  任何对象 | null|
-| Undefined|  n/a | undefined|
+| 数据类型 | 转换为true | 转换为false | 
+| ---- | ---- |---- | 
+|  Boolean | true | false | 
+| String    | 任何非空字符串 |“”（空字符串）| 
+| Number|  任何非0数字 | 0和NaN |
+| Object|  任何对象 | null |
+| Undefined|  n/a | undefined |
 
 ### Undefined
 
@@ -318,14 +318,14 @@ ECMAScript、DOM和BOM。
 • JS中为我们提供了多种算数运算符。
 
 • 算数运算符：
-| 运算符 | 说明 | 运算符 | 说明 |
-| ------ | ---- | ------ | ---- |
-| +    | 加法 | ++ | （前置）自增 |
-|  - |  减法 | ++ |（后置） 自增|
-|  * |  乘法| -- | （前置）自减 |
-|/| 除法     | --     | （后置） 自减 |
-|  % |  取模 |   + |  符号不变|
-|-| 符号反转 |        |  |
+| 运算符 | 说明 | 运算符 | 说明 | 
+| ------ | ---- | ------ | ---- | 
+| +    | 加法 | ++ | （前置）自增 | 
+|  - |  减法 | ++ |（后置） 自增| 
+|  * |  乘法| -- | （前置）自减 | 
+|/| 除法     | --     | （后置） 自减 | 
+|  % |  取模 |   + |  符号不变| 
+|-| 符号反转 |     |  | 
 
 ### 自增和自减
 
