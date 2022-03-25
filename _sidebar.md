@@ -1,6 +1,6 @@
 <!-- 侧边栏 docs/_sidebar.md -->
 
-- [📙wowosong学习笔记](http://wowosong.gitee.io/learn/)
+- [📙wowosong学习笔记](http://wowosong.gitee.io/learn-new/)
     - 前端
       - [Html+css](/学习笔记/前端/html+css（尚硅谷）.md)
       - [Vue](/学习笔记/前端/Vue.md)
@@ -114,7 +114,7 @@
       - [12.lazy-init：bean延迟初始化](/学习笔记/Java/Spring/luren/12lazy-init：bean延迟初始化.md)
       - [13.使用继承简化bean配置(abstract & parent)](/学习笔记/Java/Spring/luren/13.使用继承简化bean配置(abstract&parent).md)
       - [14.lookup-method和replaced-method比较陌生，怎么玩的？](/学习笔记/Java/Spring/luren/14.lookup-method和replaced-method比较陌生，怎么玩的？.md)
-      - [15.代理详解（java动态代理&CGLIB代理)](学习笔记/Java/Spring/luren/15.代理详解（java动态代理&CGLIB代理）.md)
+      - [15.代理详解（java动态代理&CGLIB代理)](/学习笔记/Java/Spring/luren/15.代理详解(java动态代理&CGLIB代理).md)
       - [16.深入理解java注解（预备知识）](/学习笔记/Java/Spring/luren/16.深入理解java注解（预备知识）.md)
       - [17.@Configration@Bean注解详解](/学习笔记/Java/Spring/luren/17.@Configration@Bean注解详解.md)
       - [18.@ComponentScan@ComponentScans详解](/学习笔记/Java/Spring/luren/18.@ComponentScan@ComponentScans详解.md)

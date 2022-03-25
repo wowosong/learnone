@@ -117,7 +117,8 @@ public class CommonExceptionHandler {
         BindingResult bindingResult = ex.getBindingResult();
         StringBuilder sb = new StringBuilder("校验失败:");
         for (FieldError fieldError : bindingResult.getFieldErrors()) {
-            sb.append(fieldError.getField()).append("：").append(fieldError.getDefaultMessage()).append(", ");
+          sb.append(fieldError.getField()).append("：").
+            append(fieldError.getDefaultMessage()).append(", ");
         }
         String msg = sb.toString();
        return Result.fail(BusinessCode.参数校验失败, msg);
@@ -391,8 +392,7 @@ public Validator validator() {
 ```java
 public class RequestResponseBodyMethodProcessor extends AbstractMessageConverterMethodProcessor {
     @Override
-    public Object resolveArgument(MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer,
-                                  NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) throws Exception {
+    public Object resolveArgument(MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer,NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) throws Exception {
 
         parameter = parameter.nestedIfOptional();
         //将请求数据封装到DTO对象中
@@ -428,8 +428,8 @@ protected void validateIfApplicable(WebDataBinder binder, MethodParameter parame
         Validated validatedAnn = AnnotationUtils.getAnnotation(ann, Validated.class);
         //如果直接标注了@Validated，那么直接开启校验。
         //如果没有，那么判断参数前是否有Valid起头的注解。
-        if (validatedAnn != null || ann.annotationType().getSimpleName().startsWith("Valid")) {
-            Object hints = (validatedAnn != null ? validatedAnn.value() : AnnotationUtils.getValue(ann));
+        if (validatedAnn != null || ann.annotationType().getSimpleName().startsWith("Valid"){
+     				Object hints = (validatedAnn != null ? validatedAnn.value() :AnnotationUtils.getValue(ann));
             Object[] validationHints = (hints instanceof Object[] ? (Object[]) hints : new Object[] {hints});
             //执行校验
             binder.validate(validationHints);
@@ -447,7 +447,7 @@ public void validate(Object target, Errors errors, Object... validationHints) {
     if (this.targetValidator != null) {
         processConstraintViolations(
             //此处调用Hibernate Validator执行真正的校验
-            this.targetValidator.validate(target, asValidationGroups(validationHints)), errors);
+          this.targetValidator.validate(target, asValidationGroups(validationHints)), errors);
     }
 }
 ```
@@ -465,7 +465,7 @@ public class MethodValidationPostProcessor extends AbstractBeanFactoryAwareAdvis
         //为所有`@Validated`标注的Bean创建切面
         Pointcut pointcut = new AnnotationMatchingPointcut(this.validatedAnnotationType, true);
         //创建Advisor进行增强
-        this.advisor = new DefaultPointcutAdvisor(pointcut, createMethodValidationAdvice(this.validator));
+this.advisor=newDefaultPointcutAdvisor(pointcut,createMethodValidationAdvice(this.validator));
     }
 
     //创建Advice，本质就是一个方法拦截器
