@@ -51,31 +51,30 @@
 ### 写到外部js文件
 
 ```javascript
-	<!--
-			可以将js代码编写到外部js文件中，然后通过script标签引入
-			写到外部文件中可以在不同的页面中同时引用，也可以利用到浏览器的缓存机制
-			推荐使用的方式
-		-->
-		<!--
-			script标签一旦用于引入外部文件了，就不能在编写代码了，即使编写了浏览器也会忽略
-			如果需要则可以在创建一个新的script标签用于编写内部代码
-		-->
-		<script type="text/javascript" src="js/script.js"></script>
-		<script type="text/javascript">
-			alert("我是内部的JS代码");
-		</script>
-		
+<!--
+可以将js代码编写到外部js文件中，然后通过script标签引入
+写到外部文件中可以在不同的页面中同时引用，也可以利用到浏览器的缓存机制
+推荐使用的方式
+ -->
+<!--
+script标签一旦用于引入外部文件了，就不能在编写代码了，即使编写了浏览器也会忽略
+如果需要则可以在创建一个新的script标签用于编写内部代码
+-->
+<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript">
+  alert("我是内部的JS代码");
+</script>
 ```
 ### 写在标签的onClick属性
 
 ```javascript
 <!--
-			可以将js代码编写到标签的onclick属性中
-			当我们点击按钮时，js代码才会执行
-			
-			虽然可以写在标签的属性中，但是他们属于结构与行为耦合，不方便维护，不推荐使用
-		-->
-		<button onclick="alert('讨厌，你点我干嘛~~');">点我一下</button>
+  可以将js代码编写到标签的onclick属性中
+  当我们点击按钮时，js代码才会执行
+
+  虽然可以写在标签的属性中，但是他们属于结构与行为耦合，不方便维护，不推荐使用
+-->
+  <button onclick="alert('讨厌，你点我干嘛~~');">点我一下</button>
 ```
 ### 写在超链接的href属性
 
@@ -131,22 +130,20 @@
 
 • 关键字
 
-|      |      |      |       |      |
+| break | do | instanceof | typeof | case |
 | ---- | ---- | ---- |       |      |
-|  break |  do |  instanceof  | typeof |  case |
-| else |  new |  var | catch | finally | 
-| return |  void |  continue |  for |  switch | 
-| while | default | if | throw |  delete | 
-| in | try | function |  this | with | 
-| debugger|  false|  true | null | 
+| else     | new     | var        | catch  | finally |
+| return   | void    | continue   | for    | switch  |
+| while    | default | if         | throw  | delete  |
+| in       | try     | function   | this   | with    |
+| debugger | false   | true       | null   |         |
 
 • 保留字符
 
-|      |      |      |     |      |
+| class | enum | extends | super | const |
 | ---- | ---- | ---- |     |      |
-| class | enum |  extends | super |  const |
-| import | implements |  let |  private | public |
-| interface |  package | protected |  static ||
+| import    | implements | let       | private | public |
+| interface | package    | protected | static  |        |
 
 **其他不建议使用的标识符**
 
@@ -200,7 +197,7 @@
 
 **– undefined型（Undefined）** 
 
-• 这5种之外的类型都称为Object，所以总的来看JavaScript中共有六种数据类型
+• 这5种之外的类型都称为Object，所以总的来看JavaScript中共有**六种数据类型**
 
 ### **typeof运算符** 
 
@@ -237,8 +234,6 @@
 
 • 将其他数值转换为字符串有三种方式：toString()、String()、拼串
 
-
-
 ```
 /*
 * 将其他的数据类型转换为String
@@ -255,13 +250,7 @@
 * 			但是对于null和undefined，就不会调用toString()方法
 * 				它会将 null 直接转换为 "null"
 * 				将 undefined 直接转换为 "undefined"
-* 
-*/
-```
-
-```
-/*
-* String字符串
+*  String字符串
 * 	- 在JS中字符串需要使用引号引起来
 * 	- 使用双引号或单引号都可以，但是不要混着用
 * 	- 引号不能嵌套，双引号不能放双引号，单引号不能放单引号
@@ -292,8 +281,7 @@
 * 在js中，如果需要表示16进制的数字，则需要以0x开头
 * 			如果需要表示8进制的数字，则需要以0开头
 * 			如果要要表示2进制的数字，则需要以0b开头
-* 				但是不是所有的浏览器都支持
-* 	
+* 			但是不是所有的浏览器都支持
 */
 ```
 
@@ -324,13 +312,13 @@
 * 		- 这种方式专门用来对付字符串
 * 		- parseInt() 把一个字符串转换为一个整数
 * 		- parseFloat() 把一个字符串转换为一个浮点数
-      /*
-			 * parseInt()可以将一个字符串中的有效的整数内容去出来，
-			 * 	然后转换为Number
-			   可以在parseInt()中传递一个第二个参数，来指定数字的进制
-			 * 如果对非String使用parseInt()或parseFloat()
-			 * 	它会先将其转换为String然后在操作
-			 */
+/*
+*		 parseInt()可以将一个字符串中的有效的整数内容去出来，
+* 	 然后转换为Number
+*		 可以在parseInt()中传递一个第二个参数，来指定数字的进制
+* 	 如果对非String使用parseInt()或parseFloat()
+*    它会先将其转换为String然后在操作
+*/
 ```
 
 ### Boolean(布尔型) 
