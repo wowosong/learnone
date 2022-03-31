@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2022-03-03 21:04:31
+ * @LastEditTime: 2022-03-27 11:48:07
+ * @LastEditors: Please set LastEditors
+ * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @FilePath: /learn-new/_coverpage.md
+-->
 <img width="180px" style="border-radius: 50%" bor src="wowosong.png">
 
 
@@ -8,5 +16,5 @@
 
 :rocket: 本站访问数：<span id="busuanzi_value_site_pv"></span>次
 
-[Gitee](<https://gitee.com/wowosong/learn>)
+[Gitee](<https://gitee.com/wowosong/learn-new>)
 [开始阅读](README.md)
