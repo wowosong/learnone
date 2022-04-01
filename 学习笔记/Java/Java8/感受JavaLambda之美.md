@@ -375,6 +375,11 @@ public class StreamTest {
 
 > 处理前的集合：[m-k-l-a, 1-3-5] 处理后的集合：[m, k, l, a, 1, 3, 5]
 
+```
+map.forEach((s, integer) -> map2.put(s, integer));
+map.forEach(map2::put);
+```
+
 ## 3.5 归约(reduce)
 
 归约，也称缩减，顾名思义，是把一个流缩减成一个值，能实现对集合求和、求乘积和求最值操作。![图片](https://gitee.com/wowosong/pic-md/raw/master/20210611102018.png)
