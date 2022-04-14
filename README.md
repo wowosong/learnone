@@ -2,8 +2,8 @@
 
 - [📙wowosong学习笔记](http://wowosong.gitee.io/learn/)
   - 前端
-      - [html+css](/学习笔记/前端/html+css（尚硅谷）.md)
-      - [vue](/学习笔记/前端/Vue.md)
+      - [Html+css](/学习笔记/前端/html+css（尚硅谷）.md)
+      - [Vue](/学习笔记/前端/Vue.md)
       - [JavaScript](/学习笔记/前端/JavaScript.md)
   
     - Mysql
@@ -55,7 +55,7 @@
       - [大白话谈IO模型](/学习笔记/数据库/redis/大白话谈IO模型.md)
       - [IO多路复用底层原理](/学习笔记/数据库/redis/IO多路复用底层原理.md)
       - [Redis实现分布式锁](/学习笔记/数据库/redis/Redis实现分布式锁.md)
-    <!-- - Spring -->
+      <!-- - Spring -->
       <!-- - [Spring笔记](/学习笔记/Java/Spring/Spring系列.md) -->
     - Spring路人系列
       - [1.Spring是什么？我们为什么要学习它？](/学习笔记/Java/Spring/luren/1Spring是什么？我们为什么要学习它？.md)
