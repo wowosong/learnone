@@ -2245,7 +2245,7 @@ void initialize() throws Exception;
 
 还是上面的例子，但是策略变为：传入了 “title” 就按 “title” 查找，传入了 “author” 就按 “author” 查找的情形。若两者都没有传入，就返回标记为 featured 的 BLOG（这可能是管理员认为，与其返回大量的无意义随机 Blog，还不如返回一些由管理员挑选的Blog）。
 
-```
+```xml
 <select id="findActiveBlogLike"resultType="Blog">
   SELECT * FROM BLOG 
   WHERE state = ‘ACTIVE’
@@ -2260,13 +2260,11 @@ void initialize() throws Exception;
 </select>
 ```
 
-
-
 ### trim、 where、 set
 
 前面几个例子已经合宜地解决了一个臭名昭著的动态 SQL 问题。现在回到之前的 “if”示例，这次我们将 “state = ‘ACTIVE’” 设置成动态条件，看看会发生什么。
 
-```
+```xml
 <select id="findActiveBlogLike"resultType="Blog">
   SELECT * FROM BLOG
   WHERE
