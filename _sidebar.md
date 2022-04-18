@@ -4,6 +4,8 @@
     - 前端
       - [Html+css](/学习笔记/前端/html+css（尚硅谷）.md)
       - [Vue](/学习笔记/前端/Vue.md)
+      - [Axois](/学习笔记/前端/Axois笔记.md)
+      - [Ajax](/学习笔记/前端/Ajax.md)
       - [JavaScript](/学习笔记/前端/JavaScript.md)
     
     - Mysql
@@ -14,7 +16,7 @@
       - [Mysql索引](/学习笔记/数据库/mysql/Mysql索引.md)
       - [JDBC](/学习笔记/数据库/mysql/JDBC（尚硅谷_宋红康）.md)
       - [常见的SQL面试题：经典50例](/学习笔记/数据库/mysql/常见的SQL面试题：经典50例.md)
-      - [程序员必须清楚的10个高级SQL概念](/学习笔记/数据库/mysql/程序员必须清楚的10个高级SQL概念.md)  
+      - [程序员必须清楚的10个高级SQL概念](/学习笔记/数据库/mysql/程序员必须清楚的10个高级SQL概念.md)
       - [神奇的GroupBy](/学习笔记/数据库/mysql/神奇的Group-By.md)
     - 图灵Mysql进阶
       - [1、深入理解Mysql索引底层数据结构与算法](学习笔记/TL文档/mysql/1、深入理解Mysql索引底层数据结构与算法.md)
