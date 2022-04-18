@@ -912,7 +912,7 @@ ArrayList 不同的时，它具有以下特性：
 
   这时候会抛出来一个新的问题，也就是数据不一致的问题。如果写线程还没来得及写会内存，其他的线程就会读到了脏数据。  
 
-==  这就是 CopyOnWriteArrayList 的思想和原理。就是拷贝一份。  ==
+**==  这就是 CopyOnWriteArrayList 的思想和原理。就是拷贝一份。  ==**
 
 NotSafeDemo 代码修改
 
@@ -920,43 +920,27 @@ NotSafeDemo 代码修改
 package com.atguigu.test;
 
 import java.util. ;
-
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/  
-
-\  集合线程安全案例
-
- /
-
+/ * 
+*  集合线程安全案例
+* /
 public class NotSafeDemo {
-
-/  
-
-\  多个线程同时对集合进行修改
-
-\  @param args
-
- /
+/*  
+*  多个线程同时对集合进行修改
+*  @param args
+*/
 
 public static void main(String[] args) {
 
-List list = new CopyOnWriteArrayList();
-
-for (int i = 0; i < 100; i++) {
-
-new Thread(() ->{
-
-list.add(UUID.randomUUID().toString());
-
-System.out.println(list);
-
-}, "线程" + i).start();
-
-} 
-
-} 
-
+  List list = new CopyOnWriteArrayList();
+  for (int i = 0; i < 100; i++) {
+    new Thread(() ->{
+      list.add(UUID.randomUUID().toString());
+      System.out.println(list);
+      }, "线程" + i).start();
+    } 
+  } 
 }
 ```
 
@@ -968,21 +952,21 @@ System.out.println(list);
 
 •   “动态数组”机制  
 
-o 它内部有个“volatile 数组”(array)来保持数据。在“添加/修改/删除”数据时，都会新建一个数组，并将更新后的数据拷贝到新建的数组中，最后再将该数组赋值给“volatile 数组”, 这就是它叫做 CopyOnWriteArrayList 的原因
+1. 它内部有个“volatile 数组”(array)来保持数据。在“添加/修改/删除”数据时，都会新建一个数组，并将更新后的数据拷贝到新建的数组中，最后再将该数组赋值给“volatile 数组”, 这就是它叫做 CopyOnWriteArrayList 的原因
 
-o   由于它在“添加/修改/删除”数据时，都会新建数组，所以涉及到修改数据的操作，CopyOnWriteArrayList 效率很低；但是单单只是进行遍历查找的话，效率比较高。  
+2.  由于它在“添加/修改/删除”数据时，都会新建数组，所以涉及到修改数据的操作，CopyOnWriteArrayList 效率很低；但是单单只是进行遍历查找的话，效率比较高。  
 
 •   “线程安全”机制  
 
-o 通过 volatile 和互斥锁来实现的。
+1.  通过 volatile 和互斥锁来实现的。
 
-o 通过“volatile 数组”来保存数据的。一个线程读取 volatile 数组时，总能看到其它线程对该 volatile 变量最后的写入；就这样，通过 volatile 提供了“读取到的数据总是最新的”这个机制的保证。
+2. 通过“volatile 数组”来保存数据的。一个线程读取 volatile 数组时，总能看到其它线程对该 volatile 变量最后的写入；就这样，通过 volatile 提供了“读取到的数据总是最新的”这个机制的保证。
 
-o 通过互斥锁来保护数据。在“添加/修改/删除”数据时，会先“获取互斥锁”，再修改完毕之后，先将数据更新到“volatile 数组”中，然后再“释放互斥锁”，就达到了保护数据的目的。
+3. 通过互斥锁来保护数据。在“添加/修改/删除”数据时，会先“获取互斥锁”，再修改完毕之后，先将数据更新到“volatile 数组”中，然后再“释放互斥锁”，就达到了保护数据的目的。
 
 ###   4.5 小结(重点)   
 
-  1.线程安全与线程不安全集合  
+1. 线程安全与线程不安全集合  
 
 集合类型中存在线程安全与线程不安全的两种,常见例如:
 
@@ -992,9 +976,9 @@ HashMap -----HashTable
 
 但是以上都是通过 synchronized 关键字实现,效率较低
 
-  2.Collections 构建的线程安全集合    3.java.util.concurrent 并发包下  
+2. Collections 构建的线程安全集合    
 
-CopyOnWriteArrayList CopyOnWriteArraySet 类型,通过动态数组与线程安全个方面保证线程安全
+3. java.util.concurrent 并发包下  CopyOnWriteArrayList CopyOnWriteArraySet 类型,通过动态数组与线程安全个方面保证线程安全
 
 ##   5 多线程锁   
 
@@ -1002,37 +986,21 @@ CopyOnWriteArrayList CopyOnWriteArraySet 类型,通过动态数组与线程安�
 
 ```java
 class Phone {
-
- public static synchronized void sendSMS() throws Exception {
-
- //停留4秒
-
- TimeUnit.SECONDS.sleep(4);
-
- System.out.println("------sendSMS");
-
- }
-
- public synchronized void sendEmail() throws Exception {
-
- System.out.println("------sendEmail");
-
- }
-
- public void getHello() {
-
- System.out.println("------getHello");
-
- }
-
+ 	 public static synchronized void sendSMS() throws Exception {
+     //停留4秒
+     TimeUnit.SECONDS.sleep(4);
+     System.out.println("------sendSMS");
+   }
+   public synchronized void sendEmail() throws Exception {
+   		System.out.println("------sendEmail");
+   }
+   public void getHello() {
+  		System.out.println("------getHello");
+   }
 }
 ```
 
-/  
-
-\    @Description:   8 锁 
-
- 
+@Description:   8 锁 
 
 1 标准访问，先打印短信还是邮件
 
@@ -1062,7 +1030,9 @@ class Phone {
 
 ------sendSMS
 
-------sendEmail6 两个静态同步方法，2 部手机，先打印短信还是邮件
+------sendEmail
+
+6 两个静态同步方法，2 部手机，先打印短信还是邮件
 
 ------sendSMS
 
@@ -1094,13 +1064,13 @@ class Phone {
 
 synchronized 实现同步的基础：Java 中的每一个对象都可以作为锁。
 
-  具体表现为以下     3     种形式。  
+  **具体表现为以下 3 种形式。**  
 
-  对于普通同步方法，锁是当前实例对象。  
+  **对于普通同步方法，锁是当前实例对象。**  
 
-  对于静态同步方法，锁是当前类的     Class     对象。  
+  **对于静态同步方法，锁是当前类的Class对象。**  
 
-  对于同步方法块，锁是     Synchonized     括号里配置的对象  
+  **对于同步方法块，锁是 Synchonized括号里配置的对象**  
 
 当一个线程试图访问同步代码块时，它首先必须得到锁，退出或抛出异常时必须释放锁。也就是说如果一个实例对象的非静态同步方法获取锁后，该实例对象的其他非静态同步方法必须等待获取锁的方法释放锁后才能获取锁，可是别的实例对象的非静态同步方法因为跟该实例对象的非静态同步方法用的是不同的锁，所以毋须等待该实例对象已获取锁的非静态同步方法释放锁就可以获取他们自己的锁。所有的静态同步方法用的也是同一把锁——类对象本身，这两把锁是两个不同的对象，所以静态同步方法与非静态同步方法之间是不会有竞态条件的。
 
@@ -1112,7 +1082,7 @@ synchronized 实现同步的基础：Java 中的每一个对象都可以作为�
 
 目前我们学习了有两种创建线程的方法-一种是通过创建 Thread 类，另一种是通过使用 Runnable 创建线程。但是，Runnable 缺少的一项功能是，当线程终止时（即 run（）完成时），我们无法使线程返回结果。为了支持此功能，Java 中提供了 Callable 接口。
 
-==  现在我们学习的是创建线程的第三种方案---Callable 接口  ==
+**==  现在我们学习的是创建线程的第三种方案---Callable 接口  ==**
 
   Callable 接口的特点如下(重点)   
 
@@ -1128,13 +1098,10 @@ synchronized 实现同步的基础：Java 中的每一个对象都可以作为�
 
 ```java
 class MyThread implements Runnable{
-
-@Override
-
-public void run() {
-
-}
-
+  @Override
+  public void run() {
+    
+  }
 }
 ```
 
@@ -1142,15 +1109,10 @@ public void run() {
 
 ```java
 class MyThread2 implements Callable<Integer>{
-
-@Override
-
-public Integer call() throws Exception {
-
-return 200; 
-
-}
-
+  @Override
+  public Integer call() throws Exception {
+  	return 200; 
+  }
 }
 ```
 
@@ -1160,11 +1122,11 @@ return 200;
 
 •   public boolean cancel（boolean mayInterrupt）：  用于停止任务。
 
-==如果尚未启动，它将停止任务。如果已启动，则仅在 mayInterrupt 为 true时才会中断任务。==
+**==如果尚未启动，它将停止任务。如果已启动，则仅在 mayInterrupt 为 true时才会中断任务。==**
 
 •   public Object get（）抛出 InterruptedException，ExecutionException：  用于获取任务的结果。
 
-==如果任务完成，它将立即返回结果，否则将等待任务完成，然后返回结果。==
+**==如果任务完成，它将立即返回结果，否则将等待任务完成，然后返回结果。==**
 
 •   public boolean isDone（）：  如果任务完成，则返回 true，否则返回 false
 
