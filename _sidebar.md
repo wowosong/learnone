@@ -4,7 +4,7 @@
     - 前端
       - [Html+css](/学习笔记/前端/html+css（尚硅谷）.md)
       - [Vue](/学习笔记/前端/Vue.md)
-      - [Axois](/学习笔记/前端/Axois笔记.md)
+      - [Axios](/学习笔记/前端/Axois笔记.md)
       - [Ajax](/学习笔记/前端/Ajax.md)
       - [JavaScript](/学习笔记/前端/JavaScript.md)
     
