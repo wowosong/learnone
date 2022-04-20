@@ -2051,47 +2051,26 @@ public static void main(String[] args) {
 //定时线程次:线程数量为 3---窗口数为 3
 
 ExecutorService threadService = new ThreadPoolExecutor(3, 3,60L,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),Executors.defaultThreadFactory(),new ThreadPoolExecutor.DiscardOldestPolicy());
-
 try {
-
-//10 个人买票
-
-for (int i = 1; i <= 10; i++) {
-
-threadService.execute(()->{
-
-try {
-
-System.out.println(Thread.currentThread().getName() + "窗口,开始卖票");
-
-Thread.sleep(5000);
-
-System.out.println(Thread.currentThread().getName() + "窗口买票结束");
-
-}catch (Exception e){
-
-e.printStackTrace();
-
-}
-
-});
-
-} 
-
-}catch (Exception e){
-
-e.printStackTrace();
-
-}finally {
-
-//完成后结束
-
-threadService.shutdown();
-
-} 
-
-} 
-
+  //10 个人买票
+  for (int i = 1; i <= 10; i++) {
+    threadService.execute(()->{
+    try {
+      System.out.println(Thread.currentThread().getName() + "窗口,开始卖票");
+      Thread.sleep(5000);
+      System.out.println(Thread.currentThread().getName() + "窗口买票结束");
+    }catch (Exception e){
+    	e.printStackTrace();
+    }
+    });
+  } 
+  }catch (Exception e){
+  		e.printStackTrace();
+  }finally {
+  	//完成后结束
+  	threadService.shutdown();
+  } 
+  } 
 }
 ```
 
@@ -2157,7 +2136,7 @@ Fork/Join 它可以将一个大的任务拆分成多个子任务进行并行处�
 
 在 Java 的 Fork/Join 框架中，使用两个类完成上述操作
 
-•   **ForkJoinTask**  :我们要使用 Fork/Join 框架，首先需要创建一个 ForkJoin 任务。该类提供了在任务中执行 fork 和 join 的机制。通常情况下我们不需要直接集成 ForkJoinTask 类，只需要继承它的子类，Fork/Join 框架提供了两个子类：
+•   **ForkJoinTask**  :我们要使用 Fork/Join 框架，首先需要创建一个 ForkJoin 任务。该类提供了在任务中执行 fork 和 join 的机制。**通常情况下我们不需要直接集成 ForkJoinTask 类，只需要继承它的子类，Fork/Join 框架提供了两个子类：**
 
  a.RecursiveAction：用于没有返回结果的任务
 
@@ -2292,59 +2271,51 @@ import java.util.concurrent.RecursiveTask;
 */
 
 public class TaskExample extends RecursiveTask<Long> {
+  private int start;
+  private int end;
+  private long sum;
 
-private int start;
+  /*  
+  *  构造函数
+  *  @param start
+  *  @param end
+  */
 
-private int end;
+  public TaskExample(int start, int end){
+    this.start = start;
+    this.end = end; 
+  }
 
-private long sum;
+  /*  
+  *  The main computation performed by this task.
+  *  @return the result of the computation
+  */
+  @Override
+  protected Long compute() {
 
+    System.out.println("任务" + start + "=========" + end + "累加开始");
 
-/*  
-*  构造函数
-*  @param start
-*  @param end
-*/
-
-public TaskExample(int start, int end){
-
-this.start = start;
-
-this.end = end; 
-
-}
-
-/*  
-*  The main computation performed by this task.
-*  @return the result of the computation
-*/
-@Override
-protected Long compute() {
-
-  System.out.println("任务" + start + "=========" + end + "累加开始");
-
-  //大于 100 个数相加切分,小于直接加
-  if(end - start <= 100){
-    for (int i = start; i <= end; i++) {
-      //累加
-      sum += i; 
-    } 
-    }else {
-      //切分为 2 块
-      int middle = start + 100;
-      //递归调用,切分为 2 个小任务
-      TaskExample taskExample1 = new TaskExample(start, middle);
-      TaskExample taskExample2 = new TaskExample(middle + 1, end);
-      //执行:异步
-      taskExample1.fork();
-      taskExample2.fork();
-      //同步阻塞获取执行结果
-      sum = taskExample1.join() + taskExample2.join();
-    }
-    //加完返回
-    return sum; 
-   } 
-
+    //大于 100 个数相加切分,小于直接加
+    if(end - start <= 100){
+      for (int i = start; i <= end; i++) {
+        //累加
+        sum += i; 
+      } 
+      }else {
+        //切分为 2 块
+        int middle = start + 100;
+        //递归调用,切分为 2 个小任务
+        TaskExample taskExample1 = new TaskExample(start, middle);
+        TaskExample taskExample2 = new TaskExample(middle + 1, end);
+        //执行:异步
+        taskExample1.fork();
+        taskExample2.fork();
+        //同步阻塞获取执行结果
+        sum = taskExample1.join() + taskExample2.join();
+      }
+      //加完返回
+      return sum; 
+     } 
 }
 
 package com.atguigu.test;
@@ -2430,36 +2401,22 @@ Future 的 API 没有任何的异常处理的 api，所以在异步运行时，�
 
 public static void main(String[] args) throws Exception{
 
-CompletableFuture<String> future = new CompletableFuture<>();
+		CompletableFuture<String> future = new CompletableFuture<>();
 
-new Thread(() -> {
-
-try{
-
-System.out.println(Thread.currentThread().getName() + "子线程开始干活");
-
-//子线程睡 5 秒
-
-Thread.sleep(5000);
-
-//在子线程中完成主线程
-
-future.complete("success");
-
-}catch (Exception e){
-
-e.printStackTrace();
-
-}
-
-}, "A").start();
-
-//主线程调用 get 方法阻塞
-
-System.out.println("主线程调用 get 方法获取结果为: " + future.get());
-
-System.out.println("主线程完成,阻塞结束!!!!!!");
-
+		new Thread(() -> {
+    	try{
+        System.out.println(Thread.currentThread().getName() + "子线程开始干活");
+        //子线程睡 5 秒
+        Thread.sleep(5000);
+        //在子线程中完成主线程
+        future.complete("success");
+      }catch (Exception e){
+     		e.printStackTrace();
+      }
+    }, "A").start();
+    //主线程调用 get 方法阻塞
+    System.out.println("主线程调用 get 方法获取结果为: " + future.get());
+    System.out.println("主线程完成,阻塞结束!!!!!!");
 }  
 ```
 
@@ -2476,17 +2433,17 @@ public static void main(String[] args) throws Exception{
  System.out.println("主线程开始");
  //运行一个没有返回值的异步任务
  CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
- try {
- System.out.println("子线程启动干活");
- Thread.sleep(5000);
- System.out.println("子线程完成");
- } catch (Exception e) {
- e.printStackTrace();
- }
- });
- //主线程阻塞
- future.get();
- System.out.println("主线程结束");
+   try {
+     System.out.println("子线程启动干活");
+     Thread.sleep(5000);
+     System.out.println("子线程完成");
+   } catch (Exception e) {
+   		e.printStackTrace();
+   }
+   });
+   //主线程阻塞
+   future.get();
+   System.out.println("主线程结束");
 }
 ```
 
@@ -2499,36 +2456,21 @@ public static void main(String[] args) throws Exception{
 
 public static void main(String[] args) throws Exception{
 
- System.out.println("主线程开始");
-
- //运行一个有返回值的异步任务
-
- CompletableFuture<String> future = 
-
-CompletableFuture.supplyAsync(() -> {
-
- try {
-
- System.out.println("子线程开始任务");
-
- Thread.sleep(5000);
-
- } catch (Exception e) {
-
- e.printStackTrace();
-
+   System.out.println("主线程开始");
+   //运行一个有返回值的异步任务
+   CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+   try {
+     System.out.println("子线程开始任务");
+     Thread.sleep(5000);
+   } catch (Exception e) {
+   	 e.printStackTrace();
+   }
+   return "子线程完成了!";
+   });
+   //主线程阻塞
+   String s = future.get();
+   System.out.println("主线程结束, 子线程的结果为:" + s);
  }
-
- return "子线程完成了!";
-
- });
-
- //主线程阻塞
-
- String s = future.get();
-
- System.out.println("主线程结束, 子线程的结果为:" + s);
-
 }
 ```
 
@@ -2544,36 +2486,20 @@ private static Integer num = 10;
 */
 
 public static void main(String[] args) throws Exception{
-
  System.out.println("主线程开始");
-
- CompletableFuture<Integer> future = 
-
-CompletableFuture.supplyAsync(() -> {
-
- try {
-
- System.out.println("加 10 任务开始");
-
- num += 10;
-
- } catch (Exception e) {
-
- e.printStackTrace();
-
- }
-
- return num;
-
- }).thenApply(integer -> {
-
- return num   num;
-
- });
-
- Integer integer = future.get();
-
- System.out.println("主线程结束, 子线程的结果为:" + integer);
+ CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
+   try {
+       System.out.println("加 10 任务开始");
+       num += 10;
+     } catch (Exception e) {
+     		e.printStackTrace();
+     }
+   		return num;
+   }).thenApply(integer -> {
+   		return num*num;
+   });
+   Integer integer = future.get();
+   System.out.println("主线程结束, 子线程的结果为:" + integer);
  }
 ```
 
@@ -2585,41 +2511,22 @@ thenAccept 消费处理结果, 接收任务的处理结果，并消费处理，�
 public static void main(String[] args) throws Exception{
 
  System.out.println("主线程开始");
-
  CompletableFuture.supplyAsync(() -> {
-
- try {
-
- System.out.println("加 10 任务开始");
-
- num += 10;
-
- } catch (Exception e) {
-
- e.printStackTrace();
-
- }
-
- return num;
-
- }).thenApply(integer -> {
-
- return num   num;
-
- }).thenAccept(new Consumer<Integer>() {
-
- @Override
-
- public void accept(Integer integer) {
-
- System.out.println("子线程全部处理完成,最后调用了 accept,结果为:" + 
-
-integer);
-
- }
-
+   try {
+     System.out.println("加 10 任务开始");
+     num += 10;
+   } catch (Exception e) {
+     e.printStackTrace();
+   }
+   return num;
+   }).thenApply(integer -> {
+   		return num*num;
+   }).thenAccept(new Consumer<Integer>() {
+   @Override
+   public void accept(Integer integer) {
+   		System.out.println("子线程全部处理完成,最后调用了 accept,结果为:" + integer);
+   }
  });
-
 }
 ```
 
@@ -2631,27 +2538,16 @@ integer);
 public static void main(String[] args) throws Exception{
 
  System.out.println("主线程开始");
-
  CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
-
  int i= 1/0;
-
  System.out.println("加 10 任务开始");
-
  num += 10;
-
  return num;
-
  }).exceptionally(ex -> {
-
  System.out.println(ex.getMessage());
-
  return -1;
-
  });
-
  System.out.println(future.get());
-
 }
 ```
 
@@ -2659,37 +2555,21 @@ handle 类似于 thenAccept/thenRun 方法,是最后一步的处理调用,但是
 
 ```java
 public static void main(String[] args) throws Exception{
-
-System.out.println("主线程开始");
-
-CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
-
-System.out.println("加 10 任务开始");
-
-num += 10;
-
-return num;
-
-}).handle((i,ex) ->{
-
-System.out.println("进入 handle 方法");
-
-if(ex != null){
-
-System.out.println("发生了异常,内容为:" + ex.getMessage());
-
-return -1; 
-
-}else{
-
-System.out.println("正常完成,内容为: " + i);
-
-return i; 
-
-}});
-
-System.out.println(future.get());
-
+  System.out.println("主线程开始");
+  CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
+      System.out.println("加 10 任务开始");
+      num += 10;
+      return num;
+    }).handle((i,ex) ->{
+      System.out.println("进入 handle 方法");
+      if(ex != null){
+      System.out.println("发生了异常,内容为:" + ex.getMessage());
+      return -1; 
+    }else{
+      System.out.println("正常完成,内容为: " + i);
+      return i; 
+  }});
+  System.out.println(future.get());
 }
 ```
 
@@ -2699,37 +2579,21 @@ thenCompose 合并两个有依赖关系的 CompletableFutures 的执行结果
 
 ```java
 public static void main(String[] args) throws Exception{
-
-System.out.println("主线程开始");
-
-//第一步加 10
-
-CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
-
-System.out.println("加 10 任务开始");
-
-num += 10;
-
-return num;
-
-});
-
-//合并
-
-CompletableFuture<Integer> future1 = future.thenCompose(i ->
-
-//再来一个 CompletableFuture
-
-CompletableFuture.supplyAsync(() -> {
-
-return i + 1;
-
-}));
-
-System.out.println(future.get());
-
-System.out.println(future1.get());
-
+  System.out.println("主线程开始");
+  //第一步加 10
+  CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
+    System.out.println("加 10 任务开始");
+    num += 10;
+    return num;
+  });
+  //合并
+  CompletableFuture<Integer> future1 = future.thenCompose(i ->
+    //再来一个 CompletableFuture
+    CompletableFuture.supplyAsync(() -> {
+    return i + 1;
+  }));
+  System.out.println(future.get());
+  System.out.println(future1.get());
 }
 ```
 
@@ -2738,50 +2602,29 @@ thenCombine 合并两个没有依赖关系的 CompletableFutures 任务
 ```java
 public static void main(String[] args) throws Exception{
 
-System.out.println("主线程开始");
-
-CompletableFuture<Integer> job1 = CompletableFuture.supplyAsync(() -> {
-
-System.out.println("加 10 任务开始");
-
-num += 10;
-
-return num;
-
-});
-
-CompletableFuture<Integer> job2 = CompletableFuture.supplyAsync(() -> {System.out.println("乘以 10 任务开始");
-
-num = num   10;
-
-return num;
-
-});
-
-//合并两个结果
-
-CompletableFuture<Object> future = job1.thenCombine(job2, new
-
-BiFunction<Integer, Integer, List<Integer>>() {
-
-@Override
-
-public List<Integer> apply(Integer a, Integer b) {
-
-List<Integer> list = new ArrayList<>();
-
-list.add(a);
-
-list.add(b);
-
-return list; 
-
-}
-
-});
-
-System.out.println("合并结果为:" + future.get());
-
+  System.out.println("主线程开始");
+  CompletableFuture<Integer> job1 = CompletableFuture.supplyAsync(() -> {
+    System.out.println("加 10 任务开始");
+    num += 10;
+    return num;
+  });
+  CompletableFuture<Integer> job2 = CompletableFuture.supplyAsync(() ->{
+    System.out.println("乘以 10 任务开始");
+    num = num*10;
+    return num;
+  });
+  //合并两个结果
+  CompletableFuture<Object> future = job1.thenCombine(job2, new
+    BiFunction<Integer, Integer, List<Integer>>() {
+    @Override
+    public List<Integer> apply(Integer a, Integer b) {
+      List<Integer> list = new ArrayList<>();
+      list.add(a);
+      list.add(b);
+      return list; 
+    }
+  });
+  System.out.println("合并结果为:" + future.get());
 }
 ```
 
@@ -2790,182 +2633,104 @@ System.out.println("合并结果为:" + future.get());
   allOf:   一系列独立的 future 任务，等其所有的任务执行完后做一些事情
 
 ```java
-/  
-
-\  先对一个数加 10,然后取平方
-
-\  @param args
-
- /
+/*
+*  先对一个数加 10,然后取平方
+*  @param args
+*/
 
 public static void main(String[] args) throws Exception{
 
-System.out.println("主线程开始");
+  System.out.println("主线程开始");
+  List<CompletableFuture> list = new ArrayList<>();
+  CompletableFuture<Integer> job1 = CompletableFuture.supplyAsync(() -> {
+    System.out.println("加 10 任务开始");
+    num += 10;
+    return num;
+  });
+  list.add(job1);
+  CompletableFuture<Integer> job2 = CompletableFuture.supplyAsync(() -> {
+    System.out.println("乘以 10 任务开始");
+    num = num * 10;
+    return num;
+  });
 
-List<CompletableFuture> list = new ArrayList<>();
-
-CompletableFuture<Integer> job1 = CompletableFuture.supplyAsync(() -> {
-
-System.out.println("加 10 任务开始");
-
-num += 10;
-
-return num;
-
-});
-
-list.add(job1);
-
-CompletableFuture<Integer> job2 = CompletableFuture.supplyAsync(() -> {
-
-System.out.println("乘以 10 任务开始");num = num   10;
-
-return num;
-
-});
-
-list.add(job2);
-
-CompletableFuture<Integer> job3 = CompletableFuture.supplyAsync(() -> {
-
-System.out.println("减以 10 任务开始");
-
-num = num   10;
-
-return num;
-
-});
-
-list.add(job3);
-
-CompletableFuture<Integer> job4 = CompletableFuture.supplyAsync(() -> {
-
-System.out.println("除以 10 任务开始");
-
-num = num   10;
-
-return num;
-
-});
-
-list.add(job4);
-
-//多任务合并
-
-List<Integer> collect =
-
-list.stream().map(CompletableFuture<Integer>::join).collect(Collectors.toList());
-
-System.out.println(collect);
-
+  list.add(job2);
+  CompletableFuture<Integer> job3 = CompletableFuture.supplyAsync(() -> {
+    System.out.println("减以 10 任务开始");
+    num = num*10;
+    return num;
+  });
+  list.add(job3);
+  CompletableFuture<Integer> job4 = CompletableFuture.supplyAsync(() -> {
+    System.out.println("除以 10 任务开始");
+    num = num*10;
+    return num;
+  });
+  list.add(job4);
+  //多任务合并
+  List<Integer> collect =
+  list.stream().map(CompletableFuture<Integer>::join).collect(Collectors.toList());
+  System.out.println(collect);
 }
 ```
 
   anyOf  : 只要在多个 future 里面有一个返回，整个任务就可以结束，而不需要等到每一个future 结束
 
 ```java
-/  
-
-\  先对一个数加 10,然后取平方
-
-\  @param args
-
- /
+/*  
+*  先对一个数加 10,然后取平方
+*  @param args
+*/
 
 public static void main(String[] args) throws Exception{
-
-System.out.println("主线程开始");
-
-CompletableFuture<Integer>[] futures = new CompletableFuture[4];
-
-CompletableFuture<Integer> job1 = CompletableFuture.supplyAsync(() -> {
-
-try{
-
-Thread.sleep(5000);
-
-System.out.println("加 10 任务开始");num += 10;
-
-return num; 
-
-}catch (Exception e){
-
-return 0; 
-
-}
-
-});
-
-futures[0] = job1;
-
-CompletableFuture<Integer> job2 = CompletableFuture.supplyAsync(() -> {
-
-try{
-
-Thread.sleep(2000);
-
-System.out.println("乘以 10 任务开始");
-
-num = num   10;
-
-return num; 
-
-}catch (Exception e){
-
-return 1; 
-
-}
-
-});
-
-futures[1] = job2;
-
-CompletableFuture<Integer> job3 = CompletableFuture.supplyAsync(() -> {
-
-try{
-
-Thread.sleep(3000);
-
-System.out.println("减以 10 任务开始");
-
-num = num   10;
-
-return num; 
-
-}catch (Exception e){
-
-return 2; 
-
-}
-
-});
-
-futures[2] = job3;
-
-CompletableFuture<Integer> job4 = CompletableFuture.supplyAsync(() -> {
-
-try{
-
-Thread.sleep(4000);
-
-System.out.println("除以 10 任务开始");num = num   10;
-
-return num; 
-
-}catch (Exception e){
-
-return 3; 
-
-}
-
-});
-
-futures[3] = job4;
-
-CompletableFuture<Object> future = CompletableFuture.anyOf(futures);
-
-System.out.println(future.get());
-
+  System.out.println("主线程开始");
+  CompletableFuture<Integer>[] futures = new CompletableFuture[4];
+  CompletableFuture<Integer> job1 = CompletableFuture.supplyAsync(() -> {
+  try{
+    Thread.sleep(5000);
+    System.out.println("加 10 任务开始");
+    num += 10;
+    return num; 
+  }catch (Exception e){
+  	return 0; 
+  }
+  });
+  futures[0] = job1;
+  CompletableFuture<Integer> job2 = CompletableFuture.supplyAsync(() -> {
+  try{
+    Thread.sleep(2000);
+    System.out.println("乘以 10 任务开始");
+    num = num*10;
+  	return num; 
+  }catch (Exception e){
+  	return 1; 
+  }
+  });
+  futures[1] = job2;
+  CompletableFuture<Integer> job3 = CompletableFuture.supplyAsync(() -> {
+  try{
+    Thread.sleep(3000);
+    System.out.println("减以 10 任务开始");
+    num = num *10;
+    return num; 
+  }catch (Exception e){
+ 	 return 2; 
+  }
+  });
+  futures[2] = job3;
+  CompletableFuture<Integer> job4 = CompletableFuture.supplyAsync(() -> {
+  try{
+    Thread.sleep(4000);
+    System.out.println("除以 10 任务开始");
+    num = num/10;
+    return num; 
+  }catch (Exception e){
+  	return 3; 
+  }
+  });
+  futures[3] = job4;
+  CompletableFuture<Object> future = CompletableFuture.anyOf(futures);
+  System.out.println(future.get());
 }
 ```
 
