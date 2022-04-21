@@ -1,13 +1,11 @@
 
-ECMAScript 6-11
+
 
 # 第 1 章 ECMASript 相关介绍
 
 ## 1.1.什么是 ECMA
 
-ECMA（European Computer Manufacturers Association） 中文名称为欧洲计算机制
-造商协会， 这个组织的目标是评估、开发和认可电信和计算机标准。 1994 年后该
-组织改名为 Ecma 国际。
+ECMA（European Computer Manufacturers Association） 中文名称为欧洲计算机制造商协会， 这个组织的目标是评估、开发和认可电信和计算机标准。 1994 年后该组织改名为 Ecma 国际。
 
 ## 1.2.什么是 ECMAScript
 
