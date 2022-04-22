@@ -54,7 +54,7 @@
 
 ```java
 public enum State {
-/**
+				/**
          * Thread state for a thread which has not yet started.
          */
         NEW（新建）,
@@ -65,7 +65,7 @@ public enum State {
          * be waiting for other resources from the operating system
          * such as processor.
          */
-        RUNNABLE（（准备就绪）,
+        RUNNABLE（准备就绪）,
 
         /**
          * Thread state for a thread blocked waiting for a monitor lock.
@@ -133,7 +133,7 @@ public enum State {
 
 串行表示所有任务都一一按先后顺序进行。串行意味着必须先装完一车柴才能运送这车柴，只有运送到了，才能卸下这车柴，并且只有完成了这整个三个步骤，才能进行下一个步骤。
 
-  **串行是一次只能取得一个任务，并执行这个任务  。**
+ **串行是一次只能取得一个任务，并执行这个任务  。**
 
 ####   1.4.2 并行模式   
 
@@ -149,11 +149,11 @@ public enum State {
 
 - 可能出现还没准备好第一步就执行第二步的可能。这时，一般采用多路复用或异步的方式，比如只有准备好产生了事件通知才执行某个任务。
 
-- 可以多进程/多线程的方式并行执行这些小任务。也可以单进程/单线程执行这些小任务，这时很可能要配合多路复用才能达到较高的效率
+- 可以多进程/多线程的方式并行执行这些小任务。也可以单进程/单线程执行这些小任务，这时很可能要配合**多路复用**才能达到较高的效率
 
 ####   1.4.4 小结(重点)   
 
-  **并发**：  同一时刻多个线程在访问同一个资源，多个线程对一个点
+  **并发**：  **同一时刻多个线程在访问同一个资源，多个线程对一个点**
 
  例子：春运抢票 电商秒杀...
 
@@ -165,19 +165,19 @@ public enum State {
 
 ![01-进程和线程概念](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E9%AB%98%E5%B9%B6%E5%8F%91/JUC%E9%AB%98%E5%B9%B6%E5%8F%91.assets/01-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%A6%82%E5%BF%B5-165025349172114.png)
 
-管程(monitor)是保证了同一时刻只有一个进程在管程内活动，即管程内定义的操作在同一时刻只被一个进程调用(由编译器实现).但是这样并不能保证进程以设计的顺序执行
+管程(monitor)是保证了同一时刻只有一个进程在管程内活动，即管程内定义的操作在同一时刻只被一个进程调用(由编译器实现)。但是这样并不能保证进程以设计的顺序执行
 
 **JVM 中同步是基于进入和退出管程(monitor)对象实现的，每个对象都会有一个管程(monitor)对象，管程(monitor)会随着 java 对象一同创建和销毁**
 
 **执行线程首先要持有管程对象，然后才能执行方法，当方法完成之后会释放管程，方法在执行时候会持有管程，其他线程无法再获取同一个管程**
 
-###   1.6 用户线程和守护线程   
+###   1.6 用户线程和守护线程 
 
   用户线程  : 平时用到的普通线程，自定义线程
 
   守护线程  : 运行在后台，是一种特殊的线程，比如垃圾回收
 
-  **当主线程结束后 ,  用户线程还在运行,JVM存活**  
+  **当主线程结束后 ,  用户线程还在运行，JVM存活**  
 
   **如果没有用户线程，都是守护线程，JVM 结束**  
 
@@ -189,15 +189,15 @@ public enum State {
 
 synchronized 是 Java 中的关键字，是一种同步锁。它修饰的对象有以下几种：
 
-1. 修饰一个**代码块**，被修饰的代码块称为同步语句块，其作用的范围是大括号{ }括起来的代码，作用的对象是调用这个代码块的对象；
+1. 修饰一个**代码块**，被修饰的代码块称为**同步语句块**，其作用的范围是大括号{ }括起来的代码，作用的对象是调用这个代码块的对象；
 
-2. 修饰一个**方法**，被修饰的方法称为同步方法，其作用的范围是整个方法，作用的对象是调用这个方法的对象；
+2. 修饰一个**方法**，被修饰的方法称为**同步方法**，其作用的范围是整个方法，作用的对象是调用这个方法的对象；
 
-虽然可以使用 synchronized 来定义方法，但 synchronized 并不属于方法定义的一部分，因此，**synchronized 关键字不能被继承**。如果在父类中的某个方法使用了 synchronized 关键字，而在子类中覆盖了这个方法，在子类中的这个方法默认情况下并不是同步的，而必须显式地在子类的这个方法中加上synchronized 关键字才可以。当然，还可以在子类方法中调用父类中相应的方法，这样虽然子类中的方法不是同步的，但子类调用了父类的同步方法，因此，子类的方法也就相当于同步了。
+虽然可以使用 synchronized 来定义方法，但 synchronized 并不属于方法定义的一部分，因此，**synchronized 关键字不能被继承**。如果在父类中的某个方法使用了 synchronized 关键字，而在子类中覆盖了这个方法，在子类中的这个方法默认情况下并不是同步的，而必须显式地在子类的这个方法中加上synchronized 关键字才可以。当然，还可以在子类方法中调用父类中相应的方法，这样虽然子类中的方法不是同步的，但**子类调用了父类的同步方法，因此，子类的方法也就相当于同步了**。
 
-3. 修改一个静态的方法，其作用的范围是整个静态方法，作用的对象是这个类的所有对象；
+3. 修饰一个静态的方法，其作用的范围是整个静态方法，作用的对象是这个类的所有对象；
 
-4. 修改一个类，其作用的范围是 synchronized 后面括号括起来的部分，作用主的对象是这个类的所有对象。
+4. 修饰一个类，其作用的范围是 synchronized 后面括号括起来的部分，作用的对象是这个类的所有对象。
 
   2.1.2 售票案例  
 
@@ -227,7 +227,7 @@ class Ticket {
 
 ###   2.2 什么是 Lock  
 
-Lock 锁实现提供了比使用同步方法和语句可以获得的更广泛的锁操作。它们允许更灵活的结构，可能具有非常不同的属性，并且可能支持多个关联的条件对象。Lock 提供了比 synchronized 更多的功能。
+Lock 锁实现提供了比使用同步方法和语句可以获得的更广泛的锁操作。它们允许更灵活的结构，可能具有非常不同的属性，并且可能支持多个关联的条件对象。**Lock 提供了比 synchronized 更多的功能**。
 
   **Lock 与的 Synchronized 区别** 
 
@@ -414,9 +414,9 @@ public class Test {
 
 **==  注意:  ==**
 
-**• 如果有一个线程已经占用了读锁，则此时其他线程如果要申请写锁，则申请写锁的线程会一直等待释放读锁。**
+**• 如果有一个线程已经占用了读锁(共享锁)，则此时其他线程如果要申请写锁，则申请写锁的线程会一直等待释放读锁。**
 
-**• 如果有一个线程已经占用了写锁，则此时其他线程如果申请写锁或者读锁，则申请的线程会一直等待释放写锁。**
+**• 如果有一个线程已经占用了写锁（独占锁），则此时其他线程如果申请写锁或者读锁，则申请的线程会一直等待释放写锁。**
 
 ###   2.5 小结(重点)  
 
@@ -434,7 +434,7 @@ Lock 和 synchronized 有以下几点不同：
 
 **在性能上来说，如果竞争资源不激烈，两者的性能是差不多的，而当竞争资源非常激烈时（即有大量线程同时竞争），此时 Lock 的性能要远远优于synchronized**。 
 
-##   3 线程间通信   
+##   3 线程间通信
 
 线程间通信的模型有两种：**共享内存和消息传递**，以下方式都是基本这两种模型来实现的。我们来基本一道面试常见的题目来分析
 
@@ -516,14 +516,14 @@ class DemoClass1 {
         try {
              //用if，存在虚假唤醒问题，
             while (number != 0) {
-//           等待并释放锁，在哪里睡就在哪里醒
-//          会跳过if判断条件
-                this.wait();
+                //等待并释放锁，在哪里睡就在哪里醒
+                //会跳过if判断条件
+                 contional.await();
             }
             number++;
-            System.out.println("--------" + Thread.currentThread().getName() + "加一成功----------,值为:" + number);
-//            通知其他线程
-            notifyAll();
+            System.out.println(""+Thread.currentThread().getName()+"加一成功,值为:" +number);
+						//通知其他线程
+           condition.signalAll();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -538,7 +538,7 @@ class DemoClass1 {
                 contional.await();
             }
             number--;
-            System.out.println("--------" + Thread.currentThread().getName() + "减一成功----------,值为:" + number);
+            System.out.println(Thread.currentThread().getName() + "减一成功值为:" + number);
             contional.signalAll();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -623,9 +623,9 @@ class DemoClass{
    lock.unlock();
    }
  } 
- / * 
- * C 打印 15 次
- * /
+ /* 
+ *C 打印 15 次
+ */
  public void printC(int j){
    try {
      lock.lock();
@@ -692,7 +692,7 @@ public class TestVolatile {
   **对于普通同步方法，锁是当前实例对象。** 
   **对于静态同步方法，锁是当前类的class对象。**  
 
- **对于同步方法块，锁是Synchonized括号里配置的对象**  
+ **对于同步方法块，锁是synchonized括号里配置的对象**  
 
 ##   4 集合的线程安全   
 
@@ -755,7 +755,7 @@ java.util.ConcurrentModificationException **并发修改异常**
 
 ###   4.2 Vector   
 
-Vector 是  矢量队列  ，它是 JDK1.0 版本添加的类。继承于 AbstractList，实现了 List, RandomAccess, Cloneable 这些接口。 Vector 继承了 AbstractList，实现了 List；所以，  它是一个队列，支持相关的添加、删除、修改、遍历等功能  。 Vector 实现了 RandmoAccess 接口，即  提供了随机访问功能  。
+Vector 是  矢量队列  ，它是 JDK1.0 版本添加的类。继承于 AbstractList，实现了 List, RandomAccess, Cloneable 这些接口。 Vector 继承了 AbstractList，实现了 List；所以，  **它是一个队列，支持相关的添加、删除、修改、遍历等功能**  。 Vector 实现了 RandmoAccess 接口，即  **提供了随机访问功能**  。
 
 RandmoAccess 是 java 中用来被 List 实现，为 List 提供快速访问功能的。在Vector 中，我们即可以通过元素的序号快速获取元素对象；这就是快速随机访问。 Vector 实现了 Cloneable 接口，即实现 clone()函数。它能被克隆。
 
@@ -780,10 +780,10 @@ import java.util.Vector;
 
 public class NotSafeDemo {
 
-/ *  
+/*  
 *   多个线程同时对集合进行修改
 *   @param args
-* /
+*/
 
 public static void main(String[] args) {
   List list = new Vector();
@@ -801,7 +801,7 @@ public static void main(String[] args) {
 查看 Vector 的 add 方法
 
 ```java
- /**
+ 		/**
      * Appends the specified element to the end of this Vector.
      *
      * @param e element to be appended to this Vector
@@ -816,7 +816,7 @@ public static void main(String[] args) {
     }
 ```
 
-  add 方法被 synchronized 同步修辞,线程安全!因此没有并发异常  
+  add 方法被 synchronized 同步修饰，线程安全!因此没有并发异常  
 
 ###   4.3 Collections   
 
@@ -834,7 +834,7 @@ import java.util. ;
 * /
  public class NotSafeDemo {
 /  
-*   多个线程同时对集合进行修改
+* 多个线程同时对集合进行修改
 * @param args
 */
 
@@ -852,7 +852,7 @@ public static void main(String[] args) {
 
 没有并发修改异常
 
-查看方法源码
+查看方法源码（使用synchronized）
 
 ```java
 /*  
@@ -888,11 +888,9 @@ public static <T> List<T> synchronizedList(List<T> list) {
 
 ###   4.4 CopyOnWriteArrayList(重点)   
 
-首先我们对 CopyOnWriteArrayList 进行学习,其特点如下:
+首先我们对 CopyOnWriteArrayList 进行学习，其特点如下:
 
-它相当于线程安全的 ArrayList。和 ArrayList 一样，它是个可变数组；但是和
-
-ArrayList 不同的时，它具有以下特性：
+它相当于线程安全的 ArrayList。和 ArrayList 一样，它是个可变数组；但是和ArrayList 不同的时，它具有以下特性：
 
 1. 它最适合于具有以下特征的应用程序：List 大小通常保持很小，只读操作远多于可变操作，需要在遍历期间防止线程间的冲突。
 
@@ -908,7 +906,7 @@ ArrayList 不同的时，它具有以下特性：
 
   2. 写线程获取到锁，其他写线程阻塞  
 
-  3. 复制思想：  当我们往一个容器添加元素的时候，不直接往当前容器添加，而是先将当前容器进行 Copy，复制出一个新的容器，然后新的容器里添加元素，添加完元素之后，再将原容器的引用指向新的容器。
+  3. 复制思想：  **当我们往一个容器添加元素的时候，不直接往当前容器添加，而是先将当前容器进行 Copy，复制出一个新的容器，然后新的容器里添加元素，添加完元素之后，再将原容器的引用指向新的容器。**
 
   这时候会抛出来一个新的问题，也就是数据不一致的问题。如果写线程还没来得及写会内存，其他的线程就会读到了脏数据。  
 
@@ -922,9 +920,9 @@ package com.atguigu.test;
 import java.util. ;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/ * 
+/* 
 *  集合线程安全案例
-* /
+*/
 public class NotSafeDemo {
 /*  
 *  多个线程同时对集合进行修改
@@ -952,33 +950,33 @@ public static void main(String[] args) {
 
 •   “动态数组”机制  
 
-1. 它内部有个“volatile 数组”(array)来保持数据。在“添加/修改/删除”数据时，都会新建一个数组，并将更新后的数据拷贝到新建的数组中，最后再将该数组赋值给“volatile 数组”, 这就是它叫做 CopyOnWriteArrayList 的原因
+1. **它内部有个“volatile 数组”(array)来保持数据。在“添加/修改/删除”数据时，都会新建一个数组，并将更新后的数据拷贝到新建的数组中，最后再将该数组赋值给“volatile 数组”, 这就是它叫做 CopyOnWriteArrayList 的原因**
 
-2.  由于它在“添加/修改/删除”数据时，都会新建数组，所以涉及到修改数据的操作，CopyOnWriteArrayList 效率很低；但是单单只是进行遍历查找的话，效率比较高。  
+2.  **由于它在“添加/修改/删除”数据时，都会新建数组，所以涉及到修改数据的操作，CopyOnWriteArrayList 效率很低；但是单单只是进行遍历查找的话，效率比较高。**  
 
 •   “线程安全”机制  
 
 1.  通过 volatile 和互斥锁来实现的。
 
-2. 通过“volatile 数组”来保存数据的。一个线程读取 volatile 数组时，总能看到其它线程对该 volatile 变量最后的写入；就这样，通过 volatile 提供了“读取到的数据总是最新的”这个机制的保证。
+2. 通过“volatile 数组”来保存数据的（**private transient volatile Object[] array**）。一个线程读取 volatile 数组时，总能看到其它线程对该 volatile 变量最后的写入；就这样，通过 volatile 提供了“读取到的数据总是最新的”这个机制的保证。
 
-3. 通过互斥锁来保护数据。在“添加/修改/删除”数据时，会先“获取互斥锁”，再修改完毕之后，先将数据更新到“volatile 数组”中，然后再“释放互斥锁”，就达到了保护数据的目的。
+3.  通过互斥锁来保护数据（**final ReentrantLock lock = this.lock;lock.lock();**）。在“添加/修改/删除”数据时，会先“获取互斥锁”，再修改完毕之后，先将数据更新到“volatile 数组”中，然后再“释放互斥锁”，就达到了保护数据的目的。
 
 ###   4.5 小结(重点)   
 
 1. 线程安全与线程不安全集合  
 
-​		集合类型中存在线程安全与线程不安全的两种,常见例如:
+​		集合类型中存在线程安全与线程不安全的两种，常见例如:
 
 ​		ArrayList ----- Vector
 
 ​		HashMap -----HashTable
 
-​		但是以上都是通过 synchronized 关键字实现，效率较低
+​		**但是以上都是通过 synchronized 关键字实现，效率较低**
 
 2. Collections 构建的线程安全集合    
 
-3. java.util.concurrent 并发包下  CopyOnWriteArrayList CopyOnWriteArraySet 类型，通过动态数组与线程安全个方面保证线程安全
+3. java.util.concurrent 并发包下  **CopyOnWriteArrayList CopyOnWriteArraySet** 类型，通过动态数组与线程安全方面保证线程安全
 
 ##   5 多线程锁   
 
@@ -1026,7 +1024,7 @@ class Phone {
 
 ------sendSMS
 
-5 两个静态（static）同步方法，1 部手机，先打印短信还是邮件
+5 两个静态（static）同步方法，1 部手机，先打印短信还是邮件（加锁在类的对象上）
 
 ------sendSMS
 
@@ -1054,7 +1052,7 @@ class Phone {
 
 一个对象里面如果有多个 synchronized 方法，某一个时刻内，只要一个线程去调用其中的一个 synchronized 方法了，其它的线程都只能等待，换句话说，某一个时刻内，只能有唯一一个线程去访问这些synchronized 方法
 
-锁的是**当前对象 this**，被锁定后，其它的线程都不能进入到当前对象的其它的synchronized 方法
+**锁的是当前对象 this，被锁定后，其它的线程都不能进入到当前对象的其它的synchronized 方法**
 
 **加个普通方法后发现和同步锁无关**
 
@@ -1068,16 +1066,16 @@ synchronized 实现同步的基础：Java 中的每一个对象都可以作为�
 
   **对于静态同步方法，锁是当前类的Class对象。**  
 
-  **对于同步方法块，锁是 Synchonized括号里配置的对象**  
+  **对于同步方法块，锁是 synchonized括号里配置的对象**  
 
-当一个线程试图访问同步代码块时，它首先必须得到锁，退出或抛出异常时必须释放锁。也就是说如果一个实例对象的非静态同步方法获取锁后，该实例对象的其他非静态同步方法必须等待获取锁的方法释放锁后才能获取锁，可是别的实例对象的非静态同步方法因为跟该实例对象的非静态同步方法用的是不同的锁，所以毋须等待该实例对象已获取锁的非静态同步方法释放锁就可以获取他们自己的锁。**所有的静态同步方法用的也是同一把锁——类对象本身，这两把锁是两个不同的对象，所以静态同步方法与非静态同步方法之间是不会有竞态条件的**。
+当一个线程试图访问同步代码块时，它首先必须得到锁，退出或抛出异常时必须释放锁。也就是说如果**一个实例对象的非静态同步方法获取锁后，该实例对象的其他非静态同步方法必须等待获取锁的方法释放锁后才能获取锁**，可是别的实例对象的非静态同步方法因为跟该实例对象的非静态同步方法用的是不同的锁，所以毋须等待该实例对象已获取锁的非静态同步方法释放锁就可以获取他们自己的锁。**所有的静态同步方法用的也是同一把锁——类对象本身，这两把锁是两个不同的对象，所以静态同步方法与非静态同步方法之间是不会有竞态条件的**。
 
 但是一旦一个静态同步方法获取锁后，其他的静态同步方法都必须等待该方法释放锁后才能获取锁，而不管是同一个实例对象的静态同步方法之间，还是不同的实例对象的静态同步方法之间，**只要它们同一个类的实例对象**！
 
 ### 5.2 公平锁与非公平锁(LsaleTicket.java)
 
 ```java
- /**
+ 		/**
      * Creates an instance of {@code ReentrantLock}.
      * This is equivalent to using {@code ReentrantLock(false)}.
      */
@@ -1178,25 +1176,25 @@ Java 库具有具体的 FutureTask 类型，该类型实现 Runnable 和 Future�
 
 在主线程中需要执行比较耗时的操作时，但又不想阻塞主线程时，可以把这些作业交给 Future 对象在后台完成
 
-• 当主线程将来需要时，就可以通过 Future 对象获得后台作业的计算结果或者执行状态
+• **当主线程将来需要时，就可以通过 Future 对象获得后台作业的计算结果或者执行状态**
 
 • 一般 FutureTask 多用于耗时的计算，主线程可以在完成自己的任务后，再去获取结果。
 
-• 仅在计算完成时才能检索结果；如果计算尚未完成，则阻塞 get 方法
+• **仅在计算完成时才能检索结果；如果计算尚未完成，则阻塞 get 方法**
 
 • 一旦计算完成，就不能再重新开始或取消计算
 
-• get 方法而获取结果只有在计算完成时获取，否则会一直阻塞直到任务转入完成状态，然后会返回结果或者抛出异常
+• **get 方法而获取结果只有在计算完成时获取，否则会一直阻塞直到任务转入完成状态，然后会返回结果或者抛出异常**
 
-• get 只计算一次,因此 get 方法放到最后
+• **get 只计算一次,因此 get 方法放到最后**
 
 ###   6.4 使用 Callable 和 Future   
 
 CallableDemo 案例
 
 ```java
-/ * 
-*  CallableDemo 案列
+/* 
+ *  CallableDemo 案列
  */
 public class CallableDemo {
  /*
@@ -1217,7 +1215,7 @@ public class CallableDemo {
    }
    }
  }
- /*  
+/*  
  *  实现 callable 接口
  */
 
@@ -1231,14 +1229,15 @@ public class CallableDemo {
 
  @Override
  public Long call() throws Exception {
- try {
-   System.out.println(Thread.currentThread().getName() + "线程进入了 call方法,开始准备睡觉");
-   Thread.sleep(1000);
-   System.out.println(Thread.currentThread().getName() + "睡醒了");
- }catch (Exception e){
- 	e.printStackTrace();
- } return System.currentTimeMillis();
- }
+   try {
+     System.out.println(Thread.currentThread().getName() + "线程进入了 call方法,开始准备睡觉");
+     Thread.sleep(1000);
+     System.out.println(Thread.currentThread().getName() + "睡醒了");
+   }catch (Exception e){
+      e.printStackTrace();
+   } 
+   return System.currentTimeMillis();
+   }
  }
 
  public static void main(String[] args) throws Exception{
@@ -1311,28 +1310,25 @@ public class CountDownLatchDemo {
  *  6 个同学陆续离开教室后值班同学才可以关门
  *  @param args
  */
-
- public static void main(String[] args) throws Exception{
-
+public static void main(String[] args) throws Exception{
  //定义一个数值为 6 的计数器
-
  CountDownLatch countDownLatch = new CountDownLatch(6);
-
  //创建 6 个同学
 
  for (int i = 1; i <= 6; i++) {
    new Thread(() ->{
-   try{if(Thread.currentThread().getName().equals("同学 6")){
-     Thread.sleep(2000);
-   }
-   System.out.println(Thread.currentThread().getName() + "离开了");
+     try{
+        if(Thread.currentThread().getName().equals("同学6")){
+            Thread.sleep(2000);
+        }
+       System.out.println(Thread.currentThread().getName() + "离开了");
 
-   //计数器减一,不会阻塞 
-    countDownLatch.countDown();
+       //计数器减一,不会阻塞 
+        countDownLatch.countDown();
 
-   }catch (Exception e){
-   e.printStackTrace();
-   }
+     }catch (Exception e){
+        e.printStackTrace();
+     }
  	}, "同学" + i).start();
  }
 
@@ -1359,41 +1355,34 @@ package com.atguigu.test;
 import java.util.concurrent.CyclicBarrier;
 
 /*   
-	CyclicBarrierDemo 案列
+ * CyclicBarrierDemo 案列
  */
-
 public class CyclicBarrierDemo {
-
  //定义神龙召唤需要的龙珠总数
-
  private final static int NUMBER = 7;
-
  /*
   * 集齐 7 颗龙珠就可以召唤神龙
   *  @param args
 	*/
-
  public static void main(String[] args) {
 
  //定义循环栅栏
-
  CyclicBarrier cyclicBarrier = new CyclicBarrier(NUMBER, () ->{
 		 System.out.println("集齐" + NUMBER + "颗龙珠,现在召唤神龙!!!!!!!!!");
  });
 
  //定义 7 个线程分别去收集龙珠
-
  for (int i = 1; i <= 7; i++) {
      new Thread(()->{
        try {
-       if(Thread.currentThread().getName().equals("龙珠 3 号")){
-         System.out.println("龙珠 3 号抢夺战开始,孙悟空开启超级赛亚人模式!");
-         Thread.sleep(5000);
-         System.out.println("龙珠 3 号抢夺战结束,孙悟空打赢了,拿到了龙珠 3 号!");
-       }else{
-         System.out.println(Thread.currentThread().getName() + "收集到了!!!!");
-       }
-       cyclicBarrier.await();
+         if(Thread.currentThread().getName().equals("龙珠 3 号")){
+           System.out.println("龙珠 3 号抢夺战开始,孙悟空开启超级赛亚人模式!");
+           Thread.sleep(5000);
+           System.out.println("龙珠 3 号抢夺战结束,孙悟空打赢了,拿到了龙珠 3 号!");
+         }else{
+           System.out.println(Thread.currentThread().getName() + "收集到了!!!!");
+         }
+         cyclicBarrier.await();
        }catch (Exception e){
 	       e.printStackTrace();
        }
@@ -1422,7 +1411,6 @@ public class SemaphoreDemo {
      *  抢车位, 6 部汽车 3 个停车位
      *  @param args
      */
-
     public static void main(String[] args) throws Exception {
 
         //定义 3 个停车位
@@ -1461,7 +1449,7 @@ public class SemaphoreDemo {
 
 ![image-20220419145528379](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E9%AB%98%E5%B9%B6%E5%8F%91/JUC%E9%AB%98%E5%B9%B6%E5%8F%91.assets/image-20220419145528379.png)
 
-###   8.1 读写锁介绍   
+###   8.1 读写锁介绍
 
 ![image-20220419154259591](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E9%AB%98%E5%B9%B6%E5%8F%91/JUC%E9%AB%98%E5%B9%B6%E5%8F%91.assets/image-20220419154259591-16503541807977.png)
 
@@ -1552,18 +1540,18 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
   //创建map集合 
    private volatile   Map<String,Object> map = new HashMap<>();
   //  创建读写锁对象 
-   private   ReadWriteLock  rwLock   =   new   ReentrantReadWriteLock();
+   private   ReadWriteLock  rwLock = new ReentrantReadWriteLock();
   //  放数据 
    public void  put(String key,Object value) {
     //  添加写锁 
      rwLock.writeLock().lock();
      try{
-        System.out.println(Thread.currentThread().getName()+  " 正在写操作 "  +key);
+        System.out.println(Thread.currentThread().getName()+"正在写操作"+key);
         //  暂停一会 
         TimeUnit.MICROSECONDS.sleep(300);
         //  放数据 
         map.put(key,value);
-        System.out.println(Thread.currentThread ().getName()+  "写完了  "  +key);
+        System.out.println(Thread.currentThread ().getName()+"写完了"+key);
    } catch(InterruptedException e) {
        e.printStackTrace();
    }finally{
@@ -1577,7 +1565,7 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
    rwLock.readLock().lock();
  	 Object result =   null  ;
    try{
- 			System.out.println(Thread.currentThread ().getName()+  "  正在读操作 "  +key);
+ 			System.out.println(Thread.currentThread ().getName()+ "正在读操作"+key);
   		//  暂停一会 
 		 TimeUnit.MICROSECONDS.sleep(300);
 		 result =  map.get(key);
@@ -1597,9 +1585,9 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 
 • 在线程持有读锁的情况下，该线程不能取得写锁(因为获取写锁的时候，如果发现当前的读锁被占用，就马上获取失败，不管读锁是不是被当前线程持有)。 
 
-• 在线程持有写锁的情况下，该线程可以继续获取读锁（获取读锁时如果发现写锁被占用，只有写锁没有被当前线程占用的情况才会获取失败）。
+• 在线程持有写锁的情况下，该线程可以继续获取读锁（**获取读锁时如果发现写锁被占用，只有写锁没有被当前线程占用的情况才会获取失败**）。
 
-**原因:** 当线程获取读锁的时候，可能有其他线程同时也在持有读锁，因此不能把获取读锁的线程“升级”为写锁；而对于获得写锁的线程，它一定独占了读写锁，因此可以继续让它获取读锁，当它同时获取了写锁和读锁后，还可以先释放写锁继续持有读锁，这样一个写锁就“降级”为了读锁。
+**原因:** **当线程获取读锁的时候，可能有其他线程同时也在持有读锁，因此不能把获取读锁的线程“升级”为写锁；而对于获得写锁的线程，它一定独占了读写锁，因此可以继续让它获取读锁，当它同时获取了写锁和读锁后，还可以先释放写锁继续持有读锁，这样一个写锁就“降级”为了读锁**。
 
 ##   9 阻塞队列   
 
@@ -1623,9 +1611,9 @@ Concurrent 包中，BlockingQueue 很好的解决了多线程中，如何高效�
 
 **常用的队列主要有以下两种：**
 
-• **先进先出（FIFO）**：先插入的队列的元素也最先出队列，类似于排队的功能。从某种程度上来说这种队列也体现了一种公平性
+- **先进先出（FIFO）**：先插入的队列的元素也最先出队列，类似于排队的功能。从某种程度上来说这种队列也体现了一种公平性
 
-• **后进先出（LIFO）**：后插入队列的元素最先出队列，这种队列优先处理最近发生的事件(栈)
+- **后进先出（LIFO）**：后插入队列的元素最先出队列，这种队列优先处理最近发生的事件(栈)
 
 在多线程领域：所谓阻塞，在某些情况下会挂起线程（即阻塞），一旦条件满足，被挂起的线程又会自动被唤起
 
@@ -1635,11 +1623,11 @@ Concurrent 包中，BlockingQueue 很好的解决了多线程中，如何高效�
 
 在 concurrent 包发布以前，在多线程环境下，我们每个程序员都必须去自己控制这些细节，尤其还要兼顾效率和线程安全，而这会给我们的程序带来不小的复杂度。
 
-多线程环境中，通过队列可以很容易实现数据共享，比如经典的“生产者”和 “消费者”模型中，通过队列可以很便利地实现两者之间的数据共享。假设我们有若干生产者线程，另外又有若干个消费者线程。如果生产者线程需要把准备好的数据共享给消费者线程，利用队列的方式来传递数据，就可以很方便地解决他们之间的数据共享问题。但如果生产者和消费者在某个时间段内，万一发生数据处理速度不匹配的情况呢？理想情况下，如果生产者产出数据的速度大于消费者消费的速度，并且当生产出来的数据累积到一定程度的时候，那么生产者必须暂停等待一下（阻塞生产者线程），以便等待消费者线程把累积的数据处理完毕，反之亦然。
+**多线程环境中，通过队列可以很容易实现数据共享，比如经典的“生产者”和 “消费者”模型中，通过队列可以很便利地实现两者之间的数据共享**。假设我们有若干生产者线程，另外又有若干个消费者线程。如果生产者线程需要把准备好的数据共享给消费者线程，利用队列的方式来传递数据，就可以很方便地解决他们之间的数据共享问题。但如果生产者和消费者在某个时间段内，万一发生数据处理速度不匹配的情况呢？理想情况下，如果生产者产出数据的速度大于消费者消费的速度，并且当生产出来的数据累积到一定程度的时候，那么生产者必须暂停等待一下（阻塞生产者线程），以便等待消费者线程把累积的数据处理完毕，反之亦然。
 
-• 当队列中没有数据的情况下，消费者端的所有线程都会被自动阻塞（挂起），直到有数据放入队列
+- **当队列中没有数据的情况下，消费者端的所有线程都会被自动阻塞（挂起），直到有数据放入队列**
 
-• 当队列中填满数据的情况下，生产者端的所有线程都会被自动阻塞（挂起），直到队列中有空的位置，线程被自动唤醒
+- **当队列中填满数据的情况下，生产者端的所有线程都会被自动阻塞（挂起），直到队列中有空的位置，线程被自动唤醒**
 
 ###   9.2 BlockingQueue 核心方法   
 
@@ -1653,7 +1641,7 @@ Concurrent 包中，BlockingQueue 很好的解决了多线程中，如何高效�
 
 • offer(anObject):
 
-表示如果可能的话,将 anObject 加到 BlockingQueue 里,即如果 BlockingQueue 可以容纳,则返回 true,否则返回 false.  **（本方法不阻塞当前执行方法的线程）**  
+表示如果可能的话，将 anObject 加到 BlockingQueue 里，即如果 BlockingQueue 可以容纳，则返回 true，否则返回 false.  **（本方法不阻塞当前执行方法的线程）**  
 
 • offer(E o, long timeout, TimeUnit unit)：
 
@@ -1661,21 +1649,21 @@ Concurrent 包中，BlockingQueue 很好的解决了多线程中，如何高效�
 
 • put(anObject):
 
-把 anObject 加到 BlockingQueue 里,如果 BlockQueue 没有空间,则调用此方法的线程被阻断直到 BlockingQueue 里面有空间再继续.
+把 anObject 加到 BlockingQueue 里，如果 BlockQueue 没有空间，则调用此方法的线程被阻断直到 BlockingQueue 里面有空间再继续.
 
   **2.获取数据**  
 
 • poll(time): 
 
-取走 BlockingQueue 里排在首位的对象,若不能立即取出,  则可以等 time 参数规定的时间,取不到时返回 null  
+取走 BlockingQueue 里排在首位的对象，若不能立即取出,  则可以等 time 参数规定的时间，取不到时返回 null  
 
 • poll(long timeout, TimeUnit unit)：
 
-从 BlockingQueue 取出一个队首的对象，如果在指定时间内，队列一旦有数据可取，则立即返回队列中的数据。否则知道时间超时还没有数据可取，返回失败。
+从 BlockingQueue 取出一个队首的对象，如果在指定时间内，队列一旦有数据可取，则立即返回队列中的数据。否则直到时间超时还没有数据可取，返回失败。
 
 • take():
 
- 取走 BlockingQueue 里排在首位的对象,若 BlockingQueue 为空,  阻断进入等待状态直到 BlockingQueue 有新的数据被加入  ; 
+ 取走 BlockingQueue 里排在首位的对象，若 BlockingQueue 为空,  阻断进入等待状态直到 BlockingQueue 有新的数据被加入; 
 
 • drainTo():
 
@@ -1745,15 +1733,13 @@ public static void main(String[] args) throws InterruptedException {
 
 基于数组的阻塞队列实现，在 ArrayBlockingQueue 内部，维护了一个定长数组，以便缓存队列中的数据对象，这是一个常用的阻塞队列，除了一个定长数组外，ArrayBlockingQueue 内部还保存着两个整形变量，分别标识着队列的头部和尾部在数组中的位置。
 
-ArrayBlockingQueue 在生产者放入数据和消费者获取数据，都是共用同一个锁对象，由此也意味着两者无法真正并行运行，这点尤其不同于LinkedBlockingQueue；按照实现原理来分析，ArrayBlockingQueue 完全可以采用分离锁，从而实现生产者和消费者操作的完全并行运行。Doug Lea 之所以没这样去做，也许是因为 ArrayBlockingQueue 的数据写入和获取操作已经足够轻巧，以至于引入独立的锁机制，除了给代码带来额外的复杂性外，其在性能上完全占不到任何便宜。 ArrayBlockingQueue 和LinkedBlockingQueue 间还有一个明显的不同之处在于，前者在插入或删除元素时不会产生或销毁任何额外的对象实例，而后者则会生成一个额外的Node 对象。这在长时间内需要高效并发地处理大批量数据的系统中，其对于GC 的影响还是存在一定的区别。而在创建 ArrayBlockingQueue 时，我们还
-
-可以控制对象的内部锁是否采用公平锁，默认采用非公平锁。
+ArrayBlockingQueue 在生产者放入数据和消费者获取数据，都是**共用同一个锁对象**，由此也意味着两者无法真正并行运行，这点尤其不同于LinkedBlockingQueue；按照实现原理来分析，ArrayBlockingQueue 完全可以采用**分离锁**，从而实现生产者和消费者操作的完全并行运行。Doug Lea 之所以没这样去做，也许是因为 ArrayBlockingQueue 的数据写入和获取操作已经足够轻巧，以至于引入独立的锁机制，除了给代码带来额外的复杂性外，其在性能上完全占不到任何便宜。 ArrayBlockingQueue 和LinkedBlockingQueue 间还有一个明显的不同之处在于，前者在插入或删除元素时不会产生或销毁任何额外的对象实例，而后者则会生成一个额外的Node 对象。这在长时间内需要高效并发地处理大批量数据的系统中，其对于GC 的影响还是存在一定的区别。而在创建 ArrayBlockingQueue 时，我们还可以控制对象的内部锁是否采用公平锁，默认采用非公平锁。
 
 **==  一句话总结: 由数组结构组成的有界阻塞队列。  ==**
 
 ####   9.4.2 LinkedBlockingQueue(常用)  
 
-基于链表的阻塞队列，同 ArrayListBlockingQueue 类似，其内部也维持着一个数据缓冲队列（该队列由一个链表构成），当生产者往队列中放入一个数据时，队列会从生产者手中获取数据，并缓存在队列内部，而生产者立即返回；只有当队列缓冲区达到最大值缓存容量时（LinkedBlockingQueue 可以通过构造函数指定该值），才会阻塞生产者队列，直到消费者从队列中消费掉一份数据，生产者线程会被唤醒，反之对于消费者这端的处理也基于同样的原理。而 LinkedBlockingQueue 之所以能够高效的处理并发数据，还因为其对于生产者端和消费者端分别采用了独立的锁来控制数据同步，这也意味着在高并发的情况下生产者和消费者可以并行地操作队列中的数据，以此来提高整个队列的并发性能。
+基于链表的阻塞队列，同 ArrayListBlockingQueue 类似，其内部也维持着一个数据缓冲队列（该队列由一个**链表构成**），当生产者往队列中放入一个数据时，队列会从生产者手中获取数据，并缓存在队列内部，而生产者立即返回；只有当队列缓冲区达到最大值缓存容量时（LinkedBlockingQueue 可以通过构造函数指定该值），才会阻塞生产者队列，直到消费者从队列中消费掉一份数据，生产者线程会被唤醒，反之对于消费者这端的处理也基于同样的原理。而 LinkedBlockingQueue 之所以能够高效的处理并发数据，还因为其对于**生产者端和消费者端分别采用了独立的锁来控制数据同步**，这也意味着在高并发的情况下生产者和消费者可以并行地操作队列中的数据，以此来提高整个队列的并发性能。
 
   **ArrayBlockingQueue 和 LinkedBlockingQueue 是两个最普通也是最常用的阻塞队列，一般情况下，在处理多线程间的生产者消费者问题，使用这两个类足以。**  
 
@@ -1777,7 +1763,7 @@ DelayQueue 中的元素只有当其指定的延迟时间到了，才能够从队
 
 ####   9.4.5 SynchronousQueue
 
-  一种无缓冲的等待队列，类似于无中介的直接交易，有点像原始社会中的生产者和消费者，生产者拿着产品去集市销售给产品的最终消费者，而消费者必须亲自去集市找到所要商品的直接生产者，如果一方没有找到合适的目标，那么对不起，大家都在集市等待。相对于有缓冲的 BlockingQueue 来说，少了一个中间经销商的环节（缓冲区），如果有经销商，生产者直接把产品批发给经销商，而无需在意经销商最终会将这些产品卖给那些消费者，由于经销商可以库存一部分商品，因此相对于直接交易模式，总体来说采用中间经销商的模式会吞吐量高一些（可以批量买卖）；但另一方面，又因为经销商的引入，使得产品从生产者到消费者中间增加了额外的交易环节，单个产品的及时响应性能可能会降低。
+  一种无缓冲的等待队列，类似于无中介的直接交易，有点像原始社会中的生产者和消费者，生产者拿着产品去集市销售给产品的最终消费者，而消费者必须亲自去集市找到所要商品的直接生产者，如果一方没有找到合适的目标，那么对不起，大家都在集市等待。相对于有缓冲的 BlockingQueue 来说，少了一个中间经销商的环节（缓冲区），如果有经销商，生产者直接把产品批发给经销商，而无需在意经销商最终会将这些产品卖给那些消费者，由于经销商可以库存一部分商品，因此相对于直接交易模式，**总体来说采用中间经销商的模式会吞吐量高一些（可以批量买卖）；但另一方面，又因为经销商的引入，使得产品从生产者到消费者中间增加了额外的交易环节，单个产品的及时响应性能可能会降低。**
 
 声明一个 SynchronousQueue 有两种不同的方式，它们之间有着不太一样的行为。
 
@@ -1805,9 +1791,9 @@ LinkedBlockingDeque 是一个由链表结构组成的双向阻塞队列，即可
 
 对于一些指定的操作，在插入或者获取队列元素时如果队列状态不允许该操作可能会阻塞住该线程直到队列状态变更为允许操作，这里的阻塞一般有两种情况 
 
-• 插入元素时: 如果当前队列已满将会进入阻塞状态，一直等到队列有空的位置时再讲该元素插入，该操作可以通过设置超时参数，超时后返回 false 表示操作失败，也可以不设置超时参数一直阻塞，中断后抛出InterruptedException 异常 
+- 插入元素时: 如果当前队列已满将会进入阻塞状态，一直等到队列有空的位置时再讲该元素插入，该操作可以通过设置超时参数，超时后返回 false 表示操作失败，也可以不设置超时参数一直阻塞，中断后抛出InterruptedException 异常 
 
-• 读取元素时: 如果当前队列为空会阻塞住直到队列不为空然后返回元素，同样可以通过设置超时参数
+- 读取元素时: 如果当前队列为空会阻塞住直到队列不为空然后返回元素，同样可以通过设置超时参数
 
 **==  一句话总结: 由链表组成的双向阻塞队列  ==**
 
@@ -1825,7 +1811,7 @@ LinkedBlockingDeque 是一个由链表结构组成的双向阻塞队列，即可
 
 例子： 10 年前单核 CPU 电脑，假的多线程，像马戏团小丑玩多个球，CPU 需要来回切换。 现在是多核电脑，多个线程各自跑在独立的 CPU 上，不用切换效率高。
 
-  **线程池的优势**： **线程池做的工作只要是控制运行的线程数量，处理过程中将任务放入队列，然后在线程创建后启动这些任务，如果线程数量超过了最大数量，超出数量的线程排队等候，等其他线程执行完毕，再从队列中取出任务来执行。**
+**线程池的优势**： **线程池做的工作只要是控制运行的线程数量，处理过程中将任务放入队列，然后在线程创建后启动这些任务，如果线程数量超过了最大数量，超出数量的线程排队等候，等其他线程执行完毕，再从队列中取出任务来执行。**
 
   **它的主要特点为：**  
 
@@ -1867,9 +1853,9 @@ LinkedBlockingDeque 是一个由链表结构组成的双向阻塞队列，即可
 
 ####   10.2.2 拒绝策略(重点)  
 
-  **CallerRunsPolicy**  : 当触发拒绝策略，只要线程池没有关闭的话，则使用调用线程直接运行任务。一般并发比较小，性能要求不高，不允许失败。但是，由于调用者自己运行任务，如果任务提交速度过快，可能导致程序阻塞，性能效率上必然的损失较大
+  **CallerRunsPolicy**  : 当触发拒绝策略，只要线程池没有关闭的话，则使用**调用线程**直接运行任务。一般并发比较小，性能要求不高，不允许失败。但是，由于调用者自己运行任务，如果任务提交速度过快，可能导致程序阻塞，性能效率上必然的损失较大
 
-  **AbortPolicy**  : 丢弃任务，并抛出拒绝执行 RejectedExecutionException 异常信息。线程池默认的拒绝策略。必须处理好抛出的异常，否则会打断当前的执行流程，影响后续的任务执行。
+  **AbortPolicy**  : 丢弃任务，并抛出拒绝执行 RejectedExecutionException 异常信息**。线程池默认的拒绝策略。必须处理好抛出的异常，否则会打断当前的执行流程，影响后续的任务执行**。
 
   **DiscardPolicy**  : 直接丢弃，其他啥都没有
 
@@ -1921,11 +1907,11 @@ return new ThreadPoolExecutor(0,Integer.MAX_VALUE,60L,TimeUnit.SECONDS,new Synch
 
   **特征**：  
 
-• 线程池中的线程处于一定的量，可以很好的控制线程的并发量
+- 线程池中的线程处于一定的量，可以很好的控制线程的并发量
 
-• 线程可以重复被使用，在显示关闭之前，都将一直存在
+- 线程可以重复被使用，在显示关闭之前，都将一直存在
 
-• 超出一定量的线程被提交时候需在队列中等待
+- 超出一定量的线程被提交时候需在队列中等待
 
   创建方式  ：
 
