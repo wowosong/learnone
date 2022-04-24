@@ -86,7 +86,7 @@ Redis的IO多路复用：redis利用epoll来实现IO多路复用，将连接信�
 
 ## String
 
-```
+```java
 字符串常用操作
 SET  key  value 			//存入字符串键值对
 MSET  key  value [key value ...] 	//批量存储字符串键值对
@@ -106,7 +106,7 @@ DECRBY  key  decrement 	//将key所储存的值减去decrement
 
 ## String 应用场景
 
-```
+```java
 单值缓存
 SET  key  value 	
 GET  key 	
@@ -114,7 +114,7 @@ GET  key
 对象缓存
 1) SET  user:1  value(json格式数据)
 2) MSET  user:1:name  zhuge   user:1:balance  1888
-    MGET  user:1:name   user:1:balance 
+    MGET  user:1:name   user:1:balance
 分布式锁
 SETNX  product:10001  true 		//返回1代表获取锁成功
 SETNX  product:10001  true 		//返回0代表获取锁失败
@@ -126,7 +126,7 @@ SET product:10001 true  ex  10  nx	//防止程序意外终止导致死锁
 
 ## hash
 
-```shell
+```java
 Hash常用操作
 HSET  key  field  value 			//存储一个哈希表key的键值
 HSETNX  key  field  value 		//存储一个不存在的哈希表key的键值
@@ -136,9 +136,7 @@ HMGET  key  field  [field ...] 		//批量获取哈希表key中多个field键值
 HDEL  key  field  [field ...] 		//删除哈希表key中的field键值
 HLEN  key				//返回哈希表key中field的数量
 HGETALL  key				//返回哈希表key中所有的键值
-
 HINCRBY  key  field  increment 		//为哈希表key中field键的值加上增量increment
-
 ```
 
 ## hash应用场景
@@ -170,7 +168,7 @@ HMGET  user  1:name  1:balance
 
 ## list
 
-```
+```java
 List常用操作
 LPUSH  key  value [value ...] 		//将一个或多个值value插入到key列表的表头(最左边)
 RPUSH  key  value [value ...]	 	//将一个或多个值value插入到key列表的表尾(最右边)
@@ -180,15 +178,13 @@ LRANGE  key  start  stop		//返回列表key中指定区间内的元素，区间�
 
 BLPOP  key  [key ...]  timeout	//从key列表表头弹出一个元素，若列表中没有元素，阻塞等待					timeout秒,如果timeout=0,一直阻塞等待
 BRPOP  key  [key ...]  timeout 	//从key列表表尾弹出一个元素，若列表中没有元素，阻塞等待					timeout秒,如果timeout=0,一直阻塞等待
-
-
 ```
 
 ![image-20220301151030824](https://gitee.com/wowosong/pic-md/raw/master/202203011510922.png)
 
 ## list应用场景
 
-```
+```java
 常用数据结构
 Stack(栈) = LPUSH + LPOP
 Queue(队列）= LPUSH + RPOP
@@ -198,7 +194,7 @@ Blocking MQ(阻塞队列）= LPUSH + BRPOP
 
 ![image-20220301151256637](https://gitee.com/wowosong/pic-md/raw/master/202203011512717.png)
 
-```
+```java
 微博消息和微信公号消息
 诸葛老师关注了MacTalk，备胎说车等大V
 1）MacTalk发微博，消息ID为10018
@@ -211,7 +207,7 @@ LRANGE  msg:{诸葛老师-ID}  0  4
 
 ## set
 
-```
+```java
 Set常用操作
 SADD  key  member  [member ...]			//往集合key中存入元素，元素存在则忽略，
 							若key不存在则新建
@@ -236,7 +232,7 @@ SDIFFSTORE  destination  key  [key ...]		//将差集结果存入新集合destina
 
 ## set应用场景
 
-```
+```java
 微信抽奖小程序
 1）点击参与抽奖加入集合
 SADD key {userlD}
@@ -246,7 +242,7 @@ SMEMBERS key
 SRANDMEMBER key [count] / SPOP key [count]
 ```
 
-```
+```java
 微信微博点赞，收藏，标签
 1) 点赞
 SADD  like:{消息ID}  {用户ID}
@@ -261,7 +257,7 @@ SCARD like:{消息ID}
 
 ```
 
-```
+```java
 集合操作
 
 SINTER set1 set2 set3  { c }
@@ -272,7 +268,7 @@ SDIFF set1 set2 set3  { a }
 
 ![image-20220301152722674](https://gitee.com/wowosong/pic-md/raw/master/202203011527763.png)
 
-```
+```java
 集合操作实现微博微信关注模型
 1) 诸葛老师关注的人: 
 zhugeSet-> {guojia, xushu}
@@ -290,7 +286,7 @@ SDIFF yangguoSet zhugeSet->(zhuge, baiqi}
 
 ```
 
-```
+```java
 集合操作实现电商商品筛选
 SADD  brand:huawei  P40
 SADD  brand:xiaomi  mi-10
