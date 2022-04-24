@@ -1,9 +1,3 @@
-H5 前端课程系列
-———————————————————————————
-1更
-多 Java –大数据 –前端 –python 人工智能资料下载， 可访问百度： 尚硅谷官网
-Vue 全家桶
-
 # 第 1 章： Vue 核心
 
 ## 1.1. Vue 的基本认识
@@ -37,17 +31,18 @@ Vue 全家桶
 ### 1.2.1. 效果 (01_HelloWorld/test.html)
 01_helloworld.gif
 ### 1.2.2. 编码
-```<div id="app">
-<input type="text" v-model="username">
-<p>Hello, {{username}}</p>
+```vue
+<div id="app">
+  <input type="text" v-model="username">
+  <p>Hello, {{username}}</p>
 </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
 new Vue({
-el: '#app',
-data: {
-username: 'atguigu'
-}
+  el: '#app',
+  data: {
+  username: 'atguigu'
+  }
 })
 </script>
 ```
