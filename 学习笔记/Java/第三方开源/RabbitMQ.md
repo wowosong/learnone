@@ -348,7 +348,7 @@ public class Consumer {
     * 消费者消费消息
     * 1.消费哪个队列
     * 2.消费成功之后是否要自动应答 true 代表自动应答 false 手动应答
-    * 3.消费者未成功消费的回调
+    * 3.消费者成功消费的回调
     * 4.消费者取消消费的回调
     */
     	channel.basicConsume(QUEUE_NAME,true,deliverCallback,cancelCallback);
@@ -430,7 +430,7 @@ public class Task01 {
 
 ### **3.1.4. 结果展示**
 
-通过程序执行发现生产者总共发送 4 个消息，消费者 1 和消费者 2 分别分得两个消息，并且是按照有序的一个接收一次消息
+通过程序执行发现生产者总共发送 4 个消息，消费者 1 和消费者 2 分别分得两个消息，**并且是按照有序的一个接收一次消息**
 
 <img src="https://gitee.com/wowosong/pic-md/raw/master/20211106172120.png" alt="image-20211106172120589" style="zoom:50%;" />
 
@@ -440,7 +440,7 @@ public class Task01 {
 
 ### **3.2.1. 概念**
 
-消费者完成一个任务可能需要一段时间，如果其中一个消费者处理一个长的任务并仅只完成了部分突然它挂掉了，会发生什么情况。RabbitMQ 一旦向消费者传递了一条消息，便立即将该消息标记为删除。在这种情况下，突然有个消费者挂掉了，我们将丢失正在处理的消息。以及后续发送给该消费者的消息，因为它无法接收到。
+消费者完成一个任务可能需要一段时间，如果其中一个消费者处理一个长的任务并仅只完成了部分突然它挂掉了，会发生什么情况。**RabbitMQ 一旦向消费者传递了一条消息，便立即将该消息标记为删除**。**在这种情况下，突然有个消费者挂掉了，我们将丢失正在处理的消息。以及后续发送给该消费者的消息，因为它无法接收到。**
 
 为了保证消息在发送过程中不丢失，rabbitmq 引入**消息应答机制**，消息应答就是:**消费者在接收到消息并且处理该消息之后，告诉 rabbitmq 它已经处理了，rabbitmq 可以把该消息删除了。**
 
@@ -488,7 +488,7 @@ multiple 的 true 和 false 代表不同意思
 
 <img src="https://gitee.com/wowosong/pic-md/raw/master/20211109101347.png" alt="image-20211109101336827" style="zoom:50%;" />
 
-### **3.2.6.** **消息手动应答代码** 
+### **3.2.6.** **消息手动应答代码**
 
 默认消息采用的是自动应答，所以我们要想实现消息消费过程中不丢失，需要把自动应答改为手动应答，消费者在上面代码的基础上增加下面画红色部分代码。
 
@@ -615,7 +615,7 @@ public class Work03 {
 
 这个时候即使重启 rabbitmq 队列也依然存在
 
-### **3.3.3.** **消息实现持久化** 
+### **3.3.3.** **消息实现持久化**
 
 要想让消息实现持久化需要在消息生产者修改代码，MessageProperties.PERSISTENT_TEXT_PLAIN 添加这个属性。
 
@@ -623,9 +623,9 @@ public class Work03 {
 
 **$\textcolor{red}{将消息标记为持久化并不能完全保证不会丢失消息}$**。**尽管它告诉 RabbitMQ 将消息保存到磁盘，但是这里依然存在当消息刚准备存储在磁盘的时候 但是还没有存储完，消息还在缓存的一个间隔点。此时并没有真正写入磁盘。**持久性保证并不强，但是对于我们的简单任务队列而言，这已经绰绰有余了。如果需要更强有力的持久化策略，参考**后边课件发布确认章节。**
 
-### **3.3.4.** **不公平分发** 
+### **3.3.4.** **不公平分发**
 
-在最开始的时候我们学习到 RabbitMQ 分发消息采用的轮训分发，但是在某种场景下这种策略并不是很好，比方说有两个消费者在处理任务，其中有个消费者 1 处理任务的速度非常快，而另外一个消费者 2 处理速度却很慢，这个时候我们还是采用轮训分发的化就会到这处理速度快的这个消费者很大一部分时间处于空闲状态，而处理慢的那个消费者一直在干活，这种分配方式在这种情况下其实就不太好，但是RabbitMQ 并不知道这种情况它依然很公平的进行分发。
+在最开始的时候我们学习到 RabbitMQ **分发消息采用的轮训分发**，但是在某种场景下这种策略并不是很好，比方说有两个消费者在处理任务，其中有个消费者 1 处理任务的速度非常快，而另外一个消费者 2 处理速度却很慢，这个时候我们还是采用轮训分发的话，就会到这处理速度快的这个消费者很大一部分时间处于空闲状态，而处理慢的那个消费者一直在干活，这种分配方式在这种情况下其实就不太好，但是RabbitMQ 并不知道这种情况它**依然很公平的进行分发。**
 
 为了避免这种情况，我们可以在消费者方设置参数 channel.basicQos(1);
 
@@ -642,11 +642,11 @@ public class Work03 {
 
 ### **3.3.5.** **预取值** 
 
-本身消息的发送就是异步发送的，所以在任何时候，channel 上肯定不止只有一个消息，另外来自消费者的手动确认本质上也是异步的。因此这里就存在一个未确认的消息缓冲区，因此希望开发人员能**限制此缓冲区的大小，以避免缓冲区里面无限制的未确认消息问题**。这个时候就可以通过使用 basic.qos 方法设置“预取计数”值来完成的。**该值定义通道上允许的未确认消息的最大数量**。一旦数量达到配置的数量，RabbitMQ 将停止在通道上传递更多消息，除非至少有一个未处理的消息被确认。
+本身消息的发送就是异步发送的，所以在任何时候，channel 上肯定不止只有一个消息，另外来自消费者的手动确认本质上也是异步的。因此这里就存在一个**未确认的消息缓冲区**，因此希望开发人员能**限制此缓冲区的大小，以避免缓冲区里面无限制的未确认消息问题**。**这个时候就可以通过使用 basic.qos 方法设置“预取计数”值来完成的。该值定义通道上允许的未确认消息的最大数量**。一旦数量达到配置的数量，RabbitMQ 将停止在通道上传递更多消息，除非至少有一个未处理的消息被确认。
 
 <img src="https://gitee.com/wowosong/pic-md/raw/master/20211109134001.png" alt="image-20211109133956860" style="zoom:100%;" />
 
-例如，假设在通道上有未确认的消息 5、6、7，8，并且通道的预取计数设置为 4，此时 RabbitMQ 将不会在该通道上再传递任何消息，除非至少有一个未应答的消息被 ack。比方说 tag=6 这个消息刚刚被确认 ACK，RabbitMQ 将会感知这个情况到并再发送一条消息。$\textcolor{red}{消息应答和 QoS 预取值对用户吞吐量有重大影响}$。通常，增加预取将提高向消费者传递消息的速度。**虽然自动应答传输消息速率是最佳的，但是，在这种情况下已传递但尚未处理的消息的数量也会增加，从而增加了消费者的 RAM消耗**(随机存取存储器)应该小心使用具有无限预处理的自动确认模式或手动确认模式，**消费者消费了大量的消息如果没有确认的话，会导致消费者连接节点的内存消耗变大，所以找到合适的预取值是一个反复试验的过程，不同的负载该值取值也不同 100 到 300 范围内的值通常可提供最佳的吞吐量，并且不会给消费者带来太大的风险。**预取值为 1 是最保守的。当然这将使吞吐量变得很低，特别是消费者连接延迟很严重的情况下，特别是在消费者连接等待时间较长的环境中。对于大多数应用来说，稍微高一点的值将是最佳的。
+例如，假设在通道上有未确认的消息 5、6、7，8，并且通道的预取计数设置为 4，此时 RabbitMQ 将不会在该通道上再传递任何消息，除非至少有一个未应答的消息被 ack。比方说 tag=6 这个消息刚刚被确认 ACK，RabbitMQ 将会感知这个情况到并再发送一条消息。$\textcolor{red}{消息应答和 QoS 预取值对用户吞吐量有重大影响}$。通常，增加预取将提高向消费者传递消息的速度。**虽然自动应答传输消息速率是最佳的，但是，在这种情况下已传递但尚未处理的消息的数量也会增加，从而增加了消费者的 RAM消耗**(随机存取存储器)应该小心使用具有无限预处理的自动确认模式或手动确认模式，**消费者消费了大量的消息如果没有确认的话，会导致消费者连接节点的内存消耗变大，所以找到合适的预取值是一个反复试验的过程，不同的负载，该值取值也不同 。100 到 300 范围内的值通常可提供最佳的吞吐量，并且不会给消费者带来太大的风险。**预取值为 1 是最保守的。当然这将使吞吐量变得很低，特别是消费者连接延迟很严重的情况下，特别是在消费者连接等待时间较长的环境中。对于大多数应用来说，稍微高一点的值将是最佳的。
 
 <img src="https://gitee.com/wowosong/pic-md/raw/master/20211109135211.png" alt="image-20211109135204790" style="zoom:50%;" />
 
@@ -673,7 +673,7 @@ channel.confirmSelect();
 
 **4.2.2.** **单个确认发布** 
 
-这是一种简单的确认方式，它是一种**同步确认发布**的方式，也就是发布一个消息之后只有它被确认发布，后续的消息才能继续发布,waitForConfirmsOrDie(long)这个方法只有在消息被确认的时候才返回，如果在指定时间范围内这个消息没有被确认那么它将抛出异常。
+这是一种简单的确认方式，它是一种**同步确认发布**的方式，也就是发布一个消息之后只有它被确认发布，后续的消息才能继续发布，waitForConfirmsOrDie(long)这个方法只有在消息被确认的时候才返回，如果在指定时间范围内这个消息没有被确认那么它将抛出异常。
 
 这种确认方式有一个最大的缺点就是:**发布速度特别的慢，**因为如果没有确认发布的消息就会阻塞所有后续消息的发布，这种方式最多提供每秒不超过数百条发布消息的吞吐量。当然对于某些应用程序来说这可能已经足够了。
 
@@ -748,19 +748,19 @@ public static void publishMessageAsync() throws Exception {
     //开启发布确认
     channel.confirmSelect();
     /**
-             * 线程安全有序的一个哈希表，适用于高并发的情况
-             * 1.轻松的将序号与消息进行关联
-             * 2.轻松批量删除条目 只要给到序列号
-             * 3.支持并发访问
-             */
+     * 线程安全有序的一个哈希表，适用于高并发的情况
+     * 1.轻松的将序号与消息进行关联
+     * 2.轻松批量删除条目 只要给到序列号
+     * 3.支持并发访问
+     */
     ConcurrentSkipListMap<Long, String> outstandingConfirms = new
       ConcurrentSkipListMap<>();
     /**
-             * 确认收到消息的一个回调
-             * 1.消息序列号
-             * 2.true 可以确认小于等于当前序列号的消息
-             * false 确认当前序列号消息
-             */
+    * 确认收到消息的一个回调
+    * 1.消息序列号
+    * 2.true 可以确认小于等于当前序列号的消息
+    * false 确认当前序列号消息
+    */
     ConfirmCallback ackCallback = (sequenceNumber, multiple) -> {
       if (multiple) {
         //返回的是小于等于当前序列号的未确认消息 是一个 map
@@ -907,9 +907,7 @@ public static void main(String[] args) throws Exception {
 
 ### **5.1.1.** **Exchanges 概念** 
 
-RabbitMQ 消息传递模型的核心思想是: **生产者生产的消息从不会直接发送到队列**。实际上，通常生产
-
-者甚至都不知道这些消息传递传递到了哪些队列中。
+RabbitMQ 消息传递模型的核心思想是: **生产者生产的消息从不会直接发送到队列**。实际上，通常生产者甚至都不知道这些消息传递传递到了哪些队列中。
 
 相反，**生产者只能将消息发送到交换机(exchange)**，交换机工作的内容非常简单，一方面它接收来自生产者的消息，另一方面将它们推入队列。交换机必须确切知道如何处理收到的消息。是应该把这些消息放到特定队列还是说把他们到许多队列中还是说应该丢弃它们。这就的由交换机的类型来决定。
 
@@ -919,9 +917,9 @@ RabbitMQ 消息传递模型的核心思想是: **生产者生产的消息从不�
 
 总共有以下类型：
 
-直接(direct), 主题(topic) ,标题(headers) , 扇出(fanout)
+**直接(direct), 主题(topic) ,标题(headers) , 扇出(fanout)**
 
-### **5.1.3.** **无名 exchange** 
+### **5.1.3.** **无名 exchange**
 
 在本教程的前面部分我们对 exchange 一无所知，但仍然能够将消息发送到队列。之前能实现的原因是因为我们使用的是默认交换，我们通过空字符串("")进行标识。
 
@@ -1051,9 +1049,11 @@ EmitLog 发送消息给两个消费者接收
 
 在上一节中，我们构建了一个简单的日志记录系统。我们能够向许多接收者广播日志消息。在本节我们将向其中添加一些特别的功能-比方说我们只让某个消费者订阅发布的部分消息。例如我们只把严重错误消息定向存储到日志文件(以节省磁盘空间)，同时仍然能够在控制台上打印所有日志消息。
 
-我们再次来回顾一下什么是 bindings，绑定是交换机和队列之间的桥梁关系。也可以这么理解：**队列只对它绑定的交换机的消息感兴趣**。绑定用参数：routingKey 来表示也可称该参数为 binding key，创建绑定我们用代码:channel.queueBind(queueName, EXCHANGE_NAME, "routingKey");**绑定之后的意义由其交换类型决定**。
+我们再次来回顾一下什么是 bindings，**绑定是交换机和队列之间的桥梁关系**。也可以这么理解：**队列只对它绑定的交换机的消息感兴趣**。绑定用参数：routingKey 来表示也可称该参数为 binding key，创建绑定我们用代码:
 
-### **5.5.2.** **Direct exchange 介绍** 
+channel.queueBind(queueName, EXCHANGE_NAME, "routingKey");**绑定之后的意义由其交换类型决定**。
+
+### **5.5.2.** **Direct exchange 介绍**
 
 上一节中的我们的日志系统将所有消息广播给所有消费者，对此我们想做一些改变，例如我们希望将日志消息写入磁盘的程序仅接收严重错误(errros)，而不存储哪些警告(warning)或信息(info)日志消息避免浪费磁盘空间。Fanout 这种交换类型并不能给我们带来很大的灵活性-它只能进行无意识的广播，在这里我们将使用 direct 这种类型来进行替换，这种类型的工作方式是，消息只去到它绑定的routingKey 队列中去。
 
@@ -1422,7 +1422,7 @@ public class Consumer01 {
         channel.queueBind(NORMAL_QUEUE, NORMAL_EXCHANGE, "zhangsan");
         System.out.println("等待接收消息.....");
         DeliverCallback deliverCallback = (consumerTag, message) -> {
-            System.out.println("Consumer01接收到的消息：" + new String(message.getBody(), "utf-8"));
+       System.out.println("Consumer01接收到的消息：" + new String(message.getBody(), "utf-8"));
         };
         CancelCallback cancelCallback = (consumerTag) -> {
 
@@ -1513,7 +1513,7 @@ public class Consumer01 {
 
 但对于数据量比较大，并且时效性较强的场景，如：“订单十分钟内未支付则关闭“，短期内未支付的订单数据可能会有很多，活动期间甚至会达到百万甚至千万级别，对这么庞大的数据量仍旧使用轮询的方式显然是不可取的，很可能在一秒内无法完成所有订单的检查，同时会给数据库带来很大压力，无法满足业务要求而且性能低下。
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/20211111164604.png" alt="image-20211111164602414" style="zoom: 67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/20211111164604.png" alt="image-20211111164602414" style="zoom: 100%;" />
 
 ## **7.3.** **整合** **springboot**
 
@@ -1615,7 +1615,7 @@ public class SwaggerConfig {
 
 ## **7.4. RabbitMQ** **中的** **TTL**
 
-TTL 是什么呢？TTL 是 RabbitMQ 中一个消息或者队列的属性，表明一条消息或者该队列中的所有消息的最大存活时间，单位是毫秒。换句话说，如果一条消息设置了 TTL 属性或者进入了设置 TTL 属性的队列，那么这条消息如果在 TTL 设置的时间内没有被消费，则会成为"死信"。如果同时配置了队列的 TTL 和消息的TTL，那么较小的那个值将会被使用，有两种方式设置 TTL。
+TTL 是什么呢？TTL 是 RabbitMQ 中一个消息或者队列的属性，表明一条消息或者该队列中的所有消息的最大存活时间，单位是毫秒。换句话说，**如果一条消息设置了 TTL 属性或者进入了设置 TTL 属性的队列，那么这条消息如果在 TTL 设置的时间内没有被消费，则会成为"死信"**。如果同时配置了队列的 TTL 和消息的TTL，那么较小的那个值将会被使用，有两种方式设置 TTL。
 
 ### **7.4.1.** **消息设置 TTL** 
 
@@ -1633,7 +1633,7 @@ TTL 是什么呢？TTL 是 RabbitMQ 中一个消息或者队列的属性，表�
 
 如果设置了队列的 TTL 属性，那么一旦消息过期，就会被队列丢弃(如果配置了死信队列被丢到死信队列中)，而第二种方式，消息即使过期，也不一定会被马上丢弃，因为**消息是否过期是在即将投递到消费者之前判定的**，如果当前队列有严重的消息积压情况，则已过期的消息也许还能存活较长时间；另外，还需要注意的一点是，如果不设置 TTL，表示消息永远不会过期，如果将 TTL 设置为 0，则表示除非此时可以直接投递该消息到消费者，否则该消息将会被丢弃。
 
-前一小节我们介绍了死信队列，刚刚又介绍了 TTL，至此利用 RabbitMQ 实现延时队列的两大要素已经集齐，接下来只需要将它们进行融合，再加入一点点调味料，延时队列就可以新鲜出炉了。想想看，延时队列，不就是想要消息延迟多久被处理吗，TTL 则刚好能让消息在延迟多久之后成为死信，另一方面，成为死信的消息都会被投递到死信队列里，这样只需要消费者一直消费死信队列里的消息就完事了，因为里面的消息都是希望被立即处理的消息。
+前一小节我们介绍了死信队列，刚刚又介绍了 TTL，至此利用 RabbitMQ 实现延时队列的两大要素已经集齐，接下来只需要将它们进行融合，再加入一点点调味料，延时队列就可以新鲜出炉了。想想看，延时队列，不就是想要消息延迟多久被处理吗，TTL 则刚好能让消息在延迟多久之后成为死信，另一方面，**成为死信的消息都会被投递到死信队列里，这样只需要消费者一直消费死信队列里的消息就完事了，因为里面的消息都是希望被立即处理的消息**。
 
 ## **7.5.** **队列** **TTL**
 
@@ -1795,7 +1795,7 @@ http://localhost:8080/ttl/sendExpirationMsg/你好 2/2000
 
 ![image-20211112212432152](https://gitee.com/wowosong/pic-md/raw/master/20211112212432.png)
 
-看起来似乎没什么问题，但是在最开始的时候，就介绍过如果使用在消息属性上设置 TTL 的方式，消息可能并不会按时“死亡“，因为 **RabbitMQ** **只会检查第一个消息是否过期**，如果过期则丢到死信队列，**如果第一个消息的延时时长很长，而第二个消息的延时时长很短，第二个消息并不会优先得到执行**。
+看起来似乎没什么问题，但是在最开始的时候，就介绍过如果使用在消息属性上设置 TTL 的方式，消息可能并不会按时“死亡“，因为 **RabbitMQ** **只会检查第一个消息是否过期，如果过期则丢到死信队列，如果第一个消息的延时时长很长（因为队列是有顺序的），而第二个消息的延时时长很短，第二个消息并不会优先得到执行**。
 
 ## **7.7. Rabbitmq** **插件实现延迟队列**
 
@@ -1805,7 +1805,7 @@ http://localhost:8080/ttl/sendExpirationMsg/你好 2/2000
 
 在官网上下载 https://www.rabbitmq.com/community-plugins.html，下载**rabbitmq_delayed_message_exchange** 插件，然后解压放置到 RabbitMQ 的插件目录。
 
-进入 RabbitMQ 的安装目录下的 plgins 目录，执行下面命令让该插件生效，然后重启 RabbitMQ
+进入 RabbitMQ 的安装目录下的 plugins 目录，执行下面命令让该插件生效，然后重启 RabbitMQ
 
 /usr/lib/rabbitmq/lib/rabbitmq_server-3.8.8/plugins
 
@@ -1896,7 +1896,7 @@ http://localhost:8080/ttl/sendDelayMsg/wowosong/10000
 
 **在生产环境中由于一些不明原因，导致 rabbitmq 重启，在 RabbitMQ 重启期间生产者消息投递失败，导致消息丢失，需要手动处理和恢复。**于是，我们开始思考，如何才能进行 RabbitMQ 的消息可靠投递呢？特别是在这样比较极端的情况，RabbitMQ 集群不可用的时候，无法投递的消息该如何处理呢:
 
-```
+```java
 应 用 [xxx] 在 [08-1516:36:04] 发 生 [ 错误日志异常 ] ， alertId=[xxx] 。 由
 [org.springframework.amqp.rabbit.listener.BlockingQueueConsumer:start:620] 触发。
 应用 xxx 可能原因如下
@@ -1929,7 +1929,7 @@ allow us to use it.||Consumer received fatal=false exception on startup:
 
 ⚫ CORRELATED
 
-发布消息成功到交换器后会触发回调方法
+发布消息成功到交换机后会触发回调方法
 
 ⚫ SIMPLE
 
@@ -1977,20 +1977,19 @@ public class CofirmConfig {
 ### **8.1.5. 消息生产者**
 
 ```java
+@GetMapping("/sendmessage/{message}")
+public void sendConfirmQueue(@PathVariable("message") String message){
+  CorrelationData correlationData=new CorrelationData();
+  String routingkey1="key1";
+  correlationData.setId("1");
+  rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE,routingkey1,message+routingkey1,correlationData);
 
-    @GetMapping("/sendmessage/{message}")
-    public void sendConfirmQueue(@PathVariable("message") String message){
-        CorrelationData correlationData=new CorrelationData();
-        String routingkey1="key1";
-        correlationData.setId("1");
-        rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME,routingkey1,message+routingkey1,correlationData);
-
-        CorrelationData correlationData1=new CorrelationData();
-        String routingkey2="key2";
-        correlationData.setId("2");
-        rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME,routingkey2,message+routingkey2,correlationData1);
-        log.info("发送消息内容:{}",message);
-    }
+  CorrelationData correlationData1=new CorrelationData();
+  String routingkey2="key2";
+  correlationData.setId("2");
+  rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE,routingkey2,message+routingkey2,correlationData1);
+  log.info("发送消息内容:{}",message);
+}
 ```
 
 ### **8.1.6. 回调接口**
@@ -2032,7 +2031,7 @@ public void receviedConfirmQueue(Message message){
 
 ![image-20211113105116365](https://gitee.com/wowosong/pic-md/raw/master/20211113105116.png)
 
-可以看到，发送了两条消息，第一条消息的 RoutingKey 为 "key1"，第二条消息的 RoutingKey 为"key2"，两条消息都成功被交换机接收，也收到了交换机的确认回调，但消费者只收到了一条消息，因为第二条消息的 RoutingKey 与队列的 BindingKey 不一致，也没有其它队列能接收这个消息，所有第二条消息被直接丢弃了。
+可以看到，发送了两条消息，第一条消息的 RoutingKey 为 "key1"，第二条消息的 RoutingKey 为"key2"，两条消息都成功被交换机接收，也收到了交换机的确认回调，但消费者只收到了一条消息，因为第二条消息的 RoutingKey 与队列的 BindingKey 不一致，也没有其它队列能接收这个消息，所以第二条消息被直接丢弃了。
 
 ## **8.2.** **回退消息**
 
@@ -2044,24 +2043,22 @@ public void receviedConfirmQueue(Message message){
 spring.rabbitmq.publisher-returns=true
 ```
 
-
-
 ### **8.2.2. 消息生产者代码**
 
 ```java
-    @GetMapping("/sendmessage/{message}")
-    public void sendConfirmQueue(@PathVariable("message") String message){
-        CorrelationData correlationData=new CorrelationData();
-        String routingkey1="key1";
-        correlationData.setId("1");
-        rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME,routingkey1,message+routingkey1,correlationData);
+@GetMapping("/sendmessage/{message}")
+public void sendConfirmQueue(@PathVariable("message") String message){
+  CorrelationData correlationData=new CorrelationData();
+  String routingkey1="key1";
+  correlationData.setId("1");
+  rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME,routingkey1,message+routingkey1,correlationData);
 
-        CorrelationData correlationData1=new CorrelationData();
-        String routingkey2="key2";
-        correlationData.setId("2");
-        rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME,routingkey2,message+routingkey2,correlationData1);
-        log.info("发送消息内容:{}",message);
-    }
+  CorrelationData correlationData1=new CorrelationData();
+  String routingkey2="key2";
+  correlationData.setId("2");
+  rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME,routingkey2,message+routingkey2,correlationData1);
+  log.info("发送消息内容:{}",message);
+}
 ```
 
 
@@ -2102,7 +2099,7 @@ public class MyCallBack implements RabbitTemplate.ConfirmCallback,RabbitTemplate
 
 ## **8.3.** **备份交换机**
 
-有了 mandatory 参数和回退消息，我们获得了对无法投递消息的感知能力，有机会在生产者的消息无法被投递时发现并处理。但有时候，我们并不知道该如何处理这些无法路由的消息，最多打个日志，然后触发报警，再来手动处理。而通过日志来处理这些无法路由的消息是很不优雅的做法，特别是当生产者所在的服务有多台机器的时候，手动复制日志会更加麻烦而且容易出错。而且设置 mandatory 参数会增加生产者的复杂性，需要添加处理这些被退回的消息的逻辑。如果既不想丢失消息，又不想增加生产者的复杂性，该怎么做呢？前面在设置死信队列的文章中，我们提到，可以为队列设置死信交换机来存储那些处理失败的消息，可是这些不可路由消息根本没有机会进入到队列，因此无法使用死信队列来保存消息。在 RabbitMQ 中，有一种备份交换机的机制存在，可以很好的应对这个问题。什么是备份交换机呢？备份交换机可以理解为 RabbitMQ 中交换机的“备胎”，当我们为某一个交换机声明一个对应的备份交换机时，就是为它创建一个备胎，当交换机接收到一条不可路由消息时，将会把这条消息转发到备份交换机中，由备份交换机来进行转发和处理，通常备份交换机的类型为 Fanout ，这样就能把所有消息都投递到与其绑定的队列中，然后我们在备份交换机下绑定一个队列，这样所有那些原交换机无法被路由的消息，就会都进入这个队列了。当然，我们还可以建立一个报警队列，用独立的消费者来进行监测和报警。
+有了 mandatory 参数和回退消息，我们**获得了对无法投递消息的感知能力，有机会在生产者的消息无法被投递时发现并处理**。但有时候，我们并不知道该如何处理这些无法路由的消息，最多打个日志，然后触发报警，再来手动处理。而通过日志来处理这些无法路由的消息是很不优雅的做法，特别是当生产者所在的服务有多台机器的时候，手动复制日志会更加麻烦而且容易出错。而且设置 mandatory 参数会增加生产者的复杂性，需要添加处理这些被退回的消息的逻辑。如果既不想丢失消息，又不想增加生产者的复杂性，该怎么做呢？前面在设置死信队列的文章中，我们提到，可以为队列设置死信交换机来存储那些处理失败的消息，可是这些不可路由消息根本没有机会进入到队列，因此无法使用死信队列来保存消息。在 RabbitMQ 中，有一种备份交换机的机制存在，可以很好的应对这个问题。什么是备份交换机呢？备份交换机可以理解为 RabbitMQ 中交换机的“备胎”，**当我们为某一个交换机声明一个对应的备份交换机时，就是为它创建一个备胎，当交换机接收到一条不可路由消息时，将会把这条消息转发到备份交换机中，由备份交换机来进行转发和处理，通常备份交换机的类型为 Fanout ，这样就能把所有消息都投递到与其绑定的队列中，然后我们在备份交换机下绑定一个队列，这样所有那些原交换机无法被路由的消息，就会都进入这个队列了。当然，我们还可以建立一个报警队列，用独立的消费者来进行监测和报警。**
 
 ### **8.3.1. 代码架构图**
 
@@ -2126,8 +2123,6 @@ public class ConfirmConfig {
         return ExchangeBuilder.directExchange(CONFIRM_EXCHANGE).durable(true).withArgument("alternate-exchange",BACKUP_EXCHANGE).build();
 //        return new DirectExchange(CONFIRM_EXCHANGE);
     }
-
-
     @Bean
     public FanoutExchange backupExchange(){
         return new FanoutExchange(BACKUP_EXCHANGE);
@@ -2241,7 +2236,7 @@ AMQP.BasicProperties properties = new
 AMQP.BasicProperties().builder().priority(5).build();
 ```
 
-**要让队列实现优先级需要做的事情有如下事情:队列需要设置为优先级队列，消息需要设置消息的优先级，消费者需要等待消息已经发送到队列中才去消费因为，这样才有机会对消息进行排序**
+**要让队列实现优先级需要做的事情有如下事情:队列需要设置为优先级队列，消息需要设置消息的优先级，消费者需要等待消息已经发送到队列中才去消费因为这样才有机会对消息进行排序**
 
 ### **9.2.3. 实战**
 
@@ -2348,11 +2343,9 @@ vim /etc/hosts
 
 在 node1 上执行远程操作命令
 
-```
+```shell
 scp /var/lib/rabbitmq/.erlang.cookie root@node2:/var/lib/rabbitmq/.erlang.cookie
-
 scp /var/lib/rabbitmq/.erlang.cookie root@node3:/var/lib/rabbitmq/.erlang.cookie
-
 ```
 
 4.启动 RabbitMQ 服务,顺带启动 Erlang 虚拟机和 RbbitMQ 应用服务(在三台节点上分别执行以
@@ -2365,7 +2358,7 @@ rabbitmq-server -detached
 
 5.在节点 2 执行
 
-```
+```shell
 rabbitmqctl stop_app
 
 (rabbitmqctl stop 会将 Erlang 虚拟机关闭，rabbitmqctl stop_app 只关闭 RabbitMQ 服务)
@@ -2379,7 +2372,7 @@ rabbitmqctl start_app(只启动应用服务)
 
 6.在节点 3 执行rabbitmqctl stop_app
 
-```
+```shell
 rabbitmqctl reset
 
 rabbitmqctl join_cluster rabbit@node2
@@ -2415,7 +2408,7 @@ rabbitmqctl set_permissions -p "/" admin ".*" ".*" ".*"
 
 9.解除集群节点(node2 和 node3 机器分别执行)
 
-```
+```shell
 rabbitmqctl stop_app
 
 rabbitmqctl reset
@@ -2431,7 +2424,7 @@ rabbitmqctl forget_cluster_node rabbit@node2(node1 机器上执行)
 
 ### **10.2.1. 使用镜像的原因**
 
-如果 RabbitMQ 集群中只有一个 Broker 节点，那么该节点的失效将导致整体服务的临时性不可用，并且也可能会导致消息的丢失。可以将所有消息都设置为持久化，并且对应队列的durable属性也设置为true，但是这样仍然无法避免由于缓存导致的问题：因为消息在发送之后和被写入磁盘井执行刷盘动作之间存在一个短暂却会产生问题的时间窗。通过 publisherconfirm 机制能够确保客户端知道哪些消息己经存入磁盘，尽管如此，一般不希望遇到因单点故障导致的服务不可用。
+如果 RabbitMQ 集群中只有一个 Broker 节点，那么该节点的失效将导致整体服务的临时性不可用，并且也可能会导致消息的丢失。可以将所有消息都设置为持久化，并且对应队列的durable属性也设置为true，但是这样仍然无法避免由于缓存导致的问题：因为消息在发送之后和被写入磁盘井执行刷盘动作之间存在一个短暂却会产生问题的时间窗。通过 publisher-confirm 机制能够确保客户端知道哪些消息己经存入磁盘，尽管如此，一般不希望遇到因单点故障导致的服务不可用。
 
 引入镜像队列(Mirror Queue)的机制，可以将队列镜像到集群中的其他 Broker 节点之上，如果集群中的一个节点失效了，队列能自动地切换到镜像中的另一个节点上以保证服务的可用性。
 
@@ -2545,7 +2538,7 @@ systemctl stop keepalived
 
 ### **10.4.1. 使用它的原因**
 
-(broker 北京)，(broker 深圳)彼此之间相距甚远，网络延迟是一个不得不面对的问题。有一个在北京的业务(Client 北京) 需要连接(broker 北京)，向其中的交换器 exchangeA 发送消息，此时的网络延迟很小，(Client 北京)可以迅速将消息发送至 exchangeA 中，就算在开启了 publisherconfirm 机制或者事务机制的情况下，也可以迅速收到确认信息。此时又有个在深圳的业务(Client 深圳)需要向 exchangeA 发送消息，那么(Client 深圳) (broker 北京)之间有很大的网络延迟，(Client 深圳) 将发送消息至 exchangeA 会经历一定的延迟，尤其是在开启了 publisherconfirm 机制或者事务机制的情况下，(Client 深圳) 会等待很长的延迟时间来接收(broker 北京)的确认信息，进而必然造成这条发送线程的性能降低，甚至造成一定程度上的阻塞。
+(broker 北京)，(broker 深圳)彼此之间相距甚远，网络延迟是一个不得不面对的问题。有一个在北京的业务(Client 北京) 需要连接(broker 北京)，向其中的交换器 exchangeA 发送消息，此时的网络延迟很小，(Client 北京)可以迅速将消息发送至 exchangeA 中，就算在开启了 publisherconfirm 机制或者事务机制的情况下，也可以迅速收到确认信息。此时又有个在深圳的业务(Client 深圳)需要向 exchangeA 发送消息，那么(Client 深圳) (broker 北京)之间有很大的网络延迟，(Client 深圳) 将发送消息至 exchangeA 会经历一定的延迟，尤其是在开启了 publisher-confirm 机制或者事务机制的情况下，(Client 深圳) 会等待很长的延迟时间来接收(broker 北京)的确认信息，进而必然造成这条发送线程的性能降低，甚至造成一定程度上的阻塞。
 
 将业务(Client 深圳)部署到北京的机房可以解决这个问题，但是如果(Client 深圳)调用的另些服务都部署在深圳，那么又会引发新的时延问题，总不见得将所有业务全部部署在一个机房，那么容灾又何以实现？这里使用 Federation 插件就可以很好地解决这个问题.
 
