@@ -54,7 +54,7 @@ Stream<String> parallelStream = list.parallelStream();
 ```java
 int[] array={1,3,5,6,8};
 IntStream stream = Arrays.stream(array);
-1
+
 ```
 
 3、使用`Stream`的静态方法：`of()、iterate()、generate()`

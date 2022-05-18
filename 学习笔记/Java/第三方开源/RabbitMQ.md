@@ -1643,7 +1643,7 @@ TTL 是什么呢？TTL 是 RabbitMQ 中一个消息或者队列的属性，表�
 
 ![image-20211112110204618](https://gitee.com/wowosong/pic-md/raw/master/20211112110218.png)
 
-### **7.5.2.** **配置文件类代码** 
+### **7.5.2.** **配置文件类代码**
 
 ```java
 @Configuration
@@ -1651,6 +1651,7 @@ public class TtlQueueConfig {
     public static final String X_EXCHANGE = "X";
     public static final String QUEUE_A = "QA";
     public static final String QUEUE_B = "QB";
+  
     public static final String Y_DEAD_LETTER_EXCHANGE = "Y";
     public static final String DEAD_LETTER_QUEUE = "QD";
 
@@ -1977,6 +1978,8 @@ public class CofirmConfig {
 ### **8.1.5. 消息生产者**
 
 ```java
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 @GetMapping("/sendmessage/{message}")
 public void sendConfirmQueue(@PathVariable("message") String message){
   CorrelationData correlationData=new CorrelationData();
@@ -1990,6 +1993,23 @@ public void sendConfirmQueue(@PathVariable("message") String message){
   rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE,routingkey2,message+routingkey2,correlationData1);
   log.info("发送消息内容:{}",message);
 }
+=======
+=======
+>>>>>>> Stashed changes
+    @GetMapping("/sendmessage/{message}")
+    public void sendConfirmQueue(@PathVariable("message") String message){
+        CorrelationData correlationData=new CorrelationData();
+        String routingkey1="key1";
+        correlationData.setId("1");
+        rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME,routingkey1,message+routingkey1,correlationData);
+
+        CorrelationData correlationData1=new CorrelationData();
+        String routingkey2="key2";
+        correlationData.setId("2");
+        rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME,routingkey2,message+routingkey2,correlationData1);
+        log.info("发送消息内容:{}",message);
+    }
+>>>>>>> Stashed changes
 ```
 
 ### **8.1.6. 回调接口**
@@ -2163,7 +2183,7 @@ public class ConfirmConfig {
     public void receviedWaringQueue(Message message){
         String msg = new String(message.getBody());
         log.info("当前时间：{},收到报警队列的消息：{}", new Date().toString(), msg);
-        log.error("报警发现不可路由消息：{}", msg);
+        log.error("·报警发现不可路由消息：{}", msg);
     }
 ```
 
@@ -2185,11 +2205,11 @@ mandatory 参数与备份交换机可以一起使用的时候，如果两者同�
 
 ### **9.1.1. 概念**
 
-用户对于同一操作发起的一次请求或者多次请求的结果是一致的，不会因为多次点击而产生了副作用。举个最简单的例子，那就是支付，用户购买商品后支付，支付扣款成功，但是返回结果的时候网络异常，此时钱已经扣了，用户再次点击按钮，此时会进行第二次扣款，返回结果成功，用户查询余额发现多扣钱了，流水记录也变成了两条。在以前的单应用系统中，我们只需要把数据操作放入事务中即可，发生错误立即回滚，但是再响应客户端的时候也有可能出现网络中断或者异常等等
+用户对于同一操作发起的一次请求或者多次请求的结果是一致的，不会因为多次点击而产生了副作用。举个最简单的例子，那就是支付，用户购买商品后支付，支付扣款成功，但是返回结果的时候网络异常，此时钱已经扣了，用户再次点击按钮，此时会进行第二次扣款，返回结果成功，用户查询余额发现多扣钱了，流水记录也变成了两条。在以前的单应用系统中，我们只需要把数据操作放入事务中即可，发生错误立即回滚，但是在响应客户端的时候也有可能出现网络中断或者异常等等
 
 ### **9.1.2. 消息重复消费**
 
-消费者在消费 MQ 中的消息时，MQ 已把消息发送给消费者，消费者在给 MQ 返回 ack 时网络中断，故 MQ 未收到确认信息，该条消息会重新发给其他的消费者，或者在网络重连后再次发送给该消费者，但实际上该消费者已成功消费了该条消息，造成消费者消费了重复的消息。
+消费者在消费 MQ 中的消息时，MQ 已把消息发送给消费者，消费者在给 MQ 返回 ack 时网络中断，故 MQ 未收到确认信息，该条消息会重新发给其他的消费者，或者在网络重连后再次发送给该消费者，**但实际上该消费者已成功消费了该条消息，造成消费者消费了重复的消息。**
 
 ### **9.1.3. 解决思路**
 
@@ -2293,7 +2313,7 @@ public class Consumer {
 
 RabbitMQ 从 3.6.0 版本开始引入了惰性队列的概念。惰性队列会尽可能的将消息存入磁盘中，而在消费者消费到相应的消息时才会被加载到内存中，它的一个重要的设计目标是能够支持更长的队列，即支持更多的消息存储。当消费者由于各种各样的原因(比如消费者下线、宕机亦或者是由于维护而关闭等)而致使长时间内不能消费消息造成堆积时，惰性队列就很有必要了。
 
-默认情况下，当生产者将消息发送到 RabbitMQ 的时候，队列中的消息会尽可能的存储在内存之中，这样可以更加快速的将消息发送给消费者。即使是持久化的消息，在被写入磁盘的同时也会在内存中驻留一份备份。当 RabbitMQ 需要释放内存的时候，会将内存中的消息换页至磁盘中，这个操作会耗费较长的时间，也会阻塞队列的操作，进而无法接收新的消息。虽然 RabbitMQ 的开发者们一直在升级相关的算法，但是效果始终不太理想，尤其是在消息量特别大的时候。
+默认情况下，**当生产者将消息发送到 RabbitMQ 的时候，队列中的消息会尽可能的存储在内存之中，这样可以更加快速的将消息发送给消费者。即使是持久化的消息，在被写入磁盘的同时也会在内存中驻留一份备份。**当 RabbitMQ 需要释放内存的时候，会将内存中的消息换页至磁盘中，这个操作会耗费较长的时间，也会阻塞队列的操作，进而无法接收新的消息。虽然 RabbitMQ 的开发者们一直在升级相关的算法，但是效果始终不太理想，尤其是在消息量特别大的时候。
 
 **9.3.2. 两种模式**
 
@@ -2508,9 +2528,7 @@ vim /etc/keepalived/keepalived.conf
 
 4.添加 haproxy_chk.sh
 
-(为了防止 HAProxy 服务挂掉之后 Keepalived 还在正常工作而没有切换到 Backup 上，所以这里需要编写一个脚本来检测 HAProxy 务的状态,当 HAProxy 服务挂掉之后该脚本会自动重启
-
-HAProxy 的服务，如果不成功则关闭 Keepalived 服务，这样便可以切换到 Backup 继续工作)
+(为了防止 HAProxy 服务挂掉之后 Keepalived 还在正常工作而没有切换到 Backup 上，所以这里需要编写一个脚本来检测 HAProxy 务的状态,当 HAProxy 服务挂掉之后该脚本会自动重启HAProxy 的服务，如果不成功则关闭 Keepalived 服务，这样便可以切换到 Backup 继续工作)
 
 vim /etc/keepalived/haproxy_chk.sh(可以直接上传文件)
 
