@@ -49,7 +49,7 @@ oracle(SQL server)数据库
 
 - minus(except) 相减(差集)
 
-  ![image-20211210055812586](https://gitee.com/wowosong/pic-md/raw/master/20211210055812.png)
+  ![image-20211210055812586](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210055812.png)
 
 ​																																	oracle
 
@@ -188,7 +188,7 @@ delete from ... where ...
 
 DCL : 数据控制语言 commit : 提交 / rollback : 回滚 / 授权grant...to... /revoke
 
-![image-20211210060234838](https://gitee.com/wowosong/pic-md/raw/master/20211210060234.png)
+![image-20211210060234838](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210060234.png)
 
 索引
 
@@ -246,7 +246,7 @@ for select * from B where B.id=A.id
 7. 查询中排序的字段，排序字段若通过索引去访问将大大提高排序速度
 8. 查询中统计和分组的字段
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/20210812205839.png)
+![图片](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20210812205839.png)
 
 | MyISAM和InnoDB |                                                          |                                                              |
 | -------------- | -------------------------------------------------------- | ------------------------------------------------------------ |
@@ -507,7 +507,7 @@ rollback;
 
 > ps：这些题考察SQL的编写能力，对于这类型的题目，需要你先把4张表之间的关联关系搞清楚了，最好的办法是自己在草稿纸上画出关联图，然后再编写对应的SQL语句就比较容易了。下图是我画的这4张表的关系图，可以看出它们之间是通过哪些外键关联起来的：
 
-![image-20211210055957222](https://gitee.com/wowosong/pic-md/raw/master/20211210055957.png)
+![image-20211210055957222](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210055957.png)
 
 ### 一、创建数据库和表
 
@@ -515,7 +515,7 @@ rollback;
 
 如何你还不懂什么是数据库，什么是客户端navicat，可以先学习这个：
 
-![image-20211210060447840](https://gitee.com/wowosong/pic-md/raw/master/20211210060447.png)
+![image-20211210060447840](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210060447.png)
 
 #### 1.创建表
 
@@ -523,37 +523,37 @@ rollback;
 
 按下图在客户端navicat里创建学生表。
 
-![image-20211210060510323](https://gitee.com/wowosong/pic-md/raw/master/20211210060510.png)
+![image-20211210060510323](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210060510.png)
 
 学生表的“学号”列设置为主键约束，下图是每一列设置的数据类型和约束
 
-![image-20211210060533773](https://gitee.com/wowosong/pic-md/raw/master/20211210060533.png)
+![image-20211210060533773](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210060533.png)
 
 创建完表，点击“保存”
 
-![image-20211210060556253](https://gitee.com/wowosong/pic-md/raw/master/20211210060556.png)
+![image-20211210060556253](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210060556.png)
 
 ##### 2）创建成绩表（score）
 
 同样的步骤，创建"成绩表“。“课程表的“学号”和“课程号”一起设置为主键约束（联合主键），“成绩”这一列设置为数值类型（float，浮点数值）
 
-![image-20211210060620715](https://gitee.com/wowosong/pic-md/raw/master/20211210060620.png)
+![image-20211210060620715](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210060620.png)
 
 ##### 3）创建课程表（course）
 
 课程表的“课程号”设置为主键约束
 
-![image-20211210060638819](https://gitee.com/wowosong/pic-md/raw/master/20211210060638.png)
+![image-20211210060638819](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210060638.png)
 
 ##### 4）教师表（teacher）
 
 教师表的“教师号”列设置为主键约束，教师姓名这一列设置约束为“null”（红框的地方不勾选），表示这一列允许包含空值（null）。
 
-![image-20211210060837385](https://gitee.com/wowosong/pic-md/raw/master/20211210060837.png)
+![image-20211210060837385](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210060837.png)
 
 向表中添加数据
 
-![image-20211210060903754](https://gitee.com/wowosong/pic-md/raw/master/20211210060903.png)
+![image-20211210060903754](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210060903.png)
 
 1）向学生表里添加数据
 
@@ -575,11 +575,11 @@ values('0004' , '王思聪' , '1990-05-20' , '男');
 
 在客户端navicat里的操作
 
-![image-20211210060942905](https://gitee.com/wowosong/pic-md/raw/master/20211210060942.png)
+![image-20211210060942905](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210060942.png)
 
-![image-20211210061013427](https://gitee.com/wowosong/pic-md/raw/master/20211210061013.png)
+![image-20211210061013427](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210061013.png)
 
-![image-20211210061028831](https://gitee.com/wowosong/pic-md/raw/master/20211210061028.png)
+![image-20211210061028831](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210061028.png)
 
 2）成绩表（score）
 
@@ -613,7 +613,7 @@ values('0003' , '0003' , 80);
 
 客户端navicat里的操作
 
-![image-20211210061049780](https://gitee.com/wowosong/pic-md/raw/master/20211210061049.png)
+![image-20211210061049780](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210061049.png)
 
 3）课程表
 
@@ -632,7 +632,7 @@ values('0003' , '英语' , '0003');
 
 客户端navicat里的操作
 
-![image-20211210061123334](https://gitee.com/wowosong/pic-md/raw/master/20211210061123.png)
+![image-20211210061123334](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210061123.png)
 
 4）教师表里添加数据
 
@@ -657,21 +657,21 @@ values('0004' , '');
 
 客户端navicat里操作
 
-![image-20211210061214984](https://gitee.com/wowosong/pic-md/raw/master/20211210061215.png)
+![image-20211210061214984](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210061215.png)
 
 添加结果
 
-![image-20211210061240467](https://gitee.com/wowosong/pic-md/raw/master/20211210061240.png)
+![image-20211210061240467](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210061240.png)
 
 ### 三、50道面试题
 
 为了方便学习，我将50道面试题进行了分类
 
-![image-20211210061729744](https://gitee.com/wowosong/pic-md/raw/master/20211210061729.png)
+![image-20211210061729744](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210061729.png)
 
 查询姓“猴”的学生名单
 
-![image-20211210065106731](https://gitee.com/wowosong/pic-md/raw/master/20211210065106.png)
+![image-20211210065106731](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210065106.png)
 
 查询姓“孟”老师的个数
 
@@ -683,7 +683,7 @@ where 教师姓名 like '孟%';
 
 ### 2.汇总统计分组分析
 
-![image-20211210065047782](https://gitee.com/wowosong/pic-md/raw/master/20211210065047.png)
+![image-20211210065047782](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210065047.png)
 
 面试题：查询课程编号为“0002”的总成绩
 
@@ -705,7 +705,7 @@ select count(distinct 学号) as 学生人数
 from score;
 ```
 
-![image-20211210065019371](https://gitee.com/wowosong/pic-md/raw/master/20211210065019.png)
+![image-20211210065019371](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210065019.png)
 
 查询各科成绩最高和最低的分， 以如下的形式显示：课程号，最高分，最低分
 
@@ -754,7 +754,7 @@ select 性别,count(*) from student group by 性别;
 select sex,count(*) from student GROUP BY sex;
 ```
 
-![image-20211210064957807](https://gitee.com/wowosong/pic-md/raw/master/20211210064957.png)
+![image-20211210064957807](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210064957.png)
 
 查询平均成绩大于60分学生的学号和平均成绩
 
@@ -1226,7 +1226,7 @@ union all
 
 ### 4.多表查询
 
-![image-20211210064328450](https://gitee.com/wowosong/pic-md/raw/master/20211210064328.png)
+![image-20211210064328450](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210064328.png)
 
 查询所有学生的学号、姓名、选课数、总成绩
 
@@ -1397,7 +1397,7 @@ from score;
 
 每个学生选修某门课程的成绩在下图的每个方块内。我们可以通过分组，取出每门课程的成绩。
 
-![image-20211210063801491](https://gitee.com/wowosong/pic-md/raw/master/20211210063801.png)
+![image-20211210063801491](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210063801.png)
 
 第3关，分组
 

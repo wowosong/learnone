@@ -47,7 +47,7 @@
 
 ### SQL 语法结构
 
- ![image-20210611171143536](https://gitee.com/wowosong/pic-md/raw/master/20210611171151.png)
+ ![image-20210611171143536](./SQL%E9%80%9F%E6%88%90.assets/20210611171151.png)
 
 SQL 语法结构包括：
 
@@ -232,7 +232,7 @@ SELECT * FROM mytable LIMIT 2, 3;
 
 - **内部查询首先在其父查询之前执行，以便可以将内部查询的结果传递给外部查询。执行过程可以参考下图**：
 
-  ![image-20210611171259888](https://gitee.com/wowosong/pic-md/raw/master/20210611171306.png)
+  ![image-20210611171259888](./SQL%E9%80%9F%E6%88%90.assets/20210611171306.png)
 
 **子查询的子查询**
 
@@ -413,9 +413,9 @@ WHERE prod_name LIKE '__ inch teddy bear';
 > 
 >- - 连接可以替换子查询，并且比子查询的效率一般会更快。
 > 
->    ![image-20210611171405080](https://gitee.com/wowosong/pic-md/raw/master/20210611171409.png)
-> 
-> ![图片](data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==)
+![image-20210611171405080](./SQL%E9%80%9F%E6%88%90.assets/20210611171409.png)
+
+
 
 ### 内连接（INNER JOIN）
 
