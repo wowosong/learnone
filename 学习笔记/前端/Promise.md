@@ -22,7 +22,7 @@
    无论变为成功还是失败, 都会有一个结果数据
    成功的结果数据一般称为 value, 失败的结果数据一般称为 reason
 ### 1.1.3. promise 的基本流程
-![image-20220421102019564](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Promise.assets/image-20220421102019564.png)
+![image-20220421102019564](./Promise.assets/image-20220421102019564.png)
 
 ### 1.1.4. promise 的基本使用
 1) 使用 1: 基本编码流程
