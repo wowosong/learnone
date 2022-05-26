@@ -18,7 +18,11 @@
 
 ## 2.创建子模块pay模块
 
-![](d:\pic-md/20211125221555.png)
+1. 建Module
+2. 改POM，引入依赖
+3. 写yml
+4. 主启动类
+5. 业务类
 
 ### 1.子模块名字:
 
@@ -57,43 +61,82 @@ mybatis:
 
 #### 1.sql
 
-![](d:\pic-md/20211125221628.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125221628.png)
 
 #### 2.实体类
 
-![](d:\pic-md/20211125221715.png)
+```java
+public class Payment implements Serializable{
+  private Long id;
+  private String serial;
+}
+```
 
 #### 3.entity类
 
-![](d:\pic-md/20211125221710.png)
+```java
+public class CommontResult<T>{
+	private Integer code ;
+	private String message;
+	private T data;
+	public CommonResult(Integer code,String message){
+	this(code,message,null);
+	}
+}
+```
 
 #### 4.dao层:
 
-![](d:\pic-md/20211125221828.png)
+```java
+@Mapper
+public interface PaymentDao{
+  public int create(Payment payment);
+  public Payment getPaymentByID(@Param("id") Long id);
+}
+```
 
 #### 5.mapper配置文件类
 
 ​                **在resource下，创建mapper/PayMapper.xml**
 
-![](d:\pic-md/20211125221905.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125221905.png)
 
 #### 6.写service和serviceImpl
 
-![](d:\pic-md/20211125221919.png)
+```java
+public interface PaymentService{
+   public int create(Payment payment);
+  public Payment getPaymentByID(@Param("id") Long id);
+}
+```
 
-![sc的9](d:\pic-md/20211125221935.png)
+
+
+```java
+@Service 
+public class PaymentServiceImpl implements PaymentService{
+  @Resource
+  private PayementDao paymentDao;
+  public int creae(Payment payment){
+    return paymentDao.create(payment);
+	}
+  public Payment getPaymentByID(Long id){
+    return paymentDao.getPaymentByID(id);
+  }
+}
+```
 
 #### 7.controller
 
-![](d:\pic-md/20211125221945.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125221945.png)
 
-![](d:\pic-md/20211125221955.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125221955.png)
 
 ## 3.热部署:
 
-![](d:\pic-md/20211125222009.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222009.png)
 
-![](d:\pic-md/20211125222016.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222016.png)
 
 .....
 
@@ -103,13 +146,20 @@ mybatis:
 
 ## 4.order模块
 
-![](d:\pic-md/20211125222023.png)
+1. 建Module
+2. 改POM，引入依赖
+3. 写yml
+4. 主启动类
+5. 业务类
 
 ### **1.pom**
 
 ### **2.yml配置文件**
 
-![](d:\pic-md/20211125222032.png)
+```yaml
+server:
+	port: 80
+```
 
 ### **3.主启动类**
 
@@ -123,17 +173,25 @@ mybatis:
 
 使用RestTemplate调用pay模块，
 
-​    ![](d:\pic-md/20211125222049.png)
+​    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222049.png)
 
-![](d:\pic-md/20211125222056.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222056.png)
 
  将restTemplate注入到容器
 
-![](d:\pic-md/20211125222112.png)
+```java
+@Configuration
+public class ApplicationContextConfig{
+  	@Bean
+  	public RestTemplate getRestTemplate(){
+      return new RestTemplate();
+    }
+}
+```
 
 编写controller:
 
-![](d:\pic-md/20211125222124.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222124.png)
 
 ## 5.重构
 
@@ -143,11 +201,11 @@ mybatis:
 
 ### 2.抽取公共pom
 
-![](d:\pic-md/20211125222130.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222130.png)
 
 ### 3.entity和实体类放入commons中
 
-![](d:\pic-md/20211125222137.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222137.png)
 
 ### 4.使用mavne，将commone模块打包(install)，
 
@@ -163,13 +221,13 @@ mybatis:
 
 Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
-​    ![](d:\pic-md/20211125222201.png)
+​    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222201.png)
 
-![](d:\pic-md/20211125222208.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222208.png)
 
-![](d:\pic-md/20211125222214.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222214.png)
 
-![](d:\pic-md/20211125222230.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222230.png)
 
 ### **单机版eureka:**
 
@@ -179,15 +237,15 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
  eurka最新的依赖变了
 
-![](d:\pic-md/20211125222239.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222239.png)
 
 #### 3.配置文件:
 
-![](d:\pic-md/20211125222244.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222244.png)
 
 #### 4.主启动类
 
-![](d:\pic-md/20211125222250.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222250.png)
 
 #### **5.此时就可以启动当前项目了**
 
@@ -197,15 +255,15 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
 ##### 1.主启动类上，加注解，表示当前是eureka客户端
 
-![](d:\pic-md/20211125222257.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222257.png)
 
 ##### 2.修改pom，引入
 
-![](d:\pic-md/20211125222303.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222303.png)
 
 ##### 3.修改配置文件:
 
-![](d:\pic-md/20211125222309.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222309.png)
 
 ##### 4.pay模块重启，就可以注册到eureka中了
 
@@ -215,7 +273,7 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
 #### 集群原理:
 
-![](d:\pic-md/20211125222316.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222316.png)
 
  ```java
 1.就是pay模块启动时，注册自己，并且自身信息也放入eureka
@@ -223,13 +281,13 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 3.通过HttpClient调用并且还会缓存一份到本地，每30秒更新一次
  ```
 
-![](d:\pic-md/20211125222329.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222329.png)
 
 **集群构建原理:**
 
  互相注册
 
-![](d:\pic-md/20211125222339.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222339.png)
 
 #### **构建新erueka项目**
 
@@ -243,11 +301,11 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
  在写配置文件前，修改一下主机的hosts文件
 
-![](d:\pic-md/20211125222345.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222345.png)
 
 首先修改之前的7001的eureka项目，因为多个eureka需要互相注册
 
-![](d:\pic-md/20211125222350.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222350.png)
 
 然后修改7002
 
@@ -259,13 +317,13 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
 ##### 4，然后启动7001，7002即可
 
-*![](d:\pic-md/20211125222428.png)*
+*![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222428.png)*
 
 #### 将pay，order模块注册到eureka集群中:
 
 ##### 1，只需要修改配置文件即可:
 
-![](d:\pic-md/20211125222441.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222441.png)
 
 ##### 2，两个模块都修改上面的都一样即可
 
@@ -299,11 +357,11 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
  虽然我们是使用RestTemplate访问的微服务，但是也可以负载均衡的
 
-​        ![](d:\pic-md/20211125222452.png)
+​        ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222452.png)
 
 **注意这样还不可以，需要让RestTemplate开启负载均衡注解，还可以指定负载均衡算法，默认轮询**
 
-![](d:\pic-md/20211125222503.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222503.png)
 
 ### 4，修改服务主机名和ip在eureka的web上显示
 
@@ -311,47 +369,47 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
 #### 1，修改配置文件:
 
-![](d:\pic-md/20211125222511.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222511.png)
 
 ### 5，eureka服务发现:
 
-![](d:\pic-md/20211125222523.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222523.png)
 
 以pay模块为例
 
 #### 1，首先添加一个注解，在controller中
 
-![](d:\pic-md/20211125222528.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222528.png)
 
-![](d:\pic-md/20211125222535.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222535.png)
 
 #### 2，在主启动类上添加一个注解
 
-![](d:\pic-md/20211125222541.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222541.png)
 
 **然后重启8001.访问/payment/discover**y
 
 ### 6，Eureka自我保护:
 
-![](d:\pic-md/20211125222554.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222554.png)
 
 ![](d:\pic-md/20211125222559.png)
 
-![](d:\pic-md/20211125222605.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222605.png)
 
-![](d:\pic-md/20211125222611.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222611.png)
 
 **eureka服务端配置:**
 
-![](d:\pic-md/20211125222623.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222623.png)
 
-![](d:\pic-md/20211125222631.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222631.png)
 
 ​            **设置接受心跳时间间隔**
 
 **客户端(比如pay模块):**
 
-![](d:\pic-md/20211125222639.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222639.png)
 
 **此时启动erueka和pay.此时如果直接关闭了pay，那么erueka会直接删除其注册信息**
 
@@ -369,15 +427,15 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
 #### 2，配置文件
 
-![](d:\pic-md/20211125222648.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222648.png)
 
 #### 3，主启动类
 
-![](d:\pic-md/20211125222655.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222655.png)
 
 #### 4，controller
 
-![](d:\pic-md/20211125222659.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222659.png)
 
 #### 5，然后就可以启动
 
@@ -386,7 +444,7 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 解决:
 修改pom文件，改为与我们zk版本匹配的jar包
 
-![](d:\pic-md/20211125222704.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222704-16535295892121.png)
 
 **此时8003就注册到zk中了**
 
@@ -407,19 +465,19 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
 #### 3，配置文件
 
-![](d:\pic-md/20211125222713.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222713.png)
 
 #### 4主启动类:
 
-![](d:\pic-md/20211125222719.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222719.png)
 
 #### 5，RestTemolate
 
-![注意，这里使用RestTemolate，要先注册它](d:\pic-md/20211125222726.png)
+![注意，这里使用RestTemolate，要先注册它](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222726.png)
 
 #### 6，controller
 
-![](d:\pic-md/20211125222732.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222732.png)
 
 **然后启动即可注册到zk**
 
@@ -427,7 +485,7 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
 只需要修改配置文件:
 
-![](d:\pic-md/20211125222737.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222737.png)
 
 这个connect-string指定多个zk地址即可
 
@@ -437,15 +495,15 @@ connect-string: 1.2.3.4，2.3.4.5
 
 ## 8，Consul:
 
-![](d:\pic-md/20211125222746.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222746.png)
 
-![](d:\pic-md/20211125222756.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222756.png)
 
 ### 1，按照consul
 
 需要下载一个安装包
 
-![](d:\pic-md/20211125222808.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222808.png)
 
 启动是一个命令行界面，需要输入consul agen-dev启动
 
@@ -459,15 +517,15 @@ cloud_consule_pay_8006
 
 #### 3，配置文件
 
-![](d:\pic-md/20211125222816.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222816.png)
 
 #### 4，主启动类
 
-![](d:\pic-md/20211125222822.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222822.png)
 
 #### 5，controller
 
-![](d:\pic-md/20211125222827.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222827.png)
 
 #### 6，启动服务
 
@@ -481,11 +539,11 @@ cloud-consul-order-80
 
 #### 2，配置文件
 
-![](d:\pic-md/20211125222834.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222834.png)
 
 #### 3，主启动类
 
-![](d:\pic-md/20211125222842.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222842.png)
 
 #### 4，RestTemplate注册
 
@@ -493,53 +551,53 @@ cloud-consul-order-80
 
 #### 5，controller
 
-![](d:\pic-md/20211125222851.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222851.png)
 
 #### 6，启动服务，测试
 
 ## 9，三个注册中心的异同:
 
-![](d:\pic-md/20211125222857.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222857.png)
 
-![](d:\pic-md/20211125222903.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222903.png)
 
-![](d:\pic-md/20211125222910.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222910.png)
 
 # 3.服务调用
 
 ## 10，Ribbon负载均衡:
 
-![](d:\pic-md/20211125222925.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222925.png)
 
 **Ribbon目前也进入维护，基本上不准备更新了**
 
-![](d:\pic-md/20211125222943.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222943.png)
 
 **进程内LB(本地负载均衡)**
 
-![](d:\pic-md/20211125222957.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222957.png)
 
 **集中式LB(服务端负载均衡)**
 
-![](d:\pic-md/20211125223005.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223005.png)
 
 **区别**
 
-![](d:\pic-md/20211125223010.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223010.png)
 
 **Ribbon就是负载均衡+RestTemplate**
 
-![](d:\pic-md/20211125223018.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223018.png)
 
-![](d:\pic-md/20211125223022.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223022.png)
 
-![](d:\pic-md/20211125223029.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223029.png)
 
 ### 使用Ribbon:
 
 #### 1，默认我们使用eureka的新版本时，它默认集成了ribbon:
 
-![](d:\pic-md/20211125223035.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223035.png)
 
 **==这个starter中集成了reibbon了==**
 
@@ -547,13 +605,13 @@ cloud-consul-order-80
 
 **放到order模块中，因为只有order访问pay时需要负载均衡**
 
-![](d:\pic-md/20211125223041.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223041.png)
 
 #### 3，RestTemplate类:
 
-![](d:\pic-md/20211125223048.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223048.png)
 
-![](d:\pic-md/20211125223101.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223101.png)
 
 ```java
 RestTemplate的:
@@ -567,13 +625,13 @@ RestTemplate的:
 
 **Rule接口有7个实现类，每个实现类代表一个负载均衡算法**
 
-![](/Users/jiusonghuang/Downloads/cloud2020-master/%E7%AC%94%E8%AE%B0-%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba)/./%E5%9B%BE%E7%89%87/Ribbon%E7%9A%8414.png)
+![](d:\pic-md/Ribbon%E7%9A%8414.png)
 
 #### 使用Ribbon:
 
 **==这里使用eureka的那一套服务==**
 
-![](d:\pic-md/20211125223113.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223113.png)
 
 **==也就是不能放在主启动类所在的包及子包下==**
 
@@ -581,15 +639,15 @@ RestTemplate的:
 
 ##### 2，额外创建一个包
 
-![](d:\pic-md/20211125223118.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223118.png)
 
 ##### 3，创建配置类，指定负载均衡算法
 
-![](d:\pic-md/20211125223125.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223125.png)
 
 ##### 4，在主启动类上加一个注解
 
-![](d:\pic-md/20211125223134.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223134.png)
 
 **表示，访问CLOUD_pAYMENT_SERVICE的服务时，使用我们自定义的负载均衡算法**
 
@@ -599,13 +657,13 @@ RestTemplate的:
 
 ![](d:\pic-md/20211125223145.png)
 
-![](d:\pic-md/20211125223151.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223151.png)
 
 ##### 2，自定义负载均衡算法:
 
 **1，给**pay模块(8001，8002)，的controller方法添加一个方法，返回当前节点端口
 
-![](d:\pic-md/20211125223201.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223201.png)
 
 ![](.\图片\Ribbon的22.png)
 
@@ -613,7 +671,7 @@ RestTemplate的:
 
 去掉@LoadBalanced
 
-![](d:\pic-md/20211125223208.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223208.png)
 
 ##### 3，自定义接口
 
@@ -623,31 +681,31 @@ RestTemplate的:
 
 ##### 4，接口实现类
 
-![](d:\pic-md/20211125223226.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223226.png)
 
 ![](d:\pic-md/20211125223232.png)
 
 ##### 5，修改controller:
 
-![](d:\pic-md/20211125223238.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223238.png)
 
-![](d:\pic-md/20211125223243.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223243.png)
 
 ##### 6，启动服务，测试即可
 
 ## 11，OpenFeign
 
-![](d:\pic-md/20211125223250.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223250.png)
 
 **是一个声明式的web客户端，只需要创建一个接口，添加注解即可完成微服务之间的调用**
 
-![](d:\pic-md/20211125223256.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223256.png)
 
 ==就是A要调用B，Feign就是在A中创建一个一模一样的B对外提供服务的的接口，我们调用这个接口，就可以服务到B==
 
 ### **Feign与OpenFeign区别**
 
-![](d:\pic-md/20211125223307.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223307.png)
 
 ### 使用OpenFeign
 
@@ -664,19 +722,19 @@ RestTemplate的:
 
 #### 3，配置文件
 
-![](d:\pic-md/20211125223315.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223315.png)
 
 #### 4，主启动类
 
-![](d:\pic-md/20211125223321.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223321.png)
 
 #### 5，fegin需要调用的其他的服务的接口
 
-![](d:\pic-md/20211125223329.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223329.png)
 
 #### 6，controller
 
-![](d:\pic-md/20211125223336.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223336.png)
 
 #### 7测试:
 
@@ -696,7 +754,7 @@ RestTemplate的:
 
 **因为OpenFeign的底层是ribbon进行负载均衡，所以它的超时时间是由ribbon控制**
 
-![](d:\pic-md/20211125223343.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223343.png)
 
 ### OpenFeign日志:
 
@@ -709,15 +767,15 @@ RestTemplate的:
 
 **实现在配置类中添加OpenFeign的日志类**
 
-![](d:\pic-md/20211125223404.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223404.png)
 
 #### 2，为指定类设置日志级别:
 
-![](d:\pic-md/20211125223414.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223414.png)
 
 **配置文件中:**
 
-![](d:\pic-md/20211125223418.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223418.png)
 
 #### 3，启动服务即可
 
@@ -725,13 +783,13 @@ RestTemplate的:
 
 ## 12，Hystrix服务降级
 
-![](d:\pic-md/20211125223424.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223424.png)
 
 ![](d:\pic-md/20211129220449.png)
 
 
 
-![](d:\pic-md/20211125223431.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223431.png)
 
 ### hystrix中的重要概念:
 
@@ -757,19 +815,19 @@ RestTemplate的:
 
 ##### 3，配置文件
 
-![](d:\pic-md/20211125223439.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223439.png)
 
 ##### 4，主启动类
 
-![](d:\pic-md/20211125223446.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223446.png)
 
 ##### 5，service
 
-![](d:\pic-md/20211125223453.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223453.png)
 
 ##### 6controller
 
-![](d:\pic-md/20211125223954.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223954.png)
 
 ##### 7，先测试:
 
@@ -789,19 +847,19 @@ RestTemplate的:
 
 ##### 3，配置文件
 
-![](d:\pic-md/20211125224003.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224003.png)
 
 ##### 4，主启动类
 
-![](d:\pic-md/20211125224009.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224009.png)
 
 ##### 5，远程调用pay模块的接口:
 
-![](d:\pic-md/20211125224016.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224016.png)
 
 ##### 6，controller:
 
-![](d:\pic-md/20211125224022.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224022.png)
 
 ##### 7，测试
 
@@ -809,13 +867,13 @@ RestTemplate的:
 
  再次压测2万并发，发现order访问也变慢了
 
-![](d:\pic-md/20211125224031.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224031.png)
 
 **解决:**
 
-![](d:\pic-md/20211125224036.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224036.png)
 
-##### ![](d:\pic-md/20211125224052.png)
+##### ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224052.png)
 
 #### 3，配置服务降级:
 
@@ -823,37 +881,37 @@ RestTemplate的:
 
 ###### 1，为service的指定方法(会延迟的方法)添加@HystrixCommand注解
 
-![](d:\pic-md/20211125224100.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224100.png)
 
 ###### 2，主启动类上，添加激活hystrix的注解
 
-![](d:\pic-md/20211125224110.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224110.png)
 
 ###### 3，触发异常
 
-![](d:\pic-md/20211125224118.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224118.png)
 
-![](d:\pic-md/20211125224125.png)**可以看到，也触发了降级**
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224125.png)**可以看到，也触发了降级**
 
 ##### 2，修改order模块，进行服务降级
 
 一般服务降级，都是放在客户端(order模块)，
 
-![](d:\pic-md/20211125224135.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224135.png)
 
 ###### 1，修改配置文件:
 
-![](d:\pic-md/20211125224141.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224141.png)
 
 ###### **2，主启动类添加直接，启用hystrix:**
 
-![](d:\pic-md/20211125224149.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224149.png)
 
 
 
 ###### 3，修改controller，添加降级方法什么的
 
-![](d:\pic-md/20211125224155.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224155.png)
 
 ###### 4，测试
 
@@ -876,21 +934,21 @@ RestTemplate的:
 
 ###### 1，创建一个全局方法
 
-![](d:\pic-md/20211125224204.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224204.png)
 
 ###### 2，使用注解指定其为全局降级方法(默认降级方法)
 
-![](d:\pic-md/20211125224211.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224211.png)
 
-![](d:\pic-md/20211125224218.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224218.png)
 
 ###### 3，业务方法使用默认降级方法:
 
-![](d:\pic-md/20211125224225.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224225.png)
 
 ###### 4，测试:
 
-![](d:\pic-md/20211125224235.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224235.png)
 
 ##### 解决代码耦合度的问题:
 
@@ -898,15 +956,15 @@ RestTemplate的:
 
 ###### 1，Payservice接口是远程调用pay模块的，我们这里创建一个类实现service接口，在实现类中统一处理异常
 
-![](d:\pic-md/20211125224244.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224244.png)
 
 ###### 2，修改配置文件:添加:
 
-![](d:\pic-md/20211125224250.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224250.png)
 
 ###### 3，让PayService的实现类生效:
 
-![](d:\pic-md/20211125224255.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224255.png)
 
 ```java
 它的运行逻辑是:
@@ -921,7 +979,7 @@ RestTemplate的:
 
 ==此时将pay服务关闭，order再次访问==
 
-![](d:\pic-md/20211125224303.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224303.png)
 
 可以看到，并没有报500错误，而是降级访问==实现类==的同名方法
 
@@ -933,26 +991,26 @@ RestTemplate的:
 
 ### 使用服务熔断:
 
-![](d:\pic-md/20211125224310.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224310.png)
 
 **比如并发达到1000，我们就拒绝其他用户访问，在有用户访问，就访问降级方法**
 
-![](d:\pic-md/20211125224316.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224316.png)
 
 #### 1，修改前面的pay模块
 
 ##### **1，修改Payservice接口，添加服务熔断相关的方法:**
 
-![](d:\pic-md/20211125224322.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224322.png)
 
 这里属性整体意思是:
 10秒之内(窗口，会移动)，如果并发==超过==10个，或者10个并发中，失败了6个，就开启熔断器
 
-![image-20200414152637247](d:\pic-md/20211125224335.png)
+![image-20200414152637247](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224335.png)
 
 IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法，比如UUID，反射，IO流等工具方法什么的都整合了
 
-![](d:\pic-md/20211125224344.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224344.png)
 
 ```java
 断路器的打开和关闭，是按照一下5步决定的
@@ -968,7 +1026,7 @@ IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法�
 
 添加一个测试方法;
 
-![](d:\pic-md/20211125224352.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224352.png)
 
 ##### 3，测试:
 
@@ -976,11 +1034,11 @@ IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法�
 
 ==多次访问，并且错误率超过60%:==
 
-![](d:\pic-md/20211125224358.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224358.png)
 
 此时服务熔断，此时即使访问正确的也会报错:
 
-![](d:\pic-md/20211125224413.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224413.png)
 
 **但是，当过了几秒后，又恢复了**
 
@@ -992,27 +1050,27 @@ IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法�
 
  以后需要什么属性，查看这个类即可
 
-![](d:\pic-md/20211125224423.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224423.png)
 
 ### 总结:
 
-![](d:\pic-md/20211125224433.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224433.png)
 
 **==当断路器开启后:==**
 
-​    ![](d:\pic-md/20211125224504.png)
+​    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224504.png)
 
 **==其他参数:==**
 
-![](d:\pic-md/20211125224513.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224513.png)
 
-![](d:\pic-md/20211125224533.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224533.png)
 
-![](d:\pic-md/20211125224539.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224539.png)
 
-![](d:\pic-md/20211125224544.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224544.png)
 
-![](d:\pic-md/20211125224550.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224550.png)
 
 **熔断整体流程:**
 
@@ -1039,7 +1097,7 @@ IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法�
 
 #### HystrixDashboard
 
-![](d:\pic-md/20211125224558.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224558.png)
 
 #### 2，使用HystrixDashboard:
 
@@ -1051,17 +1109,17 @@ IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法�
 
 ##### 3，配置文件
 
-![](d:\pic-md/20211125224605.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224605.png)
 
 ##### 4，主启动类
 
-![](d:\pic-md/20211125224609.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224609.png)
 
 ##### 5，修改所有pay模块(8001，8002，8003...)
 
 **他们都添加一个pom依赖:**
 
-![](d:\pic-md/20211125224615.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224615.png)
 
 之前的pom文件中都添加过了，==这个是springboot的监控组件==
 
@@ -1075,7 +1133,7 @@ IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法�
 
 ==8001的主启动类添加:==
 
-![](d:\pic-md/20211125224621.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224621.png)
 
 **其他8002，8003都是一样的**
 
@@ -1085,19 +1143,19 @@ IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法�
 
 **然后在web界面，指定9001要监控8001:**
 
-##### ![](d:\pic-md/20211125224635.png)
+##### ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224635.png)
 
-![](d:\pic-md/20211125224643.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224643.png)
 
-![](d:\pic-md/20211125224658.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224658.png)
 
-![](d:\pic-md/20211125224703.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224703.png)
 
 ![](.\图片\Hystrix的60.png)
 
-![](d:\pic-md/20211125224709.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224709.png)
 
-![](d:\pic-md/20211125224714.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224714.png)
 
 # 5.服务网关:
 
@@ -1105,59 +1163,59 @@ zuul停更了，
 
 ## 13，GateWay
 
-![](d:\pic-md/20211125224720.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224720.png)
 
-![](d:\pic-md/20211125224725.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224725.png)
 
-**gateway之所以性能号，因为底层使用WebFlux，而webFlux底层使用netty通信(NIO)**
+**gateway之所以性能好，因为底层使用WebFlux，而webFlux底层使用netty通信(NIO)**
 
-![](d:\pic-md/20211125224734.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224734.png)
 
 ### GateWay的特性:
 
-![](d:\pic-md/20211125224742.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224742.png)
 
 ### GateWay与zuul的区别:
 
-![](d:\pic-md/20211125224800.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224800.png)
 
 ### zuul1.x的模型:
 
-![](d:\pic-md/20211125224805.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224805.png)
 
-![](d:\pic-md/20211125224812.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224812.png)
 
 ### 什么是webflux:
 
 **是一个非阻塞的web框架，类似springmvc这样的**
 
-![](d:\pic-md/20211125224817.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224817.png)
 
 ### GateWay的一些概念:
 
 #### 1，路由:
 
-![](d:\pic-md/20211125224835.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224835.png)
 
 就是根据某些规则，将请求发送到指定服务上
 
 #### 2，断言:
 
-![](d:\pic-md/20211125224829.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224829.png)
 
 就是判断，如果符合条件就是xxxx，反之yyyy
 
 #### 3，过滤:
 
-![](d:\pic-md/20211125224842.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224842.png)
 
 ​    **路由前后，过滤请求**
 
 ### GateWay的工作原理:
 
-![](d:\pic-md/20211125224847.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224847.png)
 
-![](d:\pic-md/20211125224853.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224853.png)
 
 ### 使用GateWay:
 
@@ -1169,21 +1227,21 @@ zuul停更了，
 
 #### 2，配置文件
 
-![](d:\pic-md/20211125224900.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224900.png)
 
 #### 3，主启动类
 
-![](d:\pic-md/20211125224907.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224907.png)
 
 #### 4，针对pay模块，设置路由:
 
-![](d:\pic-md/20211125224912.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224912.png)
 
-![](d:\pic-md/20211125224922.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224922.png)
 
 **==修改GateWay模块(9527)的配置文件==:**
 
-![](d:\pic-md/20211125224937.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224937.png)
 
 这里表示，
 
@@ -1204,7 +1262,7 @@ zuul停更了，
 
  localhost:9527/payment/get/1
 
-![](d:\pic-md/20211125224948.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224948.png)
 
 #### 6，GateWay的网关配置，
 
@@ -1214,7 +1272,7 @@ zuul停更了，
 
 ##### 创建配置类:
 
-![](d:\pic-md/20211125224955.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125224955.png)
 
 #### 8，然后重启服务即可
 
@@ -1230,30 +1288,30 @@ zuul停更了，
 
 #### 修改GateWay模块的配置文件:
 
-![](d:\pic-md/20211125225002.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225002.png)
 
 #### 然后就可以启动微服务.测试
 
 ### Pridicate断言:
 
-![](d:\pic-md/20211125225009.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225009.png)
 
 **我们之前在配置文件中配置了断言:**
 
-![](d:\pic-md/20211125225015.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225015.png)
 
 **这个断言表示，如果外部访问路径是指定路径，就路由到指定微服务上**
 
 可以看到，这里有一个Path，这个是断言的一种，==断言的类型==:
 
-![](d:\pic-md/20211125225022.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225022.png)
 
 ```java
 After:
         可以指定，只有在指定时间后，才可以路由到指定微服务
 ```
 
-![](d:\pic-md/20211125225028.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225028.png)
 
  这里表示，只有在==2020年的2月21的15点51分37秒==之后，访问==才可以路由==
 
@@ -1261,7 +1319,7 @@ After:
 
 如何获取当前时区?**
 
-![](d:\pic-md/20211125225036.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225036.png)
 
 ```java
 before:
@@ -1270,28 +1328,28 @@ before:
         需要指定两个时间，在他们之间的时间才可以访问
 ```
 
-![](d:\pic-md/20211125225046.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225046.png)
 
 ```java
 cookie:
         只有包含某些指定cookie(key，value)，的请求才可以路由
 ```
 
-![](d:\pic-md/20211125225104.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225104.png)
 
-![](d:\pic-md/20211125225112.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225112.png)
 
 ```java
 Header:
         只有包含指定请求头的请求，才可以路由
 ```
 
-![](d:\pic-md/20211125225121.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225121.png)
 
-![](d:\pic-md/20211125225128.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225128.png)
 
 测试:
-![](d:\pic-md/20211125225141.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225141.png)
 
 ```java
 host:
@@ -1300,13 +1358,13 @@ host:
         那么这里就可以设置，只有用户是www.aa.com的请求，才进行路由
 ```
 
-![](d:\pic-md/20211125225150.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225150.png)
 
-![gateway的34](d:\pic-md/20211125225158.png)
+![gateway的34](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225158.png)
 
 ![](d:\pic-md/20211125225203.png)
 
-![](d:\pic-md/20211125225212.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225212.png)
 
 可以看到，如果带了域名访问，就可以，但是直接访问ip地址.就报错了
 
@@ -1315,7 +1373,7 @@ method:
         只有指定请求才可以路由，比如get请求...
 ```
 
-![](d:\pic-md/20211125225220.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225220.png)
 
 ```java
 path:
@@ -1323,18 +1381,18 @@ path:
         比如访问，/abc才路由
 ```
 
-![](d:\pic-md/20211125225228.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225228.png)
 
 ```java
 Query:
         必须带有请求参数才可以访问
 ```
 
-![](d:\pic-md/20211125225238.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225238.png)
 
 ### Filter过滤器:
 
-![](d:\pic-md/20211125225244.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225244.png)
 
 #### 生命周期:
 
@@ -1342,13 +1400,13 @@ Query:
 
 #### 种类:
 
-![](d:\pic-md/20211125225250.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225250.png)
 
 GateWayFilter，单一的过滤器
 
 **与断言类似，比如闲置，请求头，只有特定的请求头才放行，反之就过滤**:
 
-![](d:\pic-md/20211125225256.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225256.png)
 
 GlobalFilter，全局过滤器:
 
@@ -1356,13 +1414,13 @@ GlobalFilter，全局过滤器:
 
 实现两个接口
 
-![](d:\pic-md/20211125225302.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225302.png)
 
 ​    **然后启动服务，即可，因为过滤器通过@COmponet已经加入到容器了**
 
-![](d:\pic-md/20211125225308.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225308.png)
 
-![](d:\pic-md/20211125225314.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225314.png)
 
 # 6.服务配置:
 
@@ -1379,11 +1437,11 @@ GlobalFilter，全局过滤器:
 
 ![](.\图片\springconfig的1.png)
 
-![](d:\pic-md/20211125225327.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225327.png)
 
 ![](d:\pic-md/20211125225333.png)
 
-![](d:\pic-md/20211125225340.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225340.png)
 
 ### 使用配置中心:
 
@@ -1391,7 +1449,7 @@ GlobalFilter，全局过滤器:
 
 **初始化git环境:**
 
-![](d:\pic-md/20211125225347.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225347.png)
 
 #### 1，新建config模块:
 
@@ -1401,15 +1459,15 @@ GlobalFilter，全局过滤器:
 
 #### 3，配置文件
 
-![](d:\pic-md/20211125225355.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225355.png)
 
 #### 4，主启动类
 
-![](d:\pic-md/20211125225415.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225415.png)
 
 #### 5，修改hosts:
 
-![](d:\pic-md/20211125225420.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225420.png)
 
 #### 6，配置完成
 
@@ -1417,31 +1475,31 @@ GlobalFilter，全局过滤器:
 
 启动3344    (要先启动eureka)
 
-![](d:\pic-md/20211125225427.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225427.png)
 
 它实际上就是，读取到配置文件中的GitHub的地址，然后拼接上/master/config-dev.yml
 
 #### 7，读取配置文件的规则:
 
-![](d:\pic-md/20211125225442.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225442.png)
 
 ==2，==
 
-![](d:\pic-md/20211125225448.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225448.png)
 
 **这里默认会读取master分支，因为我们配置文件中配置了**
 
-![](d:\pic-md/20211125225453.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225453.png)
 
 ==3==
 
-![](d:\pic-md/20211125225502.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225502.png)
 
 注意，这个方式读取到的配置是==json格式==的
 
 **所有规则:**
 
-![](d:\pic-md/20211125225514.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225514.png)
 
 ### 2，创建配置中心客户端:
 
@@ -1459,21 +1517,21 @@ GlobalFilter，全局过滤器:
 
 这个配置文件的作用是，先到配置中心加载配置，然后加载到application.yml中
 
-![](d:\pic-md/20211125225521.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225521.png)
 
-![](d:\pic-md/20211125225536.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225536.png)
 
 #### 4，主启动类:
 
-![](d:\pic-md/20211125225541.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225541.png)
 
 #### 5，controller类
 
 就是上面提到的，以rest风格将配置对外暴露
 
-![](d:\pic-md/20211125225548.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225548.png)
 
-![](d:\pic-md/20211125225556.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225556.png)
 
 **如果客户端运行正常，就会读取到github上配置文件的，config.info下的配置**
 
@@ -1483,7 +1541,7 @@ GlobalFilter，全局过滤器:
 
  访问3355的 /configInfo
 
-![](d:\pic-md/20211125225607.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225607.png)
 
 #### 7，问题::
 
@@ -1497,15 +1555,15 @@ GlobalFilter，全局过滤器:
 
 ##### 1，修改3355，添加一个pom依赖:
 
-![](d:\pic-md/20211125225616.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225616.png)
 
 ##### 2，修改配置文件，添加一个配置:
 
-![](d:\pic-md/20211125225620.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225620.png)
 
 ##### 3，修改controller:
 
-![](d:\pic-md/20211125225625.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225625.png)
 
 ##### 4，此时重启服务
 
@@ -1513,7 +1571,7 @@ GlobalFilter，全局过滤器:
 
 因为此时，还需要==外部==发送post请求通知3355
 
-![](d:\pic-md/20211125225637.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225637.png)
 
 **此时在刷新3355，发现可以获取到最新的配置文件了，这就实现了动态获取配置文件，因为3355并没有重启**
 
@@ -1539,11 +1597,11 @@ GlobalFilter，全局过滤器:
 
 ## SpringCloud Bus:
 
-![](d:\pic-md/20211125225643.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225643.png)
 
 ![](.\图片\springconfig的27.png)
 
-![](d:\pic-md/20211125225648.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225648.png)
 
 注意，这里年张图片，就代表两种广播方式
 
@@ -1553,7 +1611,7 @@ GlobalFilter，全局过滤器:
 
 **为什么被称为总线?**
 
-![](d:\pic-md/20211125225656.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225656.png)
 
 ```java
 就是通过消息队列达到广播的效果
@@ -1564,13 +1622,13 @@ GlobalFilter，全局过滤器:
 
 #### 1，配置rabbitmq环境:
 
-![](d:\pic-md/20211125225704.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225704.png)
 
 #### **2，之前只有一个配置中心客户端，这里在创建一个**
 
  ==**复制3355即可，创建为3366**==
 
-![](d:\pic-md/20211125225714.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225714.png)
 
 全部复制3355的即可
 
@@ -1580,13 +1638,13 @@ GlobalFilter，全局过滤器:
 
  ==就是上面两个图片的两种方式==
 
-![](d:\pic-md/20211125225721.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225721.png)
 
 **这两种方式，第二种跟合适，因为:**
 
  ==第一种的缺点:==
 
-![](d:\pic-md/20211125225726.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225726.png)
 
 #### **配置第二种方式:**
 
@@ -1594,13 +1652,13 @@ GlobalFilter，全局过滤器:
 
 ###### 1，修改配置文件:
 
-![](d:\pic-md/20211125225731.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225731.png)
 
 ###### 2，添加pom
 
 **springboot的监控组件，和消息总线**
 
-![](d:\pic-md/20211125225741.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225741.png)
 
 ![](.\图片\Bus的2.png)
 
@@ -1608,7 +1666,7 @@ GlobalFilter，全局过滤器:
 
 ###### 1，pom:
 
-![](d:\pic-md/20211125225747.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225747.png)
 
 ![Bus的2](.\图片\Bus的2.png)
 
@@ -1616,9 +1674,9 @@ GlobalFilter，全局过滤器:
 
 ==注意配置文件的名字，要改为bootstrap.yml==
 
-![](d:\pic-md/20211125225752.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225752.png)
 
-![image-20200415102708661](d:\pic-md/20211125225758)
+![image-20200415102708661](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225758)
 
 ##### 3，修改3366(也是配置中心的客户端)
 
@@ -1632,11 +1690,11 @@ GlobalFilter，全局过滤器:
 
 ==此时只需要刷新3344，即可让3355，3366动态获取最新的配置文件==
 
-![](d:\pic-md/20211125225806.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225806.png)
 
 其原理就是:
 
-![](d:\pic-md/20211125225811.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225811.png)
 
 **所有客户端都监听了一个rabbitMq的topic，我们将信息放入这个topic，所有客户端都可以送到，从而实时更新**
 
@@ -1644,15 +1702,15 @@ GlobalFilter，全局过滤器:
 
  就是只通知部分服务，比如只通知3355，不通知3366
 
-![](d:\pic-md/20211125225819.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225819.png)
 
-![Bus的8](d:\pic-md/20211125225824.png)
+![Bus的8](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225824.png)
 
 **只通知3355**
 
-![](d:\pic-md/20211125225832.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225832.png)
 
-​    ![](d:\pic-md/20211125225845.png)
+​    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225845.png)
 
 **可以看到，实际上就是通过==微服务的名称+端口号==进行指定**
 
@@ -1672,11 +1730,11 @@ GlobalFilter，全局过滤器:
 
  不需要管底层是kafka还是rabbitMq
 
-![](d:\pic-md/20211125225853.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225853.png)
 
 ### ==什么是Spring Cloud Stream==
 
-![](d:\pic-md/20211125225858.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225858.png)
 
 ![](.\图片\SpringCloudStream的3.png)
 
@@ -1686,43 +1744,43 @@ GlobalFilter，全局过滤器:
 
 ### ==**Spring Cloud Stream是怎么屏蔽底层差异的?**==
 
-![](d:\pic-md/20211125225915.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225915.png)
 
 **绑定器:**
 
-![](d:\pic-md/20211125225921.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225921.png)
 
-![](d:\pic-md/20211125225926.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225926.png)
 
-![](d:\pic-md/20211125225933.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225933.png)
 
 ### **Spring Cloud Streamd 通信模式:**
 
-![](d:\pic-md/20211125225948.png)![](d:\pic-md/20211125225952.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225948.png)![](d:\pic-md/20211125225952.png)
 
 ### Spring Cloud Stream的业务流程:
 
-![](d:\pic-md/20211125225957.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225957.png)
 
-![](d:\pic-md/20211125230050.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230050.png)
 
-![](d:\pic-md/20211125230058.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230058.png)
 
 ```java
 类似flume中的channel，source，sink 估计是借鉴(抄袭)的
-        source用于获取数据(要发送到mq的数据)
-        channel类似SpringCloudStream中的中间件，用于存放source接收到的数据，或者是存放binder拉取的数据    
+source用于获取数据(要发送到mq的数据)
+ channel类似SpringCloudStream中的中间件，用于存放source接收到的数据，或者是存放binder拉取的数据    
 ```
 
 ### 常用注解和api:
 
-![](d:\pic-md/20211125230109.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230109.png)
 
 ### 使用SpringCloudStream:
 
 需要创建三个项目，一个生产者，两个消费者
 
-![](d:\pic-md/20211125230115.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230115.png)
 
 ### 1，创建生产者
 
@@ -1730,21 +1788,21 @@ GlobalFilter，全局过滤器:
 
 #### 2，配置文件
 
-![image-20200415114816133](d:\pic-md/20211125230121)
+![image-20200415114816133](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230121)
 
-![](d:\pic-md/20211125230127.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230127.png)
 
 #### 3，主启动类
 
-![](d:\pic-md/20211125230131.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230131.png)
 
 #### 4，service和实现类
 
 service定义发送消息
 
-![](d:\pic-md/20211125230137.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230137.png)
 
-![](d:\pic-md/20211125230141.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230141.png)
 
 **这里，就会调用send方法，将消息发送给channel，**
 
@@ -1752,7 +1810,7 @@ service定义发送消息
 
 #### 5，controller
 
-![](d:\pic-md/20211125230149.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230149.png)
 
 #### 6，可以测试
 
@@ -1774,17 +1832,17 @@ service定义发送消息
 
 **==input==就表示，当前服务是一个消费者，需要消费消息，下面就是指定消费哪个Exchange中的消息**
 
-![](d:\pic-md/20211125230201.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230201.png)
 
-![](d:\pic-md/20211125230212.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230212.png)
 
 #### 3，主启动类
 
-![](d:\pic-md/20211125230221.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230221.png)
 
 #### 4，业务类(消费数据)
 
-![](d:\pic-md/20211125230229.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230229.png)
 
 **生产者发送消息时，使用send方法发送，send方法发送的是一个个Message，里面封装了数据**
 
@@ -1794,7 +1852,7 @@ service定义发送消息
 
 **此时使用生产者生产消息**
 
-![](d:\pic-md/20211125230236.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230236.png)
 
 ==可以看到，消费者已经接收到消息了==
 
@@ -1820,17 +1878,17 @@ service定义发送消息
 
 但是此时查询消费者，发现8802，8803==都消费到了同一条数据==
 
-![](d:\pic-md/20211125230248.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230248.png)
 
-![](d:\pic-md/20211125230255.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230255.png)
 
 #### 1，自定义分组
 
 **修改8802，8803的配置文件**
 
-![](d:\pic-md/20211125230306.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230306.png)
 
-![](d:\pic-md/20211125230311.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230311.png)
 
 **现在将8802，8803都分到了A组**
 
@@ -1838,11 +1896,11 @@ service定义发送消息
 
 **然后此时生产者生产两条消息**
 
-![](d:\pic-md/20211125230321.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230321.png)
 
-![](d:\pic-md/20211125230327.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230327.png)
 
-![](d:\pic-md/20211125230332.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230332.png)
 
 **可以看到，每人只消费了一条消息，并且没有重复消费**
 
@@ -1873,17 +1931,17 @@ service定义发送消息
 
 **sleuth要解决的问题:**
 
-![](d:\pic-md/20211125230341.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230341.png)
 
 **而来sleuth就是用于追踪每个请求的整体链路**
 
-![](d:\pic-md/20211125230346.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230346.png)
 
 ### 使用sleuth:
 
 #### 1.安装zipkin:
 
-![](d:\pic-md/20211125230352.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230352.png)
 
 **运行jar包**
 
@@ -1893,15 +1951,15 @@ service定义发送消息
 
  localhost:9411/zipkin/
 
-![](d:\pic-md/20211125230400.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230400.png)
 
 **一条链路完整图片:**
 
-![](d:\pic-md/20211125230410.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230410.png)
 
 **精简版:**
 
-![](d:\pic-md/20211125230416.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230416.png)
 
 **可以看到，类似链表的形式**
 
@@ -1913,13 +1971,13 @@ service定义发送消息
 
 **引入pom:**
 
-![](d:\pic-md/20211125230422.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230422.png)
 
 这个包虽然叫zipkin但是，里面包含了zpikin与sleuth
 
 **修改配置文件:**
 
-![](d:\pic-md/20211125230429.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230429.png)
 
 ##### 2，修改80
 
@@ -1935,7 +1993,7 @@ service定义发送消息
 
 启动7001.8001，80，9411
 
-![](d:\pic-md/20211125230435.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230435.png)
 
 # 10.Spring CloudAlibaba:
 
@@ -1947,12 +2005,12 @@ service定义发送消息
 
 ==支持的功能==
 
-![](d:\pic-md/20211125230449.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230449.png)
 
 几乎可以将之前的Spring Cloud代替
 
 ==具体组件==:
-![](d:\pic-md/20211125230501.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230501.png)
 
 ## Nacos:
 
@@ -1994,9 +2052,9 @@ service定义发送消息
 
 父项目管理alibaba的依赖:
 
-![](d:\pic-md/20211125230522.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230522.png)
 
-![](d:\pic-md/20211125230528.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230528.png)
 
 9001的pom:
 
@@ -2004,15 +2062,15 @@ service定义发送消息
 
 #### 2，配置文件
 
-![](d:\pic-md/20211125230532.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230532.png)
 
 #### 3，启动类
 
-![](d:\pic-md/20211125230539.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230539.png)
 
 #### 4，controller:
 
-![](d:\pic-md/20211125230545.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230545.png)
 
 #### 5，测试
 
@@ -2038,7 +2096,7 @@ service定义发送消息
 
 #### 2，配置文件
 
-![](d:\pic-md/20211125230557.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230557.png)
 
 **这个server-url的作用是，我们在controller，需要使用RestTempalte远程调用9001，**
 
@@ -2046,7 +2104,7 @@ service定义发送消息
 
 #### 3，主启动类
 
-![](d:\pic-md/20211125230605.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230605.png)
 
 #### 4，编写配置类
 
@@ -2095,15 +2153,15 @@ public class Order83Controller {
 
 Nacos它既可以支持CP，也可以支持AP，可以切换
 
-![](d:\pic-md/20211125230627.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230627.png)
 
-![](d:\pic-md/20211125230635.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230635.png)
 
 ==下面这个curl命令，就是切换模式==
 
 ### 使用Nacos作为配置中心:
 
-![](d:\pic-md/20211125230643.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230643.png)
 
 **==需要创建配置中心的客户端模块==**
 
@@ -2117,21 +2175,21 @@ cloudalibaba-Nacos-config-client-3377
 
  主要是为了可以与spring clodu config无缝迁移
 
-![](d:\pic-md/20211126215725.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211126215725.png)
 
 ```java
 可以看到
 ```
 
-![](d:\pic-md/20211125230659.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230659.png)
 
 #### 3.主启动类
 
-![](d:\pic-md/20211125230706.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230706.png)
 
 #### 4.controller
 
-![](d:\pic-md/20211125230712.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230712.png)
 
 ```java
 可以看到，这里也添加了@RefreshScope
@@ -2139,19 +2197,19 @@ cloudalibaba-Nacos-config-client-3377
 
 ```
 
-![](d:\pic-md/20211125230720.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230720.png)
 
 #### 5，在Nacos添加配置信息:
 
 ==**Nacos的配置规则:**==
 
-![](d:\pic-md/20211125230730.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230730.png)
 
 **配置规则，就是我们在客户端如何指定读取配置文件，配置文件的命名的规则**
 
 默认的命名方式:
 
-![](d:\pic-md/20211125230736.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230736.png)
 
 ```java
 prefix:
@@ -2164,15 +2222,15 @@ prefix:
         就是当前文件的格式(后缀)，目前只支持yml和properties
 ```
 
-![](d:\pic-md/20211125230742.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230742.png)
 
-![](d:\pic-md/20211125230747.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230747.png)
 
 ==在web UI上创建配置文件:==
 
-![](d:\pic-md/20211125230754.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230754.png)
 
-![](d:\pic-md/20211125230802.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230802.png)
 
 注意，DataId就是配置文件名字:
 
@@ -2184,7 +2242,7 @@ prefix:
 
 访问3377
 
-![](d:\pic-md/20211125230809.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230809.png)
 
 **拿到了配置文件中的值**
 
@@ -2198,29 +2256,29 @@ prefix:
 
 ### Nacos配置中心之分类配置:
 
-![](d:\pic-md/20211125230817.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230817.png)
 
-![](d:\pic-md/20211125230824.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230824.png)
 
-![](d:\pic-md/20211125230831.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230831.png)
 
 NameSpace默认有一个:public名称空间
 
 这三个类似java的: 包名 + 类名 + 方法名
 
-![](d:\pic-md/20211125230837.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230837.png)
 
-![](d:\pic-md/20211125230842.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230842.png)
 
 #### 1，配置不同DataId:
 
-![](d:\pic-md/20211125230852.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230852.png)
 
-![](d:\pic-md/20211125230904.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230904.png)
 
  ==通过配置文件，实现多环境的读取:==
 
-![](d:\pic-md/20211125230908.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230908.png)
 
 ```java
 此时，改为dev，就会读取dev的配置文件，改为test，就会读取test的配置文件
@@ -2230,17 +2288,17 @@ NameSpace默认有一个:public名称空间
 
 直接在新建配置文件时指定组
 
-![](d:\pic-md/20211125230915.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230915.png)
 
-![](d:\pic-md/20211125230920.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230920.png)
 
 在客户端配置，使用指定组的配置文件:
 
-![](d:\pic-md/20211125230926.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230926.png)
 
 **这两个配置文件都要修改**
 
-![](d:\pic-md/20211125230931.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230931.png)
 
 
 
@@ -2248,13 +2306,13 @@ NameSpace默认有一个:public名称空间
 
 #### 配置不同的namespace:
 
-![](d:\pic-md/20211125230937.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230937.png)
 
-![](d:\pic-md/20211125230943.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230943.png)
 
 客户端配置使用不同名称空间:
 
-![](d:\pic-md/20211125230947.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230947.png)
 
 **要通过命名空间id指定**
 
@@ -2262,13 +2320,13 @@ OK，测试
 
 ### Nacos集群和持久化配置:
 
-![](d:\pic-md/20211125230957.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125230957.png)
 
 Nacos默认有自带嵌入式数据库，derby，但是如果做集群模式的话，就不能使用自己的数据库
 
  不然每个节点一个数据库，那么数据就不统一了，需要使用外部的mysql
 
-![](d:\pic-md/20211125231003.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231003.png)
 
 #### 1，单机版，切换mysql数据库:
 
@@ -2282,7 +2340,7 @@ Nacos默认有自带嵌入式数据库，derby，但是如果做集群模式的�
 
 **数据库时区serverTimezone=UTC 可能会导致访问不到数据库**
 
-![](d:\pic-md/20211125231026.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231026.png)
 
 **3，此时可以重启nacos，那么就会改为使用我们自己的mysql**
 
@@ -2290,7 +2348,7 @@ Nacos默认有自带嵌入式数据库，derby，但是如果做集群模式的�
 
 官方架构图:
 
-![](d:\pic-md/20211125231037.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231037.png)
 
 **需要一个Nginx作为VIP**
 
@@ -2326,29 +2384,29 @@ db.password=password
 
  这里使用3333，4444，5555作为三个Nacos节点监听的端口
 
-![](d:\pic-md/20211125231043.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231043.png)
 
 5，我们这里就不配置在不同节点上了，就放在一个节点上
 
  既然要在一个节点上启动不同Nacos实例，就要修改startup.sh，使其根据不同端口启动不同Nacos实例
 
-![](d:\pic-md/20211125231050.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231050.png)
 
-![](d:\pic-md/20211125231055.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231055.png)
 
 可以看到，这个脚本就是通过jvm启动nacos
 
  所以我们最后修改的就是，nohup java -Dserver.port=3344
 
-![image-20211128215704352](d:\pic-md/20211128215705.png)
+![image-20211128215704352](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211128215705.png)
 
 6，配置Nginx:
 
 server后的IP填127.0.0.1
 
-![image-20211128222208687](d:\pic-md/20211128222209.png)
+![image-20211128222208687](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211128222209.png)
 
-​            ![](d:\pic-md/20211125231104.png)
+​            ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231104.png)
 
 7，启动Nacos:
 
@@ -2360,7 +2418,7 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
  ./startup.sh -p 5555
 
-![image-20211128222259008](d:\pic-md/20211128222259.png)
+![image-20211128222259008](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211128222259.png)
 
 7，启动nginx
 
@@ -2371,23 +2429,23 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
  如果可以进入nacos的web界面，就证明安装成功了
 
 9，将微服务注册到Nacos集群:
-![](d:\pic-md/20211125231117.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231117.png)
 
 10，进入Nacos的web界面
 
  可以看到，已经注册成功
 
-![image-20211128224944538](d:\pic-md/20211128224944.png)
+![image-20211128224944538](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211128224944.png)
 
-![](d:\pic-md/20211125231123.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231123.png)
 
 ## Sentinel:
 
 实现熔断与限流，就是Hystrix
 
-![](d:\pic-md/20211125231129.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231129.png)
 
-​    ![](d:\pic-md/20211125231138.png)
+​    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231138.png)
 
 ### 使用sentinel
 
@@ -2413,21 +2471,21 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
 2. 配置文件
 
-![](d:\pic-md/20211125231148.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231148.png)
 
 3. 主启动类
 
-![](d:\pic-md/20211125231156.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231156.png)
 
 4. controller
 
-![](d:\pic-md/20211125231201.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231201.png)
 
 5. 到这里就可以启动8401
 
  此时我们到sentinel中查看，发现并没有8401的任何信息 是因为，entinel是懒加载，需要我们执行一次访问，才会有信息。 访问localhost/8401/testA
 
-![](d:\pic-md/20211125231207.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231207.png)
 
 6. 可以看到已经开始监听了
 
@@ -2435,11 +2493,11 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
 #### 流量限制控制规则
 
-![](d:\pic-md/20211125231216.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231216.png)
 
-![](d:\pic-md/20211125231221.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231221.png)
 
-![](d:\pic-md/20211125231228.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231228.png)
 
 #### 流控模式:
 
@@ -2447,17 +2505,17 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
     ![](d:\pic-md/202111291413326.png)
 
-    ![](d:\pic-md/20211125231236.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231236.png)
 
        ==直接失败的效果:==
 
-    ![](d:\pic-md/20211125231243.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231243.png)
 
 2. 线程数:
 
-   ​        ![](d:\pic-md/20211125231252.png)
+   ​        ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231252.png)
 
-   ​    ![](d:\pic-md/20211125231302.png)
+   ​    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231302.png)
 
    ```
    比如a请求过来，处理很慢，在一直处理，此时b请求又过来了
@@ -2465,16 +2523,16 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
    那么就会报错
    ```
 
-   ![](d:\pic-md/20211125231311.png)
+   ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231311.png)
 
 
 3. 关联:
 
-   ![](d:\pic-md/20211125231316.png)
+   ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231316.png)
 
    ==应用场景:  比如**支付接口**达到阈值，就要限流下**订单的接口**，防止一直有订单
 
-   ![](d:\pic-md/20211125231323.png)
+   ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231323.png)
 
    **当testA达到阈值，qps大于1，就让testB之后的请求直接失败**
 
@@ -2485,45 +2543,45 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
 5. 预热Warm up:
 
-    ​	 ![](d:\pic-md/20211125231338.png)
+    ​	 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231338.png)
 
-      ![](d:\pic-md/20211125231350.png)
+      ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231350.png)
 
-     ![](d:\pic-md/20211125231357.png)
+     ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231357.png)
 
      ==应用场景==
 
-     ![](d:\pic-md/20211125231414.png)
+     ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231414.png)
 
 6. 排队等待:
 
-    ![](d:\pic-md/20211125231420.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231420.png)
 
-    ![](d:\pic-md/20211125231428.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231428.png)
 
 ### 降级规则:
 
 **就是熔断降级**
 
-![](d:\pic-md/20211125231440.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231440.png)
 
 ![](d:\pic-md/20211125231449.png)
 
 ![](d:\pic-md/20211125231455.png)
 
-![](d:\pic-md/20211125231500.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231500.png)
 
 #### 1.RT配置:
 
 新增一个请求方法用于测试
 
-![](d:\pic-md/20211125231505.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231505.png)
 
 ==配置RT:==
 
  这里配置的PT，默认是秒级的平均响应时间
 
-![](d:\pic-md/20211125231511.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231511.png)
 
 默认计算平均时间是: 1秒类进入5个请求，并且响应的平均值超过阈值(这里的200ms)，就报错
 
@@ -2531,45 +2589,45 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
 ==测试==
 
-![](d:\pic-md/20211125231517.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231517.png)
 
-![](d:\pic-md/20211125231523.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231523.png)
 
 **默认熔断后.就直接抛出异常**
 
 #### 2.异常比例:
 
-![](d:\pic-md/20211125231528.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231528.png)
 
 修改请求方法
 
-![](d:\pic-md/20211125231533.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231533.png)
 
 配置:
 
-![](d:\pic-md/20211125231540.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231540.png)
 
 ==如果没触发熔断，这正常抛出异常==:
 
-![](d:\pic-md/20211125231546.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231546.png)
 
 ==触发熔断==:
 
-![](d:\pic-md/20211125231552.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231552.png)
 
 #### 3.异常数:
 
-![](d:\pic-md/20211125231600.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231600.png)
 
-![](d:\pic-md/20211125231606.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231606.png)
 
 一分钟之内，有5个请求发送异常，进入熔断
 
 ### 热点规则:
 
-![](d:\pic-md/20211125231611.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231611.png)
 
-​    ![](d:\pic-md/20211125231618.png)
+​    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231618.png)
 
 比如:
 
@@ -2581,49 +2639,49 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
 ==如何自定义降级方法，而不是默认的抛出异常?==
 
-![](d:\pic-md/20211125231629.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231629.png)
 
 **使用@SentinelResource直接实现降级方法，它等同Hystrix的@HystrixCommand**
 
-![](d:\pic-md/20211125231645.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231645.png)
 
 ==定义热点规则:==
 
-![](d:\pic-md/20211125231650.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231650.png)
 
 ![](/Users/jiusonghuang/Downloads/cloud2020-master/%E7%AC%94%E8%AE%B0-%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba)/./%E5%9B%BE%E7%89%87/sentinel%E7%9A%8442.png)
 
-![](d:\pic-md/202111291726846.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/202111291726846.png)
 
 **此时我们访问/testHotkey并且带上才是p1**
 
  如果qps大于1，就会触发我们定义的降级方法
 
-![](d:\pic-md/20211125231702.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231702.png)
 
 **但是我们的参数是P2，就没有问题**
 
-![](d:\pic-md/20211125231707.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231707.png)
 
 只有带了p1，才可能会触发热点限流
 
-![](d:\pic-md/20211125231714.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231714.png)
 
 #### 2.设置热点规则中的其他选项:
 
-![](d:\pic-md/20211125231721.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231721.png)
 
 **需求:**
 
-![](d:\pic-md/20211125231730.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231730.png)
 
-![](d:\pic-md/20211125231737.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231737.png)
 
 ==测试==
 
-![](d:\pic-md/20211125231742.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231742.png)
 
-![](d:\pic-md/20211125231747.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231747.png)
 
 **注意:**
 
@@ -2637,7 +2695,7 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
 只有触发热点规则才会降级
 
-![](d:\pic-md/20211125231755.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231755.png)
 
 ### 系统规则:
 
@@ -2646,14 +2704,14 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
 对整体限流，比如设置qps到达100，这里限流会限制整个系统不可以
 
-*![](d:\pic-md/20211125231808.png)*
+*![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231808.png)*
 
-![](d:\pic-md/20211125231815.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231815.png)
 
 ==测试==:
-![](d:\pic-md/20211125231825.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231825.png)
 
-![](d:\pic-md/20211125231831.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231831.png)
 
 ### @SentinelResource注解:
 
@@ -2665,11 +2723,11 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
    添加我们自己的commone包的依赖
 
-   ![](d:\pic-md/20211125231837.png)
+   ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231837.png)
 
    额外创建一个controller类
 
-​     ![](d:\pic-md/20211125231844.png)
+​     ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231844.png)
 
 
 3. 配置限流
@@ -2678,19 +2736,19 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
     **这样也是可以的，也就是不一定要指定访问路径**
 
-    ![](d:\pic-md/20211125231851.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231851.png)
 
 4. 测试.
 
     可以看到已经进入降级方法了
 
-    ![](d:\pic-md/20211125231905.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231905.png)
 
 5. ==此时我们关闭8401服务==
 
     可以看到，这些定义的规则是临时的，关闭服务，规则就没有了
 
-    ![](d:\pic-md/20211125231911.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231911.png)
 
 **可以看到上面配置的降级方法又出现Hystrix遇到的问题了**
 
@@ -2698,38 +2756,38 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
  每个业务方法都需要对应一个降级方法
 
-![image-20211129211547629](d:\pic-md/20211129211548.png)
+![image-20211129211547629](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211129211548.png)
 
 #### 自定义限流处理逻辑:
 
 1. ==单独创建一个类，用于处理限流==
 
-   ![](d:\pic-md/20211125231923.png)
+   ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231923.png)
 
 2. ==在controller中，指定使用自定义类中的方法作为降级方法==
 
-   ![](d:\pic-md/20211125231928.png)
+   ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231928.png)
 
 3. ==Sentinel中定义流控规则==:
 
    这里资源名，是以url指定，也可以使用@SentinelResource注解value的值指定
 
-   ![](d:\pic-md/20211125231938.png)
+   ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231938.png)
 
 
 4. ==测试==:
 
-   ![](d:\pic-md/20211125231943.png)
+   ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231943.png)
 
 5. ==整体==:
 
-   ![](d:\pic-md/20211125231948.png)
+   ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231948.png)
 
 ### @SentinelResource注解的其他属性:
 
-![](d:\pic-md/20211125231955.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231955.png)
 
-![](d:\pic-md/20211125232000.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232000.png)
 
 ### 服务熔断:
 
@@ -2741,7 +2799,7 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
 2. 配置文件
 
-    ![](d:\pic-md/20211125232006.png)*
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232006.png)*
 
 3. 主启动类
 
@@ -2760,7 +2818,7 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
 4. controller
 
-    ![](d:\pic-md/20211125232012.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232012.png)
 
      **然后启动9003.9004**
 
@@ -2772,29 +2830,29 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
 2. 配置文件
 
-    ![](d:\pic-md/20211125232016.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232016.png)
 
 3. 主启动类
 
-    ![](d:\pic-md/20211125232026.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232026.png)
 
 4. 配置类
 
-   ![](d:\pic-md/20211125232032.png)
+   ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232032.png)
 
 5. controller
 
-    ![](d:\pic-md/20211125232037.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232037.png)
 
     6.   **为业务方法添加fallback来指定降级方法**:
 
-        ![](d:\pic-md/20211125232044.png)
+        ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232044.png)
 
         重启order
 
         测试:
 
-        ![](d:\pic-md/20211125232052.png)
+        ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232052.png)
 
          
 
@@ -2805,37 +2863,37 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
     
     6.   **为业务方法添加blockHandler，看看是什么效果**
     
-         ![](d:\pic-md/20211125232058.png)
+         ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232058.png)
     
          **重启84，访问业务方法:**
     
-         ![](d:\pic-md/20211125232102.png)
+         ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232102.png)
     
           可以看到直接报错了，并没有降级，也就是说blockHandler只对sentienl定义的规则降级
     
     7.   **如果fallback和blockHandler都配置呢?**
     
-         ![](d:\pic-md/20211125232107.png)
+         ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232107.png)
     
          **设置qps规则，阈值1**
     
-         ![](d:\pic-md/20211125232116.png)
+         ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232116.png)
     
          **测试**:
     
-         ![](d:\pic-md/20211125232122.png)
+         ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232122.png)
     
           可以看到，当两个都同时生效时，blockhandler优先生效
     
     8.  **@SentinelResource还有一个属性，exceptionsToIgnore**
     
-        ![](d:\pic-md/20211125232133.png)
+        ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232133.png)
     
          **exceptionsToIgnore指定一个异常类，**
     
         **表示如果当前方法抛出的是指定的异常，不降级，直接对用户抛出异常**
     
-         ![](d:\pic-md/20211125232148.png)
+         ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232148.png)
 
 ### sentinel整合ribbon+openFeign+fallback
 
@@ -2843,31 +2901,31 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
     1. pom
 
-       ![](d:\pic-md/20211125232155.png)
+       ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232155.png)
 
     2. 配置文件
 
-       ![](d:\pic-md/20211125232200.png)
+       ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232200.png)
 
     3. 主启动类也要修改
 
-       ![](d:\pic-md/20211125232204.png)
+       ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232204.png)
 
     4. 创建远程调用pay模块的接口
 
-       ![](d:\pic-md/20211125232212.png)
+       ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232212.png)
 
     5. 创建这个接口的实现类，用于降级
 
-       ![](d:\pic-md/20211125232217.png)
+       ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232217.png)
 
     6. 再次修改接口，指定降级类
 
-    ![](d:\pic-md/20211125232222.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232222.png)
 
     7. controller添加远程调用
 
-    ![](d:\pic-md/20211125232228.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232228.png)
 
     8. 测试
 
@@ -2875,19 +2933,19 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
     9. 测试，如果关闭9003。看看84会不会降级
 
-    ![](d:\pic-md/20211125232234.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232234.png)
 
     **可以看到，正常降级了**
 
 **熔断框架比较**
 
-![](d:\pic-md/20211125232242.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232242.png)
 
 ### sentinel持久化规则
 
 默认规则是临时存储的，重启sentinel就会消失
 
-![](d:\pic-md/20211125232248.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232248.png)
 
 **这里以之前的8401为案例进行修改:**
 
@@ -2908,7 +2966,7 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
     添加:
 
-    ![](d:\pic-md/20211125232256.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232256.png)
 
      **实际上就是指定，我们的规则要保证在哪个名称空间的哪个分组下**
 
@@ -2918,7 +2976,7 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
 3. **在nacos中创建一个配置文件，dataId就是上面配置文件中指定的**
 
-   ![](d:\pic-md/20211125232303.png)
+   ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232303.png)
 
    json中这些属性的含义: ​
 
@@ -2936,27 +2994,27 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
    ]
    ```
 
-   ![](d:\pic-md/202111301141115.png)
+   ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/202111301141115.png)
 
 4. 启动8401:
 
-   ![](d:\pic-md/20211125232320.png)
+   ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232320.png)
 
    可以看到，直接读取到了规则(云服务器无法获取，这种方法是推模式，由nacos将限流策略推送到项目)
 
 5. 关闭8401
 
-    ![](d:\pic-md/20211125232327.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232327.png)
 
 6. 此时重启8401，如果sentinel又可以正常读取到规则，那么证明持久化成功
 
     可以看到，又重新出现了
 
-    ![](d:\pic-md/20211125232343.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232343.png)
 
 ## Seata:
 
-![image-20211130154414714](d:\pic-md/202111301544299.png)
+![image-20211130154414714](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/202111301544299.png)
 
 Seata 是一款开源的分布式事务解决方案，致力于提供高性能和简单易用的分布式事务服务。Seata 将为用户提供了 AT、TCC、SAGA 和 XA 事务模式，为用户打造一站式的分布式解决方案。
 
@@ -2964,9 +3022,9 @@ Seata 是一款开源的分布式事务解决方案，致力于提供高性能�
 
 ​        ![](d:\pic-md/20211125232404.png)
 
-![](d:\pic-md/20211125232357.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232357.png)
 
-![](d:\pic-md/20211125232410.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232410.png)
 
 ### seata安装:
 
@@ -2974,7 +3032,7 @@ Seata 是一款开源的分布式事务解决方案，致力于提供高性能�
 
 2. **修改file.conf**
 
-3. ![image-20211130161912981](d:\pic-md/202111301619410.png)
+3. ![image-20211130161912981](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/202111301619410.png)
 
    ```properties
    service {
@@ -3099,7 +3157,7 @@ registry {
 
 **业务说明**
 
-![](d:\pic-md/20211125232454.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232454.png)
 
 下单--->库存--->账号余额
 
@@ -3113,7 +3171,7 @@ registry {
 
 2. 创建对应的表
 
-![](d:\pic-md/20211125232512.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232512.png)
 
 3. 三个数据库各个创建回滚日志表，方便查看
 
@@ -3144,7 +3202,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 4. 每个业务都创建一个微服务，也就是要有三个微服务：订单，库存，账号
 
-   ![image-20211130164922599](d:\pic-md/202111301649182.png)
+   ![image-20211130164922599](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/202111301649182.png)
 
  订单seta-order-2001
 
@@ -3710,9 +3768,9 @@ SET FOREIGN_KEY_CHECKS = 1;
     
 5. **全局创建完成后，首先测试不加seata**
 
-   ![](d:\pic-md/20211125232609.png)
+   ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232609.png)
 
-     ![](d:\pic-md/20211125232619.png)
+     ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232619.png)
 
 
 
@@ -3759,43 +3817,43 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 ### setat原理:
 
-![](d:\pic-md/20211125232628.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232628.png)
 
-![](d:\pic-md/20211125232635.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232635.png)
 
 **seata提供了四个模式:**
 
-![](d:\pic-md/20211125232641.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232641.png)
 
-![](d:\pic-md/20211125232653.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232653.png)
 
 ==第一阶段:==
 
-![](d:\pic-md/20211125232712.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232712.png)
 
-​    ![](d:\pic-md/20211125232720.png)
+​    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232720.png)
 
 ==二阶段之提交==:
 
-![](d:\pic-md/20211125232728.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232728.png)
 
 ==二阶段之回滚:==
 
-![](d:\pic-md/20211125232740.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232740.png)
 
-![](d:\pic-md/20211125232750.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232750.png)
 
 ==断点==:
 
-![](d:\pic-md/20211125232756.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232756.png)
 
 **可以看到，他们的xid全局事务id是一样的，证明他们在一个事务下**
 
-![](d:\pic-md/20211125232802.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232802.png)
 
 **before 和 after的原理就是**
 
-![](d:\pic-md/20211125232808.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232808.png)
 
 **在更新数据之前，先解析这个更新sql，然后查询要更新的数据，进行保存**
 

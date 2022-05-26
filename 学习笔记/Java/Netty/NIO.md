@@ -956,241 +956,285 @@ static public void main(String args[]) throws Exception {
 
 ## 5.1 Selector 简介
 
-1、 Selector 和 Channel 关系
-Selector 一般称 为选择器 ，也可以翻译为 多路复用器 。它是 Java NIO 核心组件中的一个，用于检查一个或多个 NIO Channel（通道）的状态是否处于可读、可写。如此可以实现单线程管理多个 channels,也就是可以管理多个网络链接。
+### **1、 Selector 和 Channel 关系**
+
+Selector 一般称 为选择器 ，也可以翻译为 **多路复用器** 。它是 Java NIO 核心组件中的一个，用于检查一个或多个 NIO Channel（通道）的状态是否处于**可读、可写**。如此可以实现单线程管理多个 channels,也就是可以管理多个网络链接。
+
+![image-20220526105916667](./NIO.assets/image-20220526105916667-16535339582192.png)
+
 使用 Selector 的好处在于： 使用更少的线程来就可以来处理通道了， 相比使用多个线程，避免了线程上下文切换带来的开销。
-2、 可选择通道(SelectableChannel)
-（1）不是所有的 Channel 都可以被 Selector 复用的。比方说，FileChannel 就不能被选择器复用。判断一个 Channel 能被 Selector 复用，有一个前提：判断他是否继承了一个抽象类 SelectableChannel。如果继承了 SelectableChannel，则可以被复用，否则不能。
-（2）SelectableChannel 类提供了实现通道的可选择性所需要的公共方法。它是所有支持就绪检查的通道类的父类。所有 socket 通道，都继承了 SelectableChannel 类都是可选择的，包括从管道(Pipe)对象的中获得的通道。而 FileChannel 类，没有继承 SelectableChannel，因此是不是可选通道。
-（3）一个通道可以被注册到多个选择器上，但对每个选择器而言只能被注册一次。通道和选择器之间的关系，使用注册的方式完成。SelectableChannel 可以被注册到Selector 对象上，在注册的时候，需要指定通道的哪些操作，是 Selector 感兴趣的。
-3、 Channel 注册到 Selector
-（1）使用 Channel.register（Selector sel，int ops）方法，将一个通道注册到一个选择器时。第一个参数，指定通道要注册的选择器。第二个参数指定选择器需要查询的通道操作。
+
+### **2、 可选择通道(SelectableChannel)**
+
+（1）不是所有的 Channel 都可以被 Selector 复用的。比方说，FileChannel 就不能被选择器复用。判断一个Channel 能被 Selector 复用，有一个前提：**判断他是否继承了一个抽象类 SelectableChannel。如果继承了 SelectableChannel，则可以被复用，否则不能**。
+（2）**SelectableChannel 类提供了实现通道的可选择性所需要的公共方法**。它是所有支持就绪检查的通道类的父类。所有 socket 通道，都继承了 SelectableChannel 类都是可选择的，包括从管道(Pipe)对象的中获得的通道。而 FileChannel 类，没有继承 SelectableChannel，因此是不是可选通道。
+（3）**一个通道可以被注册到多个选择器上，但对每个选择器而言只能被注册一次**。**通道和选择器之间的关系，使用注册的方式完成。SelectableChannel 可以被注册到Selector 对象上，在注册的时候，需要指定通道的哪些操作，是 Selector 感兴趣的。**
+
+![image-20220526110018192](./NIO.assets/image-20220526110018192-16535340193223.png)
+
+### **3、 Channel 注册到 Selector**
+
+（1）使用 Channel.register（Selector sel，int ops）方法，将一个通道注册到一个选择器时。第一个参数，指定通道要注册的选择器。第二个参数指定选择器需要查询的**通道操作**。
 （2）可以供选择器查询的通道操作，从类型来分，包括以下四种：
-\- 可读 : SelectionKey.OP_READ
-\- 可写 : SelectionKey.OP_WRITE
-\- 连接 : SelectionKey.OP_CONNECT
-\- 接收 : SelectionKey.OP_ACCEPT
+**\- 可读 : SelectionKey.OP_READ**
+**\- 可写 : SelectionKey.OP_WRITE**
+**\- 连接 : SelectionKey.OP_CONNECT**
+**\- 接收 : SelectionKey.OP_ACCEPT**
 如果 Selector 对通道的多操作类型感兴趣，可以用“位或”操作符来实现：
 比如：int key = SelectionKey.OP_READ | SelectionKey.OP_WRITE ;
-（3）选择器查询的不是通道的操作，而是通道的某个操作的一种就绪状态。什么是操作的就绪状态？一旦通道具备完成某个操作的条件，表示该通道的某个操作已经就绪，就可以被 Selector 查询到，程序可以对通道进行对应的操作。比方说，某个SocketChannel 通道可以连接到一个服务器，则处于“连接就绪”(OP_CONNECT)。再比方说，一个 ServerSocketChannel 服务器通道准备好接收新进入的连接，则处于“接收就绪”（OP_ACCEPT）状态。还比方说，一个有数据可读的通道，可以说是“读就绪”(OP_READ)。一个等待写数据的通道可以说是“写就绪”(OP_WRITE)。
-4、 选择键(SelectionKey)
-（1）Channel 注册到后，并且一旦通道处于某种就绪的状态，就可以被选择器查询到。这个工作，使用选择器 Selector 的 select（）方法完成。select 方法的作用，对感兴趣的通道操作，进行就绪状态的查询。
-（2）Selector 可以不断的查询 Channel 中发生的操作的就绪状态。并且挑选感兴趣的操作就绪状态。一旦通道有操作的就绪状态达成，并且是 Selector 感兴趣的操作，就会被 Selector 选中，放入选择键集合中。
-（3）一个选择键，首先是包含了注册在 Selector 的通道操作的类型，比方说SelectionKey.OP_READ。也包含了特定的通道与特定的选择器之间的注册关系。
-开发应用程序是，选择键是编程的关键。NIO 的编程，就是根据对应的选择键，进行不同的业务逻辑处理。
-（4）选择键的概念，和事件的概念比较相似。一个选择键类似监听器模式里边的一个事件。由于 Selector 不是事件触发的模式，而是主动去查询的模式，所以不叫事件Event，而是叫 SelectionKey 选择键。
+（3）选择器查询的不是通道的操作，而是**通道的某个操作的一种就绪状态**。什么是操作的就绪状态？一旦通道具备完成某个操作的条件，**表示该通道的某个操作已经就绪，就可以被 Selector 查询到，程序可以对通道进行对应的操作**。比方说，某个SocketChannel 通道可以连接到一个服务器，则处于“连接就绪”(OP_CONNECT)。再比方说，一个 ServerSocketChannel 服务器通道准备好接收新进入的连接，则处于“接收就绪”（OP_ACCEPT）状态。还比方说，一个有数据可读的通道，可以说是“读就绪”(OP_READ)。一个等待写数据的通道可以说是“写就绪”(OP_WRITE)。
+
+### **4、 选择键(SelectionKey)**
+
+（1）Channel 注册到后，并且一旦通道处于**某种就绪**的状态，就可以被选择器查询到。这个工作，使用选择器 Selector 的 select（）方法完成。select 方法的作用，对感兴趣的通道操作，进行就绪状态的查询。
+（2）Selector 可以不断的查询 Channel 中发生的操作的就绪状态。并且挑选感兴趣的操作就绪状态。一旦通道有操作的就绪状态达成，并且是 Selector 感兴趣的操作，就会被 Selector 选中，放入**选择键集合**中。
+（3）一个选择键，首先是包含了注册在 Selector 的通道操作的类型，比方说SelectionKey.OP_READ。**也包含了特定的通道与特定的选择器之间的注册关系。**
+**开发应用程序是，选择键是编程的关键。NIO 的编程，就是根据对应的选择键，进行不同的业务逻辑处理。**
+（4）选择键的概念，和事件的概念比较相似。一个选择键类似监听器模式里边的一个事件。**由于 Selector 不是事件触发的模式，而是主动去查询的模式**，所以不叫事件Event，而是叫 SelectionKey 选择键。
 
 ## 5.2 Selector 的使用方法
 
-\1. Selector 的创建
-通过调用 Selector.open()方法创建一个 Selector 对象，如下：
-// 1、获取 Selector 选择器
-Selector selector = Selector.open();
-\2. 注册 Channel 到 Selector
-要实现 Selector 管理 Channel，需要将 channel 注册到相应的 Selector 上
-// 1、获取 Selector 选择器
-Selector selector = Selector.open();
-// 2、获取通道
-ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
-// 3.设置为非阻塞
-serverSocketChannel.configureBlocking(false);
-// 4、绑定连接
-serverSocketChannel.bind(new InetSocketAddress(9999));
-// 5、将通道注册到选择器上,并制定监听事件为：“接收”事件
-serverSocketChannel.register(selector,SelectionKey.OP_ACCEPT);
-上面通过调用通道的 register()方法会将它注册到一个选择器上。
-首先需要注意的是：
-（1）与 Selector 一起使用时，Channel 必须处于非阻塞模式下，否则将抛出异常IllegalBlockingModeException。这意味着，FileChannel 不能与 Selector 一起使用，因为 FileChannel 不能切换到非阻塞模式，而套接字相关的所有的通道都可以。
-（2）一个通道，并没有一定要支持所有的四种操作。比如服务器通道ServerSocketChannel 支持 Accept 接受操作，而 SocketChannel 客户端通道则不支持。可以通过通道上的 validOps()方法，来获取特定通道下所有支持的操作集合。
-\3. 轮询查询就绪操作
-（1）通过 Selector 的 select（）方法，可以查询出已经就绪的通道操作，这些就绪的状态集合，包存在一个元素是 SelectionKey 对象的 Set 集合中。
-（2）下面是 Selector 几个重载的查询 select()方法：
-\- select():阻塞到至少有一个通道在你注册的事件上就绪了。
-\- select(long timeout)：和 select()一样，但最长阻塞事件为 timeout 毫秒。
-\- selectNow():非阻塞，只要有通道就绪就立刻返回。
-select()方法返回的 int 值，表示有多少通道已经就绪，更准确的说，是自前一次 select方法以来到这一次 select 方法之间的时间段上，有多少通道变成就绪状态。
-例如：首次调用 select()方法，如果有一个通道变成就绪状态，返回了 1，若再次调用select()方法，如果另一个通道就绪了，它会再次返回 1。如果对第一个就绪的channel 没有做任何操作，现在就有两个就绪的通道，但在每次 select()方法调用之间，只有一个通道就绪了。
-一旦调用 select()方法，并且返回值不为 0 时，在 Selector 中有一个 selectedKeys()方法，用来访问已选择键集合，迭代集合的每一个选择键元素，根据就绪操作的类型，完成对应的操作：
-Set selectedKeys = selector.selectedKeys();
-Iterator keyIterator = selectedKeys.iterator();
-while(keyIterator.hasNext()) {
-SelectionKey key = keyIterator.next();
-if(key.isAcceptable()) {
-// a connection was accepted by a ServerSocketChannel.
-} else if (key.isConnectable()) {
-// a connection was established with a remote server.
-} else if (key.isReadable()) {
-// a channel is ready for reading
-} else if (key.isWritable()) {
-// a channel is ready for writing
-} keyIterator.remove();
-} 
+1. ### **Selector 的创建**
+   
+   通过调用 Selector.open()方法创建一个 Selector 对象，如下：
+   
+   ```java
+   // 1、获取 Selector 选择器
+   Selector selector = Selector.open();
+   ```
+   
+2.  **注册 Channel 到 Selector**
+   要实现 Selector 管理 Channel，需要将 channel 注册到相应的 Selector 上
 
-5.停止选择的方法
+   ```java
+   // 1、获取 Selector 选择器
+   Selector selector = Selector.open();
+   // 2、获取通道
+   ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
+   // 3.设置为非阻塞
+   serverSocketChannel.configureBlocking(false);
+   // 4、绑定连接
+   serverSocketChannel.bind(new InetSocketAddress(9999));
+   // 5、将通道注册到选择器上,并制定监听事件为：“接收”事件
+   serverSocketChannel.register(selector,SelectionKey.OP_ACCEPT);
+   ```
+
+   上面通过调用通道的 register()方法会将它注册到一个选择器上。
+   首先需要注意的是：
+   （1）与 Selector 一起使用时，**Channel 必须处于非阻塞模式下，否则将抛出异常IllegalBlockingModeException**。这意味着，**FileChannel 不能与 Selector 一起使用，因为 FileChannel 不能切换到非阻塞模式，而套接字相关的所有的通道都可以**。
+   （2）一个通道，并没有一定要**支持所有的四种操作**。比如服务器通道ServerSocketChannel 支持 Accept 接受操作，而 SocketChannel 客户端通道则不支持。可以通过通道上的 **validOps**()方法，来获取特定通道下所有支持的操作集合。
+
+3. **轮询查询就绪操作**
+   （1）通过 Selector 的 **select（）方法，可以查询出已经就绪的通道操作**，这些就绪的状态集合，包存在一个元素是 SelectionKey 对象的 Set 集合中。
+   （2）下面是 Selector 几个重载的查询 select()方法：
+   \**- select():阻塞到至少有一个通道在你注册的事件上就绪了。**
+   **\- select(long timeout)：和 select()一样，但最长阻塞事件为 timeout 毫秒。**
+   **\- selectNow():非阻塞，只要有通道就绪就立刻返回。**
+   select()方法返回的 int 值，表示有多少通道已经就绪，更准确的说，是自前一次 select方法以来到这一次 select 方法之间的时间段上，有多少通道变成就绪状态。
+   例如：首次调用 select()方法，如果有一个通道变成就绪状态，返回了 1，若再次调用select()方法，如果另一个通道就绪了，它会再次返回 1。如果对第一个就绪的channel 没有做任何操作，现在就有两个就绪的通道，但在每次 select()方法调用之间，只有一个通道就绪了。
+   一旦调用 select()方法，并且返回值不为 0 时，在 Selector 中有一个 selectedKeys()方法，**用来访问已选择键集合，迭代集合的每一个选择键元素，根据就绪操作的类型，完成对应的操作：**
+
+   ```java
+   Set selectedKeys = selector.selectedKeys();
+   Iterator keyIterator = selectedKeys.iterator();
+   while(keyIterator.hasNext()) {
+     SelectionKey key = keyIterator.next();
+     if(key.isAcceptable()) {
+     // a connection was accepted by a ServerSocketChannel.
+     } else if (key.isConnectable()) {
+     // a connection was established with a remote server.
+     } else if (key.isReadable()) {
+     // a channel is ready for reading
+     } else if (key.isWritable()) {
+     // a channel is ready for writing
+     } 
+     keyIterator.remove();
+   } 
+   ```
+
+**4.停止选择的方法**
 选择器执行选择的过程，系统底层会依次询问每个通道是否已经就绪，这个过程可能会造成调用线程进入阻塞状态,那么我们有以下三种方式可以唤醒在 select（）方法中阻塞的线程。
-wakeup()方法 ：通过调用 Selector 对象的 wakeup（）方法让处在阻塞状态的select()方法立刻返回
+**wakeup()方法** ：通过调用 Selector 对象的 wakeup（）方法让处在阻塞状态的select()方法立刻返回
 该方法使得选择器上的第一个还没有返回的选择操作立即返回。如果当前没有进行中的选择操作，那么下一次对 select()方法的一次调用将立即返回。
-close()方法 ：通过 close（）方法关闭 Selector，该方法使得任何一个在选择操作中阻塞的线程都被唤醒（类似 wakeup（）），同时使得注册到该 Selector 的所有 Channel 被注销，所有的键将被取消，但是 Channel本身并不会关闭。
+**close()方法** ：通过 close（）方法关闭 Selector，该方法使得任何一个在选择操作中阻塞的线程都被唤醒（类似 wakeup()），同时使得**注册到该 Selector 的所有 Channel 被注销，所有的键将被取消，但是 Channel本身并不会关闭。**
 
-## 5.3 NIO 编程步骤
+## **5.3 N**IO 编程步骤
 
 第一步：创建 Selector 选择器
 第二步：创建 ServerSocketChannel 通道，并绑定监听端口
 第三步：设置 Channel 通道是非阻塞模式
 第四步：把 Channel 注册到 Socketor 选择器上，监听连接事件
-第五步：调用 Selector 的 select 方法（循环调用），监测通道的就绪状况
-第六步：调用 selectKeys 方法获取就绪 channel 集合
+第五步：**调用 Selector 的 select 方法（循环调用），监测通道的就绪状况**
+第六步：调用 selectKeys 方法获取就绪 **channel 集合**
 第七步：遍历就绪 channel 集合，判断就绪事件类型，实现具体的业务操作
 第八步：根据业务，决定是否需要再次注册监听事件，重复执行第三步操作
-5.4 示例代码
-1、服务端代码
+
+## 5.4 示例代码
+
+### 1、服务端代码
 
 ```java
 @Test
 public void ServerDemo() {
 try {
-ServerSocketChannel ssc = ServerSocketChannel.open();
-ssc.socket().bind(new InetSocketAddress("127.0.0.1", 8000));
-ssc.configureBlocking(false);
-Selector selector = Selector.open();
-// 注册 channel，并且指定感兴趣的事件是 Accept
-ssc.register(selector, SelectionKey.OP_ACCEPT);
-ByteBuffer readBuff = ByteBuffer.allocate(1024);
-ByteBuffer writeBuff = ByteBuffer.allocate(128);
-writeBuff.put("received".getBytes());
-writeBuff.flip();
-while (true) {
-int nReady = selector.select();
-Set<SelectionKey> keys = selector.selectedKeys();
-Iterator<SelectionKey> it = keys.iterator();
-while (it.hasNext()) {
-SelectionKey key = it.next();
-it.remove();
-if (key.isAcceptable()) {
-// 创建新的连接，并且把连接注册到 selector 上，而且，
-// 声明这个 channel 只对读操作感兴趣。
-SocketChannel socketChannel = ssc.accept();
-socketChannel.configureBlocking(false);
-socketChannel.register(selector, SelectionKey.OP_READ);
-} else if (key.isReadable()) {
-SocketChannel socketChannel = (SocketChannel) key.channel();
-readBuff.clear();
-socketChannel.read(readBuff);
-readBuff.flip();
-System.out.println("received : " + new String(readBuff.array()));
-key.interestOps(SelectionKey.OP_WRITE);
-} else if (key.isWritable()) {
-writeBuff.rewind();
-SocketChannel socketChannel = (SocketChannel) key.channel();
-socketChannel.write(writeBuff);
-key.interestOps(SelectionKey.OP_READ);
-}
-}
-}
-} catch (IOException e) {
-e.printStackTrace();
-}
+  ServerSocketChannel ssc = ServerSocketChannel.open();
+  ssc.socket().bind(new InetSocketAddress("127.0.0.1", 8000));
+  ssc.configureBlocking(false);
+  Selector selector = Selector.open();
+  // 注册 channel，并且指定感兴趣的事件是 Accept
+  ssc.register(selector, SelectionKey.OP_ACCEPT);
+  ByteBuffer readBuff = ByteBuffer.allocate(1024);
+  ByteBuffer writeBuff = ByteBuffer.allocate(128);
+  writeBuff.put("received".getBytes());
+  writeBuff.flip();
+  while (true) {
+    int nReady = selector.select();
+    Set<SelectionKey> keys = selector.selectedKeys();
+    Iterator<SelectionKey> it = keys.iterator();
+    while (it.hasNext()) {
+      SelectionKey key = it.next();
+      it.remove();
+      if (key.isAcceptable()) {
+          // 创建新的连接，并且把连接注册到 selector 上，而且，
+          // 声明这个 channel 只对读操作感兴趣。
+          SocketChannel socketChannel = ssc.accept();
+          socketChannel.configureBlocking(false);
+          socketChannel.register(selector, SelectionKey.OP_READ);
+      } else if (key.isReadable()) {
+          SocketChannel socketChannel = (SocketChannel) key.channel();
+          readBuff.clear();
+          socketChannel.read(readBuff);
+          readBuff.flip();
+          System.out.println("received : " + new String(readBuff.array()));
+          key.interestOps(SelectionKey.OP_WRITE);
+        } else if (key.isWritable()) {
+          writeBuff.rewind();
+          SocketChannel socketChannel = (SocketChannel) key.channel();
+          socketChannel.write(writeBuff);
+          key.interestOps(SelectionKey.OP_READ);
+          }
+        }
+    }
+  } catch (IOException e) {
+  e.printStackTrace();
+  }
 } 
 ```
 
-2、客户端代码
+### 2、客户端代码
 
 ```java
 @Test
 public void ClientDemo() {
 try {
-SocketChannel socketChannel = SocketChannel.open();
-socketChannel.connect(new InetSocketAddress("127.0.0.1", 8000));
-ByteBuffer writeBuffer = ByteBuffer.allocate(32);
-ByteBuffer readBuffer = ByteBuffer.allocate(32);
-writeBuffer.put("hello".getBytes());
-writeBuffer.flip();
-while (true) {
-writeBuffer.rewind();
-socketChannel.write(writeBuffer);
-readBuffer.clear();
-socketChannel.read(readBuffer);
-}
-} catch (IOException e) {
-}
+    SocketChannel socketChannel = SocketChannel.open();
+    socketChannel.connect(new InetSocketAddress("127.0.0.1", 8000));
+    ByteBuffer writeBuffer = ByteBuffer.allocate(32);
+    ByteBuffer readBuffer = ByteBuffer.allocate(32);
+    writeBuffer.put("hello".getBytes());
+    writeBuffer.flip();
+    while (true) {
+      writeBuffer.rewind();
+      socketChannel.write(writeBuffer);
+      readBuffer.clear();
+      socketChannel.read(readBuffer);
+    }
+  } catch (IOException e) {
+  }
 } 
 ```
 
-
+![image-20220526154412619](./NIO.assets/image-20220526154412619-16535510537944.png)
 
 # 第6 章 Java NIO（Pipe 和 FileLock）
 
 ## 6.1 Pipe
 
-Java NIO 管道是 2 个线程之间的单向数据连接。Pipe 有一个 source 通道和一个 sink通道。数据会被写到 sink 通道，从 source 通道读取。
-1、创建管道
+Java NIO 管道是 **2 个线程之间的单向数据连接**。**Pipe 有一个 source 通道和一个 sink通道。数据会被写到 sink 通道，从 source 通道读取。**
+
+![image-20220526154505335](./NIO.assets/image-20220526154505335-16535511063705.png)
+
+### 1、创建管道
+
 通过 Pipe.open()方法打开管道。
 
-```
+```java
 Pipe pipe = Pipe.open();
 ```
 
-2、写入管道
-要向管道写数据，需要访问 sink 通道。：
+### 2、写入管道
+
+要向管道写数据，需要访问 sink 通道。
 Pipe.SinkChannel sinkChannel = pipe.sink();
 通过调用 SinkChannel 的 write()方法，将数据写入 SinkChannel：
+
+```java
 String newData = "New String to write to file..." + System.currentTimeMillis();
 ByteBuffer buf = ByteBuffer.allocate(48);
 buf.clear();
 buf.put(newData.getBytes());
 buf.flip();
 while(buf.hasRemaining()) {
-sinkChannel.write(buf);
+	sinkChannel.write(buf);
 } 
+```
 
-3、从管道读取数据
+### 3、从管道读取数据
+
 从读取管道的数据，需要访问 source 通道，像这样：
 Pipe.SourceChannel sourceChannel = pipe.source();
 调用 source 通道的 read()方法来读取数据：
+
+```java
 ByteBuffer buf = ByteBuffer.allocate(48);
 int bytesRead = sourceChannel.read(buf);
+```
+
 read()方法返回的 int 值会告诉我们多少字节被读进了缓冲区。
-4、示例
+
+### 4、示例
 
 ```java
 @Test
 public void testPipe() throws IOException {
-// 1、获取通道
-Pipe pipe = Pipe.open();
-// 2、获取 sink 管道，用来传送数据
-Pipe.SinkChannel sinkChannel = pipe.sink();
-// 3、申请一定大小的缓冲区
-ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-byteBuffer.put("atguigu".getBytes());
-byteBuffer.flip();
-// 4、sink 发送数据
-sinkChannel.write(byteBuffer);
-// 5、创建接收 pipe 数据的 source 管道
-Pipe.SourceChannel sourceChannel = pipe.source();
-// 6、接收数据，并保存到缓冲区中
-ByteBuffer byteBuffer2 = ByteBuffer.allocate(1024);
-int length = sourceChannel.read(byteBuffer2);
-System.out.println(new String(byteBuffer2.array(), 0, length));
-sourceChannel.close();
-sinkChannel.close();
+  // 1、获取通道
+  Pipe pipe = Pipe.open();
+  // 2、获取 sink 管道，用来传送数据
+  Pipe.SinkChannel sinkChannel = pipe.sink();
+  // 3、申请一定大小的缓冲区
+  ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+  byteBuffer.put("atguigu".getBytes());
+  byteBuffer.flip();
+  // 4、sink 发送数据
+  sinkChannel.write(byteBuffer);
+  // 5、创建接收 pipe 数据的 source 管道
+  Pipe.SourceChannel sourceChannel = pipe.source();
+  // 6、接收数据，并保存到缓冲区中
+  ByteBuffer byteBuffer2 = ByteBuffer.allocate(1024);
+  int length = sourceChannel.read(byteBuffer2);
+  System.out.println(new String(byteBuffer2.array(), 0, length));
+  sourceChannel.close();
+  sinkChannel.close();
 } 
 ```
 
-
-
 ## 6.2 FileLock
 
-1、FileLock 简介
-文件锁在 OS 中很常见，如果多个程序同时访问、修改同一个文件，很容易因为文件数据不同步而出现问题。给文件加一个锁，同一时间，只能有一个程序修改此文件，或者程序都只能读此文件，这就解决了同步问题。
-文件锁是进程级别的，不是线程级别的。文件锁可以解决多个进程并发访问、修改同一个文件的问题，但不能解决多线程并发访问、修改同一文件的问题。使用文件锁时，同一进程内的多个线程，可以同时访问、修改此文件。
-文件锁是当前程序所属的 JVM 实例持有的，一旦获取到文件锁（对文件加锁），要调用 release()，或者关闭对应的 FileChannel 对象，或者当前 JVM 退出，才会释放这个锁。
-一旦某个进程（比如说 JVM 实例）对某个文件加锁，则在释放这个锁之前，此进程不能再对此文件加锁，就是说 JVM 实例在同一文件上的文件锁是不重叠的（进程级别不能重复在同一文件上获取锁）。
-2、文件锁分类：
-排它锁：又叫独占锁。对文件加排它锁后，该进程可以对此文件进行读写，该进程独占此文件，其他进程不能读写此文件，直到该进程释放文件锁。
-共享锁：某个进程对文件加共享锁，其他进程也可以访问此文件，但这些进程都只能读此文件，不能写。线程是安全的。只要还有一个进程持有共享锁，此文件就只能读，不能写。
-3、使用示例：
+### **1、FileLock 简介**
 
-```
+文件锁在 OS 中很常见，如果多个程序同时访问、修改同一个文件，很容易因为文件数据不同步而出现问题。给文件加一个锁，同一时间，只能有一个程序修改此文件，或者程序都只能读此文件，这就解决了同步问题。
+**文件锁是进程级别的，不是线程级别的。**文件锁可以解决多个进程并发访问、修改同一个文件的问题，但不能解决多线程并发访问、修改同一文件的问题。使用文件锁时，同一进程内的多个线程，可以同时访问、修改此文件。
+**文件锁是当前程序所属的 JVM 实例持有的，一旦获取到文件锁（对文件加锁），要调用 release()，或者关闭对应的 FileChannel 对象，或者当前 JVM 退出，才会释放这个锁。**
+一旦某个进程（比如说 JVM 实例）对某个文件加锁，则在释放这个锁之前，此进程不能再对此文件加锁，就是说 JVM 实例在同一文件上的文件锁是不重叠的（进程级别不能重复在同一文件上获取锁）。
+
+### **2、文件锁分类：**
+
+**排它锁：**又叫独占锁。对文件加排它锁后，该进程可以对此文件进行读写，该进程独占此文件，其他进程不能读写此文件，直到该进程释放文件锁。
+**共享锁：**某个进程对文件加共享锁，其他进程也可以访问此文件，但这些进程都只能读此文件，不能写。线程是安全的。只要还有一个进程持有共享锁，此文件就只能读，不能写。
+
+### **3、使用示例：**
+
+```java
 //创建 FileChannel 对象，文件锁只能通过 FileChannel 对象来使用
 FileChannel fileChannel=new FileOutputStream("./1.txt").getChannel();
 //对文件加锁
@@ -1202,56 +1246,64 @@ lock.release();
 ```
 
 文件锁要通过 FileChannel 对象使用。
-4、获取文件锁方法
+
+### **4、获取文件锁方法**
+
 有 4 种获取文件锁的方法：
-lock() //对整个文件加锁，默认为排它锁。
+lock() //对整个文件加锁，默认为**排它锁**。
 lock(long position, long size, booean shared) //自定义加锁方式。前 2 个参数指定要加锁的部分（可以只对此文件的部分内容加锁），第三个参数值指定是否是共享锁。
 tryLock() //对整个文件加锁，默认为排它锁。
 tryLock(long position, long size, booean shared) //自定义加锁方式。
 如果指定为共享锁，则其它进程可读此文件，所有进程均不能写此文件，如果某进程试图对此文件进行写操作，会抛出异常。
-5、lock 与 tryLock 的区别：
+
+### **5、lock 与 tryLock 的区别：**
+
 lock 是阻塞式的，如果未获取到文件锁，会一直阻塞当前线程，直到获取文件锁tryLock 和 lock 的作用相同，只不过 tryLock 是非阻塞式的，tryLock 是尝试获取文件锁，获取成功就返回锁对象，否则返回 null，不会阻塞当前线程。
-6、FileLock 两个方法：
+
+### **6、FileLock 两个方法：**
+
 boolean isShared() //此文件锁是否是共享锁
 boolean isValid() //此文件锁是否还有效
 在某些 OS 上，对某个文件加锁后，不能对此文件使用通道映射。
-7、完整例子
+
+### 7、完整例子
 
 ```java
 public class Demo1 {
-public static void main(String[] args) throws IOException {
-String input = "atguigu";
-System.out.println("输入 :" + input);
-ByteBuffer buf = ByteBuffer.wrap(input.getBytes());
-String fp = "D:\\atguigu\\01.txt";
-Path pt = Paths.get(fp);
-FileChannel channel = FileChannel.open(pt,StandardOpenOption.WRITE,StandardOpenOption.APPEND);
-channel.position(channel.size() - 1); 
-// position of a cursor at the end of file
-// 获得锁方法一：lock()，阻塞方法，当文件锁不可用时，当前进程会被挂起
-//lock = channel.lock();// 无参 lock()为独占锁
-// lock = channel.lock(0L, Long.MAX_VALUE, true);//有参 lock()为共享锁，有写操作会报异常
-// 获得锁方法二：trylock()，非阻塞的方法，当文件锁不可用时，tryLock()会得到 null 值
-FileLock lock = channel.tryLock(0,Long.MAX_VALUE,false);
-System.out.println("共享锁 shared: " + lock.isShared());
-channel.write(buf);
-channel.close(); // Releases the Lock
-System.out.println("写操作完成.");
-//读取数据
-readPrint(fp);
-} 
+  public static void main(String[] args) throws IOException {
+        String input = "atguigu";
+        System.out.println("输入 :" + input);
+        ByteBuffer buf = ByteBuffer.wrap(input.getBytes());
+        String fp = "D:\\ChromeCoreDownloads\\课件代码\\课件\\test1.txt";
+        Path pt = Paths.get(fp);
+        FileChannel channel = FileChannel.open(pt, StandardOpenOption.WRITE, StandardOpenOption.APPEND);
+        channel.position(channel.size() - 1);
+        // position of a cursor at the end of file
+        // 获得锁方法一：lock()，阻塞方法，当文件锁不可用时，当前进程会被挂起
+        //lock = channel.lock();// 无参 lock()为独占锁
+        // lock = channel.lock(0L,Long.MAX_VALUE, true);//有参 lock()为共享锁，有写操作会报异常
+        // 获得锁方法二：trylock()，非阻塞的方法，当文件锁不可用时，tryLock()会得到 null 值
+        FileLock lock = channel.tryLock(0, Long.MAX_VALUE, false);
+        System.out.println("共享锁 shared: " + lock.isShared());
+        channel.write(buf);
+        channel.close(); // Releases the Lock
+        System.out.println("写操作完成.");
+        //读取数据
+        readPrint(fp);
+    }
 
-public static void readPrint(String path) throws IOException {
-FileReader filereader = new FileReader(path);
-BufferedReader bufferedreader = new BufferedReader(filereader);
-String tr = bufferedreader.readLine();
-System.out.println("读取内容: ");
-while (tr != null) {
-System.out.println(" " + tr);
-tr = bufferedreader.readLine();
-} filereader.close();
-bufferedreader.close();
-}
+    public static void readPrint(String path) throws IOException {
+        FileReader filereader = new FileReader(path);
+        BufferedReader bufferedreader = new BufferedReader(filereader);
+        String tr = bufferedreader.readLine();
+        System.out.println("读取内容: ");
+        while (tr != null) {
+            System.out.println(" " + tr);
+            tr = bufferedreader.readLine();
+        }
+        filereader.close();
+        bufferedreader.close();
+    }
 } 
 ```
 
@@ -1261,11 +1313,14 @@ bufferedreader.close();
 
 ## 7.1 Path
 
-1、Path 简介
+### 1、Path 简介
+
 Java Path 接口是 Java NIO 更新的一部分，同 Java NIO 一起已经包括在 Java6 和Java7 中。Java Path 接口是在 Java7 中添加到 Java NIO 的。Path 接口位于java.nio.file 包中，所以 Path 接口的完全限定名称为 java.nio.file.Path。
 Java Path 实例表示文件系统中的路径。一个路径可以指向一个文件或一个目录。路径可以是绝对路径，也可以是相对路径。绝对路径包含从文件系统的根目录到它指向的文件或目录的完整路径。相对路径包含相对于其他路径的文件或目录的路径。
-在许多方面，java.nio.file.Path 接口类似于 java.io.File 类，但是有一些差别。不过，在许多情况下，可以使用 Path 接口来替换 File 类的使用。
-2、创建 Path 实例
+在许多方面，**java.nio.file.Path 接口类似于 java.io.File 类**，但是有一些差别。不过，在许多情况下，可以使用 Path 接口来替换 File 类的使用。
+
+### 2、创建 Path 实例
+
 使用 java.nio.file.Path 实例必须创建一个 Path 实例。可以使用 Paths 类(java.nio.file.Paths)中的静态方法 Paths.get()来创建路径实例。
 示例代码:
 
@@ -1274,135 +1329,188 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 public class PathDemo {
 public static void main(String[] args) {
-Path path = Paths.get("d:\\atguigu\\001.txt");
-}
+		Path path = Paths.get("d:\\atguigu\\001.txt");
+	}
+} 
 ```
 
-} 上述代码，可以理解为，Paths.get()方法是 Path 实例的工厂方法。
-3、创建绝对路径
+上述代码，可以理解为，Paths.get()方法是 Path 实例的工厂方法。
+
+### 3、创建绝对路径
+
 （1）创建绝对路径，通过调用 Paths.get()方法，给定绝对路径文件作为参数来完成。
 示例代码：
+
+```
 Path path = Paths.get("d:\\atguigu\\001.txt");
+```
+
 上述代码中，绝对路径是 d:\atguigu\001.txt。在 Java 字符串中， \是一个转义字符，需要编写\\，告诉 Java 编译器在字符串中写入一个\字符。
 （2）如果在 Linux、MacOS 等操作字体上，上面的绝对路径可能如下:
+
+```
 Path path = Paths.get("/home/jakobjenkov/myfile.txt");
+```
+
 绝对路径现在为/home/jakobjenkov/myfile.txt.
 （3）如果在 Windows 机器上使用了从/开始的路径，那么路径将被解释为相对于当前驱动器。
-4、创建相对路径
-Java NIO Path 类也可以用于处理相对路径。您可以使用 Paths.get(basePath,
-relativePath)方法创建一个相对路径。
+
+### 4、创建相对路径
+
+Java NIO Path 类也可以用于处理相对路径。您可以使用 Paths.get(basePath,relativePath)方法创建一个相对路径。
 示例代码:
 //代码 1
+
+```
 Path projects = Paths.get("d:\\atguigu", "projects");
+```
+
 //代码 2
+
+```
 Path file = Paths.get("d:\\atguigu", "projects\\002.txt");
+```
+
 代码 1 创建了一个 Java Path 的实例，指向路径(目录):d:\atguigu\projects
 代码 2 创建了一个 Path 的实例，指向路径(文件):d:\atguigu\projects\002.txt
-5、Path.normalize()
+
+### 5、Path.normalize()
+
 Path 接口的 normalize()方法可以使路径标准化。标准化意味着它将移除所有在路径字符串的中间的.和..代码，并解析路径字符串所引用的路径。
 Path.normalize()示例:
-String originalPath =
-"d:\\atguigu\\projects\\..\\yygh-project";
+
+```
+String originalPath ="d:\\atguigu\\projects\\..\\yygh-project";
 Path path1 = Paths.get(originalPath);
 System.out.println("path1 = " + path1);
 Path path2 = path1.normalize();
 System.out.println("path2 = " + path2);
-输出结果：标准化的路径不包含 projects\..部分
+```
+
+输出结果：**标准化的路径不包含 projects\..部分**
+
+![image-20220526162550012](./NIO.assets/image-20220526162550012-16535535511756.png)
 
 ## 7.2 Files
 
-Java NIO Files 类(java.nio.file.Files)提供了几种操作文件系统中的文件的方法。以下内容介绍 Java NIO Files 最常用的一些方法。java.nio.file.Files 类与
-java.nio.file.Path 实例一起工作，因此在学习 Files 类之前，需要先了解 Path 类。
-1、Files.createDirectory()
+Java NIO Files 类(java.nio.file.Files)提供了几种操作文件系统中的文件的方法。以下内容介绍 Java NIO Files 最常用的一些方法。java.nio.file.Files 类与java.nio.file.Path 实例一起工作，因此在学习 Files 类之前，需要先了解 Path 类。
+
+### 1、Files.createDirectory()
+
 Files.createDirectory()方法，用于根据 Path 实例创建一个新目录
 示例：
+
+```java
 Path path = Paths.get("d:\\sgg");
 try {
-Path newDir = Files.createDirectory(path);
-} catch(FileAlreadyExistsException e){
-// 目录已经存在
+  Path newDir = Files.createDirectory(path);
+} catch (FileAlreadyExistsException e) {
+  // 目录已经存在
 } catch (IOException e) {
-// 其他发生的异常
-e.printStackTrace();
+  // 其他发生的异常
+  e.printStackTrace();
 }
+```
 
  第一行创建表示要创建的目录的 Path 实例。在 try-catch 块中，用路径作为参数调用Files.createDirectory()方法。如果创建目录成功，将返回一个 Path 实例，该实例指向新创建的路径。
 如果该目录已经存在，则是抛出一个 java.nio.file.FileAlreadyExistsException。如果出现其他错误，可能会抛出 IOException。例如，如果想要的新目录的父目录不存在，则可能会抛出 IOException。
-2、Files.copy()
-（1）Files.copy()方法从一个路径拷贝一个文件到另外一个目录
+
+### 2、Files.copy()
+
+**（1）Files.copy()方法**
+
+从一个路径拷贝一个文件到另外一个目录
 示例：
+
+```java
 Path sourcePath = Paths.get("d:\\atguigu\\01.txt");
 Path destinationPath = Paths.get("d:\\atguigu\\002.txt");
 try {
-Files.copy(sourcePath, destinationPath);
+	Files.copy(sourcePath, destinationPath);
 } catch(FileAlreadyExistsException e) {
-// 目录已经存在
+	// 目录已经存在
 } catch (IOException e) {
-// 其他发生的异常
-e.printStackTrace();
+  // 其他发生的异常
+  e.printStackTrace();
 } 
+```
 
 首先，该示例创建两个 Path 实例。然后，这个例子调用 Files.copy()，将两个 Path实例作为参数传递。这可以让源路径引用的文件被复制到目标路径引用的文件中。
 如果目标文件已经存在，则抛出一个 java.nio.file.FileAlreadyExistsException 异常。如果有其他错误，则会抛出一个 IOException。例如，如果将该文件复制到不存在的目录，则会抛出 IOException。
-（2）覆盖已存在的文件
+**（2）覆盖已存在的文件**
 Files.copy()方法的第三个参数。如果目标文件已经存在，这个参数指示 copy()方法覆盖现有的文件。
-Files.copy(sourcePath, destinationPath,
-StandardCopyOption.REPLACE_EXISTING);
-3、Files.move()
+
+```
+Files.copy(sourcePath, destinationPath,StandardCopyOption.REPLACE_EXISTING);
+```
+
+### 3、Files.move()
+
 Files.move()用于将文件从一个路径移动到另一个路径。移动文件与重命名相同，但是移动文件既可以移动到不同的目录，也可以在相同的操作中更改它的名称。
 示例：
+
+```java
 Path sourcePath = Paths.get("d:\\atguigu\\01.txt");
 Path destinationPath = Paths.get("d:\\atguigu\\001.txt");
 try {
-Files.move(sourcePath, destinationPath,
-StandardCopyOption.REPLACE_EXISTING);
+  Files.move(sourcePath, destinationPath,
+  StandardCopyOption.REPLACE_EXISTING);
 } catch (IOException e) {
-//移动文件失败
-e.printStackTrace();
+  //移动文件失败
+  e.printStackTrace();
 }
+```
 
 Files.move()的第三个参数。这个参数告诉 Files.move()方法来覆盖目标路径上的任何现有文件。
-4、Files.delete()
+
+### 4、Files.delete()
+
 Files.delete()方法可以删除一个文件或者目录。
 示例：
+
+```java
 Path path = Paths.get("d:\\atguigu\\001.txt");
 try {
-Files.delete(path);
+	Files.delete(path);
 } catch (IOException e) {
-// 删除文件失败
-e.printStackTrace();
+  // 删除文件失败
+  e.printStackTrace();
 } 
+```
 
 创建指向要删除的文件的 Path。然后调用 Files.delete()方法。如果 Files.delete()不能删除文件(例如，文件或目录不存在)，会抛出一个 IOException。
-5、Files.walkFileTree()
+
+### 5、Files.walkFileTree()
+
 （1）Files.walkFileTree()方法包含递归遍历目录树功能，将 Path 实例和 FileVisitor作为参数。Path 实例指向要遍历的目录，FileVisitor 在遍历期间被调用。
 （2）FileVisitor 是一个接口，必须自己实现 FileVisitor 接口，并将实现的实例传递给walkFileTree()方法。在目录遍历过程中，您的 FileVisitor 实现的每个方法都将被调用。如果不需要实现所有这些方法，那么可以扩展SimpleFileVisitor 类，它包含FileVisitor 接口中所有方法的默认实现。
 （3）FileVisitor 接口的方法中，每个都返回一个 FileVisitResult 枚举实例。
 FileVisitResult 枚举包含以下四个选项:
-CONTINUE 继续
-TERMINATE 终止
-SKIP_SIBLING 跳过同级
-SKIP_SUBTREE 跳过子级
+**CONTINUE 继续**
+**TERMINATE 终止**
+**SKIP_SIBLING 跳过同级**
+**SKIP_SUBTREE 跳过子级**
 （4）查找一个名为 001.txt 的文件示例：
 
 ```java
 Path rootPath = Paths.get("d:\\atguigu");
 String fileToFind = File.separator + "001.txt";
 try {
-Files.walkFileTree(rootPath, new SimpleFileVisitor<Path>() {
-@Override
-public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws
-IOException {
-String fileString = file.toAbsolutePath().toString();
-//System.out.println("pathString = " + fileString);
-if(fileString.endsWith(fileToFind)){
-System.out.println("file found at path: " + file.toAbsolutePath());
-return FileVisitResult.TERMINATE;
-} return FileVisitResult.CONTINUE;
-}
-});
-} catch(IOException e){
-e.printStackTrace();
+  Files.walkFileTree(rootPath, new SimpleFileVisitor<Path>() {
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws
+      IOException {
+      String fileString = file.toAbsolutePath().toString();
+      System.out.println("pathString = " + fileString);
+      if (fileString.endsWith(fileToFind)) {
+        System.out.println("file found at path: " + file.toAbsolutePath());
+        return FileVisitResult.TERMINATE;
+      }
+      return FileVisitResult.CONTINUE;
+    }
+  });
+} catch (IOException e) {
+  e.printStackTrace();
 }
 ```
 
@@ -1410,24 +1518,26 @@ e.printStackTrace();
 
 ## 7.3 AsynchronousFileChannel
 
-在 Java 7 中，Java NIO 中添加了 AsynchronousFileChannel，也就是是异步地将数
-据写入文件。
-1、创建 AsynchronousFileChannel
+在 Java 7 中，Java NIO 中添加了 AsynchronousFileChannel，也就是是**异步地将数据写入文件**。
+
+### **1、创建 AsynchronousFileChannel**
+
 通过静态方法 open()创建
 示例：
 
-```
+```java
 Path path = Paths.get("d:\\atguigu\\01.txt");
 try {
-AsynchronousFileChannel fileChannel =
-AsynchronousFileChannel.open(path, StandardOpenOption.READ);
+  synchronousFileChannel fileChannel=AsynchronousFileChannel.open(path,StandardOpenOption.READ);
 } catch (IOException e) {
-e.printStackTrace();
+	e.printStackTrace();
 } 
 ```
 
-open()方法的第一个参数指向与 AsynchronousFileChannel 相关联文件的 Path 实例。第二个参数是一个或多个打开选项，它告诉 AsynchronousFileChannel 在文件上执行什么操作。在本例中，我们使用了 StandardOpenOption.READ 选项，表示该文件将被打开阅读。
-2、通过 Future 读取数据
+open()方法的第一个参数指向与 AsynchronousFileChannel 相关联文件的 Path 实例。第二个参数是一个或多个打开选项，它告诉 AsynchronousFileChannel 在文件上执行什么操作。在本例中，我们使用了StandardOpenOption.READ 选项，表示该文件将被打开阅读。
+
+### **2、通过 Future 读取数据**
+
 可以通过两种方式从 AsynchronousFileChannel 读取数据。第一种方式是调用返回Future 的 read()方法
 示例：
 
@@ -1435,16 +1545,15 @@ open()方法的第一个参数指向与 AsynchronousFileChannel 相关联文件�
 Path path = Paths.get("d:\\atguigu\\001.txt");
 AsynchronousFileChannel fileChannel = null;
 try {
-fileChannel = AsynchronousFileChannel.open(path,
-StandardOpenOption.READ);
+  fileChannel = AsynchronousFileChannel.open(path,  StandardOpenOption.READ);
 } catch (IOException e) {
-e.printStackTrace();
-} 
+  e.printStackTrace();
+}
 
 ByteBuffer buffer = ByteBuffer.allocate(1024);
 long position = 0;
 Future<Integer> operation = fileChannel.read(buffer, position);
-while(!operation.isDone());
+while (!operation.isDone()) ;
 buffer.flip();
 byte[] data = new byte[buffer.limit()];
 buffer.get(data);
@@ -1457,54 +1566,56 @@ buffer.clear();
 （2）创建一个 ByteBuffer，它被传递给 read()方法作为参数，以及一个 0 的位置。
 （3）在调用 read()之后，循环，直到返回的 isDone()方法返回 true。
 （4）读取操作完成后，数据读取到 ByteBuffer 中，然后打印到 System.out 中。
-3、通过 CompletionHandler 读取数据
+
+### 3、通过 CompletionHandler 读取数据
+
 第二种方法是调用 read()方法，该方法将一个 CompletionHandler 作为参数
 示例：
 
-```
+```java
+
 Path path = Paths.get("d:\\atguigu\\001.txt");
 AsynchronousFileChannel fileChannel = null;
 try {
-fileChannel = AsynchronousFileChannel.open(path,
-StandardOpenOption.READ);
+  fileChannel = AsynchronousFileChannel.open(path, StandardOpenOption.READ);
 } catch (IOException e) {
-e.printStackTrace();
-} 
+  e.printStackTrace();
+}
 
 ByteBuffer buffer = ByteBuffer.allocate(1024);
 long position = 0;
-fileChannel.read(buffer, position, buffer, new CompletionHandler<Integer,
-ByteBuffer>() {
-@Override
-public void completed(Integer result, ByteBuffer attachment) {
-System.out.println("result = " + result);
-attachment.flip();
-byte[] data = new byte[attachment.limit()];
-attachment.get(data);
-System.out.println(new String(data));
-attachment.clear();
-} @
-Override
-public void failed(Throwable exc, ByteBuffer attachment) {
-}
+fileChannel.read(buffer, position, buffer, new CompletionHandler<Integer, ByteBuffer>() {
+  @Override
+  public void completed(Integer result, ByteBuffer attachment) {
+    System.out.println("result = " + result);
+    attachment.flip();
+    byte[] data = new byte[attachment.limit()];
+    attachment.get(data);
+    System.out.println(new String(data));
+    attachment.clear();
+  }
+  @Override
+  public void failed(Throwable exc, ByteBuffer attachment) {
+  }
 });
 ```
 
 （1）读取操作完成，将调用 CompletionHandler 的 completed()方法。
 （2）对于 completed()方法的参数传递一个整数，它告诉我们读取了多少字节，以及传递给 read()方法的“附件”。“附件”是 read()方法的第三个参数。在本代码中，它是 ByteBuffer，数据也被读取。
 （3）如果读取操作失败，则将调用 CompletionHandler 的 failed()方法。
-4、通过 Future 写数据
+
+### 4、通过 Future 写数据
+
 和读取一样，可以通过两种方式将数据写入一个 AsynchronousFileChannel
 示例：
 
-```
+```java
 Path path = Paths.get("d:\\atguigu\\001.txt");
 AsynchronousFileChannel fileChannel = null;
 try {
-fileChannel = AsynchronousFileChannel.open(path,
-StandardOpenOption.WRITE);
+  fileChannel = AsynchronousFileChannel.open(path,StandardOpenOption.WRITE);
 } catch (IOException e) {
-e.printStackTrace();
+	e.printStackTrace();
 } 
 ByteBuffer buffer = ByteBuffer.allocate(1024);
 long position = 0;
@@ -1518,39 +1629,39 @@ System.out.println("Write over");
 
 首先，AsynchronousFileChannel 以写模式打开。然后创建一个 ByteBuffer，并将一些数据写入其中。然后，ByteBuffer 中的数据被写入到文件中。最后，示例检查返回的 Future，以查看写操作完成时的情况。
 注意，文件必须已经存在。如果该文件不存在，那么 write()方法将抛出一个java.nio.file.NoSuchFileException。
-5、通过 CompletionHandler 写数据
+
+### 5、通过 CompletionHandler 写数据
+
 示例：
 
 ```java
 Path path = Paths.get("d:\\atguigu\\001.txt");
 if(!Files.exists(path)){
 try {
-Files.createFile(path);
+	Files.createFile(path);
 } catch (IOException e) {
-e.printStackTrace();
+	e.printStackTrace();
 }
-} A
-synchronousFileChannel fileChannel = null;
+} 
+AsynchronousFileChannel fileChannel = null;
 try {
-fileChannel = AsynchronousFileChannel.open(path,
-StandardOpenOption.WRITE);
+  fileChannel = AsynchronousFileChannel.open(path,StandardOpenOption.WRITE);
 } catch (IOException e) {
-e.printStackTrace();
-} B
-yteBuffer buffer = ByteBuffer.allocate(1024);
+	e.printStackTrace();
+} 
+ByteBuffer buffer = ByteBuffer.allocate(1024);
 long position = 0;
 buffer.put("atguigu data".getBytes());
 buffer.flip();
-fileChannel.write(buffer, position, buffer, new CompletionHandler<Integer,
-ByteBuffer>() {
+fileChannel.write(buffer, position, buffer, new CompletionHandler<Integer,ByteBuffer>() {
 @Override
 public void completed(Integer result, ByteBuffer attachment) {
-System.out.println("bytes written: " + result);
-} @
-Override
+	System.out.println("bytes written: " + result);
+} 
+@Override
 public void failed(Throwable exc, ByteBuffer attachment) {
-System.out.println("Write failed");
-exc.printStackTrace();
+  System.out.println("Write failed");
+  exc.printStackTrace();
 }
 });
 ```
@@ -1561,50 +1672,51 @@ exc.printStackTrace();
 
 java 中使用 Charset 来表示字符集编码对象
 Charset 常用静态方法
-public static Charset forName(String charsetName)//通过编码类型获得 Charset 对象 public static SortedMap<String,Charset> availableCharsets()//获得系统支持的所有编码方式
-public static Charset defaultCharset()//获得虚拟机默认的编码方式
-public static boolean isSupported(String charsetName)//判断是否支持该编码类型
+**public static Charset forName(String charsetName)//通过编码类型获得 Charset 对象 **
+
+**public static SortedMap<String,Charset> availableCharsets()//获得系统支持的所有编码方式**
+**public static Charset defaultCharset()//获得虚拟机默认的编码方式**
+**public static boolean isSupported(String charsetName)//判断是否支持该编码类型**
 Charset 常用普通方法
-public final String name()//获得 Charset 对象的编码类型(String)
-public abstract CharsetEncoder newEncoder()//获得编码器对象
-public abstract CharsetDecoder newDecoder()//获得解码器对象
+**public final String name()//获得 Charset 对象的编码类型(String)**
+**public abstract CharsetEncoder newEncoder()//获得编码器对象**
+**public abstract CharsetDecoder newDecoder()//获得解码器对象**
 代码示例：
 
 ```java
 @Test
-public void charSetEncoderAndDecoder() throws
-CharacterCodingException {
-Charset charset=Charset.forName("UTF-8");
-//1.获取编码器
-CharsetEncoder charsetEncoder=charset.newEncoder();
-//2.获取解码器
-CharsetDecoder charsetDecoder=charset.newDecoder();
-//3.获取需要解码编码的数据
-CharBuffer charBuffer=CharBuffer.allocate(1024);
-charBuffer.put("字符集编码解码");
-charBuffer.flip();
-//4.编码
-ByteBuffer byteBuffer=charsetEncoder.encode(charBuffer);
-System.out.println("编码后：");
-for (int i=0;i<byteBuffer.limit();i++) {
-System.out.println(byteBuffer.get());
-}
-//5.解码
-byteBuffer.flip();
-CharBuffer charBuffer1=charsetDecoder.decode(byteBuffer);
-System.out.println("解码后：");
-System.out.println(charBuffer1.toString());
-System.out.println("指定其他格式解码:");
-Charset charset1=Charset.forName("GBK");
-byteBuffer.flip();
-CharBuffer charBuffer2 =charset1.decode(byteBuffer);
-System.out.println(charBuffer2.toString());
-//6.获取 Charset 所支持的字符编码
-Map<String ,Charset> map= Charset.availableCharsets();
-Set<Map.Entry<String,Charset>> set=map.entrySet();
-for (Map.Entry<String,Charset> entry: set) {
-System.out.println(entry.getKey()+"="+entry.getValue().toString());
-}
+public void charSetEncoderAndDecoder() throws CharacterCodingException {
+  Charset charset=Charset.forName("UTF-8");
+  //1.获取编码器
+  CharsetEncoder charsetEncoder=charset.newEncoder();
+  //2.获取解码器
+  CharsetDecoder charsetDecoder=charset.newDecoder();
+  //3.获取需要解码编码的数据
+  CharBuffer charBuffer=CharBuffer.allocate(1024);
+  charBuffer.put("字符集编码解码");
+  charBuffer.flip();
+  //4.编码
+  ByteBuffer byteBuffer=charsetEncoder.encode(charBuffer);
+  System.out.println("编码后：");
+  for (int i=0;i<byteBuffer.limit();i++) {
+    System.out.println(byteBuffer.get());
+  }
+  //5.解码
+  byteBuffer.flip();
+  CharBuffer charBuffer1=charsetDecoder.decode(byteBuffer);
+  System.out.println("解码后：");
+  System.out.println(charBuffer1.toString());
+  System.out.println("指定其他格式解码:");
+  Charset charset1=Charset.forName("GBK");
+  byteBuffer.flip();
+  CharBuffer charBuffer2 =charset1.decode(byteBuffer);
+  System.out.println(charBuffer2.toString());
+  //6.获取 Charset 所支持的字符编码
+  Map<String ,Charset> map= Charset.availableCharsets();
+  Set<Map.Entry<String,Charset>> set=map.entrySet();
+  for (Map.Entry<String,Charset> entry: set) {
+    System.out.println(entry.getKey()+"="+entry.getValue().toString());
+  }
 }
 ```
 
@@ -1624,8 +1736,7 @@ public void startServer() throws IOException {
 //1 创建 Selector 选择器
 Selector selector = Selector.open();
 //2 创建 ServerSocketChannel 通道
-ServerSocketChannel serverSocketChannel =
-ServerSocketChannel.open();
+ServerSocketChannel serverSocketChannel =ServerSocketChannel.open();
 //3 为 channel 通道绑定监听端口
 serverSocketChannel.bind(new InetSocketAddress(8000));
 //设置非阻塞模式
@@ -1636,96 +1747,90 @@ System.out.println("服务器已经启动成功了");
 //5 循环，等待有新链接接入
 //while(true)
 for(;;) {
-//获取 channel 数量
-int readChannels = selector.select();
-if(readChannels == 0) {
-continue;
-} /
-/获取可用的 channel
-Set<SelectionKey> selectionKeys = selector.selectedKeys();
-//遍历集合
-Iterator<SelectionKey> iterator = selectionKeys.iterator();
-while (iterator.hasNext()) {
-SelectionKey selectionKey = iterator.next();
-//移除 set 集合当前 selectionKey
-iterator.remove();
-//6 根据就绪状态，调用对应方法实现具体业务操作
-//6.1 如果 accept 状态
-if(selectionKey.isAcceptable()) {
-acceptOperator(serverSocketChannel,selector);
-}
-//6.2 如果可读状态
-if(selectionKey.isReadable()) {
-readOperator(selector,selectionKey);
-}
-}
-}
+  //获取 channel 数量
+  int readChannels = selector.select();
+  if(readChannels == 0) {
+    continue;
+  } 
+  //获取可用的 channel
+  Set<SelectionKey> selectionKeys = selector.selectedKeys();
+  //遍历集合
+  Iterator<SelectionKey> iterator = selectionKeys.iterator();
+  while (iterator.hasNext()) {
+    SelectionKey selectionKey = iterator.next();
+    //移除 set 集合当前 selectionKey
+    iterator.remove();
+    //6 根据就绪状态，调用对应方法实现具体业务操作
+    //6.1 如果 accept 状态
+    if(selectionKey.isAcceptable()) {
+      acceptOperator(serverSocketChannel,selector);
+    }
+    //6.2 如果可读状态
+    if(selectionKey.isReadable()) {
+      readOperator(selector,selectionKey);
+     }
+    }
+    }
 } 
 //处理可读状态操作
-private void readOperator(Selector selector, SelectionKey selectionKey)
-throws IOException {
-//1 从 SelectionKey 获取到已经就绪的通道
-SocketChannel socketChannel =
-(SocketChannel)selectionKey.channel();
-//2 创建 buffer
-ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-//3 循环读取客户端消息
-int readLength = socketChannel.read(byteBuffer);
-String message = "";
-if(readLength >0) {
-//切换读模式
-byteBuffer.flip();
-//读取内容
-message += Charset.forName("UTF-8").decode(byteBuffer);
-} 
-//4 将 channel 再次注册到选择器上，监听可读状态
-socketChannel.register(selector,SelectionKey.OP_READ);
-//5 把客户端发送消息，广播到其他客户端
-if(message.length()>0) {
-//广播给其他客户端
-System.out.println(message);
-castOtherClient(message,selector,socketChannel);
-}
-} 
-//广播到其他客户端
-private void castOtherClient(String message, Selector selector,
-SocketChannel socketChannel) throws IOException {
-//1 获取所有已经接入 channel
-Set<SelectionKey> selectionKeySet = selector.keys();
-//2 循环想所有 channel 广播消息
-for(SelectionKey selectionKey : selectionKeySet) {
-//获取每个 channel
-Channel tarChannel = selectionKey.channel();
-//不需要给自己发送
-if(tarChannel instanceof SocketChannel && tarChannel !=
-socketChannel) {
-((SocketChannel)tarChannel).write(Charset.forName("UTF-
-8").encode(message));
-}
-}
+private void readOperator(Selector selector, SelectionKey selectionKey)throws IOException {
+  //1 从 SelectionKey 获取到已经就绪的通道
+  SocketChannel socketChannel =(SocketChannel)selectionKey.channel();
+  //2 创建 buffer
+  ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+  //3 循环读取客户端消息
+  int readLength = socketChannel.read(byteBuffer);
+  String message = "";
+  if(readLength >0) {
+    //切换读模式
+    byteBuffer.flip();
+    //读取内容
+    message += Charset.forName("UTF-8").decode(byteBuffer);
+  } 
+  //4 将 channel 再次注册到选择器上，监听可读状态
+  socketChannel.register(selector,SelectionKey.OP_READ);
+  //5 把客户端发送消息，广播到其他客户端
+  if(message.length()>0) {
+    //广播给其他客户端
+    System.out.println(message);
+    castOtherClient(message,selector,socketChannel);
+  }
+ } 
+  //广播到其他客户端
+  private void castOtherClient(String message, Selector selector,
+  SocketChannel socketChannel) throws IOException {
+  //1 获取所有已经接入channel
+  Set<SelectionKey> selectionKeySet = selector.keys();
+  //2 循环想所有 channel 广播消息
+  for(SelectionKey selectionKey : selectionKeySet) {
+    //获取每个 channel
+    Channel tarChannel = selectionKey.channel();
+    //不需要给自己发送
+    if(tarChannel instanceof SocketChannel && tarChannel !=socketChannel) {
+    ((SocketChannel)tarChannel).write(Charset.forName("UTF-8").encode(message));
+    }
+  }
 } 
 
 //处理接入状态操作
-private void acceptOperator(ServerSocketChannel serverSocketChannel,
-Selector selector) throws IOException {
-//1 接入状态，创建 socketChannel
-SocketChannel socketChannel = serverSocketChannel.accept();
-//2 把 socketChannel 设置非阻塞模式
-socketChannel.configureBlocking(false);
-//3 把 channel 注册到 selector 选择器上，监听可读状态
-socketChannel.register(selector,SelectionKey.OP_READ);
-//4 客户端回复信息
-socketChannel.write(Charset.forName("UTF-8")
-.encode("欢迎进入聊天室，请注意隐私安全"));
+private void acceptOperator(ServerSocketChannel serverSocketChannel,Selector selector) throws IOException {
+  //1 接入状态，创建 socketChannel
+  SocketChannel socketChannel = serverSocketChannel.accept();
+  //2 把 socketChannel 设置非阻塞模式
+  socketChannel.configureBlocking(false);
+  //3 把 channel 注册到 selector 选择器上，监听可读状态
+  socketChannel.register(selector,SelectionKey.OP_READ);
+  //4 客户端回复信息
+  socketChannel.write(Charset.forName("UTF-8").encode("欢迎进入聊天室，请注意隐私安全"));
 }
 //启动主方法
 public static void main(String[] args) {
-try {
-new ChatServer().startServer();
-} catch (IOException e) {
-e.printStackTrace();
-}
-}
+  try {
+  	new ChatServer().startServer();
+  } catch (IOException e) {
+  	e.printStackTrace();
+  }
+  }
 } 
 ```
 
@@ -1741,8 +1846,7 @@ public class ChatClient {
 //启动客户端方法
 public void startClient(String name) throws IOException {
 //连接服务端
-SocketChannel socketChannel =
-SocketChannel.open(new InetSocketAddress("127.0.0.1",8000));
+SocketChannel socketChannel =SocketChannel.open(new InetSocketAddress("127.0.0.1",8000));
 //接收服务端响应数据
 Selector selector = Selector.open();
 socketChannel.configureBlocking(false);
@@ -1752,13 +1856,13 @@ new Thread(new ClientThread(selector)).start();
 //向服务器端发送消息
 Scanner scanner = new Scanner(System.in);
 while(scanner.hasNextLine()) {
-String msg = scanner.nextLine();
-if(msg.length()>0) {
-socketChannel.write(Charset.forName("UTF-8").encode(name +" :
-" +msg));
-}
-}
-}
+  String msg = scanner.nextLine();
+  if(msg.length()>0) {
+  socketChannel.write(Charset.forName("UTF-8").encode(name +" :
+  " +msg));
+  }
+  }
+  }
 } 
 
 ClientThread 类
