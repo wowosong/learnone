@@ -61,7 +61,13 @@ mybatis:
 
 #### 1.sql
 
-![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125221628.png)
+```sql
+create table ``(
+  `id` bigint(20) not null auto_increment comment 'id',
+  `serial` varchar(200) default '',
+  primary key(`id`)
+)engine=InnoDB AUTO_INCREMENT=1 default charset=utf8
+```
 
 #### 2.实体类
 
@@ -99,7 +105,20 @@ public interface PaymentDao{
 
 ​                **在resource下，创建mapper/PayMapper.xml**
 
-![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125221905.png)
+```xml
+<mapper namespace="com.atguigu.springcloud.dao.PaymentDao">
+    <insert id="create" parameterType="com.atguigu.springcloud.entities.Payment" useGeneratedKeys="true" keyProperty="id">
+        insert into payment(serial) values(#{serial})
+    </insert>
+    <select id="getPaymentById" resultMap="BaseResultMap" paramterType='Long'>
+        select id,serial from payment where id=#{id}
+    </select>
+    <resultMap id="BaseResultMap" type="com.atguigu.springcloud.entities.Payment">
+        <id column="id" property="id" jdbcType="BIGINT"></id>
+        <result column="serial" property="serial" jdbcType="VARCHAR"></result>
+    </resultMap>
+</mapper>
+```
 
 #### 6.写service和serviceImpl
 
@@ -109,8 +128,6 @@ public interface PaymentService{
   public Payment getPaymentByID(@Param("id") Long id);
 }
 ```
-
-
 
 ```java
 @Service 
@@ -128,21 +145,63 @@ public class PaymentServiceImpl implements PaymentService{
 
 #### 7.controller
 
-![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125221945.png)
+```java
+@RestController
+@Slf4j
+@RequestMapping
+public class PaymentController {
+    @Autowired
+    private PaymentService paymentService;
 
-![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125221955.png)
+    @Resource
+    private DiscoveryClient discoveryClient;
+    @Value("${server.port}")
+    private  String serverPort;
+    @PostMapping(value = "/payment/create")
+    public CommonResult Create(@RequestBody Payment payment){
+        int i = paymentService.create(payment);
+        log.info("插入结果{}",i);
+        if(i>0){
+            return new CommonResult(200,"插入成功,serverPort:"+serverPort,i);
+        }else {
+            return new CommonResult(400,"插入失败",null);
+        }
+    }
+    @GetMapping(value = "/payment/getPaymentByid/{id}")
+    public CommonResult getPaymentByid(@PathVariable String id){
+        Payment payment = paymentService.getPaymentById(id);
+        log.info("获取结果{}",payment);
+        return new CommonResult(200,"获取成功,serverPort:"+serverPort,payment);
+    }
+ }
+```
 
 ## 3.热部署:
 
-![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222009.png)
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-devtools</artifactId>
+    <scope>runtime</scope>
+    <optional>true</optional>
+</dependency>
+```
 
-![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222016.png)
-
-.....
-
-.....
-
-....
+```xml
+cloud工程pom
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-maven-plugin</artifactId>
+      <configuration>
+        <fork>true</fork>
+        <addResources>true</addResources>
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
+```
 
 ## 4.order模块
 
@@ -173,9 +232,11 @@ server:
 
 使用RestTemplate调用pay模块，
 
-​    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222049.png)
+RestTemplate提供了多种便捷访问远程Http服务的方法，是一种简单便捷的访问restful服务模版类，是Spring提供的用于访问Rest服务的客户端模版工具类。
 
-![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222056.png)
+**使用**
+
+使用RestTemplate访问restful接口非常简单粗暴无脑。（url，requestMap，ResponseBean.class）这三个参数分别代表REST请求地址/请求参数/HTTP响应转换被转换成的对象类型。    
 
  将restTemplate注入到容器
 
@@ -675,7 +736,11 @@ RestTemplate的:
 
 ##### 3，自定义接口
 
-![](/Users/jiusonghuang/Downloads/cloud2020-master/%E7%AC%94%E8%AE%B0-%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba)/./%E5%9B%BE%E7%89%87/Ribbon%E7%9A%8429.png)
+```java
+public interface LoadBalance {
+    ServiceInstance instance(List<ServiceInstance> serviceInstances);
+}
+```
 
  ==具体的算法在实现类中实现==
 
