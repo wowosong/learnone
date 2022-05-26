@@ -1,6 +1,6 @@
 ### 
 
-# **1.** 消息队列
+# **1.** 消息队列(mac本地账户admin/admin)
 
 ##  1.1**MQ** **的相关概念**
 
@@ -1283,7 +1283,7 @@ public class RecevieLogTopic01 {
 
 <img src="./RabbitMQ.assets/20211110161523.png" alt="image-20211110161519720" style="zoom:67%;" />
 
-### **6.3.2.** **消息 TTL 过期** 
+### **6.3.2.** **消息 TTL 过期**
 
 生产者代码
 
@@ -1841,11 +1841,11 @@ public class DelayQueueConfig {
     public CustomExchange delayedExchange(){
         Map<String, Object> args=new HashMap<>();
         args.put("x-delayed-type","direct");
-        return new CustomExchange(DELAYED_EXCHANGE_NAME, "x-delayed-message",true,false,args);
+       return new CustomExchange(DELAYED_EXCHANGE_NAME, "x-delayed-message",true,false,args);
     }
     @Bean
     public Binding bindingDelayedQueue(@Qualifier("delayedQueue")Queue delayedQueue,@Qualifier("delayedExchange")CustomExchange delayedExchange){
-        return BindingBuilder.bind(delayedQueue).to(delayedExchange).with(DELAYED_ROUTING_KEYS).noargs();
+return BindingBuilder.bind(delayedQueue).to(delayedExchange).with(DELAYED_ROUTING_KEYS).noargs();
     }
 }
 ```
@@ -1976,8 +1976,6 @@ public class CofirmConfig {
 ### **8.1.5. 消息生产者**
 
 ```java
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 @GetMapping("/sendmessage/{message}")
 public void sendConfirmQueue(@PathVariable("message") String message){
   CorrelationData correlationData=new CorrelationData();
@@ -1991,23 +1989,6 @@ public void sendConfirmQueue(@PathVariable("message") String message){
   rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE,routingkey2,message+routingkey2,correlationData1);
   log.info("发送消息内容:{}",message);
 }
-=======
-=======
->>>>>>> Stashed changes
-    @GetMapping("/sendmessage/{message}")
-    public void sendConfirmQueue(@PathVariable("message") String message){
-        CorrelationData correlationData=new CorrelationData();
-        String routingkey1="key1";
-        correlationData.setId("1");
-        rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME,routingkey1,message+routingkey1,correlationData);
-
-        CorrelationData correlationData1=new CorrelationData();
-        String routingkey2="key2";
-        correlationData.setId("2");
-        rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME,routingkey2,message+routingkey2,correlationData1);
-        log.info("发送消息内容:{}",message);
-    }
->>>>>>> Stashed changes
 ```
 
 ### **8.1.6. 回调接口**
@@ -2078,8 +2059,6 @@ public void sendConfirmQueue(@PathVariable("message") String message){
   log.info("发送消息内容:{}",message);
 }
 ```
-
-
 
 ### **8.2.3. 回调接口**
 
@@ -2366,9 +2345,7 @@ scp /var/lib/rabbitmq/.erlang.cookie root@node2:/var/lib/rabbitmq/.erlang.cookie
 scp /var/lib/rabbitmq/.erlang.cookie root@node3:/var/lib/rabbitmq/.erlang.cookie
 ```
 
-4.启动 RabbitMQ 服务,顺带启动 Erlang 虚拟机和 RbbitMQ 应用服务(在三台节点上分别执行以
-
-下命令)
+4.启动 RabbitMQ 服务,顺带启动 Erlang 虚拟机和 RbbitMQ 应用服务(在三台节点上分别执行以下命令)
 
 ```
 rabbitmq-server -detached
