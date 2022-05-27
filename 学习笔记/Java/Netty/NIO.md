@@ -1,7 +1,4 @@
-# Java 网络编程系列之 NIO
-
-尚硅谷 JavaEE 教研组
-版本：V2021
+Java 网络编程系列之 NIO
 
 # 内容概览
 
@@ -23,34 +20,38 @@
 ## 1.1 IO 概述
 
 IO 的操作方式通常分为几种：同步阻塞 BIO、同步非阻塞 NIO、异步非阻塞 AIO。
-（1）在 JDK1.4 之前，我们建立网络连接的时候采用的是 BIO 模式。
-（2）Java NIO（New IO 或 Non Blocking IO）是从 Java 1.4 版本开始引入的一个新的IO API，可以替代标准的 Java IO API。NIO 支持面向缓冲区的、基于通道的 IO 操作。NIO 将以更加高效的方式进行文件的读写操作。BIO 与 NIO 一个比较重要的不同是，我们使用 BIO 的时候往往会引入多线程，每个连接对应一个单独的线程；而 NIO 则是
+（1）在 JDK1.4 之前，我们建立网络连接的时候采用的是 **BIO 模式**。
+（2）Java NIO（New IO 或 Non Blocking IO）是从 Java 1.4 版本开始引入的一个新的IO API，可以替代标准的 Java IO API。NIO 支持面向**缓冲区的、基于通道**的 IO 操作。NIO 将以更加高效的方式进行文件的读写操作。BIO 与 NIO 一个比较重要的不同是，我们使用 BIO 的时候往往会引入多线程，每个连接对应一个单独的线程；而 NIO 则是
 使用单线程或者只使用少量的多线程，让连接共用一个线程。
 （3）AIO 也就是 NIO 2，在 Java 7 中引入了 NIO 的改进版 NIO 2，它是异步非阻塞的IO 模型。
 下面我们来详细介绍这几种 IO 方式
 
 ## 1.2 阻塞 IO (BIO)
 
-阻塞 IO（BIO）是最传统的一种 IO 模型，即在读写数据过程中会发生阻塞现象，直至有可供读取的数据或者数据能够写入。
+阻塞 IO（BIO）是最传统的一种 IO 模型，即在读写数据过程中会发生**阻塞**现象，直至有可供读取的数据或者数据能够写入。
 （1）在 BIO 模式中，服务器会为每个客户端请求建立一个线程，由该线程单独负责处理一个客户请求，这种模式虽然简单方便，但由于服务器为每个客户端的连接都采用一个线程去处理，使得资源占用非常大。因此，当连接数量达到上限时，如果再有用户请求连接，直接会导致资源瓶颈，严重的可能会直接导致服务器崩溃。
-（2）大多数情况下为了避免上述问题，**都采用了线程池模型**。也就是创建一个固定大小的线程池，如果有客户端请求，就从线程池中取一个空闲线程来处理，当客户端处理完操作之后，就会释放对线程的占用。因此这样就避免为每一个客户端都要创建线程带来的资源浪费，使得线程可以重用。但线程池也有它的弊端，如果连接大多是长连接，可能会导致在一段时间内，线程池中的线程都被占用，那么当再有客户端请求连接时，由于没有空闲线程来处理，就会导致客户端连接失败。传统的 BIO 模式如下图所示：
+（2）大多数情况下为了避免上述问题，**都采用了线程池模型**。也就是创建一个固定大小的线程池，如果有客户端请求，就从线程池中取一个空闲线程来处理，当客户端处理完操作之后，就会**释放对线程的占用**。因此这样就避免为每一个客户端都要创建线程带来的资源浪费，使得线程可以重用。但线程池也有它的弊端，如果连接大多是长连接，可能会导致在一段时间内，线程池中的线程都被占用，那么当再有客户端请求连接时，由于没有空闲线程来处理，就会导致客户端连接失败。传统的 BIO 模式如下图所示：
 
 ![image-20220524143429787](./NIO.assets/image-20220524143429787-16533740711041.png)
 
 ## 1.3 非阻塞 IO(NIO)
 
-基于 BIO 的各种弊端，在 JDK1.4 开始出现了高性能 IO 设计模式非阻塞 IO（NIO）。
+基于 BIO 的各种弊端，在 JDK1.4 开始出现了**高性能 IO 设计模式非阻塞 IO（NIO）**。
 （1）NIO 采用非阻塞模式，基于 Reactor 模式的工作方式，I/O 调用不会被阻塞，它的实现过程是：会先对每个客户端注册感兴趣的事件，然后有一个线程专门去轮询每个客户端是否有事件发生，当有事件发生时，便顺序处理每个事件，当所有事件处理完之后，便再转去继续轮询。如下图所示：
 
 ![image-20220524143507857](./NIO.assets/image-20220524143507857-16533741088792.png)
 
-（2)NIO 中实现非阻塞 I/O 的核心对象就是 Selector，Selector 就是注册各种 I/O事件地方，而且当我们感兴趣的事件发生时，就是这个对象告诉我们所发生的事件，如下图所示：
+（2)NIO 中实现非阻塞 I/O 的核心对象就是 **Selector**，Selector 就是**注册各种 I/O事件地方**，而且当我们感兴趣的事件发生时，就是这个对象告诉我们所发生的事件，如下图所示：
 
 ![image-20220524143638299](./NIO.assets/image-20220524143638299.png)
 
 （3）NIO 的最重要的地方是当一个连接创建后，不需要对应一个线程，这个连接会被注册到**多路复用器**上面，一个**选择器线程可以同时处理成千上万个连接**，系统不必创建大量的线程，也不必维护这些线程，从而大大减小了系统的开销。
 
-![image-20220524143651960](./NIO.assets/image-20220524143651960-16533742135363.png)
+| IO                       | NIO                           |
+| ------------------------ | ----------------------------- |
+| 面向流（Stream Oriented) | 面向缓存区（Buffer Oriented） |
+| 阻塞IO（Blocking IO）    | 非阻塞IO（Non Blocking IO)    |
+| （无）                   | 选择器（Selectors)            |
 
 ## 1.4 异步非阻塞 IO(AIO)
 
@@ -60,14 +61,14 @@ IO 的操作方式通常分为几种：同步阻塞 BIO、同步非阻塞 NIO、
 ## 1.5 NIO 概述
 
 Java NIO 由以下几个核心部分组成：
-\- Channels
-\- Buffers
-\- Selectors
+**\- Channels**
+**\- Buffers**
+**\- Selectors**
 虽然 Java NIO 中除此之外还有很多类和组件，但 **Channel，Buffer 和 Selector** 构成了核心的 API。其它组件，如 Pipe 和 FileLock，只不过是与三个核心组件共同使用的工具类。
 
 ### 1.5.1 Channel
 
-首先说一下 Channel，可以翻译成“通道”。Channel 和 IO 中的 Stream(流)是差不多一个等级的。只不过 Stream 是单向的，譬如：InputStream, OutputStream。而Channel 是双向的，既可以用来进行读操作，又可以用来进行写操作。
+首先说一下 Channel，可以翻译成“通道”。Channel 和 IO 中的 Stream(流)是差不多一个等级的。只不过 Stream 是单向的，譬如：InputStream, OutputStream。而**Channel 是双向的，既可以用来进行读操作，又可以用来进行写操作。**
 NIO 中的 Channel 的主要实现有：FileChannel、DatagramChannel、SocketChannel 和 ServerSocketChannel，这里看名字就可以猜出个所以然来：分别可以对应文件 IO、UDP 和 TCP（Server 和 Client）。
 
 ### 1.5.2 Buffer
@@ -76,11 +77,11 @@ NIO 中的关键 Buffer 实现有：ByteBuffer, CharBuffer, DoubleBuffer, FloatB
 
 ### 1.5.3 Selector
 
-Selector 运行单线程处理多个 Channel，如果你的应用打开了多个通道，但每个连接的流量都很低，使用 Selector 就会很方便。例如在一个聊天服务器中。要使用Selector, 得向 Selector 注册 Channel，然后调用它的 select()方法。这个方法会一直阻塞到某个注册的通道有事件就绪。一旦这个方法返回，线程就可以处理这些事件，事件的例子有如新的连接进来、数据接收等。
+Selector 运行单线程处理多个 Channel，如果你的应用打开了多个通道，但每个连接的流量都很低，使用 Selector 就会很方便。例如在一个聊天服务器中。要使用Selector, 得向 **Selector 注册 Channel**，然后调用它的 select()方法。这个方法会一直阻塞到**某个注册的通道**有事件就绪。一旦这个方法返回，线程就可以处理这些事件，事件的例子有如新的连接进来、数据接收等。
 
 ### 1.5.4 Channel Buffer Selector 三者关系
 
-（1）一个 Channel 就像一个流，只是 Channel 是双向的，Channel 读数据到 Buffer，Buffer 写数据到 Channel。
+（1）一个 Channel 就像一个流，只是 Channel 是双向的，**Channel 读数据到 Buffer，Buffer 写数据到 Channel**。
 
 ![image-20220524143734094](./NIO.assets/image-20220524143734094.png)
 
@@ -93,25 +94,31 @@ Selector 运行单线程处理多个 Channel，如果你的应用打开了多个
 ## 2.1 Channel 概述
 
 Java NIO 的通道类似流，但又有些不同：
-\- 既可以从通道中读取数据，又可以写数据到通道。但流的读写通常是单向的。
-\- 通道可以异步地读写。
-\- 通道中的数据总是要先读到一个 Buffer，或者总是要从一个 Buffer 中写入。
-正如上面所说，从通道读取数据到缓冲区，从缓冲区写入数据到通道。如下图所示：
+
+- 既可以从通道中读取数据，又可以写数据到通道。但流的读写通常是单向的。
+- 通道可以异步地读写。
+- 通道中的数据总是要先读到一个 Buffer，或者总是要从一个 Buffer 中写入。
+  正如上面所说，从通道读取数据到缓冲区，从缓冲区写入数据到通道。如下图所示：
 
 ![image-20220524143823234](./NIO.assets/image-20220524143823234-16533743042805.png)
 
 ## 2.2 Channel 实现
 
 下面是 Java NIO 中最重要的 Channel 的实现：
-\- FileChannel
-\- DatagramChannel
-\- SocketChannel
-\- ServerSocketChannel
-（1）FileChannel 从文件中读写数据。
-（2）DatagramChannel 能通过 UDP 读写网络中的数据。
-（3）SocketChannel 能通过 TCP 读写网络中的数据。
-（4）ServerSocketChannel 可以监听新进来的 TCP 连接，像 Web 服务器那样。对每一个新进来的连接都会创建一个 SocketChannel。
-正如你所看到的，这些通道涵盖了 UDP 和 TCP 网络 IO，以及文件 IO
+
+- FileChannel
+
+- DatagramChannel
+
+- SocketChannel
+
+- ServerSocketChannel
+
+  （1）FileChannel 从文件中读写数据。
+  （2）DatagramChannel 能通过 UDP 读写网络中的数据。
+  （3）SocketChannel 能通过 TCP 读写网络中的数据。
+  （4）ServerSocketChannel 可以监听新进来的 TCP 连接，像 Web 服务器那样。对每一个新进来的**连接都会创建一个 SocketChannel**。
+  正如你所看到的，这些通道涵盖了 UDP 和 TCP 网络 IO，以及文件 IO
 
 ## 2.3 FileChannel 介绍和示例
 
@@ -170,7 +177,7 @@ ByteBuffer buf = ByteBuffer.allocate(48);
 int bytesRead = inChannel.read(buf);
 ```
 
-首先，分配一个 Buffer。从 FileChannel 中读取的数据将被读到 Buffer 中。然后，调用 FileChannel.read()方法。该方法将数据从 FileChannel 读取到 Buffer 中。read()方法返回的 int 值表示了有多少字节被读到了 Buffer 中。如果返回-1，表示到了文件末尾。
+首先，分配一个 Buffer。从 FileChannel 中读取的数据将被读到 Buffer 中。然后，调用 FileChannel.read()方法。该方法将数据从 FileChannel 读取到 Buffer 中。read()方法返回的 int 值表示了有多少字节被读到了 Buffer 中。**如果返回-1，表示到了文件末尾。**
 
 ### 2.4.3 向 FileChannel 写数据
 
@@ -190,7 +197,7 @@ public static void main(String[] args) throws IOException {
         buffer.put(message.getBytes());
         buffer.flip();
         while (buffer.hasRemaining()) {
-//            buffer.get();//会取出buffer的数据，
+//          buffer.get();//会取出buffer的数据，
             channel.write(buffer);
         }
         file.close();
@@ -256,11 +263,9 @@ FileChannel 的 transferFrom()方法可以将数据从源通道传输到 FileCha
 ```java
 public class FileChannelWrite {
   public static void main(String args[]) throws Exception {
-    RandomAccessFile aFile = new
-    RandomAccessFile("d:\\atguigu\\01.txt", "rw");
+    RandomAccessFile aFile = new RandomAccessFile("d:\\atguigu\\01.txt", "rw");
     FileChannel fromChannel = aFile.getChannel();
-    RandomAccessFile bFile = new
-    RandomAccessFile("d:\\atguigu\\02.txt", "rw");
+    RandomAccessFile bFile = new RandomAccessFile("d:\\atguigu\\02.txt", "rw");
     FileChannel toChannel = bFile.getChannel();
     long position = 0;
     long count = fromChannel.size();
@@ -347,9 +352,7 @@ buffers 数组是 write()方法的入参，write()方法会按照 buffer 在数�
 AbstractSelectableChannel.java 中实现的 configureBlocking()方法如下：
 
 ```java
-public final SelectableChannel configureBlocking(boolean block)
-    throws IOException
-{
+public final SelectableChannel configureBlocking(boolean block)throws IOException{
     synchronized (regLock) {
         if (!isOpen())
             throw new ClosedChannelException();
@@ -426,7 +429,12 @@ serverSocketChannel.close();
 通过 ServerSocketChannel.accept() 方法监听新进的连接。当 accept()方法返回时候,它返回一个包含新进来的连接的 SocketChannel。因此, accept()方法会一直阻塞到有新连接到达。
 通常不会仅仅只监听一个连接,在 while 循环中调用 accept()方法. 如下面的例子：
 
-![image-20220524174932488](./NIO.assets/image-20220524174932488-16533857735158.png)
+```java
+  while (true) {
+    System.out.println("Waiting for connections");
+    SocketChannel sc = serverSocketChannel.accept();
+  }
+```
 
 （4）阻塞模式
 
@@ -436,7 +444,19 @@ serverSocketChannel.close();
 （5）非阻塞模式
 ServerSocketChannel 可以设置成非阻塞模式。在非阻塞模式下，accept() 方法会立刻返回，如果还没有新进来的连接,返回的将是 null。 因此，需要检查返回的SocketChannel 是否是 null.如：
 
-![image-20220524175007319](./NIO.assets/image-20220524175007319-16533858083419.png)
+```java
+ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
+//绑定通道
+serverSocketChannel.socket().bind(new InetSocketAddress(port));
+//设置非阻塞模式
+serverSocketChannel.configureBlocking(false);
+while (true) {
+  System.out.println("Waiting for connections");
+  SocketChannel sc = serverSocketChannel.accept();
+  if (sc == null) {
+  	System.out.println("null");
+	}
+```
 
 ## 3.2 SocketChannel
 
@@ -449,10 +469,10 @@ sockets 套接字的可选择通道。从这里可以看出：
 
 * SocketChannel 是用来连接 Socket 套接字
 * SocketChannel 主要用途用来处理网络 I/O 的通道
-* SocketChannel 是基于 TCP 连接传输
+* SocketChannel 是基于TCP连接传输
 * SocketChannel 实现了可选择通道，可以被多路复用的
 
-### 3.2.2、 SocketChannel 特征：
+### 3.2.2、 SocketChannel 特征
 
 （1）对于已经存在的 socket 不能创建 SocketChannel
 （2）SocketChannel 中提供的 open 接口创建的 Channel 并没有进行网络级联，需要使用 connect 接口连接到指定地址
@@ -460,11 +480,13 @@ sockets 套接字的可选择通道。从这里可以看出：
 （4）SocketChannel 支持两种 I/O 模式：阻塞式和非阻塞式
 （5）SocketChannel 支持异步关闭。如果 SocketChannel 在一个线程上 read 阻塞，另一个线程对该 SocketChannel 调用 shutdownInput，则读阻塞的线程将返回-1 表示没有读取任何数据；如果 SocketChannel 在一个线程上 write 阻塞，另一个线程对该SocketChannel 调用 shutdownWrite，则写阻塞的线程将抛出AsynchronousCloseException
 （6）SocketChannel 支持设定参数
-| SO_SNDBUF     |  套接字发送缓冲区大小  | 
-| SO_RCVBUF  |  套接字接收缓冲区大小  | 
-| SO_KEEPALIVE  O_REUSEADDR | 保活连接 复用地址 |
-| SO_LINGER        | 有数据传输时延缓关闭 Channel (只有在非阻塞模式下有用) |
-| TCP_NODELAY       | 禁用 Nagle 算法   |
+
+| SO_SNDBUF                 | 套接字发送缓冲区大小                                  |
+| ------------------------- | ----------------------------------------------------- |
+| SO_RCVBUF                 | 套接字接收缓冲区大小                                  |
+| SO_KEEPALIVE  O_REUSEADDR | 保活连接 复用地址                                     |
+| SO_LINGER                 | 有数据传输时延缓关闭 Channel (只有在非阻塞模式下有用) |
+| TCP_NODELAY               | 禁用 Nagle 算法                                       |
 
 ### 3.2.3、 SocketChannel 的使用
 
@@ -472,7 +494,7 @@ sockets 套接字的可选择通道。从这里可以看出：
 方式一：
 
 ```java
-SocketChannel socketChannel = SocketChannel.open(new InetSocketAddress("www.baidu.com", 80));
+SocketChannel socketChannel = SocketChannel.open(new InetSocketAddress("www.baidu.com",80));
 ```
 
 方式二：
@@ -510,7 +532,7 @@ socketChannel.close();
 System.out.println("read over");
 ```
 
-以上为阻塞式读，当执行到 read 出，线程将阻塞，控制台将无法打印 read over
+以上为阻塞式读，当执行到 read 处，线程将阻塞，控制台将无法打印 read over
 
 ```java
 SocketChannel socketChannel = SocketChannel.open(new InetSocketAddress("www.baidu.com", 80));
@@ -525,13 +547,13 @@ System.out.println("read over");
 读写都是面向缓冲区，这个读写方式与前文中的 FileChannel 相同。
 （5）设置和获取参数
 
-```
+```java
 socketChannel.setOption(StandardSocketOptions.SO_KEEPALIVE,Boolean.TRUE).setOption(StandardSocketOptions.TCP_NODELAY, Boolean.TRUE);
 ```
 
 通过 setOptions 方法可以设置 socket 套接字的相关参数
 
-```
+```java
 socketChannel.getOption(StandardSocketOptions.SO_KEEPALIVE);
 socketChannel.getOption(StandardSocketOptions.SO_RCVBUF);
 ```
@@ -770,13 +792,13 @@ Java NIO 有以下 Buffer 类型
 要想获得一个 Buffer 对象首先要进行分配。 每一个 Buffer 类都有一个 allocate 方法。
 下面是一个分配 48 字节 capacity 的 ByteBuffer 的例子。
 
-```
+```java
 ByteBuffer buf = ByteBuffer.allocate(48);
 ```
 
 这是分配一个可存储 1024 个字符的 CharBuffer：
 
-```
+```java
 CharBuffer buf = CharBuffer.allocate(1024);
 ```
 
@@ -787,13 +809,13 @@ CharBuffer buf = CharBuffer.allocate(1024);
 **（2）通过 Buffer 的 put()方法写到 Buffer 里。**
 从 Channel 写到 Buffer 的例子
 
-```
+```java
 int bytesRead = inChannel.read(buf); //向buffer写入数据
 ```
 
 通过 put 方法写 Buffer 的例子：
 
-```
+```java
 buf.put(127);
 ```
 
@@ -833,7 +855,7 @@ compact()方法将所有未读的数据拷贝到 Buffer 起始处。然后将 po
 
 通过调用 Buffer.mark()方法，可以标记 Buffer 中的一个特定 position。之后可以通过调用 Buffer.reset()方法恢复到这个 position。例如：
 
-```
+```java
 buffer.mark();
 //call buffer.get() a couple of times, e.g. during parsing.
 buffer.reset(); //set position back to mark.
@@ -1493,13 +1515,12 @@ FileVisitResult 枚举包含以下四个选项:
 （4）查找一个名为 001.txt 的文件示例：
 
 ```java
-Path rootPath = Paths.get("d:\\atguigu");
-String fileToFind = File.separator + "001.txt";
+Path rootPath = Paths.get("D:\\ChromeCoreDownloads\\课件代码\\课件\\");
+String fileToFind = File.separator + "002.txt";
 try {
   Files.walkFileTree(rootPath, new SimpleFileVisitor<Path>() {
     @Override
-    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws
-      IOException {
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)  {
       String fileString = file.toAbsolutePath().toString();
       System.out.println("pathString = " + fileString);
       if (fileString.endsWith(fileToFind)) {
@@ -1671,13 +1692,13 @@ public void failed(Throwable exc, ByteBuffer attachment) {
 ## 7.4 字符集（Charset）
 
 java 中使用 Charset 来表示字符集编码对象
-Charset 常用静态方法
+**Charset 常用静态方法**
 **public static Charset forName(String charsetName)//通过编码类型获得 Charset 对象 **
 
 **public static SortedMap<String,Charset> availableCharsets()//获得系统支持的所有编码方式**
 **public static Charset defaultCharset()//获得虚拟机默认的编码方式**
 **public static boolean isSupported(String charsetName)//判断是否支持该编码类型**
-Charset 常用普通方法
+**Charset 常用普通方法**
 **public final String name()//获得 Charset 对象的编码类型(String)**
 **public abstract CharsetEncoder newEncoder()//获得编码器对象**
 **public abstract CharsetDecoder newDecoder()//获得解码器对象**
@@ -1770,10 +1791,10 @@ for(;;) {
       readOperator(selector,selectionKey);
      }
     }
-    }
+   }
 } 
 //处理可读状态操作
-private void readOperator(Selector selector, SelectionKey selectionKey)throws IOException {
+private void readOperator(Selector selector,SelectionKey selectionKey)throws IOException {
   //1 从 SelectionKey 获取到已经就绪的通道
   SocketChannel socketChannel =(SocketChannel)selectionKey.channel();
   //2 创建 buffer
@@ -1790,15 +1811,14 @@ private void readOperator(Selector selector, SelectionKey selectionKey)throws IO
   //4 将 channel 再次注册到选择器上，监听可读状态
   socketChannel.register(selector,SelectionKey.OP_READ);
   //5 把客户端发送消息，广播到其他客户端
-  if(message.length()>0) {
+  while(message.length()>0) {
     //广播给其他客户端
     System.out.println(message);
     castOtherClient(message,selector,socketChannel);
   }
  } 
-  //广播到其他客户端
-  private void castOtherClient(String message, Selector selector,
-  SocketChannel socketChannel) throws IOException {
+//广播到其他客户端
+private void castOtherClient(String message, Selector selector,SocketChannel socketChannel) throws IOException {
   //1 获取所有已经接入channel
   Set<SelectionKey> selectionKeySet = selector.keys();
   //2 循环想所有 channel 广播消息
@@ -1823,108 +1843,106 @@ private void acceptOperator(ServerSocketChannel serverSocketChannel,Selector sel
   //4 客户端回复信息
   socketChannel.write(Charset.forName("UTF-8").encode("欢迎进入聊天室，请注意隐私安全"));
 }
-//启动主方法
-public static void main(String[] args) {
-  try {
-  	new ChatServer().startServer();
-  } catch (IOException e) {
-  	e.printStackTrace();
-  }
+  //启动主方法
+  public static void main(String[] args) {
+    try {
+      new ChatServer().startServer();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 } 
 ```
-
-
 
 ## 8.2 客户端代码
 
 ChatClient 类
 
 ```java
-//客户端
 public class ChatClient {
-//启动客户端方法
-public void startClient(String name) throws IOException {
-//连接服务端
-SocketChannel socketChannel =SocketChannel.open(new InetSocketAddress("127.0.0.1",8000));
-//接收服务端响应数据
-Selector selector = Selector.open();
-socketChannel.configureBlocking(false);
-socketChannel.register(selector, SelectionKey.OP_READ);
-//创建线程
-new Thread(new ClientThread(selector)).start();
-//向服务器端发送消息
-Scanner scanner = new Scanner(System.in);
-while(scanner.hasNextLine()) {
-  String msg = scanner.nextLine();
-  if(msg.length()>0) {
-  socketChannel.write(Charset.forName("UTF-8").encode(name +" :
-  " +msg));
-  }
-  }
-  }
-} 
+    //启动客户端方法
+    public void startClient(String name) throws IOException {
+        //连接服务端
+        SocketChannel socketChannel = SocketChannel.open(new InetSocketAddress("127.0.0.1", 8000));
+        //接收服务端响应数据
+        Selector selector = Selector.open();
+        socketChannel.configureBlocking(false);
+        socketChannel.register(selector, SelectionKey.OP_READ);
+        //创建线程
+        new Thread(new ClientThread(selector)).start();
+        //向服务器端发送消息
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNextLine()) {
+            String msg = scanner.nextLine();
+            if (msg.length() > 0) {
+                socketChannel.write(Charset.forName("UTF-8").encode(name + " : " + msg));
+            }
+        }
+    }
+}
 
-ClientThread 类
+```
+
+```java
 public class ClientThread implements Runnable {
-private Selector selector;
-public ClientThread(Selector selector) {
-this.selector = selector;
-} 
+    private Selector selector;
 
-@Override
-public void run() {
-try {
-for(;;) {
-//获取 channel 数量
-int readChannels = selector.select();
-if(readChannels == 0) {
-continue;
-} 
-//获取可用的 channel
-Set<SelectionKey> selectionKeys = selector.selectedKeys();
-//遍历集合
-Iterator<SelectionKey> iterator = selectionKeys.iterator();
-while (iterator.hasNext()) {
-SelectionKey selectionKey = iterator.next();
-//移除 set 集合当前 selectionKey
-iterator.remove();
-//如果可读状态
-if(selectionKey.isReadable()) {
-readOperator(selector,selectionKey);
-}
-}
-}
-}catch(Exception e) {
-}
-} 
+    public ClientThread(Selector selector) {
+        this.selector = selector;
+    }
 
-//处理可读状态操作
-private void readOperator(Selector selector, SelectionKey selectionKey)
-throws IOException {
-//1 从 SelectionKey 获取到已经就绪的通道
-SocketChannel socketChannel =
-(SocketChannel)selectionKey.channel();
-//2 创建 buffer
-ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-//3 循环读取客户端消息
-int readLength = socketChannel.read(byteBuffer);
-String message = "";
-if(readLength >0) {
-//切换读模式
-byteBuffer.flip();
-//读取内容
-message += Charset.forName("UTF-8").decode(byteBuffer);
-} 
+    @Override
+    public void run() {
+        try {
+            for (; ; ) {
+                //获取 channel 数量
+                int readChannels = selector.select();
+                if (readChannels == 0) {
+                    continue;
+                }
+                //获取可用的 channel
+                Set<SelectionKey> selectionKeys = selector.selectedKeys();
+                //遍历集合
+                Iterator<SelectionKey> iterator = selectionKeys.iterator();
+                while (iterator.hasNext()) {
+                    SelectionKey selectionKey = iterator.next();
+                    //移除 set 集合当前 selectionKey
+                    iterator.remove();
+                    //如果可读状态
+                    if (selectionKey.isReadable()) {
+                        readOperator(selector, selectionKey);
+                    }
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
 
-//4 将 channel 再次注册到选择器上，监听可读状态
-socketChannel.register(selector,SelectionKey.OP_READ);
-//5 把客户端发送消息，广播到其他客户端
-if(message.length()>0) {
-//广播给其他客户端
-System.out.println(message);
+    //处理可读状态操作
+    private void readOperator(Selector selector, SelectionKey selectionKey) throws IOException {
+        //1 从 SelectionKey 获取到已经就绪的通道
+        SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
+        //2 创建 buffer
+        ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+        //3 循环读取客户端消息
+        int readLength = socketChannel.read(byteBuffer);
+        String message = "";
+        if (readLength > 0) {
+            //切换读模式
+            byteBuffer.flip();
+            //读取内容
+            message += Charset.forName("UTF-8").decode(byteBuffer);
+        }
+
+        //4 将 channel 再次注册到选择器上，监听可读状态
+        socketChannel.register(selector, SelectionKey.OP_READ);
+        //5 把客户端发送消息，广播到其他客户端
+        if (message.length() > 0) {
+            //广播给其他客户端
+            System.out.println(message);
+        }
+    }
 }
-}
-}
+
 ```
 
