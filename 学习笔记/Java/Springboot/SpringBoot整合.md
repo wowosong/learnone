@@ -94,9 +94,9 @@ Spring从3.1开始定义了org.springframework.cache.Cache
   * 队列（queue）：点对点消息通信（point-to-point）
   * 主题（topic）：发布（publish）/订阅（subscribe）消息通信
 
-![image-20220117233429841](d:\pic-md/20220117233430.png)
+![image-20220117233429841](./SpringBoot%E6%95%B4%E5%90%88.assets/20220117233430.png)
 
-![image-20220117233451041](d:\pic-md/20220117233451.png)
+![image-20220117233451041](./SpringBoot%E6%95%B4%E5%90%88.assets/20220117233451.png)
 
 * 点对点式：
   - 消息发送者发送消息，消息代理将其放入一个队列中，消息接收者从队列中获取消息内容，消息读取后被移出队列
@@ -126,6 +126,7 @@ Spring从3.1开始定义了org.springframework.cache.Cache
   - @JmsListener（JMS）、@RabbitListener（AMQP）注解在方法上监听消息代理发布的消息
   - @EnableJms、@EnableRabbit开启支持
 * Spring Boot自动配置
+
 	- JmsAutoConfiguration
   - RabbitAutoConfiguration
 
