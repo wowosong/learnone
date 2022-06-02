@@ -16,13 +16,13 @@ Spring 是什么(1)
 框架: Spring 实现了使用简单的组件配置组合成一个复杂的应用. 在 Spring 中可以使用 XML 和 Java 注解组合这些对象
 一站式：在 IOC 和 AOP 的基础上可以整合各种企业应用的开源框架和优秀的第三方类库 （实际上 Spring 自身也提供了展现层的 SpringMVC 和 持久层的 Spring JDBC）
 
-![image-20210626114512017](d:\pic-md/20210626114512.png)
+![image-20210626114512017](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Spring/Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210626114512.png)
 
 #  搭建 Spring 开发环境
 
 把以下 jar 包加入到工程的 classpath 下:
 
-```
+```xml
 commons-logging-1.2.jar
 spring-beans-5.2.3.RELEASE.jar
 spring-context-5.2.3.RELEASE.jar
@@ -117,11 +117,11 @@ IOC(Inversion of Control)：其思想是反转资源获取的方向。传统的�
 
 DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些预先定义好的方式(例如: setter 方法)接受来自如容器的资源注入. 相对于 IOC 而言，这种表述更直接
 
-![image-20210626170713309](d:\pic-md/20210626170713.png)
+![image-20210626170713309](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Spring/Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210626170713.png)
 
-![image-20210626171045182](d:\pic-md/20210626171045.png)
+![image-20210626171045182](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Spring/Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210626171045.png)
 
-![image-20210626171127941](d:\pic-md/20210626171128.png)
+![image-20210626171127941](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Spring/Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210626171128.png)
 
 ## 配置 bean
 
@@ -141,7 +141,7 @@ DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些�
       若 id 没有指定，Spring 自动将权限定性类名作为 Bean 的名字
       id 可以指定多个名字，名字之间可用逗号、分号、或空格分隔
 
-2. Bean 的配置方式：通过全类名（反射）、通过工厂方法（静态工厂方法 & 实例工厂方法）、FactoryBean
+2. Bean 的配置方式：**通过全类名（反射）、通过工厂方法（静态工厂方法 & 实例工厂方法）、FactoryBean**
 
 ## IOC 容器 BeanFactory & ApplicationContext 概述
 
@@ -150,7 +150,7 @@ DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些�
    - Spring 提供了两种类型的 IOC 容器实现. 
      **BeanFactory: IOC 容器的基本实现.**
      **ApplicationContext: 提供了更多的高级特性. 是 BeanFactory 的子接口.**
-     BeanFactory 是 Spring 框架的基础设施，面向 Spring 本身；ApplicationContext 面向使用 Spring 框架的开发者，几乎所有的应用场合都直接使用 ApplicationContext 而非底层的 BeanFactory
+     BeanFactory 是 Spring 框架的基础设施，面向 Spring 本身；**ApplicationContext 面向使用 Spring 框架的开发者，几乎所有的应用场合都直接使用 ApplicationContext 而非底层的 BeanFactory**
      无论使用何种方式, 配置文件时相同的.
 
 ### ApplicationContext
@@ -160,7 +160,7 @@ DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些�
    ClassPathXmlApplicationContext：从 类路径下加载配置文件
    FileSystemXmlApplicationContext: 从文件系统中加载配置文件
 
- 2. ConfigurableApplicationContext 扩展于 ApplicationContext，新增加两个主要方法：refresh() 和 close()， 让 ApplicationContext 具有启动、刷新和关闭上下文的能力
+ 2. ConfigurableApplicationContext 扩展于 ApplicationContext，新增加两个主要方法：**refresh() 和 close()**， 让 ApplicationContext 具有启动、刷新和关闭上下文的能力
 
  3. ApplicationContext 在初始化上下文时就实例化所有单例的 Bean。
 
@@ -170,7 +170,7 @@ DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些�
 
 1. 调用 ApplicationContext 的 getBean() 方法，在父接口ListableBeanFactory中
 
-![image-20211218103139137](d:\pic-md/20211218103139.png)
+![image-20211218103139137](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Spring/Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20211218103139.png)
 
 ## 依赖注入的方式：
 
@@ -351,7 +351,7 @@ public class Car {
       <!--- 
       	为级联属性赋值，注意：属性需要先初始化(要有set和get方法)后才可以为级联属性赋值，否则会有异常，和Structs2不同
       --->
-    	下面的car.maxSpeed等属性赋值，会覆盖上面构造器注入的属性值
+    	<!--下面的car.maxSpeed等属性赋值，会覆盖上面构造器注入的属性值 -->
       <property name="car.maxSpeed" value="1111111111"></property>
       <property name="car.price" value="123"></property>
       <property name="car.brand" value="Mazada"></property>
@@ -384,9 +384,7 @@ public class Car {
 1. 在 Spring中可以通过一组内置的 xml 标签(例如: <list>, <set> 或 <map>) 来配置集合属性.
 
 ```xml
-   <!---
-          测试集合属性
-   -->
+   <!---测试集合属性-->
    <bean id="person2" class="com.hbd.beans.collections.Person">
      <property name="age" value="1100"></property>
      <property name="name" value="wowosong"></property>
@@ -398,7 +396,7 @@ public class Car {
      </property>
    </bean>
   
-   Person{name='wowosong', age=1100, carList=[Car{brand='Mazada', corp='Xi'an', price=123.0, maxSpeed=1111111111}, Car{brand='Audo', corp='<上海>', price=0.0, maxSpeed=123}]}
+Person{name='wowosong', age=1100, carList=[Car{brand='Mazada', corp='Xi'an', price=123.0, maxSpeed=1111111111}, Car{brand='Audo', corp='<上海>', price=0.0, maxSpeed=123}]}
 ```
 
 2. 配置 java.util.List 类型的属性, 需要指定 <list>  标签, 在标签里包含一些元素. 这些标签可以通过 <value> 指定简单的常量值, 通过 <ref> 指定对其他 Bean 的引用. 通过<bean> 指定内置 Bean 定义. 通过 <null/> 指定空元素. 甚至可以内嵌其他集合.
@@ -548,9 +546,7 @@ public class Car {
 ### **继承**
 
 ```xml
-<!--
- bean配置的继承：使用bean的parent属性指定继承哪个bean的配置
- -->
+<!--		bean配置的继承：使用bean的parent属性指定继承哪个bean的配置-->
 <!--    抽象bean：bean的abstract属性为true的bean，这样的bean不能被实例化，只能被继承配置-->
 <!--    若一个bean 的class属性没有指定，则该bean必须是一个抽象bean-->
 <bean id="person3" class="com.hbd.beans.autoware.Person" parent="person">
@@ -579,7 +575,7 @@ Spring 允许继承 bean 的配置， 被继承的 bean 称为父 bean. 继承�
 Spring 允许继承 bean 的配置, 被继承的 bean 称为父 bean. 继承这个父 Bean 的 Bean 称为子 Bean
 子 Bean 从父 Bean 中继承配置, 包括 Bean 的属性配置
 子 Bean 也可以覆盖从父 Bean 继承过来的配置
-父 Bean 可以作为配置模板, 也可以作为 Bean 实例. 若只想把父 Bean 作为模板, 可以设置 <bean> 的abstract 属性为 true, 这样 Spring 将不会实例化这个 Bean
+父 Bean 可以作为配置模板, 也可以作为 Bean 实例. **若只想把父 Bean 作为模板, 可以设置 <bean> 的abstract 属性为 true, 这样 Spring 将不会实例化这个 Bean**
 并不是 <bean> 元素里的所有属性都会被继承. 比如: autowire, abstract 等.
 也可以忽略父 Bean 的 class 属性, 让子 Bean 指定自己的类, 而共享相同的属性配置. 但此时 abstract 必须设为 true
 
@@ -612,7 +608,7 @@ Spring 允许继承 bean 的配置, 被继承的 bean 称为父 bean. 继承这�
 
 ## **使用外部属性文件**
 
-   在配置文件里配置 Bean 时, 有时需要在 Bean 的配置里混入系统部署的细节信息(例如: 文件路径, 数据源配置信息等). 而这些部署细节实际上需要和 Bean 配置相分离
+在配置文件里配置 Bean 时, 有时需要在 Bean 的配置里混入系统部署的细节信息(例如: 文件路径, 数据源配置信息等). 而这些部署细节实际上需要和 Bean 配置相分离
 
    ```xml
    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -896,7 +892,7 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
       beanName：IOC容器中bean的名字
       返回值：返回到用户的bean，注意：可以在以上两个方法中修改返回的bean，甚至返回一个新的bean
       配置后置处理器：不需要配置id，IOC容器自动识别是一个BeanPostProcessor后置处理器
-      -->
+   -->
       <bean class="com.hbd.wowosong.cycle.MyBeanPostProcessor"></bean>
   ```
 
@@ -962,7 +958,7 @@ public class StaticCarFactory {
 
 ```xml
 <!--
-通过静态工厂方法来配置bean，注意不是配置静态工厂方法实例，而是配置bena实例
+通过静态工厂方法来配置bean，注意不是配置静态工厂方法实例，而是配置bean实例
 class属性：指向静态工厂方法的全类名
 factory-method：指向静态工厂方法的方法名
 constructor-arg：如果工厂方法需要传入参数，则使用constructor-arg来配置参数
