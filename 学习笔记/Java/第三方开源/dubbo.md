@@ -22,7 +22,7 @@ dubbo
 
 ### 1.2）、发展演变
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsZ6K2rX.png) 
+![img](./dubbo.assets/wpsZ6K2rX.png) 
 
  
 
@@ -30,7 +30,7 @@ dubbo
 
 当网站流量很小时，只需一个应用，将所有功能都部署在一起，以减少部署节点和成本。此时，用于简化增删改查工作量的数据访问框架(ORM)是关键。
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wps5hx0he.jpg) 
+![img](./dubbo.assets/wps5hx0he.jpg) 
 
 适用于小型网站，小型管理系统，将所有功能都部署到一个功能里，简单易用。
 
@@ -46,7 +46,7 @@ dubbo
 
 当访问量逐渐增大，单一应用增加机器带来的加速度越来越小，将应用拆成互不相干的几个应用，以提升效率。此时，用于加速前端页面开发的Web框架(MVC)是关键。
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsMipwu9.jpg) 
+![img](./dubbo.assets/wpsMipwu9.jpg) 
 
 通过切分业务来实现各个模块独立部署，降低了维护和部署的难度，团队各司其职更易管理，性能扩展也更方便，更有针对性。
 
@@ -56,7 +56,7 @@ dubbo
 
 当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。此时，用于提高业务复用及整合的***\*分布式服务框架(RPC)\****是关键。
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpszWFq84.jpg) 
+![img](./dubbo.assets/wpszWFq84.jpg) 
 
  
 
@@ -64,7 +64,7 @@ dubbo
 
 当服务越来越多，容量的评估，小服务资源的浪费等问题逐渐显现，此时需增加一个调度中心基于访问压力实时管理集群容量，提高集群利用率。此时，用于***\*提高机器利用率的资源调度和治理中心\*******\*(SOA)\*******\*[ Service Oriented Architecture]\*******\*是关键\****。
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsfPbRfY.jpg) 
+![img](./dubbo.assets/wpsfPbRfY.jpg) 
 
  
 
@@ -78,9 +78,9 @@ RPC【Remote Procedure Call】是指远程过程调用，是一种进程间通�
 
 #### **RPC基本原理**
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsu9DRhc.jpg) 
+![img](./dubbo.assets/wpsu9DRhc.jpg) 
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wps1fbRIK.jpg) 
+![img](./dubbo.assets/wps1fbRIK.jpg) 
 
 RPC两个核心模块：通讯，序列化。
 
@@ -98,7 +98,7 @@ http://dubbo.apache.org/
 
 ### 2.2）、基本概念
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsu960f3.jpg) 
+![img](./dubbo.assets/wpsu960f3.jpg) 
 
 ​	**服务提供者（Provider）**：暴露服务的服务提供方，服务提供者在启动时，向注册中心注册自己提供的服务。
 
@@ -135,11 +135,11 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 
 但是为了让用户更好的管理监控众多的dubbo服务，官方提供了一个可视化的监控程序，不过这个监控即使不装也不影响使用。
 
-| 1、下载dubbo-adminhttps://github.com/apache/incubator-dubbo-ops ![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsbvcLfc.jpg) |
+| 1、下载dubbo-adminhttps://github.com/apache/incubator-dubbo-ops ![img](./dubbo.assets/wpsbvcLfc.jpg) |
 | ------------------------------------------------------------ |
-| 2、进入目录，修改dubbo-admin配置修改 src\main\resources\application.properties 指定zookeeper地址![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsWPAEeZ.jpg) |
+| 2、进入目录，修改dubbo-admin配置修改 src\main\resources\application.properties 指定zookeeper地址![img](./dubbo.assets/wpsWPAEeZ.jpg) |
 | 3、打包dubbo-adminmvn clean package -Dmaven.test.skip=true   |
-| 4、运行dubbo-adminjava -jar dubbo-admin-0.0.1-SNAPSHOT.jar注意：【有可能控制台看着启动了，但是网页打不开，需要在控制台按下ctrl+c即可】默认使用root/root 登陆![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpswsLvug.jpg) |
+| 4、运行dubbo-adminjava -jar dubbo-admin-0.0.1-SNAPSHOT.jar注意：【有可能控制台看着启动了，但是网页打不开，需要在控制台按下ctrl+c即可】默认使用root/root 登陆![img](./dubbo.assets/wpswsLvug.jpg) |
 
  
 
@@ -151,11 +151,11 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 
 #### **1****、****安装jdk**
 
-| 1、下载jdkhttp://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsJtDRu6.jpg) 不要使用wget命令获取jdk链接，这是默认不同意，导致下载来的jdk压缩内容错误 |
+| 1、下载jdkhttp://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html![img](./dubbo.assets/wpsJtDRu6.jpg) 不要使用wget命令获取jdk链接，这是默认不同意，导致下载来的jdk压缩内容错误 |
 | ------------------------------------------------------------ |
-| 2、上传到服务器并解压![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsL7ZpRp.jpg) |
-| 3、设置环境变量/usr/local/java/jdk1.8.0_171![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpspwgMoY.jpg) 文件末尾加入下面配置export JAVA_HOME=/usr/local/java/jdk1.8.0_171export JRE_HOME=${JAVA_HOME}/jreexport CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/libexport PATH=${JAVA_HOME}/bin:$PATH![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsQBc4Jf.jpg) |
-| 4、使环境变量生效&测试JDK![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpspXd0mQ.jpg) |
+| 2、上传到服务器并解压![img](./dubbo.assets/wpsL7ZpRp.jpg) |
+| 3、设置环境变量/usr/local/java/jdk1.8.0_171![img](./dubbo.assets/wpspwgMoY.jpg) 文件末尾加入下面配置export JAVA_HOME=/usr/local/java/jdk1.8.0_171export JRE_HOME=${JAVA_HOME}/jreexport CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/libexport PATH=${JAVA_HOME}/bin:$PATH![img](./dubbo.assets/wpsQBc4Jf.jpg) |
+| 4、使环境变量生效&测试JDK![img](./dubbo.assets/wpspXd0mQ.jpg) |
 
  
 
@@ -163,8 +163,8 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 
 | 1、下载zookeeper网址 https://archive.apache.org/dist/zookeeper/zookeeper-3.4.11/ wget https://archive.apache.org/dist/zookeeper/zookeeper-3.4.11/zookeeper-3.4.11.tar.gz |
 | ------------------------------------------------------------ |
-| 2、解压![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpswcCaQN.jpg) |
-| 3、移动到指定位置并改名为zookeeper![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsPcmvbt.jpg) ![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsEcysLm.jpg) |
+| 2、解压![img](./dubbo.assets/wpswcCaQN.jpg) |
+| 3、移动到指定位置并改名为zookeeper![img](./dubbo.assets/wpsPcmvbt.jpg) ![img](./dubbo.assets/wpsEcysLm.jpg) |
 
  
 
@@ -172,15 +172,15 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 
 #### **3**、开机启动zookeeper
 
-1）-复制如下脚本#!/bin/bash#chkconfig:2345 20 90#description:zookeeper#processname:zookeeperZK_PATH=/usr/local/zookeeperexport JAVA_HOME=/usr/local/java/jdk1.8.0_171case $1 in     start) sh  $ZK_PATH/bin/zkServer.sh start;;     stop)  sh  $ZK_PATH/bin/zkServer.sh stop;;     status) sh  $ZK_PATH/bin/zkServer.sh status;;     restart) sh $ZK_PATH/bin/zkServer.sh restart;;     *)  echo "require start|stop|status|restart"  ;;esac ![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpscrISUr.jpg) 2）-把脚本注册为Service![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsfVIAwS.jpg) 3）-增加权限![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpscnpHpF.jpg) 
+1）-复制如下脚本#!/bin/bash#chkconfig:2345 20 90#description:zookeeper#processname:zookeeperZK_PATH=/usr/local/zookeeperexport JAVA_HOME=/usr/local/java/jdk1.8.0_171case $1 in     start) sh  $ZK_PATH/bin/zkServer.sh start;;     stop)  sh  $ZK_PATH/bin/zkServer.sh stop;;     status) sh  $ZK_PATH/bin/zkServer.sh status;;     restart) sh $ZK_PATH/bin/zkServer.sh restart;;     *)  echo "require start|stop|status|restart"  ;;esac ![img](./dubbo.assets/wpscrISUr.jpg) 2）-把脚本注册为Service![img](./dubbo.assets/wpsfVIAwS.jpg) 3）-增加权限![img](./dubbo.assets/wpscnpHpF.jpg) 
 
  
 
 #### **4****、****配置****z****ookeeper**
 
-| 1、初始化zookeeper配置文件拷贝/usr/local/zookeeper/conf/zoo_sample.cfg  到同一个目录下改个名字叫zoo.cfg![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsQAK33b.jpg) |
+| 1、初始化zookeeper配置文件拷贝/usr/local/zookeeper/conf/zoo_sample.cfg  到同一个目录下改个名字叫zoo.cfg![img](./dubbo.assets/wpsQAK33b.jpg) |
 | ------------------------------------------------------------ |
-| 2、启动zookeeper![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wps0chahR.jpg) |
+| 2、启动zookeeper![img](./dubbo.assets/wps0chahR.jpg) |
 
  
 
@@ -190,10 +190,10 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 
 | 1、下载Tomcat8并解压https://tomcat.apache.org/download-80.cgiwget http://mirrors.shu.edu.cn/apache/tomcat/tomcat-8/v8.5.32/bin/apache-tomcat-8.5.32.tar.gz |
 | ------------------------------------------------------------ |
-| 2、解压移动到指定位置![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpscXDdHW.jpg) |
-| 3、开机启动tomcat8![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsTyUfDh.jpg) 复制如下脚本#!/bin/bash#chkconfig:2345 21 90#description:apache-tomcat-8#processname:apache-tomcat-8CATALANA_HOME=/opt/apache-tomcat-8.5.32export JAVA_HOME=/opt/java/jdk1.8.0_171case $1 instart)  echo "Starting Tomcat..."    $CATALANA_HOME/bin/startup.sh  ;; stop)  echo "Stopping Tomcat..."    $CATALANA_HOME/bin/shutdown.sh  ;; restart)  echo "Stopping Tomcat..."    $CATALANA_HOME/bin/shutdown.sh  sleep 2  echo    echo "Starting Tomcat..."    $CATALANA_HOME/bin/startup.sh  ;;*)  echo "Usage: tomcat {start\|stop\|restart}"    ;; esac |
-| 4、注册服务&添加权限![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpssNVzdi.jpg) ![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpscXqHaj.jpg) |
-| 5、启动服务&访问tomcat测试![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wps1al6GR.jpg) ![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsertOHc.jpg) |
+| 2、解压移动到指定位置![img](./dubbo.assets/wpscXDdHW.jpg) |
+| 3、开机启动tomcat8![img](./dubbo.assets/wpsTyUfDh.jpg) 复制如下脚本#!/bin/bash#chkconfig:2345 21 90#description:apache-tomcat-8#processname:apache-tomcat-8CATALANA_HOME=/opt/apache-tomcat-8.5.32export JAVA_HOME=/opt/java/jdk1.8.0_171case $1 instart)  echo "Starting Tomcat..."    $CATALANA_HOME/bin/startup.sh  ;; stop)  echo "Stopping Tomcat..."    $CATALANA_HOME/bin/shutdown.sh  ;; restart)  echo "Stopping Tomcat..."    $CATALANA_HOME/bin/shutdown.sh  sleep 2  echo    echo "Starting Tomcat..."    $CATALANA_HOME/bin/startup.sh  ;;*)  echo "Usage: tomcat {start\|stop\|restart}"    ;; esac |
+| 4、注册服务&添加权限![img](./dubbo.assets/wpssNVzdi.jpg) ![img](./dubbo.assets/wpscXqHaj.jpg) |
+| 5、启动服务&访问tomcat测试![img](./dubbo.assets/wps1al6GR.jpg) ![img](./dubbo.assets/wpsertOHc.jpg) |
 
  
 
@@ -203,11 +203,11 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 
 但是为了让用户更好的管理监控众多的dubbo服务，官方提供了一个可视化的监控程序，不过这个监控即使不装也不影响使用。
 
-| 1、下载dubbo-adminhttps://github.com/apache/incubator-dubbo-ops ![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wps1TSSJk.jpg) |
+| 1、下载dubbo-adminhttps://github.com/apache/incubator-dubbo-ops ![img](./dubbo.assets/wps1TSSJk.jpg) |
 | ------------------------------------------------------------ |
-| 2、进入目录，修改dubbo-admin配置修改 src\main\resources\application.properties 指定zookeeper地址![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wps8FkIBi.jpg) |
+| 2、进入目录，修改dubbo-admin配置修改 src\main\resources\application.properties 指定zookeeper地址![img](./dubbo.assets/wps8FkIBi.jpg) |
 | 3、打包dubbo-adminmvn clean package -Dmaven.test.skip=true   |
-| 4、运行dubbo-adminjava -jar dubbo-admin-0.0.1-SNAPSHOT.jar默认使用root/root 登陆![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsywH2k9.jpg) |
+| 4、运行dubbo-adminjava -jar dubbo-admin-0.0.1-SNAPSHOT.jar默认使用root/root 登陆![img](./dubbo.assets/wpsywH2k9.jpg) |
 
  
 
@@ -252,7 +252,7 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 
 不建议使用过于抽象的通用接口，如：Map query(Map)，这样的接口没有明确语义，会给后期维护带来不便。
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsJjrkqE.jpg) 
+![img](./dubbo.assets/wpsJjrkqE.jpg) 
 
 ### 4.3）、创建模块
 
@@ -262,7 +262,7 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 | ------------------------------------------------------------ |
 | 1、Bean模型***\*public class\**** UserAddress ***\*implements\**** Serializable{   ***\*private\**** Integer ***\*id\****;   ***\*private\**** String ***\*userAddress\****;   ***\*private\**** String ***\*userId\****;   ***\*private\**** String ***\*consignee\****;   ***\*private\**** String ***\*phoneNum\****;   ***\*private\**** String ***\*isDefault\****;} |
 | 3、Service接口UserService***\*public\**** List<UserAddress> getUserAddressList(String userId) |
-| ![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsZqUTma.jpg) |
+| ![img](./dubbo.assets/wpsZqUTma.jpg) |
 
  
 
@@ -345,10 +345,10 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 
 | 1、下载 dubbo-opshttps://github.com/apache/incubator-dubbo-ops |
 | ------------------------------------------------------------ |
-| 2、修改配置指定注册中心地址进入 dubbo-monitor-simple\src\main\resources\conf修改 dubbo.properties文件![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsjSfG4u.jpg) |
+| 2、修改配置指定注册中心地址进入 dubbo-monitor-simple\src\main\resources\conf修改 dubbo.properties文件![img](./dubbo.assets/wpsjSfG4u.jpg) |
 | 3、打包dubbo-monitor-simplemvn clean package -Dmaven.test.skip=true |
-| 4、解压 tar.gz 文件，并运行start.bat![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsHta7Pq.jpg) 如果缺少servlet-api，自行导入servlet-api再访问监控中心 |
-| 5、启动访问8080![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wps6sPie5.jpg) |
+| 4、解压 tar.gz 文件，并运行start.bat![img](./dubbo.assets/wpsHta7Pq.jpg) 如果缺少servlet-api，自行导入servlet-api再访问监控中心 |
+| 5、启动访问8080![img](./dubbo.assets/wps6sPie5.jpg) |
 
  
 
@@ -364,7 +364,7 @@ Simple Monitor 采用磁盘存储统计信息，请注意安装机器的磁盘�
 
 ## 6、整合SpringBoot
 
-| 1、引入***\*spring-boot-starter以及du\*******\*bbo和\*******\*c\*******\*urator的依赖\****<dependency>  <groupId>com.alibaba.boot</groupId>  <artifactId>dubbo-spring-boot-starter</artifactId>  <version>0.2.0</version></dependency>注意starter版本适配：![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsUf9HDv.jpg) |
+| 1、引入***\*spring-boot-starter以及du\*******\*bbo和\*******\*c\*******\*urator的依赖\****<dependency>  <groupId>com.alibaba.boot</groupId>  <artifactId>dubbo-spring-boot-starter</artifactId>  <version>0.2.0</version></dependency>注意starter版本适配：![img](./dubbo.assets/wpsUf9HDv.jpg) |
 | ------------------------------------------------------------ |
 | 2、配置application.properties**提供者配置****：*****\*dubbo.application.name\****=***\*g\*******\*mall-user\*******\* \*******\*dubbo.registry.protocol\****=***\*zookeeper\*******\* \*******\*dubbo.registry.address\****=***\*192.168.67.159:2181\*******\* \*******\*dubbo.scan.base-package\****=***\*com.atguigu.gmall\*******\* \*******\*dubbo.protocol.name\****=***\*dubbo\****application.name就是服务名，不能跟别的dubbo提供端重复registry.protocol 是指定注册中心协议registry.address 是注册中心的地址加端口号protocol.name 是分布式固定是dubbo,不要改。base-package  注解方式要扫描的包**消费者配置****：*****\*dubbo.application.name=\*******\*gmall-order-web\*******\* \*******\*dubbo.registry.protocol\****=***\*zookeeper\*******\* \*******\*dubbo.registry.address\****=***\*192.168.67.159:2181\*******\* \*******\*dubbo.scan.base-package\****=***\*com.atguigu.gmall\*******\* \*******\*dubbo.protocol.name\****=***\*dubbo\**** |
 | 3、dubbo注解@Service、@Reference***\*【如果没有在配置中写\*******\*dubbo.scan.base-package,\*******\*还需要使用\*******\*@\*******\*EnableDubbo注解\*******\*】\**** |
@@ -381,7 +381,7 @@ Simple Monitor 采用磁盘存储统计信息，请注意安装机器的磁盘�
 
 ## 1、配置原则
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsKvX3Cc.png) 
+![img](./dubbo.assets/wpsKvX3Cc.png) 
 
 JVM 启动 -D 参数优先，这样可以使用户在部署和启动时进行参数重写，比如在启动时需改变协议的端口。
 
@@ -429,7 +429,7 @@ dubbo推荐在Provider上尽量多配置Consumer端属性：
 
 \3) 最后是Dubbo Hard Code的配置值（见配置文档）
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsGthL0t.png) 
+![img](./dubbo.assets/wpsGthL0t.png) 
 
  
 
@@ -601,7 +601,7 @@ throw new RuntimeException("Exception to show hystrix enabled.");
 
 ## 1、RPC原理
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsAfVUwQ.jpg) 
+![img](./dubbo.assets/wpsAfVUwQ.jpg) 
 
 一次完整的RPC调用流程（同步调用，异步另说）如下： 
 
@@ -631,11 +631,11 @@ Netty是一个异步事件驱动的网络应用程序框架， 用于快速开�
 
 BIO：(Blocking IO)
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsBtStxu.jpg) 
+![img](./dubbo.assets/wpsBtStxu.jpg) 
 
 NIO (Non-Blocking IO)
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsz1FrPg.jpg) 
+![img](./dubbo.assets/wpsz1FrPg.jpg) 
 
 Selector 一般称 为***\*选择器\**** ，也可以翻译为 ***\*多路复用器，\****
 
@@ -643,7 +643,7 @@ Connect（连接就绪）、Accept（接受就绪）、Read（读就绪）、Wri
 
 Netty基本原理：
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsX3PzuI.jpg) 
+![img](./dubbo.assets/wpsX3PzuI.jpg) 
 
  
 
@@ -653,7 +653,7 @@ Netty基本原理：
 
 ### 1、dubbo原理	-框架设计 
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsxX7fKn.png) 
+![img](./dubbo.assets/wpsxX7fKn.png) 
 
  
 
@@ -677,18 +677,18 @@ l serialize 数据序列化层：可复用的一些工具，扩展接口为 Seri
 
 ### 2、dubbo原理	-启动解析、加载配置信息 
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsbMCASk.jpg) 
+![img](./dubbo.assets/wpsbMCASk.jpg) 
 
 ### 3、dubbo原理	-服务暴露
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsKDpmse.png) 
+![img](./dubbo.assets/wpsKDpmse.png) 
 
 ### 4、dubbo原理	-服务引用
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsHWU73n.png) 
+![img](./dubbo.assets/wpsHWU73n.png) 
 
 ### 5、dubbo原理	-服务调用
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90/dubbo.assets/wpsC3Qd4g.png) 
+![img](./dubbo.assets/wpsC3Qd4g.png) 
 
  

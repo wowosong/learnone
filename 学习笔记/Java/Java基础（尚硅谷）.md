@@ -1892,7 +1892,7 @@ public double getRadius(){
 ```
 
 体现二：不对外暴露的私有的方法
-体现三：单例模式（将构造器私有化）
+体现三：**单例模式（将构造器私有化）**
 体现四：如果不希望类在包外被调用，可以将类设置为缺省的。
 
 4.Java规定的四种权限修饰符
@@ -1922,7 +1922,7 @@ public double getRadius(){
 
  * 3.一个类中定义的多个构造器，彼此构成重载
 
- * 4.一旦我们显式的定义了类的构造器之后，系统就不再提供默认的空参构造器
+ * 4.一旦我们显式的定义了类的构造器之后，系统就**不再提供默认的空参构造器**
 
  * 5.一个类中，至少会有一个构造器。
 
@@ -1962,9 +1962,10 @@ public Person(String n,int a){
 #### JavaBean的概念
 
 所谓JavaBean，是指符合如下标准的Java类：
-	>类是公共的
-	>一个无参的公共的构造器
-	>属性，且对应的get、set方法
+
+- 类是公共的
+- 一个无参的公共的构造器
+- 属性，且对应的get、set方法
 
 ### 关键字：this
 
@@ -1974,8 +1975,7 @@ this理解为：当前对象  或 当前正在创建的对象
 
 2.1  在类的方法中，我们可以使用"this.属性"或"this.方法"的方式，调用当前对象属性或方法。但是，
 
- *   通常情况下，我们都选择省略"this."。特殊情况下，如果方法的形参和类的属性同名时，我们必须显式
- * 的使用"this.变量"的方式，表明此变量是属性，而非形参。
+ *   通常情况下，我们都选择省略"this."。特殊情况下，如果方法的形参和类的属性同名时，我们必须显式的使用"this.变量"的方式，表明此变量是属性，而非形参。
 
 2.2 在类的构造器中，我们可以使用"this.属性"或"this.方法"的方式，调用当前正在创建的对象属性或方法。但是，通常情况下，我们都选择省略"this."。特殊情况下，如果构造器的形参和类的属性同名时，我们必须显式的使用"this.变量"的方式，表明此变量是属性，而非形参。
 
@@ -3709,7 +3709,7 @@ public void run() {
 }
 }
 public class ThreadPool {
-public static void main(String[] args) {
+		public static void main(String[] args) {
     //1. 提供指定线程数量的线程池
     ExecutorService service = Executors.newFixedThreadPool(10);
     ThreadPoolExecutor service1 = (ThreadPoolExecutor) service;
