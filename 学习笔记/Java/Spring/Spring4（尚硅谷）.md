@@ -16,7 +16,7 @@ Spring 是什么(1)
 框架: Spring 实现了使用简单的组件配置组合成一个复杂的应用. 在 Spring 中可以使用 XML 和 Java 注解组合这些对象
 一站式：在 IOC 和 AOP 的基础上可以整合各种企业应用的开源框架和优秀的第三方类库 （实际上 Spring 自身也提供了展现层的 SpringMVC 和 持久层的 Spring JDBC）
 
-![image-20210626114512017](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Spring/Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210626114512.png)
+![image-20210626114512017](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210626114512.png)
 
 #  搭建 Spring 开发环境
 
@@ -117,11 +117,11 @@ IOC(Inversion of Control)：其思想是反转资源获取的方向。传统的�
 
 DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些预先定义好的方式(例如: setter 方法)接受来自如容器的资源注入. 相对于 IOC 而言，这种表述更直接
 
-![image-20210626170713309](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Spring/Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210626170713.png)
+![image-20210626170713309](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210626170713.png)
 
-![image-20210626171045182](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Spring/Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210626171045.png)
+![image-20210626171045182](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210626171045.png)
 
-![image-20210626171127941](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Spring/Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210626171128.png)
+![image-20210626171127941](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210626171128.png)
 
 ## 配置 bean
 
@@ -170,7 +170,7 @@ DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些�
 
 1. 调用 ApplicationContext 的 getBean() 方法，在父接口ListableBeanFactory中
 
-![image-20211218103139137](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Spring/Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20211218103139.png)
+![image-20211218103139137](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20211218103139.png)
 
 ## 依赖注入的方式：
 
@@ -844,7 +844,7 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
 
 * Bean 后置处理器允许在调用初始化方法前后对 Bean 进行额外的处理.
 
-* Bean 后置处理器对 IOC 容器里的所有 Bean 实例逐一处理, 而非单一实例. 其典型应用是: 检查 Bean 属性的正确性或根据特定的标准更改 Bean 的属性.
+* Bean 后置处理器对 IOC 容器里的**所有 Bean 实例逐一处理**, 而非单一实例. 其典型应用是: 检查 Bean 属性的正确性或根据特定的标准更改 Bean 的属性.
 
 * 对Bean 后置处理器而言, 需要实现BeanPostProcessor 接口. 在初始化方法被调用前后, Spring 将把每个 Bean 实例分别传递给上述接口的以下两个方法:
 
@@ -988,7 +988,7 @@ public class InstanceCarFactory {
 
     private Map<String,Car> cars=null;
     public InstanceCarFactory(){
-      	通过构造器
+      	//通过构造器
         cars=new HashMap<String,Car>();
         cars.put("audi",new Car("audi",100000));
         cars.put("Tesal",new Car("Tesal",30000));
@@ -1017,8 +1017,8 @@ public class InstanceCarFactory {
 
 ## 实现 FactoryBean 接口在 Spring IOC 容器中配置 Bean
 
-- Spring 中有两种类型的 Bean, 一种是普通Bean, 另一种是工厂Bean, 即FactoryBean. 
-- 工厂 Bean 跟普通Bean不同, 其返回的对象不是指定类的一个实例, 其返回的是该工厂 Bean 的 getObject 方法所返回的对象 
+- Spring 中有两种类型的 Bean, 一种是普通Bean, 另一种是**工厂Bean, 即FactoryBean**. 
+- 工厂 Bean 跟普通Bean不同, 其返回的对象不是指定类的一个实例, 其返回的是该工厂 Bean 的 getObject 方法所返回的对象
 - FactoryBean与BeanFactory的区别：https://www.cnblogs.com/aspirant/p/9082858.html
 
 ```java
@@ -1105,14 +1105,12 @@ public class CarFactoryBean implements FactoryBean<Car> {
 8. <context:include-filter> 子节点表示要包含的目标类
 
    ```xml
-    <context:component-scan base-package="com.hbd.wowosong.annotation">
-           <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+   <context:component-scan base-package="com.hbd.wowosong.annotation">
+   <context:exclude-filter type="annotation"expression="org.springframework.stereotype.Repository"/>
        </context:component-scan>
-       <!--
-       指定SpringIOC容器扫描的包
-       -->
+   <!--指定SpringIOC容器扫描的包-->
    ```
-
+   
 9. <context:exclude-filter> 子节点表示要排除在外的目标类
 
 10. <context:component-scan> 下可以拥有若干个 <context:include-filter> 和 <context:exclude-filter> 子节点
@@ -1123,8 +1121,8 @@ public class CarFactoryBean implements FactoryBean<Car> {
 | ---------- | ------------------------- | ------------------------------------------------------------ |
 | annotation | com.atguigu.XxxAnnotation | 所有标注了XxxAnnotation的类。该类型采用目标类是否标注了某个注解进行过滤 |
 | assinable  | com.atguigu.XxxService    | 所有继承或扩展了XxxService的类。该类型采用目标类是否继承或扩展某个特定类进行过滤 |
-| aspectj    | com.atguigu..*Service+    | 所有类名以Service结束的类及继承或扩展它们的类。该类型采用AspectJ表达式进行过滤 |
-| regex      | com.\atguigu\.anno\..*    | 所有com.atguigu.anno包下的类。该类型采用正则表达式根据类的类进行过滤 |
+| aspectj    | com.atguigu.Service       | 所有类名以Service结束的类及继承或扩展它们的类。该类型采用AspectJ表达式进行过滤 |
+| regex      | com.atguigu\.anno.*       | 所有com.atguigu.anno包下的类。该类型采用正则表达式根据类的类进行过滤 |
 | custom     | com.atguigu.XxxTypeFilter | 采用XxxTypeFilter通过代码的方式定义过滤规则。该类必须实现org.springframework.core.type.TypeFilter接口 |
 
 ## 组件装配
@@ -1146,13 +1144,13 @@ public class CarFactoryBean implements FactoryBean<Car> {
 - Spring 还支持 @Resource 和 @Inject 注解，这两个注解和 @Autowired 注解的功用类似
 - @Resource 注解要求提供一个 Bean 名称的属性，若该属性为空，则自动采用标注处的变量或方法名作为 Bean 的名称
 - @Inject 和 @Autowired 注解一样也是按类型匹配注入的 Bean， 但没有 required 属性
-- 建议使用 @Autowired 注解
+- 建议使用 **@Autowired 注解**
 
 ## 泛型依赖注入
 
 **Spring 4.x 中可以为子类注入子类对应的泛型类型的成员变量的引用;创建两个带泛型的类,并配置两者的依赖关系，对于继承这两个类的子类,如果泛型相同,则会继承这种依赖关系**： 
 
-![](d:\pic-md/20210709224341.png)
+![](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210709224341.png)
 
 ```java
 public class BaseService<T> {
@@ -1205,7 +1203,7 @@ com.hbd.wowosong.generic.di.UserRepository@ba8d91c
 
 ## Spring AOP
 
-<img src="d:\pic-md/20211219205555.png" alt="image-20211219205555657" style="zoom:50%;" />
+<img src="./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20211219205555.png" alt="image-20211219205555657" style="zoom:50%;" />
 
 ```java
 package com.hbd.wowosong.aop;
@@ -1270,9 +1268,9 @@ public interface ArithmeticCaculator {
 
 ### 使用动态代理解决上述问题
 
-代理设计模式的原理: **使用一个代理将对象包装起来, 然后用该代理对象取代原始对象.** 任何对原始对象的调用都要通过代理. 代理对象决定是否以及何时将方法调用转到原始对象上.
+代理设计模式的原理: **使用一个代理将对象包装起来, 然后用该代理对象取代原始对象.** 任何对原始对象的调用都要通过代理. 代理对象决定是否以及何时将方法调用转到原始对象上.实现**InvocationHandler**
 
-![image-20210812212835845](d:\pic-md/20210812212836.png)
+![image-20210812212835845](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210812212836.png)
 
 ```java
 public class ArithmeticCaculatorLogProxyHandler implements InvocationHandler {
@@ -1399,20 +1397,20 @@ System.out.println(add);
 3. AOP 的好处：
    每个事物逻辑位于一个位置，代码不分散，便于维护和升级业务模块更简洁, 只包含核心业务代码。
 
-![image-20210812214231774](d:\pic-md/20210812214231.png)
+![image-20210812214231774](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210812214231.png)
 
 **AOP 术语**
 
-* 切面(Aspect):  横切关注点(跨越应用程序多个模块的功能)被模块化的特殊对象
+* **切面**(Aspect):  横切关注点(跨越应用程序多个模块的功能)被模块化的特殊对象
 * 通知(Advice):  切面必须要完成的工作
 * 目标(Target): 被通知的对象
 * 代理(Proxy): 向目标对象应用通知之后创建的对象
-* 连接点（Joinpoint）：程序执行的某个特定位置：如类**某个方法调用前、调用后、方法抛出异常后**等。连接点由两个信息确定：**方法表示的程序执行点；相对点表示的方位。**例如 ArithmethicCalculator#add() 方法执行前的连接点，执行点为 ArithmethicCalculator#add()； 方位为该方法执行前的位置
-* 切点（pointcut）：每个类都拥有多个连接点：例如 ArithmethicCalculator 的所有方法实际上都是连接点，即连接点是程序类中客观存在的事务。AOP 通过切点定位到特定的连接点。类比：连接点相当于数据库中的记录，切点相当于查询条件。切点和连接点不是一对一的关系，一个切点匹配多个连接点，切点通过 org.springframework.aop.Pointcut 接口进行描述，它使用类和方法作为连接点的查询条件。
+* **连接点（Joinpoint）**：程序执行的某个特定位置：如类**某个方法调用前、调用后、方法抛出异常后**等。连接点由两个信息确定：**方法表示的程序执行点；相对点表示的方位。**例如 ArithmethicCalculator#add() 方法执行前的连接点，执行点为 ArithmethicCalculator#add()； 方位为该方法执行前的位置
+* **切点（pointcut）**：每个类都拥有多个连接点：例如 ArithmethicCalculator 的所有方法实际上都是连接点，即连接点是程序类中客观存在的事务。AOP 通过切点定位到特定的连接点。类比：连接点相当于数据库中的记录，切点相当于查询条件。切点和连接点不是一对一的关系，一个切点匹配多个连接点，切点通过 org.springframework.aop.Pointcut 接口进行描述，它使用类和方法作为连接点的查询条件。
 
 ### Spring  AOP
 
-AspectJ：Java 社区里最完整最流行的 AOP 框架.
+**AspectJ：Java 社区里最完整最流行的 AOP 框架.**
 在 Spring2.0 以上版本中, 可以使用基于 AspectJ 注解或基于 XML 配置的 AOP
 
 #### 在 Spring 中启用 AspectJ 注解支持
@@ -1428,11 +1426,11 @@ AspectJ：Java 社区里最完整最流行的 AOP 框架.
 2. 在 AspectJ 注解中, **切面只是一个带有 @Aspect 注解的 Java 类**. 
 3. 通知是标注有某种注解的简单的 Java 方法.
 4. AspectJ 支持 5 种类型的通知注解: 
-   @Before: 前置通知, 在方法执行之前执行
-   @After: 后置通知, 在方法执行之后执行 
-   @AfterRunning: 返回通知, 在方法返回结果之后执行
-   @AfterThrowing: 异常通知, 在方法抛出异常之后
-   @Around: 环绕通知, 围绕着方法执行
+   **@Before: 前置通知, 在方法执行之前执行**
+   **@After: 后置通知, 在方法执行之后执行** 
+   **@AfterRunning: 返回通知, 在方法返回结果之后执行**
+   **@AfterThrowing: 异常通知, 在方法抛出异常之后**
+   **@Around: 环绕通知, 围绕着方法执行**
 
 #### 前置通知
 
@@ -1606,7 +1604,7 @@ public class LoggingAspect {
 
 * 在返回通知中, 只要将 returning 属性添加到 @AfterReturning 注解中, 就可以访问连接点的返回值. 该属性的值即为用来传入返回值的参数名称. 
 * **必须在通知方法的签名中添加一个同名参数. 在运行时, Spring AOP 会通过这个参数传递返回值.**
-* 原始的切点表达式需要出现在 pointcut 属性中
+* **原始的切点表达式需要出现在 pointcut 属性中**
 
 ```java
 /**
@@ -1674,8 +1672,8 @@ public class LoggingAspect {
 #### 指定切面的优先级
 
 * 在同一个连接点上应用不止一个切面时, 除非明确指定, 否则它们的优先级是不确定的.
-* 切面的优先级可以通过实现 Ordered 接口或利用 @Order 注解指定.
-* 实现 Ordered 接口, getOrder() 方法的返回值越小, 优先级越高.
+* **切面的优先级可以通过实现 Ordered 接口或利用 @Order 注解指定.**
+* **实现 Ordered 接口, getOrder() 方法的返回值越小, 优先级越高.**
 * 若使用 @Order 注解, 序号出现在注解中
 
 ```JAVA
@@ -1729,11 +1727,10 @@ public class ValidationAspect {
 *  正常情况下, 基于注解的声明要优先于基于 XML 的声明. 通过 AspectJ 注解, 切面可以与 AspectJ 兼容, 而基于 XML 的配置则是 Spring 专有的. 由于 AspectJ 得到越来越多的 AOP 框架支持, 所以以注解风格编写的切面将会有更多重用的机会.
 
   ```xml
-   <bean id="arithmeticCaculator" class="com.hbd.wowosong.aopxml.ArithmeticCaculatorImpl">
-  
-      </bean>
-      <bean id="loggingAspect"  class="com.hbd.wowosong.aopxml.LoggingAspect"></bean>
-      <bean id="validationAspect" class="com.hbd.wowosong.aopxml.ValidationAspect"></bean>
+  <bean id="arithmeticCaculator" class="com.hbd.wowosong.aopxml.ArithmeticCaculatorImpl">
+  </bean>
+  <bean id="loggingAspect"  class="com.hbd.wowosong.aopxml.LoggingAspect"></bean>
+  <bean id="validationAspect" class="com.hbd.wowosong.aopxml.ValidationAspect"></bean>
   <!--    配置AOP-->
       <aop:config>
           <aop:pointcut id="pointcut" expression="execution(*  com.hbd.wowosong.aopxml.ArithmeticCaculatorImpl.*(int ,int))"/>
@@ -1778,29 +1775,29 @@ public class ValidationAspect {
 ### JdbcTemplate 简介
 
 * 为了使 JDBC 更加易于使用, Spring 在 JDBC API 上定义了一个抽象层, 以此建立一个 JDBC 存取框架。
-* 作为 Spring JDBC 框架的核心, JDBC 模板的设计目的是为不同类型的 JDBC 操作提供模板方法。每个模板方法都能控制整个过程, 并允许覆盖过程中的特定任务。 通过这种方式, 可以在尽可能保留灵活性的情况下, 将数据库存取的工作量降到最低。
+* 作为 Spring JDBC 框架的核心, JDBC 模板的设计目的是为不同类型的 JDBC 操作提供模板方法。每个模板方法都能控制整个过程, 并允许覆盖过程中的特定任务。 **通过这种方式, 可以在尽可能保留灵活性的情况下, 将数据库存取的工作量降到最低。**
 
 ### 使用 JdbcTemplate 更新数据库
 
 ```java
-用SQL语句和参数更新数据库：
-update 
+//用SQL语句和参数更新数据库：
+//update 
 public int update(String sql,Object... args) throws DataAccessException
-批量更新数据库
-batchUpdate
+//批量更新数据库
+//batchUpdate
 public int[] batchUpdate(String sql,List<Object[]> batchArgs)
 ```
 
 ### 使用 JdbcTemplate 查询数据库
 
 ```java
-* 查询单行：
+//* 查询单行：
 public <T> t queryForObject(String sql,ParameterizedRowMapper<T> rm,Object... args) throw DataAccessException
-* 便利的BeanPropertyRowMapper实现
+//* 便利的BeanPropertyRowMapper实现
   org.springframework.jdbc.core.sample.ParameterizedRowMapper<T>
-* 查询多行：
+//* 查询多行：
 public <T> List<T> query(String sql,ParameterizedRowMapper<T> rm,Object... args) throw DataAccessException
-* 单值查询：
+//* 单值查询：
 public <T> T queryForObject(String sql,Class<T> requireType,Object... args) throws DataAccesException
 ```
 
@@ -1970,7 +1967,7 @@ public <T> T queryForObject(String sql,Class<T> requireType,Object... args) thro
 
 * 事务就是一系列的动作, 它们被当做一个单独的工作单元. 这些动作要么全部完成, 要么全部不起作用
 
-* 事务的四个关键属性(ACID)
+* **事务的四个关键属性(ACID)**
   * 原子性(atomicity): 事务是一个原子操作, 由一系列动作组成. 事务的原子性确保动作要么全部完成要么完全不起作用.
   * 一致性(consistency): 一旦所有事务动作完成，事务就被提交. 数据和资源就处于一种满足业务规则的一致性状态中.
   * 隔离性(isolation): 可能有许多事务会同时处理相同的数据, 因此每个事物都应该与其他事务隔离开来, 防止数据损坏.
@@ -2023,7 +2020,7 @@ public <T> T queryForObject(String sql,Class<T> requireType,Object... args) thro
 			t = clazz.newInstance();
 
 			for (int i = 0; i < columnCount; i++) {
-				// //1. 获取列的名称
+				// 1. 获取列的名称
 				// String columnName = rsmd.getColumnName(i+1);
 				// 1. 获取列的别名
 				String columnName = rsmd.getColumnLabel(i + 1);
@@ -2075,36 +2072,36 @@ public <T> T queryForObject(String sql,Class<T> requireType,Object... args) thro
 
 * 作为企业级应用程序框架，Spring 在不同的事务管理 API 之上定义了一个抽象层. 而应用程序开发人员不必了解底层的事务管理 API，就可以使用 Spring 的事务管理机制.
 * **Spring 既支持编程式事务管理, 也支持声明式的事务管理**. 
-* 编程式事务管理: 将事务管理代码嵌入到业务方法中来控制事务的提交和回滚. 在编程式管理事务时, 必须在每个事务操作中包含额外的事务管理代码. 
+* 编程式事务管理: 将事务管理代码嵌入到业务方法中来控制事务的提交和回滚. **在编程式管理事务时, 必须在每个事务操作中包含额外的事务管理代码.** 
 * 声明式事务管理: 大多数情况下比编程式事务管理更好用. 它将事务管理代码从业务方法中分离出来, 以声明的方式来实现事务管理. **事务管理作为一种横切关注点, 可以通过 AOP 方法模块化. Spring 通过 Spring AOP 框架支持声明式事务管理.**
 
 ### Spring 中的事务管理器
 
 * Spring 从不同的事务管理 API 中抽象了一整套的事务机制. 开发人员不必了解底层的事务API, 就可以利用这些事务机制. 有了这些事务机制, 事务管理代码就能独立于特定的事务技术了.
-* Spring 的核心事务管理抽象是Interface **PlatformTransactionManager** 它为事务管理封装了一组独立于技术的方法. 无论使用 Spring 的哪种事务管理策略(编程式或声明式), 事务管理器都是必须的.
+* Spring 的核心事务管理抽象是Interface **PlatformTransactionManager** 它为事务管理封装了一组独立于技术的方法. 无论使用 Spring 的哪种事务管理策略(编程式或声明式), **事务管理器都是必须的**.
 
 ### Spring 中的事务管理器的不同实现
 
-* org.springframework.jdbc.datasource Class DataSourceTransactionManager:在应用程序中只需要处理一个数据源, 而且通过 JDBC 存取
+* org.springframework.jdbc.datasource Class DataSourceTransactionManager:**在应用程序中只需要处理一个数据源, 而且通过 JDBC 存取**
 * org.springframework.transaction.jtd Class JtaTransactionManager: 在 JavaEE 应用服务器上用 JTA(Java Transaction API) 进行事务管理
-* org.springframework.orm.hibernate3 Class HibernateTransactionManage ：用 Hibernate 框架存取数据库
+* org.springframework.orm.hibernate3 Class HibernateTransactionManage ：**用 Hibernate 框架存取数据库**
   ……
 * 事务管理器以普通的 Bean 形式声明在 Spring IOC 容器中
 
 ### 需求
 
-![image-20211220204212636](d:\pic-md/20211220204212.png)
+![image-20211220204212636](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20211220204212.png)
 
 ### 用事务通知声明式地管理事务
 
-* 事务管理是一种横切关注点
+* **事务管理是一种横切关注点**
 * 为了在 Spring 2.x 中启用声明式事务管理, 可以通过 tx Schema 中定义的 <tx:advice> 元素声明事务通知, 为此必须事先将这个 Schema 定义添加到 <beans> 根元素中去.
 * 声明了事务通知后, 就需要将它与切入点关联起来. 由于事务通知是在 <aop:config> 元素外部声明的, 所以它无法直接与切入点产生关联. 所以必须在 <aop:config> 元素中声明一个增强器通知与切入点关联起来.
 * **由于 Spring AOP 是基于代理的方法, 所以只能增强公共方法. 因此, 只有公有方法才能通过 Spring AOP 进行事务管理.**
 
 ### 用事务通知声明式地管理事务示例代码
 
-![image-20211221124555153](d:\pic-md/202112211246575.png)
+![image-20211221124555153](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112211246575.png)
 
 ### 用 @Transactional 注解声明式地管理事务
 
@@ -2145,7 +2142,7 @@ public void purcharse(String username, String isbn) {
 
 ### 事务传播属性
 
-* 当事务方法被另一个事务方法调用时, 必须指定事务应该如何传播. 例如: 方法可能继续在现有事务中运行, 也可能开启一个新事务, 并在自己的事务中运行.
+* **当事务方法被另一个事务方法调用时, 必须指定事务应该如何传播. 例如: 方法可能继续在现有事务中运行, 也可能开启一个新事务, 并在自己的事务中运行.**
 * 事务的传播行为可以由传播属性指定. Spring 定义了 7  种类传播行为.
 
 ### Spring 支持的事务传播行为
@@ -2162,20 +2159,20 @@ public void purcharse(String username, String isbn) {
 
 #### REQUIRED 传播行为
 
-* 当 bookService 的 purchase() 方法被另一个事务方法 checkout() 调用时, 它默认会在现有的事务内运行. 这个默认的传播行为就是 REQUIRED. 因此在 checkout() 方法的开始和终止边界内只有一个事务. 这个事务只在 checkout() 方法结束的时候被提交, 结果用户一本书都买不了
+* 当 bookService 的 purchase() 方法被另一个事务方法 checkout() 调用时, 它默认会在现有的事务内运行. 这个默认的传播行为就是 REQUIRED. 因此在 checkout() 方法的开始和终止边界内只有一个事务. **这个事务只在 checkout() 方法结束的时候被提交, 结果用户一本书都买不了**
 * 事务传播属性可以在 @Transactional 注解的 propagation 属性中定义
 
-![image-20211221132204515](d:\pic-md/202112211322047.png)
+![image-20211221132204515](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112211322047.png)
 
 #### REQUIRES_NEW 传播行为
 
 * 另一种常见的传播行为是 REQUIRES_NEW. 它表示该方法必须启动一个新事务, 并在自己的事务内运行. 如果有事务在运行, 就应该先挂起它.
 
 ```java
- //REQUIRES_NEW:事务自己的事务，调用的事务方法的事务被挂起
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    @Override
-    public void purcharse(String username, String isbn) {
+//REQUIRES_NEW:事务自己的事务，调用的事务方法的事务被挂起
+@Transactional(propagation = Propagation.REQUIRES_NEW)
+@Override
+public void purcharse(String username, String isbn) {
 ```
 
 ### 在 Spring 2.x 事务通知中配置传播属性
@@ -2194,9 +2191,9 @@ public void purcharse(String username, String isbn) {
 
 * 当同一个应用程序或者不同应用程序中的多个事务在同一个数据集上并发执行时, 可能会出现许多意外的问题
 * 并发事务所导致的问题可以分为下面三种类型:
-  * 脏读: 对于两个事物 T1, T2, T1  读取了已经被 T2 更新但 还没有被提交的字段. 之后, 若 T2 回滚, T1读取的内容就是临时且无效的.
-  * 不可重复读:对于两个事物 T1, T2, T1  读取了一个字段, 然后 T2 更新了该字段. 之后, T1再次读取同一个字段, 值就不同了.
-  * 幻读:对于两个事物 T1, T2, T1  从一个表中读取了一个字段, 然后 T2 在该表中插入了一些新的行. 之后, 如果 T1 再次读取同一个表, 就会多出几行.
+  * **脏读**: 对于两个事物 T1, T2, T1  读取了已经被 T2 更新但 还没有被提交的字段. 之后, 若 T2 回滚, T1读取的内容就是临时且无效的.
+  * **不可重复读**:对于两个事物 T1, T2, T1  读取了一个字段, 然后 T2 更新了该字段. 之后, T1再次读取同一个字段, 值就不同了.
+  * **幻读**:对于两个事物 T1, T2, T1  从一个表中读取了一个字段, 然后 T2 在该表中插入了一些新的行. 之后, 如果 T1 再次读取同一个表, 就会多出几行.
 
 #### 事务的隔离级别
 
@@ -2209,9 +2206,9 @@ public void purcharse(String username, String isbn) {
 | 隔离级别         | 描述                                                         |
 | ---------------- | ------------------------------------------------------------ |
 | DEFAULT          | 使用底层数据库的默认隔离级别，对于大多数数据库来说，默认隔离级别都是READ_COMMITED |
-| READ_UNCOMMITTED | 允许事务读取未被其他事务提交的变更、脏读，不可重复读和幻读都会出现 |
-| READ_COMMITED    | 只允许事务读取已经被其他事务提交的变更，可以避免脏读。但不可重复读和幻读问题仍然可能出现 |
-| REPEATABLE__READ | 确保事务可以多次从一个字段中读取相同的值。在这个事务持续期间，禁止其他事务对这个字段进行更新。可以避免脏读和不可重复读。但幻读问题仍然存在。 |
+| READ_UNCOMMITTED | 允许事务读取未被其他事务提交的变更，脏读、不可重复读和幻读都会出现 |
+| READ_COMMITED    | 只允许事务读取已经被其他事务提交的变更，可以避免脏读。**但不可重复读和幻读问题仍然可能出现** |
+| REPEATABLE__READ | 确保事务可以多次从一个字段中读取相同的值。在这个事务持续期间，禁止其他事务对这个字段进行更新。可以避免脏读和不可重复读。但**幻读问题仍然存在**。 |
 | SERIALIZABLE     | 确保事务可以从一个表中读取相同的行。在这个事务持续期间，禁止其他事务对该表执行插入，更新和删除操作。所有并发都可以避免。但性能十分底下。 |
 
 * 事务的隔离级别要得到底层数据库引擎的支持，而不是应用程序或者框架的支持.
@@ -2256,8 +2253,7 @@ public void purcharse(String username, String isbn) {
     //noRollbackFor = UserAccountException.class)
     //4.使用readonly 指定事务为只读，表示这个事务只读数据不更新数据，可以数据库引擎进行优化事务;若真的是一个只读数据的方法，应设置readonly=true
     //5.timeout可以指定事务强制回滚前，事务可以占用的时间
-    @Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED,
-    readOnly = false,timeout = 3)
+    @Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED,readOnly = false,timeout = 3)
     @Override
     public void purcharse(String username, String isbn) {
         try {
@@ -2300,7 +2296,7 @@ public void purcharse(String username, String isbn) {
 * 超时和只读属性可以在 @Transactional 注解中定义.超时属性以秒为单位来计算.
 
   ```java
-  //1.使用propagation指定事务的传播行为，即当前事务方法被另个事务方法调用
+  		//1.使用propagation指定事务的传播行为，即当前事务方法被另个事务方法调用
       //默认为require
       //REQUIRES_NEW:事务自己的事务，调用的事务方法的事务被挂起
       //2.使用isolation来设置事务的隔离级别，常用的是read_commited
@@ -2320,7 +2316,7 @@ public void purcharse(String username, String isbn) {
 <tx:advice id="txAdvice" transaction-manager="transactionManager">
     <tx:attributes>
         <tx:method name="*"/>
-        <!--            根据方法名，指定事务属性-->
+        <!-- 根据方法名，指定事务属性-->
         <tx:method name="purcharse" propagation="REQUIRES_NEW" rollback-for="" isolation="READ_COMMITTED" no-rollback-for=""></tx:method>
         <tx:method name="find*" read-only="true" timeout="30"></tx:method>
     </tx:attributes>
@@ -2367,12 +2363,12 @@ public void purcharse(String username, String isbn) {
 * 对于 Hibernate 而言, 必须从原生的 Hibernate API 中构建 SessionFactory. 此外, 应用程序也无法利用 Spring 提供的数据存储机制(例如: Spring 的事务管理机制)
 * Spring 提供了对应的工厂 Bean, 可以用单实例的形式在 IOC 容器中创建 SessionFactory 实例.
 
-![image-20211221144453970](d:\pic-md/202112211444993.png)
+![image-20211221144453970](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112211444993.png)
 
 * 可以利用 LocalSessionFactoryBean 工厂 Bean, 声明一个使用 XML 映射文件的 SessionFactory 实例.
 * 需要为该工厂 Bean 指定 configLocation 属性来加载 Hibernate 配置文件.
 
-![image-20211221144518752](d:\pic-md/202112211445092.png)
+![image-20211221144518752](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112211445092.png)
 
 * 如果在 Spring IOC 容器中配置数据源. 可以将该数据源注入到 LocalSessionFactoryBean 的 dataSource 属性中. 该属性可以指定的数据源会覆盖掉 Hibernate 配置文件里的数据库配置.
 
