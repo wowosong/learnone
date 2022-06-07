@@ -1,4 +1,4 @@
-![Spring注解驱动开发](d:\pic-md/20211026170442.png)
+![Spring注解驱动开发](./Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91.assets/20211026170442.png)
 
 # Spring注解驱动开发
 
@@ -65,7 +65,7 @@ ApplicationContext ctx=new AnnotationConfigApplicationContext(MainConfig.class);
 #### @Bean
 
 ```java
-@Bean(name = "Person"),指定bean名字
+@Bean(name = "Person"),//指定bean名字
 //给容器中注册Bean,类型为返回值类型,id默认为方法名作为id
 public Person person(){
   return  new Person("1","123",34);
@@ -86,7 +86,7 @@ public Person person(){
 )
 //@ComponentScan  value:指定要扫描的包
 //excludeFilters = Filter[] ：指定扫描的时候按照什么规则排除那些组件
-//includeFilters = Filter[] ：指定扫描的时候只需要包含哪些组件
+//includeFilters = Filter[] ：指定扫描的时候需要只包含哪些组件
 //FilterType.ANNOTATION：按照注解
 //FilterType.ASSIGNABLE_TYPE：按照给定的类型;
 //FilterType.ASPECTJ：使用ASPECTJ表达式
@@ -157,7 +157,7 @@ public class MainConfig {
  * @see org.springframework.web.context.WebApplicationContext#SCOPE_SESSION
 默认为单实例
 SCOPE_PROTOTYPE 多实例 ioc容器启动时不会调用方法创建对象放到ioc容器中,以后每次获取才调用方法去创建对象
-SCOPE_SINGLETON 单实例 ioc容器启动时会调用方法创建对象放到ioc容器中,以后每次获取都是直接从（map.get()）容器中拿
+SCOPE_SINGLETON 单实例 ioc容器启动时会调用方法创建对象放到ioc容器中,以后每次获取都是直接从map.get()容器中拿
 SCOPE_REQUEST  同一次请求创建一个实例
 SCOPE_SESSION 同一个session创建一个实例
 */
@@ -223,7 +223,7 @@ public class LinuxCondition implements Condition {
 /**
 * 给容器中注册组件
 * 1）包扫描+组件标注注解（@Component/@Controller/@Service/@Repository）
-* 2)@Bean导入第三方包里的组件
+* 2)@Bean   导入第三方包里的组件
 * 3）@Import 快速给容器中导入一个组件
 *   1)@Import(要导入容器中的组件),容器就会自动注册这个组件,id默认为全类名
 *   2)@ImportSelector:返回要导入容器中组件的全类名数组
@@ -338,7 +338,9 @@ public class myFactoryBean implements FactoryBean<RedBiow> {
      String[] postProcessorNames = beanFactory.getBeanNamesForType(BeanPostProcessor.class, true, false);
  *   遍历得到容器中所有的beanPostProcessor,挨个执行postProcessBeforeInitialization
  *   一旦返回null,跳出for循环,不会执行后面的beanProcessor.postProcessBeforeInitialization
+ 
  *   BeanPostProcessor原理
+ 
      finishBeanFactoryInitialization(beanFactory);
  		 beanFactory.preInstantiateSingletons();
  *   populateBean(beanName, mbd, instanceWrapper);给bean赋值
@@ -347,6 +349,7 @@ public class myFactoryBean implements FactoryBean<RedBiow> {
  *     invokeInitMethods(beanName, wrappedBean, mbd);执行自定义初始化
  *     applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);
  *   }
+ 
  * 1）指定初始方法和销毁方法
  *  1.指定 init-method=""和destroy-method=""
  * 2）通过让bean实现InitializingBean(定义初始化逻辑)和DisposableBean(定义销毁逻辑)
@@ -357,6 +360,7 @@ public class myFactoryBean implements FactoryBean<RedBiow> {
  *   在bean初始化前后进行一些处理工作
  *   postProcessBeforeInitialization：在初始化前工作
  *   postProcessAfterInitialization：在初始化后工作
+ 
  *   Spring 底层对BeanPostProcessor的使用
  *   bean赋值 注入其他组件 @AutoWired 生命周期注解 @Async等 都是使用BeanPostProcessor
  **/
@@ -496,37 +500,37 @@ public class MainConfigOfPropertyValue {
  * 自动装配;
  * 		Spring利用依赖注入（DI）,完成对IOC容器中中各个组件的依赖关系赋值;
  * 
- * 1）、@Autowired：自动注入：
- * 		1）、默认优先按照类型去容器中找对应的组件:applicationContext.getBean(BookDao.class);找到就赋值
- * 		2）、如果找到多个相同类型的组件,再将属性的名称作为组件的id去容器中查找
+ * 1）@Autowired：自动注入：
+ * 		1）默认优先按照类型去容器中找对应的组件:applicationContext.getBean(BookDao.class);找到就赋值
+ * 		2）如果找到多个相同类型的组件,再将属性的名称作为组件的id去容器中查找
  * 			applicationContext.getBean("bookDao")
- * 		3）、@Qualifier("bookDao")：使用@Qualifier指定需要装配的组件的id,而不是使用属性名,需要结合						@Autowired进行自动注入
- * 		4）、自动装配默认一定要将属性赋值好,没有就会报错;
+ * 		3）@Qualifier("bookDao")：使用@Qualifier指定需要装配的组件的id,而不是使用属性名,需要结合						@Autowired进行自动注入
+ * 		4）自动装配默认一定要将属性赋值好,没有就会报错;
  * 			可以使用@Autowired(required=false);
- * 		5）、@Primary：让Spring进行自动装配的时候,默认使用首选的bean;
+ * 		5）@Primary：让Spring进行自动装配的时候,默认使用首选的bean;
  				也可以继续使用@Qualifier指定需要装配的bean的名字
  * 		BookService{
  * 			@Autowired
  * 			BookDao  bookDao;
  * 		}
  * 
- * 2）、Spring还支持使用@Resource(JSR250)和@Inject(JSR330)[java规范的注解]
+ * 2）Spring还支持使用@Resource(JSR250)和@Inject(JSR330)[java规范的注解]
  * 		@Resource:
  * 			可以和@Autowired一样实现自动装配功能;默认是按照组件名称进行装配的;
  * 			没有能支持@Primary功能,没有支持@Autowired（reqiured=false）;
  * 		@Inject:
  * 			需要导入javax.inject的包,和Autowired的功能一样。没有required=false的功能;
- *  	@Autowired:Spring定义的;
+ *  	@Autowired是Spring定义的;
  *  	@Resource、@Inject都是java规范
  * 	
  * 		AutowiredAnnotationBeanPostProcessor:解析完成自动装配功能;		
  * 
- * 3）、 @Autowired:构造器,参数,方法,属性;都是从容器中获取参数组件的值
- * 		1）、[标注在方法位置]：@Bean+方法参数;参数从容器中获取;默认不写@Autowired效果是一样的;都能自动装配
- * 		2）、[标在构造器上]：如果组件只有一个有参构造器,这个有参构造器的@Autowired可以省略,参数位置的组件还是可以自动从容器中获取
- * 		3）、放在参数位置：默认不写也可以自动装配
+ * 3）@Autowired:构造器,参数,方法,属性;都是从容器中获取参数组件的值
+ * 		1）[标注在方法位置]：@Bean+方法参数;参数从容器中获取;默认不写@Autowired效果是一样的;都能自动装配
+ * 		2）[标在构造器上]：如果组件只有一个有参构造器,这个有参构造器的@Autowired可以省略,参数位置的组件还是可以自动从容器中获取
+ * 		3）放在参数位置：默认不写也可以自动装配
  * 
- * 4）、自定义组件想要使用Spring容器底层的一些组件（ApplicationContext,BeanFactory,xxx）;
+ * 4）自定义组件想要使用Spring容器底层的一些组件（ApplicationContext,BeanFactory,xxx）;
  * 		自定义组件实现xxxAware;在创建对象的时候,会调用接口规定的方法注入相关组件;Aware;
  * 		把Spring底层一些组件注入到自定义的Bean中;
  * 		xxxAware：功能使用xxxProcessor;
@@ -569,12 +573,12 @@ public class MainConfigOfPropertyValue {
 #### 方法、构造器位置的自动装配
 
 ```java
-/** 	@Autowired:构造器,参数,方法,属性;都是从容器中获取参数组件的值
- * 		1）、[标注在方法位置]：@Bean + 方法参数;参数从容器中获取;默认不写@Autowired效果是一样的;都能自动装配
- * 		2）、[标在构造器上]：如果组件只有一个有参构造器,这个有参构造器的@Autowired可以省略,参数位置的组件还是可以自动从容器中获取
- * 		3）、放在参数位置：
-			默认加在ioc容器中的组件,容器启动会调用无参构造器创建对象,再进行初始化赋值等操作;如果有参构造器,则通过有参构造器进行赋值;
-  */
+/** @Autowired:构造器,参数,方法,属性;都是从容器中获取参数组件的值
+ * 	1）[标注在方法位置]：@Bean + 方法参数;参数从容器中获取;默认不写@Autowired效果是一样的;都能自动装配
+ * 	2）[标在构造器上]：如果组件只有一个有参构造器,这个有参构造器的@Autowired可以省略,参数位置的组件还是可以自动从容器中获取
+ * 	3）放在参数位置：
+		默认加在ioc容器中的组件,容器启动会调用无参构造器创建对象,再进行初始化赋值等操作;如果有参构造器,则通过有参构造器进行赋值;
+ */
 @Component
 public class Boss {
 	
@@ -607,7 +611,7 @@ public class Boss {
 #### Aware注入Spring底层组件&原理
 
 ```java
- /*   4）、自定义组件想要使用Spring容器底层的一些组件（ApplicationContext,BeanFactory,xxx）;
+ /*   4）自定义组件想要使用Spring容器底层的一些组件（ApplicationContext,BeanFactory,xxx）;
  * 		自定义组件实现xxxAware;在创建对象的时候,会调用接口规定的方法注入相关组件;Aware;
  * 		把Spring底层一些组件注入到自定义的Bean中;
  * 		xxxAware：功能使用xxxProcessor;
@@ -646,9 +650,9 @@ public class Red implements ApplicationContextAware, BeanNameAware, EmbeddedValu
  * 
  * @Profile：指定组件在哪个环境的情况下才能被注册到容器中,不指定,任何环境下都能注册这个组件
  * 
- * 1）、加了环境标识的bean,只有这个环境被激活的时候才能注册到容器中。默认是default环境
- * 2）、写在配置类上,只有是指定的环境的时候,整个配置类里面的所有配置才能开始生效
- * 3）、没有标注环境标识的bean在,任何环境下都是加载的;
+ * 1）加了环境标识的bean,只有这个环境被激活的时候才能注册到容器中。默认是default环境
+ * 2）写在配置类上,只有是指定的环境的时候,整个配置类里面的所有配置才能开始生效
+ * 3）没有标注环境标识的bean在,任何环境下都是加载的;
  */
 
 @PropertySource("classpath:dbconfig.properties")
@@ -656,12 +660,9 @@ public class Red implements ApplicationContextAware, BeanNameAware, EmbeddedValu
 public class MainConfigOfProfile implements EmbeddedValueResolverAware{
 	
 	@Value("${db.user}")
-	private String user;
-	
+	private String user;	
 	private StringValueResolver valueResolver;
-	
 	private String  driverClass;
-	
 	@Bean
 	public Yellow yellow(){
 		return new Yellow();
@@ -707,21 +708,19 @@ public class MainConfigOfProfile implements EmbeddedValueResolverAware{
 		this.valueResolver = resolver;
 		driverClass = valueResolver.resolveStringValue("${db.driverClass}");
 	}
-
 }
 ```
 
 #### @Profile根据环境注册bean
 
-<u>**需要指定虚拟机启动参数-Dspring.profiles.active=dev指定启动环境**</u>
+**需要指定虚拟机启动参数-Dspring.profiles.active=dev指定启动环境**
 
 ```java
 	//1、使用命令行动态参数: 在虚拟机参数位置加载 -Dspring.profiles.active=test
 	//2、代码的方式激活某种环境;
 	@Test
 	public void test01(){
-		AnnotationConfigApplicationContext applicationContext = 
-				new AnnotationConfigApplicationContext();
+		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
 		//1、创建一个applicationContext
 		//2、设置需要激活的环境
 		applicationContext.getEnvironment().setActiveProfiles("dev");
@@ -762,8 +761,8 @@ public class MainConfigOfProfile implements EmbeddedValueResolverAware{
  * 4、给切面类的目标方法标注何时何地运行（通知注解）;
  * 5、将切面类和业务逻辑类（目标方法所在类）都加入到容器中;
  * 6、必须告诉Spring哪个类是切面类(给切面类上加一个注解：@Aspect)
- * [7]、给配置类中加 @EnableAspectJAutoProxy 【开启基于注解的aop模式】
- * 		在Spring中很多的 @EnableXXX;
+ * 7、给配置类中加 @EnableAspectJAutoProxy 【开启基于注解的aop模式】
+ * 		在Spring中很多的@EnableXXX;
  * 
  * 三步：
  * 	1）、将业务逻辑组件和切面类都加入到容器中;告诉Spring哪个是切面类（@Aspect）
@@ -787,7 +786,7 @@ public class MainConfigOfProfile implements EmbeddedValueResolverAware{
  * 							implements SmartInstantiationAwareBeanPostProcessor, BeanFactoryAware
  * 						关注后置处理器（在bean初始化完成前后做事情）、自动装配BeanFactory
  * 
- * AbstractAutoProxyCreator.setBeanFactory()
+ * AbstractAutoProxyCreator.setBeanFactory()--->父类的setBeanFactory
  * AbstractAutoProxyCreator.有后置处理器的逻辑;
  * 
  * AbstractAdvisorAutoProxyCreator.setBeanFactory()-》initBeanFactory()
@@ -796,67 +795,67 @@ public class MainConfigOfProfile implements EmbeddedValueResolverAware{
  *
  *
  * 流程：
- * 		1）、传入配置类,创建ioc容器
- * 		2）、注册配置类,调用refresh（）刷新容器;
- * 		3）、registerBeanPostProcessors(beanFactory);注册bean的后置处理器来方便拦截bean的创建;
- * 			1）、先获取ioc容器已经定义了的需要创建对象的所有BeanPostProcessor
- * 			2）、给容器中加别的BeanPostProcessor
- * 			3）、优先注册实现了PriorityOrdered接口的BeanPostProcessor;
- * 			4）、再给容器中注册实现了Ordered接口的BeanPostProcessor;
- * 			5）、注册没实现优先级接口的BeanPostProcessor;
- * 			6）、注册BeanPostProcessor,实际上就是创建BeanPostProcessor对象,保存在容器中;
+ * （1）传入配置类,创建ioc容器
+ * （2）注册配置类,调用refresh()刷新容器;
+ * （3）registerBeanPostProcessors(beanFactory);注册bean的后置处理器来方便拦截bean的创建;
+ * 		1）先获取ioc容器已经定义了的需要创建对象的所有BeanPostProcessor
+ * 		2）给容器中加别的BeanPostProcessor
+ * 		3）优先注册实现了PriorityOrdered接口的BeanPostProcessor;
+ * 		4）再给容器中注册实现了Ordered接口的BeanPostProcessor;
+ * 		5）注册没实现优先级接口的BeanPostProcessor;
+ * 		6）注册BeanPostProcessor,实际上就是创建BeanPostProcessor对象,保存在容器中;
  * 				创建internalAutoProxyCreator的BeanPostProcessor【AnnotationAwareAspectJAutoProxyCreator】
- * 				1）、创建Bean的实例
- * 				2）、populateBean;给bean的各种属性赋值
- * 				3）、initializeBean：初始化bean;
- * 					1）、invokeAwareMethods()：处理Aware接口的方法回调
- * 					2）、applyBeanPostProcessorsBeforeInitialization()：应用后置处理器的postProcessBeforeInitialization（）
- * 					3）、invokeInitMethods();执行自定义的初始化方法
- * 					4）、applyBeanPostProcessorsAfterInitialization();执行后置处理器的postProcessAfterInitialization（）;
- * 				4）、BeanPostProcessor(AnnotationAwareAspectJAutoProxyCreator)创建成功;--》aspectJAdvisorsBuilder
- * 			7）、把BeanPostProcessor注册到BeanFactory中;
+ * 				①创建Bean的实例
+ * 				②populateBean;给bean的各种属性赋值
+ * 				③initializeBean：初始化bean;
+ * 					1.invokeAwareMethods()：处理Aware接口的方法回调
+ * 					2.applyBeanPostProcessorsBeforeInitialization()：应用后置处理器的postProcessBeforeInitialization（）
+ * 					3.invokeInitMethods();执行自定义的初始化方法
+ * 					4.applyBeanPostProcessorsAfterInitialization();执行后置处理器的postProcessAfterInitialization（）;
+ * 				④BeanPostProcessor(AnnotationAwareAspectJAutoProxyCreator)创建成功;--》aspectJAdvisorsBuilder
+ * 		7）把BeanPostProcessor注册到BeanFactory中;
  * 				beanFactory.addBeanPostProcessor(postProcessor);
  * =======以上是创建和注册AnnotationAwareAspectJAutoProxyCreator的过程========
  * 
  * 			AnnotationAwareAspectJAutoProxyCreator => InstantiationAwareBeanPostProcessor
- * 		4）、finishBeanFactoryInitialization(beanFactory);完成BeanFactory初始化工作;创建剩下的单实例bean
- * 			1）、遍历获取容器中所有的Bean,依次创建对象getBean(beanName);
+ * （4）finishBeanFactoryInitialization(beanFactory);完成BeanFactory初始化工作;创建剩下的单实例bean
+ * 		1）遍历获取容器中所有的Bean,依次创建对象getBean(beanName);
  * 				getBean->doGetBean()->getSingleton()->
- * 			2）、创建bean
+ * 		2）创建bean
  * 				【AnnotationAwareAspectJAutoProxyCreator在所有bean创建之前会有一个拦截,InstantiationAwareBeanPostProcessor,会调用postProcessBeforeInstantiation()】
- * 				1）、先从缓存中获取当前bean,如果能获取到,说明bean是之前被创建过的,直接使用,否则再创建;
+ * 			1）先从缓存中获取当前bean,如果能获取到,说明bean是之前被创建过的,直接使用,否则再创建;
  * 					只要创建好的Bean都会被缓存起来
- * 				2）、createBean（）;创建bean;
+ * 			2）createBean（）;创建bean;
  * 					AnnotationAwareAspectJAutoProxyCreator 会在任何bean创建之前先尝试返回bean的实例
  * 					【BeanPostProcessor是在Bean对象创建完成初始化前后调用的】
  * 					【InstantiationAwareBeanPostProcessor是在创建Bean实例之前先尝试用后置处理器返回对象的】
- * 					1）、resolveBeforeInstantiation(beanName, mbdToUse);解析BeforeInstantiation
+ * 					1）resolveBeforeInstantiation(beanName, mbdToUse);解析BeforeInstantiation
  * 					希望后置处理器在此能返回一个代理对象;如果能返回代理对象就使用,如果不能就继续
- * 					1）、后置处理器先尝试返回对象;
+ * 					1）后置处理器先尝试返回对象;
  * 						bean = applyBeanPostProcessorsBeforeInstantiation（）：
  * 						拿到所有后置处理器,如果是InstantiationAwareBeanPostProcessor;
  * 						就执行postProcessBeforeInstantiation
  * 						if (bean != null) {
 								bean = applyBeanPostProcessorsAfterInitialization(bean,beanName);
-						}
+							}
  * 
- * 					2）、doCreateBean(beanName, mbdToUse, args);真正的去创建一个bean实例;和3.6流程一样;
- * 					3）、
+ * 					2）doCreateBean(beanName, mbdToUse, args);真正的去创建一个bean实例;和3.6流程一样;
+ * 					3）
  * 			
  * 		
  * AnnotationAwareAspectJAutoProxyCreator【InstantiationAwareBeanPostProcessor】	的作用：
- * 1）、每一个bean创建之前,调用postProcessBeforeInstantiation();
+ * （1）每一个bean创建之前,调用postProcessBeforeInstantiation();
  * 		关心MathCalculator和LogAspect的创建
  * 		1）、判断当前bean是否在advisedBeans中（保存了所有需要增强bean）
  * 		2）、判断当前bean是否是基础类型的Advice、Pointcut、Advisor、AopInfrastructureBean,
  * 			或者是否是切面（@Aspect）
  * 		3）、是否需要跳过
- * 			1）、获取候选的增强器（切面里面的通知方法）【List<Advisor> candidateAdvisors】
+ * 			①获取候选的增强器（切面里面的通知方法）【List<Advisor> candidateAdvisors】
  * 				每一个封装的通知方法的增强器是 InstantiationModelAwarePointcutAdvisor;
  * 				判断每一个增强器是否是 AspectJPointcutAdvisor 类型的;返回true
- * 			2）、永远返回false
+ * 			②永远返回false
  * 
- * 2）、创建对象
+ * （2）创建对象
  * postProcessAfterInitialization;
  * 		return wrapIfNecessary(bean, beanName, cacheKey);//包装如果需要的情况下
  * 		1）、获取当前bean的所有增强器（通知方法）  Object[]  specificInterceptors
@@ -874,7 +873,7 @@ public class MainConfigOfProfile implements EmbeddedValueResolverAware{
  * 		5）、以后容器中获取到的就是这个组件的代理对象,执行目标方法的时候,代理对象就会执行通知方法的流程;
  *
  * 	
- * 	3）、目标方法执行
+ * （3）目标方法执行
  * 		容器中保存了组件的代理对象（cglib增强后的对象）,这个对象里面保存了详细信息（比如增强器,目标对象,xxx）;
  * 		1）、CglibAopProxy.intercept();拦截目标方法的执行
  * 		2）、根据ProxyFactory对象获取将要执行的目标方法拦截器链;
@@ -894,27 +893,27 @@ public class MainConfigOfProfile implements EmbeddedValueResolverAware{
  * 			拦截器链等信息传入创建一个 CglibMethodInvocation 对象,
  * 			并调用 Object retVal =  mi.proceed();
  * 		5）、拦截器链的触发过程;
- * 			1)、如果没有拦截器执行执行目标方法,或者拦截器的索引和拦截器数组-1大小一样（指定到了最后一个拦截器）执行目标方法;
- * 			2)、链式获取每一个拦截器,拦截器执行invoke方法,每一个拦截器等待下一个拦截器执行完成返回以后再来执行;
+ * 			1)如果没有拦截器执行执行目标方法,或者拦截器的索引和拦截器数组-1大小一样（指定到了最后一个拦截器）执行目标方法;
+ * 			2)链式获取每一个拦截器,拦截器执行invoke方法,每一个拦截器等待下一个拦截器执行完成返回以后再来执行;
  * 			拦截器链的机制,保证通知方法与目标方法的执行顺序;
  * 		
  * 	总结：
- * 		1）、  @EnableAspectJAutoProxy 开启AOP功能
- * 		2）、 @EnableAspectJAutoProxy 会给容器中注册一个组件 AnnotationAwareAspectJAutoProxyCreator
- * 		3）、AnnotationAwareAspectJAutoProxyCreator是一个后置处理器;
- * 		4）、容器的创建流程：
- * 			1）、registerBeanPostProcessors（）注册后置处理器;创建AnnotationAwareAspectJAutoProxyCreator对象
- * 			2）、finishBeanFactoryInitialization（）初始化剩下的单实例bean
- * 				1）、创建业务逻辑组件和切面组件
- * 				2）、AnnotationAwareAspectJAutoProxyCreator拦截组件的创建过程
- * 				3）、组件创建完之后,判断组件是否需要增强
+ * 		(1）@EnableAspectJAutoProxy开启AOP功能
+ * 		(2）@EnableAspectJAutoProxy会给容器中注册一个组件 AnnotationAwareAspectJAutoProxyCreator
+ * 		(3）AnnotationAwareAspectJAutoProxyCreator是一个后置处理器;
+ * 		(4）容器的创建流程：
+ * 			1）registerBeanPostProcessors()注册后置处理器;创建AnnotationAwareAspectJAutoProxyCreator对象
+ * 			2）finishBeanFactoryInitialization（）初始化剩下的单实例bean
+ * 				①创建业务逻辑组件和切面组件
+ * 				②AnnotationAwareAspectJAutoProxyCreator拦截组件的创建过程
+ * 				③组件创建完之后,判断组件是否需要增强
  * 					是：切面的通知方法,包装成增强器（Advisor）;给业务逻辑组件创建一个代理对象（cglib）;
- * 		5）、执行目标方法：
- * 			1）、代理对象执行目标方法
- * 			2）、CglibAopProxy.intercept();
- * 				1）、得到目标方法的拦截器链（增强器包装成拦截器MethodInterceptor）
- * 				2）、利用拦截器的链式机制,依次进入每一个拦截器进行执行;
- * 				3）、效果：
+ * 		(5）执行目标方法：
+ * 			1）代理对象执行目标方法
+ * 			2）CglibAopProxy.intercept();
+ * 				①得到目标方法的拦截器链（增强器包装成拦截器MethodInterceptor）
+ * 				②利用拦截器的链式机制,依次进入每一个拦截器进行执行;
+ * 				③效果：
  * 					正常执行：前置通知-》目标方法-》后置通知-》返回通知
  * 					出现异常：前置通知-》目标方法-》后置通知-》异常通知
  */
@@ -943,7 +942,7 @@ public class MainConfigOfAOP {
  * @EnableAspectJAutoProxy;
  * 1、@EnableAspectJAutoProxy是什么？
  * 		@Import(AspectJAutoProxyRegistrar.class)：给容器中导入AspectJAutoProxyRegistrar
- * 			利用AspectJAutoProxyRegistrar自定义给容器中注册bean;BeanDefinetion
+ * 			利用AspectJAutoProxyRegistrar自定义给容器中注册bean;BeanDefinition
  * 			internalAutoProxyCreator类型是AnnotationAwareAspectJAutoProxyCreator
  * 
  * 		给容器中注册一个AnnotationAwareAspectJAutoProxyCreator;
@@ -961,13 +960,13 @@ public class MainConfigOfAOP {
 #### AnnotationAwareAspectJAutoProxyCreator分析
 
 ```java
- /** AbstractAutoProxyCreator.setBeanFactory()
- * AbstractAutoProxyCreator.有后置处理器的逻辑;
- * 
- * AbstractAdvisorAutoProxyCreator.setBeanFactory()重写setBeanFactory-》并调用initBeanFactory()
- * 
- * AnnotationAwareAspectJAutoProxyCreator.initBeanFactory()重写
- /
+/** AbstractAutoProxyCreator.setBeanFactory()
+* AbstractAutoProxyCreator.有后置处理器的逻辑;
+* 
+*AbstractAdvisorAutoProxyCreator.setBeanFactory()重写setBeanFactory-》并调用initBeanFactory()
+* 
+* AnnotationAwareAspectJAutoProxyCreator.initBeanFactory()重写
+/
 ```
 
 #### 注册AnnotationAwareAspectJAutoProxyCreator
