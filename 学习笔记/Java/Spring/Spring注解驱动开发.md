@@ -1382,7 +1382,7 @@ public void test_ext(){
  *  			1）、获取事件的多播器（派发器）：getApplicationEventMulticaster()
  *  			2）、multicastEvent派发事件：
  *  			3）、获取到所有的ApplicationListener;
- *  				for (final ApplicationListener<?> listener : getApplicationListeners(event, type)) {
+ *  				for (final ApplicationListener<?> listener:getApplicationListeners(event, type)){
  *  				1）、如果有Executor,可以支持使用Executor进行异步派发;
  *  					Executor executor = getTaskExecutor();
  *  				2）、否则,同步的方式直接执行listener方法;invokeListener(listener, event);
@@ -1392,11 +1392,8 @@ public void test_ext(){
  *  1）、容器创建对象：refresh();
  *  2）、initApplicationEventMulticaster();初始化ApplicationEventMulticaster;
  *  	1）、先去容器中找有没有id=“applicationEventMulticaster”的组件;
- *  	2）、如果没有
-     this.applicationEventMulticaster=
-     new SimpleApplicationEventMulticaster(beanFactory);
-beanFactory.registerSingleton(APPLICATION_EVENT_MULTICASTER_BEAN_NAME,
-                              this.applicationEventMulticaster);
+ *  	2）、如果没有this.applicationEventMulticaster=new SimpleApplicationEventMulticaster(beanFactory);
+beanFactory.registerSingleton(APPLICATION_EVENT_MULTICASTER_BEAN_NAME,this.applicationEventMulticaster);
  *  	并且加入到容器中,我们就可以在其他组件要派发事件,自动注入这个applicationEventMulticaster;
  *  
  *  【容器中有哪些监听器】
@@ -1447,7 +1444,7 @@ Spring容器的refresh()[创建 刷新]
     2）getBeanFactory();返回GenericApplicationContext创建的beanFactory对象;
     3）将创建的beanFactory【DefaultListableBeanFactory】返回
   3.prepareBeanFactory(beanFactory);beanFactory的预准备工作（beanFactory进行一些设置）
-    1）设置BeanFactory的类加载器、支持表达式解析器...
+    1)设置BeanFactory的类加载器、支持表达式解析器...
     2)添加BeanPostProcessor【ApplicationContextAwareProcessor】
     3）忽略自动装配的的接口EnvironmentWare
     beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
@@ -1502,15 +1499,18 @@ Spring容器的refresh()[创建 刷新]
 6.registerBeanPostProcessors(beanFactory);注册BeanPostProcessors【后置处理器】,拦截bean的创建
 	// Register bean processors that intercept bean creation.
 	registerBeanPostProcessors(beanFactory);
-    不同类型的BeanPostProcessor接口在bean创建前后的执行时机是不一样的
-	BeanPostProcessors、DestructionAwareBeanPostProcessor、
-    InstantiationAwareBeanPostProcessor、SmartInstantiationAwareBeanPostProcessor、
+  不同类型的BeanPostProcessor接口在bean创建前后的执行时机是不一样的
+	  BeanPostProcessors、
+    DestructionAwareBeanPostProcessor、
+    InstantiationAwareBeanPostProcessor、
+    SmartInstantiationAwareBeanPostProcessor、
     MergedBeanDefinitionPostProcessor
-   1)获取所有的BeanPostProcessor,后置处理器可以通过PriorityOrdered、Ordered接口来执行优先级
-   2）先注册实现PriorityOrdered优先级接口的BeanPostProcessors;
-        把每个BeanPostProcessor添加到BeanFactory中;
+    
+  1)获取所有的BeanPostProcessor,后置处理器可以通过PriorityOrdered、Ordered接口来执行优先级
+  2）先注册实现PriorityOrdered优先级接口的BeanPostProcessors;
+       把每个BeanPostProcessor添加到BeanFactory中;
        beanFactory.addBeanPostProcessor(postProcessor);
- 	3)再注册实现Ordered接口的BeanPostProcessor;
+  3)再注册实现Ordered接口的BeanPostProcessor;
 	4)最后注册没有实现任何优先级的BeanPostProcessor;
 	5)最终注册MergedBeanDefinitionPostProcessor;
   6）注册一个ApplicationListenerDetector,来在bean创建完成后检查是否是ApplicationListenerDetector,如果是
@@ -1550,11 +1550,11 @@ Spring容器的refresh()[创建 刷新]
     beanFactory.registerSingleton(APPLICATION_EVENT_MULTICASTER_BEAN_NAME, this.applicationEventMulticaster);
 9.onRefresh();留给子容器（子类）重写;
     1)子类重写该方法;在容器刷新时自定义逻辑;
-10.registerListeners();将容器中所有的ApplicationListenter都注册进
+10.registerListeners();将容器中所有的ApplicationListenter都注册进来
     1)从容器中拿到所有的ApplicationListener
     2）将监听器添加到派发器
       getApplicationEventMulticaster().addApplicationListener(listener);
-		3）派发之前的步骤产生的事件
+		3）派发之前步骤产生的事件
 ```
 
 #### 创建Bean准备与创建完成
@@ -1596,18 +1596,18 @@ private final Map<String, Object> singletonObjects = new ConcurrentHashMap<Strin
            return a proxy instead of the target bean instance.
 			     Object bean = resolveBeforeInstantiation(beanName, mbdToUse);
 			     让BeanPostProcessor先拦截返回代理对象
-                 InstantiationAwareBeanPostProcessor：提前执行
-                 先触发ibp.postProcessBeforeInstantiation(beanClass, beanName);
+           InstantiationAwareBeanPostProcessor：提前执行
+           先触发ibp.postProcessBeforeInstantiation(beanClass, beanName);
 			     如果有返回值,再触发postProcessAfterInitialization(result, beanName);
 				 3.前面的InstantiationAwareBeanPostProcessor没有返回代理对象,则进行创建流程4
          4.Object beanInstance = doCreateBean(beanName, mbdToUse, args);创建bean;
                 1.【创建bean实例】 createBeanInstance(beanName, mbd, args);
-						利用工厂方法或对象的构造器创建出bean实例
+									利用工厂方法或对象的构造器创建出bean实例
                 2.applyMergedBeanDefinitionPostProcessors(mbd, beanType, beanName);
-						调用postProcessMergedBeanDefinition方法：
-                bdp.postProcessMergedBeanDefinition(mbd, beanType, beanName);
+									调用postProcessMergedBeanDefinition方法：
+                	bdp.postProcessMergedBeanDefinition(mbd, beanType, beanName);
 			 					3.【bean赋值】populateBean(beanName, mbd, instanceWrapper);
-						赋值之前：
+									赋值之前：
                   1）拿到InstantiationAwareBeanPostProcessor后置处理器;
                        调用postProcessAfterInstantiation
                   2）拿到InstantiationAwareBeanPostProcessor后置处理器;
@@ -1617,14 +1617,14 @@ private final Map<String, Object> singletonObjects = new ConcurrentHashMap<Strin
                          applyPropertyValues(beanName, mbd, bw, pvs);
 					 			4.【bean初始化】initializeBean(beanName, exposedObject, mbd);
 									1）invokeAwareMethods(beanName, bean);执行xxxware接口的方法;
-                     BeanClassLoaderAware、BeanFactoryAware、BeanFactoryAware
+                     BeanClassLoaderAware、BeanNameAware、BeanFactoryAware
             			2）【执行后置处理器执行之前】
                      applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName);
 											beanProcessor.postProcessBeforeInitialization(result, beanName);
 									3）【执行初始化方法】invokeInitMethods(beanName, wrappedBean, mbd);
 											1）是否为InitializingBean接口的实现;执行接口指定的初始化方法;
              					2）是否自定义初始化方法;
-            			4）【执行后置处理器执行之后】
+            			4）【执行后置处理器初始化之后】
                				applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);
 			    						beanProcessor.postProcessAfterInitialization(result, beanName);
 								 5.注册销毁方法
@@ -1649,14 +1649,14 @@ smartSingleton.afterSingletonsInstantiated();
        DefaultLifecycleProcessor defaultProcessor = new DefaultLifecycleProcessor();、
        加入到容器中
        // Initialize lifecycle processor for this context.
-           initLifecycleProcessor();
+       initLifecycleProcessor();
        写一个LifecycleProcessor的实现类型（id必须为lifecycleProcessor）,可以在BeanFactory
             void onRefresh() 
             void onClose()
    2.getLifecycleProcessor().onRefresh();
 		拿到前面定义的生命周期处理器（BeanFactory）,回调onRefresh()
    3.publishEvent	 发布容器刷新事件
-        // Publish the final event.
+    // Publish the final event.
 		publishEvent(new ContextRefreshedEvent(this));
    4.LiveBeansView.registerApplicationContext(this);
 ```
@@ -1669,7 +1669,7 @@ smartSingleton.afterSingletonsInstantiated();
 	1.xml注册bean <bean>
 	2.注解注册bean @Service @Component @Bean
 2)Spring容器会在合适的时机创建这些bean
-	1.用到这个bean时利用getbean创建bean,创建好保存在容器中
+	1.用到这个bean时利用getBean创建bean,创建好保存在容器中
 	2.统一创建剩下所有的bean时,finishBeanFactoryInitialization
 3）后置处理器：
 	1.每个bean创建完成,都会使用各种后缀处理器进行处理,来增强bean的功能。
@@ -1685,3 +1685,5 @@ smartSingleton.afterSingletonsInstantiated();
 #### -简介&测试
 
 #### servlet3.0-与SpringMVC整合分析
+
+使用servletContext注册web组件（Filter，Servlet，Listenter）
