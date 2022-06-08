@@ -360,7 +360,7 @@ public class myFactoryBean implements FactoryBean<RedBiow> {
  *   在bean初始化前后进行一些处理工作
  *   postProcessBeforeInitialization：在初始化前工作
  *   postProcessAfterInitialization：在初始化后工作
- 
+
  *   Spring 底层对BeanPostProcessor的使用
  *   bean赋值 注入其他组件 @AutoWired 生命周期注解 @Async等 都是使用BeanPostProcessor
  **/
@@ -977,7 +977,7 @@ public class MainConfigOfAOP {
  * 		2）、注册配置类,调用refresh（）刷新容器;
  * 		3）、registerBeanPostProcessors(beanFactory);注册bean的后置处理器来方便拦截bean的创建;
  * 			1）、先获取ioc容器已经定义了的需要创建对象的所有BeanPostProcessor
- * 			2）、给容器中加别的BeanPostProcessor
+ * 			2）、给容器中加入别的BeanPostProcessor
  * 			3）、优先注册实现了PriorityOrdered接口的BeanPostProcessor;
  * 			4）、再给容器中注册实现了Ordered接口的BeanPostProcessor;
  * 			5）、注册没实现优先级接口的BeanPostProcessor;
@@ -1000,7 +1000,7 @@ public class MainConfigOfAOP {
 
 ```java
  /** 	AnnotationAwareAspectJAutoProxyCreator => InstantiationAwareBeanPostProcessor
- * 		4）、finishBeanFactoryInitialization(beanFactory);完成BeanFactory初始化工作;创建剩下的单实例bean
+ * 	4）、finishBeanFactoryInitialization(beanFactory);完成BeanFactory初始化工作;创建剩下的单实例bean
  * 		1）、遍历获取容器中所有的Bean,依次创建对象getBean(beanName);
  * 			getBean->doGetBean()->getSingleton()->
  * 		2）、创建bean
@@ -1018,8 +1018,8 @@ public class MainConfigOfAOP {
  * 				拿到所有后置处理器,如果是InstantiationAwareBeanPostProcessor;
  * 				就执行postProcessBeforeInstantiation
  * 				if (bean != null) {
-					bean = applyBeanPostProcessorsAfterInitialization(bean,beanName);
-				}
+					    bean = applyBeanPostProcessorsAfterInitialization(bean,beanName);
+				  }
  * 			2）、doCreateBean(beanName, mbdToUse, args);真正的去创建一个bean实例;和3.6流程一样;
 ```
 
@@ -1076,14 +1076,14 @@ public class MainConfigOfAOP {
  * 				如果是MethodInterceptor,直接加入到集合中
  * 				如果不是,使用AdvisorAdapter将增强器转为MethodInterceptor;
      			if (adapter.supportsAdvice(advice)) {
-					interceptors.add(adapter.getInterceptor(advisor));
-				}
+						interceptors.add(adapter.getInterceptor(advisor));
+					}
  * 				转换完成返回MethodInterceptor数组;
  * 		3）、如果没有拦截器链,直接执行目标方法;
  * 			拦截器链（每一个通知方法又被包装为方法拦截器,利用MethodInterceptor机制）
  * 		4）、如果有拦截器链,把需要执行的目标对象,目标方法,
  * 			拦截器链等信息传入创建一个 CglibMethodInvocation 对象,
- * 			并调用 Object retVal =  mi.proceed();
+ * 			并调用 Object retVal =new CglibMethodInvocation(proxy, target, method, args, targetClass, chain, methodProxy).proceed();
  * /
 ```
 
@@ -1094,21 +1094,21 @@ public class MainConfigOfAOP {
 retVal = new CglibMethodInvocation(proxy, target, method, args, targetClass, chain, methodProxy).proceed();
  * 	 1)、如果没有拦截器执行执行目标方法,或者拦截器的索引和拦截器数组-1大小一样（指定到了最后一个拦截器）执行目标方法;
 //	We start with an index of -1 and increment early.
-if(this.currentInterceptorIndex ==this.interceptorsAndDynamicMethodMatchers.size() - 1) {
-     return invokeJoinpoint();
-}
+    if(this.currentInterceptorIndex ==this.interceptorsAndDynamicMethodMatchers.size() - 1) 		{
+         return invokeJoinpoint();
+    }
  *  2)、链式获取每一个拦截器,拦截器执行invoke方法,每一个拦截器等待下一个拦截器执行完成返回以后再来执行;
      @Override
-	public Object invoke(MethodInvocation mi) throws Throwable {
-		MethodInvocation oldInvocation = invocation.get();
-		invocation.set(mi);
-		try {
-			return mi.proceed();
-		}
-		finally {
-			invocation.set(oldInvocation);
-		}
-	}
+      public Object invoke(MethodInvocation mi) throws Throwable {
+        MethodInvocation oldInvocation = invocation.get();
+        invocation.set(mi);
+        try {
+          return mi.proceed();
+        }
+        finally {
+          invocation.set(oldInvocation);
+        }
+      }
  * 			拦截器链的机制,保证通知方法与目标方法的执行顺序;
  */
 ```
@@ -1117,22 +1117,22 @@ if(this.currentInterceptorIndex ==this.interceptorsAndDynamicMethodMatchers.size
 
 ```java
 /** 总结：
- * 		1）、 @EnableAspectJAutoProxy 开启AOP功能
- * 		2）、 @EnableAspectJAutoProxy 会给容器中注册一个组 AnnotationAwareAspectJAutoProxyCreator
- * 		3）、AnnotationAwareAspectJAutoProxyCreator是一个后置处理器;
- * 		4）、容器的创建流程：
- * 			1）、registerBeanPostProcessors（）注册后置处理器;创建AnnotationAwareAspectJAutoProxyCreator对象
- * 			2）、finishBeanFactoryInitialization（）初始化剩下的单实例bean
- * 				1）、创建业务逻辑组件和切面组件
- * 				2）、AnnotationAwareAspectJAutoProxyCreator拦截组件的创建过程
- * 				3）、组件创建完之后,判断组件是否需要增强
+ * 1）、 @EnableAspectJAutoProxy 开启AOP功能
+ * 2）、 @EnableAspectJAutoProxy 会给容器中注册一个组 AnnotationAwareAspectJAutoProxyCreator
+ * 3）、AnnotationAwareAspectJAutoProxyCreator是一个后置处理器;
+ * 4）、容器的创建流程：
+ * 	1）registerBeanPostProcessors()注册后置处理器;创建AnnotationAwareAspectJAutoProxyCreator对象
+ * 	2）finishBeanFactoryInitialization（）初始化剩下的单实例bean
+ * 		1）、创建业务逻辑组件和切面组件
+ * 		2）、AnnotationAwareAspectJAutoProxyCreator拦截组件的创建过程
+ * 		3）、组件创建完之后,判断组件是否需要增强
  * 				是：切面的通知方法,包装成增强器（Advisor）;给业务逻辑组件创建一个代理对象（cglib）;
- * 		5）、执行目标方法：
- * 			1）、代理对象执行目标方法
- * 			2）、CglibAopProxy.intercept();
- * 				1）、得到目标方法的拦截器链（增强器包装成拦截器MethodInterceptor）
- * 				2）、利用拦截器的链式机制,依次进入每一个拦截器进行执行;
- * 				3）、效果：
+ * 5）、执行目标方法：
+ * 	1）、代理对象执行目标方法
+ * 	2）、CglibAopProxy.intercept();
+ * 		1）、得到目标方法的拦截器链（增强器包装成拦截器MethodInterceptor）
+ * 		2）、利用拦截器的链式机制,依次进入每一个拦截器进行执行;
+ * 		3）、效果：
  * 					正常执行：前置通知-》目标方法-》后置通知-》返回通知
  * 					出现异常：前置通知-》目标方法-》后置通知-》异常通知
 ```
@@ -1209,6 +1209,7 @@ public class MainConfigOfTx   {
     }
     @Bean
     public JdbcTemplate jdbcTemplate() throws Exception {
+      // Spring会对Configuration类做特殊处理，在容器中找组件的方法都是从容器中获取组件
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
         return jdbcTemplate;
     }
@@ -1307,14 +1308,16 @@ public class MyBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegi
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
 		// TODO Auto-generated method stub
-		System.out.println("MyBeanDefinitionRegistryPostProcessor...bean的数量："+beanFactory.getBeanDefinitionCount());
+		System.out.println("MyBeanDefinitionRegistryPostProcessor...bean的数量："
+                       +beanFactory.getBeanDefinitionCount());
 	}
 
 	//BeanDefinitionRegistry Bean定义信息的保存中心,以后BeanFactory就是按照BeanDefinitionRegistry里面保存的每一个bean定义信息创建bean实例;
 	@Override
 	public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
 		// TODO Auto-generated method stub
-		System.out.println("postProcessBeanDefinitionRegistry...bean的数量："+registry.getBeanDefinitionCount());
+		System.out.println("postProcessBeanDefinitionRegistry...bean的数量："
+                       +registry.getBeanDefinitionCount());
 		//RootBeanDefinition beanDefinition = new RootBeanDefinition(Blue.class);
 		AbstractBeanDefinition beanDefinition = BeanDefinitionBuilder.rootBeanDefinition(Blue.class).getBeanDefinition();
 		registry.registerBeanDefinition("hello", beanDefinition);
