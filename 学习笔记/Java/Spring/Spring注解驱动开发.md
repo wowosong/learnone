@@ -1672,7 +1672,7 @@ smartSingleton.afterSingletonsInstantiated();
 	1.用到这个bean时利用getBean创建bean,创建好保存在容器中
 	2.统一创建剩下所有的bean时,finishBeanFactoryInitialization
 3）后置处理器：
-	1.每个bean创建完成,都会使用各种后缀处理器进行处理,来增强bean的功能。
+	1.每个bean创建完成,都会使用各种后置处理器进行处理,来增强bean的功能。
 	AutowiredAnnotationBeanPostProcessor：处理自动注入
 	AnnotationAwareAspectJAutoProxyCreator：来做AOP代理对象
 4)事件驱动模型：

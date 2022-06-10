@@ -361,7 +361,7 @@ Java8中有两大最为重要的改变**。第一个是 Lambda 表达式；另�
 
 一个终止操作，执行中间操作链，并产生结果
 
-![image-20210810204319399](d:\pic-md/20210810204320.png)
+![image-20210810204319399](./Java8%E6%96%B0%E7%89%B9%E6%80%A7.assets/20210810204320.png)
 
 #### 创建Stream
 
@@ -531,7 +531,7 @@ Optional<Integer> reduce1 = employeeList.stream().map(Employee::getAge).reduce(I
 
 Collector 接口中方法的实现决定了如何对流执行收集操作(如收集到 List、Set、Map)。但是 Collectors 实用类提供了很多静态方法，可以方便地创建常见收集器实例，具体方法与实例如下表：
 
-![image-20210810223247618](d:\pic-md/20210810223247.png)
+![image-20210810223247618](./Java8%E6%96%B0%E7%89%B9%E6%80%A7.assets/20210810223247.png)
 
 ```java
 List<String> collect2 = employeeList.stream().map(Employee::getName).collect(Collectors.toList());
@@ -544,7 +544,7 @@ DoubleSummaryStatistics collect5 = employeeList.stream().collect(Collectors.summ
 System.out.println(collect5);
 ```
 
-![image-20210810224030737](d:\pic-md/20210810224030.png)
+![image-20210810224030737](./Java8%E6%96%B0%E7%89%B9%E6%80%A7.assets/20210810224030.png)
 
 ```java
 Optional<Employee> collect6 = employeeList.stream().collect(Collectors.maxBy((x, y) -> Double.compare(x.getAge(), y.getAge())));
@@ -569,7 +569,7 @@ Java 8 中将并行进行了优化，我们可以很容易的对数据进行并�
 
 **Fork/Join 框架：**就是在必要的情况下，将一个大任务，进行拆分(fork)成若干个小任务（拆到不可再拆时），再将一个个的小任务运算的结果进行 join 汇总. 
 
-![image-20210811211918682](d:\pic-md/20210811211919.png)
+![image-20210811211918682](./Java8%E6%96%B0%E7%89%B9%E6%80%A7.assets/20210811211919.png)
 
 #### Fork/Join 框架与传统线程池的区别
 
@@ -591,7 +591,7 @@ LocalDateTime ldf=LocalDateTime.now();
 System.out.println(ldf);
 ```
 
-![image-20210811224711342](d:\pic-md/20210811224711.png)
+![image-20210811224711342](./Java8%E6%96%B0%E7%89%B9%E6%80%A7.assets/20210811224711.png)
 
 ### **Instant** **时间戳**
 
@@ -679,7 +679,7 @@ getAvailableZoneIds() : 可以获取所有时区时区信息
 
 of(id) : 用指定的时区信息获取ZoneId 对象
 
-![image-20210811232218744](d:\pic-md/20210811232218.png)
+![image-20210811232218744](./Java8%E6%96%B0%E7%89%B9%E6%80%A7.assets/20210811232218.png)
 
 ```java
 Set<String> availableZoneIds = ZoneId.getAvailableZoneIds();
