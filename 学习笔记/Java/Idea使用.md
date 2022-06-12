@@ -130,10 +130,6 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　  ![图片](d:\pic-md/20210611102430.webp) [图3.7]
 
- 
-
-![图片](https://mmbiz.qpic.cn/mmbiz_png/Ljib4So7yuWjLh8mr7g4JHbDnKnCMicwdxWNUaPiaibQRkQsU8bm3LJfAdNEAACR1c6ejicj4RvVicwpvZxD543kpBIA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-
 ## 四、计算表达式
 
 　　在前面提到的计算表达式如图4.1的按钮，Evaluate Expression (Alt + F8) 。可以使用这个操作在调试过程中计算某个表达式的值，而不用再去打印信息。
@@ -168,7 +164,7 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　如果只有一个方法，则直接进入，类似Force Step Into。
 
-　　![图片](https://mmbiz.qpic.cn/mmbiz_png/7iaIWBe8dHo7dptiaHkP90iby1S1ibJC4Z1nribAnVGkgnP07HjvSmpEygUf0FBIaMgFAZCL2Tk3qLx8FtEv1hBK4IA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1) [图5.2]
+　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/640.png) [图5.2]
 
 ## 六、断点条件设置
 
