@@ -2235,8 +2235,8 @@ public void method(Object obj){
 class Driver{
 	public void doData(Connection conn){
 	//conn = new MySQlConnection(); 
-	/ conn = new OracleConnection();
-		//规范的步骤去操作数据
+	// conn = new OracleConnection();
+//规范的步骤去操作数据
 //		conn.method1();
 //		conn.method2();
 //		conn.method3();
@@ -2253,7 +2253,7 @@ class Driver{
 * 7.1 向上转型：多态
 * 7.2 向下转型：
   * 7.2.1 为什么使用向下转型：
-    有了对象的多态性以后，内存中实际上是加载了子类特有的属性和方法的，但是由于变量声明为父类类型，导致编译时，只能调用父类中声明的属性和方法。子类特有的属性和方法不能调用。如何才能调用子类特的属性和方法？使用向下转型。
+    有了对象的多态性以后，内存中实际上是加载了子类特有的属性和方法的，但是由于变量声明为父类类型，导致编译时，只能调用父类中声明的属性和方法。**子类特有的属性和方法不能调用**。如何才能调用子类特的属性和方法？使用向下转型。
   * 7.2.2 如何实现向下转型：
     使用强制类型转换符：()
   * 7.2.3 使用时的注意点：
@@ -2272,14 +2272,14 @@ class Driver{
 ① 实现代码的通用性。
 ② Object类中定义的public boolean equals(Object obj){  }
     JDBC:使用java程序操作(获取数据库连接、CRUD)数据库(MySQL、Oracle、DB2、SQL Server)
-③ 抽象类、接口的使用肯定体现了多态性。（抽象类、接口不能实例化）
+③ 抽象类、接口的使用肯定体现了多态性。（**抽象类、接口不能实例化**）
 8.2 多态是编译时行为还是运行时行为？
 
 ### Object类的使用
 
 1.java.lang.Object类的说明：
 
-1.Object类是所Java类的根父类
+1.Object类是所有Java类的根父类
 
 2.如果在类的声明中未使用extends关键字指明其父类，则默认父类为java.lang.Object类 
 
@@ -2289,7 +2289,7 @@ class Driver{
 
 方法：equals() / toString() / getClass() /hashCode() / clone() / finalize()/wait() /notify()/notifyAll()
 
-4. Object类只声明了一个空参的构造器
+4.Object类只声明了一个空参的构造器
 
 2.equals()方法
 2.1 equals()的使用：
@@ -2308,7 +2308,7 @@ class Driver{
 
 说明：**Object类中定义的equals()和==的作用是相同的：比较两个对象的地址值是否相同.即两个引用是否指向同一个对象实体** 
 
-   但像String、Date、File、包装类等都重写了Object类中的equals()方法。重写以后，比较的不是两个引用的地址是否相同，而是比较两个对象的"实体内容"是否相同。  
+ 但像String、Date、File、包装类等都重写了Object类中的equals()方法。**重写以后，比较的不是两个引用的地址是否相同，而是比较两个对象的"实体内容"是否相同。**  
 
 **通常情况下，我们自定义的类如果使用equals()的话，也通常是比较两个对象的"实体内容"是否相同。那么，我们就需要对Object类中的equals()进行重写。重写的原则：比较两个对象的实体内容是否相同.**
 2.2 如何重写equals()
