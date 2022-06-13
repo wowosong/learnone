@@ -274,9 +274,7 @@ public String HelloWorld() {
 
 ### 7、总结
 
-**浏览器发送请求，**
-
-**若请求地址符合前端控制器的url-pattern，该请求就会被前端控制器DispatcherServlet处理。**
+**浏览器发送请求，若请求地址符合前端控制器的url-pattern，该请求就会被前端控制器DispatcherServlet处理。**
 
 **前端控制器会读取SpringMVC的核心配置文件，通过扫描组件找到控制器，将请求地址和控制器中@RequestMapping注解的value属性值进行匹配，若匹配成功，该注解所标识的控制器方法就是处理请求的方法。**
 
@@ -286,7 +284,7 @@ public String HelloWorld() {
 
 ### 1、@RequestMapping注解的功能
 
-从注解名称上我们可以看到，@RequestMapping注解的作用就是将请求和处理请求的控制器方法关联起来，建立映射关系。
+从注解名称上我们可以看到，@RequestMapping注解的作用就是将**请求和处理请求的控制器方法关联起来**，建立映射关系。
 
 SpringMVC 接收到指定的请求，就会来找到在映射关系中对应的控制器方法来处理这个请求。
 
@@ -435,7 +433,7 @@ public String testRequestMapping(){
 
 rest方式：/deleteUser/1
 
-SpringMVC路径中的占位符常用于RESTful风格中，当请求路径中将某些数据通过路径的方式传输到服务器中，就可以在相应的@RequestMapping注解的value属性中通过占位符{xxx}表示传输的数据，在通过@PathVariable注解，将占位符所表示的数据赋值给控制器方法的形参
+SpringMVC路径中的占位符常用于RESTful风格中，当请求路径中将某些数据通过路径的方式传输到服务器中，就可以在相应的@RequestMapping注解的value属性中通过占位符{xxx}表示传输的数据，再通过@PathVariable注解，将占位符所表示的数据赋值给控制器方法的形参
 
 ```html
 <a th:href="@{/testRest/1/admin}">测试路径中的占位符-->/testRest</a><br>
