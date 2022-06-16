@@ -661,9 +661,9 @@ public String testApplication(HttpSession session){
 
 # 六、SpringMVC的视图
 
-SpringMVC中的视图是View接口，视图的作用渲染数据，将模型Model中的数据展示给用户
+SpringMVC中的视图是**View接口，视图的作用渲染数据，将模型Model中的数据展示给用户**
 
-SpringMVC视图的种类很多，默认有转发视图InternalResourceView和重定向视图RedirectView
+SpringMVC视图的种类很多，默认有**转发视图InternalResourceView和重定向视图RedirectView**
 
 **当工程引入jstl的依赖，转发视图会自动转换为JstlView**
 
@@ -688,9 +688,9 @@ public String testHello(){
 
 SpringMVC中创建转发视图的情况：
 
-当控制器方法中所设置的视图名称以"forward:"为前缀时，创建InternalResourceView视图，此时的视图名称不会被SpringMVC配置文件中所配置的视图解析器解析，而是会将前缀"forward:"去掉，剩余部分作为最终路径通过转发的方式实现跳转
+当控制器方法中所设置的视图名称以"forward:"为前缀时，创建InternalResourceView视图，此时的视图名称不会被SpringMVC配置文件中所配置的视图解析器解析，**而是会将前缀"forward:"去掉，剩余部分作为最终路径通过转发的方式实现跳转**
 
-例如"forward:/"，"forward:/employee"
+例如："forward:/"，"forward:/employee"
 
 ```java
 @RequestMapping("/testForward")
@@ -705,7 +705,7 @@ public String testForward(){
 
 SpringMVC中默认的重定向视图是RedirectView
 
-当控制器方法中所设置的视图名称以"redirect:"为前缀时，创建RedirectView视图，此时的视图名称不会被SpringMVC配置文件中所配置的视图解析器解析，而是会将前缀"redirect:"去掉，剩余部分作为最终路径通过重定向的方式实现跳转
+当控制器方法中所设置的视图名称以**"redirect:"为前缀时**，创建RedirectView视图，此时的视图名称不会被SpringMVC配置文件中所配置的视图解析器解析，而是**会将前缀"redirect:"去掉，剩余部分作为最终路径通过重定向的方式实现跳转**
 
 例如"redirect:/"，"redirect:/employee"
 
@@ -751,7 +751,6 @@ public String testRedirect(){
 ```
 
 ```jsp
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -1292,11 +1291,11 @@ a>导入jackson的依赖
 
 b>在SpringMVC的核心配置文件中开启mvc的注解驱动，此时在HandlerAdaptor中会自动装配一个消息转换器：MappingJackson2HttpMessageConverter，可以将响应到浏览器的Java对象转换为Json格式的字符串
 
-```
+```xml
 <mvc:annotation-driven />
 ```
 
-c>在处理器方法上使用@ResponseBody注解进行标识
+c>在处理器方法上使用**@ResponseBody注解进行标识**
 
 d>将Java对象直接作为控制器方法的返回值返回，就会自动转换为Json格式的字符串
 
@@ -1424,7 +1423,8 @@ b>在SpringMVC的配置文件中添加配置：
 
 ```xml
 <!--必须通过文件解析器的解析才能将文件转换为MultipartFile对象-->
-<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+</bean>
 ```
 
 c>控制器方法：
@@ -1457,14 +1457,15 @@ public String testUp(MultipartFile photo, HttpSession session) throws IOExceptio
 
 SpringMVC中的拦截器用于**拦截控制器方法**的执行
 
-SpringMVC中的拦截器需要实现HandlerInterceptor
+SpringMVC中的拦截器需要实现**HandlerInterceptor**
 
 SpringMVC的拦截器必须在SpringMVC的配置文件中进行配置：
 
 ```xml
 <bean class="com.atguigu.interceptor.FirstInterceptor"></bean>
 
-<ref bean="firstInterceptor"></ref>---配置为组件
+<ref bean="firstInterceptor"></ref>
+<!--配置为组件 -->
 
 <!-- 以上两种配置方式都是对DispatcherServlet所处理的所有的请求进行拦截 -->
 <mvc:interceptor>
@@ -1481,11 +1482,11 @@ SpringMVC的拦截器必须在SpringMVC的配置文件中进行配置：
 
 SpringMVC中的拦截器有三个抽象方法：
 
-preHandle：控制器方法执行之前执行preHandle()，其boolean类型的返回值表示是否拦截或放行，返回true为放行，即调用控制器方法；返回false表示拦截，即不调用控制器方法
+preHandle：**控制器方法执行之前执行preHandle()**，其boolean类型的返回值表示是否拦截或放行，返回true为放行，即调用控制器方法；返回false表示拦截，即不调用控制器方法
 
-postHandle：控制器方法执行之后执行postHandle()
+postHandle：控制器方法执行之后**执行postHandle()**
 
-afterComplation：处理完视图和模型数据，渲染视图完毕之后执行afterComplation()
+afterComplation：处理完视图和模型数据，**渲染视图完毕之后执行afterComplation()**
 
 ### 3、多个拦截器的执行顺序
 
@@ -1498,6 +1499,14 @@ preHandle()会按照配置的顺序执行，而postHandle()和afterComplation()�
 b>若某个拦截器的preHandle()返回了false
 
 preHandle()返回false和它之前的拦截器的preHandle()都会执行，postHandle()都不执行，返回false的拦截器之前的拦截器的afterComplation()会执行
+
+![](./SpringMVC%E7%AC%94%E8%AE%B0%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20200602173814901-16551916027022.png)
+
+![i](./SpringMVC%E7%AC%94%E8%AE%B0%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/9544dba847a174d99e82b827bc667f15-16551949641584.png)
+
+过滤器`Filter`是在请求进入容器后，但在进入`servlet`之前进行预处理，请求结束是在`servlet`处理完以后。
+
+拦截器 `Interceptor` 是在请求进入`servlet`后，在进入`Controller`之前进行预处理的，`Controller` 中渲染了对应的视图之后请求结束。
 
 # 十一、异常处理器
 
@@ -1617,7 +1626,7 @@ public class SpringConfig {
 public class WebConfig implements WebMvcConfigurer {
     //使用默认的servlet处理静态资源
     @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) 	{
+   public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer){
         configurer.enable();
     }
 
@@ -1657,15 +1666,13 @@ public class WebConfig implements WebMvcConfigurer {
     //配置生成模板解析器
     @Bean
     public ITemplateResolver templateResolver() {
-        WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();
-        // ServletContextTemplateResolver需要一个ServletContext作为构造参数，可通过WebApplicationContext 的方法获得
-        ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(
-                webApplicationContext.getServletContext());
-        templateResolver.setPrefix("/WEB-INF/templates/");
-        templateResolver.setSuffix(".html");
-        templateResolver.setCharacterEncoding("UTF-8");
-        templateResolver.setTemplateMode(TemplateMode.HTML);
-        return templateResolver;
+         WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();
+        SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+        resolver.setApplicationContext(webApplicationContext);
+        resolver.setPrefix("/WEB-INF/templates/");
+        resolver.setTemplateMode(TemplateMode.HTML);
+        resolver.setCharacterEncoding("UTF-8");
+        return resolver;
     }
     //生成模板引擎并为模板引擎注入模板解析器
     @Bean
@@ -1701,11 +1708,11 @@ public String index(){
 
 - DispatcherServlet：**前端控制器**，不需要工程师开发，由框架提供
 
-作用：统一处理请求和响应，整个流程控制的中心，由它调用其它组件处理用户的请求
+作用：统一处理请求和响应，整个流程控制的中心，由它**调用其它组件处理用户的请求**
 
 - HandlerMapping：**处理器映射器**，不需要工程师开发，由框架提供
 
-作用：根据请求的url、method等信息查找Handler，即控制器方法
+作用：根据请求的url、method等信息查找Handler，即**控制器方法**
 
 - Handler：**处理器**，需要工程师开发
 
@@ -2101,6 +2108,8 @@ private void processDispatchResult(HttpServletRequest request, HttpServletRespon
 
 ### 4、SpringMVC的执行流程
 
+![image-20220615101800284](./SpringMVC%E7%AC%94%E8%AE%B0%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/image-20220615101800284-16552594821081.png)
+
 1) 用户向服务器发送请求，请求被SpringMVC 前端控制器 DispatcherServlet捕获。
 
 2) DispatcherServlet对请求URL进行解析，得到请求资源标识符（URI），判断请求URI对应的映射：
@@ -2133,7 +2142,7 @@ b) 数据转换：对请求消息进行数据转换。如String转换成Integer�
 
 c) 数据格式化：对请求消息进行数据格式化。 如将字符串转换成格式化数字或格式化日期等
 
-d) 数据验证： 验证数据的有效性（长度、格式等），验证结果存储到BindingResult或Error中
+d) 数据验证： 验证数据的有效性（长度、格式等），**验证结果存储到BindingResult或Error中**
 
 7) Handler执行完成后，向DispatcherServlet 返回一个ModelAndView对象。
 
