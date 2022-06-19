@@ -2599,7 +2599,7 @@ public static Order getInstance(){
 
 坏处：对象加载时间过长。
 
-好处：饿汉式是线程安全的
+好处：饿汉式是**线程安全**的
 
 * 懒汉式：
 
@@ -2647,7 +2647,7 @@ man.earnMoney();
 
 ### 类的结构：代码块
 
-类的成员之四：代码块(初始化块)（重要性较属性、方法、构造器差一些）
+类的成员之四：代码块(初始化块)（**重要性较属性、方法、构造器差一些**）
 1.代码块的作用：用来初始化类、对象的信息
 2.分类：代码块要是使用修饰符，只能使用static
 分类：静态代码块  vs 非静态代码块
@@ -2670,13 +2670,13 @@ man.earnMoney();
 
 4. 实例化子类对象时，涉及到父类、子类中静态代码块、非静态代码块、构造器的加载顺序：
 对应的练习：LeafTest.java / Son.java
-由父及子，静态先行。
+**由父及子，静态先行**。
 
 ### 属性的赋值顺序
 
 ①默认初始化
 
-②显式初始化/⑤在代码块中赋值
+②显式初始化/⑤在代码块中赋值(按声明顺序)
 
 ③构造器中初始化
 
@@ -2687,7 +2687,7 @@ man.earnMoney();
 ### 关键字：final
 
 final：最终的
-1.可以用来修饰：类、方法、变量
+1.可以用来修饰：**类、方法、变量**
 
 2.具体的：
 
@@ -2732,12 +2732,33 @@ abstract修饰方法：抽象方法
 3.注意点：
 
 1. **abstract不能用来修饰：属性、构造器等结构**
-2. **abstract不能用来修饰私有方法、静态方法、final的方法、final的类**
+2. **abstract不能用来修饰私有方法、静态方法(不可重写)、final的方法、final的类**
 
 4.abstract的应用举例：
 举例一：
 
-![image-20211230161929917](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112301619090.png)
+```java
+public abstract class Vehicle{
+  public abstract double calcFuelEfficiency();//计算燃料效率的抽象方法
+  public abstract doube calcTripDistance();//计算行驶距离的抽象方法
+}
+public class Truck extends Vehicle(){
+  public double calcFuelEfficiency(){
+    //写出计算卡车的燃料效率的具体方法
+  }
+  public doube calcTripDistance(){
+    //写出计算卡车行驶距离的具体方法
+  }
+}
+public class RiverBarge extends Vehicle(){
+  public double calcFuelEfficiency(){
+    //写出计算驳船的燃料效率的具体方法
+  }
+  public doube calcTripDistance(){
+    //写出计算驳船行驶距离的具体方法
+  }
+}
+```
 
 举例二：
 
@@ -2758,6 +2779,10 @@ class Circle extends GeometricObject{
 ### 模板方法的设计模式
 
 1. 解决的问题
+
+抽象类体现的就是一种模版模式的设计，抽象类作为多个子类的通用模版，子类在抽象类的基础上进行扩展/改造。但子类总体上保留抽象类的行为方式。
+
+当功能内部一部分实现是确定的，一部分实现是不确定的。这时可以把不确定的部分暴露出去，让子类去实现。
 
 在软件开发中实现一个算法时，整体步骤很固定、通用，这些步骤已经在父类中写好了。但是某些部分易变，易变
 部分可以抽象出来，供不同子类实现。这就是一种模板模式。
@@ -2799,7 +2824,13 @@ class SubTemplate extends Template{
 
 3. 应用场景
 
-![image-20211230162217574](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112301622745.png)
+模版方法设计模式是编程中经常使用的到的模式。各个框架/类库中都有他的影子，比如常见的有：
+
+- 数据库访问的封装
+- Junit单元测试
+- JavaWeb的Servlet中关于doGet/doPost方法调用
+- Hibernate中模版程序
+- Spring中JDBC Template/Hibernate Template等
 
 ### 关键字：interface
 
@@ -2813,9 +2844,10 @@ interface:接口
 
 * 3.1 JDK7及以前：只能定义全局常量和抽象方法
 
->全局常量：public static final的.但是书写时，可以省略不写
-
->抽象方法：public abstract的
+```
+全局常量：public static final的.但是书写时，可以省略不写
+抽象方法：public abstract的
+```
 
 * 3.2 JDK8：**除了定义全局常量和抽象方法之外，还可以定义静态方法、默认方法（略)**
 
@@ -2829,7 +2861,7 @@ interface:接口
 
 6.Java类可以实现多个接口   --->弥补了Java单继承性的局限性
 
-格式：class AA extends BB implements CC,DD,EE
+格式：**class AA extends BB implements CC,DD,EE**
 
 7.**接口与接口之间可以继承，而且可以多继承**
 
@@ -2968,7 +3000,21 @@ class ProxyServer implements NetWork{
 
 3. 应用场景
 
-![image-20211230163406478](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112301634662.png)
+> 安全代理：屏蔽对真实角色的直接访问。
+>
+> 远程代理：通过代理类处理远程方法调用（RMI）
+>
+> 延迟加载：先加载轻量级的代理对象，真正需要再加载真实对象
+>
+> 比如你要开发一个大文档查看软件，大文档中有大的图片，有可能一个图片雨100MB，在打开文件时，不可能将所有的图片都显示出来，这样就可以使用代理模式，当需要查看图片时，用proxy来进行大图片打开。
+
+**分类：**
+
+>静态代理（静态定义代理类）
+>
+>动态代理（动态生成代理类）
+>
+>​		JDK自带的动态代理，需要反射等知识
 
 ### 工厂的设计模式
 
@@ -3036,9 +3082,9 @@ class Person{
 ```
 
 5.局部内部类的使用：
-//返回一个实现了Comparable接口的类的对象
 
 ```java
+//返回一个实现了Comparable接口的类的对象
 public Comparable getComparable(){
 	//创建一个实现了Comparable接口的类:局部内部类
 	//方式一：
@@ -3062,7 +3108,7 @@ public Comparable getComparable(){
 ```
 
 注意点：
-在局部内部类的方法中（比如：show如果调用局部内部类所声明的方法(比如：method)中的局部变量(比如：num)的话,要求此局部变量声明为final的。
+在局部内部类的方法中（比如：show如果调用局部内部类所声明的方法(比如：method)中的局部变量(比如：num)的话,**要求此局部变量声明为final的。**
 
 jdk 7及之前版本：要求此局部变量显式的声明为final的
 jdk 8及之后的版本：可以省略final的声明
@@ -3204,7 +3250,7 @@ finally{
 
 3. 一旦try中的异常对象匹配到某一个catch时，就进入catch中进行异常的处理。一旦处理完成，就跳出当前的try-catch结构（在没写finally的情况。继续执行其后的代码）
 
-4. catch中的异常类型如果没子父类关系，则谁声明在上，谁声明在下无所谓。
+4. catch中的异常类型如果没子父类关系，则**谁声明在上，谁声明在下无所谓**。
 
 **catch中的异常类型如果满足子父类关系，则要求子类一定声明在父类的上面。否则，报错**
 
@@ -3224,7 +3270,7 @@ finally{
 
  * 1.finally是可选的
 
- * 2.finally中声明的是一定会被执行的代码。**即使catch中又出现异常了，try中return语句，catch中return语句等情况。**
+ * 2.finally中声明的是**一定会被执行的代码**。**即使catch中又出现异常了，try中return语句，catch中return语句等情况。**
 
  * 3.像数据库连接、输入输出流、网络编程Socket等资源，JVM是不能自动的回收的，我们需要自己手动的进行资源的释放。此时的资源释放，就需要声明在finally中。
 
@@ -3381,7 +3427,7 @@ public String toString() {
 
 两种方式的对比：
 
-开发中：优先选择：实现Runnable接口的方式
+开发中：**优先选择：实现Runnable接口的方式**
 
 原因：
 
@@ -3408,9 +3454,9 @@ Thread类中的常用的方法:
 
 5. setName():设置当前线程的名字
 
-6. yield():释放当前cpu的执行权
+6. yield():**释放当前cpu的执行权**,具体释放时机仍然看CPU调度机制
 
-7. join():在线程a中调用线程b的join(),此时线程a就进入阻塞状态，直到线程b完全执行完以后，线程a才结束阻塞状态。
+7. join():**在线程a中调用线程b的join(),此时线程a就进入阻塞状态，直到线程b完全执行完以后，线程a才结束阻塞状态。**
 
 8. stop():已过时。当执行此方法时，强制结束当前线程。
 
@@ -3465,15 +3511,17 @@ setPriority(int p):设置线程的优先级
 3. 如何解决：当一个线程a在操作ticket的时候，其他线程不能参与进来。直到线程a操作完ticket时，其他线程才可以开始操作ticket。这种情况即使线程a出现了阻塞，也不能被改变。
 
 2.Java解决方案：同步机制
-在Java中，我们通过同步机制，来解决线程的安全问题。
+在Java中，我们通过**同步机制**，来解决线程的安全问题。
 
 方式一：**同步代码**块
 
+```java
 synchronized(同步监视器){
 
 //需要被同步的代码
 
 }
+```
 
 说明：1.操作共享数据的代码，即为需要被同步的代码。  -->不能包含代码多了，也不能包含代码少了。
 
@@ -3510,7 +3558,7 @@ Lock需要手动的启动同步（lock()，同时结束同步也需要手动的�
 
 使用的优先顺序：
 
-**Lock ---> 同步代码块（已经进入了方法体，分配了相应资源 ) ---> 同步方法（在方法体之外)**
+**Lock ---> 同步代码块（已经进入了方法体，分配了相应资源 ) --->同步方法（在方法体之外)**
 3.利弊
 同步的方式，解决了线程的安全问题。---好处
 操作同步代码时，只能一个线程参与，其他线程等待。相当于是一个单线程的过程，效率低。
@@ -3625,7 +3673,7 @@ new Thread(new Runnable() {
 
    1.线程通信涉及到的三个方法：
 * wait():一旦执行此方法，当前线程就进入阻塞状态，并释放同步监视器。
-* notify():一旦执行此方法，就会唤醒被wait的一个线程。如果有多个线程被wait，就唤醒优先级高的那个。
+* notify():一旦执行此方法，就会唤醒被wait的一个线程。**如果有多个线程被wait，就唤醒优先级高的那个**。
 * notifyAll():一旦执行此方法，就会唤醒所有被wait的线程。
 
 2.说明：
@@ -3648,14 +3696,20 @@ new Thread(new Runnable() {
 
 3）关于是否释放同步监视器：如果两个方法都使用在同步代码块或同步方法中，sleep()不会释放锁，wait()会释放锁。
 
-4.
-小结释放锁的操作：
+4.**小结释放锁的操作：**
 
-![image-20220418113007517](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/image-20220418113007517-165025260921812.png)
+- 当前线程的同步方法/同步代码块执行结束。
+- 当前线程在同步代码块/同步方法中遇到break/return终止了该代码块/该方法的继续执行。
+- 当前线程在同步代码块/同步方法中出现了未处理的Error或Exception，导致异常结束。
+- 当前线程在同步代码块/同步方法中执行了线程对象的wait()方法，当前线程暂停。并释放锁。
 
-小结不会释放锁的操作：  
+**小结不会释放锁的操作：**  
 
-![image-20220418113017220](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/image-20220418113017220-165025261865813.png)     
+- 线程执行同步代码块或同步方法时，程序调用Thread.sleep()/Thread.yield()方法暂停当前方法的执行。
+
+- 线程执行同步代码块时，其他线程调用了该线程的suspend（）方法将该线程挂起，该线程不会释放锁（同步监视器）。
+
+  应尽量避免使用suspend（）和resume（）来控制线程     
 
 ### JDK5.0新增线程创建的方式
 
@@ -7385,7 +7439,7 @@ public void testField1() throws Exception {
     System.out.println(name.get(p));
 
 }
-调用指定的方法：
+//调用指定的方法：
  @Test
     public void testMethod() throws Exception {
 
@@ -7422,7 +7476,7 @@ public void testField1() throws Exception {
         System.out.println(returnVal);//null
     }
 
-调用指定的构造器：
+//调用指定的构造器：
 @Test
 public void testConstructor() throws Exception {
     Class clazz = Person.class;
@@ -7454,7 +7508,7 @@ public void testConstructor() throws Exception {
 2.1 举例：
 
 ```java
-实现Runnable接口的方法创建多线程。
+//实现Runnable接口的方法创建多线程。
 Class MyThread implements Runnable{} //相当于被代理类
 Class Thread implements Runnable{} //相当于代理类
 main(){
