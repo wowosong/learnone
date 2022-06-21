@@ -571,9 +571,9 @@ Person{lastName='wowosong', age=30, boss=false, birth=Tue Dec 12 00:00:00 CST 20
 
 配置文件yml还是properties他们都能获取到值；
 
-如果说，我们只是在某个业务逻辑中需要获取一下配置文件中的某项值，使用@Value；
+**如果说，我们只是在某个业务逻辑中需要获取一下配置文件中的某项值，使用@Value；**
 
-如果说，我们专门编写了一个javaBean来和配置文件进行映射，我们就直接使@ConfigurationProperties；
+**如果说，我们专门编写了一个javaBean来和配置文件进行映射，我们就直接使@ConfigurationProperties；**
 
 #### 3、配置文件注入值数据校验
 
@@ -619,7 +619,7 @@ public class Person {
 /**
  * 将配置文件中配置的每一个属性的值，映射到这个组件中
  * @ConfigurationProperties：告诉SpringBoot将本类中的所有属性和配置文件中相关的配置进行绑定；
- *      prefix = "person"：配置文件中哪个下面的所有属性进行一一映射
+ * prefix = "person"：配置文件中哪个下面的所有属性进行一一映射
  *
  * 只有这个组件是容器中的组件，才能容器提供的@ConfigurationProperties功能；
  *  @ConfigurationProperties(prefix = "person")默认从全局配置文件中获取值；
@@ -633,7 +633,7 @@ public class Person {
 
     /**
      * <bean class="Person">
-     *      <property name="lastName" value="字面量/${key}从环境变量、配置文件中获取值/#{SpEL}">						 </property>
+     *     <property name="lastName" value="字面量/${key}从环境变量、配置文件中获取值/#{SpEL}">					 </property>
      * <bean/>
      */
 
@@ -658,14 +658,15 @@ public class Person {
 //导入Spring的配置文件让其生效
 ```
 
-不来编写Spring的配置文件
+编写Spring的配置文件
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="helloService" class="com.atguigu.springboot.service.HelloService"></bean>
+    <bean id="helloService" class="com.atguigu.springboot.service.HelloService">
+   </bean>
 </beans>
 ```
 
@@ -781,13 +782,13 @@ spring:
 
 –classpath:/
 
-优先级由高到底，高优先级的配置会覆盖低优先级的配置；
+**优先级由高到底，高优先级的配置会覆盖低优先级的配置；**
 
 ![image-20210831102226114](./Springboot%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210831103415-16545662520811.png)
 
 SpringBoot会从这四个位置全部加载主配置文件；**互补配置**；
 
-==我们还可以通过spring.config.location来改变默认的配置文件位置==
+==**我们还可以通过spring.config.location来改变默认的配置文件位置**==
 
 **项目打包好以后，我们可以使用命令行参数的形式，启动项目的时候来指定配置文件的新位置；指定配置文件和默认加载的这些配置文件共同起作用形成互补配置；**
 
@@ -851,11 +852,11 @@ java -jar spring-boot-02-config-02-0.0.1-SNAPSHOT.jar --server.port=8087  --serv
 -  可以查看selectImports()方法的内容；
 -  List<String> configurations = getCandidateConfigurations(annotationMetadata,  attributes);获取候选的自动配置
 
-```
+```java
 SpringFactoriesLoader.loadFactoryNames()
-扫描所有jar包类路径下 META-INF/spring.factories
-把扫描到的这些文件的内容包装成properties对象
-从properties中获取到EnableAutoConfiguration.class类（类名）对应的值，然后把他们添加在容器中
+//扫描所有jar包类路径下 META-INF/spring.factories
+//把扫描到的这些文件的内容包装成properties对象
+//从properties中获取到EnableAutoConfiguration.class类（类名）对应的值，然后把他们添加在容器中
 ```
 
 **将类路径下 META-INF/spring.factories 里面配置的所有EnableAutoConfiguration的值加入到了容器中**
@@ -973,15 +974,15 @@ org.springframework.boot.autoconfigure.webservices.WebServicesAutoConfiguration
 @EnableConfigurationProperties(HttpEncodingProperties.class)  
 //启动指定类的ConfigurationProperties功能；将配置文件中对应的值和HttpEncodingProperties绑定起来；并把HttpEncodingProperties加入到ioc容器中
 
-@ConditionalOnWebApplication //Spring底层@Conditional注解（Spring注解版），根据不同的条件，如果满足指定的条件，整个配置类里面的配置就会生效；    判断当前应用是否是web应用，如果是，当前配置类生效
+@ConditionalOnWebApplication //Spring底层@Conditional注解（Spring注解版），根据不同的条件，如果满足指定的条件，整个配置类里面的配置就会生效；判断当前应用是否是web应用，如果是，当前配置类生效
 
 @ConditionalOnClass(CharacterEncodingFilter.class)  
-//判断当前项目有没有这个类CharacterEncodingFilter；SpringMVC中进行乱码解决的过滤器；
+//判断当前项目有没有这个类CharacterEncodingFilter；SpringMVC中注册乱码解决的过滤器；
 
 @ConditionalOnProperty(prefix = "spring.http.encoding", value = "enabled", matchIfMissing = true)  
 //判断配置文件中是否存在某个配置  spring.http.encoding.enabled；
 //如果不存在，判断也是成立的
-//即使我们配置文件中不配置pring.http.encoding.enabled=true，也是默认生效的；
+//即使我们配置文件中不配置spring.http.encoding.enabled=true，也是默认生效的；
 public class HttpEncodingAutoConfiguration {
   
   	//他已经和SpringBoot的配置文件映射了
@@ -989,7 +990,7 @@ public class HttpEncodingAutoConfiguration {
   
    //只有一个有参构造器的情况下，参数的值就会从容器中拿
   	public HttpEncodingAutoConfiguration(HttpEncodingProperties properties) {
-		this.properties = properties;
+			this.properties = properties;
 	}
   
     @Bean   
@@ -1029,17 +1030,17 @@ public class HttpEncodingProperties {
 
 ​	**4）、给容器中自动配置类添加组件的时候，会从properties类中获取某些属性。我们就可以在配置文件中指定这些属性的值；**
 
-xxxxAutoConfigurartion：自动配置类；
+**xxxxAutoConfigurartion：自动配置类；**
 
-给容器中添加组件
+**给容器中添加组件**
 
-xxxxProperties:封装配置文件中相关属性；
+**xxxxProperties:封装配置文件中相关属性；**
 
 #### 2、细节
 
 #### 1、@Conditional派生注解（Spring注解版原生的@Conditional作用）
 
-作用：必须是@Conditional指定的条件成立，才给容器中添加组件，配置配里面的所有内容才生效；
+作用：必须是@Conditional指定的条件成立，才给容器中添加组件，配置里面的所有内容才生效；
 
 | @Conditional扩展注解            | 作用（判断是否满足当前指定条件）                 |
 | ------------------------------- | ------------------------------------------------ |
@@ -1100,7 +1101,7 @@ JUL、JCL、Jboss-logging、logback、log4j、log4j2、slf4j....
 
 SpringBoot：底层是Spring框架，Spring框架默认是用JCL；
 
-​	**SpringBoot选用 SLF4j和logback；**
+**SpringBoot选用 SLF4j和logback；**
 
 ## 2、SLF4j使用
 
@@ -1245,7 +1246,7 @@ SpringBoot默认帮我们配置好了日志；
 
 SpringBoot修改日志的默认配置
 
-```xml
+```properties
 logging.level.com.hanboard=trace  com.hanboard指定模块或类的日志级别
 
 #logging.path=
@@ -1284,7 +1285,7 @@ logback.xml：直接就被日志框架识别了；
 ```xml
 <springProfile name="staging">
     <!-- configuration to be enabled when the "staging" profile is active -->
-  	可以指定某段配置只在某个环境下生效
+  	<!--可以指定某段配置只在某个环境下生效 -->
 </springProfile>
 ```
 
@@ -1381,7 +1382,7 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
 
 如果使用logback.xml作为日志配置文件，还要使用profile功能，会有以下错误
 
-```
+```properties
 logging.config=logback.xml 
 logback.xml需要放在项目根目录下才能找到
 logging.config=classpath:logback.xml
@@ -1501,7 +1502,7 @@ public class ResourceProperties implements ResourceLoaderAware {
 			}
 		}
 
-        //配置欢迎页映射
+    //配置欢迎页映射
 		@Bean
 		public WelcomePageHandlerMapping welcomePageHandlerMapping(
 				ResourceProperties resourceProperties) {
@@ -1509,7 +1510,7 @@ public class ResourceProperties implements ResourceLoaderAware {
 					this.mvcProperties.getStaticPathPattern());
 		}
 
-       //配置喜欢的图标
+    //配置喜欢的图标
 		@Configuration
 		@ConditionalOnProperty(value = "spring.mvc.favicon.enabled", matchIfMissing = true)
 		public static class FaviconConfiguration {
@@ -1551,7 +1552,7 @@ http://www.webjars.org/
 
 2）、"/**" 访问当前项目的任何资源，都去（静态资源的文件夹）找映射
 
-```xml
+```properties
 "classpath:/META-INF/resources/", 
 "classpath:/resources/",
 "classpath:/static/", 
