@@ -237,7 +237,7 @@ spring-boot-starter-web：spring-boot场景启动器；帮我们导入了web模�
 
 – 他会将这个这个场景需要的所有组件都注册到容器中，并配置好
 
-– 他们在类路径下的 META-INF/spring.factories文件中
+– 他们在类路径下的 **META-INF/spring.factories**文件中
 
 – spring-boot-autoconfigure-1.5.9.RELEASE.jar中包含了所有场景的自动配置类代码
 
@@ -255,7 +255,7 @@ spring-boot-starter-web：spring-boot场景启动器；帮我们导入了web模�
 
 5、@Import导入所有的自动配置场景
 
-6、@AutoConfigurationPackage定义默认的包扫描规则
+6、@AutoConfigurationPackage**定义默认的包扫描规则**
 
 7、程序启动扫描加载主程序类所在的包以及下面所有子包的组件；
 
@@ -292,6 +292,7 @@ public class SpringboottestApplication {
 )}
 )
 public @interface SpringBootApplication {
+  
 }
 ```
 
@@ -309,11 +310,11 @@ public @interface SpringBootApplication {
 public @interface EnableAutoConfiguration {
 ```
 
-@**AutoConfifigurationPackage**：自动配置包 
+@**AutoConfifigurationPackage**：自动配置包 ----->将组件注入IOC容器，然后再进行根据conditional条件来自动配置需要的组件
 
 @**Import**(AutoConfifigurationPackages.Registrar.class)： 
 
-Spring的底层注解@Import，给容器中导入一个组件；导入的组件由 AutoConfifigurationPackages.Registrar.class； 
+Spring的底层注解@Import，给容器中导入一个组件；导入的组件由 AutoConfifigurationPackages.Registrar.class；
 
 **将主配置类（@SpringBootApplication标注的类）的所在包及下面所有子包里面的所有组件扫描到Spring容器；** 
 
@@ -323,7 +324,7 @@ Spring的底层注解@Import，给容器中导入一个组件；导入的组件�
 
 **EnableAutoConfifigurationImportSelector**：导入哪些组件的选择器； 
 
-将所有需要导入的组件以全类名的方式返回；这些组件就会被添加到容器中； 
+SelectorImport方法将所有需要导入的组件以全类名的方式返回；这些组件就会被添加到容器中； 返回自动配置组件对应的全类名数组，并通过Conditional等注解判断是否导入组件
 
 会给容器中导入非常多的自动配置类（xxxAutoConfifiguration）；就是给容器中导入这个场景需要的所有组件， 并配置好这些组件； 
 
@@ -333,9 +334,9 @@ Spring的底层注解@Import，给容器中导入一个组件；导入的组件�
 
 SpringFactoriesLoader.loadFactoryNames(EnableAutoConfifiguration.class,classLoader)； 
 
-Spring Boot在启动的时候从类路径下的META-INF/spring.factories中获取EnableAutoConfifiguration指定的值，将这些值作为自动配置类导入到容器中，自动配置类就生效，帮我们进行自动配置工作；以前我们需要自己配置的东西，自动配置类都帮我们； 
+Spring Boot在启动的时候从类路径下的META-INF/spring.factories中获取EnableAutoConfifiguration指定的值，将这些值作为自动配置类导入到容器中，自动配置类就生效，帮我们进行自动配置工作；以前我们需要自己配置的东西，自动配置类都帮我们完成； 
 
-J2EE的整体整合解决方案和自动配置都在spring-boot-autoconfifigure-1.5.9.RELEASE.jar； 
+J2EE的整体整合解决方案和自动配置都在spring-boot-autoconfigure-1.5.9.RELEASE.jar； 
 
 ## 1.6、使用Spring Initializer快速创建Spring Boot项目
 
@@ -357,7 +358,7 @@ IDE都支持使用Spring的项目创建向导快速创建一个Spring Boot项目
 
 # 二、Spring Boot配置
 
-配置文件、加载顺序、配置原理
+**配置文件、加载顺序、配置原理**
 
 ## 2.1 配置文件
 
@@ -381,7 +382,7 @@ YAML（YAML Ain't Markup Language）
 
 ​	以前的配置文件；大多都使用的是  **xxxx.xml**文件；
 
-​	YAML：**以数据为中心**，比json、xml等更适合做配置文件；
+​	YAML：**以数据为中心**，比**json、xml**等更适合做配置文件；
 
 ​	YAML：配置例子
 
@@ -513,7 +514,7 @@ javaBean：
  * /**
  *  * 将配置文件中配置的每一个属性的值，映射到这个组件中
  *  * @ConfigurationProperties：告诉SpringBoot将本类中的所有属性和配置文件中相关的配置进行绑定；
- *  *      prefix = "person"：配置文件中哪个下面的所有属性进行一一映射
+ *  * prefix = "person"：配置文件中哪个下面的所有属性进行一一映射
  *  *
  *  * 只有这个组件是容器中的组件，才能容器提供的@ConfigurationProperties功能；
  *  *
@@ -840,6 +841,8 @@ java -jar spring-boot-02-config-02-0.0.1-SNAPSHOT.jar --server.port=8087  --serv
 
 配置文件到底能写什么？怎么写？自动配置原理；
 
+   ![image-20220622113957589](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Springboot/Springboot%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/image-20220622113957589.png)
+
 [配置文件能配置的属性参照](https://docs.spring.io/spring-boot/docs/1.5.9.RELEASE/reference/htmlsingle/#common-application-properties)
 
 #### 1、**自动配置原理：**
@@ -1010,7 +1013,7 @@ public class HttpEncodingAutoConfiguration {
 
 **一旦这个配置类生效；这个配置类就会给容器中添加各种组件；这些组件的属性是从对应的properties类中获取的，这些类里面的每一个属性又是和配置文件绑定的；**
 
-5）、所有在配置文件中能配置的属性都是在xxxxProperties类中封装着；配置文件能配置什么就可以参照某个功能对应的这个属性类
+5）、所有在配置文件中能配置的属性都是在xxxxProperties类中封装着；配置文件能配置什么就可以参照某个功能对应的这个属性类             
 
 ```java
 @ConfigurationProperties(prefix = "spring.http.encoding") 
@@ -1469,14 +1472,27 @@ xxxxProperties:配置类来封装配置文件的内容；
 
 ## 2、SpringBoot对静态资源的映射规则；
 
-```java
-@ConfigurationProperties(prefix = "spring.resources", ignoreUnknownFields = false)
-public class ResourceProperties implements ResourceLoaderAware {
-  //可以设置和静态资源有关的参数，缓存时间等
+**EnableWebMvc注解 会导致Springboot对静态资源的默认映射规则失效**
+
+```
+/**
+ * EnableWebMvc 会导致Springboot对静态资源的默认映射规则失效
+ * 如果使用了 @EnableWebMvc，则自动配置类 WebMvcAutoConfiguration 会失效，因此默认映射路径 /static, /public, META-INF/resources, /resources 都将失效
+ * 这种情况下，只能设置自定义配置
+ * 无任何前缀 -> “文档根目录”（一般指代 src/main/webapp 目录）， 例如 localhost:8080/index.html 定位至 src/main/webapp/static/index.html
+ * 存在前缀 classpath -> 类路径（一般指代 src/main/resources 目录）
+ * 存在前缀 file:// -> 文件系统路径(“绝对路径”)
+ */
 ```
 
 ```java
- WebMvcAuotConfiguration：
+@ConfigurationProperties(prefix = "spring.resources", ignoreUnknownFields = false)
+public class ResourceProperties implements ResourceLoaderAware {
+//可以设置和静态资源有关的参数，缓存时间等
+```
+
+```java
+ WebMvcAuotConfiguration类
    @Override
    public void addResourceHandlers(ResourceHandlerRegistry registry) {
    if (!this.resourceProperties.isAddMappings()) {
@@ -1538,13 +1554,12 @@ public class ResourceProperties implements ResourceLoaderAware {
 						.setLocations(this.resourceProperties.getFaviconLocations());
 				return requestHandler;
 			}
-
 		}																					
 ```
 
-1）、所有 /webjars/** ，都去 classpath:/META-INF/resources/webjars/ 找资源；
+1）、**所有 /webjars/** ，都去 classpath:/META-INF/resources/webjars/ 找资源；**
 
-​	webjars：以jar包的方式引入静态资源；
+webjars：以jar包的方式引入静态资源；
 
 http://www.webjars.org/
 
@@ -1748,7 +1763,8 @@ Spring Boot 自动配置好了SpringMVC
 
 ```java
 	@Bean
-	@ConditionalOnProperty(prefix = "spring.mvc", name = "date-format")//在文件中配置日期格式化的规则
+	@ConditionalOnProperty(prefix = "spring.mvc", name = "date-format")
+  //在文件中配置日期格式化的规则
 	public Formatter<Date> dateFormatter() {
 		return new DateFormatter(this.mvcProperties.getDateFormat());//日期格式化组件
 	}
@@ -1758,11 +1774,22 @@ Spring Boot 自动配置好了SpringMVC
 
 - Support for `HttpMessageConverters` (see below).
 
-  - HttpMessageConverter：SpringMVC用来转换Http请求和响应的；User---Json；
+  - HttpMessageConverter：SpringMVC用来转换Http请求和响应的；User--->Json；
 
   - `HttpMessageConverters` 是从容器中确定；获取所有的HttpMessageConverter；
 
     自己给容器中添加HttpMessageConverter，只需要将自己的组件注册容器中（@Bean,@Component）
+    
+    
+
+- Automatic use of a `ConfigurableWebBindingInitializer` bean (see below).
+
+  我们可以配置一个ConfigurableWebBindingInitializer 来替换默认的：（@Bean或@Component 添加到容器）
+
+  ```
+  初始化WebDataBinder
+  请求数据---->JavaBean
+  ```
 
 **org.springframework.boot.autoconfigure.web：web的所有自动场景；**
 
@@ -1774,12 +1801,12 @@ If you want to take complete control of Spring MVC, you can add your own `@Confi
 
 ```xml
 <mvc:view-controller path="/hello" view-name="success"/>
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/hello"/>
-            <bean></bean>
-        </mvc:interceptor>
-    </mvc:interceptors>
+<mvc:interceptors>
+  <mvc:interceptor>
+    <mvc:mapping path="/hello"/>
+    <bean></bean>
+  </mvc:interceptor>
+</mvc:interceptors>
 ```
 
 **编写一个配置类（@Configuration），是WebMvcConfigurerAdapter类型；不能标注@EnableWebMvc**;
@@ -1811,7 +1838,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 	public static class EnableWebMvcConfiguration extends DelegatingWebMvcConfiguration {
       private final WebMvcConfigurerComposite configurers = new WebMvcConfigurerComposite();
 
-	 //从容器中获取所有的WebMvcConfigurer
+	 		//从容器中获取所有的WebMvcConfigurer
       @Autowired(required = false)
       public void setConfigurers(List<WebMvcConfigurer> configurers) {
           if (!CollectionUtils.isEmpty(configurers)) {
@@ -1835,7 +1862,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 
 ### 3、全面接管SpringMVC；
 
-SpringBoot对SpringMVC的自动配置不需要了，所有都是我们自己配置；所有的SpringMVC的自动配置都失效了
+**SpringBoot对SpringMVC的自动配置不需要了，所有都是我们自己配置；所有的SpringMVC的自动配置都失效了**
 
 **我们需要在配置类中添加@EnableWebMvc即可；**
 
@@ -1865,20 +1892,19 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 public @interface EnableWebMvc {
 ```
 
-2）、
+2）、注入WebMvcConfigurationSupport组件
 
 ```java
 @Configuration
 public class DelegatingWebMvcConfiguration extends WebMvcConfigurationSupport {
 ```
 
-3）、
+3）、已存在WebMvcConfigurationSupport组件，导致EnableWebMvc失效
 
 ```java
 @Configuration
 @ConditionalOnWebApplication
-@ConditionalOnClass({ Servlet.class, DispatcherServlet.class,
-		WebMvcConfigurerAdapter.class })
+@ConditionalOnClass({ Servlet.class, DispatcherServlet.class,WebMvcConfigurerAdapter.class })
 //容器中没有这个组件的时候，这个自动配置类才生效
 @ConditionalOnMissingBean(WebMvcConfigurationSupport.class)
 @AutoConfigureOrder(Ordered.HIGHEST_PRECEDENCE + 10)
@@ -1914,13 +1940,14 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-       // super.addViewControllers(registry);
+       	// super.addViewControllers(registry);
         //浏览器发送 /atguigu 请求来到 success
         registry.addViewController("/atguigu").setViewName("success");
     }
 
     //所有的WebMvcConfigurerAdapter组件都会一起起作用
-    @Bean //将组件注册在容器
+    @Bean 
+  	//将组件注册在容器
     public WebMvcConfigurerAdapter webMvcConfigurerAdapter(){
         WebMvcConfigurerAdapter adapter = new WebMvcConfigurerAdapter() {
             @Override
@@ -1964,11 +1991,11 @@ public class MessageSourceAutoConfiguration {
 	private String basename = "messages";  
     //我们的配置文件可以直接放在类路径下叫messages.properties；
     
-    @Bean
+  @Bean
 	public MessageSource messageSource() {
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
 		if (StringUtils.hasText(this.basename)) {
-            //设置国际化资源文件的基础名（去掉语言国家代码的）
+      //设置国际化资源文件的基础名（去掉语言国家代码的）
 			messageSource.setBasenames(StringUtils.commaDelimitedListToStringArray(
 					StringUtils.trimAllWhitespace(this.basename)));
 		}
@@ -2041,7 +2068,7 @@ public class MessageSourceAutoConfiguration {
 			localeResolver.setDefaultLocale(this.mvcProperties.getLocale());
 			return localeResolver;
 		}
-默认的就是根据请求头带来的区域信息获取Locale进行国际化
+//默认的就是根据请求头带来的区域信息获取Locale进行国际化
 ```
 
 4）、点击链接切换国际化
@@ -2154,10 +2181,10 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
             //注册拦截器
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
-                //super.addInterceptors(registry);
-                //静态资源；  *.css , *.js
-                //SpringBoot已经做好了静态资源映射
-                registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
+              //super.addInterceptors(registry);
+              //静态资源；  *.css , *.js
+              //SpringBoot已经做好了静态资源映射
+             registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
                         .excludePathPatterns("/index.html","/","/user/login");
             }
         };
@@ -2238,9 +2265,9 @@ insert的公共片段在div标签中
     </footer>
 </div>
 
-<footer>
-&copy; 2011 The Good Thymes Virtual Grocery
-</footer>
+  <footer>
+  &copy; 2011 The Good Thymes Virtual Grocery
+  </footer>
 
 <div>
 &copy; 2011 The Good Thymes Virtual Grocery
@@ -2377,7 +2404,7 @@ insert的公共片段在div标签中
 ```html
 <tr th:each="emp:${emps}">
     <td th:text="${emp.id}"></td>
-    <td>[[${emp.lastName}]]</td>
+    <td th:text="${emp.lastName}"></td>
     <td th:text="${emp.email}"></td>
     <td th:text="${emp.gender}==0?'女':'男'"></td>
     <td th:text="${emp.department.departmentName}"></td>
@@ -2442,7 +2469,8 @@ insert的公共片段在div标签中
 @RequestMapping("${server.error.path:${error.path:/error}}")
 public class BasicErrorController extends AbstractErrorController {
     
-    @RequestMapping(produces = "text/html")//产生html类型的数据；浏览器发送的请求来到这个方法处理
+  @RequestMapping(produces = "text/html")
+  //产生html类型的数据；浏览器发送的请求来到这个方法处理
 	public ModelAndView errorHtml(HttpServletRequest request,
 			HttpServletResponse response) {
 		HttpStatus status = getStatus(request);
@@ -2450,13 +2478,14 @@ public class BasicErrorController extends AbstractErrorController {
 				request, isIncludeStackTrace(request, MediaType.TEXT_HTML)));
 		response.setStatus(status.value());
         
-        //去哪个页面作为错误页面；包含页面地址和页面内容
+    //去哪个页面作为错误页面；包含页面地址和页面内容
 		ModelAndView modelAndView = resolveErrorView(request, response, status, model);
 		return (modelAndView == null ? new ModelAndView("error", model) : modelAndView);
 	}
 
 	@RequestMapping
-	@ResponseBody    //产生json数据，其他客户端来到这个方法处理；
+	@ResponseBody   
+  //产生json数据，其他客户端来到这个方法处理；
 	public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
 		Map<String, Object> body = getErrorAttributes(request,
 				isIncludeStackTrace(request, MediaType.ALL));
@@ -2469,7 +2498,8 @@ public class BasicErrorController extends AbstractErrorController {
 
 ```java
 @Value("${error.path:/error}")
-private String path = "/error";  系统出现错误以后来到error请求进行处理；（web.xml注册的错误页面规则）
+private String path = "/error"; 
+//系统出现错误以后来到error请求进行处理；（web.xml注册的错误页面规则）
 ```
 
 4、DefaultErrorViewResolver：
@@ -2486,17 +2516,17 @@ private String path = "/error";  系统出现错误以后来到error请求进行
 	}
 
 	private ModelAndView resolve(String viewName, Map<String, Object> model) {
-        //默认SpringBoot可以去找到一个页面？  error/404
+     //默认SpringBoot可以去找到一个页面？  error/404
 		String errorViewName = "error/" + viewName;
         
-        //模板引擎可以解析这个页面地址就用模板引擎解析
+    //模板引擎可以解析这个页面地址就用模板引擎解析
 		TemplateAvailabilityProvider provider = this.templateAvailabilityProviders
 				.getProvider(errorViewName, this.applicationContext);
 		if (provider != null) {
-            //模板引擎可用的情况下返回到errorViewName指定的视图地址
+    //模板引擎可用的情况下返回到errorViewName指定的视图地址
 			return new ModelAndView(errorViewName, model);
 		}
-        //模板引擎不可用，就在静态资源文件夹下找errorViewName对应的页面   error/404.html
+    //模板引擎不可用，就在静态资源文件夹下找errorViewName对应的页面   error/404.html
 		return resolveResource(errorViewName, model);
 	}
 ```
@@ -2510,7 +2540,7 @@ private String path = "/error";  系统出现错误以后来到error请求进行
 ```java
 protected ModelAndView resolveErrorView(HttpServletRequest request,
       HttpServletResponse response, HttpStatus status, Map<String, Object> model) {
-    //所有的ErrorViewResolver得到ModelAndView
+   //所有的ErrorViewResolver得到ModelAndView
    for (ErrorViewResolver resolver : this.errorViewResolvers) {
       ModelAndView modelAndView = resolver.resolveErrorView(request, status, model);
       if (modelAndView != null) {
@@ -3525,7 +3555,7 @@ schema-*.sql、data-*.sql
 ## 2、整合Druid数据源
 
 ```java
-导入druid数据源
+//导入druid数据源
 @Configuration
 public class DruidConfig {
 
@@ -3546,7 +3576,6 @@ public class DruidConfig {
         initParams.put("loginPassword","123456");
         initParams.put("allow","");//默认就是允许所有访问
         initParams.put("deny","192.168.15.21");
-
         bean.setInitParameters(initParams);
         return bean;
     }
@@ -3560,11 +3589,8 @@ public class DruidConfig {
 
         Map<String,String> initParams = new HashMap<>();
         initParams.put("exclusions","*.js,*.css,/druid/*");
-
         bean.setInitParameters(initParams);
-
         bean.setUrlPatterns(Arrays.asList("/*"));
-
         return  bean;
     }
 }
@@ -3829,8 +3855,6 @@ public class HelloApplicationContextInitializer implements ApplicationContextIni
         System.out.println("ApplicationContextInitializer...initialize..."+applicationContext);
     }
 }
-
-
 ```
 
 **SpringApplicationRunListener**
