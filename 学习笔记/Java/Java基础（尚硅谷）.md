@@ -3829,7 +3829,7 @@ String:字符串，使用一对""引起来表示。
 1.String声明为final的，不可被继承
 2.String实现了Serializable接口：表示字符串是支持序列化的。
         实现了Comparable接口：表示String可以比较大小
-3.String内部定义了final char[] value用于存储字符串数据
+3.String内部定义了f**inal char[] value**用于存储字符串数据
 **4.通过字面量的方式（区别于new给一个字符串赋值，此时的字符串值声明在字符串常量池中)。**
 **5.字符串常量池中是不会存储相同内容(使用String类的equals()比较，返回true)的字符串的。**
 
