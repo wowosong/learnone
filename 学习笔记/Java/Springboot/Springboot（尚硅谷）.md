@@ -2693,7 +2693,7 @@ public EmbeddedServletContainerCustomizer embeddedServletContainerCustomizer(){
 
 注册三大组件用以下方式
 
-ServletRegistrationBean
+**ServletRegistrationBean**
 
 ```java
 //注册三大组件
@@ -2704,7 +2704,7 @@ public ServletRegistrationBean myServlet(){
 }
 ```
 
-FilterRegistrationBean
+**FilterRegistrationBean**
 
 ```java
 @Bean
@@ -2716,7 +2716,7 @@ public FilterRegistrationBean myFilter(){
 }
 ```
 
-ServletListenerRegistrationBean
+**ServletListenerRegistrationBean**
 
 ```java
 @Bean
@@ -2726,7 +2726,7 @@ public ServletListenerRegistrationBean myListener(){
 }
 ```
 
-SpringBoot帮我们自动SpringMVC的时候，自动的注册SpringMVC的前端控制器；DispatcherServlet；
+SpringBoot帮我们自动配置SpringMVC的时候，自动的注册SpringMVC的前端控制器；DispatcherServlet；
 
 DispatcherServletAutoConfiguration中：
 
@@ -2828,8 +2828,8 @@ EmbeddedServletContainerAutoConfiguration：嵌入式的Servlet容器自动配�
 public class EmbeddedServletContainerAutoConfiguration {
     
   @Configuration
-	@ConditionalOnClass({ Servlet.class, Tomcat.class })//判断当前是否引入了Tomcat依赖；
-	@ConditionalOnMissingBean(value = EmbeddedServletContainerFactory.class, search = SearchStrategy.CURRENT)//判断当前容器没有用户自己定义EmbeddedServletContainerFactory：嵌入式的Servlet容器工厂；作用：创建嵌入式的Servlet容器
+  @ConditionalOnClass({ Servlet.class, Tomcat.class })//判断当前是否引入了Tomcat依赖；
+  @ConditionalOnMissingBean(value = EmbeddedServletContainerFactory.class, search = SearchStrategy.CURRENT)//判断当前容器没有用户自己定义EmbeddedServletContainerFactory：嵌入式的Servlet容器工厂；作用：创建嵌入式的Servlet容器
 	public static class EmbeddedTomcat {
 
 		@Bean
@@ -2842,8 +2842,7 @@ public class EmbeddedServletContainerAutoConfiguration {
 	 * Nested configuration if Jetty is being used.
 	 */
 	@Configuration
-	@ConditionalOnClass({ Servlet.class, Server.class, Loader.class,
-			WebAppContext.class })
+	@ConditionalOnClass({ Servlet.class, Server.class, Loader.class, WebAppContext.class })
 	@ConditionalOnMissingBean(value = EmbeddedServletContainerFactory.class, search = SearchStrategy.CURRENT)
 	public static class EmbeddedJetty {
 
@@ -3061,7 +3060,7 @@ public void refresh() throws BeansException, IllegalStateException {
 
 4）、  onRefresh(); web的ioc容器重写了onRefresh方法
 
-5）、webioc容器会创建嵌入式的Servlet容器；**createEmbeddedServletContainer**();
+5）、web的ioc容器会创建嵌入式的Servlet容器；**createEmbeddedServletContainer**();
 
 **6）、获取嵌入式的Servlet容器工厂：**
 
