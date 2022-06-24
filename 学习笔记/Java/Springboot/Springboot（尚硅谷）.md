@@ -233,7 +233,7 @@ spring-boot-starter-web：spring-boot场景启动器；帮我们导入了web模�
 
 • 1、xxxAutoConfiguration
 
-– Spring Boot中存现大量的这些类，这些类的作用就是帮我们进行自动配置
+– Spring Boot中存在大量的这些类，这些类的作用就是帮我们进行自动配置
 
 – 他会将这个这个场景需要的所有组件都注册到容器中，并配置好
 
@@ -2824,21 +2824,20 @@ EmbeddedServletContainerAutoConfiguration：嵌入式的Servlet容器自动配�
 @Import(BeanPostProcessorsRegistrar.class)
 //导入BeanPostProcessorsRegistrar：Spring注解版；给容器中导入一些组件
 //导入了EmbeddedServletContainerCustomizerBeanPostProcessor：
-//后置处理器：bean初始化前后（创建完对象，还没赋值赋值）执行初始化工作
+//后置处理器：bean初始化前后（创建完对象，还没属性赋值）执行初始化工作
 public class EmbeddedServletContainerAutoConfiguration {
     
   @Configuration
   @ConditionalOnClass({ Servlet.class, Tomcat.class })//判断当前是否引入了Tomcat依赖；
   @ConditionalOnMissingBean(value = EmbeddedServletContainerFactory.class, search = SearchStrategy.CURRENT)//判断当前容器没有用户自己定义EmbeddedServletContainerFactory：嵌入式的Servlet容器工厂；作用：创建嵌入式的Servlet容器
 	public static class EmbeddedTomcat {
-
 		@Bean
 		public TomcatEmbeddedServletContainerFactory tomcatEmbeddedServletContainerFactory() {
 			return new TomcatEmbeddedServletContainerFactory();
 		}
 	}
     
-    /**
+   /**
 	 * Nested configuration if Jetty is being used.
 	 */
 	@Configuration
@@ -2978,6 +2977,8 @@ private Collection<EmbeddedServletContainerCustomizer> getCustomizers() {
 
 3）、后置处理器，从容器中获取所有的**EmbeddedServletContainerCustomizer**，调用定制器的定制方法
 
+![image-20220624160513211](./Springboot%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/image-20220624160513211-16560579156461.png)
+
 ### 5)、嵌入式Servlet容器启动原理；
 
 什么时候创建嵌入式的Servlet容器工厂？什么时候获取嵌入式的Servlet容器并启动Tomcat；
@@ -3060,23 +3061,25 @@ public void refresh() throws BeansException, IllegalStateException {
 
 4）、  onRefresh(); web的ioc容器重写了onRefresh方法
 
-5）、web的ioc容器会创建嵌入式的Servlet容器；**createEmbeddedServletContainer**();
+5）、web的Ioc容器会创建嵌入式的Servlet容器；**createEmbeddedServletContainer**();
 
 **6）、获取嵌入式的Servlet容器工厂：**
 
 EmbeddedServletContainerFactory containerFactory = getEmbeddedServletContainerFactory();
 
-从ioc容器中获取EmbeddedServletContainerFactory 组件；**TomcatEmbeddedServletContainerFactory**创建对象，后置处理器一看是这个对象，就获取所有的定制器来先定制Servlet容器的相关配置；
+从ioc容器中获取EmbeddedServletContainerFactory 组件；**TomcatEmbeddedServletContainerFactory**创建对象，后置处理器一看是这个对象，就获取所有的定制器来，先定制Servlet容器的相关配置；
 
 7）、**使用容器工厂获取嵌入式的Servlet容器**：
 
 this.embeddedServletContainer = containerFactory .getEmbeddedServletContainer(getSelfInitializer());
 
-8）、嵌入式的Servlet容器创建对象并启动Servlet容器；
+8）、嵌入式的Servlet容器创建对象并启动Servlet（Tomcat 容器）容器
 
 **先启动嵌入式的Servlet容器，再将ioc容器中剩下没有创建出的对象获取出来；**
 
 **==IOC容器启动创建嵌入式的Servlet容器==**
+
+
 
 ## 9、使用外置的Servlet容器
 
@@ -3246,9 +3249,7 @@ public ConfigurableApplicationContext run(String... args) {
 
 3、启动原理
 
-– Servlet3.0标准ServletContainerInitializer扫描所有jar包中META
-
-INF/services/javax.servlet.ServletContainerInitializer文件指定的类并加载
+– Servlet3.0标准ServletContainerInitializer扫描所有jar包中META-INF/services/javax.servlet.ServletContainerInitializer文件指定的类并加载
 
 – 加载spring web包下的SpringServletContainerInitializer
 
@@ -3760,7 +3761,7 @@ spring:
 ## **1、创建SpringApplication对象**
 
 ```java
-initialize(sources);
+//调用initialize(sources);
 private void initialize(Object[] sources) {
     //保存主配置类
     if (sources != null && sources.length > 0) {
@@ -3768,9 +3769,9 @@ private void initialize(Object[] sources) {
     }
     //判断当前是否一个web应用
     this.webEnvironment = deduceWebEnvironment();
-    //从类路径下找到META-INF/spring.factories配置的所有ApplicationContextInitializer；然后保存起来
-    setInitializers((Collection) getSpringFactoriesInstances(
-        ApplicationContextInitializer.class));
+   //从类路径下找到META-INF/spring.factories配置的所有ApplicationContextInitializer；然后保存起来 
+  setInitializers((Collection)getSpringFactoriesInstances(ApplicationContextInitializer.class));
+  
     //从类路径下找到ETA-INF/spring.factories配置的所有ApplicationListener
     setListeners((Collection) getSpringFactoriesInstances(ApplicationListener.class));
     //从多个配置类中找到有main方法的主配置类
@@ -3806,7 +3807,7 @@ public ConfigurableApplicationContext run(String... args) {
        
       Banner printedBanner = printBanner(environment);
        
-       //创建ApplicationContext；决定创建web的ioc还是普通的ioc
+       //创建ApplicationContext；决定创建web的ioc还是普通的ioc，通过反射
       context = createApplicationContext();
        
       analyzers = new FailureAnalyzers(context);
@@ -3944,10 +3945,11 @@ starter：
 @AutoConfigureAfter  //指定自动配置类的顺序
 @Bean  //给容器中添加组件
 
-@ConfigurationPropertie结合相关xxxProperties类来绑定相关的配置
+@ConfigurationPropertie//结合相关xxxProperties类来绑定相关的配置
 @EnableConfigurationProperties //让xxxProperties生效加入到容器中
 
 //自动配置类要能加载
+
 //将需要启动就加载的自动配置类，配置在META-INF/spring.factories
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 org.springframework.boot.autoconfigure.admin.SpringApplicationAdminJmxAutoConfiguration,\
@@ -4070,6 +4072,7 @@ package com.atguigu.starter;
 
 public class HelloService {
 
+  
     HelloProperties helloProperties;
 
     public HelloProperties getHelloProperties() {
