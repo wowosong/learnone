@@ -1,19 +1,150 @@
 ## 0.SpringCloud升级，部分组件停用:
 
+![image-20220625183733401](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/image-20220625183733401-6153455.png)
+
 1. Eureka停用，可以使用zk作为服务注册中心
 2. 服务调用，Ribbon准备停更，代替为LoadBalance
 3. Feign改为OpenFeign
 4. Hystrix停更，改为resilence4j或者阿里巴巴的sentienl
 5. Zuul改为gateway
-6. 服务配置Config改为 Nacos
+6. 服务配置Config，还有Apoll，改为 Nacos
 7. 服务总线Bus改为Nacos
 
 # 环境搭建:
 
 ## 1.创建父工程，pom依赖
 
-```java
-....
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.atguigu.springcloud</groupId>
+  <artifactId>cloud2020</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>cloud-provider-payment8001</module>
+      <module>cloud-consumer-order80</module>
+      <module>cloud-api-common</module>
+    <module>cloud-eureka-server7001</module>
+    <module>cloud-eureka-server7002</module>
+    <module>cloud-provider-payment8002</module>
+      <module>cloud-provider-payment8004</module>
+      <module>cloud-consumerzk-order80</module>
+      <module>cloud-provider-payment8006</module>
+      <module>cloud-consumerconsul-order80</module>
+      <module>cloud-consumer-feign-order80</module>
+      <module>cloud-provider-hystrix-payment8001</module>
+    <module>cloud-consumer-hystrix-feign-order80</module>
+      <module>cloud-consumer-hystrix-dashboard9001</module>
+      <module>cloud-gateway-gateway9527</module>
+      <module>cloud-config-center-3344</module>
+      <module>cloud-config-client3355</module>
+      <module>cloud-config-client-3366</module>
+      <module>cloud-stream-rabbitmq-provider8801</module>
+      <module>cloud-stream-rabbitmq-consumer8802</module>
+      <module>cloud-stream-rabbitmq-consumer8803</module>
+    <module>cloudalibaba-provider-payment9001</module>
+    <module>cloudalibaba-provider-payment9002</module>
+    <module>cloudalibaba-consumer-nacos-order83</module>
+      <module>cloudalibaba-config-nacos-client3377</module>
+      <module>cloudAlibaba-sentinelservice8401</module>
+      <module>cloudalibaba-provider-payment9003</module>
+      <module>cloudalibaba-provider-payment9004</module>
+      <module>cloudalibaba-consumer-nacos-order84</module>
+      <module>seata-order-service-2001</module>
+      <module>seata-storage-service</module>
+      <module>seata-account-service2003</module>
+  </modules>
+  <packaging>pom</packaging>
+<!--  统一管理jar版本-->
+  <properties>
+    <project.build.sourceEncodging>UTF-8</project.build.sourceEncodging>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.complier.target>1.8</maven.complier.target>
+    <junit.version>4.12</junit.version>
+    <log4j.version>1.2.17</log4j.version>
+    <lombok.version>1.16.18</lombok.version>
+    <mysql.version>5.1.47</mysql.version>
+    <druid.version>1.1.16</druid.version>
+    <mybatis.spring.boot.version>1.3.0</mybatis.spring.boot.version>
+  </properties>
+<!--  子模块继承之后，提供作用：锁定版本和子module不用写groupId和verison-->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>2.2.2.RELEASE</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>Hoxton.SR1</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+        <version>2.1.0.RELEASE</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid</artifactId>
+        <version>${druid.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>${log4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>${mybatis.spring.boot.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <fork>true</fork>
+          <addResources>true</addResources>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+
 ```
 
 ## 2.创建子模块pay模块
@@ -29,6 +160,68 @@
  cloud_pay_8001
 
 ### 2.pom依赖
+
+```xml
+ <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+            <version>2.2.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <!--包含了sleuth+zipkin-->
+        <dependency>
+            <groupId>org.atguigu.springcloud</groupId>
+            <artifactId>cloud-api-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>//图形监控
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+```
 
 ### 3.创建application.yml
 
@@ -49,13 +242,21 @@ spring:
     password: root
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
-  type-aliases-package: com.eiletxie.springcloud.entities
+  type-aliases-package: com.atguigu.springcloud.entities
   #它一般对应我们的实体类所在的包，这个时候会自动取对应包中不包括包名的简单类名作为包括包名的别名。多个package之间可以用逗号或者分号等来进行分隔（value的值一定要是包的全类名）
 ```
 
 ### 4.主启动类
 
- ....
+```java
+@SpringBootApplication
+@EnableEurekaClient
+public class PaymentMain8001 {
+    public static void main(String[] args) {
+        SpringApplication.run(PaymentMain8001.class,args);
+    }
+}
+```
 
 ### 5.业务类
 
@@ -188,7 +389,7 @@ public class PaymentController {
 ```
 
 ```xml
-cloud工程pom
+<!--cloud工程pom -->
 <build>
   <plugins>
     <plugin>
@@ -226,13 +427,7 @@ server:
 
 ### **5.写controller类**
 
- 因为这里是消费者类，主要是消费，那么就没有service和dao，需要调用pay模块的方法
-
- 并且这里还没有微服务的远程调用，那么如果要调用另外一个模块，则需要使用基本的api调用
-
-使用RestTemplate调用pay模块，
-
-RestTemplate提供了多种便捷访问远程Http服务的方法，是一种简单便捷的访问restful服务模版类，是Spring提供的用于访问Rest服务的客户端模版工具类。
+ 因为这里是消费者类，主要是消费，那么就没有service和dao，需要调用pay模块的方法， 并且这里还没有微服务的远程调用，那么如果要调用另外一个模块，则需要使用基本的api调用，使用RestTemplate调用pay模块，RestTemplate提供了多种便捷访问远程Http服务的方法，是一种简单便捷的访问restful服务模版类，是Spring提供的用于访问Rest服务的客户端模版工具类。
 
 **使用**
 
@@ -244,6 +439,7 @@ RestTemplate提供了多种便捷访问远程Http服务的方法，是一种简�
 @Configuration
 public class ApplicationContextConfig{
   	@Bean
+    //@LoadBalanced 暂时注解掉，使用自定义负载
   	public RestTemplate getRestTemplate(){
       return new RestTemplate();
     }
@@ -258,19 +454,39 @@ public class ApplicationContextConfig{
 
 新建一个模块，将重复代码抽取到一个公共模块中
 
-### 1.创建commons模块
+### 1.创建common模块
 
 ### 2.抽取公共pom
 
-![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222130.png)
+```xml
+<dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.7.3</version>
+        </dependency>
+    </dependencies>
 
-### 3.entity和实体类放入commons中
+```
+
+### 3.entity和实体类放入common中
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222137.png)
 
-### 4.使用mavne，将commone模块打包(install)，
+### 4.使用maven，将common模块打包(install)，
 
- 其他模块引入commons
+ 其他模块引入common
 
 # 2.服务注册与发现
 
@@ -282,7 +498,7 @@ public class ApplicationContextConfig{
 
 Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
-​    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222201.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222201.png)
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222208.png)
 
@@ -298,7 +514,22 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
  eurka最新的依赖变了
 
-![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222239.png)
+1.X和2.X的对比说明
+
+```xml
+以前的老版本（当前使用2018）
+<dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-eureka</artifactId>
+</dependency>
+ 
+现在新版本（当前使用2020.2）
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+</dependency>
+ 
+```
 
 #### 3.配置文件:
 
@@ -306,7 +537,15 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
 #### 4.主启动类
 
-![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222250.png)
+```java
+@SpringBootApplication
+@EnableEurekaServer //启动euarka服务端
+public class EurekaMain7001 {
+    public static void main(String[] args) {
+        SpringApplication.run(EurekaMain7001.class,args);
+    }
+}
+```
 
 #### **5.此时就可以启动当前项目了**
 
@@ -315,6 +554,17 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 比如此时pay模块加入eureka:
 
 ##### 1.主启动类上，加注解，表示当前是eureka客户端
+
+```java
+@SpringBootApplication
+@EnableEurekaClient
+//@EnableDiscoveryClient
+public class PaymentMain8001 {
+    public static void main(String[] args) {
+        SpringApplication.run(PaymentMain8001.class,args);
+    }
+}
+```
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222257.png)
 
@@ -416,9 +666,7 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
  此时访问order模块，发现并没有负载均衡到两个pay，模块中，而是只访问8001
 
- 虽然我们是使用RestTemplate访问的微服务，但是也可以负载均衡的
-
-​        ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222452.png)
+ 虽然我们是使用RestTemplate访问的微服务，但是也可以负载均衡的        ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222452.png)
 
 **注意这样还不可以，需要让RestTemplate开启负载均衡注解，还可以指定负载均衡算法，默认轮询**
 
@@ -460,9 +708,15 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222611.png)
 
+![image-20220625230507458](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/image-20220625230507458.png)
+
+![image-20220625230253885](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/image-20220625230253885-6169376.png)
+
 **eureka服务端配置:**
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222623.png)
+
+
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222631.png)
 
@@ -472,7 +726,7 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222639.png)
 
-**此时启动erueka和pay.此时如果直接关闭了pay，那么erueka会直接删除其注册信息**
+**此时启动erueka和pay.此时如果直接关闭了pay，那么eureka会直接删除其注册信息**
 
 ## 7，Zookeeper服务注册与发现:
 
@@ -898,8 +1152,8 @@ public interface LoadBalance {
 
 ```java
 此时使用压测工具，并发20000个请求，请求会延迟的那个方法，
-        压测中，发现，另外一个方法并没有被压测，但是我们访问它时，却需要等待
-        这就是因为被压测的方法它占用了服务器大部分资源，导致其他请求也变慢了
+压测中，发现，另外一个方法并没有被压测，但是我们访问它时，却需要等待
+这就是因为被压测的方法它占用了服务器大部分资源，导致其他请求也变慢了
 ```
 
 ##### 8，先不加入hystrix，
