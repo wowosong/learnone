@@ -4752,7 +4752,7 @@ public class MyBean {
 }
 ```
 
-<table border="0" summary="Tip"><tbody><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="assets/1655947628-f7d7c7c85b4b72e6713bc57141ad6d67.png"></td></tr><tr><td align="left" valign="top"><p>You can also register an arbitrary number of beans implementing <code class="literal">JedisClientConfigurationBuilderCustomizer</code> for more advanced customizations. If you are using Lettuce, <code class="literal">LettuceClientConfigurationBuilderCustomizer</code> is also available.</p></td></tr></tbody></table>
+<table border="0" summary="Tip"><tbody><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="./assets/1655947628-f7d7c7c85b4b72e6713bc57141ad6d67.png"></td></tr><tr><td align="left" valign="top"><p>You can also register an arbitrary number of beans implementing <code class="literal">JedisClientConfigurationBuilderCustomizer</code> for more advanced customizations. If you are using Lettuce, <code class="literal">LettuceClientConfigurationBuilderCustomizer</code> is also available.</p></td></tr></tbody></table>
 
 If you add a `@Bean` of your own of any of the auto-configured types it will replace the default (except in the case of `RedisTemplate` the exclusion is based on the bean name ‘redisTemplate’ not its type). If `commons-pool2` is on the classpath you will get a pooled connection factory by default.
 

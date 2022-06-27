@@ -454,7 +454,7 @@ Eureka用于**==服务注册==**，目前官网**已经停止更新**
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222554.png)
 
-![](d:\pic-md/20211125222559.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222559.png)
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222605.png)
 
@@ -684,9 +684,9 @@ RestTemplate的:
 
 **IRule接口，Riboon使用该接口，根据特定算法从所有服务中，选择一个服务，**
 
-**Rule接口有7个实现类，每个实现类代表一个负载均衡算法**
+**IRule接口有7个实现类，每个实现类代表一个负载均衡算法
 
-![](d:\pic-md/Ribbon%E7%9A%8414.png)
+![image-20220627093455387](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/image-20220627093455387-16562936965981.png)
 
 #### 使用Ribbon:
 
@@ -716,7 +716,7 @@ RestTemplate的:
 
 ##### 1，ribbon的轮询算法原理
 
-![](d:\pic-md/20211125223145.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223145.png)
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223151.png)
 
@@ -726,7 +726,12 @@ RestTemplate的:
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223201.png)
 
-![](.\图片\Ribbon的22.png)
+```java
+  @GetMapping("/payment/lb")
+    public String  getPayment(){
+        return serverPort;
+    }
+```
 
 **2，修改order模块**
 
@@ -748,7 +753,7 @@ public interface LoadBalance {
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223226.png)
 
-![](d:\pic-md/20211125223232.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223232.png)
 
 ##### 5，修改controller:
 
@@ -776,7 +781,7 @@ public interface LoadBalance {
 
 ```java
 之前的服务间调用，我们使用的是ribbon+RestTemplate
-        现在改为使用Feign
+现在改为使用Feign
 ```
 
 #### 1，新建一个order项目，用于feign测试
@@ -823,10 +828,10 @@ public interface LoadBalance {
 
 ### OpenFeign日志:
 
-![](d:\pic-md/20211125223358.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223358.png)
 
 **OpenFeign的日志级别有:**
-![](.\图片\Feign的10.png)
+![image-20220627094520089](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/image-20220627094520089-16562943216882.png)
 
 #### 1，使用OpenFeign的日志:
 
@@ -850,7 +855,7 @@ public interface LoadBalance {
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223424.png)
 
-![](d:\pic-md/20211129220449.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211129220449.png)
 
 
 
@@ -898,8 +903,8 @@ public interface LoadBalance {
 
 ```java
 此时使用压测工具，并发20000个请求，请求会延迟的那个方法，
-        压测中，发现，另外一个方法并没有被压测，但是我们访问它时，却需要等待
-        这就是因为被压测的方法它占用了服务器大部分资源，导致其他请求也变慢了
+压测中，发现，另外一个方法并没有被压测，但是我们访问它时，却需要等待
+这就是因为被压测的方法它占用了服务器大部分资源，导致其他请求也变慢了
 ```
 
 ##### 8，先不加入hystrix，
@@ -1427,7 +1432,7 @@ host:
 
 ![gateway的34](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225158.png)
 
-![](d:\pic-md/20211125225203.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225203.png)
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225212.png)
 
@@ -1504,7 +1509,7 @@ GlobalFilter，全局过滤器:
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225327.png)
 
-![](d:\pic-md/20211125225333.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225333.png)
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225340.png)
 
@@ -1612,8 +1617,8 @@ GlobalFilter，全局过滤器:
 
 ```java
 上面3355确实获取到了配置文件，但是如果此时配置文件修改了，3355是获取不到的
-        3344可以实时获取到最新配置文件，但是3355却获取不到
-        除非重启服务
+3344可以实时获取到最新配置文件，但是3355却获取不到
+除非重启服务
 ```
 
 #### **8，实现动态刷新:**
@@ -1821,7 +1826,7 @@ GlobalFilter，全局过滤器:
 
 ### **Spring Cloud Streamd 通信模式:**
 
-![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225948.png)![](d:\pic-md/20211125225952.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225948.png)![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125225952.png)
 
 ### Spring Cloud Stream的业务流程:
 
@@ -2568,7 +2573,7 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
 1. 直接快速失败
 
-    ![](d:\pic-md/202111291413326.png)
+    ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/202111291413326.png)
 
     ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231236.png)
 
@@ -2630,9 +2635,9 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231440.png)
 
-![](d:\pic-md/20211125231449.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231449.png)
 
-![](d:\pic-md/20211125231455.png)
+![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231455.png)
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125231500.png)
 
@@ -3085,7 +3090,7 @@ Seata 是一款开源的分布式事务解决方案，致力于提供高性能�
 
 **分布式事务中的一些概念，也是seata中的概念:**
 
-​        ![](d:\pic-md/20211125232404.png)
+​        ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232404.png)
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125232357.png)
 

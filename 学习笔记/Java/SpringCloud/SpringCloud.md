@@ -13,7 +13,7 @@
 | Maven                | 3.5及以上     |
 | MySQL                | 5.7及以上     |
 
-![](d:\pic-md/20220121224814.png)
+![](./SpringCloud.assets/20220121224814.png)
 
 通过查看 `Spring` 官网选择任意版本的 `Spring Cloud` 可以查看官方推荐与这个版本的 `Spring Cloud`  配套使用的 `Spring Boot` 版本
 
@@ -31,33 +31,33 @@
 
 ##### New Project
 
-![](d:\pic-md/20220121224901.png)
+![](./SpringCloud.assets/20220121224901.png)
 
 
 ##### 聚合总父工程名字
 
-![](d:\pic-md/20220121224916.png)
+![](./SpringCloud.assets/20220121224916.png)
 
 
 ##### Maven选版本
 
 不要使用 IDEA 自带的 Maven，使用自己安装的 Maven。
 
-![](d:\pic-md/20220121224952.png)
+![](./SpringCloud.assets/20220121224952.png)
 
 
 ##### 字符编码
 
-![](d:\pic-md/20220121225002.png)
+![](./SpringCloud.assets/20220121225002.png)
 
 ##### 注解生效激活
 
-![](d:\pic-md/20220121225015.png)
+![](./SpringCloud.assets/20220121225015.png)
 
 
 ##### Java 编译版本
 
-![](d:\pic-md/20220121225027.png)
+![](./SpringCloud.assets/20220121225027.png)
 
 
 #### 父工程 pom
@@ -177,7 +177,7 @@
 
 **<span style='color: red;'>注意：这里使用 `Maven` 创建，而不是使用 `Spring Initializr`。</span>使用 `Spring Initializr` 也行，我习惯用这个。**
 
-![](d:\pic-md/20220121225057.png)
+![](./SpringCloud.assets/20220121225057.png)
 
 
 ##### 修改 pom 文件
@@ -542,16 +542,16 @@ public class PaymentController {
 
 ##### 修改 IDEA 设置
 
-![](d:\pic-md/20220121225138.png)
+![](./SpringCloud.assets/20220121225138.png)
 
 
 ##### 更新值
 
 使用快捷键 `ctrl + shift + alt + /` 打开如下对话框
 
-![](d:\pic-md/20220121225149.png)
+![](./SpringCloud.assets/20220121225149.png)
 
-![](d:\pic-md/20220121225159.png)
+![](./SpringCloud.assets/20220121225159.png)
 
 
 
@@ -768,7 +768,7 @@ public class OrderController {
 
 两个微服务中都有一个公共的部分，造成了代码的冗余
 
-![image-20220122120457531](d:\pic-md/20220122120457.png)
+![image-20220122120457531](./SpringCloud.assets/20220122120457.png)
 
 ---------
 
@@ -828,7 +828,7 @@ public class OrderController {
 
 先运行 `clean`，再运行 `install`，打包到本地仓库。
 
-![image-20220122120400748](d:\pic-md/20220122120401.png)
+![image-20220122120400748](./SpringCloud.assets/20220122120401.png)
 
 ---
 
@@ -858,7 +858,7 @@ public class OrderController {
 
 #### 目前工程样图
 
-![](d:\pic-md/20220122120551.png)
+![](./SpringCloud.assets/20220122120551.png)
 
 <br/>
 
@@ -998,7 +998,7 @@ eureka:
 
 浏览器访问 `http://localhost:7001/`
 
-![](d:\pic-md/20220121225334.png)
+![](./SpringCloud.assets/20220121225334.png)
 
 `No instances available` 没有服务被发现，因为没有注册服务进来当然不可能有服务被发现
 
@@ -1063,7 +1063,7 @@ public class PaymentMain8001 {
 
 先要启动 EurekaServer，再启动 EurekaClient，访问 `http://localhost:7001/`
 
-![](d:\pic-md/20220121225402.png)
+![](./SpringCloud.assets/20220121225402.png)
 
 如果出现了服务名称代表成功，这个服务名称就是我们在 `yaml` 中配置的 `spring.appliction.name` 的值。
 
@@ -1134,7 +1134,7 @@ public class OrderMain81 {
 
 先启动 EurekaServer，7001服务；再要启动服务提供者provider，8001服务；访问 http://localhost:7001/
 
-![](d:\pic-md/20220121225422.png)
+![](./SpringCloud.assets/20220121225422.png)
 
 浏览器访问 http://localhost:81/consumer/payment/1 进行测试
 
@@ -1146,7 +1146,7 @@ public class OrderMain81 {
 
 Eureka 系统架构，`Eureka Server` 使用集群方式 ( 如果使用单机，Eureka 服务器一旦宕机，所有的服务都无法调用 )，`Service Provider` ( 服务提供者 )也使用集群；`Service Consumer` ( 服务使用者 ) 就不管我们的事情了。
 
-![image-20220122120638425](d:\pic-md/20220122120638.png)
+![image-20220122120638425](./SpringCloud.assets/20220122120638.png)
 
 <br/>
 
@@ -1300,9 +1300,9 @@ eureka:
 
 启动 7001 和 7002，并访问 `http://eureka7001.com:7001/` 和 `http://eureka7002.com:7002/`
 
-![](d:\pic-md/20220121225455.png)
+![](./SpringCloud.assets/20220121225455.png)
 
-![](d:\pic-md/20220121225518.png)
+![](./SpringCloud.assets/20220121225518.png)
 
 7001访问页面可以看到7002，反之7002可以看到7001，环境构建成功
 
@@ -1346,7 +1346,7 @@ eureka:
 
 访问 http://eureka7001.com:7001/、http://eureka7002.com:7002/，观察注册进去的服务
 
-![image-20210601202841098](d:\pic-md/20220121225529.png)
+![image-20210601202841098](./SpringCloud.assets/20220121225529.png)
 
 出现上述的2个服务代表搭建成功
 
@@ -1561,7 +1561,7 @@ public class PaymentController {
 
 访问 http://eureka7001.com:7001/、http://eureka7002.com:7002/，观察注册进去的服务
 
-![](d:\pic-md/20220121225601.png)
+![](./SpringCloud.assets/20220121225601.png)
 
 可以看到 `cloud-payment-service` 服务一共有2个，此时我们的支付服务提供者集群环境搭建成功
 
@@ -1594,7 +1594,7 @@ public static final String PAYMENT_URL = "http://CLOUD-PAYMENT-SERVICE";
 
 我们再次访问 http://localhost:81/consumer/payment/1
 
-![](d:\pic-md/20220121225622.png)
+![](./SpringCloud.assets/20220121225622.png)
 
 直接就 `GG` 了，因为我们少开启了一个功能。
 
@@ -1645,7 +1645,7 @@ eureka:
 
 **效果**
 
-![](d:\pic-md/20220121225643.png)
+![](./SpringCloud.assets/20220121225643.png)
 
 
 
@@ -1662,7 +1662,7 @@ eureka:
 
 **效果**
 
-![](d:\pic-md/20220121225656.png)
+![](./SpringCloud.assets/20220121225656.png)
 
 
 
@@ -1730,7 +1730,7 @@ public class PaymentMain8001 {
 2021-06-02 11:21:15.081  INFO 4756 --- [nio-8001-exec-1] o.h.s.controller.PaymentController       : CLOUD-PAYMENT-SERVICE	192.168.200.1	8001	http://192.168.200.1:8001
 ```
 
-![image-20210602112318899](d:\pic-md/20220121225720.png)
+![image-20210602112318899](./SpringCloud.assets/20220121225720.png)
 
 
 
@@ -1748,7 +1748,7 @@ public class PaymentMain8001 {
 
 如果在 `Eureka Server` 的首页看到以下这段提示，则说明Eureka进入了保护模式：
 
-![image-20210602112754416](d:\pic-md/20220121225750.png)
+![image-20210602112754416](./SpringCloud.assets/20220121225750.png)
 
 
 
@@ -1782,7 +1782,7 @@ eureka:
 
 ##### 效果
 
-![image-20210602120657459](d:\pic-md/20220121225812.png)
+![image-20210602120657459](./SpringCloud.assets/20220121225812.png)
 
 
 
@@ -1805,11 +1805,11 @@ eureka:
 
 先启动7001再启动8001
 
-![image-20210602121615323](d:\pic-md/20220121225833.png)
+![image-20210602121615323](./SpringCloud.assets/20220121225833.png)
 
 再关闭8001
 
-![image-20210602121717159](d:\pic-md/20220121225847.png)
+![image-20210602121717159](./SpringCloud.assets/20220121225847.png)
 
 
 
@@ -1861,7 +1861,7 @@ https://www.springcloud.cc/spring-cloud-consul.html
 
 -   下载完成后只有一个consul.exe文件，硬盘路径下双击运行，查看版本号信息
 
-    ![image-20210602151911375](d:\pic-md/20220121225903.png)
+    ![image-20210602151911375](./SpringCloud.assets/20220121225903.png)
 
 -   使用开发模式启动
 
@@ -1869,7 +1869,7 @@ https://www.springcloud.cc/spring-cloud-consul.html
 
     -   通过以下地址可以访问 `Consul` 的首页：http://localhost:8500
 
-        ![image-20210602162654997.png](d:\pic-md/20220121225916.png)
+        ![image-20210602162654997.png](./SpringCloud.assets/20220121225916.png)
 
 
 
@@ -2015,7 +2015,7 @@ public class PaymentController {
 
 可以看到 `consul-provider-payment` 注册到的 Consul 中
 
-![image-20210602162814966](d:\pic-md/20220121225940.png)
+![image-20210602162814966](./SpringCloud.assets/20220121225940.png)
 
 
 
@@ -2183,7 +2183,7 @@ public class OrderConsulController {
 
 查看是否注册到的 Consul 中
 
-![image-20210602162946787](d:\pic-md/20220121230000.png)
+![image-20210602162946787](./SpringCloud.assets/20220121230000.png)
 
 访问 http://localhost:81/consumer/payment/consul 进行测试
 
@@ -2209,7 +2209,7 @@ Spring Cloud Ribbon是基于Netflix Ribbon实现的一套<span style='color: red
 
 #### 架构说明
 
-![](d:\pic-md/20220121230016.png)
+![](./SpringCloud.assets/20220121230016.png)
 
 `Ribbon` 在工作时分成两步
 第一步先选择 `Eureka Server `，它优先选择在同一个区域内负载较少的server.
@@ -2232,7 +2232,7 @@ Spring Cloud Ribbon是基于Netflix Ribbon实现的一套<span style='color: red
 猜测 `spring-cloud-starter-netflix-eureka-client` 自带了` spring-cloud-starter-ribbon` 引用，
 证明如下： 可以看到 `spring-cloud-starter-netflix-eureka-client` 确实引入了 Ribbon
 
-![image-20220122120848381](d:\pic-md/20220122120848.png)
+![image-20220122120848381](./SpringCloud.assets/20220122120848.png)
 
 
 
@@ -2242,7 +2242,7 @@ Spring Cloud Ribbon是基于Netflix Ribbon实现的一套<span style='color: red
 
 https://docs.spring.io/spring-framework/docs/5.2.2.RELEASE/javadoc-api/org/springframework/web/client/RestTemplate.html
 
-![](d:\pic-md/20220121230052.png)
+![](./SpringCloud.assets/20220121230052.png)
 
 
 
@@ -2279,7 +2279,7 @@ getForEntity：返回对象为ResponseEntity对象，包含了响应中的一些
 
 IRule：根据特定算法中从服务列表中选取一个要访问的服务
 
-![](d:\pic-md/20220121230109.png)
+![](./SpringCloud.assets/20220121230109.png)
 
 -   `com.netflix.loadbalancer.RoundRobinRule`：轮询，默认使用
 -   `com.netflix.loadbalancer.RandomRule`：随机
@@ -2305,7 +2305,7 @@ IRule：根据特定算法中从服务列表中选取一个要访问的服务
 
 ##### 新建 package
 
-![image-20220122120936245](d:\pic-md/20220122120936.png)
+![image-20220122120936245](./SpringCloud.assets/20220122120936.png)
 
 ##### 新建 MySelfRule 规则类
 
@@ -2570,11 +2570,11 @@ public class OrderFeignController {
 -   http://localhost:81/consumer/payment/1
 -   Feign自带负载均衡配置项
 
-![image-20220122121012940](d:\pic-md/20220122121013.png)
+![image-20220122121012940](./SpringCloud.assets/20220122121013.png)
 
 #### 总结
 
-![](d:\pic-md/20220121230214.png)
+![](./SpringCloud.assets/20220121230214.png)
 
 `@FeignClient` 的 `value` 属性对应微服务名
 
@@ -2582,7 +2582,7 @@ public class OrderFeignController {
 
 虽然标注了 `GetMapping` 等注解，但是这个路径是无法被访问的，因为我们在接口上没有使用 `@Controller` 自然也就无法访问。
 
-![](d:\pic-md/20220121230239.png)
+![](./SpringCloud.assets/20220121230239.png)
 
 
 
@@ -2664,7 +2664,7 @@ public String paymentFeignTimeOut(){
 
 -   访问 http://localhost:81/consumer/payment/feign/timeout
 
-    ![](d:\pic-md/20220121230306.png)
+    ![](./SpringCloud.assets/20220121230306.png)
 
 
 
@@ -2751,7 +2751,7 @@ logging:
 
 ##### 效果
 
-![image-20210603210350708](d:\pic-md/20220121230347.png)
+![image-20210603210350708](./SpringCloud.assets/20220121230347.png)
 
 
 
@@ -2767,7 +2767,7 @@ Hystrix 已经停止更新了，进入了维护状态
 
 <span style='color: red;'>复杂分布式体系结构中的应用程序有数十个依赖关系，每个依赖关系在某些时候将不可避免地失败。</span>
 
-![image-20220122121146673](d:\pic-md/20220122121147.png)
+![image-20220122121146673](./SpringCloud.assets/20220122121147.png)
 
 **服务雪崩**
 多个微服务之间调用的时候，假设微服务A调用微服务B和微服务C，微服务B和微服务C又调用其它的微服务，这就是所谓的“扇出”。如果扇出的链路上某个微服务的调用响应时间过长或者不可用，对微服务A的调用就会占用越来越多的系统资源，进而引起系统崩溃，所谓的“雪崩效应”.
@@ -3211,16 +3211,16 @@ public class OrderHystirxController {
 
 #### Jmeter高并发测试
 
-![image-20220122121801667](d:\pic-md/20220122121801.png)
+![image-20220122121801667](./SpringCloud.assets/20220122121801.png)
 
-![image-20220122121829427](d:\pic-md/20220122121829.png)
+![image-20220122121829427](./SpringCloud.assets/20220122121829.png)
 
-![image-20220122121900188](d:\pic-md/20220122121900.png)
+![image-20220122121900188](./SpringCloud.assets/20220122121900.png)
 
-![image-20220122121936020](d:\pic-md/20220122121936.png)
+![image-20220122121936020](./SpringCloud.assets/20220122121936.png)
 使用 `Jmeter` 进行压力测试，然后访问 http://localhost:81/consumer/payment/hystrix/ok/1，出现明显的卡顿
 
-![image-20220122121306613](d:\pic-md/20220122121307.png)
+![image-20220122121306613](./SpringCloud.assets/20220122121307.png)
 
 8001同一层次的其它接口服务被困死，因为 `tomcat` 线程池里面的工作线程已经被挤占完毕；80此时调用8001，客户端访问响应缓慢，转圈圈。
 
@@ -3325,7 +3325,7 @@ public class PaymentHystrixMain8001 {
 
 ###### 效果
 
-![image-20220122121415243](d:\pic-md/20220122121415.png)
+![image-20220122121415243](./SpringCloud.assets/20220122121415.png)
 
 ##### 80fallback
 
@@ -3396,7 +3396,7 @@ public String paymentInfo_TimeOutHandler(Integer id) {
 
 访问 http://localhost:81/consumer/payment/hystrix/timeout/1
 
-![image-20220122121447632](d:\pic-md/20220122121447.png)
+![image-20220122121447632](./SpringCloud.assets/20220122121447.png)
 
 1.5秒后返回提示信息
 
@@ -3543,7 +3543,7 @@ public String paymentInfo_OK(@PathVariable("id") Integer id) {
 
 启动注册中心，启动8001，启动81服务，访问 http://localhost:81/consumer/payment/hystrix/timeout/1
 
-![image-20220122121525757](d:\pic-md/20220122121525.png)
+![image-20220122121525757](./SpringCloud.assets/20220122121525.png)
 
 **<span style='color: red;'>`yaml` 中配置的Ribbon超时时间对 `fallback` 不会生效，依旧是默认的1秒。feign配置的超时时间依旧生效</span>**
 
@@ -3570,7 +3570,7 @@ hystrix:
 
 关闭8001服务，访问 http://localhost:81/consumer/payment/hystrix/ok/1
 
-![image-20220122121550969](d:\pic-md/20220122121551.png)
+![image-20220122121550969](./SpringCloud.assets/20220122121551.png)
 
 实现 `Service` 的方式只会在 `Feign` 调用出现问题的时候触发，如果 `Feign` 调用没有出现问题，而是在 `Controller` 出现问题则会触发 `@DefaultProperties` 或 `@HystrixCommand` 注解对应的服务降级。
 
@@ -3644,11 +3644,11 @@ public String paymentCircuitBreaker(@PathVariable("id") Integer id) {
 
 多次访问 http://localhost:8001/payment/hystrix/circuit/-1，达到熔断要求后，再次访问 http://localhost:8001/payment/hystrix/circuit/1 将无法访问！
 
-![image-20220122121617761](d:\pic-md/20220122121617.png)
+![image-20220122121617761](./SpringCloud.assets/20220122121617.png)
 
 在熔断期间访问 http://localhost:8001/payment/hystrix/ok/1，正常访问
 
-![image-20220122121633882](d:\pic-md/20220122121634.png)
+![image-20220122121633882](./SpringCloud.assets/20220122121634.png)
 
 熔断针对的是某个方法，一个方法触发熔断不会影响别的方法。
 
@@ -3894,7 +3894,7 @@ public class HystrixDashboardMain9001 {
 
 访问 http://localhost:9001/hystrix
 
-![image-20220122122356756](d:\pic-md/20220122122356.png)
+![image-20220122122356756](./SpringCloud.assets/20220122122356.png)
 
 #### 断路器演示(服务监控hystrixDashboard)
 
@@ -3902,7 +3902,7 @@ public class HystrixDashboardMain9001 {
 
 出现下面情况需要更改
 
-![image-20210604231508647](d:\pic-md/20220121230902.png)
+![image-20210604231508647](./SpringCloud.assets/20220121230902.png)
 
 注意:新版本Hystrix需要在主启动类MainAppHystrix8001中指定监控路径
 
@@ -3952,11 +3952,11 @@ public class PaymentHystrixMain8001 {
 
 ##### 9001监控8001
 
-![image-20220122122456458](d:\pic-md/20220122122456.png)
+![image-20220122122456458](./SpringCloud.assets/20220122122456.png)
 
-![image-20220122122519969](d:\pic-md/20220122122520.png)
+![image-20220122122519969](./SpringCloud.assets/20220122122520.png)
 
-![image-20220122122553320](d:\pic-md/20220122122553.png)
+![image-20220122122553320](./SpringCloud.assets/20220122122553.png)
 
 
 
@@ -3969,7 +3969,7 @@ public class PaymentHystrixMain8001 {
 
 Cloud全家桶中有个很重要的组件就是网关，在1.x版本中都是采用的Zuul网关；但在2.x版本中，zuul的升级一直跳票，SpringCloud最后自己研发了一个网关替代Zuul，那就是SpringCloud Gateway一句话：gateway是原zuul1.x版的替代
 
-![image-20210605100023792](d:\pic-md/20220121231028.png)
+![image-20210605100023792](./SpringCloud.assets/20220121231028.png)
 
 SpringCloud Gateway 是 Spring Cloud 的一个全新项目，**基于 Spring 5.0+Spring Boot 2.0 和 Project Reactor 等技术开发的网关**，它旨在为微服务架构提供一种简单有效的统一的 API 路由管理方式。
 
@@ -4205,9 +4205,9 @@ Spring Cloud Gateway 创建 Route 对象时， 使用 RoutePredicateFactory 创�
 
 #### 常用的 Route Predicate
 
-![image-20220122122633273](d:\pic-md/20220122122633.png)
+![image-20220122122633273](./SpringCloud.assets/20220122122633.png)
 
-![image-20220122122653779](d:\pic-md/20220122122654.png)
+![image-20220122122653779](./SpringCloud.assets/20220122122654.png)
 
 
 
@@ -4316,7 +4316,7 @@ Cookie Route Predicate需要两个参数，一个是 Cookie name ,一个是正�
 
 `cmd` 命令行访问 `curl http://localhost:9527/payment/1 --cookie "name=hong"` 进行测试
 
-![image-20220122122717568](d:\pic-md/20220122122717.png)
+![image-20220122122717568](./SpringCloud.assets/20220122122717.png)
 
 
 
@@ -4493,7 +4493,7 @@ SpringCloud提供了ConfigServer来解决这个问题，我们每一个微服务
 
 #### 创建 `springcloud-config` 仓库
 
-![image-20220122122751226](d:\pic-md/20220122122751.png)
+![image-20220122122751226](./SpringCloud.assets/20220122122751.png)
 
 #### 本地仓库搭建
 
@@ -4629,7 +4629,7 @@ public class ConfigCenterMain3344 {
 
 启动注册中心，启动3344配置中心。访问 http://localhost:3344/master/config-dev.yml，如果有数据返回就成功了
 
-![image-20220122122820651](d:\pic-md/20220122122820.png)
+![image-20220122122820651](./SpringCloud.assets/20220122122820.png)
 
 #### 配置读取规则
 
@@ -4808,7 +4808,7 @@ public class ConfigClientController {
 
 启动注册中心，启动3344配置中心，启动3355，访问 http://localhost:3355/config/info
 
-![image-20220122122848512](d:\pic-md/20220122122848.png)
+![image-20220122122848512](./SpringCloud.assets/20220122122848.png)
 
 页面输出 Gitee上 `master` 分支上 `config-dev.yml` 文件中 `config.info` 的信息。
 
@@ -4818,11 +4818,11 @@ public class ConfigClientController {
 
 访问 http://localhost:3344/master/config-dev.yml，3344注册中心会每次向 GitHub 发送请求
 
-![image-20220122122910474](d:\pic-md/20220122122910.png)
+![image-20220122122910474](./SpringCloud.assets/20220122122910.png)
 
 访问 http://localhost:3355/config/info，3355 ConfigClient 客户端还是原来的数据
 
-![image-20220122122926790](d:\pic-md/20220122122926.png)
+![image-20220122122926790](./SpringCloud.assets/20220122122926.png)
 
 ### Config 客户端之动态刷新
 
@@ -4955,7 +4955,7 @@ https://github.com/alibaba/nacos/releases
 
 打开 `cmd` 终端，运行 `startup.cmd -m standalone` 这个命令会以单机的方式启动 `nacos`，如果不加 `-m standalone` 会以集群的方式启动
 
-![](d:\pic-md/20220122123048.png)
+![](./SpringCloud.assets/20220122123048.png)
 
 >   访问监控页
 
@@ -4963,7 +4963,7 @@ http://localhost:8848/nacos
 
 默认用户名和密码都是 `nacos`
 
-![](d:\pic-md/20220122123143.png)
+![](./SpringCloud.assets/20220122123143.png)
 
 
 
@@ -5211,9 +5211,9 @@ public class PaymentController {
 
 >   nacos控制台
 
-![](d:\pic-md/20220121231639.png)
+![](./SpringCloud.assets/20220121231639.png)
 
-![](d:\pic-md/20220122123314.png)
+![](./SpringCloud.assets/20220122123314.png)
 
 nacos服务注册中心 + 服务提供者9001都OK了
 
@@ -5225,19 +5225,20 @@ nacos服务注册中心 + 服务提供者9001都OK了
 
 >   偷懒方法
 
-![](d:\pic-md/20220121231700.png)
+![](./SpringCloud.assets/20220121231700.png)
 
 <table>
     <tr>
         <td>
-        	<img src="d:\pic-md/20220121231821.png" alt="image-20210607150129768" style="zoom:80%;" />
+        	<img src="./SpringCloud.assets/20220121231821-16562958036533.png" alt="image-20210607150129768" style="zoom:80%;" />
         </td>
     	<td>
-        	<img src="d:\pic-md/20220121231911.png" alt="image-20210607150216340" style="zoom:80%;" />
+        	<img src="./SpringCloud.assets/20220121231911-16562958530014.png" alt="image-20210607150216340" style="zoom:80%;" />
             直接启动就行了
         </td>
     </tr>
 </table>
+
 
 #### 基于 Nacos 的服务消费者
 
@@ -5306,7 +5307,7 @@ nacos服务注册中心 + 服务提供者9001都OK了
 
 >   为什么 Nacos 支持负载均衡
 
-![](d:\pic-md/20220121231932.png)
+![](./SpringCloud.assets/20220121231932.png)
 
 
 
@@ -5377,7 +5378,7 @@ public class ApplicationContextBean {
 
 >   Nacos 控制台
 
-![](d:\pic-md/20220121231946.png)
+![](./SpringCloud.assets/20220121231946.png)
 
 >   测试负载均衡
 
@@ -5545,15 +5546,15 @@ ${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.
 -   `file-exetension` 为配置内容的数据格式，可以通过配置项 `spring.cloud.nacos.config.file-extension` 来配置。目前只支持 `properties` 和 `yaml` 类型。
 -   通过 Spring Cloud 原生注解 `@RefreshScope` 实现配置自动更新：
 
-![](d:\pic-md/20220121232011.png)
+![](./SpringCloud.assets/20220121232011.png)
 
 
 
 >   Nacos 控制台添加配置
 
-![](d:\pic-md/20220121232030.png)
+![](./SpringCloud.assets/20220121232030.png)
 
-![](d:\pic-md/20220121232041.png)
+![](./SpringCloud.assets/20220121232041.png)
 
 
 
@@ -5573,7 +5574,7 @@ Nacos 配置分类的三个概念：`Namespace `、`Group`、`DataID`
 
 **类似 Java 里面的 package 名和类名，最外层的 namespace 是可以用于区分部署环境的，Group 和 DataID 逻辑上区分两个目标对象。**
 
-![](d:\pic-md/20220121232052.png)
+![](./SpringCloud.assets/20220121232052.png)
 
 >   默认情况：
 >
@@ -5597,11 +5598,11 @@ Service就是微服务；一个Service可以包含多个Cluster（集群），Na
 
 >   默认空间+默认分组+新建dev和test两个DataID
 
-![](d:\pic-md/20220121232103.png)
+![](./SpringCloud.assets/20220121232103.png)
 
-![](d:\pic-md/20220121232112.png)
+![](./SpringCloud.assets/20220121232112.png)
 
-![](d:\pic-md/20220121232125.png)
+![](./SpringCloud.assets/20220121232125.png)
 
 
 
@@ -5626,9 +5627,9 @@ spring:
 
 >   新建配置
 
-![](d:\pic-md/20220121232134.png)
-![](d:\pic-md/20220121232144.png)
-![](d:\pic-md/20220121232157.png)
+![](./SpringCloud.assets/20220121232134.png)
+![](./SpringCloud.assets/20220121232144.png)
+![](./SpringCloud.assets/20220121232157.png)
 
 
 
@@ -5676,18 +5677,21 @@ spring:
 
 >   创建命名空间
 
-![](d:\pic-md/20220121232211.png)
-![](d:\pic-md/20220121232211.png)
+![](./SpringCloud.assets/20220121232211.png)
+![](./SpringCloud.assets/20220121232211-16562959709385.png)
+
 >   切换命名空间
 
-![](d:\pic-md/20220121232222.png)
+![](./SpringCloud.assets/20220121232222.png)
 ![]()
+
 >   新建配置
 
-![](d:\pic-md/20220121232237.png)
+![](./SpringCloud.assets/20220121232237.png)
 ![]()
-![](d:\pic-md/20220121232303.png)
+![](./SpringCloud.assets/20220121232303.png)
 ![]()
+
 >   修改YAML文件
 
 >   application.yaml
@@ -5762,11 +5766,11 @@ spring.cloud.nacos.config.shared-configs[0].refresh=true
 
 请求首先经过 Nginx 集群，Nginx 使用反向代理转发到 Nacos 中，Nacos 从 MySQL 中读取配置。
 
-![](d:\pic-md/20220121232349.png)
+![](./SpringCloud.assets/20220121232349.png)
 #### 官网说明
 
-![](d:\pic-md/20220121232401.png)
-![](d:\pic-md/20220121232411.png)
+![](./SpringCloud.assets/20220121232401.png)
+![](./SpringCloud.assets/20220121232411.png)
 
 
 #### Windows 持久化
@@ -6051,7 +6055,7 @@ https://github.com/alibaba/nacos/releases/tag/1.4.2
 
 -   `source /usr/local/nacos/conf/nacos-mysql.sql` 执行 SQL 脚本
 
-    ![](d:\pic-md/20220121232456.png)
+    ![](./SpringCloud.assets/20220121232456.png)
 
 -   `cd /usr/local/nacos/conf`
 
@@ -6068,8 +6072,8 @@ https://github.com/alibaba/nacos/releases/tag/1.4.2
     db.password=1234
     ```
 
-![](d:\pic-md/20220121232519.png)
-![](d:\pic-md/20220121232519.png)
+![](./SpringCloud.assets/20220121232519.png)
+![](./SpringCloud.assets/20220121232519-16562967186346.png)
 
 
 ##### Nacos 集群配置
@@ -6085,7 +6089,7 @@ https://github.com/alibaba/nacos/releases/tag/1.4.2
     192.168.200.130:5555
     ```
 
-    ![](d:\pic-md/20220121232537.png)
+    ![](./SpringCloud.assets/20220121232537.png)
 
 -   `cd ../bin/` 切换到 bin 目录
 
@@ -6095,11 +6099,11 @@ https://github.com/alibaba/nacos/releases/tag/1.4.2
 
     大致在中间
 
-    ![](d:\pic-md/20220121232549.png)
+    ![](./SpringCloud.assets/20220121232549.png)
 
     末尾
 
-    ![](d:\pic-md/20220121232613.png)
+    ![](./SpringCloud.assets/20220121232613.png)
 
 -   `cd ../conf` 切换目录
 
@@ -6111,7 +6115,7 @@ https://github.com/alibaba/nacos/releases/tag/1.4.2
     192.168.200.130:5555
     ```
 
-    ![](d:\pic-md/20220121232629.png)
+    ![](./SpringCloud.assets/20220121232629.png)
 
 
 
@@ -6123,7 +6127,7 @@ https://github.com/alibaba/nacos/releases/tag/1.4.2
 
     http 块中增加配置
 
-    ![](d:\pic-md/20220121232643.png)
+    ![](./SpringCloud.assets/20220121232643.png)
 
 
 
@@ -6139,7 +6143,7 @@ https://github.com/alibaba/nacos/releases/tag/1.4.2
 
 -   浏览器访问 http://192.168.200.130:1111/nacos/#/login
 
-    ![](d:\pic-md/20220121232711.png)
+    ![](./SpringCloud.assets/20220121232711.png)
 
 
 
@@ -6159,7 +6163,7 @@ https://github.com/alibaba/Sentinel/wiki/%E4%BB%8B%E7%BB%8D
 
 一句话解释，之前我们讲解过的Hystrix
 
-![](d:\pic-md/20220121232730.png)
+![](./SpringCloud.assets/20220121232730.png)
 
 >   下载地址
 
@@ -6188,7 +6192,7 @@ java8环境 + 8080端口
 
 命令：`java -jar sentinel-dashboard-1.8.1.jar`
 
-![](d:\pic-md/20220121232759.png)
+![](./SpringCloud.assets/20220121232759.png)
 
 
 
@@ -6196,7 +6200,7 @@ java8环境 + 8080端口
 
 访问 http://localhost:8080，账号密码均为 `sentinel`
 
-![](d:\pic-md/20220121232821.png)
+![](./SpringCloud.assets/20220121232821.png)
 
 
 
@@ -6376,7 +6380,7 @@ public class FlowLimitController {
 
 空空如也，什么都没有，因为 Sentinel 采用的是懒加载的机制
 
-![](d:\pic-md/20220121232845.png)
+![](./SpringCloud.assets/20220121232845.png)
 
 
 
@@ -6386,7 +6390,7 @@ public class FlowLimitController {
 
 >   效果
 
-![](d:\pic-md/20220121232902.png)
+![](./SpringCloud.assets/20220121232902.png)
 
 
 
@@ -6396,9 +6400,9 @@ public class FlowLimitController {
 
 **流量控制**（flow control），其原理是监控应用流量的 QPS 或并发线程数等指标，当达到指定的阈值时对流量进行控制，以避免被瞬时的流量高峰冲垮，从而保障应用的高可用性。
 
-![](d:\pic-md/20220121232927.png)
+![](./SpringCloud.assets/20220121232927.png)
 
-![](d:\pic-md/20220121232955.png)
+![](./SpringCloud.assets/20220121232955.png)
 
 
 
@@ -6410,13 +6414,13 @@ public class FlowLimitController {
 
 表示1秒钟内查询1次就是OK，若超过次数1，就直接-快速失败，报默认错误
 
-![](d:\pic-md/20220121233011.png)
+![](./SpringCloud.assets/20220121233011.png)
 
 >   测试
 
 快速点击访问 http://localhost:8401/testA
 
-![](d:\pic-md/20220121233030.png)
+![](./SpringCloud.assets/20220121233030.png)
 >   思考
 
 直接调用默认报错信息，技术方面OK，but 是否应该有我们自己的后续处理?
@@ -6429,7 +6433,7 @@ public class FlowLimitController {
 
 同一时间处理的线程数超过1个，直接失败。
 
-![](d:\pic-md/20220121233045.png)
+![](./SpringCloud.assets/20220121233045.png)
 
 >   修改 Controller
 
@@ -6443,7 +6447,7 @@ public String testA() throws InterruptedException {
 
 >   重启8401，快速访问 http://localhost:8401/testA
 
-![](d:\pic-md/20220121233109.png)
+![](./SpringCloud.assets/20220121233109.png)
 
 ##### 关联
 
@@ -6455,7 +6459,7 @@ public String testA() throws InterruptedException {
 
 当关联资源 `/testB` 的 QPS 阀值超过1时，就限流 `/testA` 的 `Rest` 访问地址，<span style='color: red;'>**当关联资源到阈值后限制配置好的资源名**</span>
 
-![](d:\pic-md/20220121233126.png)
+![](./SpringCloud.assets/20220121233126.png)
 
 
 
@@ -6467,15 +6471,15 @@ public String testA() throws InterruptedException {
 
 创建一个请求，自测 testB。再点击右下角的 `Runner`
 
-![](d:\pic-md/20220121233147.png)
+![](./SpringCloud.assets/20220121233147.png)
 
 20 个线程每 0.3 秒 进行一次请求
 
-![](d:\pic-md/20220121233200.png)
+![](./SpringCloud.assets/20220121233200.png)
 
 浏览器访问 http://localhost:8401/testA
 
-![](d:\pic-md/20220121233222.png)
+![](./SpringCloud.assets/20220121233222.png)
 
 
 
@@ -6508,7 +6512,7 @@ public class FlowLimitController {
 
 ##### 快速失败
 
-![](d:\pic-md/20220121233236.png)
+![](./SpringCloud.assets/20220121233236.png)
 
 
 
@@ -6518,7 +6522,7 @@ public class FlowLimitController {
 
 当流量突然增大的时候，我们常常会希望系统从空闲状态到繁忙状态的切换的时间长一些。即如果系统在此之前长期处于空闲的状态，我们希望处理请求的数量是缓步的增多，经过预期的时间以后，到达系统处理请求个数的最大值。Warm Up（冷启动，预热）模式就是为了实现这个目的的。
 
-![](d:\pic-md/20220121233257.png)
+![](./SpringCloud.assets/20220121233257.png)
 >   公式
 
 默认 `coldFactor` 为 3，即请求 QPS 从 `threshold / 3` 开始，经预热时长逐渐升至设定的 QPS 阈值。
@@ -6528,7 +6532,7 @@ public class FlowLimitController {
 案例：阀值为10 + 预热时长设置5秒。
 `系统初始化的阀值为10 / 3 约等于3`，`即阀值刚开始为3`；`然后过了5秒后阀值才慢慢升高恢复到10`
 
-![](d:\pic-md/20220121233325.png)
+![](./SpringCloud.assets/20220121233325.png)
 
 >   测试
 
@@ -6544,22 +6548,22 @@ https://github.com/alibaba/Sentinel/wiki/%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6
 
 匀速排队（`RuleConstant.CONTROL_BEHAVIOR_RATE_LIMITER`）方式会严格控制请求通过的间隔时间，也即是让请求以均匀的速度通过，对应的是漏桶算法。
 
-![](d:\pic-md/20220121233339.png)
+![](./SpringCloud.assets/20220121233339.png)
 
 >   配置
 
 匀速排队，让请求以均匀的速度通过，阀值类型必须设成QPS，否则无效。
 设置含义：`/testB` 每秒1次请求，超过的话就排队等待，等待的超时时间为2000毫秒。
 
-![](d:\pic-md/20220121233353.png)
+![](./SpringCloud.assets/20220121233353.png)
 
 >   测试
 
-![](d:\pic-md/20220121233413.png)
+![](./SpringCloud.assets/20220121233413.png)
 
 结果：虽然我们 Postman 0.2 秒发起一次请求，由于我们设置了阈值为1，最后 Postman 还是1秒发送一个请求
 
-![](d:\pic-md/20220121233431.png)
+![](./SpringCloud.assets/20220121233431.png)
 
 
 
@@ -6622,23 +6626,23 @@ public class FlowLimitController {
 
 1秒中内请求达到5个，并且响应时长大于500毫秒的请求数量为30%，触发熔断
 
-![](d:\pic-md/20220121233457.png)
+![](./SpringCloud.assets/20220121233457.png)
 
 >   jmeter 压测
 
-![](d:\pic-md/20220121233513.png)
+![](./SpringCloud.assets/20220121233513.png)
 
-![](d:\pic-md/20220121233527.png)
+![](./SpringCloud.assets/20220121233527.png)
 
 >   访问 http://localhost:8401/testA
 
-![](d:\pic-md/20220121233549.png)
+![](./SpringCloud.assets/20220121233549.png)
 
 >   结果
 
 触发熔断后，后续的请求不会进入方法中，直接失败。
 
-![](d:\pic-md/20220121233603.png)
+![](./SpringCloud.assets/20220121233603.png)
 
 
 
@@ -6659,7 +6663,7 @@ public String testC() {
 
 1秒中内请求达到5个，并且请求异常比例达到30%，触发熔断
 
-![](d:\pic-md/20220121233633.png)
+![](./SpringCloud.assets/20220121233633.png)
 
 >   jmeter 压测
 
@@ -6669,7 +6673,7 @@ public String testC() {
 
 触发熔断后不再进入 Controller，直接失败，没有出现500的页面
 
-![](d:\pic-md/20220121233657.png)
+![](./SpringCloud.assets/20220121233657.png)
 
 
 #### 异常数
@@ -6680,7 +6684,7 @@ public String testC() {
 
 1秒中内请求达到5个，并且请求异常数量 >= 2，触发熔断
 
-![](d:\pic-md/20220121233710.png)
+![](./SpringCloud.assets/20220121233710.png)
 
 >   jmeter 压测
 
@@ -6688,7 +6692,7 @@ public String testC() {
 
 >   访问 http://localhost:8401/testC
 
-![](d:\pic-md/20220121233729.png)
+![](./SpringCloud.assets/20220121233729.png)
 
 
 
@@ -6713,7 +6717,7 @@ public String testD(@RequestParam(value = "key1", required = false) String key1,
 
 **<span style='color: red;'>注意：这里的资源不再对应 `Controller` 方法的路径了 ( 我也感觉奇怪 )，就算不写@SentinelResource注解也不对应 `Controller` 方法的路径</span>**
 
-![](d:\pic-md/20220121233745.png)
+![](./SpringCloud.assets/20220121233745.png)
 
 
 
@@ -6721,11 +6725,11 @@ public String testD(@RequestParam(value = "key1", required = false) String key1,
 
 >   多次访问 http://localhost:8401/testD?key1=1&key2=2
 
-![](d:\pic-md/20220121233800.png)
+![](./SpringCloud.assets/20220121233800.png)
 
 >   多次访问 http://localhost:8401/testD?key2=1&key1=2，参数调用位置访问
 
-![](d:\pic-md/20220121233848.png)
+![](./SpringCloud.assets/20220121233848.png)
 
 >   多次访问 http://localhost:8401/testD?key2=1，不携带参数key1
 
@@ -6761,7 +6765,7 @@ public String testDBlockHandler(String key1, String key2, BlockException e){
 
 >   多次访问 http://localhost:8401/testD?key1=1&key2=2
 
-![](d:\pic-md/20220121233907.png)
+![](./SpringCloud.assets/20220121233907.png)
 
 **<span style='color: red;'>注意：`blockHandler` 只能处理 `Sentinel` 控制台配置的违规情况，其他的管不到。</span>**
 
@@ -6786,7 +6790,7 @@ public String tetsDBlockHandler(String key1, String key2, BlockException e){
 
 >   多次访问 http://localhost:8401/testD
 
-![](d:\pic-md/20220121233935.png)
+![](./SpringCloud.assets/20220121233935.png)
 
 
 
@@ -6798,7 +6802,7 @@ public String tetsDBlockHandler(String key1, String key2, BlockException e){
 
 最后记得点击 `添加` 按钮！
 
-![](d:\pic-md/20220121233951.png)
+![](./SpringCloud.assets/20220121233951.png)
 
 >   注意
 
@@ -6838,11 +6842,11 @@ https://github.com/alibaba/Sentinel/wiki/%E7%B3%BB%E7%BB%9F%E8%87%AA%E9%80%82%E5
 
 为了演示效果才配的 `入口 QPS`；如果要配推荐配 `CPU 使用率`，这个挺不错的。
 
-![](d:\pic-md/20220121234052.png)
+![](./SpringCloud.assets/20220121234052.png)
 
 >   多次访问 http://localhost:8401/testB
 
-![](d:\pic-md/20220121234039.png)
+![](./SpringCloud.assets/20220121234039.png)
 
 
 
@@ -6909,13 +6913,13 @@ public class RateLimitController {
 
 ##### 配置
 
-![](d:\pic-md/20220121234114.png)
+![](./SpringCloud.assets/20220121234114.png)
 
 ##### 测试
 
 多次访问 http://localhost:8401/byResource
 
-![](d:\pic-md/20220121234132.png)
+![](./SpringCloud.assets/20220121234132.png)
 
 **<span style='color: red;'>使用资源名配置，`Sentinel` 默认的兜底方法将会失效。</span>**
 
@@ -6935,13 +6939,13 @@ public CommonResult byUrl() {
 
 ##### 配置
 
-![](d:\pic-md/20220121234150.png)
+![](./SpringCloud.assets/20220121234150.png)
 
 ##### 测试
 
 多次访问 http://localhost:8401/rateLimit/byUrl
 
-![](d:\pic-md/20220121234209.png)
+![](./SpringCloud.assets/20220121234209.png)
 
 **<span style='color: red;'>使用 Url 配置限流，`@SentinelResource` 注解配置的兜底方法将失效</span>**
 
@@ -6996,7 +7000,7 @@ public CommonResult customerBlockHandler() {
 
 ##### Sentinel 控制台配置
 
-![](d:\pic-md/20220121234227.png)
+![](./SpringCloud.assets/20220121234227.png)
 
 
 
@@ -7004,13 +7008,13 @@ public CommonResult customerBlockHandler() {
 
 多次访问 http://localhost:8401/rateLimit/customerBlockHandler
 
-![](d:\pic-md/20220121234311.png)
+![](./SpringCloud.assets/20220121234311.png)
 
 
 
 ##### 进一步说明
 
-![](d:\pic-md/20220121234353.png)
+![](./SpringCloud.assets/20220121234353.png)
 
 
 
@@ -7401,7 +7405,7 @@ public CommonResult handlerFallback(@PathVariable  Long id, Throwable e) {
 
 访问 http://localhost:84/consumer/fallback/4
 
-![](d:\pic-md/20220121234433.png)
+![](./SpringCloud.assets/20220121234433.png)
 
 
 
@@ -7435,7 +7439,7 @@ public CommonResult blockHandler(@PathVariable  Long id, BlockException blockExc
 
 ###### 配置
 
-![](d:\pic-md/20220121234449.png)
+![](./SpringCloud.assets/20220121234449.png)
 
 
 
@@ -7443,7 +7447,7 @@ public CommonResult blockHandler(@PathVariable  Long id, BlockException blockExc
 
 多次访问 http://localhost:84/consumer/fallback/1
 
-![](d:\pic-md/20220121234517.png)
+![](./SpringCloud.assets/20220121234517.png)
 
 
 
@@ -7503,7 +7507,7 @@ public class CircleBreakerController {
 
 ###### Sentinel 配置
 
-![](d:\pic-md/20220121234534.png)
+![](./SpringCloud.assets/20220121234534.png)
 
 
 
@@ -7511,11 +7515,11 @@ public class CircleBreakerController {
 
 访问 http://localhost:84/consumer/fallback/4
 
-![](d:\pic-md/20220121234616.png)
+![](./SpringCloud.assets/20220121234616.png)
 
 多次访问 http://localhost:84/consumer/fallback/1
 
-![](d:\pic-md/20220121234638.png)
+![](./SpringCloud.assets/20220121234638.png)
 
 **<span style='color: red;'>若 blockHandler 和 fallback 都进行了配置，则被限流降级而抛出 BlockException 时只会进入 blockHandler 处理逻辑。</span>**
 
@@ -7635,7 +7639,7 @@ public CommonResult<Payment> paymentSQL(@PathVariable("id") Long id) {
 
 访问 http://localhost:84/consumer/openfeign/1
 
-![](d:\pic-md/20220121234717.png)
+![](./SpringCloud.assets/20220121234717.png)
 
 
 
@@ -7741,7 +7745,7 @@ public enum RuleType {
 
 json 串可以是一个集合，写多个配置
 
-![](d:\pic-md/20220121234741.png)
+![](./SpringCloud.assets/20220121234741.png)
 
 ```json
 [
@@ -7785,11 +7789,11 @@ clusterMode: 是否集群。
 
 启动 Nacos、Sentinel、8401服务，多次访问 http://localhost:8401/rateLimit/byUrl
 
-![](d:\pic-md/20220121234801.png)
+![](./SpringCloud.assets/20220121234801.png)
 
 观察 Sentinel 控制台，自动出现2个流控规则
 
-![](d:\pic-md/20220121234814.png)
+![](./SpringCloud.assets/20220121234814.png)
 
 
 
@@ -7833,7 +7837,7 @@ Seata 是一款开源的分布式事务解决方案，致力于提供高性能�
 4.  TM 根据 TC 中所有的分支事务的执行情况，发起全局提交或回滚决议。
 5.  TC 调度 XID 下管辖的全部分支事务完成提交或回滚请求。
 
-![](d:\pic-md/20220121234836.png)
+![](./SpringCloud.assets/20220121234836.png)
 
 >   为什么Seata在第一阶段就直接提交了分支事务？
 
@@ -7861,11 +7865,11 @@ https://github.com/seata/seata/releases
 
 >   修改事务日志存储模式
 
-![](d:\pic-md/20220121234854.png)
+![](./SpringCloud.assets/20220121234854.png)
 
 >   修改数据库连接信息
 
-![](d:\pic-md/20220121234912.png)
+![](./SpringCloud.assets/20220121234912.png)
 
 
 
@@ -7873,7 +7877,7 @@ https://github.com/seata/seata/releases
 
 >   根据db信息创建数据库
 
-![](d:\pic-md/20220121234927.png)
+![](./SpringCloud.assets/20220121234927.png)
 
 >   建表
 
@@ -7946,7 +7950,7 @@ CREATE TABLE IF NOT EXISTS `lock_table`
 
 也可以不创建，直接放在 public 空间中也可以，非必要要求
 
-![](d:\pic-md/20220121234943.png)
+![](./SpringCloud.assets/20220121234943.png)
 
 
 
@@ -7956,11 +7960,11 @@ CREATE TABLE IF NOT EXISTS `lock_table`
 
 设置 TC 启动后在 Nacos 的哪个命名空间等信息。不写命名空间，默认为 public
 
-![](d:\pic-md/20220121235005.png)
+![](./SpringCloud.assets/20220121235005.png)
 
 >   修改配置中心信息
 
-![](d:\pic-md/20220121235020.png)
+![](./SpringCloud.assets/20220121235020.png)
 
 
 
@@ -7974,7 +7978,7 @@ CREATE TABLE IF NOT EXISTS `lock_table`
 
 运行 `seata-server.bat` 文件
 
-![](d:\pic-md/20220121235036.png)
+![](./SpringCloud.assets/20220121235036.png)
 
 
 
@@ -7986,7 +7990,7 @@ CREATE TABLE IF NOT EXISTS `lock_table`
 
 `nacos-config.sh`：在 `Seata` 解压的最外层目录中创建 `script` 文件，放在里面
 
-![](d:\pic-md/20220121235059.png)
+![](./SpringCloud.assets/20220121235059.png)
 
 
 
@@ -7994,11 +7998,11 @@ CREATE TABLE IF NOT EXISTS `lock_table`
 
 分布式事务组可以定义一种全部使用一个，也可以每个微服务定义一个，前提保证后缀名一致。
 
-![](d:\pic-md/20220121235114.png)
+![](./SpringCloud.assets/20220121235114.png)
 
 选择 DB 模式，修改 DB 配置
 
-![](d:\pic-md/20220121235128.png)
+![](./SpringCloud.assets/20220121235128.png)
 
 
 
@@ -8016,7 +8020,7 @@ CREATE TABLE IF NOT EXISTS `lock_table`
 sh nacos-config.sh -t 422e91b9-5de2-4c7f-aff0-fd6bc3f2cae1
 ```
 
-![](d:\pic-md/20220121235150.png)
+![](./SpringCloud.assets/20220121235150.png)
 
 
 
@@ -9360,29 +9364,29 @@ public class OrderController {
 2.  启动 Seata
 3.  启动 2001、2002、2003
 
-![](d:\pic-md/20220121235321.png)
+![](./SpringCloud.assets/20220121235321.png)
 
 
 
 浏览器访问 http://localhost:2001/order/test/5
 
-![](d:\pic-md/20220121235359.png)
+![](./SpringCloud.assets/20220121235359.png)
 
-![](d:\pic-md/20220121235443.png)
+![](./SpringCloud.assets/20220121235443.png)
 
 
 
 再访问 http://localhost:2001/order/test/10
 
-![](d:\pic-md/20220121235511.png)
+![](./SpringCloud.assets/20220121235511.png)
 
 并没有生成新的订单，但是
 
-![](d:\pic-md/20220122131611.png)
+![](./SpringCloud.assets/20220122131611.png)
 
 再访问 http://localhost:2001/order/test/5，主键是 `10` 而不是 `9`；其实上面的错误操作创建了一条订单数据，由于后续操作失败的问题，`Seata` 帮我们进行了数据回滚，删除了脏数据。
 
-![](d:\pic-md/20220121235633.png)
+![](./SpringCloud.assets/20220121235633.png)
 
 
 
