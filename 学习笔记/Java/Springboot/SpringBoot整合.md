@@ -10,7 +10,7 @@ Java Caching定义了5个核心接口，分别是**CachingProvider, CacheManager
 * **Entry**是一个存储在Cache中的key-value对。
 * **Expiry** 每一个存储在Cache中的条目有一个定义的有效期。一旦超过这个时间，条目为过期的状态。一旦过期，条目将不可访问、更新和删除。缓存有效期可以通过ExpiryPolicy设置。
 
-![image-20220117222233535](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Springboot/SpringBoot%E6%95%B4%E5%90%88.assets/20220117222233.png)
+![image-20220117222233535](./SpringBoot%E6%95%B4%E5%90%88.assets/20220117222233.png)
 
 ### 二、Spring缓存抽象
 
@@ -23,7 +23,7 @@ Spring从3.1开始定义了org.springframework.cache.Cache和org.springframework
   1、确定方法需要被缓存以及他们的缓存策略
   2、从缓存中读取之前缓存存储的数据
 
-![image-20220117222402373](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Springboot/SpringBoot%E6%95%B4%E5%90%88.assets/20220117222402.png)
+![image-20220117222402373](./SpringBoot%E6%95%B4%E5%90%88.assets/20220117222402.png)
 
 ### 三、几个重要概念&缓存注解
 
@@ -76,7 +76,7 @@ Spring从3.1开始定义了org.springframework.cache.Cache和org.springframework
 
 ![image-20220627140026120](./SpringBoot%E6%95%B4%E5%90%88.assets/image-20220627140026120-165630962725011.png)
 
-![image-20220627140359524](./SpringBoot%E6%95%B4%E5%90%88.assets/image-20220627140359524-165630984107412.png)![image-20220627140922254](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Springboot/SpringBoot%E6%95%B4%E5%90%88.assets/image-20220627140922254.png)
+![image-20220627140359524](./SpringBoot%E6%95%B4%E5%90%88.assets/image-20220627140359524-165630984107412.png)![image-20220627140922254](./SpringBoot%E6%95%B4%E5%90%88.assets/image-20220627140922254.png)
 
 ![image-20220627141218115](./SpringBoot%E6%95%B4%E5%90%88.assets/image-20220627141218115-165631034072613-165631036925814.png)
 
@@ -251,7 +251,7 @@ Elasticsearch是一个分布式搜索服务，提供Restful API，底层基于Lu
 – 文档-表中的记录
 – 属性-列
 
-![image-20220627213846409](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Springboot/SpringBoot%E6%95%B4%E5%90%88.assets/image-20220627213846409-6337129.png)
+![image-20220627213846409](./SpringBoot%E6%95%B4%E5%90%88.assets/image-20220627213846409-6337129.png)
 
 # 三、整合ElasticSearch测试
 
@@ -376,7 +376,7 @@ Installed:
 项目开发中经常需要执行一些定时任务，比如需要在每天凌晨时候，分析一次前一天的日志信息。 Spring为我们提供了异步执行任务调度的方式，提供TaskExecutor 、 TaskScheduler 接口。
 两个注解： @EnableScheduling、 @Scheduled
 
-![image-20220627223715172](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Springboot/SpringBoot%E6%95%B4%E5%90%88.assets/image-20220627223715172-6340637.png)
+![image-20220627223715172](./SpringBoot%E6%95%B4%E5%90%88.assets/image-20220627223715172-6340637.png)
 
 三、邮件任务
 

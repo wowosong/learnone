@@ -730,7 +730,7 @@ public class PaymentMain8001 {
 
 ## 7，Zookeeper服务注册与发现:
 
-### 1，启动zk，到linux上
+### 1，启动zk，到linux上，没有图形化界面
 
 ### 2，创建新的pay模块，
 
@@ -765,7 +765,7 @@ public class PaymentMain8001 {
 
 ```java
 我们在zk上注册的node是临时节点，当我们的服务一定时间内没有发送心跳
-        那么zk就会`将这个服务的node删除了
+那么zk就会`将这个服务的node删除了
 ```
 
 **这里测试，就不写service与dao什么的了**
@@ -805,8 +805,6 @@ public class PaymentMain8001 {
 这个connect-string指定多个zk地址即可
 
 connect-string: 1.2.3.4，2.3.4.5
-
-####  
 
 ## 8，Consul:
 
@@ -874,6 +872,14 @@ cloud-consul-order-80
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222857.png)
 
+![image-20220628213833694](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/image-20220628213833694-6423516-6423518.png)
+
+
+
+![image-20220628213652280](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/image-20220628213652280-6423413.png)
+
+![image-20220628214440410](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/image-20220628214440410-6423881.png)
+
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222903.png)
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222910.png)
@@ -938,7 +944,7 @@ RestTemplate的:
 
 **IRule接口，Riboon使用该接口，根据特定算法从所有服务中，选择一个服务，**
 
-**IRule接口有7个实现类，每个实现类代表一个负载均衡算法
+IRule接口有7个实现类，每个实现类代表一个负载均衡算法
 
 ![image-20220627093455387](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/image-20220627093455387-16562936965981.png)
 
@@ -964,7 +970,7 @@ RestTemplate的:
 
 ![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125223134.png)
 
-**表示，访问CLOUD_pAYMENT_SERVICE的服务时，使用我们自定义的负载均衡算法**
+**表示，访问CLOUD_PAYMENT_SERVICE的服务时，使用我们自定义的负载均衡算法**
 
 #### 自定义负载均衡算法:
 
@@ -982,9 +988,9 @@ RestTemplate的:
 
 ```java
   @GetMapping("/payment/lb")
-    public String  getPayment(){
+  public String  getPayment(){
         return serverPort;
-    }
+  }
 ```
 
 **2，修改order模块**
