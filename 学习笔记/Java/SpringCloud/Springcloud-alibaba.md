@@ -105,7 +105,7 @@ Jim Fang, Jing Xiao, Mercy Ma, Xiaolong Zuo, Bingting Peng, Yuxin Wang
         2.  [12.2.2. Introduce SMS API](#_introduce_sms_api)
     3.  [12.3. The Advanced Features of SMS Api](#_the_advanced_features_of_sms_api)
 
-## [1\. Introduction](#_introduction)简介
+## 简介
 
 Spring Cloud Alibaba aims to provide a one-stop solution for microservices development. This prjoect includes the required components for developing distributed applications and services, so that developers can develop distributed applications easily with the Spring Cloud programming models.
 
@@ -134,7 +134,7 @@ The features of Spring Cloud Alibaba:
 
 Spring Cloud Alibaba also provide rich [examples](https://github.com/alibaba/spring-cloud-alibaba/tree/master/spring-cloud-alibaba-examples).
 
-## [2\. Dependency Management](#_dependency_management)依赖管理
+## 依赖管理
 
 If you’re a Maven Central user, add our BOM to your pom.xml <dependencyManagement> section. This will allow you to omit versions for any of the Maven dependencies and instead delegate versioning to the BOM.
 
@@ -154,17 +154,17 @@ If you’re a Maven Central user, add our BOM to your pom.xml <dependencyManagem
 
 In the following sections, it will be assumed you are using the Spring Cloud Alibaba BOM and the dependency snippets will not contain versions.
 
-## [3\. Spring Cloud Alibaba Nacos Discovery](#_spring_cloud_alibaba_nacos_discovery)Nacos服务发现
+## Nacos服务发现
 
 Nacos is an easy-to-use dynamic service discovery, configuration and service management platform for building cloud native applications.
 
 With Spring Cloud Alibaba Nacos Discovery, you can quickly access the Nacos service registration feature based on Spring Cloud’s programming model.
 
-### [3.1. Service Registration/Discovery: Nacos Discovery](#_service_registrationdiscovery_nacos_discovery)服务注册或发现
+### 服务注册或发现
 
 Service discovery is one of the key components in the microservices architecture. In such a architecture, configuring a service list for every client manually could be a daunting task, and makes dynamic scaling extremely difficult. Nacos Discovery helps you to register your service to the Nacos server automatically, and the Nacos server keeps track of the services and refreshes the service list dynamically. In addition, Nacos Discovery registers some of the metadata of the service instance, such as host, port, health check URL, homepage to Nacos. For details about how to download and start Nacos, refer to the [Nacos Website](https://nacos.io/zh-cn/docs/quick-start.html).
 
-### [3.2. How to Introduce Nacos Discovery for service registration/discovery](#_how_to_introduce_nacos_discovery_for_service_registrationdiscovery)（如何使用Nacos实现服务注册或发现）
+### 如何使用Nacos实现服务注册或发现
 
 please use the starter with the group ID as `com.alibaba.cloud` and the artifact ID as `spring-cloud-starter-alibaba-nacos-discovery`.
 
@@ -175,11 +175,11 @@ please use the starter with the group ID as `com.alibaba.cloud` and the artifact
 </dependency>
 ```
 
-### [3.3. An example of using Nacos Discovery for service registration/discovery and call（使用Nacos发现服务注册或发现）](#_an_example_of_using_nacos_discovery_for_service_registrationdiscovery_and_call)
+### 使用Nacos服务注册或发现、调用的一个样例
 
 Nacos Discovery integrate with the Netflix Ribbon, RestTemplate or OpenFeign can be used for service-to-service calls.
 
-#### [3.3.1. Nacos Server Startup](#_nacos_server_startup)（Nacos服务器启动）
+#### Nacos服务器启动
 
 For details about how to download and start Nacos, refer to the [Nacos Website](https://nacos.io/zh-cn/docs/quick-start.html).
 
@@ -191,7 +191,7 @@ Figure 1. Nacos Dashboard
 
 For more Nacos Server versions, you can download the latest version from [release page](https://github.com/alibaba/nacos/releases).
 
-#### [3.3.2. Start a Provider Application](#_start_a_provider_application)（启动生产者应用）
+#### 启动生产者应用
 
 The following sample illustrates how to register a service to Nacos.
 
@@ -369,7 +369,7 @@ Address：http://127.0.0.1:8082/echo/app-name
 Access result： Hello Nacos Discovery nacos-consumer
 ```
 
-### [3.4. Nacos Discovery Endpoint](#_nacos_discovery_endpoint)（Nacos发现端点）
+### Nacos发现端点
 
 Nacos Discovery provides an Endpoint internally with a corresponding endpoint id of `nacos-discovery`.
 
@@ -446,19 +446,19 @@ The followings shows how a service instance accesses the Endpoint:
 }
 ```
 
-### [3.5. More Information about Nacos Discovery Starter Configurations](#_more_information_about_nacos_discovery_starter_configurations)（Nacos启动参数配置）
+### 更多的Nacos启动参数配置信息
 
 The following shows the other configurations of the starter of Nacos Discovery:
 
 <table class="tableblock frame-all grid-all stretch"><colgroup><col style="width: 25%;"> <col style="width: 25%;"> <col style="width: 25%;"> <col style="width: 25%;"></colgroup><tbody><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Configuration</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">Key</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Server address</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos<br/>.discovery.server-addr</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">IP and port of the Nacos Server listener</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Service name</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos<br/>.discovery.service</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>${spring.<br/>application<br/>.name}</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock">Name the current service</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Weight</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.<br/>discovery.weight</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock">Value range: 1 to 100. The bigger the value, the greater the weight</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Network card name</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.<br/>discovery.network-interface</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">If the IP address is not specified, the registered IP address is the IP address of the network card. If this is not specified either, the IP address of the first network card will be used by default.</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Registered IP address</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.<br/>discovery.ip</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">Highest priority</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Registered port</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.<br/>discovery.port</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>-1</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock">Will be detected automatically by default. Do not need to be configured.</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Namespace</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.<br/>discovery.namespace</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">A typical scenario is to isolate the service registration for different environment, such as resource (configurations, services etc.) isolation between testing and production environment</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">AccessKey</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.<br/>discovery.access-key</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">Alibaba Cloud account accesskey</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">SecretKey</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.<br/>discovery.secret-key</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">Alibaba Cloud account secretkey</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Metadata</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.<br/>discovery.metadata</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">You can define some of the metadata for your services in the Map format</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Log file name</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.<br/>discovery.log-name</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Cluster Name</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.<br/>nacos.discovery.<br/>cluster-name</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>DEFAULT</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock">Cluster name of Nacos</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Endpoint</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.<br/>discovery.endpoint</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">The domain name of a certain service in a specific region. You can retrieve the server address dynamically with this domain name</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Integrate Ribbon or not</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>ribbon.nacos.enabled</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock">Set to true in most cases</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Enable Nacos Watch</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.discovery<br/>.watch.enabled</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock">set to false to close watch</p></td></tr></tbody></table>
 
-## [4\. Spring Cloud Alibaba Nacos Config](#_spring_cloud_alibaba_nacos_config)（Nacos配置中心）
+## Nacos配置中心
 
 Nacos is an easy-to-use dynamic service discovery, configuration and service management platform for building cloud native applications.
 
 Use Spring Cloud Alibaba Nacos Config to quickly access Nacos configuration management capabilities based on Spring Cloud’s programming model.
 
-### [4.1. How to Introduce Nacos Config for configuration](#_how_to_introduce_nacos_config_for_configuration)（如何使用Nacos作为配置中心）
+### 如何使用Nacos作为配置中心
 
 please use the starter with the group ID as `com.alibaba.cloud` and the artifact ID as `spring-cloud-starter-alibaba-nacos-config`.
 
@@ -469,7 +469,7 @@ please use the starter with the group ID as `com.alibaba.cloud` and the artifact
 </dependency>
 ```
 
-### [4.2. Quickstart](#_quickstart)（速览）
+### 速览
 
 Nacos Config uses DataId and GROUP to determine a configuration.
 
@@ -498,7 +498,7 @@ Configuration content:   user.name=nacos-config-properties
 
 <table><tbody><tr><td class="icon"><i class="fa icon-note" title="Note"></i></td><td class="content">The default file extension of DataId is properties.</td></tr></tbody></table>
 
-##### [Usage on the Client](#_usage_on_the_client)（客户端使用）
+##### 客户端使用
 
 If you want to use Nacos to manage externalized configurations for your applications, please use the starter with the group ID as `com.alibaba.cloud` and the artifact ID as `spring-cloud-starter-alibaba-nacos-config`.
 
@@ -544,7 +544,7 @@ user name :nacos-config-properties; age: 90
 2018-11-02 14:24:51.688  INFO 32700 --- [-127.0.0.1:8848] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@a8c5e74: startup date [Fri Nov 02 14:24:51 CST 2018]; root of context hierarchy
 ```
 
-### [4.3. Add Configurations with DataId in YAML Format](#_add_configurations_with_dataid_in_yaml_format)（以yaml格式添加DataID配置）
+### 以yaml格式添加DataID配置
 
 Nacos Config supports yaml format as well. You only need to complete the following 2 steps.
 
@@ -577,7 +577,7 @@ user name :nacos-config-yaml; age: 68
 2018-11-02 14:59:00.529  INFO 32928 --- [-127.0.0.1:8848] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@265a478e: startup date [Fri Nov 02 14:59:00 CST 2018]; root of context hierarchy
 ```
 
-### [4.4. Support Dynamic Configuration Udpates](#_support_dynamic_configuration_udpates)（支持动态配置更新）
+### 支持动态配置更新
 
 Nacos Config also supports dynamic configuration updates. The code for starting Spring Boot application testing is as follows:
 
@@ -614,7 +614,7 @@ user name :nacos-config-yaml-update; age: 68
 
 <table><tbody><tr><td class="icon"><i class="fa icon-note" title="Note"></i></td><td class="content">You can disable automatic refresh with this setting`spring.cloud.nacos.config.refresh.enabled=false`.</td></tr></tbody></table>
 
-### [4.5. Support configurations at the profile level](#_support_configurations_at_the_profile_level)（支持不同的profile配置文件）
+### 支持不同的profile配置文件
 
 When configurations are loaded by Nacos Config, basic configurations with DataId of `${spring.application.name}. ${file-extension:properties}` , and DataId of `${spring.application.name}-${profile}. ${file-extension:properties}` are also loaded. If you need to use different configurations from different environments, you can use the `${spring.profiles.active}` configuration provided by Spring.
 
@@ -690,7 +690,7 @@ in product-env enviroment; user name :nacos-config-yaml-update; age: 68
 
 <table><tbody><tr><td class="icon"><i class="fa icon-note" title="Note"></i></td><td class="content">In this example, we coded the configuration in the configuration file by using the <code>spring.profiles.active=&lt;profilename&gt;</code> method. In real scenarios, this variable needs to be different in different environment. You can use the <code>-Dspring.profiles.active=&lt;profile&gt;</code> parameter to specify the configuration so that you can switch between different environments easily.</td></tr></tbody></table>
 
-### [4.6. Support Custom Namespaces](#_support_custom_namespaces)（自定义命名空间）
+### 自定义命名空间
 
 For details about namespaces in Nacos, refer to [Nacos Concepts](https://nacos.io/zh-cn/docs/concepts.html)
 
@@ -704,7 +704,7 @@ spring.cloud.nacos.config.namespace=b3404bc0-d7dc-4855-b519-570ed34b62d7
 
 <table><tbody><tr><td class="icon"><i class="fa icon-note" title="Note"></i></td><td class="content">This configuration must be in the bootstrap.properties file. The value of <code>spring.cloud.nacos.config.namespace</code> is the id of the namespace, and the value of id can be retrieved from the Nacos console. Do not select other namespaces when adding configurations. Otherwise configurations cannot be retrieved properly.</td></tr></tbody></table>
 
-### [4.7. Support Custom Groups](#_support_custom_groups)（自定义分组）
+### 自定义分组
 
 DEFAULT\_GROUP is used by default when no `{spring.cloud.nacos.config.group}` configuration is defined. If you need to define your own group, you can define it in the following property:
 
@@ -714,7 +714,7 @@ spring.cloud.nacos.config.group=DEVELOP_GROUP
 
 <table><tbody><tr><td class="icon"><i class="fa icon-note" title="Note"></i></td><td class="content">This configuration must be in the bootstrap.properties file, and the value of Group must be the same with the value of <code>spring.cloud.nacos.config.group</code>.</td></tr></tbody></table>
 
-### [4.8. Support Custom Data Id](#_support_custom_data_id)（自定义DataID)
+### 自定义DataID
 
 As of Spring Cloud Alibaba Nacos Config, data id can be self-defined. For detailed design of this part, refer to [Github issue](https://github.com/spring-cloud-incubator/spring-cloud-alibaba/issues/141). The following is a complete sample:
 
@@ -771,7 +771,7 @@ We can see that:
 
 <table><tbody><tr><td class="icon"><i class="fa icon-note" title="Note"></i></td><td class="content">When <code>spring.cloud.nacos.config.refreshable-dataids</code> specifies the data ids that support dynamic refresh, the corresponding values of the data ids should also specify file extensions.</td></tr></tbody></table>
 
-### [4.9. Nacos Config Endpoint](#_nacos_config_endpoint)
+### Nacos配置终端
 
 Nacos Config provides an Endpoint internally with a corresponding endpoint id of `nacos-config`.
 
@@ -824,19 +824,19 @@ The followings shows how a service instance accesses the Endpoint:
 }
 ```
 
-### [4.10. Disable Nacos Config AutoConfiguration](#_disable_nacos_config_autoconfiguration)
+### 禁用Nacos配置自动配置功能
 
 set spring.cloud.nacos.config.enabled = false to disable Spring Cloud Nacos Config AutoConfiguration.
 
-### [4.11. More Information about Nacos Config Starter Configurations](#_more_information_about_nacos_config_starter_configurations)
+### Nacos启动器自动配置的更多信息
 
 The following shows the other configurations of the starter of Nacos Config:
 
 <table class="tableblock frame-all grid-all stretch"><colgroup><col style="width: 25%;"> <col style="width: 25%;"> <col style="width: 25%;"> <col style="width: 25%;"></colgroup><tbody><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Configuration</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">Key</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Server address</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.config.server-addr</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">IP and port of the Nacos Server listener</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Dataid from nacos config</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.config.name</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">First take the prefix, then go to the name, and finally take spring.application.name</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Dataid from nacos config</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.config.prefix</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">First take the prefix, then go to the name, and finally take spring.application.name</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Encode for nacos config content</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.config.encode</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">Encode for nacos config content</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">GROUP for nacos config</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.config.group</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>DEFAULT_GROUP</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock">GROUP for nacos config</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">The suffix of nacos config dataId, also the file extension of config content.</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.config.fileExtension</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>properties</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock">The suffix of nacos config dataId, also the file extension of config content(now support properties or yaml(yml))</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Timeout for get config from nacos</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.config.timeout</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>3000</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock">Timeout for get config from nacos</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Endpoint</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.config.endpoint</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">Endpoint</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Namespace</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.config.namespace</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">Namespace</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">AccessKey</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.config.accessKey</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">Alibaba Cloud account accesskey</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">SecretKey</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.config.secretKey</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">Alibaba Cloud account secretkey</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">The context path of Nacos Server</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.config.contextPath</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">The context path of Nacos Server</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Cluster name</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.config.clusterName</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">Cluster name</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Dataid for Shared Configuration</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.config.sharedDataids</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">Dataid for Shared Configuration, split by ","</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">Dynamic refresh dataid for Shared Configuration</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.config.refreshableDataids</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">Dynamic refresh dataid for Shared Configuration, split by ","</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">custom dataid</p></td><td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.nacos.config.extConfig</code></p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"><p class="tableblock">It’s a List，build up by <code>Config</code> POJO. <code>Config</code> has 3 attributes, <code>dataId</code>, <code>group</code> and <code>refresh</code></p></td></tr></tbody></table>
 
-## 5. Spring Cloud Alibaba Sentinel(限流)
+## 5. Sentinel(限流)
 
-### [5.1. Introduction of Sentinel](#_introduction_of_sentinel)
+### Sentinel简介
 
 As microservices become popular, the stability of service calls is becoming increasingly important. [Sentinel](https://github.com/alibaba/Sentinel) takes "flow" as the breakthrough point, and works on multiple fields including flow control, circuit breaking and load protection to protect service reliability.
 
@@ -851,7 +851,7 @@ As microservices become popular, the stability of service calls is becoming incr
 *   **Sound SPI Extensions**： Sentinel provides easy-to-use and sound SPI extension interfaces. You can customize logics with the SPI extensions quickly, for example, you can define your own rule management, or adapt to specific data sources.
     
 
-### [5.2. How to Use Sentinel](#_how_to_use_sentinel)
+### 如何使用Sentinel
 
 If you want to use Sentinel in your project, please use the starter with the group ID as `com.alibaba.cloud` and the artifact ID as `spring-cloud-starter-alibaba-sentinel`.
 
@@ -915,19 +915,19 @@ public class TestController {
 }
 ```
 
-##### [Sentinel Dashboard](#_sentinel_dashboard)
+##### Sentinel Dashboard
 
 Sentinel dashboard is a lightweight console that provides functions such as machine discovery, single-server resource monitoring, overview of cluster resource data, as well as rule management. To use these features, you only need to complete a few steps.
 
 **Note**: The statistics overview for clusters only supports clusters with less than 500 nodes, and has a latency of about 1 to 2 seconds.
 
-![dashboard](assets/1642911335-c90e226562df084927080ab3fe13aab4.png)
+![dashboard](./assets/1642911335-c90e226562df084927080ab3fe13aab4.png)
 
 Figure 3. Sentinel Dashboard
 
 To use the Sentinel dashboard, simply complete the following 3 steps.
 
-###### [Get the Dashboard](#_get_the_dashboard)
+###### 获取Dashboard
 
 You can download the latest dashboard JAR file from the [Release Page](https://github.com/alibaba/Sentinel/releases).
 
@@ -938,7 +938,7 @@ You can also get the latest source code to build your own Sentinel dashboard：
 *   Run the following command to package the code into a FatJar: `mvn clean package`
     
 
-###### [Start the Dashboard](#_start_the_dashboard)
+###### 启动Dashboard
 
 Sentinel dashboard is a standard SpringBoot application, and you can run the JAR file in the Spring Boot mode.
 
@@ -948,7 +948,7 @@ java -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dproject
 
 If there is conflict with the 8080 port, you can use `-Dserver.port=new port` to define a new port.
 
-#### [5.2.2. Configure the Dashboard](#_configure_the_dashboard)
+#### 配置 Dashboard 
 
 application.yml
 
@@ -965,7 +965,7 @@ The port number specified in `spring.cloud.sentinel.transport.port` will start a
 
 For more information about Sentinel dashboard, please refer to [Sentinel Dashboard](https://github.com/alibaba/Sentinel/wiki/%E6%8E%A7%E5%88%B6%E5%8F%B0).
 
-### [5.3. OpenFeign Support](#_openfeign_support)
+### OpenFeign 支持 
 
 Sentinel is compatible with the [OpenFeign](https://github.com/OpenFeign/feign) component. To use it, in addition to introducing the `sentinel-starter` dependency, complete the following 2 steps:
 
@@ -1331,7 +1331,7 @@ The following table shows all the configurations of Spring Cloud Alibaba Sentine
 
 <table><tbody><tr><td class="icon"><i class="fa icon-note" title="Note"></i></td><td class="content">These configurations will only take effect in servlet environment. RestTemplate and Feign will not take effect for these configurations.</td></tr></tbody></table>
 
-## [6\. Spring Cloud Alibaba Dubbo](#_spring_cloud_alibaba_dubbo)
+## Dubbo
 
 ### [6.1. Introduction](#_introduction_2)
 
@@ -1367,7 +1367,7 @@ Since Dubbo Spring Cloud is built on top of the native Spring Cloud, its service
 
 \[11\]: Zipkin - [https://github.com/apache/incubator-zipkin](https://github.com/apache/incubator-zipkin)
 
-## 7\. Spring Cloud Alibaba RocketMQ Binder（分布式消息系统）
+## 7\.  RocketMQ Binder（分布式消息系统）
 
 ### [7.1. Introduction of RocketMQ](#_introduction_of_rocketmq)
 
@@ -2165,7 +2165,7 @@ For more configurations, refer to the table at the bottom of [OSSClient Configur
 
 <table><tbody><tr><td class="icon"><i class="fa icon-note" title="Note"></i></td><td class="content">In most cases, you need to connect the parameter names with “-” for the parameters in the table of <a href="https://help.aliyun.com/document_detail/32010.html" target="_blank" referrerpolicy="no-referrer" rel="noopener noreferrer">OSSClient Configurations</a> with “-”, and all letters should be in lowercase. For example, ConnectionTimeout should be changed to connection-timeout.</td></tr></tbody></table>
 
-## [11\. Spring Cloud Alibaba Cloud SchedulerX（分布式任务调度）
+##  SchedulerX（分布式任务调度）
 
 SchedulerX（Distributed job scheduling） is a component of EDAS, an Alibaba Cloud product. Spring Cloud Alibaba Cloud SchedulerX provides distributed job scheduling in conformity with the Spring Cloud specifications. SchedulerX provides timed job scheduling service with high accuracy with seconds, high stability and high availabiliy, and supports multiple job types, such as simple single-server jobs, simple multi-host jobs, script jobs, and grid jobs.
 
@@ -2274,7 +2274,7 @@ Access-key and secret-key are the AK/SK of your Alibaba Cloud account. If you de
 
 Domain-name is not mandatory. You can refer to [SchedulerX Documentation](https://help.aliyun.com/document_detail/35359.html) for details.
 
-## 12\. Spring Cloud Alibaba Cloud SMS（短信服务）
+## Cloud SMS（短信服务）
 
 SMS（Short Message Service）is a messaging service that covers the globe, Alibaba SMS provides convenient, efficient, and intelligent communication capabilities that help businesses quickly contact their customers.
 

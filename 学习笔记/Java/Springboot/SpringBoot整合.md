@@ -232,4 +232,394 @@ topic 交换器通过模式匹配分配消息的路由键属性，将路由键�
 
 ![image-20220117234459577](./SpringBoot%E6%95%B4%E5%90%88.assets/20220117234459.png)
 
-![image-20220627171754406](./SpringBoot%E6%95%B4%E5%90%88.assets/image-20220627171754406.png)
+![image-20220627171754406](./SpringBoot%E6%95%B4%E5%90%88.assets/image-20220627171754406.png)三、 Spring Boot与检索
+
+ElasticSearch
+
+## 一、 检索
+
+我们的应用经常需要添加检索功能，开源的 ElasticSearch 是目前全文搜索引擎的首选。 他可以快速的存储、搜索和分析海量数据。 Spring Boot通过整合SpringData ElasticSearch为我们提供了非常便捷的检索功能支持；
+Elasticsearch是一个分布式搜索服务，提供Restful API，底层基于Lucene，采用多shard（分片）的方式保证数据安全，并且提供自动resharding的功能， github等大型的站点也是采用了ElasticSearch作为其搜索服务，
+
+## 二、概念
+
+• 以 员工文档 的形式存储为例：一个文档代表一个员工数据。存储数据到ElasticSearch 的行为叫做 索引 ，但在索引一个文档之前，需要确定将文档存储在哪里。
+• 一个 ElasticSearch 集群可以 包含多个 索引 ，相应的每个索引可以包含多个 类型 。 这些不同的类型存储着多个文档，每个文档又有 多个 属性 。
+• 类似关系：
+– 索引-数据库
+– 类型-表
+– 文档-表中的记录
+– 属性-列
+
+![image-20220627213846409](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Springboot/SpringBoot%E6%95%B4%E5%90%88.assets/image-20220627213846409-6337129.png)
+
+# 三、整合ElasticSearch测试
+
+• 引入spring-boot-starter-data-elasticsearch
+• 安装Spring Data 对应版本的ElasticSearch
+• application.yml配置
+• Spring Boot自动配置的
+ElasticsearchRepository、 ElasticsearchTemplate、 Jest
+• 测试ElasticSearch
+
+-> Password for the **elastic** user (reset with `bin/elasticsearch-reset-password -u elastic`):
+
+ **UIfcSlL*SitDhC0h+Phg**
+
+-> HTTP CA certificate SHA-256 fingerprint:
+
+ **f337e4754f78844795f545e7668d728f6df4079181fd1ae8c133066496e02905**
+
+
+
+-> Configure Kibana to use this cluster:
+
+\* Run Kibana and click the configuration link in the terminal when Kibana starts.
+
+\* Copy the following enrollment token and paste it into Kibana in your browser (valid for the next 30 minutes):
+
+ **eyJ2ZXIiOiI4LjIuMyIsImFkciI6WyIxNzIuMTguMC4yOjkyMDAiXSwiZmdyIjoiZjMzN2U0NzU0Zjc4ODQ0Nzk1ZjU0NWU3NjY4ZDcyOGY2ZGY0MDc5MTgxZmQxYWU4YzEzMzA2NjQ5NmUwMjkwNSIsImtleSI6Im8tUjZwWUVCVzFpa09hZ25CZ3FXOlMwdWJ6cmFwUVotak9NS21RZDk2dGcifQ==**
+
+
+
+-> Configure other nodes to join this cluster:
+
+\* Copy the following enrollment token and start new Elasticsearch nodes with `bin/elasticsearch --enrollment-token <token>` (valid for the next 30 minutes):
+
+ **eyJ2ZXIiOiI4LjIuMyIsImFkciI6WyIxNzIuMTguMC4yOjkyMDAiXSwiZmdyIjoiZjMzN2U0NzU0Zjc4ODQ0Nzk1ZjU0NWU3NjY4ZDcyOGY2ZGY0MDc5MTgxZmQxYWU4YzEzMzA2NjQ5NmUwMjkwNSIsImtleSI6Im9lUjZwWUVCVzFpa09hZ25CZ3B6OjU1UjlsZVRZVFNHSGMwMFRndUtuOEEifQ==**
+
+http_cart文件，在/user/huangjiusong下
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+-> Elasticsearch security features have been automatically configured!
+-> Authentication is enabled and cluster connections are encrypted.
+
+->  Password for the elastic user (reset with `bin/elasticsearch-reset-password -u elastic`):
+  LbxNbATsge9s6ayoSW6P
+
+->  HTTP CA certificate SHA-256 fingerprint:
+  df626351c57d1178de36317cd43283321b94c9ad26aff8b61e25fec8e4bb9f5d
+
+->  Configure Kibana to use this cluster:
+* Run Kibana and click the configuration link in the terminal when Kibana starts.
+* Copy the following enrollment token and paste it into Kibana in your browser (valid for the next 30 minutes):
+  eyJ2ZXIiOiI4LjIuMyIsImFkciI6WyIxNzIuMTkuMC4yOjkyMDAiXSwiZmdyIjoiZGY2MjYzNTFjNTdkMTE3OGRlMzYzMTdjZDQzMjgzMzIxYjk0YzlhZDI2YWZmOGI2MWUyNWZlYzhlNGJiOWY1ZCIsImtleSI6Ill3cjFwNEVCQmtBX3dHMmUtbDhBOjkzWWlFd3FkUm5xa0JpNEtxR095bncifQ==
+
+-> Configure other nodes to join this cluster:
+* Copy the following enrollment token and start new Elasticsearch nodes with `bin/elasticsearch --enrollment-token <token>` (valid for the next 30 minutes):
+  eyJ2ZXIiOiI4LjIuMyIsImFkciI6WyIxNzIuMTkuMC4yOjkyMDAiXSwiZmdyIjoiZGY2MjYzNTFjNTdkMTE3OGRlMzYzMTdjZDQzMjgzMzIxYjk0YzlhZDI2YWZmOGI2MWUyNWZlYzhlNGJiOWY1ZCIsImtleSI6IlpBcjFwNEVCQmtBX3dHMmUtbDhEOlVGbFItWnpGVHVHUWgtd3duNFRFbncifQ==
+
+  If you're running in Docker, copy the enrollment token and run:
+  `docker run -e "ENROLLMENT_TOKEN=<token>" docker.elastic.co/elasticsearch/elasticsearch:8.2.3`
+
+
+
+ docker run -e ES_JAVA_OPTS="-Xms128m -Xmx128m" --name es01 --net elastic -p 9200:9200 -p 9300:9300   -v /root/es-cluster/es01/plugins:/usr/share/elasticsearch/plugins -v /root/es-cluster/es01/logs:/usr/share/elasticsearch/logs -v /root/es-cluster/es01/data:/usr/share/elasticsearch/data -v /root/es-cluster/es01/config/elasticsearch.yml:/usr/share/elasticsearch/data/config/elasticsearch.yml docker.elastic.co/elasticsearch/elasticsearch:8.2.3
+
+
+
+
+
+--------------------------- Security autoconfiguration information ------------------------------
+
+Authentication and authorization are enabled.
+TLS for the transport and HTTP layers is enabled and configured.
+
+The generated password for the elastic built-in superuser is : uF1dgjgH5O+DIWN-iYyR
+
+If this node should join an existing cluster, you can reconfigure this with
+'/usr/share/elasticsearch/bin/elasticsearch-reconfigure-node --enrollment-token <token-here>'
+after creating an enrollment token on your existing cluster.
+
+You can complete the following actions at any time:
+
+Reset the password of the elastic built-in superuser with
+'/usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic'.
+
+Generate an enrollment token for Kibana instances with
+ '/usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana'.
+
+Generate an enrollment token for Elasticsearch nodes with
+'/usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s node'.
+
+### NOT starting on installation, please execute the following statements to configure elasticsearch service to start automatically using systemd
+ sudo systemctl daemon-reload
+ sudo systemctl enable elasticsearch.service
+
+### You can start elasticsearch service by executing
+ sudo systemctl start elasticsearch.service
+  Verifying  : elasticsearch-8.2.3-1.x86_64                                                                                                   1/1
+
+Installed:
+  elasticsearch.x86_64 0:8.2.3-1
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 四、 Spring Boot与任务
+
+异步任务、定时任务、邮件任务
+
+## 一、异步任务
+
+在Java应用中，绝大多数情况下都是通过同步的方式来实现交互处理的；但是在处理与第三方系统交互的时候，容易造成响应迟缓的情况，之前大部分都是使用多线程来完成此类任务，其实，在Spring 3.x之后，就已经内置了@Async来完美解决这个问题。
+两个注解：
+@EnableAysnc、 @Aysnc
+
+## 二、定时任务
+
+项目开发中经常需要执行一些定时任务，比如需要在每天凌晨时候，分析一次前一天的日志信息。 Spring为我们提供了异步执行任务调度的方式，提供TaskExecutor 、 TaskScheduler 接口。
+两个注解： @EnableScheduling、 @Scheduled
+
+![image-20220627223715172](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Springboot/SpringBoot%E6%95%B4%E5%90%88.assets/image-20220627223715172-6340637.png)
+
+三、邮件任务
+
+• 邮件发送需要引入spring-boot-starter-mail
+
+• Spring Boot 自动配置MailSenderAutoConfiguration
+
+• 定义MailProperties内容，配置在application.yml中 
+
+• 自动装配JavaMailSender
+
+• 测试邮件发送
+
+![image-20220628115003942](./SpringBoot%E6%95%B4%E5%90%88.assets/image-20220628115003942-16563882050991.png)
+
+# 五、Spring Boot与安全
+
+安全、Spring Security
+
+## 一、安全
+
+Spring Security是针对Spring项目的安全框架，也是Spring Boot底层安全模块默认的技术选型。他可以实现强大的web安全控制。对于安全控制，我们仅需引入spring-boot-starter-security模块，进行少量的配置，即可实现强大的
+
+安全管理。
+
+几个类：
+
+WebSecurityConfigurerAdapter：自定义Security策略
+
+AuthenticationManagerBuilder：自定义认证策略
+
+@EnableWebSecurity：开启WebSecurity模式• 应用程序的两个主要区域是“认证”和“授权”（或者访问控制）。
+
+这两个主要区域是Spring Security 的两个目标。 
+
+• “认证”（Authentication），是建立一个他声明的主体的过程（一个“主体”一般是指用户，设备或一些可以在你的应用程序中执行动作的其他系统）。 
+
+• “授权”（Authorization）指确定一个主体是否允许在你的应用程序执行一个动作的过程。为了抵达需要授权的店，主体的身份已经有认证过程建立。 
+
+• 这个概念是通用的而不只在Spring Security中。
+
+## 二、Web&安全
+
+1. 登陆/注销
+
+ – HttpSecurity配置登陆、注销功能
+
+2. Thymeleaf提供的SpringSecurity标签支持
+
+– 需要引入thymeleaf-extras-springsecurity4
+
+– sec:authentication=“name”获得当前用户的用户名
+
+– sec:authorize=“hasRole(‘ADMIN’)”当前用户必须拥有ADMIN权限时才会显示标签内容
+
+3. remember me
+
+– 表单添加remember-me的checkbox
+
+– 配置启用remember-me功能
+
+4. CSRF（Cross-site request forgery）跨站请求伪造
+
+– HttpSecurity启用csrf功能，会为表单添加_csrf的值，提交携带来预防CSRF；
+
+# 六、Spring Boot与分布式
+
+分步式、Dubbo/Zookeeper、Spring Boot/Cloud
+
+一、分布式应用
+
+在分布式系统中，国内常用zookeeper+dubbo组合，而Spring Boot推荐使用全栈的Spring，Spring Boot+Spring Cloud。
+
+分布式系统： **单一应用架构**
+
+当网站流量很小时，只需一个应用，将所有功能都部署在一起，以减少部署节点和成本。此时，用于简化增删改查工作量的数据访问框架(ORM)是关键。
+
+ **垂直应用架构**
+
+当访问量逐渐增大，单一应用增加机器带来的加速度越来越小，将应用拆成互不相干的几个应用，以提升效率。此时，用于加速前端页面开发的Web框架(MVC)是关键。
+
+ **分布式服务架构**
+
+当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。此时，用于提高业务复用及整合的分布式服务框架(RPC)是关键。
+
+ **流动计算架构**
+
+当服务越来越多，容量的评估，小服务资源的浪费等问题逐渐显现，此时需增加一个调度中心基于访问压力实时管理集群容量，提高集群利用率。此时，用于提高机器利用率的资源调度和治理中心(SOA)是关键二、Zookeeper和Dubbo
+
+• **ZooKeeper**
+
+ZooKeeper 是一个分布式的，开放源码的分布式应用程序协调服务。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。
+
+• **Dubbo**
+
+Dubbo是Alibaba开源的分布式服务框架，它最大的特点是按照分层的方式来架构，使用这种方式可以使各个层之间解耦合（或者最大限度地松耦合）。从服务模型的角度来看，Dubbo采用的是一种非常简单的模型，要么是提供方提供服务，要么是消费方消费服务，所以基于这一点可以抽象出服务提供方（Provider）和服务消费方（Consumer）两个角色。
+
+![image-20220628163406831](./SpringBoot%E6%95%B4%E5%90%88.assets/image-20220628163406831-16564052481992.png)
+
+• 1、安装zookeeper作为注册中心
+
+• 2、编写服务提供者
+
+• 3、编写服务消费者
+
+• 4、整合dubbo
+
+```
+<dependency>**
+
+**<groupId>com.alibaba.spring.boot</groupId>**
+
+**<artifactId>dubbo-spring-boot-starter</artifactId>**
+
+**<version>2.0.0</version>**
+
+**</dependency>**
+```
+
+三、Spring Boot和Spring Cloud
+
+**Spring Cloud**
+
+Spring Cloud是一个分布式的整体解决方案。Spring Cloud 为开发者提供了**在分布式系统（配**
+
+**置管理，服务发现，熔断，路由，微代理，控制总线，一次性token，全局琐，leader选举，分**
+
+**布式session，集群状态）中快速构建的工具**，使用Spring Cloud的开发者可以快速的启动服务
+
+或构建应用、同时能够快速和云平台资源进行对接。
+
+• **SpringCloud分布式开发五大常用组件**
+
+• 服务发现——Netflix Eureka
+
+• 客服端负载均衡——Netflix Ribbon
+
+• 断路器——Netflix Hystrix
+
+• 服务网关——Netflix Zuul
+
+• 分布式配置——Spring Cloud Config微服务
+
+![image-20220628163456888](./SpringBoot%E6%95%B4%E5%90%88.assets/image-20220628163456888-16564052981263.png)• Spring Cloud 入门
+
+– 1、创建provider
+
+– 2、创建consumer
+
+– 3、引入Spring Cloud
+
+– 4、引入Eureka注册中心
+
+– 5、引入Ribbon进行客户端负载均衡
+
+# 七、Spring Boot与开发热部署
+
+热部署一、热部署
+
+在开发中我们修改一个Java文件后想看到效果不得不重启应用，这导致大量时间花费，我们希望不重启应用的情况下，程序可以自动部署（热部署）。有以下四种情况，如何能实现热部署。
+
+• 1、模板引擎
+
+– 在Spring Boot中开发情况下禁用模板引擎的cache
+
+– 页面模板改变ctrl+F9可以重新编译当前页面并生效
+
+2、Spring Loaded
+
+Spring官方提供的热部署程序，实现修改类文件的热部署
+
+– 下载Spring Loaded（项目地址https://github.com/springprojects/spring-loaded） 
+
+– 添加运行时参数；
+
+-javaagent:C:/springloaded-1.2.5.RELEASE.jar –noverify
+
+3、JRebel
+
+– 收费的一个热部署软件
+
+– 安装插件使用即可4、Spring Boot Devtools（推荐）
+
+– 引入依赖
+
+```
+<dependency> 
+
+<groupId>org.springframework.boot</groupId> 
+
+<artifactId>spring-boot-devtools</artifactId> 
+
+</dependency> 
+```
+
+– IDEA使用ctrl+F9
+
+– 或做一些小调整
+
+*Intellij IEDA和Eclipse不同，Eclipse设置了自动编译之后，修改类它会自动编译，而IDEA在非RUN或DEBUG情况下*
+
+*才会自动编译（前提是你已经设置了Auto-Compile）。*
+
+• 设置自动编译（settings-compiler-make project automatically） 
+
+• ctrl+shift+alt+/（maintenance） 
+
+• 勾选compiler.automake.allow.when.app.running
+
+# 八、Spring Boot与监控管理一、监控管理
+
+通过引入spring-boot-starter-actuator，可以使用Spring Boot为我们提供的准生产环境下的应用监控和管理功能。我们可以通过HTTP，JMX，SSH协议来进行操作，自动得到审计、健康及指标信息等
+
+• 步骤：
+
+​	–  引入spring-boot-starter-actuator
+
+​	–  通过http方式访问监控端点
+
+​	–  可进行shutdown（POST 提交，此端点默认关闭）
+
+![image-20220628163556586](./SpringBoot%E6%95%B4%E5%90%88.assets/image-20220628163556586-16564053578924.png)
+
+二、定制端点信息
+
+– 定制端点一般通过endpoints+端点名+属性名来设置。 
+
+– 修改端点id（endpoints.beans.id=mybeans） 
+
+– 开启远程应用关闭功能（endpoints.shutdown.enabled=true） 
+
+– 关闭端点（endpoints.beans.enabled=false） 
+
+– 开启所需端点
+
+• endpoints.enabled=false
+
+• endpoints.beans.enabled=true
+
+– 定制端点访问根路径
+
+• management.context-path=/manage
+
+– 关闭http端点
+
+• management.port=-1
