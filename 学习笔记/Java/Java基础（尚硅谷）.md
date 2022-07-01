@@ -2559,7 +2559,7 @@ class Order{
   private static Order instance = null;
 
   static{
-    instance = new Order();
+     instance = new Order();
   }
   //3.声明public、static的返回当前类对象的方法
   public static Order getInstance(){

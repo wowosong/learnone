@@ -8,7 +8,7 @@ Spring 是什么(1)
 
 # Spring 是什么(2)
 
-具体描述 Spring:
+具体描述 Spring·
 轻量级：Spring 是非侵入性的 - 基于 Spring 开发的应用中的对象可以不依赖于 Spring 的 API
 依赖注入(DI --- dependency injection、IOC)
 面向切面编程(AOP --- aspect oriented programming)
