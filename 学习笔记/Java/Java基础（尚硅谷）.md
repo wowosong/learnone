@@ -3994,14 +3994,14 @@ char[] --> String:调用String的构造器
 @Test
 public void test2(){
     String str1 = "abc123";  //题目： a21cb3
-char[] charArray = str1.toCharArray();
-for (int i = 0; i < charArray.length; i++) {
-    System.out.println(charArray[i]);
-}
+    char[] charArray = str1.toCharArray();
+    for (int i = 0; i < charArray.length; i++) {
+        System.out.println(charArray[i]);
+    }
 
-char[] arr = new char[]{'h','e','l','l','o'};
-String str2 = new String(arr);
-System.out.println(str2);
+    char[] arr = new char[]{'h','e','l','l','o'};
+    String str2 = new String(arr);
+    System.out.println(str2);
 }
 ```
 6.3 与字节数组之间的转换
@@ -4041,9 +4041,9 @@ public void test3() throws UnsupportedEncodingException {
 String -->StringBuffer、StringBuilder:调用StringBuffer、StringBuilder构造器
 StringBuffer、StringBuilder -->String:①调用String构造器；②StringBuffer、StringBuilder的toString()
 7.JVM中字符串常量池存放位置说明：
-jdk 1.6 (jdk 6.0 ,java 6.0):字符串常量池存储在方法区（永久区）
-jdk 1.7:字符串常量池存储在堆空间
-jdk 1.8:字符串常量池存储在**方法区（元空间**）
+**jdk 1.6 (jdk 6.0 ,java 6.0):字符串常量池存储在方法区（永久区）**
+**jdk 1.7:字符串常量池存储在堆空间**
+**jdk 1.8:字符串常量池存储在方法区（元空间）**
 8.常见算法题目的考查：
 1）模拟一个trim方法，去除字符串两端的空格。
 
@@ -4059,7 +4059,7 @@ jdk 1.8:字符串常量池存储在**方法区（元空间**）
 5）对字符串中字符进行自然顺序排序。
 提示：
 1字符串变成字符数组。
-2对数组排序，择，冒泡，Arrays.sort();
+2对数组排序，选择，冒泡，Arrays.sort();
 3将排序后的数组变成字符串。
 
 ### StringBuffer、StringBuilder
@@ -4165,21 +4165,21 @@ SimpleDateFormat对日期Date类的格式化和解析
 
 ```java
 //*************照指定的方式格式化和解析：调用带参的构造器*****************
-//        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyy.MMMMM.dd GGG hh:mm aaa");
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        //格式化
-        String format1 = sdf1.format(date);
-        System.out.println(format1);//2019-02-18 11:48:27
-        //解析:要求字符串必须是符合SimpleDateFormat识别的格式(通过构造器参数体现),
-        //否则，抛异常
-        Date date2 = sdf1.parse("2020-02-18 11:48:27");
-        System.out.println(date2);
+//SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyy.MMMMM.dd GGG hh:mm aaa");
+SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//格式化
+String format1 = sdf1.format(date);
+System.out.println(format1);//2019-02-18 11:48:27
+//解析:要求字符串必须是符合SimpleDateFormat识别的格式(通过构造器参数体现),
+//否则，抛异常
+Date date2 = sdf1.parse("2020-02-18 11:48:27");
+System.out.println(date2);
 ```
 
 小练习：
-    练习一：字符串"2020-09-08"转换为java.sql.Date
 
 ```java
+/*练习一：字符串"2020-09-08"转换为java.sql.Date
 练习二："天打渔两天晒网"   1990-01-01  xxxx-xx-xx 打渔？晒网？
 
 举例：2020-09-08 ？ 总天数
@@ -4206,8 +4206,8 @@ public void testExer() throws ParseException {
 
 ```java
     //1.实例化
-        //方式一：创建其子类（GregorianCalendar的对象
-        //方式二：调用其静态方法getInstance()
+    //方式一：创建其子类（GregorianCalendar的对象
+    //方式二：调用其静态方法getInstance()
         Calendar calendar = Calendar.getInstance();
     //  System.out.println(calendar.getClass());
     //2.常用方法
@@ -4218,7 +4218,7 @@ public void testExer() throws ParseException {
 
     //set()
     //calendar可变性
-     calendar.set(Calendar.DAY_OF_MONTH,22);
+    calendar.set(Calendar.DAY_OF_MONTH,22);
     days = calendar.get(Calendar.DAY_OF_MONTH);
     System.out.println(days);
 
@@ -4329,7 +4329,7 @@ System.out.println(accessor);
 
 举例：
 ```java
-@Test
+	@Test
 	public void test3(){
 	LocalTime localTime = LocalTime.now();
 	LocalTime localTime1 = LocalTime.of(15, 23, 32);
@@ -4374,7 +4374,7 @@ System.out.println(accessor);
 ```java
 @Test
 	public void test5(){
-		//获取当前日期的下一个周日是哪天？
+	//获取当前日期的下一个周日是哪天？
 	TemporalAdjuster temporalAdjuster = TemporalAdjusters.next(DayOfWeek.SUNDAY);
 		
 	LocalDateTime localDateTime = LocalDateTime.now().with(temporalAdjuster);
