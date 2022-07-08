@@ -3817,7 +3817,7 @@ List<Blog> getAll();
 ```xml
 <!--
     sql: 抽取片段
-        id: 唯一标识
+    id: 唯一标识
  -->
 <sql id="column">
     id, title, author, create_time, views
