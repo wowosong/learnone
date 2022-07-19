@@ -9,7 +9,7 @@ Spring最重要的功能就是帮助程序员创建对象（也就是IOC），�
 Bean的生命周期就是指：**在Spring中，一个Bean是如何生成的，如何销毁的**
 
 Bean生命周期流程图：[https://www.processon.com/view/link/5f8588c87d9c0806f27358c1](https://www.processon.com/view/link/5f8588c87d9c0806f27358c1)
-![image-20220312162112200](/Users/jiusonghuang/pic-md/20220312162112.png)
+![image-20220312162112200](./04-Spring%E4%B9%8BBean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B8%8A.assets/20220312162112.png)
 
 附带资料JFR介绍：[https://zhuanlan.zhihu.com/p/122247741](https://zhuanlan.zhihu.com/p/122247741)
 
@@ -27,7 +27,7 @@ Spring启动的时候会进行扫描，会先调用`org.springframework.context.
 Spring扫描底层流程：[https://www.processon.com/view/link/61370ee60e3e7412ecd95d43](https://www.processon.com/view/link/61370ee60e3e7412ecd95d43)
 **​**
 
-![image-20220312162346993](/Users/jiusonghuang/pic-md/20220312162347.png)
+![image-20220312162346993](./04-Spring%E4%B9%8BBean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B8%8A.assets/20220312162347-8242036.png)
 
 
 1. 首先，通过ResourcePatternResolver获得指定包路径下的所有`.class`文件（Spring源码中将此文件包装成了Resource对象）

@@ -118,11 +118,11 @@ ABean创建-->依赖了B属性-->触发BBean创建--->B依赖了A属性--->需�
 A创建时--->需要B---->B去创建--->需要A，从而产生了循环
 
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/365147/1592471211638-86636131-146d-46c3-8775-421ef3322cc3.png#height=339&id=SMBo8&margin=%5Bobject%20Object%5D&name=image.png&originHeight=375&originWidth=572&originalType=binary&ratio=1&size=11141&status=done&style=none&width=517)
+![image-20220719224838086](./08-Spring%E4%B9%8B%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E5%BA%95%E5%B1%82%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90.assets/image-20220719224838086-8242119.png)
 
 
 那么如何打破这个循环，加个中间人（缓存）
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/365147/1592471597769-3e23cc26-2b1d-4742-8c74-cea46327ada7.png#height=418&id=APAi3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=643&originWidth=1056&originalType=binary&ratio=1&size=37167&status=done&style=none&width=687)
+![image-20220719224903856](./08-Spring%E4%B9%8B%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E5%BA%95%E5%B1%82%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90.assets/image-20220719224903856-8242145.png)
 
 
 A的Bean在创建过程中，在进行依赖注入之前，先把A的原始Bean放入缓存（提早暴露，只要放到缓存了，其他Bean需要时就可以从缓存中拿了），放入缓存后，再进行依赖注入，此时A的Bean依赖了B的Bean，如果B的Bean不存在，则需要创建B的Bean，而创建B的Bean的过程和A一样，也是先创建一个B的原始对象，然后把B的原始对象提早暴露出来放入缓存中，然后在对B的原始对象进行依赖注入A，此时能从缓存中拿到A的原始对象（虽然是A的原始对象，还不是最终的Bean），B的原始对象依赖注入完了之后，B的生命周期结束，那么A的生命周期也能结束。
@@ -242,7 +242,7 @@ public Object getEarlyBeanReference(Object bean, String beanName) {
 1. 先从singletonFactories中拿到lambda表达式，这里肯定是能拿到的，因为每个bean**实例化之后**，**依赖注入之前**，就会生成一个lambda表示放入singletonFactories中
 1. 执行lambda表达式，得到结果，将结果放入earlySingletonObjects中
 
-​
+
 
 那如果没有singletonFactories，该如何把原始对象或AOP之后的代理对象放入earlySingletonObjects中呢？何时放入呢？
 ​
@@ -252,10 +252,9 @@ public Object getEarlyBeanReference(Object bean, String beanName) {
 1. 实例化之后，依赖注入之前：如果是这样，那么对于每个bean而言，都是在依赖注入之前会去进行AOP，这是不符合bean生命周期步骤的设计的。
 1. 真正发现某个bean出现了循环依赖时：按现在Spring源码的流程来说，就是getSingleton(String beanName, boolean allowEarlyReference)中，是在这个方法中判断出来了当前获取的这个bean在创建中，就表示获取的这个bean出现了循环依赖，那在这个方法中该如何拿到原始对象呢？更加重要的是，该如何拿到AOP之后的代理对象呢？难道在这个方法中去循环调用BeanPostProcessor的初始化后的方法吗？不是做不到，不太合适，代码太丑。**最关键的是在这个方法中该如何拿到原始对象呢？**还是得需要一个Map，预习把这个Bean实例化后的对象存在这个Map中，那这样的话还不如直接用第一种方案，但是第一种又直接打破了Bean生命周期的设计。
 
-​
+
 
 所以，我们可以发现，现在Spring所用的singletonFactories，为了调和不同的情况，在singletonFactories中存的是lambda表达式，这样的话，只有在出现了循环依赖的情况，才会执行lambda表达式，才会进行AOP，也就说只有在出现了循环依赖的情况下才会打破Bean生命周期的设计，如果一个Bean没有出现循环依赖，那么它还是遵守了Bean的生命周期的设计的。
-
 
 
 

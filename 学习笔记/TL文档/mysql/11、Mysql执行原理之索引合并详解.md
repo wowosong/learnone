@@ -6,7 +6,7 @@
 
 其实optimizer trace输出的文本中就有这个片段：
 
-   ![img](/Users/jiusonghuang/pic-md/20220115183329.png)
+   ![img](./11%E3%80%81Mysql%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86%E4%B9%8B%E7%B4%A2%E5%BC%95%E5%90%88%E5%B9%B6%E8%AF%A6%E8%A7%A3.assets/20220115183329.png)
 
 具体的索引合并算法有下边三种。
 

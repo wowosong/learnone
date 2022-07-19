@@ -27,19 +27,19 @@ SELECT * FROM information_schema.OPTIMIZER_TRACE\G
 
 可以看见全表扫描的成本：2169.9
 
-![img](/Users/jiusonghuang/pic-md/20211228203742.png)
+![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228203742.png)
 
 使用索引idx_order_no的成本为72.61：
 
-   ![img](/Users/jiusonghuang/pic-md/20211228203806.png)
+   ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228203806.png)
 
 使用索引idx_expire_time的成本为47.81：
 
-​    ![img](/Users/jiusonghuang/pic-md/20211228203827.png)
+​    ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228203827.png)
 
 最终MySQL使用了idx_expire_time作为这个SQL查询过程中索引：
 
-![img](/Users/jiusonghuang/pic-md/20211228203846.png)
+![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228203846.png)
 
 因为优化器最终会选择成本最低的那种方案来作为最终的执行计划。
 
@@ -101,7 +101,7 @@ order_status = 0，由于该列上只有联合索引，而且不符合最左前�
 
 综上所述，上边的查询语句可能用到的索引，也就是possible keys只有idx_order_no，idx_expire_time。
 
-​    ![img](/Users/jiusonghuang/pic-md/20211228203939.png)
+​    ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228203939.png)
 
 **2. 计算全表扫描的代价**
 
@@ -119,7 +119,7 @@ MySQL给我们提供了SHOW TABLE STATUS语句来查看表的统计信息，如�
 SHOW TABLE STATUS LIKE 'order_exp'\G
 ```
 
-​    ![img](/Users/jiusonghuang/pic-md/20211228204001.png)
+​    ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204001.png)
 
 出现了很多统计选项，但我们目前只需要两个：
 
@@ -199,7 +199,7 @@ idx_expire_time对应的搜索条件是：expire_time> '2021-03-22 18:28:28' AND
 explain SELECT \* FROM order_exp WHERE expire_time> '2021-03-22 18:28:28' AND expire_time<= '2021-03-22 18:35:09';
 ```
 
-![img](/Users/jiusonghuang/pic-md/20211228204024.png)
+![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204024.png)
 
 读取这39条二级索引记录需要付出的CPU成本就是：
 
@@ -261,7 +261,7 @@ idx_order_no对应的搜索条件是：order_no IN ('DD00_6S', 'DD00_9S', 'DD00_
 explain SELECT * FROM order_exp WHERE order_no IN ('DD00_6S', 'DD00_9S', 'DD00_10S');   
 ```
 
-![img](/Users/jiusonghuang/pic-md/20211228204048.png)
+![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204048.png)
 
 读取这些二级索引记录的CPU成本就是：58 x 0.2 + 0.01 = 11.61
 
@@ -305,11 +305,11 @@ CPU成本：
 
 很显然，使用idx_expire_time的成本最低，所以当然选择idx_expire_time来执行查询。来和Tracer中的比较一下：
 
-   ![img](/Users/jiusonghuang/pic-md/20211228204107.png)
+   ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204107.png)
 
-   ![img](/Users/jiusonghuang/pic-md/20211228204119.png)
+   ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204119.png)
 
- ![img](/Users/jiusonghuang/pic-md/20211228204208.png)![img](/Users/jiusonghuang/pic-md/20211228204148.png)
+ ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204208.png)![img](/Users/jiusonghuang/pic-md/20211228204148.png)
 
 嗯？除了全表扫描，其他的怎么好像有点对不上呢？
 
@@ -317,7 +317,7 @@ CPU成本：
 
 *1、在MySQL的实际计算中，在和全文扫描比较成本时，使用索引的成本会去除读取并检测回表后聚簇索引记录的成本，也就是说，我们通过MySQL看到的成本将会是：idx_expire_time为47.81(55.61-7.8)，idx_order_no为72.61(84.21-11.6)。但是MySQL比较完成本后，会再计算一次使用索引的成本，此时就会加上前面去除的成本，也就是我们计算出来的值。*
 
-   ![img](/Users/jiusonghuang/pic-md/20211228204227.png)
+   ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204227.png)
 
 *2、MySQL的源码中对成本的计算实际要更复杂，但是基本思想和算法是没错的。*
 
@@ -341,7 +341,7 @@ SELECT * FROM order_exp WHERE order_no IN ('aa1', 'aa2', 'aa3', ... , 'zzz');
 show variables like '%dive%';
 ```
 
-![img](/Users/jiusonghuang/pic-md/20211228204253.png)
+![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204253.png)
 
 也就是说如果我们的IN语句中的参数个数小于200个的话，将使用index dive的方式计算各个单点区间对应的记录条数，如果大于或等于200个的话，可就不能使用index dive了，要使用所谓的索引统计数据来进行估算。怎么个估算法？
 
@@ -351,7 +351,7 @@ show variables like '%dive%';
 show index from order_exp;    
 ```
 
-![img](/Users/jiusonghuang/pic-md/20211228204319.png)
+![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204319.png)
 
 属性名	描述
 
@@ -562,7 +562,7 @@ SELECT * FROM order_exp AS s1 INNER JOIN order_exp2 AS s2 WHERE s1.order_note > 
 SELECT * FROM order_exp AS s1 INNER JOIN order_exp2 AS s2 WHERE s1.expire_time> '2021-03-22 18:28:28' AND s1.expire_time<= '2021-03-22 18:35:09' AND s1.order_note > 'xyz';
 ```
 
-本查询和查询二类似，只不过对于驱动表s1也多了一个order_note > 'xyz'的搜索条件。不过因为本查询可以使用idx_expire_time索引，所以只需要从符合二级索引范围区间的记录中猜有多少条记录符合order_note > 'xyz'条件，也就是只需要猜在39条记录中有多少符合order_note > 'xyz'条件。    ![img](/Users/jiusonghuang/pic-md/20211228204358.png)
+本查询和查询二类似，只不过对于驱动表s1也多了一个order_note > 'xyz'的搜索条件。不过因为本查询可以使用idx_expire_time索引，所以只需要从符合二级索引范围区间的记录中猜有多少条记录符合order_note > 'xyz'条件，也就是只需要猜在39条记录中有多少符合order_note > 'xyz'条件。    ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204358.png)
 
 查询五：
 
@@ -894,7 +894,7 @@ MySQL在计算各种链接顺序的成本之前，会维护一个全局的变量
 
 不过按照《阿里最新Java编程规范泰山版》中《(二) 索引规约》中的说法：
 
-​    ![img](/Users/jiusonghuang/pic-md/20211228204451.png)
+​    ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204451.png)
 
 当出现超过三个表的join时，就应该考虑改写SQL语句了，因为从我们上面的多表关联成本分析可以知道，就算是不考虑多表关联时需要查询的巨大记录条数，就算是几个表的关联成本计算也是个很耗费时间的过程。
 
@@ -910,7 +910,7 @@ MySQL在计算各种链接顺序的成本之前，会维护一个全局的变量
 
 **SHOW TABLES FROM mysql LIKE '%cost%';**
 
-   ![img](/Users/jiusonghuang/pic-md/20211228204504.png)
+   ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204504.png)
 
 因为一条语句的执行其实是分为两层的：server层、存储引擎层。
 
@@ -924,7 +924,7 @@ server_cost表中在server层进行的一些操作对应的成本常数，具体
 SELECT * FROM mysql.server_cost;
 ```
 
-   ![img](/Users/jiusonghuang/pic-md/20211228204518.png)
+   ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204518.png)
 
 我们先看一下server_cost各个列都分别是什么意思：
 
@@ -976,7 +976,7 @@ engine_cost表表中在存储引擎层进行的一些操作对应的成本常数
 SELECT * FROM mysql.engine_cost;
 ```
 
-![img](/Users/jiusonghuang/pic-md/20211228204536.png)
+![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204536.png)
 
 与server_cost相比，engine_cost多了两个列：
 
@@ -1016,7 +1016,7 @@ MySQL给我们提供了系统变量innodb_stats_persistent来控制到底采用�
 SHOW VARIABLES LIKE 'innodb_stats_persistent';
 ```
 
-   ![img](/Users/jiusonghuang/pic-md/20211228204553.png)
+   ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204553.png)
 
 不过最近的MySQL版本都基本不用基于内存的非永久性统计数据了，所以我们也就不深入研究。
 
@@ -1038,7 +1038,7 @@ ALTER TABLE 表名 Engine=InnoDB, STATS_PERSISTENT = (1|0);
 SHOW TABLES FROM mysql LIKE 'innodb%';
 ```
 
-   ![img](/Users/jiusonghuang/pic-md/20211228204606.png)
+   ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204606.png)
 
 可以看到，这两个表都位于mysql系统数据库下边，其中：
 
@@ -1048,7 +1048,7 @@ innodb_index_stats存储了关于索引的统计数据，每一条记录对应�
 
 **innodb_table_stats**
 
-直接看一下这个innodb_table_stats表中的各个列都是干嘛的：    ![img](/Users/jiusonghuang/pic-md/20211228204622.png)
+直接看一下这个innodb_table_stats表中的各个列都是干嘛的：    ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204622.png)
 
 database_name	数据库名
 
@@ -1066,7 +1066,7 @@ sum_of_other_index_sizes	表的其他索引占用的页面数量
 
 **SELECT \* FROM mysql.innodb_table_stats;**
 
-![img](/Users/jiusonghuang/pic-md/20211228204646.png)
+![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204646.png)
 
 几个重要统计信息项的值如下：
 
@@ -1098,7 +1098,7 @@ clustered_index_size和sum_of_other_index_sizes统计项的收集牵涉到很具
 
 直接看一下这个innodb_index_stats表中的各个列都是干嘛的：
 
-**desc mysql.innodb_index_stats;**![img](/Users/jiusonghuang/pic-md/20211228204700.png)
+**desc mysql.innodb_index_stats;**![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204700.png)
 
 字段名	描述
 
@@ -1122,7 +1122,7 @@ innodb_index_stats表的每条记录代表着一个索引的一个统计项。�
 
 mysql> **SELECT \* FROM mysql.innodb_index_stats WHERE table_name = 'order_exp';**
 
-![img](/Users/jiusonghuang/pic-md/20211228204718.png)
+![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204718.png)
 
 先查看index_name列，这个列说明该记录是哪个索引的统计信息，从结果中我们可以看出来，PRIMARY索引（也就是主键）占了3条记录，idx_expire_time索引占了6条记录。
 
@@ -1152,7 +1152,7 @@ n_diff_pfx04表示的是统计key_pare1、key_pare2、expire_time、id这四个�
 
 对于有多个列的联合索引来说，采样的页面数量是：innodb_stats_persistent_sample_pages × 索引列的个数。
 
-   ![img](/Users/jiusonghuang/pic-md/20211228204731.png)
+   ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204731.png)
 
 当需要采样的页面数量大于该索引的叶子节点数量的话，就直接采用全表扫描来统计索引列的不重复值数量了。所以大家可以在查询结果中看到不同索引对应的size列的值可能是不同的。
 
@@ -1164,7 +1164,7 @@ n_diff_pfx04表示的是统计key_pare1、key_pare2、expire_time、id这四个�
 
 系统变量innodb_stats_auto_recalc决定着服务器是否自动重新计算统计数据，它的默认值是ON，也就是该功能默认是开启的。
 
-![img](/Users/jiusonghuang/pic-md/20211228204746.png)
+![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204746.png)
 
 每个表都维护了一个变量，该变量记录着对该表进行增删改的记录条数，如果发生变动的记录数量超过了表大小的10%，并且自动重新计算统计数据的功能是打开的，那么服务器会重新进行一次统计数据的计算，并且更新innodb_table_stats和innodb_index_stats表。不过自动重新计算统计数据的过程是异步发生的，也就是即使表中变动的记录数超过了10%，自动重新计算统计数据也不会立即发生，可能会延迟几秒才会进行计算。
 
@@ -1182,7 +1182,7 @@ ALTER TABLE 表名 Engine=InnoDB, STATS_AUTO_RECALC = (1|0);
 
 mysql> **ANALYZE TABLE order_exp;**
 
-   ![img](/Users/jiusonghuang/pic-md/20211228204802.png)ANALYZE TABLE语句会立即重新计算统计数据，也就是这个过程是同步的，在表中索引多或者采样页面特别多时这个过程可能会特别慢最好在业务不是很繁忙的时候再运行。
+   ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204802.png)ANALYZE TABLE语句会立即重新计算统计数据，也就是这个过程是同步的，在表中索引多或者采样页面特别多时这个过程可能会特别慢最好在业务不是很繁忙的时候再运行。
 
 **手动更新innodb_table_stats和innodb_index_stats表**
 

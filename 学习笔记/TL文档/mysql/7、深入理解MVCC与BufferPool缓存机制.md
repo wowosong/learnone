@@ -10,7 +10,7 @@ Mysql在**可重复读隔离级别**下如何保证事务较高的隔离性，�
 
 ## **undo日志版本链与read view机制详解**
 
-undo日志版本链是指一行数据被多个事务依次修改过后，在每个事务修改完后，Mysql会保留修改前的数据undo回滚日志，并且用两个隐藏字段trx_id和roll_pointer把这些undo日志串联起来形成一个历史记录版本链(见下图，需参考视频里的例子理解)    ![img](/Users/jiusonghuang/pic-md/20211214205530.png)
+undo日志版本链是指一行数据被多个事务依次修改过后，在每个事务修改完后，Mysql会保留修改前的数据undo回滚日志，并且用两个隐藏字段trx_id和roll_pointer把这些undo日志串联起来形成一个历史记录版本链(见下图，需参考视频里的例子理解)    ![img](./7%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3MVCC%E4%B8%8EBufferPool%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6.assets/20211214205530.png)
 
 在**可重复读隔离级别**，当事务开启，执行任何查询sql时会生成当前事务的**一致性视图read-view，**该视图在事务结束之前都不会变化(**如果是读已提交隔离级别在每次执行查询sql时都会重新生成**)，这个视图由执行查询时所有未提交事务id数组（数组里最小的id为min_id）和已创建的最大事务id（max_id）组成，事务里的任何sql查询结果需要从对应版本链里的最新数据开始逐条跟read-view做比对从而得到最终的快照结果。
 
@@ -36,7 +36,7 @@ MVCC机制的实现就是通过read-view机制与undo版本链比对机制，使
 
 ## **Innodb引擎SQL执行的BufferPool缓存机制** 
 
-![img](/Users/jiusonghuang/pic-md/20211214205611.png)
+![img](./7%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3MVCC%E4%B8%8EBufferPool%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6.assets/20211214205611.png)
 
 **为什么Mysql不能直接更新磁盘上的数据而且设置这么一套复杂的机制来执行SQL了？**
 
