@@ -2168,7 +2168,7 @@ public class ConfirmConfig {
 
 重新启动项目的时候需要把原来的 confirm.exchange 删除因为我们修改了其绑定属性，不然报以下错:
 
-![image-20211113114139965](D:\pic-md/20211113114142.png)
+![image-20211113114139965](/Users/jiusonghuang/pic-md/20211113114142.png)
 
 ### **8.3.5. 结果分析**
 

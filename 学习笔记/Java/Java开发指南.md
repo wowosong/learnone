@@ -1,6 +1,6 @@
 # Java基础
 
-![img](d:\pic-md/20210610222515.jpeg)
+![img](/Users/jiusonghuang/pic-md/20210610222515.jpeg)
 
 ## 集合
 
@@ -86,7 +86,7 @@ A班一共有3个学生(小明，小红，小张)。那么小明等人就可以�
 
 Java 集合框架主要包括两种类型的容器，一种是集合（Collection），存储一个元素集合，另一种是Map，存储键/值对映射。
 
-![img](d:\pic-md/20210611102637.png)
+![img](/Users/jiusonghuang/pic-md/20210611102637.png)
 
 #### [1. Collection](https://java.springlearn.cn/#/BasicJava/集合是什么?id=_1-collection)
 
@@ -221,7 +221,7 @@ HashTable` 是线程安全的，因为它的所有方法都被 `synchronized`修
 
 **③加载因子**
 
-![img](d:\pic-md/20210611102646.png)
+![img](/Users/jiusonghuang/pic-md/20210611102646.png)
 
 前面说哈希碰撞时候，解决方案就是扩容，那么如何知道要扩容呢? 默认当Hash达到75%时候就扩容，这个75%就叫做加载因子。
 
@@ -237,11 +237,11 @@ Hashtable的synchronized是针对整张Hash表的，即每次锁住整张表让�
 
 其实Java的异常体系是非常简单的,简单到只要你看过本文就能明白百分之八九十的样子。当你清楚了Java的异常体系 那么在遇到项目执行异常的时候,基本看报错的异常就大概明白问题出在哪里,遇到的错误多了,就成长了,处理的问题就是 你未来在技术路上所积累的财富。
 
-![img](d:\pic-md/20210610222537.png)
+![img](/Users/jiusonghuang/pic-md/20210610222537.png)
 
 在Java的异常体系中 `Throwable` 我们可以理解为是一个根异常,即所有的异常都是它的子类
 
-![img](d:\pic-md/20210610222542.png)
+![img](/Users/jiusonghuang/pic-md/20210610222542.png)
 
 ### [二、Error](https://java.springlearn.cn/#/BasicJava/异常体系?id=二、error)
 
@@ -265,7 +265,7 @@ Hashtable的synchronized是针对整张Hash表的，即每次锁住整张表让�
 
 **uncheckException**
 
-![img](d:\pic-md/20210610222548.png)
+![img](/Users/jiusonghuang/pic-md/20210610222548.png)
 
 ```
 RuntimeException` + `Error` 和其子类都是属于 `uncheckException
@@ -292,7 +292,7 @@ public class Tester {
 
 学过数学都知道0不能做除数,程序也不运行你这么输入,但是却不能阻止你,只能通过报错的方式来告诉你。
 
-![img](d:\pic-md/20210610222552.png)
+![img](/Users/jiusonghuang/pic-md/20210610222552.png)
 
 那么我们就要对这个异常进行处理,当发现有这个异常就在控制台来提醒用户。那么代码就会变成这样
 
@@ -314,13 +314,13 @@ public class Tester {
 }
 ```
 
-当出现算术异常直接提示: "0不能作为除数,请输入不为0的任意数" ![img](d:\pic-md/20210610222600.png)
+当出现算术异常直接提示: "0不能作为除数,请输入不为0的任意数" ![img](/Users/jiusonghuang/pic-md/20210610222600.png)
 
 那么像这种程序中无可避免会出现，且又能通过逻辑来处理的异常就是运行异常。运行异常一般都可以正常运行,只是在特定情况下会导致异常发生。 像这面这个例子,我们只要看到 `ArithmeticException` 就知道是算术异常。所以只要我们对运行异常类有一个认识，其实就能解决大多数的程序问题了。 下面我们来看下运行异常都要有哪些类把。
 
 **只要对下面运行异常类进行熟悉了,基本就清楚掌握了Java的异常体系了**
 
-![img](d:\pic-md/20210610222606.png)
+![img](/Users/jiusonghuang/pic-md/20210610222606.png)
 
-![img](d:\pic-md/20210610220013.png)
+![img](/Users/jiusonghuang/pic-md/20210610220013.png)
 

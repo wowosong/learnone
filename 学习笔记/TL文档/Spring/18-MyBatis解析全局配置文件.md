@@ -111,9 +111,9 @@ mybatis对传统的JDBC的解决方案
 
 Mybaits整体体系图
 
-![img](d:\pic-md/202201190929867.png)
+![img](/Users/jiusonghuang/pic-md/202201190929867.png)
 
-![img](d:\pic-md/202201190929491.png)
+![img](/Users/jiusonghuang/pic-md/202201190929491.png)
 
 一个Mybatis最简单的使用列子如下：
 
@@ -355,7 +355,7 @@ reader = Resources.getResourceAsReader(resource);
         }
 ```
 
-![img](d:\pic-md/202201190930122.png)
+![img](/Users/jiusonghuang/pic-md/202201190930122.png)
 
 上面解析流程结束后会生成一个Configration对象，包含所有配置信息，然后会创建一个SqlSessionFactory对象，这个对象包含了Configration对象。
 

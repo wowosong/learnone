@@ -30,7 +30,7 @@ Spring Web MVC是基于Servlet API构建的原始Web框架，从一开始就已�
 
 传统Servlet：
 
-![](d:\pic-md/20220118221531.png)
+![](/Users/jiusonghuang/pic-md/20220118221531.png)
 
 弊端：
 
@@ -92,7 +92,7 @@ SpringMVC的具体执行流程：
 
 Spring MVC 是围绕前端控制器模式设计的，其中：中央 Servlet DispatcherServlet 为请求处理流程提供统一调度，实际工作则交给可配置组件执行。这个模型是灵活的且开放的，我们可以通过自己去定制这些组件从而进行定制自己的工作流。
 
-![img](d:\pic-md/20220118221548.png)
+![img](/Users/jiusonghuang/pic-md/20220118221548.png)
 
 DispatcherServlet： 前端调度器 ， 负责将请求拦截下来分发到各控制器方法中
 
@@ -224,5 +224,5 @@ HandlerMapping
 
 ﻿[https://www.processon.com/view/link/615ea79e1efad4070b2d6707](https://www.processon.com/view/link/615ea79e1efad4070b2d6707)﻿
 
-![1642514121-9ee0a878b6d3c6cf168ff88d4142fabe](d:\pic-md/202202091655566.png)
+![1642514121-9ee0a878b6d3c6cf168ff88d4142fabe](/Users/jiusonghuang/pic-md/202202091655566.png)
 

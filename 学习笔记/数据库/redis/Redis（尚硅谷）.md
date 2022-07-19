@@ -1619,7 +1619,7 @@ ab -n 2000 -c 200 -k -p ~/postfile -T application/x-www-form-urlencoded http://1
 
 ![image-20211031175457760](./Redis%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20211031175457.png)
 
-![image-20211031175527898](d:\pic-md/20211031175528.png)
+![image-20211031175527898](/Users/jiusonghuang/pic-md/20211031175528.png)
 
 ## 继续增加并发测试
 
@@ -2099,7 +2099,7 @@ info replication
 
 打印主从复制的相关信息
 
-<img src="./Redis%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20211101222223.png" alt="image-20211101222222878" style="zoom:50%;" /><img src="d:\pic-md/20211101222251.png" alt="image-20211101222251132" style="zoom:50%;" />
+<img src="./Redis%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20211101222223.png" alt="image-20211101222222878" style="zoom:50%;" /><img src="/Users/jiusonghuang/pic-md/20211101222251.png" alt="image-20211101222251132" style="zoom:50%;" />
 
 ### 配从(库)不配主(库)
 

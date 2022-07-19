@@ -123,7 +123,7 @@ userService.test();
 1. 紧接着，Spring会判断该对象是否实现了InitializingBean接口，如果实现了，就表示当前对象必须实现该接口中的afterPropertiesSet()方法，那Spring就会调用当前对象中的afterPropertiesSet()方法（**初始化**）
 1. 最后，Spring会判断当前对象需不需要进行AOP，如果不需要那么Bean就创建完了，如果需要进行AOP，则会进行动态代理并生成一个代理对象做为Bean（**初始化后**）
 
-![image-20220211214132797](d:\pic-md/20220211214132.png)
+![image-20220211214132797](/Users/jiusonghuang/pic-md/20220211214132.png)
 
 通过最后一步，我们可以发现，当Spring根据UserService类来创建一个Bean时：
 
@@ -171,9 +171,9 @@ Spring会根据入参的类型和入参的名字去Spring中找Bean对象（**�
 1. **如果根据类型找到多个，则再根据入参名字来确定唯一一个**
 1. **最终如果没有找到，则会报错，无法创建当前Bean对象**
 
-![image-20220211220646102](d:\pic-md/20220211220646.png)
+![image-20220211220646102](/Users/jiusonghuang/pic-md/20220211220646.png)
 
-![image-20220315155417939](d:\pic-md/202203151554152.png)
+![image-20220315155417939](/Users/jiusonghuang/pic-md/202203151554152.png)
 
 确定用哪个构造方法，确定入参的Bean对象，这个过程就叫做**推断构造方法**。
 **​**

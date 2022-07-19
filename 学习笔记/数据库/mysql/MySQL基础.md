@@ -1079,7 +1079,7 @@ explain select * from test1;
 
 执行结果：
 
-![image-20211210070144544](d:\pic-md/20211210070144.png)
+![image-20211210070144544](/Users/jiusonghuang/pic-md/20211210070144.png)
 
 从上图中看到执行结果中会显示12列信息，每列具体信息如下：
 

@@ -185,7 +185,7 @@ For details about how to download and start Nacos, refer to the [Nacos Website](
 
 After Nacos Server starts, go to [http://ip:8848](http://ip:8848/) to view the console (default account name/password is nacos/nacos):
 
-![TB1XEfwbQH0gK0jSZPiXXavapXa 2790 1060](d:\pic-md/20220123121642.png)
+![TB1XEfwbQH0gK0jSZPiXXavapXa 2790 1060](/Users/jiusonghuang/pic-md/20220123121642.png)
 
 Figure 1. Nacos Dashboard
 
@@ -475,7 +475,7 @@ Nacos Config uses DataId and GROUP to determine a configuration.
 
 The following figure shows that the DataId uses `myDataid`, GROUP uses `DEFAULT_GROUP`, and configures a configuration item of the format Properties:
 
-![TB1N2nxbRr0gK0jSZFnXXbRRXXa 2448 1194](d:\pic-md/20220123121727.png)
+![TB1N2nxbRr0gK0jSZFnXXbRRXXa 2448 1194](/Users/jiusonghuang/pic-md/20220123121727.png)
 
 Figure 2. Nacos Config Item
 
@@ -1516,7 +1516,7 @@ Alternatively, you can also use the Spring Cloud Stream RocketMQ Starter:
 
 This is the implementation architecture of Spring Cloud Stream RocketMQ Binder:
 
-![TB1v8rcbUY1gK0jSZFCXXcwqXXa 1236 773](d:\pic-md/20220123122507.png)
+![TB1v8rcbUY1gK0jSZFCXXcwqXXa 1236 773](/Users/jiusonghuang/pic-md/20220123122507.png)
 
 Figure 5. SCS RocketMQ Binder
 

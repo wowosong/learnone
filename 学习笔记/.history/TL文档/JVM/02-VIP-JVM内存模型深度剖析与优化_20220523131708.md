@@ -4,19 +4,19 @@
 
 ------
 
-​    ![0](d:\pic-md/20220115154750.png)
+​    ![0](/Users/jiusonghuang/pic-md/20220115154750.png)
 
 ### **Java语言的跨平台特性**
 
 ------
 
-​    ![0](d:\pic-md/20220115154832.png)
+​    ![0](/Users/jiusonghuang/pic-md/20220115154832.png)
 
 ### **JVM整体结构及内存模型**
 
 ------
 
-![0](d:\pic-md/20220115154845.png)
+![0](/Users/jiusonghuang/pic-md/20220115154845.png)
 
 **补充一个问题：**
 
@@ -36,7 +36,7 @@ https://hllvm-group.iteye.com/group/topic/39376#post-257329
 
 ------
 
-​    ![0](d:\pic-md/20220115154946.png)
+​    ![0](/Users/jiusonghuang/pic-md/20220115154946.png)
 
 Spring Boot程序的JVM参数设置格式(Tomcat启动直接加在bin目录下catalina.sh文件里)：
 
@@ -98,7 +98,7 @@ JVM参数大小设置并没有固定标准，需要根据实际项目情况分�
 
 **日均百万级订单交易系统如何设置JVM参数**
 
-​    ![0](d:\pic-md/20220115155033.png)
+​    ![0](/Users/jiusonghuang/pic-md/20220115155033.png)
 
 **结论：**通过上面这些内容介绍，大家应该对JVM优化有些概念了，就是尽可能让对象都在新生代里分配和回收，尽量别让太多对象频繁进入老年代，避免频繁对老年代进行垃圾回收，同时给系统充足的内存大小，避免新生代频繁的进行垃圾回收。
 

@@ -4,7 +4,7 @@
 
 有道云链接：http://note.youdao.com/noteshare?id=f1d34fba6f218de1acf9160f45c284af&sub=9B48B919EE3C4046BC4CD564AA325A72
 
-MySQL性能优化其实是个很大的课题，在优化上存在着一个调优金字塔的说法：    ![img](d:\pic-md/20211229225458.png)
+MySQL性能优化其实是个很大的课题，在优化上存在着一个调优金字塔的说法：    ![img](/Users/jiusonghuang/pic-md/20211229225458.png)
 
 很明显从图上可以看出，越往上走，难度越来越高，收益却是越来越小的。比如硬件和OS调优，需要对硬件和OS有着非常深刻的了解，仅仅就磁盘一项来说，一般非DBA能想到的调整就是SSD盘比用机械硬盘更好，但其实它至少包括了，使用什么样的磁盘阵列（RAID）级别、是否可以分散磁盘IO、是否使用裸设备存放数据，使用哪种文件系统（Linux下常见的有ext2、3、4和xfs,zfs等，目前比较推荐的是XFS），操作系统的磁盘调度算法（目前比较推荐deadline，对机械硬盘和SSD都比较合适。从内核2.5开始，默认的I/O调度算法是Deadline，之后默认I/O调度算法为Anticipatory，直到内核2.6.17为止，从内核2.6.18开始，CFQ成为默认的IO调度算法，但CFQ并不推荐作为数据库服务器的磁盘调度算法）的选择，是否需要调整操作系统文件管理方面等等。
 
@@ -18,7 +18,7 @@ MySQL性能优化其实是个很大的课题，在优化上存在着一个调优
 
 *# more /sys/block/vda/queue/scheduler*
 
-*永久地修改IO调度算法,需要修改内核引导参数*   ![img](d:\pic-md/20211229225525.png)
+*永久地修改IO调度算法,需要修改内核引导参数*   ![img](/Users/jiusonghuang/pic-md/20211229225525.png)
 
 所以在进行优化时，首先需要关注和优化的应该是架构，如果架构不合理，即使是DBA能做的事情其实是也是比较有限的。
 
@@ -50,13 +50,13 @@ MySQL性能优化其实是个很大的课题，在优化上存在着一个调优
 
 **show VARIABLES like 'slow_query_log';**
 
-![img](d:\pic-md/20211229225548.png)
+![img](/Users/jiusonghuang/pic-md/20211229225548.png)
 
 开启：
 
 **set GLOBAL slow_query_log=1;**
 
-![img](d:\pic-md/20211229225601.png)
+![img](/Users/jiusonghuang/pic-md/20211229225601.png)
 
 但是多慢算慢？MySQL中可以设定一个阈值，将运行时间超过该值的所有SQL语句都记录到慢查询日志中。long_query_time参数就是这个阈值。默认值为10，代表10秒。
 
@@ -66,13 +66,13 @@ MySQL性能优化其实是个很大的课题，在优化上存在着一个调优
 
 **set global long_query_time=0;**   ---默认10秒，这里为了演示方便设置为0
 
-   ![img](d:\pic-md/20211229225617.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229225617.png)
 
 同时对于没有运行的SQL语句没有使用索引，则MySQL数据库也可以将这条SQL语句记录到慢查询日志文件，控制参数是：
 
 **show VARIABLES like '%log_queries_not_using_indexes%';**
 
-​    ![img](d:\pic-md/20211229225637.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229225637.png)
 
 对于产生的慢查询日志，可以指定输出的位置，通过参数log_output来控制，可以输出到[TABLE][FILE][FILE,TABLE]。比如
 
@@ -80,13 +80,13 @@ set global log_output='FILE,TABLE'，缺省是输出到文件，我们的配置�
 
 **show VARIABLES like 'log_output';ls** 
 
-​    ![img](d:\pic-md/20211229225656.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229225656.png)
 
 ### **慢查询解读分析**
 
 #### **日志格式**
 
-开启慢查询功能以后，会根据我们的配置产生慢查询日志    ![img](d:\pic-md/20211229225716.png)
+开启慢查询功能以后，会根据我们的配置产生慢查询日志    ![img](/Users/jiusonghuang/pic-md/20211229225716.png)
 
 从慢查询日志里面摘选一条慢查询日志，数据组成如下
 
@@ -138,11 +138,11 @@ mysqldumpslow -s r -t 10 slow-mysql.log
 
 **./mysqldumpslow -s t -t 10 /home/mysql/mysql57/data/iZwz9j203ithc4gu1uvb2wZ-slow.log** 
 
-![img](d:\pic-md/20211229225744.png)
+![img](/Users/jiusonghuang/pic-md/20211229225744.png)
 
  **./mysqldumpslow -s t -t 10 /home/mysql/mysql57/data/iZwz9j203ithc4gu1uvb2wZ-slow.log -g select**
 
-​    ![img](d:\pic-md/20211229225753.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229225753.png)
 
 ### **优化SQL查询方法论**
 
@@ -280,7 +280,7 @@ mysqldumpslow -s r -t 10 slow-mysql.log
 
 换句话说，是时候回头看看我们前面讨论的内容了:MySQL执行一个查询的过程。根据下图，我们可以看到当向MySQL发送一个请求的时候，MySQL 到底做了些什么:
 
-   ![img](d:\pic-md/20211229225850.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229225850.png)
 
 1.客户端发送一条查询给服务器。
 
@@ -370,7 +370,7 @@ MySQL将结果集返回客户端是一个增量、逐步返回的过程。一旦
 
 这一点从MySQL的源码sql_union.cc中其实可以看得很清楚：
 
-![https://note.youdao.com/yws/public/resource/f1d34fba6f218de1acf9160f45c284af/xmlnote/E0E3BFBF0BD8486598DFA4087AC8ABB1/2169](d:\pic-md/20211229225949.png)
+![https://note.youdao.com/yws/public/resource/f1d34fba6f218de1acf9160f45c284af/xmlnote/E0E3BFBF0BD8486598DFA4087AC8ABB1/2169](/Users/jiusonghuang/pic-md/20211229225949.png)
 
 这样处理有两个好处﹔服务器端无须存储太多的结果，也就不会因为要返回太多结果而消耗太多内存。另外，这样的处理也让 MySQL客户端第一时间获得返回的结果。结果集中的每一行都会以一个满足MySQL客户端/服务器通信协议的封包发送，再通过TCP协议进行传输，在TCP传输的过程中，可能对MySQL的封包进行缓存然后批量传输。
 
@@ -420,7 +420,7 @@ https://dev.mysql.com/doc/refman/8.0/en/general-thread-states.html
 
 **select @@have_profiling;**
 
-   ![img](d:\pic-md/20211229230018.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229230018.png)
 
 2、默认profiling是关闭的，可以通过set语句在 Session级别开启 profiling:
 
@@ -428,7 +428,7 @@ https://dev.mysql.com/doc/refman/8.0/en/general-thread-states.html
 
 ​	**set profiling=1**;
 
-   ![img](d:\pic-md/20211229230030.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229230030.png)
 
 3、执行一个SQL查询
 
@@ -438,13 +438,13 @@ https://dev.mysql.com/doc/refman/8.0/en/general-thread-states.html
 
 **show profiles;**
 
-​    ![img](d:\pic-md/20211229230050.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229230050.png)
 
 5、通过show profile for query语句能够看到执行过程中线程的每个状态和消耗的时间
 
 **show profile for query 1;**
 
-![img](d:\pic-md/20211229230107.png)
+![img](/Users/jiusonghuang/pic-md/20211229230107.png)
 
 通过仔细检查show profile for query 的输出，能够发现在执行COUNT(*)的过程中，时间主要消耗在 Sending data这个状态上。
 
@@ -452,7 +452,7 @@ https://dev.mysql.com/doc/refman/8.0/en/general-thread-states.html
 
 **show profile all for query 1\G**
 
-​    ![img](d:\pic-md/20220115183228.png)
+​    ![img](/Users/jiusonghuang/pic-md/20220115183228.png)
 
 能够发现Sending data状态下，时间主要消耗在 CPU上了。
 

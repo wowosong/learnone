@@ -40,9 +40,9 @@ CALL insert_emp ();
 EXPLAIN SELECT * FROM employees WHERE name > 'LiLei' AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212110310973](d:\pic-md/20211212110311.png)
+![image-20211212110310973](/Users/jiusonghuang/pic-md/20211212110311.png)
 
-![image-20211212110728092](d:\pic-md/20211212110728.png)
+![image-20211212110728092](/Users/jiusonghuang/pic-md/20211212110728.png)
 
 结论：联合索引第一个字段就用范围查找不会走索引，mysql内部可能觉得第一个字段就用范围，结果集应该很大，回表效率不高，还不如就全表扫描
 
@@ -52,7 +52,7 @@ EXPLAIN SELECT * FROM employees WHERE name > 'LiLei' AND age = 22 AND position =
 EXPLAIN SELECT * FROM employees force index(idx_name_age_position) WHERE name > 'LiLei' AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212111138725](d:\pic-md/20211212111139.png)
+![image-20211212111138725](/Users/jiusonghuang/pic-md/20211212111139.png)
 
 结论：虽然使用了强制走索引让联合索引第一个字段范围查找也走索引，扫描的行rows看上去也少了点，但是最终查找效率不一定比全表扫描高，因为回表效率不高 
 
@@ -82,7 +82,7 @@ SELECT * FROM employees force index(idx_name_age_position) WHERE name > 'LiLei';
 EXPLAIN SELECT name,age,position FROM employees WHERE name > 'LiLei' AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212111927665](d:\pic-md/20211212111927.png)
+![image-20211212111927665](/Users/jiusonghuang/pic-md/20211212111927.png)
 
 **4、in和or在表数据量比较大的情况会走索引，在表记录不多的情况下会选择全表扫描** 
 
@@ -90,13 +90,13 @@ EXPLAIN SELECT name,age,position FROM employees WHERE name > 'LiLei' AND age = 2
 EXPLAIN SELECT * FROM employees WHERE name in ('LiLei','HanMeimei','Lucy') AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212112342620](d:\pic-md/20211212112342.png)
+![image-20211212112342620](/Users/jiusonghuang/pic-md/20211212112342.png)
 
 ```sql
 EXPLAIN SELECT * FROM employees WHERE (name = 'LiLei' or name = 'HanMeimei') AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212112419441](d:\pic-md/20211212112419.png)
+![image-20211212112419441](/Users/jiusonghuang/pic-md/20211212112419.png)
 
 做一个小实验，将employees 表复制一张employees_copy的表，里面保留两三条记录 
 
@@ -104,13 +104,13 @@ EXPLAIN SELECT * FROM employees WHERE (name = 'LiLei' or name = 'HanMeimei') AND
 EXPLAIN SELECT * FROM employees_copy WHERE name in ('LiLei','HanMeimei','Lucy') AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212112533716](d:\pic-md/20211212112607.png)
+![image-20211212112533716](/Users/jiusonghuang/pic-md/20211212112607.png)
 
 ```sql
 EXPLAIN SELECT * FROM employees_copy WHERE (name = 'LiLei' or name = 'HanMeimei') AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212112640290](d:\pic-md/20211212112640.png)
+![image-20211212112640290](/Users/jiusonghuang/pic-md/20211212112640.png)
 
 **5、like KK% 一般情况都会走索引** 
 
@@ -118,13 +118,13 @@ EXPLAIN SELECT * FROM employees_copy WHERE (name = 'LiLei' or name = 'HanMeimei'
 EXPLAIN SELECT * FROM employees WHERE name like 'LiLei%' AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212125045577](d:\pic-md/20211212125046.png)
+![image-20211212125045577](/Users/jiusonghuang/pic-md/20211212125046.png)
 
 ```sql
 EXPLAIN SELECT * FROM employees_copy WHERE name like 'LiLei%' AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212125440632](d:\pic-md/20211212125440.png)
+![image-20211212125440632](/Users/jiusonghuang/pic-md/20211212125440.png)
 
 这里给大家补充一个概念，**索引下推（Index Condition Pushdown，ICP）**, like KK%其实就是用到了索引下推优化 
 
@@ -148,7 +148,7 @@ MySQL 5.6引入了索引下推优化，**可以在索引遍历过程中，对索
  mysql> EXPLAIN select * from employees where name > 'a';
 ```
 
-![image-20211212130134236](d:\pic-md/20211212130134.png)
+![image-20211212130134236](/Users/jiusonghuang/pic-md/20211212130134.png)
 
 如果用name索引需要遍历name字段联合索引树，然后还需要根据遍历出来的主键值（回表）去主键索引树里再去查出最终数据，成本比全表扫描还高，可以用覆盖索引优化，这样只需要遍历name字段的联合索引树就能拿到所有结果，如下： 
 
@@ -156,13 +156,13 @@ MySQL 5.6引入了索引下推优化，**可以在索引遍历过程中，对索
  mysql> EXPLAIN select name,age,position from employees where name > 'a' ; 
 ```
 
-![image-20211212130237719](d:\pic-md/20211212130237.png)
+![image-20211212130237719](/Users/jiusonghuang/pic-md/20211212130237.png)
 
 ```sql
  mysql> EXPLAIN select * from employees where name > 'zzz' ; 
 ```
 
-![image-20211212130159114](d:\pic-md/20211212130159.png)
+![image-20211212130159114](/Users/jiusonghuang/pic-md/20211212130159.png)
 
 对于上面这两种 name>'a' 和 name>'zzz' 的执行结果，mysql最终是否选择走索引或者一张表涉及多个索引，mysql最 
 
@@ -418,7 +418,7 @@ Case1：
 explain select * from employees where name='LiLei' and position='dev' ORDER BY age;
 ```
 
-![image-20211212150117249](d:\pic-md/20211212150117.png)
+![image-20211212150117249](/Users/jiusonghuang/pic-md/20211212150117.png)
 
 分析： 
 
@@ -430,7 +430,7 @@ Case 2：
 	explain select * from employees where name='LiLei'  ORDER BY position;
 ```
 
-![image-20211212150823836](d:\pic-md/20211212150824.png)
+![image-20211212150823836](/Users/jiusonghuang/pic-md/20211212150824.png)
 
 分析： 
 
@@ -442,7 +442,7 @@ Case 3：分析：
 	explain select * from employees where name='LiLei'  ORDER BY age,position;
 ```
 
-![image-20211212150320225](d:\pic-md/20211212150320.png)
+![image-20211212150320225](/Users/jiusonghuang/pic-md/20211212150320.png)
 
 查找只用到索引name，age和position用于排序，无Using filesort。 
 
@@ -454,7 +454,7 @@ Case 4：
 	explain select * from employees where name='LiLei'  ORDER BY position,age;
 ```
 
-![image-20211212150930645](d:\pic-md/20211212150930.png) 
+![image-20211212150930645](/Users/jiusonghuang/pic-md/20211212150930.png) 
 
 和Case 3中explain的执行结果一样，但是出现了Using filesort，因为索引的创建顺序为name,age,position，但是排序的时候age和position颠倒位置了。 
 
@@ -466,7 +466,7 @@ Case 5：
 explain select * from employees where name='LiLei'  and age=18 ORDER BY position,age;
 ```
 
-![image-20211212151248488](d:\pic-md/20211212151248.png)
+![image-20211212151248488](/Users/jiusonghuang/pic-md/20211212151248.png)
 
 与Case 4对比，在Extra中并未出现Using filesort，因为age为常量，在排序中被优化，所以索引未颠倒，不会出现Using filesort。 
 
@@ -478,7 +478,7 @@ Case 6：
 	explain select * from employees where name='zhugu'  ORDER BY age ASC,position desc;
 ```
 
-![image-20211212151921847](d:\pic-md/20211212151921.png)
+![image-20211212151921847](/Users/jiusonghuang/pic-md/20211212151921.png)
 
 虽然排序的字段列与索引顺序一样，且order by默认升序，这里position desc变成了降序，导致与索引的排序方式不同，从而产生Using filesort。Mysql8以上版本有降序索引可以支持该种查询方式。 
 
@@ -490,7 +490,7 @@ Case 7：
 	explain select * from employees where name in ('LiLei','zhugu')  ORDER BY age,position;
 ```
 
-![image-20211212152051825](d:\pic-md/20211212152051.png)
+![image-20211212152051825](/Users/jiusonghuang/pic-md/20211212152051.png)
 
 对于排序来说，多个相等条件也是范围查询 
 
@@ -500,7 +500,7 @@ Case 8：
 	explain select * from employees where name >'a' ORDER BY name;
 ```
 
-![image-20211212152232228](d:\pic-md/20211212152232.png)
+![image-20211212152232228](/Users/jiusonghuang/pic-md/20211212152232.png)
 
 数据量太大，可能不走索引
 
@@ -510,7 +510,7 @@ Case 8：
 	explain select name,age,position from employees where name >'a' ORDER BY name;
 ```
 
-![image-20211212152335206](d:\pic-md/20211212152335.png)
+![image-20211212152335206](/Users/jiusonghuang/pic-md/20211212152335.png)
 
 ### **优化总结：** 
 
@@ -548,7 +548,7 @@ MySQL 通过比较系统变量 max_length_for_sort_data(**默认1024字节**) �
 	explain select * from employees where name='zhugu'  ORDER BY position;
 ```
 
-![image-20211212153345666](d:\pic-md/20211212153345.png)
+![image-20211212153345666](/Users/jiusonghuang/pic-md/20211212153345.png)
 
 查看下这条sql对应trace结果如下(只展示排序部分)： 
 
@@ -726,11 +726,11 @@ mysql> set session optimizer_trace="enabled=off"; ‐‐关闭trace
 
 ## **索引设计实战** 
 
-![image-20211212160836331](d:\pic-md/20211212160836.png)
+![image-20211212160836331](/Users/jiusonghuang/pic-md/20211212160836.png)
 
-![image-20211212161624909](d:\pic-md/20211212161625.png)
+![image-20211212161624909](/Users/jiusonghuang/pic-md/20211212161625.png)
 
-![image-20211212161916856](d:\pic-md/20211212161917.png)
+![image-20211212161916856](/Users/jiusonghuang/pic-md/20211212161917.png)
 
 以社交场景APP来举例，我们一般会去搜索一些好友，这里面就涉及到对用户信息的筛选，这里肯定就是对用户user表搜索了，这个表一般来说数据量会比较大，我们先不考虑分库分表的情况，比如，我们一般会筛选地区(省市)，性别，年龄，身高，爱好之类的，有的APP可能用户还有评分，比如用户的受欢迎程度评分，我们可能还会根据评分来排序等等。 
 

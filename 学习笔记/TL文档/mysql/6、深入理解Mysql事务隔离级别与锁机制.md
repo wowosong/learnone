@@ -43,7 +43,7 @@
 
 “脏读”、“不可重复读”和“幻读”，其实都是数据库读一致性问题，必须由数据库提供一定的事务隔离机制来解决。
 
-![image-20211213203414948](d:\pic-md/20211213203415.png)
+![image-20211213203414948](/Users/jiusonghuang/pic-md/20211213203415.png)
 
 数据库的事务隔离越严格,并发副作用越小,但付出的代价也就越大，因为事务隔离实质上就是使事务在一定程度上“串行化”进行,这显然与“并发”是矛盾的。
 
@@ -105,7 +105,7 @@ unlock tables;
 
 **案例分析(加读锁）**
 
-![image-20211213203856450](d:\pic-md/20211213203856.png)
+![image-20211213203856450](/Users/jiusonghuang/pic-md/20211213203856.png)
 
 当前session和其他session都可以读该表
 
@@ -113,7 +113,7 @@ unlock tables;
 
 **案例分析(加写锁）**
 
-![image-20211213211033340](d:\pic-md/20211213211033.png)
+![image-20211213211033340](/Users/jiusonghuang/pic-md/20211213211033.png)
 
 当前session对该表的增删改查都没有问题，其他session对该表的所有操作被阻塞
 
@@ -170,39 +170,39 @@ mysql> set tx_isolation="read-uncommitted";
 Query OK, 0 rows affected, 1 warning (0.05 sec)
 ```
 
-（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account： ![image-20211213214052474](d:\pic-md/20211213214052.png)
+（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account： ![image-20211213214052474](/Users/jiusonghuang/pic-md/20211213214052.png)
 
-（3）这时，虽然客户端B的事务还没提交，但是客户端A就可以查询到B已经更新的数据： ![image-20211213214118039](d:\pic-md/20211213214118.png)
+（3）这时，虽然客户端B的事务还没提交，但是客户端A就可以查询到B已经更新的数据： ![image-20211213214118039](/Users/jiusonghuang/pic-md/20211213214118.png)
 
 （4）一旦客户端B的事务因为某种原因回滚，所有的操作都将会被撤销，那客户端A查询到的数据其实就是**脏数据**： 
 
-   ![image-20211213214700599](d:\pic-md/20211213214700.png)　　　
+   ![image-20211213214700599](/Users/jiusonghuang/pic-md/20211213214700.png)　　　
 
 （5）在客户端A执行更新语句update account set balance = balance - 50 where id =1，lilei的balance没有变成350，居然是400，是不是很奇怪，数据不一致啊，如果你这么想就太天真 了，在应用程序中，我们会用400-50=350，并不知道其他会话回滚了，要想解决这个问题可以采用读已提交的隔离级别
 
-![image-20211213214727974](d:\pic-md/20211213214728.png)
+![image-20211213214727974](/Users/jiusonghuang/pic-md/20211213214728.png)
 
 **3、读已提交**
 
 （1）打开一个客户端A，并设置当前事务模式为read committed（未提交读），查询表account的所有记录：
 
-**set tx_isolation='**read-committed**';**    ![image-20211213215412087](d:\pic-md/20211213215412.png)　　　　
+**set tx_isolation='**read-committed**';**    ![image-20211213215412087](/Users/jiusonghuang/pic-md/20211213215412.png)　　　　
 
 （2）在客户端A的事务提交之前，打开另一个客户端B，更新表account： 
 
-![image-20211213215607054](d:\pic-md/20211213215607.png)　　　　
+![image-20211213215607054](/Users/jiusonghuang/pic-md/20211213215607.png)　　　　
 
 （3）这时，客户端B的事务还没提交，客户端A不能查询到B已经更新的数据，解决了脏读问题： 
 
-![image-20211213215729596](d:\pic-md/20211213215729.png)　　　　
+![image-20211213215729596](/Users/jiusonghuang/pic-md/20211213215729.png)　　　　
 
 （4）客户端B的事务提交
 
-![image-20211213215801437](d:\pic-md/20211213215801.png)
+![image-20211213215801437](/Users/jiusonghuang/pic-md/20211213215801.png)
 
 　　　　
 
-（5）客户端A执行与上一步相同的查询，结果 与上一步不一致，即产生了不可重复读的问题   ![image-20211213215816260](d:\pic-md/20211213215816.png)
+（5）客户端A执行与上一步相同的查询，结果 与上一步不一致，即产生了不可重复读的问题   ![image-20211213215816260](/Users/jiusonghuang/pic-md/20211213215816.png)
 
 **4、可重复读**
 
@@ -210,27 +210,27 @@ Query OK, 0 rows affected, 1 warning (0.05 sec)
 
 **set tx_isolation='**repeatable-read**';**
 
-![image-20211213220302209](d:\pic-md/20211213220302.png)　　　　
+![image-20211213220302209](/Users/jiusonghuang/pic-md/20211213220302.png)　　　　
 
-（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account并提交   ![image-20211213220318688](d:\pic-md/20211213220318.png)　
+（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account并提交   ![image-20211213220318688](/Users/jiusonghuang/pic-md/20211213220318.png)　
 
-（3）在客户端A查询表account的所有记录，与步骤（1）查询结果一致，没有出现不可重复读的问题![image-20211213220333490](d:\pic-md/20211213220333.png)　
+（3）在客户端A查询表account的所有记录，与步骤（1）查询结果一致，没有出现不可重复读的问题![image-20211213220333490](/Users/jiusonghuang/pic-md/20211213220333.png)　
 
 （4）在客户端A，接着执行update account set balance = balance - 50 where id = 1，balance没有变成400-50=350，lilei的balance值用的是步骤2中的350来算的，所以是300，数据的一致性倒是没有被破坏。可重复读的隔离级别下使用了MVCC(multi-version concurrency control)机制，select操作不会更新版本号，是快照读（历史版本）；insert、update和delete会更新版本号，是当前读（当前版本）。
 
- ![image-20211213220404449](d:\pic-md/20211213220404.png)
+ ![image-20211213220404449](/Users/jiusonghuang/pic-md/20211213220404.png)
 
-（5）重新打开客户端B，插入一条新数据后提交 ![image-20211213220420588](d:\pic-md/20211213220420.png)
+（5）重新打开客户端B，插入一条新数据后提交 ![image-20211213220420588](/Users/jiusonghuang/pic-md/20211213220420.png)
 
 （6）在客户端A查询表account的所有记录，没有查出新增数据，所以没有出现幻读
 
-![image-20211213220434685](d:\pic-md/20211213220434.png)
+![image-20211213220434685](/Users/jiusonghuang/pic-md/20211213220434.png)
 
 （7)验证幻读
 
 在客户端A执行update account set balance=888 where id = 4;能更新成功，再次查询能查到客户端B新增的数据
 
-  ![image-20211213220453987](d:\pic-md/20211213220454.png)
+  ![image-20211213220453987](/Users/jiusonghuang/pic-md/20211213220454.png)
 
 **5、串行化**
 
@@ -238,13 +238,13 @@ Query OK, 0 rows affected, 1 warning (0.05 sec)
 
 **set tx_isolation='**serializable**';**
 
-![image-20211213220759096](d:\pic-md/20211213220759.png)
+![image-20211213220759096](/Users/jiusonghuang/pic-md/20211213220759.png)
 
 （2）打开一个客户端B，并设置当前事务模式为serializable，更新相同的id为1的记录会被阻塞等待，更新id为2的记录可以成功，说明在串行模式下innodb的查询也会被加上行锁。
 
 如果客户端A执行的是一个范围查询，那么该**范围内的所有行包括每行记录所在的间隙区间范围**(就算该行数据还未被插入也会加锁，这种是间隙锁)**都会被加锁**。此时如果客户端B在该范围内插入数据都会被阻塞，所以就避免了幻读。
 
-这种隔离级别并发性极低，开发中很少会用到。    ![image-20211213220813823](d:\pic-md/20211213220814.png)
+这种隔离级别并发性极低，开发中很少会用到。    ![image-20211213220813823](/Users/jiusonghuang/pic-md/20211213220814.png)
 
 ### **间隙锁(Gap Lock)**
 
@@ -252,7 +252,7 @@ Query OK, 0 rows affected, 1 warning (0.05 sec)
 
 假设account表里数据如下：
 
-![image-20211213220906580](d:\pic-md/20220115182508.png)
+![image-20211213220906580](/Users/jiusonghuang/pic-md/20220115182508.png)
 
 那么间隙就有 id 为 (3,10)，(10,20)，(20,正无穷) 这三个区间，
 

@@ -6,7 +6,7 @@
 
 其实optimizer trace输出的文本中就有这个片段：
 
-   ![img](d:\pic-md/20220115183329.png)
+   ![img](/Users/jiusonghuang/pic-md/20220115183329.png)
 
 具体的索引合并算法有下边三种。
 

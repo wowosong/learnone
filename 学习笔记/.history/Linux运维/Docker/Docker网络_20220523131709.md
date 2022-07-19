@@ -1,6 +1,6 @@
 使用容器总是感觉像使用魔法一样。对于那些理解底层原理的人来说容器很好用，但是对于不理解的人来说就是个噩梦。很幸运的是，我们已经研究容器技术很久了，甚至成功揭秘容器只是隔离并受限的Linux进程，运行容器并不需要镜像，以及另一个方面，构建镜像需要运行一些容器。
 
-![图片](d:\pic-md/20210910091025.webp)
+![图片](/Users/jiusonghuang/pic-md/20210910091025.webp)
 
 现在是时候解决容器网络问题了。或者更准确地说，单主机容器网络问题。本文会回答这些问题：
 
@@ -103,7 +103,7 @@ $ sudo nsenter --net=/var/run/netns/netns0 bash
 
 从上面的输出可以清楚地看到bash进程运行在netns0命名空间，这时看到的是完全不同的网络栈。这里没有路由规则，没有自定义的iptables chain，只有一个loopback的网络设备。
 
-![图片](d:\pic-md/20210910091034.webp)
+![图片](/Users/jiusonghuang/pic-md/20210910091034.webp)
 
 
 
@@ -165,7 +165,7 @@ $ ip link
  link/ether 66:2d:24:e3:49:3f brd ff:ff:ff:ff:ff:ff link-netnsid 0
 ```
 
-![image-20210611230823894](d:\pic-md/20210611230824.png)
+![image-20210611230823894](/Users/jiusonghuang/pic-md/20210611230824.png)
 
 
 
@@ -307,7 +307,7 @@ $ ip route
 
 在添加了第二个veth对之后，root的网络栈知道了新路由172.18.0.0/16 dev veth1 proto kernel scope link src 172.18.0.21，但是之前已经存在该网络的路由了。当第二个容器尝试ping veth1时，选中的是第一个路由规则，这导致网络无法连通。如果我们删除第一个路由sudo ip route delete 172.18.0.0/16 dev veth0 proto kernel scope link src 172.18.0.11，然后重新检查连通性，应该就没有问题了。netns1可以连通，但是netns0就不行了。
 
-![image-20210611230903386](d:\pic-md/20210611230903.png)
+![image-20210611230903386](/Users/jiusonghuang/pic-md/20210611230903.png)
 
 
 
@@ -378,7 +378,7 @@ $ sudo ip link set veth0 master br0
 $ sudo ip link set veth1 master br0
 ```
 
-![image-20210611230937113](d:\pic-md/20210611230937.png)
+![image-20210611230937113](/Users/jiusonghuang/pic-md/20210611230937.png)
 
 
 
@@ -506,7 +506,7 @@ rtt min/avg/max/mdev = 0.036/0.044/0.053/0.010 ms
 
 这个改动基本上把主机变成了路由，并且网桥接口变成了容器间的默认网关。
 
-![image-20210611231013743](d:\pic-md/20210611231013.png)
+![image-20210611231013743](/Users/jiusonghuang/pic-md/20210611231013.png)
 
 
 

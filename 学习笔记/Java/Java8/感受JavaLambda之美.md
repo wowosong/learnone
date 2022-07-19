@@ -290,7 +290,7 @@ public class StreamTest {
 - `map`：接收一个函数作为参数，该函数会被应用到每个元素上，并将其映射成一个新的元素。
 - `flatMap`：接收一个函数作为参数，将流中的每个值都换成另一个流，然后把所有流连接成一个流。
 
-![图片](./%E6%84%9F%E5%8F%97JavaLambda%E4%B9%8B%E7%BE%8E.assets/20210611102007.webp)![图片](d:\pic-md/20210611102012.webp)
+![图片](./%E6%84%9F%E5%8F%97JavaLambda%E4%B9%8B%E7%BE%8E.assets/20210611102007.webp)![图片](/Users/jiusonghuang/pic-md/20210611102012.webp)
 
 **案例一：英文字符串数组的元素全部改为大写。整数数组每个元素+3。**
 

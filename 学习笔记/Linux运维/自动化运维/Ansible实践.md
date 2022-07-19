@@ -4,10 +4,10 @@
 
 ### 云计算运维工程师核心职能
 
-![运维自动化发展历程，运维职业发展路线插图](d:\pic-md/20210603210931.png)
-![运维自动化发展历程，运维职业发展路线插图(1)](d:\pic-md/20210610223054.jpg)
+![运维自动化发展历程，运维职业发展路线插图](/Users/jiusonghuang/pic-md/20210603210931.png)
+![运维自动化发展历程，运维职业发展路线插图(1)](/Users/jiusonghuang/pic-md/20210610223054.jpg)
 ![运维自动化发展历程，运维职业发展路线插图(2)](http://www.yunweipai.com/wp-content/uploads/2020/06/devops-800x600.jpg)
-![运维自动化发展历程，运维职业发展路线插图(3)](d:\pic-md/20210610223058.jpg)
+![运维自动化发展历程，运维职业发展路线插图(3)](/Users/jiusonghuang/pic-md/20210610223058.jpg)
 
 **相关工具**
 
@@ -31,11 +31,11 @@
 
 ### 运维职业发展路线
 
-![运维自动化发展历程，运维职业发展路线插图(4)](d:\pic-md/20210610223102.jpg)
+![运维自动化发展历程，运维职业发展路线插图(4)](/Users/jiusonghuang/pic-md/20210610223102.jpg)
 
 ## 企业实际应用场景分析
 
-![运维自动化企业应用场景以及技术分析插图](d:\pic-md/20210610223107.png)
+![运维自动化企业应用场景以及技术分析插图](/Users/jiusonghuang/pic-md/20210610223107.png)
 
 ### Dev开发环境
 
@@ -146,7 +146,7 @@
 
 #### Ansible 组成
 
-![Ansible教程-Anaible基础入门插图](d:\pic-md/20210610223113.png)
+![Ansible教程-Anaible基础入门插图](/Users/jiusonghuang/pic-md/20210610223113.png)
 
 组合INVENTORY、API、MODULES、PLUGINS的绿框，可以理解为是ansible命令工具，其为核心执行工具
 
@@ -923,7 +923,7 @@ ansible all -m  setup  -a "filter=ansible_processor*"
 
 ### playbook介绍
 
-![Ansible-Playbook详解插图](d:\pic-md/20210610223134.png)
+![Ansible-Playbook详解插图](/Users/jiusonghuang/pic-md/20210610223134.png)
 
 playbook 剧本是由一个或多个“play”组成的列表
 play的主要功能在于将预定义的一组主机，装扮成事先通过ansible中的task定义好的角色。Task实际是调用ansible的一个module，将多个play组织在一个playbook中，即可以让它们联合起来，按事先编排的机制执行预定义的动作

@@ -5,7 +5,7 @@
 
 # 1、深入理解Mysql索引底层数据结构与算法
 
-![image-20211210103101138](d:\pic-md/20211210103101.png)
+![image-20211210103101138](/Users/jiusonghuang/pic-md/20211210103101.png)
 
 ##  二叉搜索树
 
@@ -19,7 +19,7 @@
 
 数据结构可视化网址：https://www.cs.usfca.edu/~galles/visualization/Algorithms.html
 
-![image-20211210222221205](d:\pic-md/20211210222221.png)
+![image-20211210222221205](/Users/jiusonghuang/pic-md/20211210222221.png)
 
 ## B+Tree
 
@@ -31,19 +31,19 @@ mysql采用B+Tree数据结构，数据从左到右排序
 假设我们一行数据大小为1K，那么一页就能存16条数据，也就是一个叶子节点能存16条数据；再看非叶子节点，假设主键ID为bigint类型，那么长度为8B，指针大小在Innodb源码中为6B，一共就是14B，那么一页里就可以存储16K/14=1170个(主键+指针)
 那么一颗高度为2的B+树能存储的数据为：1170*16=18720条，一颗高度为3的B+树能存储的数据为：1170**1170*16=21902400（千万级条）
 
-![image-20211210223842939](d:\pic-md/20211210223843.png)
+![image-20211210223842939](/Users/jiusonghuang/pic-md/20211210223843.png)
 
-![image-20211210223907203](d:\pic-md/20211210223907.png)
+![image-20211210223907203](/Users/jiusonghuang/pic-md/20211210223907.png)
 
 ## hash索引
 
 hash索引不支持范围查找，因为无法比较
 
-![image-20211210231358763](d:\pic-md/20211210231358.png)
+![image-20211210231358763](/Users/jiusonghuang/pic-md/20211210231358.png)
 
-![image-20211210231839615](d:\pic-md/20211210231839.png)
+![image-20211210231839615](/Users/jiusonghuang/pic-md/20211210231839.png)
 
-![image-20211210223937092](d:\pic-md/20211210223937.png)
+![image-20211210223937092](/Users/jiusonghuang/pic-md/20211210223937.png)
 
 ## MyISAM引擎
 
@@ -53,13 +53,13 @@ MyISAM引擎中，myi文件存储索引数据，MYD存储数据，属于不同�
 
 InnoDB按照B+Tree存储数据，但是会包含完整的数据，将下一级节点中最小的节点 提上去作为上一级的节点（描述不准确）
 
-![image-20211210224006859](d:\pic-md/20211210224006.png)
+![image-20211210224006859](/Users/jiusonghuang/pic-md/20211210224006.png)
 
 ## 索引最左前缀原理
 
-![image-20211210224027377](d:\pic-md/20211210224027.png)
+![image-20211210224027377](/Users/jiusonghuang/pic-md/20211210224027.png)
 
-![image-20211210224040308](d:\pic-md/20211210224040.png)
+![image-20211210224040308](/Users/jiusonghuang/pic-md/20211210224040.png)
 
 ## 联合索引
 
@@ -119,7 +119,7 @@ INSERT INTO `film_actor` (`id`, `film_id`, `actor_id`) VALUES (1,1,1),(2,1,2),(3
 mysql> explain select * from actor;
 ```
 
-![image-20211211113729938](d:\pic-md/20211211113730.png)
+![image-20211211113729938](/Users/jiusonghuang/pic-md/20211211113730.png)
 
 在查询中的每个表会输出一行，如果有两个表通过 join 连接查询，那么会输出两行 
 
@@ -137,13 +137,13 @@ filtered/100 可以**估算**出将要和 explain 中前一个表进行连接的
  mysql> explain extended select * from film where id = 1; 
 ```
 
-![image-20211211113857847](d:\pic-md/20211211113857.png)
+![image-20211211113857847](/Users/jiusonghuang/pic-md/20211211113857.png)
 
 ```
  mysql> show warnings; 
 ```
 
-![image-20211211113943174](d:\pic-md/20211211113943.png)
+![image-20211211113943174](/Users/jiusonghuang/pic-md/20211211113943.png)
 
 2）**explain partitions**：相比 explain 多了个 partitions 字段，如果查询是基于分区表的话，会显示查询将访问的分 
 
@@ -169,7 +169,7 @@ select_type 表示对应行是简单还是复杂的查询。
 mysql> explain select * from film where id = 2; 
 ```
 
-![image-20211211114046872](d:\pic-md/20211211114046.png)
+![image-20211211114046872](/Users/jiusonghuang/pic-md/20211211114046.png)
 
 2）primary：复杂查询中最外层的 select 
 
@@ -185,7 +185,7 @@ mysql> explain select * from film where id = 2;
 mysql> set session optimizer_switch='derived_merge=off'; #关闭mysql5.7新特性对衍生表的合 并优化 mysql> explain select (select 1 from actor where id = 1) from (select * from film where id = 1) der;
 ```
 
-![image-20211211114417281](d:\pic-md/20211211114417.png)
+![image-20211211114417281](/Users/jiusonghuang/pic-md/20211211114417.png)
 
 ```
 mysql> set session optimizer_switch='derived_merge=on'; #还原默认配置 
@@ -197,7 +197,7 @@ mysql> set session optimizer_switch='derived_merge=on'; #还原默认配置
  mysql> explain select 1 union all select 1;
 ```
 
-![image-20211211114735080](d:\pic-md/20211211114735.png)
+![image-20211211114735080](/Users/jiusonghuang/pic-md/20211211114735.png)
 
 **3. table列** 
 
@@ -225,7 +225,7 @@ mysql> set session optimizer_switch='derived_merge=on'; #还原默认配置
 mysql> explain select min(id) from film; 
 ```
 
-![image-20211211114937081](d:\pic-md/20211211114937.png)
+![image-20211211114937081](/Users/jiusonghuang/pic-md/20211211114937.png)
 
 **const, system**：mysql能对查询的某部分进行优化并将其转化成一个常量（可以看show warnings 的结果）。用于 
 
@@ -237,13 +237,13 @@ primary key 或 unique key 的所有列与常数比较时，所以表最多有�
  mysql> explain extended select * from (select * from film where id = 1) tmp; 
 ```
 
-![image-20211211115200895](d:\pic-md/20211211115201.png)
+![image-20211211115200895](/Users/jiusonghuang/pic-md/20211211115201.png)
 
 ```
 mysql> show warnings; 
 ```
 
-![image-20211211115302377](d:\pic-md/20211211115302.png)
+![image-20211211115302377](/Users/jiusonghuang/pic-md/20211211115302.png)
 
 **eq_ref**：primary key 或 unique key 索引的所有部分被连接使用 ，最多只会返回一条符合条件的记录。这可能是在 
 
@@ -253,7 +253,7 @@ const 之外最好的联接类型了，简单的 select 查询不会出现这种
 mysql> explain select * from film_actor left join film on film_actor.film_id = film.id; 
 ```
 
-![image-20211211120035384](d:\pic-md/20211211120035.png)
+![image-20211211120035384](/Users/jiusonghuang/pic-md/20211211120035.png)
 
 **ref**：相比 eq_ref，不使用唯一索引，而是使用普通索引或者唯一性索引的部分前缀，索引要和某个值相比较，可能会 
 
@@ -265,7 +265,7 @@ mysql> explain select * from film_actor left join film on film_actor.film_id = f
  mysql> explain select * from film where name = 'film1'; 
 ```
 
-![image-20211211120147343](d:\pic-md/20211211120147.png)
+![image-20211211120147343](/Users/jiusonghuang/pic-md/20211211120147.png)
 
 2.关联表查询，idx_film_actor_id是film_id和actor_id的联合索引，这里使用到了film_actor的左边前缀film_id部分。 
 
@@ -273,7 +273,7 @@ mysql> explain select * from film_actor left join film on film_actor.film_id = f
  mysql> explain select film_id from film left join film_actor on film.id = film_actor.film_id; 
 ```
 
-![image-20211211120307101](d:\pic-md/20211211120307.png)
+![image-20211211120307101](/Users/jiusonghuang/pic-md/20211211120307.png)
 
 **range**：范围扫描通常出现在 in(), between ,> ,<, >= 等操作中。使用一个索引来检索给定范围的行。 
 
@@ -281,7 +281,7 @@ mysql> explain select * from film_actor left join film on film_actor.film_id = f
  mysql> explain select * from actor where id > 1;
 ```
 
-![image-20211211120510868](d:\pic-md/20211211120511.png)
+![image-20211211120510868](/Users/jiusonghuang/pic-md/20211211120511.png)
 
 **index**：扫描全索引就能拿到结果，一般是扫描某个二级索引，这种扫描不会从索引树根节点开始快速查找，而是直接对二级索引的叶子节点遍历和扫描，速度还是比较慢的，这种查询一般为使用覆盖索引，二级索引一般比较小，所以这种通常比ALL快一些。 
 
@@ -289,7 +289,7 @@ mysql> explain select * from film_actor left join film on film_actor.film_id = f
 mysql> explain select * from film; 
 ```
 
-![image-20211211120805866](d:\pic-md/20211211120806.png)
+![image-20211211120805866](/Users/jiusonghuang/pic-md/20211211120806.png)
 
 **ALL**：即全表扫描，扫描你的聚簇索引的所有叶子节点。通常情况下这需要增加索引来进行优化了。 
 
@@ -297,7 +297,7 @@ mysql> explain select * from film;
 mysql> explain select * from actor; 
 ```
 
-![image-20211211121154767](d:\pic-md/20211211121154.png)
+![image-20211211121154767](/Users/jiusonghuang/pic-md/20211211121154.png)
 
 **5. possible_keys列** 
 
@@ -323,7 +323,7 @@ explain 时可能出现 possible_keys 有列，而 key 显示 NULL 的情况，�
  mysql> explain select * from film_actor where film_id = 2; 
 ```
 
-![image-20211211121322169](d:\pic-md/20211211121322.png)
+![image-20211211121322169](/Users/jiusonghuang/pic-md/20211211121322.png)
 
 key_len计算规则如下： 
 
@@ -381,7 +381,7 @@ key_len计算规则如下：
 1 mysql> explain select film_id from film_actor where film_id = 1; 
 ```
 
-![image-20211211121702817](d:\pic-md/20211211121702.png)
+![image-20211211121702817](/Users/jiusonghuang/pic-md/20211211121702.png)
 
 2）**Using where**：使用 where 语句来处理结果，并且查询的列未被索引覆盖 
 
@@ -389,7 +389,7 @@ key_len计算规则如下：
 l1 mysql> explain select * from actor where name = 'a'; 
 ```
 
-![image-20211211121735812](d:\pic-md/20211211121735.png)
+![image-20211211121735812](/Users/jiusonghuang/pic-md/20211211121735.png)
 
 3）**Using index condition**：查询的列不完全被索引覆盖，where条件中是一个前导列的范围； 
 
@@ -397,7 +397,7 @@ l1 mysql> explain select * from actor where name = 'a';
 1 mysql> explain select * from film_actor where film_id > 1;
 ```
 
-![image-20211211121813656](d:\pic-md/20211211121813.png)
+![image-20211211121813656](/Users/jiusonghuang/pic-md/20211211121813.png)
 
 4）**Using temporary**：mysql需要创建一张临时表来处理查询。出现这种情况一般是要进行优化的，首先是想到用索 
 
@@ -409,7 +409,7 @@ l1 mysql> explain select * from actor where name = 'a';
 1 mysql> explain select distinct name from actor; 
 ```
 
-![image-20211211121856879](d:\pic-md/20211211121857.png)
+![image-20211211121856879](/Users/jiusonghuang/pic-md/20211211121857.png)
 
 2. film.name建立了idx_name索引，此时查询时extra是using index,没有用临时表 
 
@@ -417,7 +417,7 @@ l1 mysql> explain select * from actor where name = 'a';
 mysql> explain select distinct name from film; 
 ```
 
-![image-20211211121933066](d:\pic-md/20211211121933.png)
+![image-20211211121933066](/Users/jiusonghuang/pic-md/20211211121933.png)
 
 5）**Using filesort**：将用外部排序而不是索引排序，数据较小时从内存排序，否则需要在磁盘完成排序。这种情况下一 
 
@@ -429,7 +429,7 @@ mysql> explain select distinct name from film;
 mysql> explain select * from actor order by name;
 ```
 
-![image-20211211122508113](d:\pic-md/20211211122508.png)
+![image-20211211122508113](/Users/jiusonghuang/pic-md/20211211122508.png)
 
 ​	2. film.name建立了idx_name索引,此时查询时extra是using index 
 
@@ -437,7 +437,7 @@ mysql> explain select * from actor order by name;
 mysql> explain select * from film order by name; 
 ```
 
-![image-20211211122903952](d:\pic-md/20211211122904.png)
+![image-20211211122903952](/Users/jiusonghuang/pic-md/20211211122904.png)
 
 6）**Select tables optimized away**：使用某些聚合函数（比如 max、min）来访问存在索引的某个字段时 
 
@@ -445,7 +445,7 @@ mysql> explain select * from film order by name;
 mysql> explain select min(id) from film; 
 ```
 
-![image-20211211123005292](d:\pic-md/20211211123005.png)
+![image-20211211123005292](/Users/jiusonghuang/pic-md/20211211123005.png)
 
 ### **索引最佳实践**
 
@@ -473,19 +473,19 @@ KEY `idx_name_age_position` (`name`,`age`,`position`) USING BTREE
  EXPLAIN SELECT * FROM employees WHERE name= 'LiLei'; 
 ```
 
-![image-20211211124753838](d:\pic-md/20211211124753.png)
+![image-20211211124753838](/Users/jiusonghuang/pic-md/20211211124753.png)
 
 ```sql
  EXPLAIN SELECT * FROM employees WHERE name= 'LiLei' AND age = 22; 
 ```
 
-![image-20211211124821796](d:\pic-md/20211211124821.png)
+![image-20211211124821796](/Users/jiusonghuang/pic-md/20211211124821.png)
 
 ```sql
  EXPLAIN SELECT * FROM employees WHERE name= 'LiLei' AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211211124846168](d:\pic-md/20211211124846.png)
+![image-20211211124846168](/Users/jiusonghuang/pic-md/20211211124846.png)
 
 **2.最左前缀法则** 
 
@@ -495,19 +495,19 @@ KEY `idx_name_age_position` (`name`,`age`,`position`) USING BTREE
 1 EXPLAIN SELECT * FROM employees WHERE name = 'Bill' and age = 31; 
 ```
 
-![image-20211211125957740](d:\pic-md/20211211125957.png)
+![image-20211211125957740](/Users/jiusonghuang/pic-md/20211211125957.png)
 
 ```sql
 2 EXPLAIN SELECT * FROM employees WHERE age = 30 AND position = 'dev'; 
 ```
 
-![image-20211211130028522](d:\pic-md/20211211130028.png)
+![image-20211211130028522](/Users/jiusonghuang/pic-md/20211211130028.png)
 
 ```sql
 3 EXPLAIN SELECT * FROM employees WHERE position = 'manager';
 ```
 
-![image-20211211130106388](d:\pic-md/20211211130106.png)
+![image-20211211130106388](/Users/jiusonghuang/pic-md/20211211130106.png)
 
 **3.不在索引列上做任何操作（计算、函数、（自动or手动）类型转换），会导致索引失效而转向全表扫描** 
 
@@ -515,13 +515,13 @@ KEY `idx_name_age_position` (`name`,`age`,`position`) USING BTREE
 1 EXPLAIN SELECT * FROM employees WHERE name = 'LiLei'; 
 ```
 
-![image-20211211130146058](d:\pic-md/20211211130146.png)
+![image-20211211130146058](/Users/jiusonghuang/pic-md/20211211130146.png)
 
 ```sql
 2 EXPLAIN SELECT * FROM employees WHERE left(name,3) = 'LiLei'; 
 ```
 
-![image-20211211130208452](d:\pic-md/20211211130208.png)
+![image-20211211130208452](/Users/jiusonghuang/pic-md/20211211130208.png)
 
 给hire_time增加一个普通索引： 
 
@@ -531,7 +531,7 @@ ALTER TABLE `employees` ADD INDEX `idx_hire_time` (`hire_time`) USING BTREE ;
 EXPLAIN select * from employees where date(hire_time) ='2018‐09‐30'; 
 ```
 
-![image-20211211130253517](d:\pic-md/20211211130253.png)
+![image-20211211130253517](/Users/jiusonghuang/pic-md/20211211130253.png)
 
 转化为日期范围查询，有可能会走索引： 
 
@@ -542,11 +542,11 @@ EXPLAIN select * from employees where hire_time >='2018‐09‐30 00:00:00' and 
 
 添加索引之前
 
-![image-20211211130515906](d:\pic-md/20211211130516.png)
+![image-20211211130515906](/Users/jiusonghuang/pic-md/20211211130516.png)
 
 添加索引之后
 
-![image-20211211130603823](d:\pic-md/20211211130603.png)
+![image-20211211130603823](/Users/jiusonghuang/pic-md/20211211130603.png)
 
 还原最初索引状态 
 
@@ -561,7 +561,7 @@ EXPLAIN select * from employees where hire_time >='2018‐09‐30 00:00:00' and 
  EXPLAIN SELECT * FROM employees WHERE name= 'LiLei' AND age > 22 AND position ='manager'; 
 ```
 
-![image-20211211130758360](d:\pic-md/20211211130758.png)
+![image-20211211130758360](/Users/jiusonghuang/pic-md/20211211130758.png)
 
 **5.尽量使用覆盖索引（只访问索引的查询（索引列包含查询列）），减少 select \* 语句** 
 
@@ -569,13 +569,13 @@ EXPLAIN select * from employees where hire_time >='2018‐09‐30 00:00:00' and 
 EXPLAIN SELECT name,age FROM employees WHERE name= 'LiLei' AND age = 23 AND position ='manager'; 
 ```
 
-![image-20211211130859573](d:\pic-md/20211211130859.png)
+![image-20211211130859573](/Users/jiusonghuang/pic-md/20211211130859.png)
 
 ```sql
 EXPLAIN SELECT * FROM employees WHERE name= 'LiLei' AND age = 23 AND position ='manager'; 
 ```
 
-![image-20211211131001108](d:\pic-md/20211211131001.png)
+![image-20211211131001108](/Users/jiusonghuang/pic-md/20211211131001.png)
 
 **6.mysql在使用不等于（！=或者<>），****not in** **，****not exists** **的时候无法使用索引会导致全表扫描**；**<** **小于、** **>** **大于、** **<=**、**>=** **这些，mysql内部优化器会根据检索比例、表大小等多个因素整体评估是否使用索引** 
 
@@ -583,7 +583,7 @@ EXPLAIN SELECT * FROM employees WHERE name= 'LiLei' AND age = 23 AND position ='
 EXPLAIN SELECT * FROM employees WHERE name != 'LiLei'; 
 ```
 
-![image-20211211131144953](d:\pic-md/20211211131145.png)
+![image-20211211131144953](/Users/jiusonghuang/pic-md/20211211131145.png)
 
 **7.is null,is not null 一般情况下也无法使用索引** 
 
@@ -591,7 +591,7 @@ EXPLAIN SELECT * FROM employees WHERE name != 'LiLei';
  EXPLAIN SELECT * FROM employees WHERE name is null 
 ```
 
-![image-20211211131221307](d:\pic-md/20211211131221.png)
+![image-20211211131221307](/Users/jiusonghuang/pic-md/20211211131221.png)
 
 **8.like以通配符开头（'$abc...'）mysql索引失效会变成全表扫描操作** 
 
@@ -599,13 +599,13 @@ EXPLAIN SELECT * FROM employees WHERE name != 'LiLei';
 EXPLAIN SELECT * FROM employees WHERE name like '%Lei'
 ```
 
-![image-20211211131412055](d:\pic-md/20211211131412.png)
+![image-20211211131412055](/Users/jiusonghuang/pic-md/20211211131412.png)
 
 ```sql
 EXPLAIN SELECT * FROM employees WHERE name like 'Lei%' 
 ```
 
-![image-20211211131447289](d:\pic-md/20211211131447.png)
+![image-20211211131447289](/Users/jiusonghuang/pic-md/20211211131447.png)
 
 问题：解决like'%字符串%'索引不被使用的方法？ 
 
@@ -615,7 +615,7 @@ a）使用覆盖索引，查询字段必须是建立覆盖索引字段
 EXPLAIN SELECT name,age,position FROM employees WHERE name like '%Lei%'; 
 ```
 
-![image-20211211131534613](d:\pic-md/20211211131534.png)
+![image-20211211131534613](/Users/jiusonghuang/pic-md/20211211131534.png)
 
 b）如果不能使用覆盖索引则可能需要借助搜索引擎 
 
@@ -625,13 +625,13 @@ b）如果不能使用覆盖索引则可能需要借助搜索引擎
  EXPLAIN SELECT * FROM employees WHERE name = '1000'; 
 ```
 
-![image-20211211131649853](d:\pic-md/20211211131650.png)
+![image-20211211131649853](/Users/jiusonghuang/pic-md/20211211131650.png)
 
 ```sql
  EXPLAIN SELECT * FROM employees WHERE name = 1000; 
 ```
 
-![image-20211211131719171](d:\pic-md/20211211131719.png)
+![image-20211211131719171](/Users/jiusonghuang/pic-md/20211211131719.png)
 
 **10.少用or或in，用它查询时，mysql不一定使用索引，mysql内部优化器会根据检索比例、表大小等多个因素整体估是否使用索引，详见范围查询优化** 
 
@@ -639,7 +639,7 @@ b）如果不能使用覆盖索引则可能需要借助搜索引擎
 EXPLAIN SELECT * FROM employees WHERE name = 'LiLei' or name = 'HanMeimei'; 
 ```
 
-![image-20211211131816835](d:\pic-md/20211211131817.png)
+![image-20211211131816835](/Users/jiusonghuang/pic-md/20211211131817.png)
 
 **11.范围查询优化** 
 
@@ -650,7 +650,7 @@ ALTER TABLE `employees` ADD INDEX `idx_age` (`age`) USING BTREE ;
 explain select * from employees where age >=1 and age <=2000; 
 ```
 
-![image-20211211131857063](d:\pic-md/20211211131857.png)
+![image-20211211131857063](/Users/jiusonghuang/pic-md/20211211131857.png)
 
 没走索引原因：mysql内部优化器会根据检索比例、表大小等多个因素整体评估是否使用索引。比如这个例子，可能是由于单次数据量查询过大导致优化器最终选择不走索引 
 
@@ -661,7 +661,7 @@ explain select * from employees where age >=1 and age <=2000;
  explain select * from employees where age >=1001 and age <=2000; 
 ```
 
-![image-20211211132104393](d:\pic-md/20211211132104.png)
+![image-20211211132104393](/Users/jiusonghuang/pic-md/20211211132104.png)
 
 还原最初索引状态 
 
@@ -671,7 +671,7 @@ explain select * from employees where age >=1 and age <=2000;
 
 **索引使用总结：**like KK%相当于=常量，%KK和%KK% 相当于范围 
 
-![image-20211211132335150](d:\pic-md/20211211132335.png)
+![image-20211211132335150](/Users/jiusonghuang/pic-md/20211211132335.png)
 
 ```sql
 1 ‐‐ mysql5.7关闭ONLY_FULL_GROUP_BY报错 
@@ -689,7 +689,7 @@ http://note.youdao.com/noteshareid=59d7a574ef9a905e3bb0982bbe33e74d&sub=83A39BAA
 
 ## MySQL的内部组件结构
 
-![image-20211211152020218](d:\pic-md/20211211152021.png)
+![image-20211211152020218](/Users/jiusonghuang/pic-md/20211211152021.png)
 
 大体来说，MySQL 可以分为 Server 层和存储引擎层两部分。 
 
@@ -732,7 +732,7 @@ http://note.youdao.com/noteshareid=59d7a574ef9a905e3bb0982bbe33e74d&sub=83A39BAA
 
 这就意味着，一个用户成功建立连接后，即使你用管理员账号对这个用户的权限做了修改，也不会影响已经存在连接的权限。修改完成后，只有再新建的连接才会使用新的权限设置。用户的权限表在系统表空间的mysql的user表中。 
 
-![image-20211211153004648](d:\pic-md/20211211153004.png)
+![image-20211211153004648](/Users/jiusonghuang/pic-md/20211211153004.png)
 
 修改user密码 
 
@@ -746,7 +746,7 @@ http://note.youdao.com/noteshareid=59d7a574ef9a905e3bb0982bbe33e74d&sub=83A39BAA
 
 连接完成后，如果你没有后续的动作，这个连接就处于空闲状态，你可以在 show processlist 命令中看到它。文本中这个图是 show processlist 的结果，其中的 Command 列显示为“Sleep”的这一行，就表示现在系统里面有一个空闲连接。 
 
-![image-20211211154711388](d:\pic-md/20211211154711.png)
+![image-20211211154711388](/Users/jiusonghuang/pic-md/20211211154711.png)
 
 客户端如果长时间不发送command到Server端，连接器就会自动将它断开。这个时间是由参数 wait_timeout 控制的，默认值是 8 小时。 
 
@@ -757,7 +757,7 @@ http://note.youdao.com/noteshareid=59d7a574ef9a905e3bb0982bbe33e74d&sub=83A39BAA
 2 mysql>set global wait_timeout=28800; 设置全局服务器关闭非交互连接之前等待活动的秒数 
 ```
 
-![image-20211211154844179](d:\pic-md/20211211154844.png)
+![image-20211211154844179](/Users/jiusonghuang/pic-md/20211211154844.png)
 
 如果在连接被断开之后，客户端再次发送请求的话，就会收到一个错误提醒： Lost connection to MySQL server during 
 
@@ -825,7 +825,7 @@ mysql> show global variables like "%query_cache_type%";
  mysql> show status like'%Qcache%'; //查看运行的缓存信息
 ```
 
-![image-20211211213014673](d:\pic-md/20211211213014.png)
+![image-20211211213014673](/Users/jiusonghuang/pic-md/20211211213014.png)
 
 - Qcache_free_blocks:表示查询缓存中目前还有多少剩余的blocks，如果该值显示较大，则说明查询缓存中的内存碎片过多了，可能在一定的时间进行整理。 
 - Qcache_free_memory:查询缓存的内存大小，通过这个参数可以很清晰的知道当前系统的查询内存是否够用，是多了，还是不够用，DBA可以根据实际情况做出调整。 
@@ -869,13 +869,13 @@ MySQL 从你输入的"select"这个关键字识别出来，这是一个查询语
 6、计划的执行 
 ```
 
-下图是SQL词法分析的过程步骤：![image-20211211164739121](d:\pic-md/20211211164739.png)
+下图是SQL词法分析的过程步骤：![image-20211211164739121](/Users/jiusonghuang/pic-md/20211211164739.png)
 
 SQL语句的分析分为词法分析与语法分析，mysql的词法分析由MySQLLex[MySQL自己实现的]完成，语法分析由Bison生成。关于语法树大家如果想要深入研究可以参考这篇wiki文章：https://en.wikipedia.org/wiki/LR_parser。那么除了Bison 外，Java当中也有开源的词法结构分析工具例如Antlr4，ANTLR从语法生成一个解析器，可以构建和遍历解析树，可以在IDEA 工具当中安装插件：**antlr v4 grammar plugin。插件使用详见课程** 
 
 经过bison语法分析之后，会生成一个这样的语法树 
 
-![image-20211211164817172](d:\pic-md/20211211164817.png)
+![image-20211211164817172](/Users/jiusonghuang/pic-md/20211211164817.png)
 
 至此我们分析器的工作任务也基本圆满了。接下来进入到优化器 
 
@@ -962,7 +962,7 @@ mysql> /usr/local/mysql/bin/mysqlbinlog ‐‐no‐defaults /usr/local/mysql/dat
 
 binlog里的内容不具备可读性，所以需要我们自己去判断恢复的逻辑点位，怎么观察呢？看重点信息，比如begin，commit这种关键词信息，只要在binlog当中看到了，你就可以理解为begin-commit之间的信息是一个完整的事务逻辑,然后再根据位置position判断恢复即可。binlog内容如下： 
 
-![image-20211211211504612](d:\pic-md/20211211211504.png)
+![image-20211211211504612](/Users/jiusonghuang/pic-md/20211211211504.png)
 
 **数据归档操作** 
 
@@ -1060,9 +1060,9 @@ CALL insert_emp ();
 EXPLAIN SELECT * FROM employees WHERE name > 'LiLei' AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212110310973](d:\pic-md/20211212110311.png)
+![image-20211212110310973](/Users/jiusonghuang/pic-md/20211212110311.png)
 
-![image-20211212110728092](d:\pic-md/20211212110728.png)
+![image-20211212110728092](/Users/jiusonghuang/pic-md/20211212110728.png)
 
 结论：联合索引第一个字段就用范围查找不会走索引，mysql内部可能觉得第一个字段就用范围，结果集应该很大，回表效率不高，还不如就全表扫描
 
@@ -1072,7 +1072,7 @@ EXPLAIN SELECT * FROM employees WHERE name > 'LiLei' AND age = 22 AND position =
 EXPLAIN SELECT * FROM employees force index(idx_name_age_position) WHERE name > 'LiLei' AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212111138725](d:\pic-md/20211212111139.png)
+![image-20211212111138725](/Users/jiusonghuang/pic-md/20211212111139.png)
 
 结论：虽然使用了强制走索引让联合索引第一个字段范围查找也走索引，扫描的行rows看上去也少了点，但是最终查找效率不一定比全表扫描高，因为回表效率不高 
 
@@ -1102,7 +1102,7 @@ SELECT * FROM employees force index(idx_name_age_position) WHERE name > 'LiLei';
 EXPLAIN SELECT name,age,position FROM employees WHERE name > 'LiLei' AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212111927665](d:\pic-md/20211212111927.png)
+![image-20211212111927665](/Users/jiusonghuang/pic-md/20211212111927.png)
 
 **4、in和or在表数据量比较大的情况会走索引，在表记录不多的情况下会选择全表扫描** 
 
@@ -1110,13 +1110,13 @@ EXPLAIN SELECT name,age,position FROM employees WHERE name > 'LiLei' AND age = 2
 EXPLAIN SELECT * FROM employees WHERE name in ('LiLei','HanMeimei','Lucy') AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212112342620](d:\pic-md/20211212112342.png)
+![image-20211212112342620](/Users/jiusonghuang/pic-md/20211212112342.png)
 
 ```sql
 EXPLAIN SELECT * FROM employees WHERE (name = 'LiLei' or name = 'HanMeimei') AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212112419441](d:\pic-md/20211212112419.png)
+![image-20211212112419441](/Users/jiusonghuang/pic-md/20211212112419.png)
 
 做一个小实验，将employees 表复制一张employees_copy的表，里面保留两三条记录 
 
@@ -1124,13 +1124,13 @@ EXPLAIN SELECT * FROM employees WHERE (name = 'LiLei' or name = 'HanMeimei') AND
 EXPLAIN SELECT * FROM employees_copy WHERE name in ('LiLei','HanMeimei','Lucy') AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212112533716](d:\pic-md/20211212112607.png)
+![image-20211212112533716](/Users/jiusonghuang/pic-md/20211212112607.png)
 
 ```sql
 EXPLAIN SELECT * FROM employees_copy WHERE (name = 'LiLei' or name = 'HanMeimei') AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212112640290](d:\pic-md/20211212112640.png)
+![image-20211212112640290](/Users/jiusonghuang/pic-md/20211212112640.png)
 
 **5、like KK% 一般情况都会走索引** 
 
@@ -1138,13 +1138,13 @@ EXPLAIN SELECT * FROM employees_copy WHERE (name = 'LiLei' or name = 'HanMeimei'
 EXPLAIN SELECT * FROM employees WHERE name like 'LiLei%' AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212125045577](d:\pic-md/20211212125046.png)
+![image-20211212125045577](/Users/jiusonghuang/pic-md/20211212125046.png)
 
 ```sql
 EXPLAIN SELECT * FROM employees_copy WHERE name like 'LiLei%' AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212125440632](d:\pic-md/20211212125440.png)
+![image-20211212125440632](/Users/jiusonghuang/pic-md/20211212125440.png)
 
 这里给大家补充一个概念，**索引下推（Index Condition Pushdown，ICP）**, like KK%其实就是用到了索引下推优化 
 
@@ -1168,7 +1168,7 @@ MySQL 5.6引入了索引下推优化，**可以在索引遍历过程中，对索
  mysql> EXPLAIN select * from employees where name > 'a';
 ```
 
-![image-20211212130134236](d:\pic-md/20211212130134.png)
+![image-20211212130134236](/Users/jiusonghuang/pic-md/20211212130134.png)
 
 如果用name索引需要遍历name字段联合索引树，然后还需要根据遍历出来的主键值（回表）去主键索引树里再去查出最终数据，成本比全表扫描还高，可以用覆盖索引优化，这样只需要遍历name字段的联合索引树就能拿到所有结果，如下： 
 
@@ -1176,13 +1176,13 @@ MySQL 5.6引入了索引下推优化，**可以在索引遍历过程中，对索
  mysql> EXPLAIN select name,age,position from employees where name > 'a' ; 
 ```
 
-![image-20211212130237719](d:\pic-md/20211212130237.png)
+![image-20211212130237719](/Users/jiusonghuang/pic-md/20211212130237.png)
 
 ```sql
  mysql> EXPLAIN select * from employees where name > 'zzz' ; 
 ```
 
-![image-20211212130159114](d:\pic-md/20211212130159.png)
+![image-20211212130159114](/Users/jiusonghuang/pic-md/20211212130159.png)
 
 对于上面这两种 name>'a' 和 name>'zzz' 的执行结果，mysql最终是否选择走索引或者一张表涉及多个索引，mysql最 
 
@@ -1438,7 +1438,7 @@ Case1：
 explain select * from employees where name='LiLei' and position='dev' ORDER BY age;
 ```
 
-![image-20211212150117249](d:\pic-md/20211212150117.png)
+![image-20211212150117249](/Users/jiusonghuang/pic-md/20211212150117.png)
 
 分析： 
 
@@ -1450,7 +1450,7 @@ Case 2：
 	explain select * from employees where name='LiLei'  ORDER BY position;
 ```
 
-![image-20211212150823836](d:\pic-md/20211212150824.png)
+![image-20211212150823836](/Users/jiusonghuang/pic-md/20211212150824.png)
 
 分析： 
 
@@ -1462,7 +1462,7 @@ Case 3：分析：
 	explain select * from employees where name='LiLei'  ORDER BY age,position;
 ```
 
-![image-20211212150320225](d:\pic-md/20211212150320.png)
+![image-20211212150320225](/Users/jiusonghuang/pic-md/20211212150320.png)
 
 查找只用到索引name，age和position用于排序，无Using filesort。 
 
@@ -1474,7 +1474,7 @@ Case 4：
 	explain select * from employees where name='LiLei'  ORDER BY position,age;
 ```
 
-![image-20211212150930645](d:\pic-md/20211212150930.png) 
+![image-20211212150930645](/Users/jiusonghuang/pic-md/20211212150930.png) 
 
 和Case 3中explain的执行结果一样，但是出现了Using filesort，因为索引的创建顺序为name,age,position，但是排序的时候age和position颠倒位置了。 
 
@@ -1486,7 +1486,7 @@ Case 5：
 explain select * from employees where name='LiLei'  and age=18 ORDER BY position,age;
 ```
 
-![image-20211212151248488](d:\pic-md/20211212151248.png)
+![image-20211212151248488](/Users/jiusonghuang/pic-md/20211212151248.png)
 
 与Case 4对比，在Extra中并未出现Using filesort，因为age为常量，在排序中被优化，所以索引未颠倒，不会出现Using filesort。 
 
@@ -1498,7 +1498,7 @@ Case 6：
 	explain select * from employees where name='zhugu'  ORDER BY age ASC,position desc;
 ```
 
-![image-20211212151921847](d:\pic-md/20211212151921.png)
+![image-20211212151921847](/Users/jiusonghuang/pic-md/20211212151921.png)
 
 虽然排序的字段列与索引顺序一样，且order by默认升序，这里position desc变成了降序，导致与索引的排序方式不同，从而产生Using filesort。Mysql8以上版本有降序索引可以支持该种查询方式。 
 
@@ -1510,7 +1510,7 @@ Case 7：
 	explain select * from employees where name in ('LiLei','zhugu')  ORDER BY age,position;
 ```
 
-![image-20211212152051825](d:\pic-md/20211212152051.png)
+![image-20211212152051825](/Users/jiusonghuang/pic-md/20211212152051.png)
 
 对于排序来说，多个相等条件也是范围查询 
 
@@ -1520,7 +1520,7 @@ Case 8：
 	explain select * from employees where name >'a' ORDER BY name;
 ```
 
-![image-20211212152232228](d:\pic-md/20211212152232.png)
+![image-20211212152232228](/Users/jiusonghuang/pic-md/20211212152232.png)
 
 数据量太大，可能不走索引
 
@@ -1530,7 +1530,7 @@ Case 8：
 	explain select name,age,position from employees where name >'a' ORDER BY name;
 ```
 
-![image-20211212152335206](d:\pic-md/20211212152335.png)
+![image-20211212152335206](/Users/jiusonghuang/pic-md/20211212152335.png)
 
 ### **优化总结：** 
 
@@ -1568,7 +1568,7 @@ MySQL 通过比较系统变量 max_length_for_sort_data(**默认1024字节**) �
 	explain select * from employees where name='zhugu'  ORDER BY position;
 ```
 
-![image-20211212153345666](d:\pic-md/20211212153345.png)
+![image-20211212153345666](/Users/jiusonghuang/pic-md/20211212153345.png)
 
 查看下这条sql对应trace结果如下(只展示排序部分)： 
 
@@ -1746,11 +1746,11 @@ mysql> set session optimizer_trace="enabled=off"; ‐‐关闭trace
 
 ## **索引设计实战** 
 
-![image-20211212160836331](d:\pic-md/20211212160836.png)
+![image-20211212160836331](/Users/jiusonghuang/pic-md/20211212160836.png)
 
-![image-20211212161624909](d:\pic-md/20211212161625.png)
+![image-20211212161624909](/Users/jiusonghuang/pic-md/20211212161625.png)
 
-![image-20211212161916856](d:\pic-md/20211212161917.png)
+![image-20211212161916856](/Users/jiusonghuang/pic-md/20211212161917.png)
 
 以社交场景APP来举例，我们一般会去搜索一些好友，这里面就涉及到对用户信息的筛选，这里肯定就是对用户user表搜索了，这个表一般来说数据量会比较大，我们先不考虑分库分表的情况，比如，我们一般会筛选地区(省市)，性别，年龄，身高，爱好之类的，有的APP可能用户还有评分，比如用户的受欢迎程度评分，我们可能还会根据评分来排序等等。 
 
@@ -1833,7 +1833,7 @@ CREATE TABLE `employees` (
  mysql> select * from employees limit 90000,5; 
 ```
 
-![image-20211212163957628](d:\pic-md/20211212163958.png)
+![image-20211212163957628](/Users/jiusonghuang/pic-md/20211212163958.png)
 
 该 SQL 表示查询从第 90001开始的五行数据，没添加单独 order by，表示通过**主键排序**。我们再看表 employees ，因 
 
@@ -1843,7 +1843,7 @@ CREATE TABLE `employees` (
  mysql> select * from employees where id > 90000 limit 5; 
 ```
 
-![image-20211212164035780](d:\pic-md/20211212164036.png)
+![image-20211212164035780](/Users/jiusonghuang/pic-md/20211212164036.png)
 
 查询的结果是一致的。我们再对比一下执行计划： 
 
@@ -1851,21 +1851,21 @@ CREATE TABLE `employees` (
  mysql> EXPLAIN select * from employees limit 90000,5; 
 ```
 
-![image-20211212164147833](d:\pic-md/20211212164148.png)
+![image-20211212164147833](/Users/jiusonghuang/pic-md/20211212164148.png)
 
 ```sql
  mysql> EXPLAIN select * from employees where id > 90000 limit 5; 
 ```
 
-![image-20211212164216079](d:\pic-md/20211212164216.png)
+![image-20211212164216079](/Users/jiusonghuang/pic-md/20211212164216.png)
 
 显然改写后的 SQL 走了索引，而且扫描的行数大大减少，执行效率更高。
 
 但是，这条改写的SQL 在很多场景并不实用，因为表中可能某些记录被删后，主键空缺，导致结果不一致，如下图试验所示（先删除一条前面的记录，然后再测试原 SQL 和优化后的 SQL）：
 
-​    ![image-20211212165101886](d:\pic-md/20211212165102.png)
+​    ![image-20211212165101886](/Users/jiusonghuang/pic-md/20211212165102.png)
 
-   ![image-20211212165116986](d:\pic-md/20211212165117.png)
+   ![image-20211212165116986](/Users/jiusonghuang/pic-md/20211212165117.png)
 
 两条 SQL 的结果并不一样，因此，如果主键不连续，不能使用上面描述的优化方法。
 
@@ -1882,13 +1882,13 @@ CREATE TABLE `employees` (
 mysql>  select * from employees ORDER BY name** limit 90000,5;
 ```
 
-​    ![image-20211212165316226](d:\pic-md/20211212165316.png)
+​    ![image-20211212165316226](/Users/jiusonghuang/pic-md/20211212165316.png)
 
 ```sql
 mysql> EXPLAIN select * from employees ORDER BY name limit 90000,5; 
 ```
 
-![image-20211212165403074](d:\pic-md/20211212165403.png)
+![image-20211212165403074](/Users/jiusonghuang/pic-md/20211212165403.png)
 
 发现并没有使用 name 字段的索引（key 字段对应的值为 null），具体原因上节课讲过：**扫描整个索引并查找到没索引的行(可能要遍历多个索引树)的成本比扫描全表的成本更高，所以优化器放弃使用索引**。
 
@@ -1900,11 +1900,11 @@ mysql> EXPLAIN select * from employees ORDER BY name limit 90000,5;
 mysql> select * from employees e inner join (select id from employees order by name limit 90000,5) ed on e.id = ed.id;              
 ```
 
-   ![image-20211212165533701](d:\pic-md/20211212165533.png)
+   ![image-20211212165533701](/Users/jiusonghuang/pic-md/20211212165533.png)
 
 需要的结果与原 SQL 一致，执行时间减少了一半以上，我们再对比优化前后sql的执行计划：
 
-   ![image-20211212165750860](d:\pic-md/20211212165750.png)
+   ![image-20211212165750860](/Users/jiusonghuang/pic-md/20211212165750.png)
 
 原 SQL 使用的是 filesort 排序，而优化后的 SQL 使用的是索引排序。
 
@@ -1970,7 +1970,7 @@ CALL insert_t2 ();
  mysql> EXPLAIN select * from t1 inner join t2 on t1.a= t2.a;              
 ```
 
-​    ![image-20211212175824059](d:\pic-md/20211212175824.png)
+​    ![image-20211212175824059](/Users/jiusonghuang/pic-md/20211212175824.png)
 
 从执行计划中可以看到这些信息：
 
@@ -1997,7 +1997,7 @@ CALL insert_t2 ();
 mysql>EXPLAIN select * from t1 inner join t2 on t1.b= t2.b;              
 ```
 
-![image-20211212180634294](d:\pic-md/20211212180634.png)
+![image-20211212180634294](/Users/jiusonghuang/pic-md/20211212180634.png)
 
 Extra 中 的Using join buffer (Block Nested Loop)说明该关联查询使用的是 BNL 算法。
 
@@ -2079,7 +2079,7 @@ mysql> EXPLAIN select count(name) from employees;
 mysql> EXPLAIN select count(*) from employees;   
 ```
 
-**注意：以上4条sql只有根据某个字段count不会统计字段为null值的数据行**   ![image-20211212183033779](d:\pic-md/20211212183034.png)
+**注意：以上4条sql只有根据某个字段count不会统计字段为null值的数据行**   ![image-20211212183033779](/Users/jiusonghuang/pic-md/20211212183034.png)
 
 **四个sql的执行计划一样，说明这四个sql执行效率应该差不多**
 
@@ -2099,7 +2099,7 @@ count(*) 是例外，mysql并不会把全部字段取出来，而是专门做了
 
 对于**myisam存储引擎**的表做不带where条件的count查询性能是很高的，因为myisam存储引擎的表的总行数会被mysql存储在磁盘上，查询不需要计算
 
-![image-20211212183834901](d:\pic-md/20211212183835.png)
+![image-20211212183834901](/Users/jiusonghuang/pic-md/20211212183835.png)
 
 对于**innodb存储引擎**的表mysql不会存储表的总记录行数(因为有MVCC机制，后面会讲)，查询count需要实时计算
 
@@ -2107,7 +2107,7 @@ count(*) 是例外，mysql并不会把全部字段取出来，而是专门做了
 
 如果只需要知道表总行数的估计值可以用如下sql查询，性能很高
 
-![image-20211212183257548](d:\pic-md/20211212183257.png)
+![image-20211212183257548](/Users/jiusonghuang/pic-md/20211212183257.png)
 
 **3、将总数维护到Redis里**
 
@@ -2266,7 +2266,7 @@ count(*) 是例外，mysql并不会把全部字段取出来，而是专门做了
 
 “脏读”、“不可重复读”和“幻读”，其实都是数据库读一致性问题，必须由数据库提供一定的事务隔离机制来解决。
 
-![image-20211213203414948](d:\pic-md/20211213203415.png)
+![image-20211213203414948](/Users/jiusonghuang/pic-md/20211213203415.png)
 
 数据库的事务隔离越严格,并发副作用越小,但付出的代价也就越大，因为事务隔离实质上就是使事务在一定程度上“串行化”进行,这显然与“并发”是矛盾的。
 
@@ -2328,7 +2328,7 @@ unlock tables;
 
 **案例分析(加读锁）**
 
-![image-20211213203856450](d:\pic-md/20211213203856.png)
+![image-20211213203856450](/Users/jiusonghuang/pic-md/20211213203856.png)
 
 当前session和其他session都可以读该表
 
@@ -2336,7 +2336,7 @@ unlock tables;
 
 **案例分析(加写锁）**
 
-![image-20211213211033340](d:\pic-md/20211213211033.png)
+![image-20211213211033340](/Users/jiusonghuang/pic-md/20211213211033.png)
 
 当前session对该表的增删改查都没有问题，其他session对该表的所有操作被阻塞
 
@@ -2393,39 +2393,39 @@ mysql> set tx_isolation="read-uncommitted";
 Query OK, 0 rows affected, 1 warning (0.05 sec)
 ```
 
-（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account： ![image-20211213214052474](d:\pic-md/20211213214052.png)
+（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account： ![image-20211213214052474](/Users/jiusonghuang/pic-md/20211213214052.png)
 
-（3）这时，虽然客户端B的事务还没提交，但是客户端A就可以查询到B已经更新的数据： ![image-20211213214118039](d:\pic-md/20211213214118.png)
+（3）这时，虽然客户端B的事务还没提交，但是客户端A就可以查询到B已经更新的数据： ![image-20211213214118039](/Users/jiusonghuang/pic-md/20211213214118.png)
 
 （4）一旦客户端B的事务因为某种原因回滚，所有的操作都将会被撤销，那客户端A查询到的数据其实就是**脏数据**： 
 
-   ![image-20211213214700599](d:\pic-md/20211213214700.png)　　　
+   ![image-20211213214700599](/Users/jiusonghuang/pic-md/20211213214700.png)　　　
 
 （5）在客户端A执行更新语句update account set balance = balance - 50 where id =1，lilei的balance没有变成350，居然是400，是不是很奇怪，数据不一致啊，如果你这么想就太天真 了，在应用程序中，我们会用400-50=350，并不知道其他会话回滚了，要想解决这个问题可以采用读已提交的隔离级别
 
-![image-20211213214727974](d:\pic-md/20211213214728.png)
+![image-20211213214727974](/Users/jiusonghuang/pic-md/20211213214728.png)
 
 **3、读已提交**
 
 （1）打开一个客户端A，并设置当前事务模式为read committed（未提交读），查询表account的所有记录：
 
-**set tx_isolation='**read-committed**';**    ![image-20211213215412087](d:\pic-md/20211213215412.png)　　　　
+**set tx_isolation='**read-committed**';**    ![image-20211213215412087](/Users/jiusonghuang/pic-md/20211213215412.png)　　　　
 
 （2）在客户端A的事务提交之前，打开另一个客户端B，更新表account： 
 
-![image-20211213215607054](d:\pic-md/20211213215607.png)　　　　
+![image-20211213215607054](/Users/jiusonghuang/pic-md/20211213215607.png)　　　　
 
 （3）这时，客户端B的事务还没提交，客户端A不能查询到B已经更新的数据，解决了脏读问题： 
 
-![image-20211213215729596](d:\pic-md/20211213215729.png)　　　　
+![image-20211213215729596](/Users/jiusonghuang/pic-md/20211213215729.png)　　　　
 
 （4）客户端B的事务提交
 
-![image-20211213215801437](d:\pic-md/20211213215801.png)
+![image-20211213215801437](/Users/jiusonghuang/pic-md/20211213215801.png)
 
 　　　　
 
-（5）客户端A执行与上一步相同的查询，结果 与上一步不一致，即产生了不可重复读的问题   ![image-20211213215816260](d:\pic-md/20211213215816.png)
+（5）客户端A执行与上一步相同的查询，结果 与上一步不一致，即产生了不可重复读的问题   ![image-20211213215816260](/Users/jiusonghuang/pic-md/20211213215816.png)
 
 **4、可重复读**
 
@@ -2433,27 +2433,27 @@ Query OK, 0 rows affected, 1 warning (0.05 sec)
 
 **set tx_isolation='**repeatable-read**';**
 
-![image-20211213220302209](d:\pic-md/20211213220302.png)　　　　
+![image-20211213220302209](/Users/jiusonghuang/pic-md/20211213220302.png)　　　　
 
-（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account并提交   ![image-20211213220318688](d:\pic-md/20211213220318.png)　
+（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account并提交   ![image-20211213220318688](/Users/jiusonghuang/pic-md/20211213220318.png)　
 
-（3）在客户端A查询表account的所有记录，与步骤（1）查询结果一致，没有出现不可重复读的问题![image-20211213220333490](d:\pic-md/20211213220333.png)　
+（3）在客户端A查询表account的所有记录，与步骤（1）查询结果一致，没有出现不可重复读的问题![image-20211213220333490](/Users/jiusonghuang/pic-md/20211213220333.png)　
 
 （4）在客户端A，接着执行update account set balance = balance - 50 where id = 1，balance没有变成400-50=350，lilei的balance值用的是步骤2中的350来算的，所以是300，数据的一致性倒是没有被破坏。可重复读的隔离级别下使用了MVCC(multi-version concurrency control)机制，select操作不会更新版本号，是快照读（历史版本）；insert、update和delete会更新版本号，是当前读（当前版本）。
 
- ![image-20211213220404449](d:\pic-md/20211213220404.png)
+ ![image-20211213220404449](/Users/jiusonghuang/pic-md/20211213220404.png)
 
-（5）重新打开客户端B，插入一条新数据后提交 ![image-20211213220420588](d:\pic-md/20211213220420.png)
+（5）重新打开客户端B，插入一条新数据后提交 ![image-20211213220420588](/Users/jiusonghuang/pic-md/20211213220420.png)
 
 （6）在客户端A查询表account的所有记录，没有查出新增数据，所以没有出现幻读
 
-![image-20211213220434685](d:\pic-md/20211213220434.png)
+![image-20211213220434685](/Users/jiusonghuang/pic-md/20211213220434.png)
 
 （7)验证幻读
 
 在客户端A执行update account set balance=888 where id = 4;能更新成功，再次查询能查到客户端B新增的数据
 
-  ![image-20211213220453987](d:\pic-md/20211213220454.png)
+  ![image-20211213220453987](/Users/jiusonghuang/pic-md/20211213220454.png)
 
 **5、串行化**
 
@@ -2461,13 +2461,13 @@ Query OK, 0 rows affected, 1 warning (0.05 sec)
 
 **set tx_isolation='**serializable**';**
 
-![image-20211213220759096](d:\pic-md/20211213220759.png)
+![image-20211213220759096](/Users/jiusonghuang/pic-md/20211213220759.png)
 
 （2）打开一个客户端B，并设置当前事务模式为serializable，更新相同的id为1的记录会被阻塞等待，更新id为2的记录可以成功，说明在串行模式下innodb的查询也会被加上行锁。
 
 如果客户端A执行的是一个范围查询，那么该**范围内的所有行包括每行记录所在的间隙区间范围**(就算该行数据还未被插入也会加锁，这种是间隙锁)**都会被加锁**。此时如果客户端B在该范围内插入数据都会被阻塞，所以就避免了幻读。
 
-这种隔离级别并发性极低，开发中很少会用到。    ![image-20211213220813823](d:\pic-md/20211213220814.png)
+这种隔离级别并发性极低，开发中很少会用到。    ![image-20211213220813823](/Users/jiusonghuang/pic-md/20211213220814.png)
 
 ### **间隙锁(Gap Lock)**
 
@@ -2475,7 +2475,7 @@ Query OK, 0 rows affected, 1 warning (0.05 sec)
 
 假设account表里数据如下：
 
-![image-20211213220906580](d:\pic-md/20211213220906.png)
+![image-20211213220906580](/Users/jiusonghuang/pic-md/20211213220906.png)
 
 那么间隙就有 id 为 (3,10)，(10,20)，(20,正无穷) 这三个区间，
 
@@ -2590,7 +2590,7 @@ Mysql在**可重复读隔离级别**下如何保证事务较高的隔离性，�
 
 ## **undo日志版本链与read view机制详解**
 
-undo日志版本链是指一行数据被多个事务依次修改过后，在每个事务修改完后，Mysql会保留修改前的数据undo回滚日志，并且用两个隐藏字段trx_id和roll_pointer把这些undo日志串联起来形成一个历史记录版本链(见下图，需参考视频里的例子理解)    ![img](d:\pic-md/20211214205530.png)
+undo日志版本链是指一行数据被多个事务依次修改过后，在每个事务修改完后，Mysql会保留修改前的数据undo回滚日志，并且用两个隐藏字段trx_id和roll_pointer把这些undo日志串联起来形成一个历史记录版本链(见下图，需参考视频里的例子理解)    ![img](/Users/jiusonghuang/pic-md/20211214205530.png)
 
 在**可重复读隔离级别**，当事务开启，执行任何查询sql时会生成当前事务的**一致性视图read-view，**该视图在事务结束之前都不会变化(**如果是读已提交隔离级别在每次执行查询sql时都会重新生成**)，这个视图由执行查询时所有未提交事务id数组（数组里最小的id为min_id）和已创建的最大事务id（max_id）组成，事务里的任何sql查询结果需要从对应版本链里的最新数据开始逐条跟read-view做比对从而得到最终的快照结果。
 
@@ -2616,7 +2616,7 @@ MVCC机制的实现就是通过read-view机制与undo版本链比对机制，使
 
 ## **Innodb引擎SQL执行的BufferPool缓存机制** 
 
-![img](d:\pic-md/20211214205611.png)
+![img](/Users/jiusonghuang/pic-md/20211214205611.png)
 
 **为什么Mysql不能直接更新磁盘上的数据而且设置这么一套复杂的机制来执行SQL了？**
 
@@ -2642,7 +2642,7 @@ http://note.youdao.com/noteshare?id=b36b975188fadf7bfbfd75c0d2d6b834&sub=5A7459F
 
 课程章节安排
 
-![img](d:\pic-md/20211226113321.png)
+![img](/Users/jiusonghuang/pic-md/20211226113321.png)
 
 本课程是在第四期MySQL课程上做的一个升级和加深，会更加关注于MySQL内核执行和底层原理，所以请在学习掌握了第四期MySQL课程后再学习本课程，而且在第四期MySQL课程中已经讲述过的内容在本课程中不再重复讲述。同时：
 
@@ -2792,7 +2792,7 @@ lnnodb引擎SQL执行的BufferPool缓存机制
 
 目前关系数据库有六种范式：第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF，又称完美范式）。满足最低要求的范式是第一范式（1NF）。在第一范式的基础上进一步满足更多规范要求的称为第二范式（2NF），其余范式以次类推。一般来说，数据库只需满足第三范式(3NF）就行了。
 
-![image-20211226205028206](d:\pic-md/20211226205028.png)
+![image-20211226205028206](/Users/jiusonghuang/pic-md/20211226205028.png)
 
 ### **数据库设计的第一范式**
 
@@ -2800,11 +2800,11 @@ lnnodb引擎SQL执行的BufferPool缓存机制
 
 理解： 第一范式强调数据表的原子性，是其他范式的基础。例如下表
 
-​    ![img](d:\pic-md/20211226113545.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226113545.png)
 
 name-age列具有两个属性，一个name,一个 age不符合第一范式，把它拆分成两列
 
-​    ![img](d:\pic-md/20211226113603.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226113603.png)
 
 上表就符合第一范式关系。但日常生活中仅用第一范式来规范表格是远远不够的，依然会存在数据冗余过大、删除异常、插入异常、修改异常的问题，此时就需要引入规范化概念，将其转化为更标准化的表格，减少数据依赖。
 
@@ -2820,17 +2820,17 @@ name-age列具有两个属性，一个name,一个 age不符合第一范式，把
 
 有两张表：订单表，产品表
 
-![img](d:\pic-md/20211226113640.png)
+![img](/Users/jiusonghuang/pic-md/20211226113640.png)
 
-​    ![img](d:\pic-md/20211226113656.png)一个订单有多个产品，所以订单的主键为【订单ID】和【产品ID】组成的联合主键，这样2个组件不符合第二范式，而且产品ID和订单ID没有强关联，故，把订单表进行拆分为订单表与订单与商品的中间表    ![img](d:\pic-md/20211226113746.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226113656.png)一个订单有多个产品，所以订单的主键为【订单ID】和【产品ID】组成的联合主键，这样2个组件不符合第二范式，而且产品ID和订单ID没有强关联，故，把订单表进行拆分为订单表与订单与商品的中间表    ![img](/Users/jiusonghuang/pic-md/20211226113746.png)
 
 ### **数据库设计的第三范式**
 
 指每一个非主属性既不部分依赖于也不传递依赖于业务主键，也就是在第二范式的基础上消除了非主键对主键的传递依赖。例如，存在一个部门信息表，其中每个部门有部门编号（dept_id）、部门名称、部门简介等信息。那么在员工信息表中列出部门编号后就不能再将部门名称、部门简介等与部门有关的信息再加入员工信息表中。如果不存在部门信息表，则根据第三范式（3NF）也应该构建它，否则就会有大量的数据冗余。
 
-   ![img](d:\pic-md/20211226113804.png)
+   ![img](/Users/jiusonghuang/pic-md/20211226113804.png)
 
-![img](d:\pic-md/20211226113814.png)
+![img](/Users/jiusonghuang/pic-md/20211226113814.png)
 
 其中
 
@@ -2846,7 +2846,7 @@ name-age列具有两个属性，一个name,一个 age不符合第一范式，把
 
 真正的数据库范式定义上，相当难懂，比如第二范式（2NF）的定义“若某关系R属于第一范式，且每一个非主属性完全函数依赖于任何一个候选码，则关系R属于第二范式。”，这里面有着大堆专业术语的堆叠，比如“函数依赖”、“码”、“非主属性”、与“完全函数依赖”等等，而且有完备的公式定义，需要仔细研究的同学，请参考这本书：
 
-​    ![img](d:\pic-md/20211226113834.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226113834.png)
 
 ### **反范式设计**
 
@@ -2860,9 +2860,9 @@ name-age列具有两个属性，一个name,一个 age不符合第一范式，把
 
 下面是范式设计的商品信息表
 
-​    ![img](d:\pic-md/20211226113852.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226113852.png)
 
-商品信息和分类信息经常一起查询，所以把分类信息也放到商品表里面，冗余存放。    ![img](d:\pic-md/20211226113910.png)
+商品信息和分类信息经常一起查询，所以把分类信息也放到商品表里面，冗余存放。    ![img](/Users/jiusonghuang/pic-md/20211226113910.png)
 
 ### **范式化和反范式总结**
 
@@ -2940,17 +2940,17 @@ name-age列具有两个属性，一个name,一个 age不符合第一范式，把
 
 在我们的后续课程中，会经常使用到InnoDB表order_exp，基础表结构如下：
 
-​    ![img](d:\pic-md/20211226114022.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226114022.png)
 
 数据量大概在1万多行。
 
-​    ![img](d:\pic-md/20211226114038.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226114038.png)
 
 同时还有个几个派生表如s1，s2，order_exp_cut，表结构基本和order_exp一致，有少许差别，数据量上也比order_exp少：
 
-   ![img](d:\pic-md/20211226114051.png)
+   ![img](/Users/jiusonghuang/pic-md/20211226114051.png)
 
-​    ![img](d:\pic-md/20211226114104.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226114104.png)
 
 **InnoDB中的索引复习**
 
@@ -2962,7 +2962,7 @@ InnoDB中使用了聚集索引，就是将表的主键用来构造一棵B+树，
 
 聚集索引的叶子节点就是数据页。换句话说，数据页上存放的是完整的每行记录。因此聚集索引的一个优点就是：通过过聚集索引能获取完整的整行数据。另一个优点是：对于主键的排序查找和范围查找速度非常快。
 
-如果我们没有定义主键呢？MySQL会使用唯一性索引，没有唯一性索引，MySQL也会创建一个隐含列RowID来做主键，然后用这个主键来建立聚集索引。![img](d:\pic-md/20211226114130.png)
+如果我们没有定义主键呢？MySQL会使用唯一性索引，没有唯一性索引，MySQL也会创建一个隐含列RowID来做主键，然后用这个主键来建立聚集索引。![img](/Users/jiusonghuang/pic-md/20211226114130.png)
 
 **辅助索引/二级索引**
 
@@ -2970,7 +2970,7 @@ InnoDB中使用了聚集索引，就是将表的主键用来构造一棵B+树，
 
 对于辅助索引(Secondary Index，也称二级索引、非聚集索引)，叶子节点并不包含行记录的全部数据。叶子节点除了包含键值以外，每个叶子节点中的索引行中还包含了相应行数据的聚集索引键。
 
-![img](d:\pic-md/20211226114145.png)
+![img](/Users/jiusonghuang/pic-md/20211226114145.png)
 
 比如辅助索引index(node)，那么叶子节点中包含的数据就包括了(主键、note)。
 
@@ -2978,7 +2978,7 @@ InnoDB中使用了聚集索引，就是将表的主键用来构造一棵B+树，
 
 辅助索引的存在并不影响数据在聚集索引中的组织，因此每张表上可以有多个辅助索引。当通过辅助索引来寻找数据时，InnoDB存储引擎会遍历辅助索引并通过叶级别的指针获得指向主键索引的主键，然后再通过主键索引（聚集索引）来找到一个完整的行记录。这个过程也被称为**回表**。也就是根据辅助索引的值查询一条完整的用户记录需要使用到2棵B+树----一次辅助索引，一次聚集索引。
 
-​    ![img](d:\pic-md/20211226114201.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226114201.png)
 
  
 
@@ -3008,7 +3008,7 @@ index(note,b)在索引构建上，包含了两个意思：
 
 2、在记录的note列相同的情况下，采用b列进行排序
 
-![img](d:\pic-md/20211226114225.png)
+![img](/Users/jiusonghuang/pic-md/20211226114225.png)
 
 **自适应哈希索引**
 
@@ -3018,9 +3018,9 @@ InnoDB存储引擎除了我们前面所说的各种索引，还有一种自适�
 
 InnoDB存储引擎使用的哈希函数采用除法散列方式，其冲突机制采用链表方式。注意，对于自适应哈希索引仅是数据库自身创建并使用的，我们并不能对其进行干预。通过命令**show engine innodb status\G**可以看到当前自适应哈希索引的使用状况，如:
 
-​    ![img](d:\pic-md/20211226114243.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226114243.png)
 
-​    ![img](d:\pic-md/20211226114259.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226114259.png)
 
 哈希索引只能用来搜索等值的查询,如 SELECT* FROM table WHERE index co=xxx。而对于其他查找类型,如范围查找,是不能使用哈希索引的,
 
@@ -3169,7 +3169,7 @@ mysam存储引擎，不管是主键索引，唯一键索引还是普通索引都
 
 除了覆盖索引这个概念外，在索引优化的范围内，还有前缀索引、三星索引等一系列概念，都会在我们后面的课程中学习到。
 
-![img](d:\pic-md/20211226220510.png)
+![img](/Users/jiusonghuang/pic-md/20211226220510.png)
 
 **深入思考索引在查询中的使用**
 
@@ -3223,7 +3223,7 @@ mysam存储引擎，不管是主键索引，唯一键索引还是普通索引都
 
 比如下面这个表：
 
-​    ![img](d:\pic-md/20211226114520.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226114520.png)
 
 哪列做为索引字段最好？当然是姓名字段，因为里面的数据没有任何重复，性别字段是最不适合做索引的，因为数据的重复度非常高。
 
@@ -3231,9 +3231,9 @@ mysam存储引擎，不管是主键索引，唯一键索引还是普通索引都
 
 **select  COUNT(DISTINCT order_no)/count(\*) cnt from order_exp;**
 
-![img](d:\pic-md/20211226114532.png)
+![img](/Users/jiusonghuang/pic-md/20211226114532.png)
 
-**select  COUNT(DISTINCT order_status)/count(\*) cnt from order_exp;**    ![img](d:\pic-md/20211226114554.png)
+**select  COUNT(DISTINCT order_status)/count(\*) cnt from order_exp;**    ![img](/Users/jiusonghuang/pic-md/20211226114554.png)
 
 很明显，order_no列上的索引就比order_status列上的索引的选择性就要好，原因很简单，因为order_status列中的值只有-1,0,1三种。
 
@@ -3259,9 +3259,9 @@ mysam存储引擎，不管是主键索引，唯一键索引还是普通索引都
 
 按照《阿里最新Java编程规范泰山版》中《(二) 索引规约》中的说法：
 
-​    ![img](d:\pic-md/20211226114630.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226114630.png)
 
-​    ![img](d:\pic-md/20211226114638.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226114638.png)
 
 中建议，这个前缀的长度为20比较合适，但是其实后面的“count(distinct left(列名, 索引长度))/count(*)的区分度来确定”会更合适点。在工程实践中具体如何做呢？
 
@@ -3297,7 +3297,7 @@ mysam存储引擎，不管是主键索引，唯一键索引还是普通索引都
 
 **FROM order_exp;**
 
-​    ![img](d:\pic-md/20211226114714.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226114714.png)
 
 可以看见，从第10个开始选择性的增加值很高，随着前缀字符的越来越多，选择度也在不断上升，但是增长到第15时，已经和第14没太大差别了，选择性提升的幅度已经很小了，都非常接近整个列的选择性了。
 
@@ -3511,11 +3511,11 @@ INDEX(ID)
 
 为什么关系型数据库都选择了B+树，这个和磁盘的特性有着非常大的关系。
 
-​    ![img](d:\pic-md/20211226114844.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226114844.png)
 
 如果我们简化一下，可以这么看
 
-​    ![img](d:\pic-md/20211226114857.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226114857.png)
 
 一个磁盘由大小相同且同轴的圆形盘片组成，磁盘可以转动（各个磁盘必须同步转动）。在磁盘的一侧有磁头支架，磁头支架固定了一组磁头，每个磁头负责存取一个磁盘的内容。磁头不能转动，但是可以沿磁盘半径方向运动。
 
@@ -3533,9 +3533,9 @@ INDEX(ID)
 
 经过上面步骤，指定数据的存储位置就被找到。这时就可以开始读/写操作了。
 
-​    ![img](d:\pic-md/20211226114913.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226114913.png)
 
-​    ![img](d:\pic-md/20211226114935.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226114935.png)
 
 可以看见，磁盘读取依靠的是机械运动，分为寻道时间、旋转延迟、传输时间三个部分，这三个部分耗时相加就是一次磁盘IO的时间，一般大概9ms左右。寻道时间（seek）是将读写磁头移动至正确的磁道上所需要的时间，这部分时间代价最高；旋转延迟时间（rotation）是磁盘旋转将目标扇区移动到读写磁头下方所需的时间，取决于磁盘转速；数据传输时间（transfer）是完成传输数据所需要的时间，取决于接口的数据传输率，在纳秒级，远小于前两部分消耗时间。磁盘读取时间成本是访问内存的几百倍到几万倍之间。
 
@@ -3571,7 +3571,7 @@ public static void main(String[] args) {
   }
 ```
 
-​    ![img](d:\pic-md/20211226114956.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211226114956.png)
 
 就能看到局部性原理对程序性能的影响。
 
@@ -3612,19 +3612,19 @@ SELECT * FROM information_schema.OPTIMIZER_TRACE\G
 
 可以看见全表扫描的成本：2169.9
 
-![img](d:\pic-md/20211228203742.png)
+![img](/Users/jiusonghuang/pic-md/20211228203742.png)
 
 使用索引idx_order_no的成本为72.61：
 
-   ![img](d:\pic-md/20211228203806.png)
+   ![img](/Users/jiusonghuang/pic-md/20211228203806.png)
 
 使用索引idx_expire_time的成本为47.81：
 
-​    ![img](d:\pic-md/20211228203827.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211228203827.png)
 
 最终MySQL使用了idx_expire_time作为这个SQL查询过程中索引：
 
-![img](d:\pic-md/20211228203846.png)
+![img](/Users/jiusonghuang/pic-md/20211228203846.png)
 
 因为优化器最终会选择成本最低的那种方案来作为最终的执行计划。
 
@@ -3686,7 +3686,7 @@ order_status = 0，由于该列上只有联合索引，而且不符合最左前�
 
 综上所述，上边的查询语句可能用到的索引，也就是possible keys只有idx_order_no，idx_expire_time。
 
-​    ![img](d:\pic-md/20211228203939.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211228203939.png)
 
 **2. 计算全表扫描的代价**
 
@@ -3704,7 +3704,7 @@ MySQL给我们提供了SHOW TABLE STATUS语句来查看表的统计信息，如�
 SHOW TABLE STATUS LIKE 'order_exp'\G
 ```
 
-​    ![img](d:\pic-md/20211228204001.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211228204001.png)
 
 出现了很多统计选项，但我们目前只需要两个：
 
@@ -3784,7 +3784,7 @@ idx_expire_time对应的搜索条件是：expire_time> '2021-03-22 18:28:28' AND
 explain SELECT \* FROM order_exp WHERE expire_time> '2021-03-22 18:28:28' AND expire_time<= '2021-03-22 18:35:09';
 ```
 
-![img](d:\pic-md/20211228204024.png)
+![img](/Users/jiusonghuang/pic-md/20211228204024.png)
 
 读取这39条二级索引记录需要付出的CPU成本就是：
 
@@ -3846,7 +3846,7 @@ idx_order_no对应的搜索条件是：order_no IN ('DD00_6S', 'DD00_9S', 'DD00_
 explain SELECT * FROM order_exp WHERE order_no IN ('DD00_6S', 'DD00_9S', 'DD00_10S');   
 ```
 
-![img](d:\pic-md/20211228204048.png)
+![img](/Users/jiusonghuang/pic-md/20211228204048.png)
 
 读取这些二级索引记录的CPU成本就是：58 x 0.2 + 0.01 = 11.61
 
@@ -3890,11 +3890,11 @@ CPU成本：
 
 很显然，使用idx_expire_time的成本最低，所以当然选择idx_expire_time来执行查询。来和Tracer中的比较一下：
 
-   ![img](d:\pic-md/20211228204107.png)
+   ![img](/Users/jiusonghuang/pic-md/20211228204107.png)
 
-   ![img](d:\pic-md/20211228204119.png)
+   ![img](/Users/jiusonghuang/pic-md/20211228204119.png)
 
- ![img](d:\pic-md/20211228204208.png)![img](d:\pic-md/20211228204148.png)
+ ![img](/Users/jiusonghuang/pic-md/20211228204208.png)![img](/Users/jiusonghuang/pic-md/20211228204148.png)
 
 嗯？除了全表扫描，其他的怎么好像有点对不上呢？
 
@@ -3902,7 +3902,7 @@ CPU成本：
 
 *1、在MySQL的实际计算中，在和全文扫描比较成本时，使用索引的成本会去除读取并检测回表后聚簇索引记录的成本，也就是说，我们通过MySQL看到的成本将会是：idx_expire_time为47.81(55.61-7.8)，idx_order_no为72.61(84.21-11.6)。但是MySQL比较完成本后，会再计算一次使用索引的成本，此时就会加上前面去除的成本，也就是我们计算出来的值。*
 
-   ![img](d:\pic-md/20211228204227.png)
+   ![img](/Users/jiusonghuang/pic-md/20211228204227.png)
 
 *2、MySQL的源码中对成本的计算实际要更复杂，但是基本思想和算法是没错的。*
 
@@ -3926,7 +3926,7 @@ SELECT * FROM order_exp WHERE order_no IN ('aa1', 'aa2', 'aa3', ... , 'zzz');
 show variables like '%dive%';
 ```
 
-![img](d:\pic-md/20211228204253.png)
+![img](/Users/jiusonghuang/pic-md/20211228204253.png)
 
 也就是说如果我们的IN语句中的参数个数小于200个的话，将使用index dive的方式计算各个单点区间对应的记录条数，如果大于或等于200个的话，可就不能使用index dive了，要使用所谓的索引统计数据来进行估算。怎么个估算法？
 
@@ -3936,7 +3936,7 @@ show variables like '%dive%';
 show index from order_exp;    
 ```
 
-![img](d:\pic-md/20211228204319.png)
+![img](/Users/jiusonghuang/pic-md/20211228204319.png)
 
 属性名	描述
 
@@ -4147,7 +4147,7 @@ SELECT * FROM order_exp AS s1 INNER JOIN order_exp2 AS s2 WHERE s1.order_note > 
 SELECT * FROM order_exp AS s1 INNER JOIN order_exp2 AS s2 WHERE s1.expire_time> '2021-03-22 18:28:28' AND s1.expire_time<= '2021-03-22 18:35:09' AND s1.order_note > 'xyz';
 ```
 
-本查询和查询二类似，只不过对于驱动表s1也多了一个order_note > 'xyz'的搜索条件。不过因为本查询可以使用idx_expire_time索引，所以只需要从符合二级索引范围区间的记录中猜有多少条记录符合order_note > 'xyz'条件，也就是只需要猜在39条记录中有多少符合order_note > 'xyz'条件。    ![img](d:\pic-md/20211228204358.png)
+本查询和查询二类似，只不过对于驱动表s1也多了一个order_note > 'xyz'的搜索条件。不过因为本查询可以使用idx_expire_time索引，所以只需要从符合二级索引范围区间的记录中猜有多少条记录符合order_note > 'xyz'条件，也就是只需要猜在39条记录中有多少符合order_note > 'xyz'条件。    ![img](/Users/jiusonghuang/pic-md/20211228204358.png)
 
 查询五：
 
@@ -4479,7 +4479,7 @@ MySQL在计算各种链接顺序的成本之前，会维护一个全局的变量
 
 不过按照《阿里最新Java编程规范泰山版》中《(二) 索引规约》中的说法：
 
-​    ![img](d:\pic-md/20211228204451.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211228204451.png)
 
 当出现超过三个表的join时，就应该考虑改写SQL语句了，因为从我们上面的多表关联成本分析可以知道，就算是不考虑多表关联时需要查询的巨大记录条数，就算是几个表的关联成本计算也是个很耗费时间的过程。
 
@@ -4495,7 +4495,7 @@ MySQL在计算各种链接顺序的成本之前，会维护一个全局的变量
 
 **SHOW TABLES FROM mysql LIKE '%cost%';**
 
-   ![img](d:\pic-md/20211228204504.png)
+   ![img](/Users/jiusonghuang/pic-md/20211228204504.png)
 
 因为一条语句的执行其实是分为两层的：server层、存储引擎层。
 
@@ -4509,7 +4509,7 @@ server_cost表中在server层进行的一些操作对应的成本常数，具体
 SELECT * FROM mysql.server_cost;
 ```
 
-   ![img](d:\pic-md/20211228204518.png)
+   ![img](/Users/jiusonghuang/pic-md/20211228204518.png)
 
 我们先看一下server_cost各个列都分别是什么意思：
 
@@ -4561,7 +4561,7 @@ engine_cost表表中在存储引擎层进行的一些操作对应的成本常数
 SELECT * FROM mysql.engine_cost;
 ```
 
-![img](d:\pic-md/20211228204536.png)
+![img](/Users/jiusonghuang/pic-md/20211228204536.png)
 
 与server_cost相比，engine_cost多了两个列：
 
@@ -4601,7 +4601,7 @@ MySQL给我们提供了系统变量innodb_stats_persistent来控制到底采用�
 SHOW VARIABLES LIKE 'innodb_stats_persistent';
 ```
 
-   ![img](d:\pic-md/20211228204553.png)
+   ![img](/Users/jiusonghuang/pic-md/20211228204553.png)
 
 不过最近的MySQL版本都基本不用基于内存的非永久性统计数据了，所以我们也就不深入研究。
 
@@ -4623,7 +4623,7 @@ ALTER TABLE 表名 Engine=InnoDB, STATS_PERSISTENT = (1|0);
 SHOW TABLES FROM mysql LIKE 'innodb%';
 ```
 
-   ![img](d:\pic-md/20211228204606.png)
+   ![img](/Users/jiusonghuang/pic-md/20211228204606.png)
 
 可以看到，这两个表都位于mysql系统数据库下边，其中：
 
@@ -4633,7 +4633,7 @@ innodb_index_stats存储了关于索引的统计数据，每一条记录对应�
 
 **innodb_table_stats**
 
-直接看一下这个innodb_table_stats表中的各个列都是干嘛的：    ![img](d:\pic-md/20211228204622.png)
+直接看一下这个innodb_table_stats表中的各个列都是干嘛的：    ![img](/Users/jiusonghuang/pic-md/20211228204622.png)
 
 database_name	数据库名
 
@@ -4651,7 +4651,7 @@ sum_of_other_index_sizes	表的其他索引占用的页面数量
 
 **SELECT \* FROM mysql.innodb_table_stats;**
 
-![img](d:\pic-md/20211228204646.png)
+![img](/Users/jiusonghuang/pic-md/20211228204646.png)
 
 几个重要统计信息项的值如下：
 
@@ -4683,7 +4683,7 @@ clustered_index_size和sum_of_other_index_sizes统计项的收集牵涉到很具
 
 直接看一下这个innodb_index_stats表中的各个列都是干嘛的：
 
-**desc mysql.innodb_index_stats;**![img](d:\pic-md/20211228204700.png)
+**desc mysql.innodb_index_stats;**![img](/Users/jiusonghuang/pic-md/20211228204700.png)
 
 字段名	描述
 
@@ -4707,7 +4707,7 @@ innodb_index_stats表的每条记录代表着一个索引的一个统计项。�
 
 mysql> **SELECT \* FROM mysql.innodb_index_stats WHERE table_name = 'order_exp';**
 
-![img](d:\pic-md/20211228204718.png)
+![img](/Users/jiusonghuang/pic-md/20211228204718.png)
 
 先查看index_name列，这个列说明该记录是哪个索引的统计信息，从结果中我们可以看出来，PRIMARY索引（也就是主键）占了3条记录，idx_expire_time索引占了6条记录。
 
@@ -4737,7 +4737,7 @@ n_diff_pfx04表示的是统计key_pare1、key_pare2、expire_time、id这四个�
 
 对于有多个列的联合索引来说，采样的页面数量是：innodb_stats_persistent_sample_pages × 索引列的个数。
 
-   ![img](d:\pic-md/20211228204731.png)
+   ![img](/Users/jiusonghuang/pic-md/20211228204731.png)
 
 当需要采样的页面数量大于该索引的叶子节点数量的话，就直接采用全表扫描来统计索引列的不重复值数量了。所以大家可以在查询结果中看到不同索引对应的size列的值可能是不同的。
 
@@ -4749,7 +4749,7 @@ n_diff_pfx04表示的是统计key_pare1、key_pare2、expire_time、id这四个�
 
 系统变量innodb_stats_auto_recalc决定着服务器是否自动重新计算统计数据，它的默认值是ON，也就是该功能默认是开启的。
 
-![img](d:\pic-md/20211228204746.png)
+![img](/Users/jiusonghuang/pic-md/20211228204746.png)
 
 每个表都维护了一个变量，该变量记录着对该表进行增删改的记录条数，如果发生变动的记录数量超过了表大小的10%，并且自动重新计算统计数据的功能是打开的，那么服务器会重新进行一次统计数据的计算，并且更新innodb_table_stats和innodb_index_stats表。不过自动重新计算统计数据的过程是异步发生的，也就是即使表中变动的记录数超过了10%，自动重新计算统计数据也不会立即发生，可能会延迟几秒才会进行计算。
 
@@ -4767,7 +4767,7 @@ ALTER TABLE 表名 Engine=InnoDB, STATS_AUTO_RECALC = (1|0);
 
 mysql> **ANALYZE TABLE order_exp;**
 
-   ![img](d:\pic-md/20211228204802.png)ANALYZE TABLE语句会立即重新计算统计数据，也就是这个过程是同步的，在表中索引多或者采样页面特别多时这个过程可能会特别慢最好在业务不是很繁忙的时候再运行。
+   ![img](/Users/jiusonghuang/pic-md/20211228204802.png)ANALYZE TABLE语句会立即重新计算统计数据，也就是这个过程是同步的，在表中索引多或者采样页面特别多时这个过程可能会特别慢最好在业务不是很繁忙的时候再运行。
 
 **手动更新innodb_table_stats和innodb_index_stats表**
 
@@ -4787,7 +4787,7 @@ FLUSH TABLE order_exp;
 
 有道云链接：http://note.youdao.com/noteshare?id=f1d34fba6f218de1acf9160f45c284af&sub=9B48B919EE3C4046BC4CD564AA325A72
 
-MySQL性能优化其实是个很大的课题，在优化上存在着一个调优金字塔的说法：    ![img](d:\pic-md/20211229225458.png)
+MySQL性能优化其实是个很大的课题，在优化上存在着一个调优金字塔的说法：    ![img](/Users/jiusonghuang/pic-md/20211229225458.png)
 
 很明显从图上可以看出，越往上走，难度越来越高，收益却是越来越小的。比如硬件和OS调优，需要对硬件和OS有着非常深刻的了解，仅仅就磁盘一项来说，一般非DBA能想到的调整就是SSD盘比用机械硬盘更好，但其实它至少包括了，使用什么样的磁盘阵列（RAID）级别、是否可以分散磁盘IO、是否使用裸设备存放数据，使用哪种文件系统（Linux下常见的有ext2、3、4和xfs,zfs等，目前比较推荐的是XFS），操作系统的磁盘调度算法（目前比较推荐deadline，对机械硬盘和SSD都比较合适。从内核2.5开始，默认的I/O调度算法是Deadline，之后默认I/O调度算法为Anticipatory，直到内核2.6.17为止，从内核2.6.18开始，CFQ成为默认的IO调度算法，但CFQ并不推荐作为数据库服务器的磁盘调度算法）的选择，是否需要调整操作系统文件管理方面等等。
 
@@ -4801,7 +4801,7 @@ MySQL性能优化其实是个很大的课题，在优化上存在着一个调优
 
 *# more /sys/block/vda/queue/scheduler*
 
-*永久地修改IO调度算法,需要修改内核引导参数*   ![img](d:\pic-md/20211229225525.png)
+*永久地修改IO调度算法,需要修改内核引导参数*   ![img](/Users/jiusonghuang/pic-md/20211229225525.png)
 
 所以在进行优化时，首先需要关注和优化的应该是架构，如果架构不合理，即使是DBA能做的事情其实是也是比较有限的。
 
@@ -4833,13 +4833,13 @@ MySQL性能优化其实是个很大的课题，在优化上存在着一个调优
 
 **show VARIABLES like 'slow_query_log';**
 
-![img](d:\pic-md/20211229225548.png)
+![img](/Users/jiusonghuang/pic-md/20211229225548.png)
 
 开启：
 
 **set GLOBAL slow_query_log=1;**
 
-![img](d:\pic-md/20211229225601.png)
+![img](/Users/jiusonghuang/pic-md/20211229225601.png)
 
 但是多慢算慢？MySQL中可以设定一个阈值，将运行时间超过该值的所有SQL语句都记录到慢查询日志中。long_query_time参数就是这个阈值。默认值为10，代表10秒。
 
@@ -4849,13 +4849,13 @@ MySQL性能优化其实是个很大的课题，在优化上存在着一个调优
 
 **set global long_query_time=0;**   ---默认10秒，这里为了演示方便设置为0
 
-   ![img](d:\pic-md/20211229225617.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229225617.png)
 
 同时对于没有运行的SQL语句没有使用索引，则MySQL数据库也可以将这条SQL语句记录到慢查询日志文件，控制参数是：
 
 **show VARIABLES like '%log_queries_not_using_indexes%';**
 
-​    ![img](d:\pic-md/20211229225637.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229225637.png)
 
 对于产生的慢查询日志，可以指定输出的位置，通过参数log_output来控制，可以输出到[TABLE][FILE][FILE,TABLE]。比如
 
@@ -4863,13 +4863,13 @@ set global log_output='FILE,TABLE'，缺省是输出到文件，我们的配置�
 
 **show VARIABLES like 'log_output';ls** 
 
-​    ![img](d:\pic-md/20211229225656.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229225656.png)
 
 ### **慢查询解读分析**
 
 #### **日志格式**
 
-开启慢查询功能以后，会根据我们的配置产生慢查询日志    ![img](d:\pic-md/20211229225716.png)
+开启慢查询功能以后，会根据我们的配置产生慢查询日志    ![img](/Users/jiusonghuang/pic-md/20211229225716.png)
 
 从慢查询日志里面摘选一条慢查询日志，数据组成如下
 
@@ -4921,11 +4921,11 @@ mysqldumpslow -s r -t 10 slow-mysql.log
 
 **./mysqldumpslow -s t -t 10 /home/mysql/mysql57/data/iZwz9j203ithc4gu1uvb2wZ-slow.log** 
 
-![img](d:\pic-md/20211229225744.png)
+![img](/Users/jiusonghuang/pic-md/20211229225744.png)
 
  **./mysqldumpslow -s t -t 10 /home/mysql/mysql57/data/iZwz9j203ithc4gu1uvb2wZ-slow.log -g select**
 
-​    ![img](d:\pic-md/20211229225753.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229225753.png)
 
 ### **优化SQL查询方法论**
 
@@ -5063,7 +5063,7 @@ mysqldumpslow -s r -t 10 slow-mysql.log
 
 换句话说，是时候回头看看我们前面讨论的内容了:MySQL执行一个查询的过程。根据下图，我们可以看到当向MySQL发送一个请求的时候，MySQL 到底做了些什么:
 
-   ![img](d:\pic-md/20211229225850.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229225850.png)
 
 1.客户端发送一条查询给服务器。
 
@@ -5153,7 +5153,7 @@ MySQL将结果集返回客户端是一个增量、逐步返回的过程。一旦
 
 这一点从MySQL的源码sql_union.cc中其实可以看得很清楚：
 
-![https://note.youdao.com/yws/public/resource/f1d34fba6f218de1acf9160f45c284af/xmlnote/E0E3BFBF0BD8486598DFA4087AC8ABB1/2169](d:\pic-md/20211229225949.png)
+![https://note.youdao.com/yws/public/resource/f1d34fba6f218de1acf9160f45c284af/xmlnote/E0E3BFBF0BD8486598DFA4087AC8ABB1/2169](/Users/jiusonghuang/pic-md/20211229225949.png)
 
 这样处理有两个好处﹔服务器端无须存储太多的结果，也就不会因为要返回太多结果而消耗太多内存。另外，这样的处理也让 MySQL客户端第一时间获得返回的结果。结果集中的每一行都会以一个满足MySQL客户端/服务器通信协议的封包发送，再通过TCP协议进行传输，在TCP传输的过程中，可能对MySQL的封包进行缓存然后批量传输。
 
@@ -5203,7 +5203,7 @@ https://dev.mysql.com/doc/refman/8.0/en/general-thread-states.html
 
 **select @@have_profiling;**
 
-   ![img](d:\pic-md/20211229230018.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229230018.png)
 
 2、默认profiling是关闭的，可以通过set语句在 Session级别开启 profiling:
 
@@ -5211,7 +5211,7 @@ https://dev.mysql.com/doc/refman/8.0/en/general-thread-states.html
 
 ​	**set profiling=1**;
 
-   ![img](d:\pic-md/20211229230030.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229230030.png)
 
 3、执行一个SQL查询
 
@@ -5221,13 +5221,13 @@ https://dev.mysql.com/doc/refman/8.0/en/general-thread-states.html
 
 **show profiles;**
 
-​    ![img](d:\pic-md/20211229230050.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229230050.png)
 
 5、通过show profile for query语句能够看到执行过程中线程的每个状态和消耗的时间
 
 **show profile for query 1;**
 
-![img](d:\pic-md/20211229230107.png)
+![img](/Users/jiusonghuang/pic-md/20211229230107.png)
 
 通过仔细检查show profile for query 的输出，能够发现在执行COUNT(*)的过程中，时间主要消耗在 Sending data这个状态上。
 
@@ -5235,7 +5235,7 @@ https://dev.mysql.com/doc/refman/8.0/en/general-thread-states.html
 
 **show profile all for query 1\G**
 
-​    ![img](d:\pic-md/20211229230124.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229230124.png)
 
 能够发现Sending data状态下，时间主要消耗在 CPU上了。
 
@@ -5249,7 +5249,7 @@ https://dev.mysql.com/doc/refman/8.0/en/general-thread-states.html
 
 其实optimizer trace输出的文本中就有这个片段：
 
-   ![img](d:\pic-md/20211229230831.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229230831.png)
 
 具体的索引合并算法有下边三种。
 
@@ -5509,17 +5509,17 @@ SELECT table1表记录的各个字段的常量值, table2.* FROM table1 INNER JO
 SELECT * FROM e1 INNER JOIN e2 ON e1.m1 = e2.m2;
 ```
 
-   ![img](d:\pic-md/20211229231447.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229231447.png)
 
 **SELECT \* FROM e1 LEFT JOIN e2 ON e1.m1 = e2.m2;**
 
-​    ![img](d:\pic-md/20211229231500.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229231500.png)
 
 对于上边例子中的（左）外连接来说，由于驱动表e1中m1=1, n1='a'的记录无法在被驱动表e2中找到符合ON子句条件e1.m1 = e2.m2的记录，所以就直接把这条记录加入到结果集，对应的e2表的m2和n2列的值都设置为NULL。
 
 因为凡是不符合WHERE子句中条件的记录都不会参与连接。只要我们在搜索条件中指定关于被驱动表相关列的值不为NULL，那么外连接中在被驱动表中找不到符合ON子句条件的驱动表记录也就被排除出最后的结果集了，也就是说：在这种情况下：外连接和内连接也就没有什么区别了！比方说这个查询：
 
-**SELECT \* FROM e1 LEFT JOIN e2 ON e1.m1 = e2.m2 WHERE e2.n2 IS NOT NULL;**    ![img](d:\pic-md/20211229231516.png)
+**SELECT \* FROM e1 LEFT JOIN e2 ON e1.m1 = e2.m2 WHERE e2.n2 IS NOT NULL;**    ![img](/Users/jiusonghuang/pic-md/20211229231516.png)
 
 由于指定了被驱动表e2的n2列不允许为NULL，所以上边的e1和e2表的左（外）连接查询和内连接查询是一样的。当然，我们也可以不用显式的指定被驱动表的某个列IS NOT NULL，只要隐含的有这个意思就行了，比方说这样：
 
@@ -5851,15 +5851,15 @@ SELECT s1.* FROM s1 **SEMI JOIN** s2
 
 三个表目前都没有索引：
 
-​    ![img](d:\pic-md/20211229231610.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229231610.png)
 
-​    ![img](d:\pic-md/20211229231624.png)    !
+​    ![img](/Users/jiusonghuang/pic-md/20211229231624.png)    !
 
-![img](d:\pic-md/20211229231641.png)
+![img](/Users/jiusonghuang/pic-md/20211229231641.png)
 
 三个表目前的记录数如下：
 
-​    ![img](d:\pic-md/20211229231705.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229231705.png)
 
 现在有这么个业务场景：查找包含赠送商品且赠送商品编号是666的订单
 
@@ -5869,7 +5869,7 @@ select o.* from goods_order o where o.id in(select order_id from goods_order_det
 
 mysql> show warnings;
 
-/* select#1 */ select `mysqladv`.`o`.`id` AS `id`,`mysqladv`.`o`.`order_no` AS `order_no` from `mysqladv`.`goods_order` `o` semi join (`mysqladv`.`goods_order_detail` `od`) where ((`mysqladv`.`o`.`id` = ``.`order_id`) and (`mysqladv`.`od`.`price` = 0) and (`mysqladv`.`od`.`goods_id` = 666)) ![img](d:\pic-md/20211229231723.png)
+/* select#1 */ select `mysqladv`.`o`.`id` AS `id`,`mysqladv`.`o`.`order_no` AS `order_no` from `mysqladv`.`goods_order` `o` semi join (`mysqladv`.`goods_order_detail` `od`) where ((`mysqladv`.`o`.`id` = ``.`order_id`) and (`mysqladv`.`od`.`price` = 0) and (`mysqladv`.`od`.`goods_id` = 666)) ![img](/Users/jiusonghuang/pic-md/20211229231723.png)
 
 可以看到MySQL将这个子查询改造为了半连接semi join。
 
@@ -5935,7 +5935,7 @@ EXPLAIN SELECT * FROM s1  WHERE order_no IN (SELECT order_no FROM s2 where s1.or
 
 show WARNINGS;
 
-可以看见，MySQL确实把这个子查询转换为了exists子查询    ![img](d:\pic-md/20211229231752.png)
+可以看见，MySQL确实把这个子查询转换为了exists子查询    ![img](/Users/jiusonghuang/pic-md/20211229231752.png)
 
 需要注意的是，如果IN子查询不满足转换为semi-join的条件，又不能转换为物化表或者转换为物化表的成本太大，那么它就会被转换为EXISTS查询。
 
@@ -6009,7 +6009,7 @@ CREATE TABLE 表名 (列的信息) ROW_FORMAT=行格式名称
 
 ### **COMPACT**
 
-​    ![img](d:\pic-md/20211229232309.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229232309.png)
 
 我们知道MySQL支持一些变长的数据类型，比如VARCHAR(M)、VARBINARY(M)、各种TEXT类型，各种BLOB类型，我们也可以把拥有这些数据类型的列称为变长字段，变长字段中存储多少字节的数据是不固定的，所以我们在存储真实数据的时候需要顺便把这些数据占用的字节数也存起来。如果该可变字段允许存储的最大字节数超过255字节并且真实存储的字节数超过127字节，则使用2个字节，否则使用1个字节。
 
@@ -6033,7 +6033,7 @@ record_type	3	表示当前记录的类型，0表示普通记录，1表示B+树�
 
 next_record	16	表示下一条记录的相对位置
 
-​    ![img](d:\pic-md/20211229232325.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229232325.png)
 
 记录的真实数据除了我们自己定义的列的数据以外，MySQL会为每个记录默认的添加一些列（也称为隐藏列），包括：
 
@@ -6075,7 +6075,7 @@ Dynamic和Compressed行格式，不会在记录的真实数据处存储字段真
 
 InnoDB为了不同的目的而设计了许多种不同类型的页，存放我们表中记录的那种类型的页自然也是其中的一员，官方称这种存放记录的页为索引（INDEX）页，不过要理解成数据页也没问题，毕竟存在着聚簇索引这种索引和数据混合的东西。
 
-  ![img](d:\pic-md/20211229232345.png)
+  ![img](/Users/jiusonghuang/pic-md/20211229232345.png)
 
 一个InnoDB数据页的存储空间大致被划分成了7个部分：
 
@@ -6103,7 +6103,7 @@ File Trailer	文件尾部	8字节	校验页是否完整
 
 同时我们插入的记录在会记录自己在本页中的位置，写入了记录头信息中heap_no部分。heap_no值为0和1的记录是InnoDB自动给每个页增加的两个记录，称为伪记录或者虚拟记录。这两个伪记录一个代表最小记录，一个代表最大记录，这两条存放在页的User Records部分，他们被单独放在一个称为Infimum + Supremum的部分。
 
-记录头信息中next_record记录了从当前记录的真实数据到下一条记录的真实数据的地址偏移量。这其实是个链表，可以通过一条记录找到它的下一条记录。但是需要注意注意再注意的一点是，下一条记录指得并不是按照我们插入顺序的下一条记录，而是按照主键值由小到大的顺序的下一条记录。而且规定 Infimum记录（也就是最小记录） 的下一条记录就是本页中主键值最小的用户记录，而本页中主键值最大的用户记录的下一条记录就是 Supremum记录（也就是最大记录）    ![img](d:\pic-md/20211229232403.png)
+记录头信息中next_record记录了从当前记录的真实数据到下一条记录的真实数据的地址偏移量。这其实是个链表，可以通过一条记录找到它的下一条记录。但是需要注意注意再注意的一点是，下一条记录指得并不是按照我们插入顺序的下一条记录，而是按照主键值由小到大的顺序的下一条记录。而且规定 Infimum记录（也就是最小记录） 的下一条记录就是本页中主键值最小的用户记录，而本页中主键值最大的用户记录的下一条记录就是 Supremum记录（也就是最大记录）    ![img](/Users/jiusonghuang/pic-md/20211229232403.png)
 
 我们的记录按照主键从小到大的顺序形成了一个单链表，记录被删除，则从这个链表上摘除。
 
@@ -6117,9 +6117,9 @@ InnoDB的改进是，为页中的记录再制作了一个目录，他们的制�
 
 2、每个组的最后一条记录（也就是组内最大的那条记录）的头信息中的n_owned属性表示该记录拥有多少条记录，也就是该组内共有几条记录。
 
-3、将每个组的最后一条记录的地址偏移量单独提取出来按顺序存储到靠近页的尾部的地方，这个地方就是所谓的Page Directory，也就是页目录页面目录中的这些地址偏移量被称为槽（英文名：Slot），所以这个页面目录就是由槽组成的。    ![img](d:\pic-md/20211229232424.png)
+3、将每个组的最后一条记录的地址偏移量单独提取出来按顺序存储到靠近页的尾部的地方，这个地方就是所谓的Page Directory，也就是页目录页面目录中的这些地址偏移量被称为槽（英文名：Slot），所以这个页面目录就是由槽组成的。    ![img](/Users/jiusonghuang/pic-md/20211229232424.png)
 
-4、每个分组中的记录条数是有规定的：对于最小记录所在的分组只能有 1 条记录，最大记录所在的分组拥有的记录条数只能在 1~8 条之间，剩下的分组中记录的条数范围只能在是 4~8 条之间。如下图：![img](d:\pic-md/20211229232446.png)
+4、每个分组中的记录条数是有规定的：对于最小记录所在的分组只能有 1 条记录，最大记录所在的分组拥有的记录条数只能在 1~8 条之间，剩下的分组中记录的条数范围只能在是 4~8 条之间。如下图：![img](/Users/jiusonghuang/pic-md/20211229232446.png)
 
 这样，一个数据页中查找指定主键值的记录的过程分为两步：
 
@@ -6161,11 +6161,11 @@ File Header针对各种类型的页都通用，也就是说不同类型的页都
 
 https://dev.mysql.com/doc/refman/5.7/en/innodb-architecture.html
 
-​    ![img](d:\pic-md/20211229232513.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229232513.png)
 
 可以看见，比较关键的是其中的各种Buffer和Tabelspace（表空间），这些也是我们接下来要学习的重点。
 
-太长不看版：   ![img](d:\pic-md/20211229232531.png)
+太长不看版：   ![img](/Users/jiusonghuang/pic-md/20211229232531.png)
 
 不过InnoDB的内存结构和磁盘存储结构在MySQL8.0有所变化：
 
@@ -6173,13 +6173,13 @@ https://dev.mysql.com/doc/refman/8.0/en/innodb-architecture.html
 
 但是不影响我们后面对InnoDB内部原理的学习。
 
-   ![img](d:\pic-md/20211229232552.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229232552.png)
 
 ### **InnoDB的表空间**
 
-表空间是一个抽象的概念，对于系统表空间来说，对应着文件系统中一个或多个实际文件，一般是（ibdata1）；对于每个独立表空间（也就是上图的File-Per-Table Tablespaces）来说，对应着文件系统中一个名为表名.ibd的实际文件。![img](d:\pic-md/20211229232609.png)
+表空间是一个抽象的概念，对于系统表空间来说，对应着文件系统中一个或多个实际文件，一般是（ibdata1）；对于每个独立表空间（也就是上图的File-Per-Table Tablespaces）来说，对应着文件系统中一个名为表名.ibd的实际文件。![img](/Users/jiusonghuang/pic-md/20211229232609.png)
 
-   ![img](d:\pic-md/20211229232623.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229232623.png)
 
 大家可以把表空间想象成被切分为许许多多个页的池子，当我们想为某个表插入一条记录的时候，就从池子中捞出一个对应的页来把数据写进去。
 
@@ -6211,7 +6211,7 @@ https://dev.mysql.com/doc/refman/8.0/en/innodb-architecture.html
 
 段其实不对应表空间中某一个连续的物理区域，而是一个逻辑上的概念。
 
-   ![img](d:\pic-md/20211229232644.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229232644.png)
 
 ### **系统表空间**
 
@@ -6287,7 +6287,7 @@ SYS_VIRTUAL	整个InnoDB存储引擎中所有的虚拟生成列的信息
 
 用户是不能直接访问InnoDB的这些内部系统表的，除非你直接去解析系统表空间对应文件系统上的文件。不过InnoDB考虑到查看这些表的内容可能有助于大家分析问题，所以在系统数据库information_schema中提供了一些以innodb_sys开头的表： 
 
-   ![img](d:\pic-md/20211229232709.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229232709.png)
 
 在information_schema数据库中的这些以INNODB_SYS开头的表并不是真正的内部系统表（内部系统表就是我们上边说过的以SYS开头的那些表），而是在存储引擎启动时读取这些以SYS开头的系统表，然后填充到这些以INNODB_SYS开头的表中。
 
@@ -6305,7 +6305,7 @@ InnoDB为了缓存磁盘中的页，在MySQL服务器启动的时候就向操作
 
 **show variables like 'innodb_buffer_pool_size';**
 
-   ![img](d:\pic-md/20211229232730.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229232730.png)
 
 可以在启动服务器的时候配置innodb_buffer_pool_size参数的值，它表示Buffer Pool的大小，就像这样：
 
@@ -6319,7 +6319,7 @@ Buffer Pool的缺省值其实是偏小的，一个比较合理的设置方法是
 
 https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html
 
-![img](d:\pic-md/20211229232745.png)
+![img](/Users/jiusonghuang/pic-md/20211229232745.png)
 
 上文的意思是：更大的缓冲池只需更少的磁盘 I/O 来多次访问相同的表数据。在**专用**数据库服务器上，您可以将缓冲池大小设置为机器物理内存大小的 80%。配置缓冲池大小时请注意以下潜在问题，并准备在必要时缩减缓冲池的大小。
 
@@ -6343,7 +6343,7 @@ InnoDB 为缓冲区和控制结构保留了额外的内存，因此分配的总�
 
 show engine innodb status\G
 
-   ![img](d:\pic-md/20211229232801.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229232801.png)
 
 对于读取多的情况,如果没达到98%以上，都说明buffer不够，可以扩，如果给命中都能达到98%~100%了，而且还有大量的free page那说明够用了。当然如果业务不繁忙或者是写多读少的情况下命中率参考意义就不大了。
 
@@ -6355,7 +6355,7 @@ Buffer Pool中默认的缓存页大小和在磁盘上默认的页大小是一样
 
 每个缓存页对应的控制信息占用的内存大小是相同的，我们称为控制块。控制块和缓存页是一一对应的，它们都被存放到 Buffer Pool 中，其中控制块被存放到 Buffer Pool 的前边，缓存页被存放到 Buffer Pool 后边，所以整个Buffer Pool对应的内存空间看起来就是这样的：
 
-​    ![img](d:\pic-md/20211229232817.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229232817.png)
 
 每个控制块大约占用缓存页大小的5%，而我们设置的innodb_buffer_pool_size并不包含这部分控制块占用的内存空间大小，也就是说InnoDB在为Buffer Pool向操作系统申请连续的内存空间时，这片连续的内存空间一般会比innodb_buffer_pool_size的值大5%左右。
 
@@ -6365,7 +6365,7 @@ Buffer Pool中默认的缓存页大小和在磁盘上默认的页大小是一样
 
 那么问题来了，从磁盘上读取一个页到Buffer Pool中的时候该放到哪个缓存页的位置呢？或者说怎么区分Buffer Pool中哪些缓存页是空闲的，哪些已经被使用了呢？最好在某个地方记录一下Buffer Pool中哪些缓存页是可用的，这个时候缓存页对应的控制块就派上大用场了，我们可以把所有空闲的缓存页对应的控制块作为一个节点放到一个链表中，这个链表也可以被称作free链表（或者说空闲链表）。刚刚完成初始化的Buffer Pool中所有的缓存页都是空闲的，所以每一个缓存页对应的控制块都会被加入到free链表中，假设该Buffer Pool中可容纳的缓存页数量为n，那增加了free链表的效果图就是这样的：
 
-  ![img](d:\pic-md/20211229232829.png)
+  ![img](/Users/jiusonghuang/pic-md/20211229232829.png)
 
 有了这个free链表之后，每当需要从磁盘中加载一个页到Buffer Pool中时，就从free链表中取一个空闲的缓存页，并且把该缓存页对应的控制块的信息填上（就是该页所在的表空间、页号之类的信息），然后把该缓存页对应的free链表节点从链表中移除，表示该缓存页已经被使用了。
 
@@ -6385,7 +6385,7 @@ Buffer Pool中默认的缓存页大小和在磁盘上默认的页大小是一样
 
 所以，需要再创建一个存储脏页的链表，凡是修改过的缓存页对应的控制块都会作为一个节点加入到一个链表中，因为这个链表节点对应的缓存页都是需要被刷新到磁盘上的，所以也叫flush链表。链表的构造和free链表差不多。
 
-​    ![img](d:\pic-md/20211229232846.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229232846.png)
 
 ### **LRU链表的管理**
 
@@ -6433,11 +6433,11 @@ InnoDB提供了一个系统变量innodb_read_ahead_threshold，如果顺序访�
 
 **show variables like '%_read_ahead%';**
 
-​    ![img](d:\pic-md/20211229232905.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229232905.png)
 
 *并且可以根据通过执行show engine innodb status命令显示的三个参数判断read-ahead算法的有效性：*
 
-*read_ahead、read_ahead_evicted、read_ahead_rnd*    ![img](d:\pic-md/20211229232919.png)
+*read_ahead、read_ahead_evicted、read_ahead_rnd*    ![img](/Users/jiusonghuang/pic-md/20211229232919.png)
 
 *如果通过监控发现，这个预读功能长期有效性很低，可以考虑关闭这个预读功能。*
 
@@ -6459,13 +6459,13 @@ InnoDB提供了一个系统变量innodb_read_ahead_threshold，如果顺序访�
 
 另一部分存储使用频率不是很高的缓存页，所以这一部分链表也叫做冷数据，或者称old区域。
 
-![img](d:\pic-md/20211229232937.png)
+![img](/Users/jiusonghuang/pic-md/20211229232937.png)
 
 我们是按照某个比例将LRU链表分成两半的，不是某些节点固定是young区域的，某些节点固定是old区域的，随着程序的运行，某个节点所属的区域也可能发生变化。那这个划分成两截的比例怎么确定呢？对于InnoDB存储引擎来说，我们可以通过查看系统变量innodb_old_blocks_pct的值来确定old区域在LRU链表中所占的比例，比方说这样：
 
 **SHOW VARIABLES LIKE 'innodb_old_blocks_pct';**
 
-   ![https://note.youdao.com/yws/public/resource/92b91d9f92729187e257226a8aa8fc7f/xmlnote/1A294333AA7F435FA0E44DD5000612F6/2242](d:\pic-md/20211229232953.png)
+   ![https://note.youdao.com/yws/public/resource/92b91d9f92729187e257226a8aa8fc7f/xmlnote/1A294333AA7F435FA0E44DD5000612F6/2242](/Users/jiusonghuang/pic-md/20211229232953.png)
 
 从结果可以看出来，默认情况下，old区域在LRU链表中所占的比例是37%，也就是说old区域大约占LRU链表的3/8。这个比例我们是可以设置的，我们可以在启动时修改innodb_old_blocks_pct参数来控制old区域在LRU链表中所占的比例。在服务器运行期间，我们也可以修改这个系统变量的值，不过需要注意的是，这个系统变量属于全局变量。
 
@@ -6487,7 +6487,7 @@ InnoDB规定，当磁盘上的某个页面在初次加载到Buffer Pool中的某
 
 **SHOW VARIABLES LIKE 'innodb_old_blocks_time';**
 
-   ![img](d:\pic-md/20211229233009.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229233009.png)
 
 这个innodb_old_blocks_time的默认值是1000，它的单位是毫秒，也就意味着对于从磁盘上被加载到LRU链表的old区域的某个页来说，如果第一次和最后一次访问该页面的时间间隔小于1s（很明显在一次全表扫描的过程中，多次访问一个页面中的时间不会超过1s），那么该页是不会被加入到young区域的， 当然，像innodb_old_blocks_pct一样，我们也可以在服务器启动或运行时设置innodb_old_blocks_time的值，这里需要注意的是，如果我们把innodb_old_blocks_time的值设置为0，那么每次我们访问一个页面时就会把该页面放到young区域的头部。
 
@@ -6537,13 +6537,13 @@ InnoDB规定，当磁盘上的某个页面在初次加载到Buffer Pool中的某
 
 https://dev.mysql.com/doc/refman/8.0/en/innodb-multiple-buffer-pools.html
 
-   ![img](d:\pic-md/20211229233032.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229233032.png)
 
 **innodb_buffer_pool_chunk_size**
 
 在MySQL 5.7.5之前，Buffer Pool的大小只能在服务器启动时通过配置innodb_buffer_pool_size启动参数来调整大小，在服务器运行过程中是不允许调整该值的。不过MySQL在5.7.5以及之后的版本中支持了在服务器运行过程中调整Buffer Pool大小的功能，
 
-但是有一个问题，就是每次当我们要重新调整Buffer Pool大小时，都需要重新向操作系统申请一块连续的内存空间，然后将旧的Buffer Pool中的内容复制到这一块新空间，这是极其耗时的。所以MySQL决定不再一次性为某个Buffer Pool实例向操作系统申请一大片连续的内存空间，而是以一个所谓的chunk为单位向操作系统申请空间。也就是说一个Buffer Pool实例其实是由若干个chunk组成的，一个chunk就代表一片连续的内存空间，里边儿包含了若干缓存页与其对应的控制块：   ![img](d:\pic-md/20211229233052.png)
+但是有一个问题，就是每次当我们要重新调整Buffer Pool大小时，都需要重新向操作系统申请一块连续的内存空间，然后将旧的Buffer Pool中的内容复制到这一块新空间，这是极其耗时的。所以MySQL决定不再一次性为某个Buffer Pool实例向操作系统申请一大片连续的内存空间，而是以一个所谓的chunk为单位向操作系统申请空间。也就是说一个Buffer Pool实例其实是由若干个chunk组成的，一个chunk就代表一片连续的内存空间，里边儿包含了若干缓存页与其对应的控制块：   ![img](/Users/jiusonghuang/pic-md/20211229233052.png)
 
 正是因为发明了这个chunk的概念，我们在服务器运行期间调整Buffer Pool的大小时就是以chunk为单位增加或者删除内存空间，而不需要重新向操作系统申请一片大的内存，然后进行缓存页的复制。这个所谓的chunk的大小是我们在启动操作MySQL服务器时通过innodb_buffer_pool_chunk_size启动参数指定的，它的默认值是134217728，也就是128M。不过需要注意的是，innodb_buffer_pool_chunk_size的值只能在服务器启动时指定，在服务器运行过程中是不可以修改的。
 
@@ -6553,7 +6553,7 @@ Buffer Pool的缓存页除了用来缓存磁盘上的页面以外，还可以存
 
 MySQL给我们提供了SHOW ENGINE INNODB STATUS语句来查看关于InnoDB存储引擎运行过程中的一些状态信息，其中就包括Buffer Pool的一些信息，我们看一下（为了突出重点，我们只把输出中关于Buffer Pool的部分提取了出来）：
 
-**SHOW ENGINE INNODB STATUS\G**    ![img](d:\pic-md/20211229233106.png)
+**SHOW ENGINE INNODB STATUS\G**    ![img](/Users/jiusonghuang/pic-md/20211229233106.png)
 
 这里边的每个值都代表什么意思如下，知道即可：
 
@@ -6611,6 +6611,6 @@ I/O unzip cur：正在解压的页面数量。
 
 **InnoDB体系图补充说明**
 
-  ![img](d:\pic-md/20211229233130.png)
+  ![img](/Users/jiusonghuang/pic-md/20211229233130.png)
 
 其中的Insert/Change Buffer主要是用于对二级索引的写入优化，Undo空间则是undo日志一般放在系统表空间，但是通过参数配置后，也可以用独立表空间存放，所以用虚线表示。通用表空间和独立表空间不同，通用表空间是允许多个表存储数据的共享表空间。

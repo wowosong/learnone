@@ -2,7 +2,7 @@
 
 Redis3.0以后的版本虽然有了集群功能，提供了比之前版本的哨兵模式更高的性能与可用性，但是集群的水平扩展却比较麻烦，今天就来带大家看看redis高可用集群如何做水平扩展，原始集群(见下图)由6个节点组成，6个节点分布在三台机器上，采用三主三从的模式
 
-![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/221AD066597C4ABA9F78442499F9673B/55284](d:\pic-md/20220306163407.bin)
+![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/221AD066597C4ABA9F78442499F9673B/55284](/Users/jiusonghuang/pic-md/20220306163407.bin)
 
 ## 1、启动集群
 
@@ -29,7 +29,7 @@ Redis3.0以后的版本虽然有了集群功能，提供了比之前版本的哨
 192.168.0.61:8001> cluster  nodes
 ```
 
-![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/FEA96A65F9F84A3A9D47F2C5B27C36F0/55272](d:\pic-md/20220306163412.bin)
+![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/FEA96A65F9F84A3A9D47F2C5B27C36F0/55272](/Users/jiusonghuang/pic-md/20220306163412.bin)
 
  从上图可以看出，整个集群运行正常，三个master节点和三个slave节点，8001端口的实例节点存储0-5460这些hash槽，8002端口的实例节点存储5461-10922这些hash槽，8003端口的实例节点存储10923-16383这些hash槽，这三个master节点存储的所有hash槽组成redis集群的存储槽位，slave点是每个主节点的备份从节点，不显示存储槽位
 
@@ -37,7 +37,7 @@ Redis3.0以后的版本虽然有了集群功能，提供了比之前版本的哨
 
 我们在原始集群基础上再增加一主(8007)一从(8008)，增加节点后的集群参见下图，新增节点用虚线框表示
 
-![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/A8BDF25026C54D6288C9D17AD29540F8/55313](d:\pic-md/20220306163416.bin)
+![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/A8BDF25026C54D6288C9D17AD29540F8/55313](/Users/jiusonghuang/pic-md/20220306163416.bin)
 
 ### 增加redis实例
 
@@ -94,7 +94,7 @@ cd /usr/local/redis-5.0.3
 src/redis-cli --cluster help
 ```
 
-![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/2423DA80B6644F34AE45B26CAE6C4592/70145](d:\pic-md/20220306163421.bin)
+![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/2423DA80B6644F34AE45B26CAE6C4592/70145](/Users/jiusonghuang/pic-md/20220306163421.bin)
 
 1.create：创建一个集群环境host1:port1 ... hostN:portN
 
@@ -124,7 +124,7 @@ src/redis-cli --cluster help
 192.168.0.61:8001> cluster nodes
 ```
 
-![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/7A46E1A0B3844AC69AB3FF44576A5E54/81628](d:\pic-md/20220306163427.bin)
+![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/7A46E1A0B3844AC69AB3FF44576A5E54/81628](/Users/jiusonghuang/pic-md/20220306163427.bin)
 
 注意：当添加节点成功以后，新增的节点不会有任何数据，因为它还没有分配任何的slot(hash槽)，我们需要为新节点手工分配hash槽
 
@@ -172,7 +172,7 @@ Do you want to proceed with the proposed reshard plan (yes/no)? yes
 192.168.0.61:8001> cluster nodes
 ```
 
-![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/0A16C9A2FADF4EC7978BA3086737829D/55436](d:\pic-md/20220306163431.bin)
+![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/0A16C9A2FADF4EC7978BA3086737829D/55436](/Users/jiusonghuang/pic-md/20220306163431.bin)
 
 如上图所示，现在我们的8007已经有hash槽了，也就是说可以在8007上进行读写数据啦！到此为止我们的8007已经加入到集群中，并且是主节点(Master)
 
@@ -184,7 +184,7 @@ Do you want to proceed with the proposed reshard plan (yes/no)? yes
 /usr/local/redis-5.0.3/src/redis-cli -a zhuge --cluster add-node 192.168.0.61:8008 192.168.0.61:8001
 ```
 
-![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/1ADA96E883D44948B38733E36308FF5B/55446](d:\pic-md/20220306163435.bin)
+![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/1ADA96E883D44948B38733E36308FF5B/55446](/Users/jiusonghuang/pic-md/20220306163435.bin)
 
 如图所示，还是一个master节点，没有被分配任何的hash槽。
 
@@ -198,7 +198,7 @@ Do you want to proceed with the proposed reshard plan (yes/no)? yes
 
 \# 查看集群状态，8008节点已成功添加为8007节点的从节点
 
-![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/D9F88580B9B44045A7E920C2B42E62C9/81647](d:\pic-md/20220306163439.bin)
+![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/D9F88580B9B44045A7E920C2B42E62C9/81647](/Users/jiusonghuang/pic-md/20220306163439.bin)
 
 *    删除8008从节点
 
@@ -210,7 +210,7 @@ Do you want to proceed with the proposed reshard plan (yes/no)? yes
 
 \# 再次查看集群状态，如下图所示，8008这个slave节点已经移除，并且该节点的redis服务也已被停止
 
-![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/DDDF2566F749493FB06652155AFA516F/81657](d:\pic-md/20220306163443.bin)
+![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/DDDF2566F749493FB06652155AFA516F/81657](/Users/jiusonghuang/pic-md/20220306163443.bin)
 
 *   删除8007主节点
 
@@ -252,7 +252,7 @@ Do you want to proceed with the proposed reshard plan (yes/no)? Yes
 
 至此，我们已经成功的把8007主节点的数据迁移到8001上去了，我们可以看一下现在的集群状态如下图，你会发现8007下面已经没有任何hash槽了，证明迁移成功！
 
-![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/C287B21534E1435CACBA9B44C7001F2B/81668](d:\pic-md/20220306163447.bin)
+![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/C287B21534E1435CACBA9B44C7001F2B/81668](/Users/jiusonghuang/pic-md/20220306163447.bin)
 
 \# 最后我们直接使用del-node命令删除8007主节点即可
 
@@ -262,7 +262,7 @@ Do you want to proceed with the proposed reshard plan (yes/no)? Yes
 
 **查看集群状态，一切还原为最初始状态啦！大功告成!**
 
-![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/BB195C96D620421EAA1FBEA9104ED8A8/81676](d:\pic-md/20220306163453.bin)
+![https://note.youdao.com/yws/public/resource/174eaa7104ce961f8012d521d8155bd9/xmlnote/BB195C96D620421EAA1FBEA9104ED8A8/81676](/Users/jiusonghuang/pic-md/20220306163453.bin)
 
 ```plain
 文档：03-VIP-Redis高可用集群之水平扩展

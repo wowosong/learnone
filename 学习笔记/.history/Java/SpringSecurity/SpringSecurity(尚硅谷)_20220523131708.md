@@ -76,7 +76,7 @@ Spring Security 是 Spring 家族中的一个安全管理框架，实际上，�
 
 ### **1.4** **模块划分**
 
-<img src="d:\pic-md/20220109134934.png" alt="image-20211202203837012" style="zoom:33%;" />
+<img src="/Users/jiusonghuang/pic-md/20220109134934.png" alt="image-20211202203837012" style="zoom:33%;" />
 
 ## **2. SpringSecurity** **入门案例**
 
@@ -122,7 +122,7 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
 
 访问 localhost:8080
 
-![image-20211202205019134](d:\pic-md/20211202205022.png)
+![image-20211202205019134](/Users/jiusonghuang/pic-md/20211202205022.png)
 
 默认的用户名：user；可以设置自定义密码
 
@@ -140,7 +140,7 @@ spring:
 
 输入用户名，密码，这样表示可以访问了，404 表示我们没有这个控制器，但是我们可以访问了。
 
-![image-20211202205154590](d:\pic-md/20211202205202.png)
+![image-20211202205154590](/Users/jiusonghuang/pic-md/20211202205202.png)
 
 ### **2.3** **权限管理中的相关概念**
 
@@ -179,7 +179,7 @@ public class LoginController {
 }
 ```
 
-![image-20211202205859466](d:\pic-md/20211202205859.png)
+![image-20211202205859466](/Users/jiusonghuang/pic-md/20211202205859.png)
 
 ### **2.5 SpringSecurity** **基本原理**
 
@@ -290,7 +290,7 @@ public Authentication attemptAuthentication(HttpServletRequest request， HttpSe
 	}
 ```
 
-![image-20211202214233710](d:\pic-md/20211202214233.png)
+![image-20211202214233710](/Users/jiusonghuang/pic-md/20211202214233.png)
 
 ### **2.6 UserDetailsService** **接口讲解**
 
@@ -342,11 +342,11 @@ boolean isEnabled();
 
 以下是 UserDetails 实现类
 
-![image-20211202212701029](d:\pic-md/20211202212704.png)
+![image-20211202212701029](/Users/jiusonghuang/pic-md/20211202212704.png)
 
 以后我们只需要使用 User 这个实体类即可！
 
-![image-20211202212912706](d:\pic-md/20211202212912.png)
+![image-20211202212912706](/Users/jiusonghuang/pic-md/20211202212912.png)
 
 ⚫ **方法参数** **username**
 
@@ -367,7 +367,7 @@ default boolean upgradeEncoding(String encodedPassword) {
 
 **接口实现类**
 
-![image-20211202213325763](d:\pic-md/20211202213325.png)
+![image-20211202213325763](/Users/jiusonghuang/pic-md/20211202213325.png)
 
 BCryptPasswordEncoder 是 Spring Security 官方推荐的密码解析器，平时多使用这个解析器。
 
@@ -592,7 +592,7 @@ return new User(users.getUsername()
 
 #### **3.2.6** **测试访问**
 
-![image-20211203210013743](d:\pic-md/20211203210014.png)
+![image-20211203210013743](/Users/jiusonghuang/pic-md/20211203210014.png)
 
 ### **3.3** **未认证请求跳转到登录页**
 
@@ -687,7 +687,7 @@ username，password
 在执行登录的时候会走一个过滤器 UsernamePasswordAuthenticationFilter
 ```
 
-![image-20211203220632269](d:\pic-md/20211203220635.png)
+![image-20211203220632269](/Users/jiusonghuang/pic-md/20211203220635.png)
 
 如果修改配置可以调用 usernameParameter()和 passwordParameter()方法。
 
@@ -699,7 +699,7 @@ username，password
 </form>
 ```
 
-![image-20211203220724247](d:\pic-md/20211203220724.png)
+![image-20211203220724247](/Users/jiusonghuang/pic-md/20211203220724.png)
 
 ### **3.4** **基于角色或权限进行访问控制**
 
@@ -734,11 +734,11 @@ return new User(users.getUsername()， new BCryptPasswordEncoder().encode(users.
 
 登录失败
 
-![image-20211208145414281](d:\pic-md/202112081502638.png)
+![image-20211208145414281](/Users/jiusonghuang/pic-md/202112081502638.png)
 
 认证完成之后返回登录成功
 
-![image-20211208150325341](d:\pic-md/202112081503848.png)
+![image-20211208150325341](/Users/jiusonghuang/pic-md/202112081503848.png)
 
 #### **3.4.2 hasAnyAuthority** **方法**
 
@@ -772,7 +772,7 @@ true.
 
 底层源码：
 
-![image-20211208150832535](d:\pic-md/202112081508719.png)
+![image-20211208150832535](/Users/jiusonghuang/pic-md/202112081508719.png)
 
 给用户添加角色：
 
@@ -786,7 +786,7 @@ true.
 
 注意配置文件中不需要添加”ROLE_“，因为上述的底层代码会自动添加与之进行匹配。
 
-![image-20211208152825098](d:\pic-md/202112081528820.png)
+![image-20211208152825098](/Users/jiusonghuang/pic-md/202112081528820.png)
 
 **3.4.4 hasAnyRole**
 
@@ -794,11 +794,11 @@ true.
 
 给用户添加角色：
 
-![image-20211208152844034](d:\pic-md/202112081528148.png)
+![image-20211208152844034](/Users/jiusonghuang/pic-md/202112081528148.png)
 
 修改配置文件：
 
-![image-20211208152902825](d:\pic-md/202112081529990.png)
+![image-20211208152902825](/Users/jiusonghuang/pic-md/202112081529990.png)
 
 ### 3.5自定义403页面
 
@@ -814,9 +814,9 @@ http.exceptionHandling().accessDeniedPage("/unauth");
 
 ### **3.6** **基于数据库实现权限认证**
 
-![image-20211208211703518](d:\pic-md/20211208211703.png)
+![image-20211208211703518](/Users/jiusonghuang/pic-md/20211208211703.png)
 
-![image-20211208211826766](d:\pic-md/20211208211826.png)
+![image-20211208211826766](/Users/jiusonghuang/pic-md/20211208211826.png)
 
 #### **3.6.1** **添加实体类**
 
@@ -917,7 +917,7 @@ public String helloUser() {
 
 将上述的角色改为 @Secured({**"ROLE_normal，ROLE_管理员"**})即可访问
 
-![image-20211208204444532](d:\pic-md/20211208204444.png)
+![image-20211208204444532](/Users/jiusonghuang/pic-md/20211208204444.png)
 
 #### **3.7.2 @PreAuthorize**
 
@@ -1039,31 +1039,31 @@ http.logout().logoutUrl(**"/logout"**).logoutSuccessUrl(**"/index"**).permitAll(
 // http.csrf().disable();
 ```
 
-![image-20211208222312032](d:\pic-md/20211208222312.png)
+![image-20211208222312032](/Users/jiusonghuang/pic-md/20211208222312.png)
 
 **3.9.3 Spring Security** **实现** **CSRF** **的原理：**
 
-![image-20211208221509220](d:\pic-md/20211208221509.png)
+![image-20211208221509220](/Users/jiusonghuang/pic-md/20211208221509.png)
 
 1. 生成 csrfToken 保存到 HttpSession 或者 Cookie 中。
 
-![image-20211208221354271](d:\pic-md/20211208221354.png)
+![image-20211208221354271](/Users/jiusonghuang/pic-md/20211208221354.png)
 
-![image-20211208221407767](d:\pic-md/20211208221407.png)
+![image-20211208221407767](/Users/jiusonghuang/pic-md/20211208221407.png)
 
 SaveOnAccessCsrfToken 类有个接口 CsrfTokenRepository
 
-![image-20211208221431682](d:\pic-md/20211208221431.png)
+![image-20211208221431682](/Users/jiusonghuang/pic-md/20211208221431.png)
 
-![image-20211208221446409](d:\pic-md/20211208221446.png)
+![image-20211208221446409](/Users/jiusonghuang/pic-md/20211208221446.png)
 
 当前接口实现类：HttpSessionCsrfTokenRepository，CookieCsrfTokenRepository
 
-![image-20211208221536184](d:\pic-md/20211208221536.png)
+![image-20211208221536184](/Users/jiusonghuang/pic-md/20211208221536.png)
 
 2. 请求到来时，从请求中提取 csrfToken，和保存的 csrfToken 做比较，进而判断当前请求是否合法。主要通过 CsrfFilter 过滤器来完成。
 
-![image-20211208221616071](d:\pic-md/20211208221616.png)
+![image-20211208221616071](/Users/jiusonghuang/pic-md/20211208221616.png)
 
 ## **4. SpringSecurity** **微服务权限方案**
 
@@ -1095,31 +1095,31 @@ SaveOnAccessCsrfToken 类有个接口 CsrfTokenRepository
 
 （2）如果是 token，则是解析出 token，然后将当前请求加入到 Spring-security 管理的权限信息中去
 
-![image-20211208221856555](d:\pic-md/20211208221856.png)
+![image-20211208221856555](/Users/jiusonghuang/pic-md/20211208221856.png)
 
-![image-20211208224000090](d:\pic-md/20211208224000.png)
+![image-20211208224000090](/Users/jiusonghuang/pic-md/20211208224000.png)
 
-![image-20220105162737113](d:\pic-md/202201051627470.png)
+![image-20220105162737113](/Users/jiusonghuang/pic-md/202201051627470.png)
 
 **如果系统的模块众多，每个模块都需要进行授权与认证，所以我们选择基于 token 的形式进行授权与认证，用户根据用户名密码认证成功，然后获取当前用户角色的一系列权限值，并以用户名为 key，权限列表为 value 的形式存入 redis 缓存中，根据用户名相关信息生成 token 返回，浏览器将 token 记录到 cookie 中，每次调用 api 接口都默认将 token 携带到 header 请求头中，Spring-security 解析 header 头获取 token 信息，解析 token 获取当前用户名，根据用户名就可以从 redis 中获取权限列表，这样 Spring-security 就能够判断当前请求是否有权限访问**
 
 #### **2、权限管理数据模型**
 
-![image-20211208222026277](d:\pic-md/20211208222026.png)
+![image-20211208222026277](/Users/jiusonghuang/pic-md/20211208222026.png)
 
-![17-微服务权限方案-编写代码（权限工具类）](d:\pic-md/202201051705204.png)
+![17-微服务权限方案-编写代码（权限工具类）](/Users/jiusonghuang/pic-md/202201051705204.png)
 
 ### 4.3 jwt 介绍
 
 #### **1、访问令牌的类型**  
 
-![image-20220105143806370](d:\pic-md/202201051438761.png)
+![image-20220105143806370](/Users/jiusonghuang/pic-md/202201051438761.png)
 
 #### **2、 JWT 的组成**
 
 典型的，一个 JWT 看起来如下图：  
 
-![image-20220105143933022](d:\pic-md/202201051439182.png)
+![image-20220105143933022](/Users/jiusonghuang/pic-md/202201051439182.png)
 
 该对象为一个很长的字符串，字符之间通过"."分隔符分为三个子串。
 每一个子串表示了一个功能块，总共有以下三个部分： JWT 头、有效载荷和签名  
@@ -1168,7 +1168,7 @@ HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(claims)， secret)在
 
 ### 4.4 具体代码实现  
 
-![image-20220105144513655](d:\pic-md/202201051445823.png)
+![image-20220105144513655](/Users/jiusonghuang/pic-md/202201051445823.png)
 
 #### 4.4.1 编写核心配置类
 
@@ -1242,7 +1242,7 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 #### 4.4.2 创建认证授权相关的工具类  
 
-![image-20220105173554573](d:\pic-md/202201051735739.png)
+![image-20220105173554573](/Users/jiusonghuang/pic-md/202201051735739.png)
 
 （1） DefaultPasswordEncoder：密码处理的方法  
 
@@ -1356,7 +1356,7 @@ public class UnauthorizedEntryPoint implements AuthenticationEntryPoint {
 
 #### 4.4.3 创建认证授权实体类  
 
-![image-20220106104259006](d:\pic-md/202201061043306.png)
+![image-20220106104259006](/Users/jiusonghuang/pic-md/202201061043306.png)
 
 **(1) SecutityUser**  
 
@@ -1453,7 +1453,7 @@ public class User implements Serializable {
 
 #### 4.3.3 创建认证和授权的 filter  
 
-![image-20220106104547797](d:\pic-md/202201061045948.png)
+![image-20220106104547797](/Users/jiusonghuang/pic-md/202201061045948.png)
 
 **（ 1） TokenLoginFilter：认证的 filter**  
 
@@ -1578,7 +1578,7 @@ https://editor.foxitsoftware.cn?MD=shanchu
 
 ###  5.2 SpringSecurity 基本流程
 
-Spring Security 采取过滤链实现认证与授权，只有当前过滤器通过，才能进入下一个过滤器：  ![image-20220111124708826](d:\pic-md/202201111247204.png)
+Spring Security 采取过滤链实现认证与授权，只有当前过滤器通过，才能进入下一个过滤器：  ![image-20220111124708826](/Users/jiusonghuang/pic-md/202201111247204.png)
 
 绿色部分是认证过滤器，需要我们自己配置，可以配置多个认证过滤器。认证过滤器可以使用 Spring Security 提供的认证过滤器，也可以自定义过滤器（例如：短信验证）。认证过滤器要在 configure(HttpSecurity http)方法中配置，没有配置不生效。下面会重点介绍以下三个过滤器：
 **UsernamePasswordAuthenticationFilter 过滤器**：该过滤器会拦截前端提交的 POST 方式的登录表单请求，并进行身份认证。
@@ -1589,61 +1589,61 @@ Spring Security 采取过滤链实现认证与授权，只有当前过滤器通�
 
 认证流程是在 UsernamePasswordAuthenticationFilter 过滤器中处理的，具体流程如下所示：  
 
-![image-20220111124843649](d:\pic-md/202201111248800.png)
+![image-20220111124843649](/Users/jiusonghuang/pic-md/202201111248800.png)
 
 #### 5.3.1 UsernamePasswordAuthenticationFilter 源码
 
-当前端提交的是一个 POST 方式的登录表单请求，就会被该过滤器拦截，并进行身份认证。该过滤器的 doFilter() 方法实现在其抽象父类AbstractAuthenticationProcessingFilter 中，查看相关源码：  ![image-20220111124938899](d:\pic-md/202201111249049.png)
+当前端提交的是一个 POST 方式的登录表单请求，就会被该过滤器拦截，并进行身份认证。该过滤器的 doFilter() 方法实现在其抽象父类AbstractAuthenticationProcessingFilter 中，查看相关源码：  ![image-20220111124938899](/Users/jiusonghuang/pic-md/202201111249049.png)
 
-![image-20220111124947172](d:\pic-md/202201111249310.png)
+![image-20220111124947172](/Users/jiusonghuang/pic-md/202201111249310.png)
 
-![image-20220111124957333](d:\pic-md/202201111249410.png)
+![image-20220111124957333](/Users/jiusonghuang/pic-md/202201111249410.png)
 
-![image-20220111125005421](d:\pic-md/202201111250535.png)
+![image-20220111125005421](/Users/jiusonghuang/pic-md/202201111250535.png)
 
-![image-20220111125014371](d:\pic-md/202201111250489.png)
+![image-20220111125014371](/Users/jiusonghuang/pic-md/202201111250489.png)
 
 上述的 第二 过程调用了 UsernamePasswordAuthenticationFilter 的attemptAuthentication() 方法，源码如下：  
 
-![image-20220111125059243](d:\pic-md/202201111250350.png)
+![image-20220111125059243](/Users/jiusonghuang/pic-md/202201111250350.png)
 
-![image-20220111125109644](d:\pic-md/202201111251739.png)
+![image-20220111125109644](/Users/jiusonghuang/pic-md/202201111251739.png)
 
-![image-20220111125119017](d:\pic-md/202201111251125.png)
+![image-20220111125119017](/Users/jiusonghuang/pic-md/202201111251125.png)
 
 **上述的（ 3）过程创建的 UsernamePasswordAuthenticationToken 是Authentication 接口的实现类，该类有两个构造器，一个用于封装前端请求传入的未认证的用户信息，一个用于封装认证成功后的用户信息：**  
 
-![image-20220111125158040](d:\pic-md/202201111251161.png)
+![image-20220111125158040](/Users/jiusonghuang/pic-md/202201111251161.png)
 
-**Authentication 接口的实现类用于存储用户认证信息，查看该接口具体定义：**  ![image-20220111125244317](d:\pic-md/202201111252425.png)
+**Authentication 接口的实现类用于存储用户认证信息，查看该接口具体定义：**  ![image-20220111125244317](/Users/jiusonghuang/pic-md/202201111252425.png)
 
 #### 5.3.2 ProviderManager 源码
 
 上述过程中， UsernamePasswordAuthenticationFilter 过滤器的attemptAuthentication() 方法的（ 5）过程将未认证的 Authentication 对象传入ProviderManager 类的 authenticate() 方法进行身份认证。  ProviderManager 是 AuthenticationManager 接口的实现类，该接口是认证相关的核心接口，也是认证的入口。在实际开发中，我们可能有多种不同的认证方式，例如：用户名+密码、邮箱+密码、手机号+验证码等，而这些认证方式的入口始终只有一个，那就是AuthenticationManager。在该接口的常用实现类 ProviderManager 内部会维护一个
-List<AuthenticationProvider>列表，存放多种认证方式，实际上这是委托者模式（ Delegate）的应用。每种认证方式对应着一个 AuthenticationProvider，AuthenticationManager 根据认证方式的不同（根据传入的 Authentication 类型判断）委托对应的 AuthenticationProvider 进行用户认证。  ![image-20220111125343280](d:\pic-md/202201111253427.png)
+List<AuthenticationProvider>列表，存放多种认证方式，实际上这是委托者模式（ Delegate）的应用。每种认证方式对应着一个 AuthenticationProvider，AuthenticationManager 根据认证方式的不同（根据传入的 Authentication 类型判断）委托对应的 AuthenticationProvider 进行用户认证。  ![image-20220111125343280](/Users/jiusonghuang/pic-md/202201111253427.png)
 
-![image-20220111125350286](d:\pic-md/202201111253397.png)
+![image-20220111125350286](/Users/jiusonghuang/pic-md/202201111253397.png)
 
-![image-20220111125358079](d:\pic-md/202201111253180.png)
+![image-20220111125358079](/Users/jiusonghuang/pic-md/202201111253180.png)
 
-![image-20220111125407195](d:\pic-md/202201111254314.png)
+![image-20220111125407195](/Users/jiusonghuang/pic-md/202201111254314.png)
 
 上述认证成功之后的（ 6）过程，调用 CredentialsContainer 接口定义的eraseCredentials() 方法去除敏感信息。查看
 UsernamePasswordAuthenticationToken 实现的 eraseCredentials() 方法，该方法实现在其父类中：  
 
-![image-20220111125428821](d:\pic-md/202201111254939.png)
+![image-20220111125428821](/Users/jiusonghuang/pic-md/202201111254939.png)
 
 #### 5.3.3 认证成功/失败处理
 
-上述过程就是认证流程的最核心部分，接下来重新回到UsernamePasswordAuthenticationFilter 过滤器的 doFilter() 方法，查看认证成功/失败的处理：  ![image-20220111125452384](d:\pic-md/202201111254485.png)
+上述过程就是认证流程的最核心部分，接下来重新回到UsernamePasswordAuthenticationFilter 过滤器的 doFilter() 方法，查看认证成功/失败的处理：  ![image-20220111125452384](/Users/jiusonghuang/pic-md/202201111254485.png)
 
-![image-20220111125500092](d:\pic-md/202201111255176.png)
+![image-20220111125500092](/Users/jiusonghuang/pic-md/202201111255176.png)
 
-![image-20220111125508114](d:\pic-md/202201111255232.png)
+![image-20220111125508114](/Users/jiusonghuang/pic-md/202201111255232.png)
 
-![image-20220111125516414](d:\pic-md/202201111255563.png)
+![image-20220111125516414](/Users/jiusonghuang/pic-md/202201111255563.png)
 
-![image-20220111125522543](d:\pic-md/202201111255728.png)
+![image-20220111125522543](/Users/jiusonghuang/pic-md/202201111255728.png)
 
 ### 5.4 SpringSecurity 权限访问流程
 
@@ -1653,15 +1653,15 @@ UsernamePasswordAuthenticationToken 实现的 eraseCredentials() 方法，该方
 
 该过滤器是用于处理异常的，不需要我们配置，对于前端提交的请求会直接放行，捕获后续抛出的异常并进行处理（例如：权限访问限制）。具体源码如下：  
 
-![image-20220111125616481](d:\pic-md/202201111256641.png)
+![image-20220111125616481](/Users/jiusonghuang/pic-md/202201111256641.png)
 
 #### 5.4.2 FilterSecurityInterceptor 过滤器
 
 FilterSecurityInterceptor 是过滤器链的最后一个过滤器，该过滤器是过滤器链的最后一个过滤器，根据资源权限配置来判断当前请求是否有权限访问对应的资源。如果访问受限会抛出相关异常，最终所抛出的异常会由前一个过滤器ExceptionTranslationFilter 进行捕获和处理。具体源码如下：  
 
-![image-20220111125656540](d:\pic-md/202201111256657.png)
+![image-20220111125656540](/Users/jiusonghuang/pic-md/202201111256657.png)
 
-![image-20220111125702524](d:\pic-md/202201111257629.png)
+![image-20220111125702524](/Users/jiusonghuang/pic-md/202201111257629.png)
 
 需要注意， Spring Security 的过滤器链是配置在 SpringMVC 的核心组件DispatcherServlet 运行之前。也就是说，请求通过 Spring Security 的所有过滤器，不意味着能够正常访问资源，该请求还需要通过 SpringMVC 的拦截器链。  
 
@@ -1669,29 +1669,29 @@ FilterSecurityInterceptor 是过滤器链的最后一个过滤器，该过滤器
 
 一般认证成功后的用户信息是通过 Session 在多个请求之间共享，那么 SpringSecurity 中是如何实现将已认证的用户信息对象 Authentication 与 Session 绑定的进行具体分析。  
 
-![image-20220111125736405](d:\pic-md/202201111257565.png)
+![image-20220111125736405](/Users/jiusonghuang/pic-md/202201111257565.png)
 
-⚫ 在前面讲解认证成功的处理方法 successfulAuthentication() 时，有以下代码：  ![image-20220111125752052](d:\pic-md/202201111257175.png)
+⚫ 在前面讲解认证成功的处理方法 successfulAuthentication() 时，有以下代码：  ![image-20220111125752052](/Users/jiusonghuang/pic-md/202201111257175.png)
 
 ⚫ 查 看 SecurityContext 接 口 及 其 实 现 类 SecurityContextImpl ， 该 类 其 实 就 是 对Authentication 的封装：
 ⚫ 查 看 SecurityContextHolder 类 ， 该 类 其 实 是 对 ThreadLocal 的 封 装 ， 存 储SecurityContext 对象：  
 
-![image-20220111125812785](d:\pic-md/202201111258897.png)
+![image-20220111125812785](/Users/jiusonghuang/pic-md/202201111258897.png)
 
-![image-20220111125819654](d:\pic-md/202201111258769.png)
+![image-20220111125819654](/Users/jiusonghuang/pic-md/202201111258769.png)
 
-![image-20220111125826100](d:\pic-md/202201111258229.png)
+![image-20220111125826100](/Users/jiusonghuang/pic-md/202201111258229.png)
 
-![image-20220111125834080](d:\pic-md/202201111258199.png)
+![image-20220111125834080](/Users/jiusonghuang/pic-md/202201111258199.png)
 
-![image-20220111125842702](d:\pic-md/202201111258824.png)
+![image-20220111125842702](/Users/jiusonghuang/pic-md/202201111258824.png)
 
 #### 5.5.1 SecurityContextPersistenceFilter 过滤器
 
 前面提到过，在 UsernamePasswordAuthenticationFilter 过滤器认证成功之后，会在认证成功的处理方法中将已认证的用户信息对象 Authentication 封装进SecurityContext，并存入 SecurityContextHolder。之后，响应会通过 SecurityContextPersistenceFilter 过滤器，该过滤器的位置在所有过滤器的最前面，请求到来先进它，响应返回最后一个通过它，所以在该过滤器中处理已认证的用户信息对象 Authentication 与 Session 绑定。  
 
-认证成功的响应通过 SecurityContextPersistenceFilter 过滤器时，会从SecurityContextHolder 中取出封装了已认证用户信息对象 Authentication 的SecurityContext，放进 Session 中。当请求再次到来时，请求首先经过该过滤器，该过滤器会判断当前请求的 Session 是否存有 SecurityContext 对象，如果有则将该对象取出再次放入SecurityContextHolder 中，之后该请求所在的线程获得认证用户信息，后续的资源访问不需要进行身份认证；当响应再次返回时，该过滤器同样从 SecurityContextHolder 取出SecurityContext 对象，放入 Session 中。具体源码如下：  ![image-20220111125950712](d:\pic-md/202201111259819.png)
+认证成功的响应通过 SecurityContextPersistenceFilter 过滤器时，会从SecurityContextHolder 中取出封装了已认证用户信息对象 Authentication 的SecurityContext，放进 Session 中。当请求再次到来时，请求首先经过该过滤器，该过滤器会判断当前请求的 Session 是否存有 SecurityContext 对象，如果有则将该对象取出再次放入SecurityContextHolder 中，之后该请求所在的线程获得认证用户信息，后续的资源访问不需要进行身份认证；当响应再次返回时，该过滤器同样从 SecurityContextHolder 取出SecurityContext 对象，放入 Session 中。具体源码如下：  ![image-20220111125950712](/Users/jiusonghuang/pic-md/202201111259819.png)
 
-![image-20220111125959258](d:\pic-md/202201111259394.png)
+![image-20220111125959258](/Users/jiusonghuang/pic-md/202201111259394.png)
 
-![image-20220111130008006](d:\pic-md/202201111300113.png)
+![image-20220111130008006](/Users/jiusonghuang/pic-md/202201111300113.png)

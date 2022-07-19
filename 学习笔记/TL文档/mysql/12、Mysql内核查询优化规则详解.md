@@ -102,17 +102,17 @@ SELECT table1表记录的各个字段的常量值, table2.* FROM table1 INNER JO
 SELECT * FROM e1 INNER JOIN e2 ON e1.m1 = e2.m2;
 ```
 
-   ![img](d:\pic-md/20211229231447.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229231447.png)
 
 **SELECT \* FROM e1 LEFT JOIN e2 ON e1.m1 = e2.m2;**
 
-​    ![img](d:\pic-md/20211229231500.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229231500.png)
 
 对于上边例子中的（左）外连接来说，由于驱动表e1中m1=1, n1='a'的记录无法在被驱动表e2中找到符合ON子句条件e1.m1 = e2.m2的记录，所以就直接把这条记录加入到结果集，对应的e2表的m2和n2列的值都设置为NULL。
 
 因为凡是不符合WHERE子句中条件的记录都不会参与连接。只要我们在搜索条件中指定关于被驱动表相关列的值不为NULL，那么外连接中在被驱动表中找不到符合ON子句条件的驱动表记录也就被排除出最后的结果集了，也就是说：在这种情况下：外连接和内连接也就没有什么区别了！比方说这个查询：
 
-**SELECT \* FROM e1 LEFT JOIN e2 ON e1.m1 = e2.m2 WHERE e2.n2 IS NOT NULL;**    ![img](d:\pic-md/20211229231516.png)
+**SELECT \* FROM e1 LEFT JOIN e2 ON e1.m1 = e2.m2 WHERE e2.n2 IS NOT NULL;**    ![img](/Users/jiusonghuang/pic-md/20211229231516.png)
 
 由于指定了被驱动表e2的n2列不允许为NULL，所以上边的e1和e2表的左（外）连接查询和内连接查询是一样的。当然，我们也可以不用显式的指定被驱动表的某个列IS NOT NULL，只要隐含的有这个意思就行了，比方说这样：
 
@@ -444,15 +444,15 @@ SELECT s1.* FROM s1 **SEMI JOIN** s2
 
 三个表目前都没有索引：
 
-​    ![img](d:\pic-md/20211229231610.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229231610.png)
 
-​    ![img](d:\pic-md/20211229231624.png)    !
+​    ![img](/Users/jiusonghuang/pic-md/20211229231624.png)    !
 
-![img](d:\pic-md/20211229231641.png)
+![img](/Users/jiusonghuang/pic-md/20211229231641.png)
 
 三个表目前的记录数如下：
 
-​    ![img](d:\pic-md/20211229231705.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229231705.png)
 
 现在有这么个业务场景：查找包含赠送商品且赠送商品编号是666的订单
 
@@ -462,7 +462,7 @@ select o.* from goods_order o where o.id in(select order_id from goods_order_det
 
 mysql> show warnings;
 
-/* select#1 */ select `mysqladv`.`o`.`id` AS `id`,`mysqladv`.`o`.`order_no` AS `order_no` from `mysqladv`.`goods_order` `o` semi join (`mysqladv`.`goods_order_detail` `od`) where ((`mysqladv`.`o`.`id` = ``.`order_id`) and (`mysqladv`.`od`.`price` = 0) and (`mysqladv`.`od`.`goods_id` = 666)) ![img](d:\pic-md/20211229231723.png)
+/* select#1 */ select `mysqladv`.`o`.`id` AS `id`,`mysqladv`.`o`.`order_no` AS `order_no` from `mysqladv`.`goods_order` `o` semi join (`mysqladv`.`goods_order_detail` `od`) where ((`mysqladv`.`o`.`id` = ``.`order_id`) and (`mysqladv`.`od`.`price` = 0) and (`mysqladv`.`od`.`goods_id` = 666)) ![img](/Users/jiusonghuang/pic-md/20211229231723.png)
 
 可以看到MySQL将这个子查询改造为了半连接semi join。
 
@@ -528,7 +528,7 @@ EXPLAIN SELECT * FROM s1  WHERE order_no IN (SELECT order_no FROM s2 where s1.or
 
 show WARNINGS;
 
-可以看见，MySQL确实把这个子查询转换为了exists子查询    ![img](d:\pic-md/20211229231752.png)
+可以看见，MySQL确实把这个子查询转换为了exists子查询    ![img](/Users/jiusonghuang/pic-md/20211229231752.png)
 
 需要注意的是，如果IN子查询不满足转换为semi-join的条件，又不能转换为物化表或者转换为物化表的成本太大，那么它就会被转换为EXISTS查询。
 

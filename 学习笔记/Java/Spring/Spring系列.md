@@ -50,33 +50,33 @@
 
  打开idea，点击File->New->Project ，如下：
 
-![image-20211030154812977](d:\pic-md/20211030154813.png)
+![image-20211030154812977](/Users/jiusonghuang/pic-md/20211030154813.png)
 
-<img src="d:\pic-md/20211030154833.png" alt="image-20211030154833218" style="zoom:67%;" />
+<img src="/Users/jiusonghuang/pic-md/20211030154833.png" alt="image-20211030154833218" style="zoom:67%;" />
 
 点击Spring Initializr->Next ，如下图：
 
-<img src="d:\pic-md/20211030154859.png" alt="image-20211030154859116" style="zoom:67%;" />
+<img src="/Users/jiusonghuang/pic-md/20211030154859.png" alt="image-20211030154859116" style="zoom:67%;" />
 
 
 
 输入项目坐标信息，如下图：
 
-> <img src="d:\pic-md/20211030154924.png" alt="image-20211030154923998" style="zoom:67%;" />
+> <img src="/Users/jiusonghuang/pic-md/20211030154924.png" alt="image-20211030154923998" style="zoom:67%;" />
 
 选择Web->Spring Web->Spring Boot(2.24)->Next ，如下图：
 
-<img src="d:\pic-md/20211030155100.png" alt="image-20211030155100681" style="zoom:67%;" />
+<img src="/Users/jiusonghuang/pic-md/20211030155100.png" alt="image-20211030155100681" style="zoom:67%;" />
 
 点击Finish ，完成项目的创建，如下图：
 
-<img src="d:\pic-md/20211030155137.png" alt="image-20211030155137795" style="zoom:67%;" />
+<img src="/Users/jiusonghuang/pic-md/20211030155137.png" alt="image-20211030155137795" style="zoom:67%;" />
 
 
 
 项目结构如下图：
 
-<img src="d:\pic-md/20211030155209.png" alt="image-20211030155209206" style="zoom:67%;" />
+<img src="/Users/jiusonghuang/pic-md/20211030155209.png" alt="image-20211030155209206" style="zoom:67%;" />
 
 目前为止我们还未写一行代码，下面我们创建一个类HelloWorldController ，代码如下：
 
@@ -165,7 +165,7 @@ http://localhost:8080/helloWorld/index
 
 效果如下图：
 
-![image-20211030155616579](d:\pic-md/20211030155616.png)
+![image-20211030155616579](/Users/jiusonghuang/pic-md/20211030155616.png)
 
 此时我们需要的功能已经实现了，然而到目前为止，只有HelloWorldController 代码是我们写的，而我们没有去创建servlet、将返回的结果以json格式输出、配置web.xml，没有将项目发布到tomcat，没 有去启动tomcat，而只启动了一个main方法，是不是非常神奇。创建servlet、通过response将数据以json格式输出、配置web.xml、发布项目到tomcat、启动tomcat等这些操作并不是说不需要，而是springboot内部已经帮我们实现了，对于开发者来说这些都被隐藏了，springboot让我们更关注业务代 码的实现，从而最大限度的帮我们提升开发效率，简化项目的开发过程。
 
@@ -387,7 +387,7 @@ http://localhost:8080/helloWorld/index
 > spring-series项目中创建一个子模块lesson-001 ，项目maven父子结构，如下图：
 >
 
-![image-20220111234238735](d:\pic-md/20220111234239.png)
+![image-20220111234238735](/Users/jiusonghuang/pic-md/20220111234239.png)
 
 ### spring-series/pom.xml
 

@@ -1,4 +1,4 @@
-![Redisson分布式锁原理](d:\pic-md/202203071127689.png)
+![Redisson分布式锁原理](/Users/jiusonghuang/pic-md/202203071127689.png)
 
 锁续命
 

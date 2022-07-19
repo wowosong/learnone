@@ -20,7 +20,7 @@ CREATE TABLE 表名 (列的信息) ROW_FORMAT=行格式名称
 
 ### **COMPACT**
 
-​    ![img](d:\pic-md/20211229232309.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229232309.png)
 
 我们知道MySQL支持一些变长的数据类型，比如VARCHAR(M)、VARBINARY(M)、各种TEXT类型，各种BLOB类型，我们也可以把拥有这些数据类型的列称为变长字段，变长字段中存储多少字节的数据是不固定的，所以我们在存储真实数据的时候需要顺便把这些数据占用的字节数也存起来。如果该可变字段允许存储的最大字节数超过255字节并且真实存储的字节数超过127字节，则使用2个字节，否则使用1个字节。
 
@@ -44,7 +44,7 @@ record_type	3	表示当前记录的类型，0表示普通记录，1表示B+树�
 
 next_record	16	表示下一条记录的相对位置
 
-​    ![img](d:\pic-md/20211229232325.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229232325.png)
 
 记录的真实数据除了我们自己定义的列的数据以外，MySQL会为每个记录默认的添加一些列（也称为隐藏列），包括：
 
@@ -86,7 +86,7 @@ Dynamic和Compressed行格式，不会在记录的真实数据处存储字段真
 
 InnoDB为了不同的目的而设计了许多种不同类型的页，存放我们表中记录的那种类型的页自然也是其中的一员，官方称这种存放记录的页为索引（INDEX）页，不过要理解成数据页也没问题，毕竟存在着聚簇索引这种索引和数据混合的东西。
 
-  ![img](d:\pic-md/20211229232345.png)
+  ![img](/Users/jiusonghuang/pic-md/20211229232345.png)
 
 一个InnoDB数据页的存储空间大致被划分成了7个部分：
 
@@ -114,7 +114,7 @@ File Trailer	文件尾部	8字节	校验页是否完整
 
 同时我们插入的记录在会记录自己在本页中的位置，写入了记录头信息中heap_no部分。heap_no值为0和1的记录是InnoDB自动给每个页增加的两个记录，称为伪记录或者虚拟记录。这两个伪记录一个代表最小记录，一个代表最大记录，这两条存放在页的User Records部分，他们被单独放在一个称为Infimum + Supremum的部分。
 
-记录头信息中next_record记录了从当前记录的真实数据到下一条记录的真实数据的地址偏移量。这其实是个链表，可以通过一条记录找到它的下一条记录。但是需要注意注意再注意的一点是，下一条记录指得并不是按照我们插入顺序的下一条记录，而是按照主键值由小到大的顺序的下一条记录。而且规定 Infimum记录（也就是最小记录） 的下一条记录就是本页中主键值最小的用户记录，而本页中主键值最大的用户记录的下一条记录就是 Supremum记录（也就是最大记录）    ![img](d:\pic-md/20211229232403.png)
+记录头信息中next_record记录了从当前记录的真实数据到下一条记录的真实数据的地址偏移量。这其实是个链表，可以通过一条记录找到它的下一条记录。但是需要注意注意再注意的一点是，下一条记录指得并不是按照我们插入顺序的下一条记录，而是按照主键值由小到大的顺序的下一条记录。而且规定 Infimum记录（也就是最小记录） 的下一条记录就是本页中主键值最小的用户记录，而本页中主键值最大的用户记录的下一条记录就是 Supremum记录（也就是最大记录）    ![img](/Users/jiusonghuang/pic-md/20211229232403.png)
 
 我们的记录按照主键从小到大的顺序形成了一个单链表，记录被删除，则从这个链表上摘除。
 
@@ -128,9 +128,9 @@ InnoDB的改进是，为页中的记录再制作了一个目录，他们的制�
 
 2、每个组的最后一条记录（也就是组内最大的那条记录）的头信息中的n_owned属性表示该记录拥有多少条记录，也就是该组内共有几条记录。
 
-3、将每个组的最后一条记录的地址偏移量单独提取出来按顺序存储到靠近页的尾部的地方，这个地方就是所谓的Page Directory，也就是页目录页面目录中的这些地址偏移量被称为槽（英文名：Slot），所以这个页面目录就是由槽组成的。    ![img](d:\pic-md/20211229232424.png)
+3、将每个组的最后一条记录的地址偏移量单独提取出来按顺序存储到靠近页的尾部的地方，这个地方就是所谓的Page Directory，也就是页目录页面目录中的这些地址偏移量被称为槽（英文名：Slot），所以这个页面目录就是由槽组成的。    ![img](/Users/jiusonghuang/pic-md/20211229232424.png)
 
-4、每个分组中的记录条数是有规定的：对于最小记录所在的分组只能有 1 条记录，最大记录所在的分组拥有的记录条数只能在 1~8 条之间，剩下的分组中记录的条数范围只能在是 4~8 条之间。如下图：![img](d:\pic-md/20211229232446.png)
+4、每个分组中的记录条数是有规定的：对于最小记录所在的分组只能有 1 条记录，最大记录所在的分组拥有的记录条数只能在 1~8 条之间，剩下的分组中记录的条数范围只能在是 4~8 条之间。如下图：![img](/Users/jiusonghuang/pic-md/20211229232446.png)
 
 这样，一个数据页中查找指定主键值的记录的过程分为两步：
 
@@ -172,11 +172,11 @@ File Header针对各种类型的页都通用，也就是说不同类型的页都
 
 https://dev.mysql.com/doc/refman/5.7/en/innodb-architecture.html
 
-​    ![img](d:\pic-md/20211229232513.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229232513.png)
 
 可以看见，比较关键的是其中的各种Buffer和Tabelspace（表空间），这些也是我们接下来要学习的重点。
 
-太长不看版：   ![img](d:\pic-md/20211229232531.png)
+太长不看版：   ![img](/Users/jiusonghuang/pic-md/20211229232531.png)
 
 不过InnoDB的内存结构和磁盘存储结构在MySQL8.0有所变化：
 
@@ -184,13 +184,13 @@ https://dev.mysql.com/doc/refman/8.0/en/innodb-architecture.html
 
 但是不影响我们后面对InnoDB内部原理的学习。
 
-   ![img](d:\pic-md/20211229232552.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229232552.png)
 
 ### **InnoDB的表空间**
 
-表空间是一个抽象的概念，对于系统表空间来说，对应着文件系统中一个或多个实际文件，一般是（ibdata1）；对于每个独立表空间（也就是上图的File-Per-Table Tablespaces）来说，对应着文件系统中一个名为表名.ibd的实际文件。![img](d:\pic-md/20211229232609.png)
+表空间是一个抽象的概念，对于系统表空间来说，对应着文件系统中一个或多个实际文件，一般是（ibdata1）；对于每个独立表空间（也就是上图的File-Per-Table Tablespaces）来说，对应着文件系统中一个名为表名.ibd的实际文件。![img](/Users/jiusonghuang/pic-md/20211229232609.png)
 
-   ![img](d:\pic-md/20211229232623.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229232623.png)
 
 大家可以把表空间想象成被切分为许许多多个页的池子，当我们想为某个表插入一条记录的时候，就从池子中捞出一个对应的页来把数据写进去。
 
@@ -222,7 +222,7 @@ https://dev.mysql.com/doc/refman/8.0/en/innodb-architecture.html
 
 段其实不对应表空间中某一个连续的物理区域，而是一个逻辑上的概念。
 
-   ![img](d:\pic-md/20211229232644.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229232644.png)
 
 ### **系统表空间**
 
@@ -298,7 +298,7 @@ SYS_VIRTUAL	整个InnoDB存储引擎中所有的虚拟生成列的信息
 
 用户是不能直接访问InnoDB的这些内部系统表的，除非你直接去解析系统表空间对应文件系统上的文件。不过InnoDB考虑到查看这些表的内容可能有助于大家分析问题，所以在系统数据库information_schema中提供了一些以innodb_sys开头的表： 
 
-   ![img](d:\pic-md/20211229232709.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229232709.png)
 
 在information_schema数据库中的这些以INNODB_SYS开头的表并不是真正的内部系统表（内部系统表就是我们上边说过的以SYS开头的那些表），而是在存储引擎启动时读取这些以SYS开头的系统表，然后填充到这些以INNODB_SYS开头的表中。
 
@@ -316,7 +316,7 @@ InnoDB为了缓存磁盘中的页，在MySQL服务器启动的时候就向操作
 
 **show variables like 'innodb_buffer_pool_size';**
 
-   ![img](d:\pic-md/20211229232730.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229232730.png)
 
 可以在启动服务器的时候配置innodb_buffer_pool_size参数的值，它表示Buffer Pool的大小，就像这样：
 
@@ -330,7 +330,7 @@ Buffer Pool的缺省值其实是偏小的，一个比较合理的设置方法是
 
 https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html
 
-![img](d:\pic-md/20211229232745.png)
+![img](/Users/jiusonghuang/pic-md/20211229232745.png)
 
 上文的意思是：更大的缓冲池只需更少的磁盘 I/O 来多次访问相同的表数据。在**专用**数据库服务器上，您可以将缓冲池大小设置为机器物理内存大小的 80%。配置缓冲池大小时请注意以下潜在问题，并准备在必要时缩减缓冲池的大小。
 
@@ -354,7 +354,7 @@ InnoDB 为缓冲区和控制结构保留了额外的内存，因此分配的总�
 
 show engine innodb status\G
 
-   ![img](d:\pic-md/20211229232801.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229232801.png)
 
 对于读取多的情况,如果没达到98%以上，都说明buffer不够，可以扩，如果给命中都能达到98%~100%了，而且还有大量的free page那说明够用了。当然如果业务不繁忙或者是写多读少的情况下命中率参考意义就不大了。
 
@@ -366,7 +366,7 @@ Buffer Pool中默认的缓存页大小和在磁盘上默认的页大小是一样
 
 每个缓存页对应的控制信息占用的内存大小是相同的，我们称为控制块。控制块和缓存页是一一对应的，它们都被存放到 Buffer Pool 中，其中控制块被存放到 Buffer Pool 的前边，缓存页被存放到 Buffer Pool 后边，所以整个Buffer Pool对应的内存空间看起来就是这样的：
 
-​    ![img](d:\pic-md/20211229232817.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229232817.png)
 
 每个控制块大约占用缓存页大小的5%，而我们设置的innodb_buffer_pool_size并不包含这部分控制块占用的内存空间大小，也就是说InnoDB在为Buffer Pool向操作系统申请连续的内存空间时，这片连续的内存空间一般会比innodb_buffer_pool_size的值大5%左右。
 
@@ -376,7 +376,7 @@ Buffer Pool中默认的缓存页大小和在磁盘上默认的页大小是一样
 
 那么问题来了，从磁盘上读取一个页到Buffer Pool中的时候该放到哪个缓存页的位置呢？或者说怎么区分Buffer Pool中哪些缓存页是空闲的，哪些已经被使用了呢？最好在某个地方记录一下Buffer Pool中哪些缓存页是可用的，这个时候缓存页对应的控制块就派上大用场了，我们可以把所有空闲的缓存页对应的控制块作为一个节点放到一个链表中，这个链表也可以被称作free链表（或者说空闲链表）。刚刚完成初始化的Buffer Pool中所有的缓存页都是空闲的，所以每一个缓存页对应的控制块都会被加入到free链表中，假设该Buffer Pool中可容纳的缓存页数量为n，那增加了free链表的效果图就是这样的：
 
-  ![img](d:\pic-md/20211229232829.png)
+  ![img](/Users/jiusonghuang/pic-md/20211229232829.png)
 
 有了这个free链表之后，每当需要从磁盘中加载一个页到Buffer Pool中时，就从free链表中取一个空闲的缓存页，并且把该缓存页对应的控制块的信息填上（就是该页所在的表空间、页号之类的信息），然后把该缓存页对应的free链表节点从链表中移除，表示该缓存页已经被使用了。
 
@@ -396,7 +396,7 @@ Buffer Pool中默认的缓存页大小和在磁盘上默认的页大小是一样
 
 所以，需要再创建一个存储脏页的链表，凡是修改过的缓存页对应的控制块都会作为一个节点加入到一个链表中，因为这个链表节点对应的缓存页都是需要被刷新到磁盘上的，所以也叫flush链表。链表的构造和free链表差不多。
 
-​    ![img](d:\pic-md/20211229232846.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229232846.png)
 
 ### **LRU链表的管理**
 
@@ -444,11 +444,11 @@ InnoDB提供了一个系统变量innodb_read_ahead_threshold，如果顺序访�
 
 **show variables like '%_read_ahead%';**
 
-​    ![img](d:\pic-md/20211229232905.png)
+​    ![img](/Users/jiusonghuang/pic-md/20211229232905.png)
 
 *并且可以根据通过执行show engine innodb status命令显示的三个参数判断read-ahead算法的有效性：*
 
-*read_ahead、read_ahead_evicted、read_ahead_rnd*    ![img](d:\pic-md/20211229232919.png)
+*read_ahead、read_ahead_evicted、read_ahead_rnd*    ![img](/Users/jiusonghuang/pic-md/20211229232919.png)
 
 *如果通过监控发现，这个预读功能长期有效性很低，可以考虑关闭这个预读功能。*
 
@@ -470,13 +470,13 @@ InnoDB提供了一个系统变量innodb_read_ahead_threshold，如果顺序访�
 
 另一部分存储使用频率不是很高的缓存页，所以这一部分链表也叫做冷数据，或者称old区域。
 
-![img](d:\pic-md/20211229232937.png)
+![img](/Users/jiusonghuang/pic-md/20211229232937.png)
 
 我们是按照某个比例将LRU链表分成两半的，不是某些节点固定是young区域的，某些节点固定是old区域的，随着程序的运行，某个节点所属的区域也可能发生变化。那这个划分成两截的比例怎么确定呢？对于InnoDB存储引擎来说，我们可以通过查看系统变量innodb_old_blocks_pct的值来确定old区域在LRU链表中所占的比例，比方说这样：
 
 **SHOW VARIABLES LIKE 'innodb_old_blocks_pct';**
 
-   ![https://note.youdao.com/yws/public/resource/92b91d9f92729187e257226a8aa8fc7f/xmlnote/1A294333AA7F435FA0E44DD5000612F6/2242](d:\pic-md/20211229232953.png)
+   ![https://note.youdao.com/yws/public/resource/92b91d9f92729187e257226a8aa8fc7f/xmlnote/1A294333AA7F435FA0E44DD5000612F6/2242](/Users/jiusonghuang/pic-md/20211229232953.png)
 
 从结果可以看出来，默认情况下，old区域在LRU链表中所占的比例是37%，也就是说old区域大约占LRU链表的3/8。这个比例我们是可以设置的，我们可以在启动时修改innodb_old_blocks_pct参数来控制old区域在LRU链表中所占的比例。在服务器运行期间，我们也可以修改这个系统变量的值，不过需要注意的是，这个系统变量属于全局变量。
 
@@ -498,7 +498,7 @@ InnoDB规定，当磁盘上的某个页面在初次加载到Buffer Pool中的某
 
 **SHOW VARIABLES LIKE 'innodb_old_blocks_time';**
 
-   ![img](d:\pic-md/20211229233009.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229233009.png)
 
 这个innodb_old_blocks_time的默认值是1000，它的单位是毫秒，也就意味着对于从磁盘上被加载到LRU链表的old区域的某个页来说，如果第一次和最后一次访问该页面的时间间隔小于1s（很明显在一次全表扫描的过程中，多次访问一个页面中的时间不会超过1s），那么该页是不会被加入到young区域的， 当然，像innodb_old_blocks_pct一样，我们也可以在服务器启动或运行时设置innodb_old_blocks_time的值，这里需要注意的是，如果我们把innodb_old_blocks_time的值设置为0，那么每次我们访问一个页面时就会把该页面放到young区域的头部。
 
@@ -548,13 +548,13 @@ InnoDB规定，当磁盘上的某个页面在初次加载到Buffer Pool中的某
 
 https://dev.mysql.com/doc/refman/8.0/en/innodb-multiple-buffer-pools.html
 
-   ![img](d:\pic-md/20211229233032.png)
+   ![img](/Users/jiusonghuang/pic-md/20211229233032.png)
 
 **innodb_buffer_pool_chunk_size**
 
 在MySQL 5.7.5之前，Buffer Pool的大小只能在服务器启动时通过配置innodb_buffer_pool_size启动参数来调整大小，在服务器运行过程中是不允许调整该值的。不过MySQL在5.7.5以及之后的版本中支持了在服务器运行过程中调整Buffer Pool大小的功能，
 
-但是有一个问题，就是每次当我们要重新调整Buffer Pool大小时，都需要重新向操作系统申请一块连续的内存空间，然后将旧的Buffer Pool中的内容复制到这一块新空间，这是极其耗时的。所以MySQL决定不再一次性为某个Buffer Pool实例向操作系统申请一大片连续的内存空间，而是以一个所谓的chunk为单位向操作系统申请空间。也就是说一个Buffer Pool实例其实是由若干个chunk组成的，一个chunk就代表一片连续的内存空间，里边儿包含了若干缓存页与其对应的控制块：   ![img](d:\pic-md/20211229233052.png)
+但是有一个问题，就是每次当我们要重新调整Buffer Pool大小时，都需要重新向操作系统申请一块连续的内存空间，然后将旧的Buffer Pool中的内容复制到这一块新空间，这是极其耗时的。所以MySQL决定不再一次性为某个Buffer Pool实例向操作系统申请一大片连续的内存空间，而是以一个所谓的chunk为单位向操作系统申请空间。也就是说一个Buffer Pool实例其实是由若干个chunk组成的，一个chunk就代表一片连续的内存空间，里边儿包含了若干缓存页与其对应的控制块：   ![img](/Users/jiusonghuang/pic-md/20211229233052.png)
 
 正是因为发明了这个chunk的概念，我们在服务器运行期间调整Buffer Pool的大小时就是以chunk为单位增加或者删除内存空间，而不需要重新向操作系统申请一片大的内存，然后进行缓存页的复制。这个所谓的chunk的大小是我们在启动操作MySQL服务器时通过innodb_buffer_pool_chunk_size启动参数指定的，它的默认值是134217728，也就是128M。不过需要注意的是，innodb_buffer_pool_chunk_size的值只能在服务器启动时指定，在服务器运行过程中是不可以修改的。
 
@@ -564,7 +564,7 @@ Buffer Pool的缓存页除了用来缓存磁盘上的页面以外，还可以存
 
 MySQL给我们提供了SHOW ENGINE INNODB STATUS语句来查看关于InnoDB存储引擎运行过程中的一些状态信息，其中就包括Buffer Pool的一些信息，我们看一下（为了突出重点，我们只把输出中关于Buffer Pool的部分提取了出来）：
 
-**SHOW ENGINE INNODB STATUS\G**    ![img](d:\pic-md/20211229233106.png)
+**SHOW ENGINE INNODB STATUS\G**    ![img](/Users/jiusonghuang/pic-md/20211229233106.png)
 
 这里边的每个值都代表什么意思如下，知道即可：
 
@@ -622,6 +622,6 @@ I/O unzip cur：正在解压的页面数量。
 
 **InnoDB体系图补充说明**
 
-  ![img](d:\pic-md/20220115183635.png)
+  ![img](/Users/jiusonghuang/pic-md/20220115183635.png)
 
 其中的Insert/Change Buffer主要是用于对二级索引的写入优化，Undo空间则是undo日志一般放在系统表空间，但是通过参数配置后，也可以用独立表空间存放，所以用虚线表示。通用表空间和独立表空间不同，通用表空间是允许多个表存储数据的共享表空间。

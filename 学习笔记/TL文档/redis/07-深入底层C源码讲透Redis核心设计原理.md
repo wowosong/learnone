@@ -21,9 +21,9 @@
 
 **缓存**
 
-![image-20220314092648166](d:\pic-md/202203140945662.png)
+![image-20220314092648166](/Users/jiusonghuang/pic-md/202203140945662.png)
 
-![image-20220314092706597](d:\pic-md/202203140927664.png)
+![image-20220314092706597](/Users/jiusonghuang/pic-md/202203140927664.png)
 
 **Redis应用场景**
 
