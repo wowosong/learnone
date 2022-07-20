@@ -117,7 +117,7 @@ alert('处理点击')
 2) 计算属性存在缓存, 多次读取只执行一次 getter 计算
 ### 1.4.5. 编码
 
-```javascript <div id="demo">
+```
 姓: <input type="text" placeholder="First Name" v-model="firstName"><br>
 名: <input type="text" placeholder="Last Name" v-model="lastName"><br>
 姓名 1(单向): <input type="text" placeholder="Full Name" v-model="fullName1"><br>

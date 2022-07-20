@@ -1,6 +1,6 @@
 # Java基础
 
-![img](/Users/jiusonghuang/pic-md/20210610222515.jpeg)
+![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Java%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97.assets/20210610222515.jpeg)
 
 ## 集合
 

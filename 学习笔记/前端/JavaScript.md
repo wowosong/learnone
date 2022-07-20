@@ -1203,7 +1203,7 @@ var person = {
 
 **var d = {name:'sunwukong',age:18};**
 
-![image-20220331222704706](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/JavaScript.assets/image-20220331222704706.png)
+![image-20220331222704706](./JavaScript.assets/image-20220331222704706.png)
 
 # 数组
 
