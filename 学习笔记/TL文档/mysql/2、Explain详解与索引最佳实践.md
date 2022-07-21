@@ -112,19 +112,19 @@ mysql> explain select * from film where id = 2;
 
 用这个例子来了解 primary、subquery 和 derived 类型 
 
-```
+```sql
 mysql> set session optimizer_switch='derived_merge=off'; #关闭mysql5.7新特性对衍生表的合 并优化 mysql> explain select (select 1 from actor where id = 1) from (select * from film where id = 1) der;
 ```
 
 ![image-20211211114417281](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211114417.png)
 
-```
+```sql
 mysql> set session optimizer_switch='derived_merge=on'; #还原默认配置 
 ```
 
 5）union：在 union 中的第二个和随后的 select 
 
-```
+```sql
  mysql> explain select 1 union all select 1;
 ```
 
@@ -250,7 +250,7 @@ explain 时可能出现 possible_keys 有列，而 key 显示 NULL 的情况，�
 
 举例来说，film_actor的联合索引 idx_film_actor_id 由 film_id 和 actor_id 两个int列组成，并且每个int是4字节。通过结果中的key_len=4可推断出查询使用了第一个列：film_id列来执行索引查找。 
 
-```
+```sql
  mysql> explain select * from film_actor where film_id = 2; 
 ```
 

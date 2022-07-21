@@ -312,9 +312,7 @@ SELECT * FROM s1 WHERE order_note = (SELECT order_note FROM s2 WHERE key3 = 'a' 
 
 对于**相关的标量子查询或者行子查询**来说，比如下边这个查询：
 
-SELECT * FROM s1 WHERE 
-
-​    order_note = (SELECT order_note FROM s2 WHERE s1.order_no= s2.order_no LIMIT 1);
+SELECT * FROM s1 WHERE  order_note = (SELECT order_note FROM s2 WHERE s1.order_no= s2.order_no LIMIT 1);
 
 事情也和我们前面想象的一样，它的执行方式就是这样的：
 

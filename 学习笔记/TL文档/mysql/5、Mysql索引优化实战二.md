@@ -17,7 +17,9 @@ CREATE TABLE `employees` (
 
 很多时候我们业务系统实现分页功能可能会用如下sql实现 
 
-     mysql> select * from employees limit 10000,10; 
+```sql
+ mysql> select * from employees limit 10000,10; 
+```
 
 表示从表 employees 中取出从 10001 行开始的 10 行记录。看似只查询了 10 条记录，实际这条 SQL 是先读取 10010 
 
@@ -29,7 +31,9 @@ CREATE TABLE `employees` (
 
 首先来看一个根据自增且连续主键排序的分页查询的例子： 
 
-     mysql> select * from employees limit 90000,5; 
+```sql
+ mysql> select * from employees limit 90000,5; 
+```
 
 
 
@@ -37,17 +41,23 @@ CREATE TABLE `employees` (
 
 为主键是自增并且连续的，所以可以改写成按照主键去查询从第 90001开始的五行数据，如下： 
 
-     mysql> select * from employees where id > 90000 limit 5; 
+```sql
+ mysql> select * from employees where id > 90000 limit 5; 
+```
 
 
 
 查询的结果是一致的。我们再对比一下执行计划： 
 
-     mysql> EXPLAIN select * from employees limit 90000,5; 
+```sql
+ mysql> EXPLAIN select * from employees limit 90000,5; 
+```
 
 
 
-     mysql> EXPLAIN select * from employees where id > 90000 limit 5; 
+```sql
+ mysql> EXPLAIN select * from employees where id > 90000 limit 5; 
+```
 
 
 
@@ -70,12 +80,16 @@ CREATE TABLE `employees` (
 
 再看一个根据非主键字段排序的分页查询，SQL 如下：
 
-    mysql>  select * from employees ORDER BY name** limit 90000,5;
+```sql
+mysql>  select * from employees ORDER BY name** limit 90000,5;
+```
 
 
 ​    
 
-    mysql> EXPLAIN select * from employees ORDER BY name limit 90000,5; 
+```sql
+mysql> EXPLAIN select * from employees ORDER BY name limit 90000,5; 
+```
 
 
 
@@ -85,9 +99,12 @@ CREATE TABLE `employees` (
 
 其实关键是让排序时返回的字段尽可能少，所以可以让排序和分页操作先查出主键，然后根据主键查到对应的记录，SQL改写如下
 
-    mysql> select * from employees e inner join (select id from employees order by name limit 90000,5) ed on e.id = ed.id;              
+```sql
+mysql> select * from employees e inner join (select id from employees order by name limit 90000,5) ed on e.id = ed.id;              
+```
 
    
+
 
 
 需要的结果与原 SQL 一致，执行时间减少了一半以上，我们再对比优化前后sql的执行计划：
@@ -98,47 +115,49 @@ CREATE TABLE `employees` (
 
 Join关联查询优化
 
-    -- 示例表：
-    CREATE TABLE `t1` (
-      `id` int(11) NOT NULL AUTO_INCREMENT,
-      `a` int(11) DEFAULT NULL,
-      `b` int(11) DEFAULT NULL,
-      PRIMARY KEY (`id`),
-      KEY `idx_a` (`a`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-    
-    create table t2 like t1;
-    
-    -- 插入一些示例数据
-    -- 往t1表插入1万行记录
-    DROP PROCEDURE IF EXISTS insert_t1;
-    delimiter;;
-    CREATE PROCEDURE insert_t1() 
-    BEGIN
-    	DECLARE i INT;
-    	SET i = 1;
-    	WHILE( i <= 100000 ) DO
-    		INSERT into t1(a,b) VALUE(i,i);
-    		SET i = i + 1;
-    	END WHILE;
-    END;;
-    delimiter;
-    CALL insert_t1 ();
-    
-    -- 往t2表插入100行记录
-    DROP PROCEDURE IF EXISTS insert_t2;
-    delimiter;;
-    CREATE PROCEDURE insert_t2() 
-    BEGIN
-    	DECLARE i INT;
-    	SET i = 1;
-    	WHILE( i <= 100 ) DO
-    		INSERT into t2(a,b) VALUE(i,i);
-    		SET i = i + 1;
-    	END WHILE;
-    END;;
-    delimiter;
-    CALL insert_t2 ();
+```sql
+-- 示例表：
+CREATE TABLE `t1` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `a` int(11) DEFAULT NULL,
+  `b` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_a` (`a`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table t2 like t1;
+
+-- 插入一些示例数据
+-- 往t1表插入1万行记录
+DROP PROCEDURE IF EXISTS insert_t1;
+delimiter;;
+CREATE PROCEDURE insert_t1() 
+BEGIN
+	DECLARE i INT;
+	SET i = 1;
+	WHILE( i <= 100000 ) DO
+		INSERT into t1(a,b) VALUE(i,i);
+		SET i = i + 1;
+	END WHILE;
+END;;
+delimiter;
+CALL insert_t1 ();
+
+-- 往t2表插入100行记录
+DROP PROCEDURE IF EXISTS insert_t2;
+delimiter;;
+CREATE PROCEDURE insert_t2() 
+BEGIN
+	DECLARE i INT;
+	SET i = 1;
+	WHILE( i <= 100 ) DO
+		INSERT into t2(a,b) VALUE(i,i);
+		SET i = i + 1;
+	END WHILE;
+END;;
+delimiter;
+CALL insert_t2 ();
+```
 
 
 ​          
@@ -152,7 +171,9 @@ mysql的表关联常见有两种算法
 
 一次一行循环地从第一张表（称为驱动表）中读取行，在这行数据中取到关联字段，根据关联字段在另一张表（被驱动表）里取出满足条件的行，然后取出两张表的结果合集。
 
-     mysql> EXPLAIN select * from t1 inner join t2 on t1.a= t2.a;              
+```sql
+ mysql> EXPLAIN select * from t1 inner join t2 on t1.a= t2.a;              
+```
 
 从执行计划中可以看到这些信息：
 
@@ -175,7 +196,9 @@ mysql的表关联常见有两种算法
 
 把驱动表的数据读入到 join_buffer 中，然后扫描被驱动表，把被驱动表每一行取出来跟 join_buffer 中的数据做对比。
 
-    mysql>EXPLAIN select * from t1 inner join t2 on t1.b= t2.b;              
+```sql
+mysql>EXPLAIN select * from t1 inner join t2 on t1.b= t2.b;              
+```
 
 
 
@@ -225,16 +248,20 @@ in和exsits优化
 
 in：当B表的数据集小于A表的数据集时，in优于exists               
 
-     select * from A where id in (select id from B)  
-     #等价于： 　for(select id from B){      select * from A where A.id = B.id    }  
+```sql
+ select * from A where id in (select id from B)  
+ #等价于： 　for(select id from B){      select * from A where A.id = B.id    }  
+```
 
 exists：当A表的数据集小于B表的数据集时，exists优于in
 
 　　将主查询A的数据，放到子查询B中做条件验证，根据验证结果（true或false）来决定主查询的数据是否保留
 
-      select * from A where exists (select 1 from B where B.id = A.id) 
-      #等价于:    for(select * from A){      select * from B where B.id = A.id    }     
-      #A表与B表的ID字段应建立索引            
+```sql
+  select * from A where exists (select 1 from B where B.id = A.id) 
+  #等价于:    for(select * from A){      select * from B where B.id = A.id    }     
+  #A表与B表的ID字段应建立索引            
+```
 
 1、EXISTS (subquery)只返回TRUE或FALSE,因此子查询中的SELECT * 也可以用SELECT 1替换,官方说法是实际执行时会忽略SELECT清单,因此没有区别
 
@@ -246,12 +273,14 @@ count(*)查询优化
 
  -- 临时关闭mysql查询缓存，为了查看sql多次执行的真实时间
 
-    mysql> set global query_cache_size=0; 
-    mysql> set global query_cache_type=0; 
-    mysql> EXPLAIN select count(1) from employees; 
-    mysql> EXPLAIN select count(id) from employees; 
-    mysql> EXPLAIN select count(name) from employees; 
-    mysql> EXPLAIN select count(*) from employees;   
+```sql
+mysql> set global query_cache_size=0; 
+mysql> set global query_cache_type=0; 
+mysql> EXPLAIN select count(1) from employees; 
+mysql> EXPLAIN select count(id) from employees; 
+mysql> EXPLAIN select count(name) from employees; 
+mysql> EXPLAIN select count(*) from employees;   
+```
 
 注意：以上4条sql只有根据某个字段count不会统计字段为null值的数据行   
 
