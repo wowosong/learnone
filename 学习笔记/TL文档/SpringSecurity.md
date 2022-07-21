@@ -6,7 +6,7 @@
 
 ### 认证
 
-用户认证就是判断一个用户的身份是否合法的过程，用户去访问系统资源时系统要求验证用户的身份信息，身份合法方可继续访问，不合法则拒绝访问。常见的用户身份认证方式有：用户名密码登录，二维码登录，手机短信登录，指纹认证等方式。
+用户认证就是判断一个用户的身份是否合法的过程，用户去访问系统资源时系统要求验证用户的身份信息，身份合法方可继续访问，不合法则拒绝访问。常见的用户身份认证方式有：**用户名密码登录，二维码登录，手机短信登录，指纹认证等方式。**
 
 ​	**系统为什么要认证？**
 
@@ -26,9 +26,9 @@
 
 ### 会话
 
-用户认证通过后，为了避免用户的每次操作都进行认证可将用户的信息保证在会话中。会话就是系统为了保持当前用户的登录状态所提供的机制，常见的有基于session方式、基于token方式等。
+用户认证通过后，为了避免用户的每次操作都进行认证可将用户的信息保证在会话中。会话就是系统为了保持当前用户的登录状态所提供的机制，常见的有**基于session方式、基于token方式**等。
 
-### RBAC模型
+### RBAC模型（Role Based Access Controll）
 
 ​	主体  -》 角色 -》 资源 -》行为 
 
@@ -591,9 +591,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 这样我们的整个系统就完成了。
 
-这其中，我们定义了三个用户， admin, manager ,worker 。有两个资源mobile(查看员工手机号) , salary(查看薪水)。 
-
-​	其中mobile资源就对应main.html上的 查看手机号 按钮，以及对应的访问地址 http://localhost:8080/mobile/query。 而salary资源则对应main.html上的 查看薪水 http://localhost:8080/salary/query  这就是需要控制的行为。
+这其中，我们定义了三个用户， admin, manager ,worker 。有两个资源mobile(查看员工手机号) , salary(查看薪水)。 其中mobile资源就对应main.html上的 查看手机号 按钮，以及对应的访问地址 http://localhost:8080/mobile/query。 而salary资源则对应main.html上的 查看薪水 http://localhost:8080/salary/query  这就是需要控制的行为。
 
 ​	然后我们给admin赋予了两个资源，manager有salary资源，而worker未赋予任何资源。可以查看登录后的页面按钮以及后台查询地址的访问效果。
 
@@ -667,7 +665,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 ​	2、 在resources目录下创建application.properties。 --spring security不需要任何配置就可以直接启动
 
-```java
+```properties
 server.port=8080
 spring.application.name=security-springboot
 ```
@@ -812,7 +810,10 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/common/**").permitAll() //common下的请求直接通过
                 .anyRequest().authenticated() //其他请求需要登录
                 .and() //并行条件
-                .formLogin().defaultSuccessUrl("/main.html").failureUrl("/common/loginFailed"); //可从默认的login页面登录，并且登录后跳转到main.html
+            .formLogin()
+          .defaultSuccessUrl("/main.html")
+          .failureUrl("/common/loginFailed"); 
+      //可从默认的login页面登录，并且登录后跳转到main.html
     }
 }
 
@@ -855,7 +856,6 @@ public class LoginController {
         User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return user.getUsername();
     }
-
 }
 
 ```
@@ -868,7 +868,7 @@ public class LoginController {
 
 2、我们通过注入一个UserDetailsService来管理系统的实体数据。如果我们不自己注入UserDetailsService，那在UserDetailsServiceAutoConfiguration中会默认注入一个包含user用户的UserDetailsService，user用户的密码会打印在控制台日志中。而除了我们系统中使用到的InMemoryUserDetailsManager外，SpringSecurity还提供了JdbcUserDetailsManager来实现对对数据库中的用户数据管理。
 
-另外，关于用户数据来源，可以通过覆盖WebSecurityConfigurerAdapter中的configure(AuthenticationManagerBuilder auth)方法，并注入authenticationManagerBean()的方式进行干预。
+另外，关于用户数据来源，**可以通过覆盖WebSecurityConfigurerAdapter中的configure(AuthenticationManagerBuilder auth)方法，并注入authenticationManagerBean()的方式进行干预。**
 
 3、目前示例中的权限规则都是从内存直接写死的，实际项目中显然都是要从数据库进行加载。而且，目前我们的规则都是基于web请求路径来定制的，而Spring Security实际上还提供了基于注解的方法级别规则配置。
 
@@ -886,7 +886,7 @@ public class LoginController {
 
 ### 4、了解SpringBoot Security项目的扩展点
 
-这样，一个基本的spring-boot-security项目就很快搭建起来了。而Spring Security实际上还提供了相当丰富的扩展点，包括用户名密码校验规则、资源校验规则、Session管理规则等。我们需要了解这些扩展点，这样才能在实际项目中，运用上Spring Se
+这样，一个基本的spring-boot-security项目就很快搭建起来了。而Spring Security实际上还提供了相当丰富的扩展点，包括用户名密码校验规则、资源校验规则、Session管理规则等。我们需要了解这些扩展点，这样才能在实际项目中，运用上Spring Security
 
 1、主体数据来源
 
