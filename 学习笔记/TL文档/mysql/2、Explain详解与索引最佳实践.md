@@ -2,7 +2,7 @@
 
 **Mysql安装文档参考**：https://blog.csdn.net/yougoule/article/details/56680952 
 
-## **Explain工具介绍** 
+## **Explain工具介绍**
 
 使用EXPLAIN关键字可以模拟优化器执行SQL语句，分析你的查询语句或是结构的性能瓶颈 
 
@@ -54,7 +54,7 @@ mysql> explain select * from actor;
 
 在查询中的每个表会输出一行，如果有两个表通过 join 连接查询，那么会输出两行 
 
-### **explain 两个变种** 
+### **explain 两个变种**
 
 1）**explain extended**：会在 explain 的基础上额外提供一些查询优化的信息。紧随其后通过 show warnings 命令可 
 
@@ -64,7 +64,7 @@ filtered/100 可以**估算**出将要和 explain 中前一个表进行连接的
 
 表）。
 
-```
+```sql
  mysql> explain extended select * from film where id = 1; 
 ```
 
@@ -74,7 +74,7 @@ filtered/100 可以**估算**出将要和 explain 中前一个表进行连接的
  mysql> show warnings; 
 ```
 
-![image-20211211113943174](/Users/jiusonghuang/pic-md/20211211113943.png)
+![image-20211211113943174](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211113943.png)
 
 2）**explain partitions**：相比 explain 多了个 partitions 字段，如果查询是基于分区表的话，会显示查询将访问的分 
 
@@ -96,7 +96,7 @@ select_type 表示对应行是简单还是复杂的查询。
 
 1）simple：简单查询。查询不包含子查询和union 
 
-```
+```sql
 mysql> explain select * from film where id = 2; 
 ```
 
@@ -113,7 +113,7 @@ mysql> explain select * from film where id = 2;
 用这个例子来了解 primary、subquery 和 derived 类型 
 
 ```sql
-mysql> set session optimizer_switch='derived_merge=off'; #关闭mysql5.7新特性对衍生表的合 并优化 mysql> explain select (select 1 from actor where id = 1) from (select * from film where id = 1) der;
+mysql> set session optimizer_switch='derived_merge=off'; #关闭mysql5.7新特性对衍生表的合并优化 mysql> explain select (select 1 from actor where id = 1) from (select * from film where id = 1) der;
 ```
 
 ![image-20211211114417281](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211114417.png)
@@ -134,9 +134,9 @@ mysql> set session optimizer_switch='derived_merge=on'; #还原默认配置
 
 这一列表示 explain 的一行正在访问哪个表。 
 
-当 from 子句中有子查询时，table列是 <derivenN> 格式，表示当前查询依赖 id=N 的查询，于是先执行 id=N 的查 
+**当 from 子句中有子查询时，table列是 <derivenN> 格式，表示当前查询依赖 id=N 的查询，于是先执行 id=N 的查** 
 
-询。
+**询。**
 
 当有 union 时，UNION RESULT 的 table 列的值为<union1,2>，1和2表示参与 union 的 select 行id。 
 
@@ -152,7 +152,7 @@ mysql> set session optimizer_switch='derived_merge=on'; #还原默认配置
 
 以单独查找索引来完成，不需要在执行时访问表 
 
-```
+```sql
 mysql> explain select min(id) from film; 
 ```
 
@@ -164,7 +164,7 @@ primary key 或 unique key 的所有列与常数比较时，所以表最多有�
 
 **const的特例**，表里只有一条元组匹配时为system 
 
-```
+```sql
  mysql> explain extended select * from (select * from film where id = 1) tmp; 
 ```
 
@@ -180,7 +180,7 @@ mysql> show warnings;
 
 const 之外最好的联接类型了，简单的 select 查询不会出现这种 type。 
 
-```
+```sql
 mysql> explain select * from film_actor left join film on film_actor.film_id = film.id; 
 ```
 
@@ -192,7 +192,7 @@ mysql> explain select * from film_actor left join film on film_actor.film_id = f
 
 1. 简单 select 查询，name是普通索引（非唯一索引） 
 
-```
+```sql
  mysql> explain select * from film where name = 'film1'; 
 ```
 
@@ -200,7 +200,7 @@ mysql> explain select * from film_actor left join film on film_actor.film_id = f
 
 2.关联表查询，idx_film_actor_id是film_id和actor_id的联合索引，这里使用到了film_actor的左边前缀film_id部分。 
 
-```
+```sql
  mysql> explain select film_id from film left join film_actor on film.id = film_actor.film_id; 
 ```
 
@@ -208,7 +208,7 @@ mysql> explain select * from film_actor left join film on film_actor.film_id = f
 
 **range**：范围扫描通常出现在 in(), between ,> ,<, >= 等操作中。使用一个索引来检索给定范围的行。 
 
-```
+```sql
  mysql> explain select * from actor where id > 1;
 ```
 
@@ -216,7 +216,7 @@ mysql> explain select * from film_actor left join film on film_actor.film_id = f
 
 **index**：扫描全索引就能拿到结果，一般是扫描某个二级索引，这种扫描不会从索引树根节点开始快速查找，而是直接对二级索引的叶子节点遍历和扫描，速度还是比较慢的，这种查询一般为使用覆盖索引，二级索引一般比较小，所以这种通常比ALL快一些。 
 
-```
+```sql
 mysql> explain select * from film; 
 ```
 
@@ -224,7 +224,7 @@ mysql> explain select * from film;
 
 **ALL**：即全表扫描，扫描你的聚簇索引的所有叶子节点。通常情况下这需要增加索引来进行优化了。 
 
-```
+```sql
 mysql> explain select * from actor; 
 ```
 

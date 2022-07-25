@@ -35,8 +35,6 @@ CREATE TABLE `employees` (
  mysql> select * from employees limit 90000,5; 
 ```
 
-
-
 该 SQL 表示查询从第 90001开始的五行数据，没添加单独 order by，表示通过主键排序。我们再看表 employees ，因 
 
 为主键是自增并且连续的，所以可以改写成按照主键去查询从第 90001开始的五行数据，如下： 
@@ -45,29 +43,21 @@ CREATE TABLE `employees` (
  mysql> select * from employees where id > 90000 limit 5; 
 ```
 
-
-
 查询的结果是一致的。我们再对比一下执行计划： 
 
 ```sql
  mysql> EXPLAIN select * from employees limit 90000,5; 
 ```
 
-
-
 ```sql
  mysql> EXPLAIN select * from employees where id > 90000 limit 5; 
 ```
-
-
 
 显然改写后的 SQL 走了索引，而且扫描的行数大大减少，执行效率更高。
 
 但是，这条改写的SQL 在很多场景并不实用，因为表中可能某些记录被删后，主键空缺，导致结果不一致，如下图试验所示（先删除一条前面的记录，然后再测试原 SQL 和优化后的 SQL）：
 
-​    
 
-   
 
 两条 SQL 的结果并不一样，因此，如果主键不连续，不能使用上面描述的优化方法。
 
@@ -84,14 +74,9 @@ CREATE TABLE `employees` (
 mysql>  select * from employees ORDER BY name** limit 90000,5;
 ```
 
-
-​    
-
 ```sql
 mysql> EXPLAIN select * from employees ORDER BY name limit 90000,5; 
 ```
-
-
 
 发现并没有使用 name 字段的索引（key 字段对应的值为 null），具体原因上节课讲过：扫描整个索引并查找到没索引的行(可能要遍历多个索引树)的成本比扫描全表的成本更高，所以优化器放弃使用索引。
 
@@ -103,13 +88,7 @@ mysql> EXPLAIN select * from employees ORDER BY name limit 90000,5;
 mysql> select * from employees e inner join (select id from employees order by name limit 90000,5) ed on e.id = ed.id;              
 ```
 
-   
-
-
-
 需要的结果与原 SQL 一致，执行时间减少了一半以上，我们再对比优化前后sql的执行计划：
-
-   
 
 原 SQL 使用的是 filesort 排序，而优化后的 SQL 使用的是索引排序。
 
