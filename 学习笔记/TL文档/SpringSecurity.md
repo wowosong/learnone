@@ -934,7 +934,7 @@ csrf全称是Cross—Site Request Forgery 跨站点请求伪造。这是一种�
 
 ### 	1、 结构总览
 
-​		Spring Security是解决安全访问控制的问题，说白了就是认证和授权两个问题。而至于像之前示例中页面控件的查看权限，是属于资源具体行为。Spring Security虽然也提供了类似的一些支持，但是这些不是Spring Security控制的重点。Spring Security功能的重点是对所有进入系统的请求进行拦截，校验每个请求是否能够访问它所期望的资源。而Spring Security对Web资源的保护是通过Filter来实现的，所以要从Filter入手，逐步深入Spring Security原理。
+​		Spring Security是解决安全访问控制的问题，说白了就是**认证和授权**两个问题。而至于像之前示例中页面控件的查看权限，是属于资源具体行为。Spring Security虽然也提供了类似的一些支持，但是这些不是Spring Security控制的重点。Spring Security功能的重点是对所有进入系统的请求进行拦截，校验每个请求是否能够访问它所期望的资源。而Spring Security对Web资源的保护是通过Filter来实现的，所以要从Filter入手，逐步深入Spring Security原理。
 
 当初始化Spring Security时，在org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration中会往Spring容器中注入一个名为**SpringSecurityFilterChain**的Servlet过滤器，类型为org.springframework.security.web.FilterChainProxy。它实现了javax.servlet.Filter，因此外部的请求都会经过这个类。
 
@@ -942,7 +942,7 @@ csrf全称是Cross—Site Request Forgery 跨站点请求伪造。这是一种�
 
 
 
-而FilterChainProxy是一个代理，真正起作用的是FilterChainProxy中SecurityFilterChain所包含的各个Filter，同时，这些Filter都已经注入到Spring容器中，他们是Spring Security的核心，各有各的职责。但是他们并不直接处理用户的认证和授权，而是把他们交给了认证管理器(AuthenticationManager)和决策管理器(AccessDecisionManager)进行处理。下面是FilterChainProxy相关类的UML图示：
+而FilterChainProxy是一个代理，真正起作用的是FilterChainProxy中SecurityFilterChain所包含的各个Filter，同时，这些**Filter都已经注入到Spring容器中**，他们是Spring Security的核心，各有各的职责。但是他们并不直接处理用户的认证和授权，而是把他们交给了**认证管理器(AuthenticationManager)和决策管理器(AccessDecisionManager)**进行处理。下面是FilterChainProxy相关类的UML图示：
 
 ![](./SpringSecurity.assets/20220109131943.png)
 
@@ -952,11 +952,11 @@ Spring Security的功能实现主要就是由一系列过滤器链相互配合�
 
 下面介绍过滤器链中主要的几个过滤器及其作用：
 
-**SecurityContextPersistenceFilter** 这个Filter是整个拦截过程的入口和出口（也就是第一个和最后一个拦截器），会在请求开始时从配置好的 SecurityContextRepository 中获取 SecurityContext，然后把它设置给SecurityContextHolder。在请求完成后将SecurityContextHolder 持有的 SecurityContext 再保存到配置好的 SecurityContextRepository，同时清除 securityContextHolder 所持有的 SecurityContext； 
+**SecurityContextPersistenceFilter** **这个Filter是整个拦截过程的入口和出口（也就是第一个和最后一个拦截器）**，会在请求开始时从配置好的 SecurityContextRepository 中获取 SecurityContext，然后把它设置给SecurityContextHolder。在请求完成后将SecurityContextHolder 持有的 SecurityContext 再保存到配置好的 SecurityContextRepository，同时清除 securityContextHolder 所持有的 SecurityContext； 
 
 **UsernamePasswordAuthenticationFilter** 用于处理来自表单提交的认证。该表单必须提供对应的用户名和密码，其内部还有登录成功或失败后进行处理的 AuthenticationSuccessHandler 和 AuthenticationFailureHandler，这些都可以根据需求做相关改变；
 
-**FilterSecurityInterceptor** 是用于保护web资源的，使用AccessDecisionManager对当前用户进行授权访问，前面已经详细介绍过了；
+**FilterSecurityInterceptor** 是用于保护web资源的，**使用AccessDecisionManager对当前用户进行授权访问**，前面已经详细介绍过了；
 
 **ExceptionTranslationFilter** 能够捕获来自 FilterChain 所有的异常，并进行处理。但是它只会处理两类异常：AuthenticationException 和 AccessDeniedException，其它的异常它会继续抛出。
 
@@ -976,7 +976,7 @@ Spring Security的功能实现主要就是由一系列过滤器链相互配合�
 
 > 调试代码从UsernamePasswordAuthenticationFilter 开始跟踪。
 >
-> 最后的认证流程在AbstractUserDetailsAuthenticationProvider的authenticate方法中。获取用户在retrieveUser方法。密码比较在additionalAuthenticationChecks方法
+> 最后的认证流程在AbstractUserDetailsAuthenticationProvider的authenticate方法中。获取用户在retrieveUser方法。**密码比较在DaoAuthenticationProvider的additionalAuthenticationChecks方法**
 
 几个核心的组件的调用流程：
 
@@ -995,23 +995,26 @@ public interface AuthenticationProvider {
 这里对于AbstractUserDetailsAuthenticationProvider，他的support方法就表明他可以处理用户名密码这样的认证。
 
 ```java
-    public boolean supports(Class<?> authentication) {
-        return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
-    }
+public boolean supports(Class<?> authentication) {
+  return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
+}
 ```
 
 #### 2.2 Authentication认证信息
 
-继承自Principal类，代表一个抽象主体身份。继承了一个getName()方法来表示主体的名称。
+**继承自Principal类，代表一个抽象主体身份**。继承了一个getName()方法来表示主体的名称。
 
-```
+```java
 public interface Authentication extends Principal, Serializable {
-	//获取权限信息列表
+		//获取权限信息列表
     Collection<? extends GrantedAuthority> getAuthorities();
+  
 	//获取凭证信息。用户输入的密码字符串，在认证过后通常会被移除，用于保障安全。
     Object getCredentials();
+  
 	//细节信息，web应用中的实现接口通常为 WebAuthenticationDetails，它记录了访问者的ip地 址和sessionId的值。
     Object getDetails();
+  
 	//身份信息，大部分情况下返回的是UserDetails接口的实现类
     Object getPrincipal();
 
@@ -1031,13 +1034,13 @@ public interface UserDetailsService {
 }
 ```
 
-在DaoAuthenticationProvider的retrieveUser方法中，会获取spring容器中的UserDetailsService。如果我们没有自己注入UserDetailsService对象，那么在UserDetailsServiceAutoConfiguration类中，会在启动时默认注入一个带user用户的UserDetailsService。
+在DaoAuthenticationProvider的**retrieveUser**方法中，会获取spring容器中的UserDetailsService。如果我们没有自己注入UserDetailsService对象，那么在UserDetailsServiceAutoConfiguration类中，会在启动时默认注入一个带user用户的UserDetailsService。
 
-我们可以通过注入自己的UserDetailsService来实现加载自己的数据。
+我们可以通过注入自己的**UserDetailsService来实现加载自己的数据**。
 
 #### 2.4 UserDetails: 用户信息实体
 
-代表了一个用户实体，包括用户、密码、权限列表，还有一些状态信息，包括账号过期、认证过期、是否启用。
+代表了一个用户实体，包括**用户、密码、权限列表，还有一些状态信息，包括账号过期、认证过期、是否启用**。
 
 ```java
 public interface UserDetails extends Serializable {
@@ -1074,11 +1077,11 @@ public interface PasswordEncoder {、
 }
 ```
 
-DaoAuthenticationProvider在additionalAuthenticationChecks方法中会获取Spring容器中的PasswordEncoder来对用户输入的密码进行比较。
+**DaoAuthenticationProvider在additionalAuthenticationChecks方法中会获取Spring容器中的PasswordEncoder来对用户输入的密码进行比较。**
 
 #### 2.6 BCryptPasswordEncoder:
 
-​	这是SpringSecurity中最常用的密码解析器。他使用BCrypt算法。他的特点是加密可以加盐sault，但是解密不需要盐。因为盐就在密文当中。这样可以通过每次添加不同的盐，而给同样的字符串加密出不同的密文。
+​	**这是SpringSecurity中最常用的密码解析器。他使用BCrypt算法。他的特点是加密可以加盐sault，但是解密不需要盐**。因为盐就在密文当中。这样可以通过每次添加不同的盐，而给同样的字符串加密出不同的密文。
 
 密文形如：$2a$10$vTUDYhjnVb52iM3qQgi2Du31sq6PRea6xZbIsKIsmOVDnEuGb/.7K
 
@@ -1088,7 +1091,7 @@ DaoAuthenticationProvider在additionalAuthenticationChecks方法中会获取Spri
 
 #### 3.1 整体流程
 
-授权是在用户认证通过后，对访问资源的权限进行检查的过程。Spring Security可以通过http.authorizeRequests()对web请求进行授权保护。Spring Security使用标准Filter建立了对web请求的拦截，最终实现对资源的授权访问。
+授权是在用户认证通过后，对访问资源的权限进行检查的过程。Spring Security可以通过http.authorizeRequests()对web请求进行授权保护。**Spring Security使用标准Filter建立了对web请求的拦截，最终实现对资源的授权访问。**
 
 ![](./SpringSecurity.assets/20220109132029.png)
 
@@ -1096,17 +1099,13 @@ DaoAuthenticationProvider在additionalAuthenticationChecks方法中会获取Spri
 
 1、**拦截请求**，已认证用户访问受保护的web资源将被SecurityFilterChain中(实现类为DefaultSecurityFilterChain)的 FilterSecurityInterceptor 的子类拦截。
 
-2、**获取资源访问策略**，FilterSecurityInterceptor会从 SecurityMetadataSource 的子类
+2、**获取资源访问策略**，FilterSecurityInterceptor会从 SecurityMetadataSource 的子类DefaultFilterInvocationSecurityMetadataSource 获取要访问当前资源所需要的权限Collection<ConfigAttribute> 。 
 
-DefaultFilterInvocationSecurityMetadataSource 获取要访问当前资源所需要的权限
-
-Collection<ConfigAttribute> 。 
-
-SecurityMetadataSource其实就是读取访问策略的抽象，而读取的内容，其实就是我们配置的访问规则，读取访问策略如：
+**SecurityMetadataSource其实就是读取访问策略的抽象**，而读取的内容，其实就是我们配置的访问规则，读取访问策略如：
 
 ```java
 http.csrf().disable()//关闭csrg跨域检查
-        //这里注意matchere是有顺序的。
+        //这里注意matchers是有顺序的。
         .authorizeRequests()
         .antMatchers("/mobile/**").hasAuthority("mobile")
         .antMatchers("/salary/**").hasAuthority("salary")
@@ -1116,7 +1115,7 @@ http.csrf().disable()//关闭csrg跨域检查
         .formLogin().defaultSuccessUrl("/main.html").failureUrl("/common/loginFailed");
 ```
 
-3、**最后**，FilterSecurityInterceptor会调用 AccessDecisionManager 进行授权决策，若决策通过，则允许访问资源，否则将禁止访问。
+3、**最后**，FilterSecurityInterceptor会调用 AccessDecisionManager **进行授权决策，若决策通过，则允许访问资源，否则将禁止访问。**
 
 关于AccessDecisionManager接口，最核心的就是其中的decide方法。这个方法就是用来鉴定当前用户是否有访问对应受保护资源的权限。
 
@@ -1131,11 +1130,11 @@ public interface AccessDecisionManager {
 
 这里着重说明一下decide的参数：
 
-authentication：要访问资源的访问者的身份
+**authentication：要访问资源的访问者的身份**
 
-object：要访问的受保护资源，web请求对应FilterInvocation
+**object：要访问的受保护资源，web请求对应FilterInvocation**
 
-configAttributes：是受保护资源的访问策略，通过SecurityMetadataSource获取。
+**configAttributes：是受保护资源的访问策略，通过SecurityMetadataSource获取。**
 
 #### 3.2 决策流程
 
@@ -1143,7 +1142,7 @@ configAttributes：是受保护资源的访问策略，通过SecurityMetadataSou
 
 ![](./SpringSecurity.assets/20220109132038.png)
 
-AccessDecisionManager中包含了一系列的AccessDecisionVoter讲会被用来对Authentication是否有权访问受保护对象进行投票，AccessDecisionManager根据投票结果，做出最终角色。
+AccessDecisionManager（访问决策管理器）中包含了一系列的AccessDecisionVoter（访问决策投票）将会被用来对Authentication是否有权访问受保护对象进行投票，AccessDecisionManager根据投票结果，做出最终角色。
 
 > 为什么要投票？ 因为权限可以从多个方面来进行配置，有角色但是没有资源怎么办？这就需要有不同的处理策略
 
@@ -1164,11 +1163,11 @@ public interface AccessDecisionVoter<S> {
 }
 ```
 
-vote()就是进行投票的方法。投票可以表示赞成、拒绝、弃权。
+vote()就是进行投票的方法。投票可以表示**赞成、拒绝、弃权**。
 
 Spring Security内置了三个基于投票的实现类，分别是AffirmativeBased,ConsensusBasesd和UnanimaousBased
 
-**AffirmativeBased是Spring Security默认使用的投票方式**，他的逻辑是只要有一个投票通过，就表示通过。
+**AffirmativeBased是Spring Security默认使用的投票方式**，他的逻辑是只要有**一个投票通过，就表示通过**。
 
 ​	1、只要有一个投票通过了，就表示通过。
 
@@ -1176,7 +1175,7 @@ Spring Security内置了三个基于投票的实现类，分别是AffirmativeBas
 
 ​	3、如果没有人投赞成票，但是有人投反对票，则抛出AccessDeniedException.
 
-**ConsensusBased**的逻辑是：多数赞成就通过
+**ConsensusBased**的逻辑是：**多数赞成就通过**
 
 ​	1、如果赞成票多于反对票则表示通过
 
@@ -1184,9 +1183,9 @@ Spring Security内置了三个基于投票的实现类，分别是AffirmativeBas
 
 ​	3、如果赞成票与反对票相同且不等于0，并且属性allowIfEqualGrantedDeniedDecisions的值为true，则表示通过，否则抛出AccessDeniedException。参数allowIfEqualGrantedDeniedDecisions的值默认是true。
 
-​	4、如果所有的AccessDecisionVoter都弃权了，则将视参数allowIfAllAbstainDecisions的值而定，如果该值为true则表示通过，否则将抛出异常AccessDeniedException。参数allowIfAllAbstainDecisions的值默认为false。
+​	4、如果所有的AccessDecisionVoter都弃权了，则将视参数allowIfAllAbstainDecisions的值而定，如果该值为true则表示通过，否则将抛出异常AccessDeniedException。参数**allowIfAllAbstainDecisions**的值默认为false。
 
-​	**UnanimousBased**相当于一票否决。
+​	**UnanimousBased**相当于**一票否决**。
 
 ​	1、如果受保护对象配置的某一个ConfifigAttribute被任意的AccessDecisionVoter反对了，则将抛出AccessDeniedException。
 
@@ -1231,16 +1230,16 @@ protected void configure(HttpSecurity http) throws Exception {
 @Override
 protected void configure(HttpSecurity http) throws Exception {
    http
-           .authorizeRequests()
-           .antMatchers("/r/**").authenticated()    
-           .anyRequest().permitAll()                
-           .and()
-           .formLogin()//允许表单登录
-         .loginPage("/login‐view")//自定义登录页面
-         .loginProcessingUrl("/login")//自定义登录处理地址
-       	.defaultSuccessUrl("/main.html")//指定登录成功后的跳转地址-页面重定向
-        // .successForwardUrl("/login‐success")//指定登录成功后的跳转URL - 后端跳转
-         .permitAll();
+     .authorizeRequests()
+     .antMatchers("/r/**").authenticated()    
+     .anyRequest().permitAll()                
+     .and()
+     .formLogin()//允许表单登录
+     .loginPage("/login‐view")//自定义登录页面
+     .loginProcessingUrl("/login")//自定义登录处理地址
+     .defaultSuccessUrl("/main.html")//指定登录成功后的跳转地址-页面重定向
+     // .successForwardUrl("/login‐success")//指定登录成功后的跳转URL - 后端跳转
+     .permitAll();
 } 
 ```
 
@@ -1258,7 +1257,7 @@ protected void configure(HttpSecurity http) throws Exception {
 
 ​	Spring Security可以通过HttpSecurity配置URL授权信息，保护URL常用的方法有：
 
-```
+```java
 authenticated() 保护URL，需要用户登录
 permitAll() 指定URL无需保护，一般应用与静态资源文件
 hasRole(String role) 限制单个角色访问。角色其实相当于一个"ROLE_"+role的资源。
@@ -1273,32 +1272,31 @@ hasIpAddress(String ipaddressExpression) 限制IP地址或子网
 
 ​	Spring Security除了可以通过HttpSecurity配置授权信息外，还提供了注解方式对方法进行授权。
 
-​	注解方式需要先在启动加载的类中打开 @EnableGlobalMethodSecurity(securedEnabled=true) 注解，然后在需要权限管理的方法上使用@Secured(Resource)的方式配合权限。其中
+​	**注解方式需要先在启动加载的类中打开 @EnableGlobalMethodSecurity(securedEnabled=true) 注解，然后在需要权限管理的方法上使用@Secured(Resource)的方式配合权限。其中**
 
-```
+```java
 @EnableGlobalMethodSecurity(securedEnabled=true) 开启@Secured 注解过滤权限
 	打开后@Secured({"ROLE_manager","ROLE_admin"}) 表示方法需要有manager和admin两个角色才能访问
 	另外@Secured注解有些关键字，比如IS_AUTHENTICATED_ANONYMOUSLY 表示可以匿名登录。
 @EnableGlobalMethodSecurity(jsr250Enabled=true)	开启@RolesAllowed 注解过滤权限 
-
 @EnableGlobalMethodSecurity(prePostEnabled=true) 使用表达式时间方法级别的安全性，打开后可以使用一下几个注解。
-    @PreAuthorize 在方法调用之前,基于表达式的计算结果来限制对方法的访问。例如@PreAuthorize("hasRole('normal') AND hasRole('admin')")
-    @PostAuthorize 允许方法调用,但是如果表达式计算结果为false,将抛出一个安全性异常。此注释支持使用returnObject来表示返回的对象。例如@PostAuthorize(" returnObject!=null &&  returnObject.username == authentication.name")
-    @PostFilter 允许方法调用,但必须按照表达式来过滤方法的结果
-    @PreFilter 允许方法调用,但必须在进入方法之前过滤输入值
+@PreAuthorize 在方法调用之前,基于表达式的计算结果来限制对方法的访问。例如@PreAuthorize("hasRole('normal') AND hasRole('admin')")
+@PostAuthorize 允许方法调用,但是如果表达式计算结果为false,将抛出一个安全性异常。此注释支持使用returnObject来表示返回的对象。例如@PostAuthorize(" returnObject!=null && returnObject.username == authentication.name")''
+@PostFilter 允许方法调用,但必须按照表达式来过滤方法的结果
+@PreFilter 允许方法调用,但必须在进入方法之前过滤输入值
 ```
 
 ### 5、会话控制
 
 #### 	5.1 获取当前用户信息
 
-用户认证通过后，为了避免用户的每次操作都进行认证可将用户的信息保存在会话中。spring security提供会话管
+用户认证通过后，为了避免用户的每次操作都进行认证可将用户的信息保存在会话中。spring security提供**会话管**
 
-理，认证通过后将身份信息放入SecurityContextHolder上下文，SecurityContext与当前线程进行绑定，方便获取
+**理，认证通过后将身份信息放入SecurityContextHolder上下文，SecurityContext与当前线程进行绑定，方便获取**
 
-用户身份。
+**用户身份。**
 
-可以通过为SecurityContextHolder.getContext().getAuthentication()获取当前登录用户信息。
+可以通过为**SecurityContextHolder.getContext().getAuthentication()获取当前登录用户信息**。
 
 ```java
 @RestController
@@ -1384,7 +1382,7 @@ server.servlet.session.cookie.secure=true
 
 #### 5.5 退出
 
-​	Spring Security默认实现了logout退出，直接访问/logout就会跳转到登出页面，而ajax访问/logout就可以直接退出。
+​	Spring Security默认**实现了logout退出**，直接访问/logout就会跳转到登出页面，而ajax访问/logout就可以直接退出。
 
 ​	在WebSecurityConfifig的config(HttpSecurity http)中，也是可以配置退出的一些属性，例如自定义退出页面、定义推出后的跳转地址。
 
@@ -1394,8 +1392,8 @@ http
 .logout() //提供系统退出支持，使用 WebSecurityConfigurerAdapter 会自动被应用
 .logoutUrl("/logout") //默认退出地址
 .logoutSuccessUrl("/login‐view?logout") //退出后的跳转地址
-    .addLogoutHandler(logoutHandler) //添加一个LogoutHandler，用于实现用户退出时的清理工作.默认 SecurityContextLogoutHandler 会被添加为最后一个 LogoutHandler 。
-    .invalidateHttpSession(true);  //指定是否在退出时让HttpSession失效，默认是true
+.addLogoutHandler(logoutHandler) //添加一个LogoutHandler，用于实现用户退出时的清理工作.默认 SecurityContextLogoutHandler 会被添加为最后一个 LogoutHandler 。
+.invalidateHttpSession(true);  //指定是否在退出时让HttpSession失效，默认是true
 ```
 
 在退出操作时，会做以下几件事情：
@@ -1432,9 +1430,9 @@ http
 
 ​	1、统一认证授权
 
-​	提供独立的认证服务，统一处理认证授权。无论是不同类型的用户、还是不同类型的客户端(Web、H5、App等)，均采用一致的认证、授权、会话判断机制，实现统一认证授权服务。
+​	**提供独立的认证服务，统一处理认证授权。无论是不同类型的用户、还是不同类型的客户端(Web、H5、App等)，均采用一致的认证、授权、会话判断机制，实现统一认证授权服务。**
 
-​	要实现这种统一则认证方式必须可扩展，支持各种认证需求。例如用户名密码、短信验证码、二维码、人脸识别等各种认证方式，并可以灵活的切换。
+​	要实现这种统一则认证方式必须可扩展，支持各种认证需求。例如**用户名密码、短信验证码、二维码、人脸识别等各种认证方式**，并可以灵活的切换。
 
 ​	2、多样的认证场景
 
@@ -1466,19 +1464,19 @@ http
 
 2、基于Token的认证方式
 
-基于Token的认证方式，服务端不再存储认证数据，易维护，扩展性强。客户端可以把Token存在任意地方，并且可以实现web和app统一认证机制。其缺点也很明显，客户端信息容易泄露，token由于包含了大量信息，因此一般数据量较大，而且每次请求都需要传递，因此比较占带宽。另外，token的签名延签操作也会给系统带来额外的负担。
+基于Token的认证方式，服务端不再存储认证数据，易维护，扩展性强。客户端可以把Token存在任意地方，并且可以实现**web和app统一认证机制**。其缺点也很明显，客户端信息容易泄露，token由于包含了大量信息，因此一般数据量较大，而且每次请求都需要传递，因此比较占带宽。另外，token的签名延签操作也会给系统带来额外的负担。
 
 ![](./SpringSecurity.assets/20220109132118.png)
 
 ### 3、方案选型
 
-​	通常情况下，还是会选择更通用的基于token的方式，这样能保证整个系统更灵活的扩展性，并减轻服务端的压力。
+​	通常情况下，还是会选择**更通用的基于token的方式**，这样能保证整个系统更灵活的扩展性，并减轻服务端的压力。
 
-​	在这种方案下，一般会独立出 统一认证服务(UAA) 和网关两个部分来一起完成认证授权服务。
+​	在这种方案下，一般会独立出 **统一认证服务(UAA) 和网关两个部分来一起完成认证授权服务**。
 
-​	其中，统一认证服务承载接入方认证、登入用户认证、授权以及令牌管理的职责，完成实际的用户认证、授权功能。
+​	其中，统一认证服务承载**接入方认证、登入用户认证、授权以及令牌管理的职责**，完成实际的用户认证、授权功能。
 
-​	而API网关会作为整个分布式系统的唯一入口，API网关为接入方提供API结合。它本身还可能具有其他辅助职责，如身份验证、监控、负载均衡、缓存、协议转换等功能。API网关方式的核心要点是，所有的接入方和消费端都通过统一的网关接入微服务，在网关层处理所有与业务无关的功能。正题流程如下图：
+​	而**API网关**会作为整个分布式系统的唯一入口，API网关为接入方提供API结合。它本身还可能具有其他辅助职责，如**身份验证、监控、负载均衡、缓存、协议转换**等功能。**API网关方式的核心要点是，所有的接入方和消费端都通过统一的网关接入微服务，在网关层处理所有与业务无关的功能**。正题流程如下图：
 
 ![](./SpringSecurity.assets/20220109132127.png)
 
@@ -1490,17 +1488,17 @@ http
 
 #### 6.1.1、什么是OAuth2.0?
 
-OAuth（开放授权）是一个开放标准，允许用户授权第三方应用访问他们存储在另外的服务提供者上的信息，而不需要将用户名和密码供给第三方应用或分享他们数据的所有内容。OAuth2.0是OAuth协议的延续版本，但不向后兼容OAuth 1.0即完全废止了OAuth1.0。很大公司如Google，Yahoo，Microsoft等都提供了OAUTH认证服务，这些都足以说明OAUTH标准逐渐成为开放资源授权的标准。
+**OAuth（开放授权）是一个开放标准，允许用户授权第三方应用访问他们存储在另外的服务提供者上的信息，而不需要将用户名和密码供给第三方应用或分享他们数据的所有内容**。**OAuth2.0是OAuth协议的延续版本，但不向后兼容OAuth 1.0即完全废止了OAuth1.0**。很大公司如Google，Yahoo，Microsoft等都提供了OAUTH认证服务，这些都足以说明OAUTH标准逐渐成为开放资源授权的标准。
 
 Oauth协议目前发展到2.0版本，1.0版本过于复杂，2.0版本已得到广泛应用。
 
 参考：https://baike.baidu.com/item/oAuth/7153134?fr=aladdin
 
-Oauth协议：https://tools.ietf.org/html/rfc6749
+OAuth协议：https://tools.ietf.org/html/rfc6749
 
 #### 6.2.2、OAuth2.0流程示例
 
-​		OAuth认证流程，简单理解，就是允许我们将之前实现的认证和授权的过程交由一个独立的第三方来进行担保。而OAuth协议就是用来定义如何让这个第三方的担保有效且双方可信。例如我们下面以用户访问百度登录后的资源为例：
+​		OAuth认证流程，简单理解，就是允许我们将之前**实现的认证和授权的过程交由一个独立的第三方来进行担保。而OAuth协议就是用来定义如何让这个第三方的担保有效且双方可信**。例如我们下面以用户访问百度登录后的资源为例：
 
 2.1 用户希望登录百度，访问百度登录后的资源。而用户可以选择使用微信账号进行登录，实际是将授权认证的流程交由微信(独立第三方)来进行担保。
 
@@ -1514,11 +1512,11 @@ Oauth协议：https://tools.ietf.org/html/rfc6749
 
 ![](./SpringSecurity.assets/20220109132217.png)
 
-以上这个过程，实际上就是一个典型的OAuth2.0的认证流程。在这个登录认证的过程中，实际上是只有用户和百度之间有资源访问的关系，而微信就是作为一个独立的第三方，使用用户在微信里的身份信息，来对用户的身份进行了一次担保认证。认证完成后，百度就可以获取到用户的微信身份信息，进入自己的后续流程，与百度内部的一个用户信息完成绑定及登录。整个流程大致是这样：
+以上这个过程，实际上就是一个典型的OAuth2.0的认证流程。在这个登录认证的过程中，实际上是只有用户和百度之间有资源访问的关系，而微信就是作为一个独立的第三方，使用用户在微信里的身份信息，来对用户的身份进行了一次担保认证。**认证完成后，百度就可以获取到用户的微信身份信息，进入自己的后续流程，与百度内部的一个用户信息完成绑定及登录。**整个流程大致是这样：
 
 ![](./SpringSecurity.assets/20220109132224.png)
 
-我们来分析这整个过程，其中最重要的问题，显然是如何让用户、百度和微信这三方实现权限认证的共信。这其中涉及到非常多的细节问题，而OAuth2.0协议就是用来定义这个过程中，各方的行为标准。
+我们来分析这整个过程，其中最重要的问题，显然是如何让用户、百度和微信这三方实现权限认证的共信。这其中涉及到非常多的细节问题，而**OAuth2.0协议**就是用来定义这个过程中，各方的行为标准。
 
 #### 6.3.3、OAuth2.0协议
 
@@ -1534,11 +1532,11 @@ OAuth2.0协议包含以下几个角色：
 
 2、资源拥有者 - 示例中的用户(拥有微信账号)
 
-通常是用户，也可以是应用程序，即该资源的拥有者。
+通常是用户，也可以是应用程序，即**该资源的拥有者**。
 
 3、授权服务器(也称为认证服务器) - 示例中的微信
 
-用于服务提供者对资源拥有的身份进行认证，对访问资源进行授权，认证成功后会给客户端发放令牌(access_token)，作为客户端访问资源服务器的凭据。
+**用于服务提供者对资源拥有的身份进行认证，对访问资源进行授权，认证成功后会给客户端发放令牌(access_token)，作为客户端访问资源服务器的凭据。**
 
 4、资源服务器 - 示例中的微信 和 百度
 
@@ -1552,9 +1550,9 @@ OAuth2.0协议包含以下几个角色：
 
 **scope**：授权作用域。代表百度可以获取到的微信的信息范围。例如登录范围的凭证无法获取用户信息范围的信息。
 
-**access_token**：授权码。百度获取微信用户信息的凭证。微信中叫做接口调用凭证。
+**access_token**：授权码。百度获取微信用户信息的凭证。微信中叫做**接口调用凭证**。
 
-**grant_type**： 授权类型。例如微信目前仅支持基于授权码的 authorization_code 模式。而OAuth2.0还可以有其他的授权方式，例如输入微信的用户名和密码的方式。
+**grant_type**： 授权类型。例如微信目前仅支持**基于授权码的 authorization_code 模式**。而OAuth2.0还可以有其他的授权方式，例如输入微信的用户名和密码的方式。
 
 **userDetails**(user_id)：授权用户标识。在示例中代表用户的微信号。 在微信中用openid区分.
 
@@ -1566,11 +1564,11 @@ OAuth2.0协议包含以下几个角色：
 
 ​	根据我们之前的学习， OAuth是一个开放的授权标准，而Spring Security Oauth2是对OAuth2协议的一种实现框架。下面我们来搭建自己的Spring Security OAuth2的服务框架。
 
-​	OAuth2的服务提供方包含两个服务，即授权服务(Authorization Server，也叫做认证服务)和资源服务(Resource Server)，使用Spring Security OAuth2的时候，可以选择在同一个应用中来实现这两个服务，也可以拆分成多个应用来实现同一组授权服务。	
+​	OAuth2的服务提供方包含两个服务，即**授权服务(Authorization Server，也叫做认证服务)和资源服务(Resource Server)**，使用Spring Security OAuth2的时候，可以选择在同一个应用中来实现这两个服务，也可以拆分成多个应用来实现同一组授权服务。	
 
 ​	**授权服务(Authorization Server)**应包含对接入端以及登入用户的合法性进行验证并颁发token等功能，对令牌的请求断点由Spring MVC控制器进行实现，下面是配置一个认证服务必须的endpoints:
 
-- ​	AuthorizationEndpoint服务于认证请求。默认URL：/oauth/authorize
+- AuthorizationEndpoint服务于认证请求。默认URL：/oauth/authorize
 - TokenEndpoint服务于访问令牌的请求。默认URL：/oauth/token
 - OAuth2AuthenticationProcessingFilter用来对请求给出的身份令牌进行解析健全。
 
@@ -1578,7 +1576,7 @@ OAuth2.0协议包含以下几个角色：
 
 ![](./SpringSecurity.assets/20220109132254.png)
 
-​	其中，distributed-security-uaa模块将用来实现认证授权服务，而distributed-security-salary模块用来实现资源服务。认证的大致流程如下：
+​	其中，**distributed-security-uaa模块将用来实现认证授权服务，而distributed-security-salary模块用来实现资源服务**。认证的大致流程如下：
 
 ​	1、客户请求distributed-security-uaa授权服务申请access_token
 
@@ -1952,7 +1950,7 @@ public class AuthorizationServerConfigurerAdapter implements AuthorizationServer
 
 这三个配置也是整个授权认证服务中最核心的配置。
 
-**ClientDetailsServiceConfigurer**：用来配置客户端详情服务（ClientDetailsService），客户端详情信息在这里进行初始化，你能够把客户端详情信息写死在这里或者是通过数据库来存储调取详情信息。
+**ClientDetailsServiceConfigurer**：用来配置客户端详情服务（ClientDetailsService），**客户端详情信息在这里进行初始化，你能够把客户端详情信息写死在这里或者是通过数据库来存储调取详情信息**。
 
 **AuthorizationServerEndpointsConfifigurer**：用来配置令牌（token）的访问端点和令牌服务(tokenservices)。
 
@@ -1967,7 +1965,7 @@ ClientDetailsServiceConfigurer能够使用内存或者JDBC来实现客户端详�
 - scope： 用来限制客户端的访问范围，如果是空(默认)的话，那么客户端拥有全部的访问范围。
 - authrizedGrantTypes：此客户端可以使用的授权类型，默认为空。在微信登录中，只支持authorization_code这一种。
 - authorities：此客户端可以使用的权限(基于Spring Security authorities)
-- redirectUris：回调地址。授权服务会往该回调地址推送此客户端相关的信息。
+- redirectUris：**回调地址。授权服务会往该回调地址推送此客户端相关的信息**。
 
 Client Details客户端详情，能够在应用程序运行的时候进行更新，可以通过访问底层的存储服务(例如访问mysql，就提供了JdbcClientDetailsService)或者通过自己实现ClientRegisterationService接口(同时也可以实现ClientDetailsService接口)来进行定制。
 
@@ -1997,7 +1995,7 @@ Client Details客户端详情，能够在应用程序运行的时候进行更新
 
 AuthorizationServerTokenService接口定义了一些对令牌进行管理的必要操作，令牌可以被用来加载身份信息，里面包含了这个令牌的相关权限。
 
-实现一个AuthorizationServerTokenServices这个接口，需要继承DefaultTokenServices这个类。 该类中包含了一些有用的实现。你可以使用它来修改令牌的格式和令牌的存储。默认情况下，他在创建一个令牌时，是使用随机值来进行填充的。这个类中完成了令牌管理的几乎所有的事情，唯一需要依赖的是spring容器中的一个TokenStore接口实现类来定制令牌持久化。而这个TokenStore，有一个默认的实现，就是ImMemoryTokenStore，这个类会将令牌保存到内存中。除此之外，还有几个默认的TokenStore实现类可以使用。
+实现一个AuthorizationServerTokenServices这个接口，需要继承**DefaultTokenServices**这个类。 该类中包含了一些有用的实现。你可以使用它来修改令牌的格式和令牌的存储。默认情况下，他在创建一个令牌时，是使用随机值来进行填充的。这个类中完成了令牌管理的几乎所有的事情，唯一需要依赖的是spring容器中的一个TokenStore接口实现类来定制令牌持久化。而这个TokenStore，有一个默认的实现，就是ImMemoryTokenStore，这个类会将令牌保存到内存中。除此之外，还有几个默认的TokenStore实现类可以使用。
 
 - InMemoryTokenStore：这个是默认采用的方式。他可以在单服务器上完美运行(即并发访问压力不大的情况下，并且他在失败时不会进行备份)。大多数的项目都可以使用这个实现类来进行尝试。也可以在并发的时候来进行管理，因为不会被保存到磁盘中，所以更易于调试。
 - JdbcTokenStore：这是一个基于JDBC的实现类，令牌会被保存到关系型数据库中。使用这个实现类，可以在不同的服务器之间共享令牌信息。当然，这个是需要使用spring boot jdbc相关的依赖的。类似的，还有RedisTokenStore基于Redis存储令牌信息。
@@ -2024,7 +2022,7 @@ public class TokenConfig {
 在AuthorizationServer中定义AuthorizationServerTokenServices
 
 ```java
-    @Autowired
+  @Autowired
 	private TokenStore tokenStore;
 	//会通过之前的ClientDetailsServiceConfigurer注入到Spring容器中
 	@Autowired
@@ -2086,12 +2084,12 @@ AuthorizationServerEndpointsConfifigurer这个配置对象首先可以通过path
    @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
-//                .pathMapping("/oauth/confirm_access","/customer/confirm_access")//定制授权同意页面
-                .authenticationManager(authenticationManager)//认证管理器
-                .userDetailsService(userDetailsService)//密码模式的用户信息管理
-                .authorizationCodeServices(authorizationCodeServices)//授权码服务
-                .tokenServices(tokenService())//令牌管理服务
-                .allowedTokenEndpointRequestMethods(HttpMethod.POST);
+          //                .pathMapping("/oauth/confirm_access","/customer/confirm_access")//定制授权同意页面
+          .authenticationManager(authenticationManager)//认证管理器
+          .userDetailsService(userDetailsService)//密码模式的用户信息管理
+          .authorizationCodeServices(authorizationCodeServices)//授权码服务
+          .tokenServices(tokenService())//令牌管理服务
+          .allowedTokenEndpointRequestMethods(HttpMethod.POST);
     }
     
         //设置授权码模式的授权码如何存取，暂时用内存方式。
@@ -2197,8 +2195,7 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 在之前配置客户端详细信息时，我们配置了客户端可以支持的授权类型
 
 ```java
- client.authorizedGrantTypes("authorization_code",
-                        "password", "client_credentials", "implicit", "refresh_token")//该client允许的授权类型
+ client.authorizedGrantTypes("authorization_code","password", "client_credentials", "implicit", "refresh_token")//该client允许的授权类型
 ```
 
 这里就列出了OAuth2支持的四种授权类型。其实是代表了OAuth授权三方的不同互信程度。
@@ -2207,7 +2204,7 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 这种模式是最简单的模式，流程如下：
 
-![](.\oauth_grant_type_client.png)
+![](./oauth_grant_type_client.png)
 
  (1) 客户端向授权服务器发送自己的身份信息，请求令牌access_token。请求地址：
 
