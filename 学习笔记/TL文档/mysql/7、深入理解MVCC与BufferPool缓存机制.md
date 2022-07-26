@@ -34,9 +34,9 @@ undo日志版本链是指一行数据被多个事务依次修改过后，在每�
 
 MVCC机制的实现就是通过read-view机制与undo版本链比对机制，使得不同的事务会根据数据版本链对比规则读取同一条数据在版本链上的不同版本数据。
 
-## **Innodb引擎SQL执行的BufferPool缓存机制** 
+## **Innodb引擎SQL执行的BufferPool缓存机制**
 
-![img](./7%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3MVCC%E4%B8%8EBufferPool%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6.assets/20211214205611.png)
+![ ](./7%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3MVCC%E4%B8%8EBufferPool%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6.assets/20211214205611.png)
 
 **为什么Mysql不能直接更新磁盘上的数据而且设置这么一套复杂的机制来执行SQL了？**
 

@@ -2204,7 +2204,7 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 这种模式是最简单的模式，流程如下：
 
-![](./oauth_grant_type_client.png)
+![](./SpringSecurity.assets/oauth_grant_type_client.png)
 
  (1) 客户端向授权服务器发送自己的身份信息，请求令牌access_token。请求地址：
 
