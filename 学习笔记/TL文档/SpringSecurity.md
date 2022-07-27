@@ -1068,7 +1068,7 @@ public interface UserDetails extends Serializable {
 public interface PasswordEncoder {、
     //加密
     String encode(CharSequence var1);
-	//比较密码
+	  //比较密码
     boolean matches(CharSequence var1, String var2);
 	
     default boolean upgradeEncoding(String encodedPassword) {
@@ -1420,7 +1420,7 @@ http
 
 - SecurityContextLogoutHandler 退出时SecurityContext的相关清理
 
-链式API提供了调用相应的 LogoutHandler 实现的快捷方式，比如deleteCookies()。
+链式API提供了调用相应的LogoutHandler 实现的快捷方式，比如deleteCookies()。
 
 ## 五、分布式系统认证方案
 
@@ -1500,7 +1500,7 @@ OAuth协议：https://tools.ietf.org/html/rfc6749
 
 ​		OAuth认证流程，简单理解，就是允许我们将之前**实现的认证和授权的过程交由一个独立的第三方来进行担保。而OAuth协议就是用来定义如何让这个第三方的担保有效且双方可信**。例如我们下面以用户访问百度登录后的资源为例：
 
-2.1 用户希望登录百度，访问百度登录后的资源。而用户可以选择使用微信账号进行登录，实际是将授权认证的流程交由微信(独立第三方)来进行担保。
+2.1 用户希望登录百度，访问百度登录后的资源。而用户可以选择使用微信账号进行登录，实际是将授权认证的流程交由**微信(独立第三方)来进行担保**。
 
 ![](./SpringSecurity.assets/20220109132159.png)
 
@@ -1540,11 +1540,11 @@ OAuth2.0协议包含以下几个角色：
 
 4、资源服务器 - 示例中的微信 和 百度
 
-存储资源的服务器。本示例中，微信 通过OAuth协议让百度可以获取到自己存储的用户信息，而百度则通过OAuth协议，让用户可以访问自己的受保护资源。
+存储资源的服务器。本示例中，**微信 通过OAuth协议让百度可以获取到自己存储的用户信息，而百度则通过OAuth协议，让用户可以访问自己的受保护资源。**
 
 这其中还有几个重要的概念：
 
-**clientDetails**(client_id)：客户信息。代表百度 在微信中的唯一索引。 在微信中用appid区分
+**clientDetails**(client_id)：客户信息。代表百度在微信中的唯一索引。 在微信中用appid区分
 
 **secret**：秘钥。代表百度获取微信信息需要提供的一个加密字段。这跟微信采用的加密算法有关。
 
