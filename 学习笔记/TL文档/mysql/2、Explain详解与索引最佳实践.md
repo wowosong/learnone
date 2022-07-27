@@ -60,11 +60,7 @@ mysql> explain select * from actor;
 
 1）**explain extended**：会在 explain 的基础上额外提供一些查询优化的信息。紧随其后通过 show warnings 命令可 
 
-以得到优化后的查询语句，从而看出优化器优化了什么。额外还有 filtered 列，是一个半分比的值，rows * 
-
-filtered/100 可以**估算**出将要和 explain 中前一个表进行连接的行数（前一个表指 explain 中的id值比当前表id值小的 
-
-表）。
+以得到优化后的查询语句，从而看出优化器优化了什么。额外还有 filtered 列，是一个半分比的值，rows *filtered/100 可以**估算**出将要和 explain 中前一个表进行连接的行数（前一个表指 explain 中的id值比当前表id值小的表）。
 
 ```sql
  mysql> explain extended select * from film where id = 1; 
@@ -82,7 +78,7 @@ filtered/100 可以**估算**出将要和 explain 中前一个表进行连接的
 
 区。
 
-### **explain中的列** 
+### **explain中的列**
 
 接下来我们将展示 explain 中每个列的信息。 
 
@@ -90,7 +86,7 @@ filtered/100 可以**估算**出将要和 explain 中前一个表进行连接的
 
 id列的编号是 select 的序列号，有几个 select 就有几个id，并且id的顺序是按 select 出现的顺序增长的。 
 
-id列越大执行优先级越高，id相同则从上往下执行，id为NULL最后执行。 
+**id列越大执行优先级越高，id相同则从上往下执行，id为NULL最后执行。** 
 
 **2. select_type列** 
 
@@ -140,11 +136,11 @@ mysql> set session optimizer_switch='derived_merge=on'; #还原默认配置
 
 **4. type列** 
 
-这一列表示**关联类型或访问类型**，即MySQL决定如何查找表中的行，查找数据行记录的大概范围。 
+**这一列表示关联类型或访问类型，即MySQL决定如何查找表中的行，查找数据行记录的大概范围。** 
 
 依次从最优到最差分别为：**system > const > eq_ref > ref > range > index > ALL** 
 
-一般来说，**得保证查询达到range级别，最好达到ref** 
+一般来说，**得保证查询达到range级别，最好达到ref**
 
 **NULL**：mysql能够在优化阶段分解查询语句，在执行阶段用不着再访问表或索引。例如：在索引列中选取最小值，可以单独查找索引来完成，不需要在执行时访问表 
 
@@ -156,7 +152,7 @@ mysql> explain select min(id) from film;
 
 **const, system**：mysql能对查询的某部分进行优化并将其转化成一个常量（可以看show warnings 的结果）。用于 
 
-primary key 或 unique key(主键或唯一索引) 的所有列与常数比较时，所以表最多有一个匹配行，读取1次，速度比较快。**system是const的特例**，表里只有一条元组匹配时为system 
+**primary key 或 unique key(主键或唯一索引) 的所有列与常数比较时**，所以表最多有一个匹配行，读取1次，速度比较快。**system是const的特例**，表里只有一条元组匹配时为system 
 
 ```sql
  mysql> explain extended select * from (select * from film where id = 1) tmp; 
@@ -170,9 +166,7 @@ mysql> show warnings;
 
 ![image-20211211115302377](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211115302.png)
 
-**eq_ref**：primary key 或 unique key 索引的所有部分被连接使用 ，最多只会返回一条符合条件的记录。这可能是在 
-
-const 之外最好的联接类型了，简单的 select 查询不会出现这种 type。 
+**eq_ref**：primary key 或 unique key 索引的**索引列**被连接使用 ，最多只会返回一条符合条件的记录。这可能是在 const 之外最好的联接类型了，简单的 select 查询不会出现这种 type。 
 
 ```sql
 mysql> explain select * from film_actor left join film on film_actor.film_id = film.id; 
@@ -193,7 +187,7 @@ mysql> explain select * from film_actor left join film on film_actor.film_id = f
 2.关联表查询，**idx_film_actor_id是film_id和actor_id的联合索引，这里使用到了film_actor的左边前缀film_id部分**。 
 
 ```sql
- mysql> explain select film_id from film left join film_actor on film.id = film_actor.film_id; 
+ mysql> explain select film_id from film left join film_actor on film.id=film_actor.film_id; 
 ```
 
 ![image-20211211120307101](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211120307.png)
@@ -222,7 +216,7 @@ mysql> explain select * from actor;
 
 ![image-20211211121154767](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211121154.png)
 
-**5. possible_keys列** 
+**5. possible_keys列**
 
 这一列显示查询可能使用哪些索引来查找。 
 
@@ -236,7 +230,7 @@ explain 时可能出现 possible_keys 有列，而 key 显示 NULL 的情况，�
 
 如果没有使用索引，则该列是 NULL。如果想强制mysql使用或忽视possible_keys列中的索引，在查询中使用 force index、ignore index。 
 
-**7. key_len列** 
+**7. key_len列**
 
 这一列显示了mysql在索引里使用的**字节数**，**通过这个值可以算出具体使用了索引中的哪些列**。 
 
