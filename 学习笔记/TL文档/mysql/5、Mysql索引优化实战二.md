@@ -247,7 +247,7 @@ exists：当A表的数据集小于B表的数据集时，exists优于in
 
 ```sql
   select * from A where exists (select 1 from B where B.id = A.id) 
-  #等价于:    for(select * from A){      select * from B where B.id = A.id    }     
+  #等价于：    for(select * from A){      select * from B where B.id = A.id    }     
   #A表与B表的ID字段应建立索引            
 ```
 
@@ -347,10 +347,10 @@ count() 是例外，mysql并不会把全部字段取出来，而是专门做了�
 | 类型 | 大小(字节) | 范围 | 格式 | 用途 |
 | ---- | ---- | ---- | ---- | ---- |
 |   DATE   |    	3     	|  1000-01-01 到 9999-12-31       |            	YYYY-MM-DD      |     	日期值  |
-|   TIME     	|  3     |  	'-838:59:59' 到 '838:59:59'   |            	HH:MM:SS  |          	时间值或持续时间    |
+|   TIME     	|  3     |  	'-838：59：59' 到 '838：59：59'   |            	HH：MM：SS  |          	时间值或持续时间    |
 |  YEAR   |    	1     |  	1901 到 2155       |                        	YYYY          |     	年份值      |
-|  DATETIME |   	8 |      	1000-01-01 00:00:00 到 9999-12-31 23:59:59	|  YYYY-MM-DD HH:MM:SS|  	混合日期和时间值   |
-|   TIMESTAMP	|  4     	|  1970-01-01 00:00:00 到 2038-01-19 03:14:07	|  YYYYMMDDhhmmss     	|  混合日期和时间值，时间戳|
+|  DATETIME |   	8 |      	1000-01-01 00：00：00 到 9999-12-31 23：59：59	|  YYYY-MM-DD HH：MM：SS|  	混合日期和时间值   |
+|   TIMESTAMP	|  4     	|  1970-01-01 00：00：00 到 2038-01-19 03：14：07	|  YYYYMMDDhhmmss     	|  混合日期和时间值，时间戳|
 
 优化建议
 
@@ -398,7 +398,7 @@ PS：INT显示宽度
 
 这里表示user表的id字段的类型是TINYINT，可以存储的最大数值是255。所以，在存储数据时，如果存入值小于等于255，如200，虽然超过2位，但是没有超出TINYINT类型长度，所以可以正常保存；如果存入值大于255，如500，那么MySQL会自动保存为TINYINT类型的最大值255。
 
-在查询数据时，不管查询结果为何值，都按实际输出。这里TINYINT(2)中2的作用就是，当需要在查询结果前填充0时，命令中加上ZEROFILL就可以实现，如:
+在查询数据时，不管查询结果为何值，都按实际输出。这里TINYINT(2)中2的作用就是，当需要在查询结果前填充0时，命令中加上ZEROFILL就可以实现，如：
 
 ```sql
 `id` TINYINT(2) UNSIGNED ZEROFILL 
@@ -410,4 +410,4 @@ PS：INT显示宽度
 
 文档：Mysql索引优化实战二.note
 
- http://note.youdao.com/noteshare?id=df15aba3aa76c225090d04d0dc776dd9&sub=B0D6000AA824407489097F4C87B3F36D    
+ http：//note.youdao.com/noteshare?id=df15aba3aa76c225090d04d0dc776dd9&sub=B0D6000AA824407489097F4C87B3F36D    
