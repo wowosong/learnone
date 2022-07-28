@@ -180,9 +180,7 @@ MySQL的数据目录（使用SHOW VARIABLES LIKE 'datadir'查看）下默认有�
 
 innodb\_log\_group\_home\_dir，该参数指定了redo日志文件所在的目录，默认值就是当前的数据目录。
 
-innodb\_log\_file\_size，
-
-该参数指定了每个redo日志文件的大小，默认值为48MB，
+innodb\_log\_file\_size，该参数指定了每个redo日志文件的大小，默认值为48MB，
 
 innodb\_log\_files\_in\_group，该参数指定redo日志文件的个数，默认值为2，最大值为100。
 
