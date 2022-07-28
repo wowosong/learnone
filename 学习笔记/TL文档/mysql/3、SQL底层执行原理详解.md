@@ -4,7 +4,7 @@
 
 ![image-20211211152020218](./3%E3%80%81SQL%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.assets/20211211152021.png)
 
-大体来说，MySQL 可以分为 Server 层和存储引擎层两部分。 
+大体来说，MySQL 可以分为 **Server 层和存储引擎层**两部分。 
 
 ### **Server层**
 
@@ -12,7 +12,7 @@
 
 ### **Store层**
 
-​	存储引擎层负责数据的存储和提取。其架构模式是插件式的，支持 InnoDB、MyISAM、Memory 等多个存储引擎。现在最常用的存储引擎是 InnoDB，它从 MySQL 5.5.5 版本开始成为了默认存储引擎。也就是说如果我们在create table时不指定表的存储引擎类型,默认会给你设置存储引擎为InnoDB。
+​	**存储引擎层负责数据的存储和提取。其架构模式是插件式的，支持 InnoDB、MyISAM、Memory 等多个存储引擎。现在最常用的存储引擎是 InnoDB，它从 MySQL 5.5.5 版本开始成为了默认存储引擎。**也就是说如果我们在create table时不指定表的存储引擎类型，默认会给你设置存储引擎为InnoDB。
 
 本节课演示表的DDL： 
 
@@ -30,26 +30,26 @@
 
 我们知道由于MySQL是开源的，他有非常多种类的客户端：navicat，mysql front，jdbc，SQLyog等非常丰富的客户端，这些 客户端要向mysql发起通信都必须先跟Server端建立通信连接，而建立连接的工作就是有连接器完成的。 
 
-第一步，你会先连接到这个数据库上，这时候接待你的就是连接器。连接器负责跟客户端建立连接、获取权限、维持和管理连接。连接命令一般是这么写的： 
+第一步，你会先连接到这个数据库上，这时候接待你的就是连接器。连接器负责跟**客户端建立连接、获取权限、维持和管理连接**。连接命令一般是这么写的： 
 
-```shell
+```mysql
 [root@192 ~]# mysql ‐h host[数据库地址] ‐u root[用户] ‐p root[密码] ‐P 3306 
 ```
 
 连接命令中的 mysql 是客户端工具，用来跟服务端建立连接。在完成经典的 TCP 握手后，连接器就要开始认证你的身份， 这个时候用的就是你输入的用户名和密码。 
 
-```
+```shell
 1、如果用户名或密码不对，你就会收到一个"Access denied for user"的错误，然后客户端程序结束执行。 
 2、如果用户名密码认证通过，连接器会到权限表里面查出你拥有的权限。之后，这个连接里面的权限判断逻辑，都将依赖于此时读到的权限。
 ```
 
-这就意味着，一个用户成功建立连接后，即使你用管理员账号对这个用户的权限做了修改，也不会影响已经存在连接的权限。修改完成后，只有再新建的连接才会使用新的权限设置。用户的权限表在系统表空间的mysql的user表中。 
+这就意味着，一个用户成功建立连接后，即使你用管理员账号对这个用户的权限做了修改，也不会影响已经存在连接的权限。**修改完成后，只有再新建的连接才会使用新的权限设置**。用户的权限表在系统表空间的mysql的user表中。 
 
 ![image-20211211153004648](./3%E3%80%81SQL%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.assets/20211211153004.png)
 
 修改user密码 
 
-```shell
+```mysql
  mysql> CREATE USER 'username'@'host' IDENTIFIED BY 'password'; //创建新用户 
  mysql> grant all privileges on *.* to 'username'@'%'; //赋权限,%表示所有(host) 
  mysql> flush privileges //刷新数据库 
@@ -61,20 +61,18 @@
 
 ![image-20211211154711388](./3%E3%80%81SQL%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.assets/20211211154711.png)
 
-客户端如果长时间不发送command到Server端，连接器就会自动将它断开。这个时间是由参数 wait_timeout 控制的，默认值是 8 小时。 
+客户端如果长时间不发送command到Server端，连接器就会自动将它断开。这个时间是由参数 wait_timeout 控制的，**默认值是 8 小时**。 
 
 查看wait_timeout 
 
 ```shell
 1 mysql> show global variables like "wait_timeout"; 
-2 mysql>set global wait_timeout=28800; 设置全局服务器关闭非交互连接之前等待活动的秒数 
+2 mysql>set global wait_timeout=28800; #设置全局服务器关闭非交互连接之前等待活动的秒数 
 ```
 
 ![image-20211211154844179](./3%E3%80%81SQL%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.assets/20211211154844.png)
 
-如果在连接被断开之后，客户端再次发送请求的话，就会收到一个错误提醒： Lost connection to MySQL server during 
-
-query。这时候如果你要继续，就需要重连，然后再执行请求了。
+如果在连接被断开之后，客户端再次发送请求的话，就会收到一个错误提醒： Lost connection to MySQL server during query。这时候如果你要继续，就需要重连，然后再执行请求了。
 
 数据库里面，长连接是指连接成功后，如果客户端持续有请求，则一直使用同一个连接。短连接则是指每次执行完很少的几次查询就断开连接，下次查询再重新建立一个。 
 
@@ -82,16 +80,16 @@ query。这时候如果你要继续，就需要重连，然后再执行请求了
 
 怎么解决这类问题呢？ 
 
-```
+```shell
 1、定期断开长连接。使用一段时间，或者程序里面判断执行过一个占用内存的大查询后，断开连接，之后要查询再重连。 
-2、如果你用的是 MySQL 5.7 或更新版本，可以在每次执行一个比较大的操作后，通过执行 mysql_reset_connection来重新初始化连接资源。这个过程不需要重连和重新做权限验证，但是会将连接恢复到刚刚创建完时的状态。 
+2、如果你用的是 MySQL 5.7 或更新版本，可以在每次执行一个比较大的操作后，通过执行mysql_reset_connection来重新初始化连接资源。这个过程不需要重连和重新做权限验证，但是会将连接恢复到刚刚创建完时的状态。 
 ```
 
 **查询缓存**
 
  常用的一些操作
 
-```shell
+```mysql
 mysql>show databases; 显示所有数据库 
 mysql>use dbname； 打开数据库： 
 mysql>show tables; 显示数据库mysql中所有的表； 
@@ -106,35 +104,33 @@ MySQL 拿到一个查询请求后，会先到查询缓存看看，之前是不�
 
 **大多数情况查询缓存就是个鸡肋，为什么呢？** 
 
-因为查询缓存往往弊大于利。查询缓存的失效非常频繁，只要有对一个表的更新，这个表上所有的查询缓存都会被清空。 
+因为查询缓存往往弊大于利。**查询缓存的失效非常频繁，只要有对一个表的更新，这个表上所有的查询缓存都会被清空。** 
 
 因此很可能你费劲地把结果存起来，还没使用呢，就被一个更新全清空了。对于更新压力大的数据库来说，查询缓存的命中率会非常低。 
 
-一般建议大家在静态表里使用查询缓存，什么叫静态表呢？就是一般我们极少更新的表。比如，一个系统配置表、字典表，那这张表上的查询才适合使用查询缓存。好在 MySQL 也提供了这种“按需使用”的方式。你可以将my.cnf参数 
+一般建议大家在静态表里使用查询缓存，什么叫静态表呢？就是一般我们极少更新的表。比如，一个系统配置表、字典表，那这张表上的查询才适合使用查询缓存。好在 MySQL 也提供了这种“按需使用”的方式。你可以将my.cnf参数 query_cache_type 设置成 DEMAND。 
 
-query_cache_type 设置成 DEMAND。 
-
-```
-my.cnf 
+```shell
+#my.cnf 
 #query_cache_type有3个值 0代表关闭查询缓存OFF，1代表开启ON，2（DEMAND）代表当sql语句中有SQL_CACHE关键词时才缓存 
 query_cache_type=2
 ```
 
 这样对于默认的 SQL 语句都不使用查询缓存。而对于你确定要使用查询缓存的语句，可以用 SQL_CACHE 显式指定，像下面这个语句一样： 
 
-```
- mysql> select SQL_CACHE * from test where ID=5； 
+```sql
+ mysql> select SQL_CACHE * from test where ID=5;
 ```
 
-查看当前mysql实例是否开启缓存机制 
+查看当前mysql实例是否开启缓存机制
 
-```
+```sql
 mysql> show global variables like "%query_cache_type%"; 
 ```
 
 监控查询缓存的命中率: 
 
-```
+```sql
  mysql> show status like'%Qcache%'; //查看运行的缓存信息
 ```
 
@@ -155,7 +151,7 @@ mysql> show global variables like "%query_cache_type%";
 
 如果没有命中查询缓存，就要开始真正执行语句了。首先，MySQL 需要知道你要做什么，因此需要对 SQL 语句做解析。 
 
-分析器先会做“词法分析”。你输入的是由多个字符串和空格组成的一条 SQL 语句，MySQL 需要识别出里面的字符串分别是什么，代表什么。 
+分析器先会做“**词法分析**”。你输入的是由多个字符串和空格组成的一条 SQL 语句，MySQL 需要识别出里面的字符串分别是什么，代表什么。 
 
 MySQL 从你输入的"select"这个关键字识别出来，这是一个查询语句。它也要把字符串“T”识别成“表名 T”，把字符串“ID”识别成“列 ID”。 
 
@@ -163,7 +159,7 @@ MySQL 从你输入的"select"这个关键字识别出来，这是一个查询语
 
 如果你的语句不对，就会收到“You have an error in your SQL syntax”的错误提醒，比如下面这个语句 from 写成了"rom"。
 
-```
+```sql
 1 mysql> select * fro test where id=1; 
 
 2 ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fro test where id=1' at line 1 
@@ -173,7 +169,7 @@ MySQL 从你输入的"select"这个关键字识别出来，这是一个查询语
 
 词法分析器分成6个主要步骤完成对sql语句的分析 
 
-```
+```sql
 1、词法分析 
 2、语法分析 
 3、语义分析 
@@ -196,19 +192,15 @@ SQL语句的分析分为词法分析与语法分析，mysql的词法分析由MyS
 
 经过了分析器，MySQL 就知道你要做什么了。在开始执行之前，还要先经过优化器的处理。 
 
-优化器是在表里面有多个索引的时候，决定使用哪个索引；或者在一个语句有多表关联（join）的时候，决定各个表的连接顺序。比如你执行下面这样的语句，这个语句是执行两个表的 join：
+**优化器是在表里面有多个索引的时候，决定使用哪个索引；或者在一个语句有多表关联（join）的时候，决定各个表的连接顺序**。比如你执行下面这样的语句，这个语句是执行两个表的 join：
 
-```
+```sql
 mysql> select * from test1 join test2 using(ID) where test1.name=yangguo and test2.name=xiaolongnv; 
 ```
 
-既可以先从表 test1 里面取出 name=yangguo的记录的 ID 值，再根据 ID 值关联到表 test2，再判断 test2 里面 name的 
+既可以先从表 test1 里面取出 name=yangguo的记录的 ID 值，再根据 ID 值关联到表 test2，再判断 test2 里面 name的值是否等于 yangguo。 
 
-值是否等于 yangguo。 
-
-也可以先从表 test2 里面取出 name=xiaolongnv 的记录的 ID 值，再根据 ID 值关联到 test1，再判断 test1 里面 name 
-
-的值是否等于 yangguo。 
+也可以先从表 test2 里面取出 name=xiaolongnv 的记录的 ID 值，再根据 ID 值关联到 test1，再判断 test1 里面 name的值是否等于 yangguo。 
 
 这两种执行方法的逻辑结果是一样的，但是执行的效率会有不同，而优化器的作用就是决定选择使用哪一个方案。优化器阶段完成后，这个语句的执行方案就确定下来了，然后进入执行器阶段。如果你还有一些疑问，比如优化器是怎么选择索引的，有没有可能选择错等等。 
 
@@ -216,8 +208,8 @@ mysql> select * from test1 join test2 using(ID) where test1.name=yangguo and tes
 
 开始执行的时候，要先判断一下你对这个表T有没有执行查询的权限，如果没有，就会返回没有权限的错误，如下所示 (在工程实现上，如果命中查询缓存，会在查询缓存返回结果的时候，做权限验证。查询也会在优化器之前调用 precheck 验证权限)。
 
-```
- mysql> select * from test where id=1; 
+```sql
+ mysql> select * from test where id=10; 
 ```
 
 如果有权限，就打开表继续执行。打开表的时候，执行器就会根据表的引擎定义，去使用这个引擎提供的接口。 
@@ -228,9 +220,9 @@ mysql> select * from test1 join test2 using(ID) where test1.name=yangguo and tes
 
 2. 调用引擎接口取“下一行”，重复相同的判断逻辑，直到取到这个表的最后一行。 
 
-3. 执行器将上述遍历过程中所有满足条件的行组成的记录集作为结果集返回给客户端。 
+3. **执行器将上述遍历过程中所有满足条件的行组成的记录集作为结果集返回给客户端。** 
 
-至此，这个语句就执行完成了。对于有索引的表，执行的逻辑也差不多。第一次调用的是“取满足条件的第一行”这个接口，之后循环取“满足条件的下一行”这个接口，这些接口都是引擎中已经定义好的。你会在数据库的慢查询日志中看到一个rows_examined 的字段，表示这个语句执行过程中扫描了多少行。这个值就是在执行器每次调用引擎获取数据行的时候累加 的。在有些场景下，执行器调用一次，在引擎内部则扫描了多行，因此引擎扫描行数跟 rows_examined 并不是完全相同的。 
+至此，这个语句就执行完成了。对于有索引的表，执行的逻辑也差不多。第一次调用的是“取满足条件的第一行”这个接口，之后循环取“满足条件的下一行”这个接口，这些接口都是引擎中已经定义好的。你会在数据库的慢查询日志中看到一个rows_examined 的字段，表示这个语句执行过程中扫描了多少行。这个值就是在执行器每次调用引擎获取数据行的时候累加的。在有些场景下，执行器调用一次，在引擎内部则扫描了多行，因此引擎扫描行数跟 rows_examined 并不是完全相同的。 
 
 ## **bin-log归档** 
 
@@ -248,11 +240,11 @@ binlog是Server层实现的二进制日志，他会记录我们的cud操作。Bi
 
 配置my.cnf 
 
-```
-配置开启binlog 
+```shell
+#配置开启binlog 
 log‐bin=/usr/local/mysql/data/binlog/mysql‐bin 
-注意5.7以及更高版本需要配置本项：server‐id=123454（自定义,保证唯一性）; 
-#binlog格式，有3种statement,row,mixed 
+#注意5.7以及更高版本需要配置本项：server‐id=123454（自定义,保证唯一性）; 
+#binlog格式，有3种statement(记录操作逻辑),row(记录操作影响的那个结果),mixed 
 binlog‐format=ROW 
 #表示每1次执行写入就与硬盘同步，会影响性能，为0时表示，事务提交时mysql不做刷盘操作，由系统决定 
 sync‐binlog=1
@@ -260,7 +252,7 @@ sync‐binlog=1
 
 binlog命令 
 
-```
+```mysql
 mysql> show variables like '%log_bin%'; 查看bin‐log是否开启 
 mysql> flush logs; 会多一个最新的bin‐log日志 
 mysql> show master status; 查看最后一个bin‐log日志的相关信息 
@@ -270,17 +262,17 @@ mysql> reset master; 清空所有的bin‐log日志
 查看binlog内容 
 
 ```
-mysql> /usr/local/mysql/bin/mysqlbinlog ‐‐no‐defaults /usr/local/mysql/data/binlog/mysql‐bin.000001 查看binlog内容 
+mysql> /usr/local/mysql/bin/mysqlbinlog ‐‐no‐defaults/usr/local/mysql/data/binlog/mysql‐bin.000001 查看binlog内容 
 ```
 
-binlog里的内容不具备可读性，所以需要我们自己去判断恢复的逻辑点位，怎么观察呢？看重点信息，比如begin，commit这种关键词信息，只要在binlog当中看到了，你就可以理解为begin-commit之间的信息是一个完整的事务逻辑,然后再根据位置position判断恢复即可。binlog内容如下： 
+binlog里的内容不具备可读性，所以需要我们自己去判断**恢复的逻辑点位，**怎么观察呢？看重点信息，比如begin，commit这种关键词信息，只要在binlog当中看到了，你就可以理解为begin-commit之间的信息是一个完整的事务逻辑,然后再根据位置position判断恢复即可。binlog内容如下： 
 
 ![image-20211211211504612](./3%E3%80%81SQL%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.assets/20220115181603.png)
 
 **数据归档操作** 
 
-```
-从bin‐log恢复数据 
+```sql
+#从bin‐log恢复数据 
 恢复全部数据 
 /usr/local/mysql/bin/mysqlbinlog ‐‐no‐defaults /usr/local/mysql/data/binlog/mysql‐bin.000001 
 |mysql ‐uroot ‐p tuling(数据库名) 
