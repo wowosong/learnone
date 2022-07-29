@@ -56,9 +56,7 @@ mysql> explain select * from actor;
 
 ### **explain 两个变种**
 
-1）**explain extended**：会在 explain 的基础上额外提供一些查询优化的信息。紧随其后通过 show warnings 命令可 
-
-以得到优化后的查询语句，从而看出优化器优化了什么。额外还有 filtered 列，是一个半分比的值，rows *filtered/100 可以**估算**出将要和 explain 中前一个表进行连接的行数（前一个表指 explain 中的id值比当前表id值小的表）。
+1）**explain extended**：会在 explain 的基础上额外提供一些查询优化的信息。紧随其后通过 show warnings 命令可以得到优化后的查询语句，从而看出优化器优化了什么。额外还有 filtered 列，是一个半分比的值，rows *filtered/100 可以**估算**出将要和 explain 中前一个表进行连接的行数（前一个表指 explain 中的id值比当前表id值小的表）。
 
 ```sql
  mysql> explain extended select * from film where id = 1; 
@@ -72,9 +70,7 @@ mysql> explain select * from actor;
 
 ![image-20211211113943174](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211113943.png)
 
-2）**explain partitions**：相比 explain 多了个 partitions 字段，如果查询是基于分区表的话，会显示查询将访问的分 
-
-区。
+2）**explain partitions**：相比 explain 多了个 partitions 字段，如果查询是基于分区表的话，会显示查询将访问的分区。
 
 ### **explain中的列**
 
@@ -107,13 +103,14 @@ mysql> explain select * from film where id = 2;
 用这个例子来了解 primary、subquery 和 derived 类型 
 
 ```sql
-mysql> set session optimizer_switch='derived_merge=off'; #关闭mysql5.7新特性对衍生表的合并优化 mysql> explain select (select 1 from actor where id = 1) from (select * from film where id = 1) der;
+set session optimizer_switch='derived_merge=off'; #关闭mysql5.7新特性对衍生表的合并优化 
+explain select (select 1 from actor where id = 1) from (select * from film where id = 1) der;
 ```
 
 ![image-20211211114417281](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211114417.png)
 
 ```sql
-mysql> set session optimizer_switch='derived_merge=on'; #还原默认配置 
+set session optimizer_switch='derived_merge=on'; #还原默认配置 
 ```
 
 5）union：在 union 中的第二个和随后的 select 
@@ -130,7 +127,7 @@ mysql> set session optimizer_switch='derived_merge=on'; #还原默认配置
 
 **当 from 子句中有子查询时，table列是 <derivenN> 格式，表示当前查询依赖 id=N 的查询，于是先执行 id=N 的查询。**
 
-当有 union 时，UNION RESULT 的 table 列的值为<union1,2>，1和2表示参与 union 的 select 行id。 
+**当有 union 时，UNION RESULT 的 table 列的值为<union1,2>，1和2表示参与 union 的 select 行id。** 
 
 **4. type列** 
 
@@ -148,9 +145,7 @@ mysql> explain select min(id) from film;
 
 ![image-20211211114937081](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211114937.png)
 
-**const, system**：mysql能对查询的某部分进行优化并将其转化成一个常量（可以看show warnings 的结果）。用于 
-
-**primary key 或 unique key(主键或唯一索引) 的所有列与常数比较时**，所以表最多有一个匹配行，读取1次，速度比较快。**system是const的特例**，表里只有一条元组匹配时为system 
+**const, system**：mysql能对查询的某部分进行优化并将其转化成一个常量（可以看show warnings 的结果）。用于 **primary key 或 unique key(主键或唯一索引) 的所有列与常数比较时**，所以表最多有一个匹配行，读取1次，速度比较快。**system是const的特例**，表里只有一条元组匹配时为system 
 
 ```sql
  mysql> explain extended select * from (select * from film where id = 1) tmp; 
@@ -158,13 +153,13 @@ mysql> explain select min(id) from film;
 
 ![image-20211211115200895](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211115201.png)
 
-```
+```sql
 mysql> show warnings; 
 ```
 
 ![image-20211211115302377](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211115302.png)
 
-**eq_ref**：primary key 或 unique key 索引的**索引列**被连接使用 ，最多只会返回一条符合条件的记录。这可能是在 const 之外最好的联接类型了，简单的 select 查询不会出现这种 type。 
+**eq_ref**：**primary key 或 unique key 索引的索引列**被连接使用 ，**最多只会返回一条符合条件的记录**。这可能是在 const 之外最好的联接类型了，简单的 select 查询不会出现这种 type。 
 
 ```sql
 mysql> explain select * from film_actor left join film on film_actor.film_id = film.id; 
@@ -172,20 +167,20 @@ mysql> explain select * from film_actor left join film on film_actor.film_id = f
 
 ![image-20211211120035384](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211120035.png)
 
-**ref**：相比 eq_ref，不使用唯一索引，而是**使用普通索引或者唯一性索引的部分前缀**，索引要和某个值相比较，可能会找到多个符合条件的行。 
+**ref**：相比 eq_ref，不使用唯一索引，而是**使用普通索引或者唯一性索引的部分前缀**，索引要和某个值相比较，可能会找到**多个符合条件**的行。 
 
 1. 简单 select 查询，name**是普通索引（非唯一索引）** 
 
 ```sql
- mysql> explain select * from film where name = 'film1'; 
+ explain select * from film where name = 'film1'; 
 ```
 
 ![image-20211211120147343](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211120147.png)
 
-2.关联表查询，**idx_film_actor_id是film_id和actor_id的联合索引，这里使用到了film_actor的左边前缀film_id部分**。 
+2.关联表查询，**idx_film_actor_id是film_id和actor_id的联合索引，这里使用到了film_actor的左边前缀film_id部分**。 **使用film的id去 过滤 film_actor，film_id是联合索引的前缀列，**
 
 ```sql
- mysql> explain select film_id from film left join film_actor on film.id=film_actor.film_id; 
+explain select film_id from film left join film_actor on film.id=film_actor.film_id; 
 ```
 
 ![image-20211211120307101](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211120307.png)
@@ -198,7 +193,7 @@ mysql> explain select * from film_actor left join film on film_actor.film_id = f
 
 ![image-20211211120510868](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211120511.png)
 
-**index**：扫描**全索引**就能拿到结果，一般是扫描某个**二级索引**，这种扫描不会从**索引树根节点**开始快速查找，而是直接对**二级索引的叶子节点遍历和扫描**，**速度还是比较慢的**，**这种查询一般为使用覆盖索引**，**二级索引一般比较小，所以这种通常比ALL快一些。** 
+**index**：扫描**全索引**就能拿到结果，一般是扫描某个**二级索引**，这种扫描不会从**索引树根节点**开始快速查找，而是直接对**二级索引的叶子节点遍历和扫描**，**速度还是比较慢的**，**这种查询一般为使用覆盖索引**，**二级索引一般比较小，所以这种通常比ALL快一些。** （film表有name二级索引，包含全部的记录信息（使用覆盖索引的查询），直接使用二级索引更快）
 
 ```sql
 mysql> explain select * from film; 
@@ -248,7 +243,7 @@ key_len计算规则如下：
 
 ​			char(n)：如果存汉字长度就是 3n 字节
 
-​			varchar(n)：如果存汉字则长度是 3n + 2 字节，加的2字节用来存储**字符串长度**，因为varchar是变长字符串 
+​			varchar(n)：如果存汉字则长度是 3n+2字节，加的2字节用来存储**字符串长度**，因为varchar是变长字符串 
 
 - 数值类型
 
@@ -330,9 +325,9 @@ mysql> explain select distinct name from film;
 
 5）**Using filesort**：**将用外部排序而不是索引排序，数据较小时从内存排序，否则需要在磁盘完成排序**。这种情况下一般也是要考虑使用索引来优化的。 
 
-1. actor.name未创建索引，会浏览actor整个表，保存排序关键字name和对应的id，然后排序name并检索行记录 
+1. actor.name未创建索引,会浏览actor整个表，保存排序关键字name和对应的id，然后排序name并检索行记录
 
-```sql
+```mysql
 mysql> explain select * from actor order by name;
 ```
 

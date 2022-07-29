@@ -15,7 +15,7 @@
 INSERT INTO employees(name,age,position,hire_time) VALUES('LiLei',22,'manager',NOW()); 
 INSERT INTO employees(name,age,position,hire_time) VALUES('HanMeimei', 23,'dev',NOW()); 
 INSERT INTO employees(name,age,position,hire_time) VALUES('Lucy',23,'dev',NOW()); 
-‐‐ 插入一些示例数据 
+# 插入一些示例数据 
 
 DROP PROCEDURE IF EXISTS insert_emp;
 delimiter;;
@@ -44,7 +44,7 @@ EXPLAIN SELECT * FROM employees WHERE name > 'LiLei' AND age = 22 AND position =
 
 ![image-20211212110728092](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212110728.png)
 
-结论：联合索引第一个字段就用范围查找不会走索引，mysql内部可能觉得第一个字段就用范围，结果集应该很大，回表效率不高，还不如就全表扫描
+结论：联合索引第一个字段就用范围查找不会走索引，mysql内部可能觉得**第一个字段就用范围，结果集应该很大，回表效率不高，还不如就全表扫描**
 
 **2、强制走索引** 
 
@@ -59,7 +59,7 @@ EXPLAIN SELECT * FROM employees force index(idx_name_age_position) WHERE name > 
 做了一个小实验： 
 
 ```sql
- ‐‐ 关闭查询缓存 
+ #关闭查询缓存 
  set global query_cache_size=0; 
  set global query_cache_type=0; 
 ```
@@ -76,7 +76,7 @@ SELECT * FROM employees WHERE name > 'LiLei';
 SELECT * FROM employees force index(idx_name_age_position) WHERE name > 'LiLei'; 
 ```
 
-**3、覆盖索引优化** 
+**3、覆盖索引优化**
 
 ```sql
 EXPLAIN SELECT name,age,position FROM employees WHERE name > 'LiLei' AND age = 22 AND position ='manager'; 
@@ -401,10 +401,10 @@ MySQL 5.6引入了索引下推优化，**可以在索引遍历过程中，对索
 mysql> select * from employees where name > 'zzz' order by position; 
 mysql> SELECT * FROM information_schema.OPTIMIZER_TRACE; 
 #查看trace字段可知索引扫描的成本低于全表扫描，所以mysql最终选择索引扫描 
-mysql> set session optimizer_trace="enabled=off"; ‐‐关闭trace 
+mysql> set session optimizer_trace="enabled=off"; #‐‐关闭trace 
 ```
 
-## **常见sql深入优化** 
+## **常见Order sql深入优化** 
 
 ### **Order by与Group by优化** 
 
@@ -440,7 +440,7 @@ Case 3：分析：
 
 ![image-20211212150320225](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212150320.png)
 
-查找只用到索引name，age和position用于排序，无Using filesort。 
+查找只用到索引name，age和position用于排序，无Using filesort。因为name,age,position构成了索引列的结构，可以使用索引。 
 
 Case 4：
 
@@ -471,7 +471,7 @@ Case 6：
 分析： 
 
 ```sql
-	explain select * from employees where name='zhugu'  ORDER BY age ASC,position desc;
+explain select * from employees where name='zhugu'  ORDER BY age ASC,position desc;
 ```
 
 ![image-20211212151921847](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212151921.png)
@@ -483,34 +483,34 @@ Case 7：
 分析： 
 
 ```sql
-	explain select * from employees where name in ('LiLei','zhugu')  ORDER BY age,position;
+explain select * from employees where name in ('LiLei','zhugu') ORDER BY age,position;
 ```
 
 ![image-20211212152051825](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212152051.png)
 
-对于排序来说，多个相等条件也是范围查询 
+对于排序来说，多个相等条件也是范围查询，age和position的值是无序的。
 
 Case 8：
 
 ```sql
-	explain select * from employees where name >'a' ORDER BY name;
+explain select * from employees where name >'a' ORDER BY name;
 ```
 
 ![image-20211212152232228](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212152232.png)
 
 数据量太大，可能不走索引
 
-可以用覆盖索引优化 
+**可以用覆盖索引优化**
 
 ```sql
-	explain select name,age,position from employees where name >'a' ORDER BY name;
+explain select name,age,position from employees where name >'a' ORDER BY name;
 ```
 
 ![image-20211212152335206](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212152335.png)
 
 ### **优化总结：** 
 
-1、MySQL支持两种方式的排序filesort和index，Using index是指MySQL扫描索引本身完成排序。index效率高，filesort效率低。 
+1、MySQL支持两种方式的排序filesort和index，**Using index是指MySQL扫描索引本身完成排序。index效率高，filesort效率低。** 
 
 2、order by满足两种情况会使用Using index。 
 
@@ -518,22 +518,22 @@ Case 8：
 
 2) 使用where子句与order by子句条件列组合满足索引最左前列。 
 
-3、尽量在索引列上完成排序，遵循索引建立（索引创建的顺序）时的最左前缀法则。 
+3、尽量在**索引列上完成排序**，遵循索引建立（索引创建的顺序）时的最左前缀法则。 
 
 4、如果order by的条件不在索引列上，就会产生Using filesort。 
 
-5、能用覆盖索引尽量用覆盖索引 
+5、能用覆盖索引尽量用覆盖索引
 
-6、group by与order by很类似，其实质是先排序后分组，遵照索引创建顺序的最左前缀法则。对于group by的优化如果不需要排序的可以加上**order by null禁止排序**。注意，where高于having，能写在where中的限定条件就不要去having限定了。 
+6、**group by与order by很类似，其实质是先排序后分组，遵照索引创建顺序的最左前缀法则。**对于group by的优化，如果不需要排序的可以加上**order by null禁止排序**。注意，where高于having，能写在where中的限定条件就不要去having限定了。 
 
 ## **Using filesort文件排序原理详解** 
 
 **filesort文件排序方式** 
 
-1. 单路排序：是一次性取出满足条件行的所有字段，然后在sort buffer中进行排序；用trace工具可以看到sort_mode信息里显示< sort_key, additional_fields >或者< sort_key, packed_additional_fields > 
-2. 双路排序（又叫**回表**排序模式）：是首先根据相应的条件取出相应的**排序字段**和**可以直接定位行数据的行 ID**，然后在 sort buffer 中进行排序，排序完后需要再次取回其它需要的字段；用trace工具可以看到sort_mode信息里显示< sort_key, rowid > 
+1. 单路排序：是**一次性取出满足条件行的所有字段**，然后在sort buffer中进行排序；用trace工具可以看到sort_mode信息里显示< sort_key, additional_fields >或者< sort_key, packed_additional_fields > 
+2. 双路排序（又叫**回表**排序模式）：是首先根据相应的条件取出相应的**排序字段**和**可以直接定位行数据的行 ID**，然后在 sort buffer 中进行排序，排序完后需要再次取回其它需要的字段（回表）；用trace工具可以看到sort_mode信息里显示< sort_key, rowid > 
 
-MySQL 通过比较系统变量 max_length_for_sort_data(**默认1024字节**) 的大小和需要查询的字段总大小来判断使用哪种排序模式。 
+MySQL 通过比较系统变量 max_length_for_sort_data(**默认1024字节**，5.7.0) 的大小和**需要查询（select后的字段）的字段总大小**来判断使用哪种排序模式。 
 
 - 如果字段的总长度小于max_length_for_sort_data ，那么使用 单路排序模式； 
 - 如果字段的总长度大于max_length_for_sort_data ，那么使用 双路排序模式。 
@@ -548,7 +548,7 @@ MySQL 通过比较系统变量 max_length_for_sort_data(**默认1024字节**) �
 
 查看下这条sql对应trace结果如下(只展示排序部分)： 
 
-```
+```mysql
 mysql> set session optimizer_trace="enabled=on",end_markers_in_json=on; ‐‐开启trace 
 mysql> select * from employees where name = 'zhuge' order by position; 
 mysql> select * from information_schema.OPTIMIZER_TRACE; 
@@ -580,7 +580,7 @@ mysql> select * from information_schema.OPTIMIZER_TRACE;
               "examined_rows": 0,—参与排序的行
               "number_of_tmp_files": 0, 使用的临时文件个数，这个值如果为0代表全部使用的sort_buffer内存排序，否则使用的磁盘文件排序 
               "sort_buffer_size": 262056, —排序缓存的大小，单位Byte
-              "sort_mode": "<sort_key, packed_additional_fields>"  —排序方式，这里用的单路排序
+              "sort_mode": "<sort_key, packed_additional_fields> —排序方式，这里用的单路排序
             } /* filesort_summary */
           }
         ] /* steps */
@@ -632,8 +632,6 @@ mysql> select * from information_schema.OPTIMIZER_TRACE;
 }
 ```
 
-
-
 ```sql
 mysql> set session optimizer_trace="enabled=off"; ‐‐关闭trace 
 ```
@@ -642,13 +640,13 @@ mysql> set session optimizer_trace="enabled=off"; ‐‐关闭trace
 
 1. 从索引name找到第一个满足 name = ‘zhuge’ 条件的主键 id 
 
-2. 根据主键 id 取出整行，**取出所有字段的值，存入 sort_buffer 中** 
+2. 根据主键 id 取出整行，**取出所有字段（全表字段）的值，存入 sort_buffer 中** 
 
 3. 从索引name找到下一个满足 name = ‘zhuge’ 条件的主键 id 
 
 4. 重复步骤 2、3 直到不满足 name = ‘zhuge’ 
 
-5. 对 sort_buffer 中的数据按照字段 position 进行排序 
+5. 对 sort_buffer 中的数据按照字段 position 进行排序（已经取出所有的字段）
 
 6. 返回结果给客户端 
 
@@ -666,9 +664,9 @@ mysql> set session optimizer_trace="enabled=off"; ‐‐关闭trace
 
 6. 遍历排序好的 id 和字段 position，按照 id 的值**回到原表**中取出所有字段的值返回给客户端 
 
-其实对比两个排序模式，单路排序会把所有需要查询的字段都放到 sort buffer 中，而双路排序只会把主键和需要排序的字段放到 sort buffer 中进行排序，然后再通过主键回到原表查询需要的字段。 
+其实对比两个排序模式，**单路排序会把所有需要查询的字段都放到 sort buffer 中，而双路排序只会把主键和需要排序的字段放到 sort buffer 中进行排序，然后再通过主键回到原表查询需要的字段**。 
 
-如果 MySQL **排序内存** **sort_buffer** 配置的比较小并且没有条件继续增加了，可以适当把max_length_for_sort_data 配置小点，让优化器选择使用**双路排序**算法，可以在sort_buffer 中一次排序更多的行，只是需要再根据主键回到原表取数据。 
+如果 MySQL **排序内存** **sort_buffer** 配置的比较小并且没有条件继续增加，可以适当把max_length_for_sort_data 配置小点，让优化器选择使用**双路排序**算法，可以在sort_buffer 中一次排序更多的行，只是需要再根据主键回到原表取数据。 
 
 如果 MySQL 排序内存有条件可以配置比较大，可以适当增大 max_length_for_sort_data 的值，让优化器优先选择全字段排序(**单路排序**)，把需要的字段放到 sort_buffer 中，这样排序后就会直接从内存里返回查询结果了。 
 
@@ -684,9 +682,9 @@ mysql> set session optimizer_trace="enabled=off"; ‐‐关闭trace
 
 这其实是不对的，一般应该等到主体业务功能开发完毕，把涉及到该表相关sql都要拿出来分析之后再建立索引。 
 
-**2、联合索引尽量覆盖条件** 
+**2、联合索引尽量覆盖条件**
 
-比如可以设计一个或者两三个联合索引(尽量少建单值索引)，让每一个联合索引都尽量去包含sql语句里的where、order by、group by的字段，还要确保这些联合索引的字段顺序尽量满足sql查询的最左前缀原则。
+比如可以设计一个或者两三个联合索引(尽量少建单值索引)，让每一个联合索引都尽量去包含sql语句里的where、order by、group by的字段，还要确保这些**联合索引的字段顺序尽量满足sql查询的最左前缀原则**。
 
 **3、不要在小基数字段上建立索引** 
 
@@ -712,11 +710,11 @@ mysql> set session optimizer_trace="enabled=off"; ‐‐关闭trace
 
 在where和order by出现索引设计冲突时，到底是针对where去设计索引，还是针对order by设计索引？到底是让where去用上索引，还是让order by用上索引?一般这种时候往往都是让where条件去使用索引来快速筛选出来一部分指定数据，接着再进行排序。 
 
-因为大多数情况基于索引进行where筛选往往可以最快速度筛选出你要的少部分数据，然后做排序的成本可能会小很多。 
+因为大多数情况**基于索引进行where筛选往往可以最快速度筛选出你要的少部分数据，然后做排序的成本可能会小很多。** 
 
-**6、基于慢sql查询做优化** 
+**6、基于慢sql查询做优化**
 
-可以根据监控后台的一些慢sql，针对这些慢sql查询做特定的索引优化。 
+可以根据监控后台的一些慢sql，针对这些慢sql查询做特定的索引优化。 （默认为10秒）
 
 关于慢sql查询不清楚的可以参考这篇文章：https://blog.csdn.net/qq_40884473/article/details/89455740 
 
@@ -752,7 +750,7 @@ where province=xx and city=xx and sex in ('female','male') and age>=xx and age<=
 where province=xx and city=xx and sex in ('female','male') and age>=xx and age<=xx and latest_login_time>= xx 
 ```
 
-那我们是否能把 latest_login_time 字段也加入索引了？比如(province,city,sex,hobby,age,latest_login_time) ，显然是不行的，那怎么来优化这种情况了？其实我们可以试着再设计一个字段is_login_in_latest_7_days，用户如果一周内有登录值就为1，否则为0，那么我们就可以把索引设计成 (province,city,sex,hobby,is_login_in_latest_7_days,age) 来满足上面那种场景了！ 
+那我们是否能把 latest_login_time 字段也加入索引了？比如(province,city,sex,hobby,age,latest_login_time) ，显然是不行的，那怎么来优化这种情况了？其实我们可以试着再设计一个字段is_login_in_latest_7_days，用户如果一周内有登录值就为1，否则为0，那么我们就可以把索引设计成(province,city,sex,hobby,is_login_in_latest_7_days,age) 来满足上面那种场景了！ 
 
 一般来说，通过这么一个多字段的索引是能够过滤掉绝大部分数据的，就保留小部分数据下来基于磁盘文件进行order by语句的排序，最后基于limit进行分页，那么一般性能还是比较高的。 
 
@@ -764,9 +762,7 @@ where sex = 'female' order by score limit xx,xx
 
 ，那么上面那个索引是很难用上的，不能把太多的字段以及太多的值都用 in 语句拼接到sql里的，那怎么办了？其实我们可以再设计一个辅助的联合索引，比如 (sex,score)，这样就能满足查询要求了。 
 
-以上就是给大家讲的一些索引设计的思路了，核心思想就是，尽量利用一两个复杂的多字段联合索引，抗下你80%以上的查询，然后用一两个辅助索引尽量抗下剩余的一些非典型查询，保证这种大数据量表的查询尽 
-
-可能多的都能充分利用索引，这样就能保证你的查询速度和性能了！
+以上就是给大家讲的一些索引设计的思路了，核心思想就是，尽量利用一两个复杂的多字段联合索引，抗下你80%以上的查询，然后用一两个辅助索引尽量抗下剩余的一些非典型查询，保证这种大数据量表的查询尽 可能多的都能充分利用索引，这样就能保证你的查询速度和性能了！
 
 文档：04-mysql索引优化实战一.note 
 

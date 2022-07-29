@@ -42,7 +42,7 @@ mysql采用B+Tree数据结构，数据从左到右排序
 
 ## MyISAM引擎  
 
-MyISAM引擎中，myi文件存储索引数据，MYD存储数据，属于不同的文件。索引文件按照BTree组织索引的数据结构。
+MyISAM引擎中，MYI文件存储索引数据，MYD存储数据，属于不同的文件。索引文件按照BTree组织索引的数据结构。
 
 ## InnoDB
 

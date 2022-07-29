@@ -1,9 +1,9 @@
 # 5、Mysql索引优化实战二
 
-分页查询优化 
+## 分页查询优化 
 
 ```sql
- 示例表： 
+# 示例表： 
 CREATE TABLE `employees` ( 
 	`id` int(11) NOT NULL AUTO_INCREMENT, 
 	`name` varchar(24) NOT NULL DEFAULT '' COMMENT '姓名', 
@@ -29,7 +29,7 @@ CREATE TABLE `employees` (
 
 首先来看一个根据自增且连续主键排序的分页查询的例子： 
 
-```sql
+```mysql
  mysql> select * from employees limit 90000,5; 
 ```
 
@@ -75,7 +75,7 @@ CREATE TABLE `employees` (
 再看一个根据非主键字段排序的分页查询，SQL 如下：
 
 ```sql
-mysql>  select * from employees ORDER BY name** limit 90000,5;
+mysql>  select * from employees ORDER BY name limit 90000,5;
 ```
 
 ![image-20220728173046775](./5%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%BA%8C.assets/image-20220728173046775-165900064814516.png)
@@ -93,7 +93,7 @@ mysql> EXPLAIN select * from employees ORDER BY name limit 90000,5;
 其实关键是让排序时返回的字段尽可能少，所以可以让排序和分页操作先查出主键，然后根据主键查到对应的记录，SQL改写如下
 
 ```sql
-mysql> select * from employees e inner join (select id from employees order by name limit 90000,5) ed on e.id = ed.id;              
+select * from employees e inner join (select id from employees order by name limit 90000,5) ed on e.id = ed.id;              
 ```
 
 ![image-20220728172949239](./5%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%BA%8C.assets/image-20220728172949239-165900059054912.png)
@@ -102,9 +102,9 @@ mysql> select * from employees e inner join (select id from employees order by n
 
 ![image-20220728172917688](./5%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%BA%8C.assets/image-20220728172917688-165900055898010.png)
 
-原 SQL 使用的是 filesort 排序，而优化后的 SQL 使用的是索引排序。
+原 SQL 使用的是filesort排序，而优化后的 SQL 使用的是索引排序。
 
-Join关联查询优化
+## Join关联查询优化
 
 ```sql
 -- 示例表：
@@ -182,7 +182,7 @@ mysql的表关联常见有两种算法
 
 **2、 基于块的嵌套循环连接Block Nested-Loop Join(BNL)算法**
 
-把驱动表的数据读入到 join_buffer 中，然后扫描被驱动表，把被驱动表每一行取出来跟 join_buffer 中的数据做对比。
+把驱动表的数据读入到 **join_buffer** 中，然后扫描被驱动表，把被驱动表每一行取出来跟 join_buffer 中的数据做对比。
 
 ```sql
 mysql>EXPLAIN select * from t1 inner join t2 on t1.b= t2.b;              
@@ -228,9 +228,9 @@ straight_join解释：straight_join功能同join类似，但能让左边的表�
 
 对于小表定义的明确
 
-在决定哪个表做驱动表的时候，应该是两个表按照各自的条件过滤，过滤完成之后，计算参与 join 的各个字段的总数据量，数据量小的那个表，就是“小表”，应该作为驱动表。
+在决定哪个表做驱动表的时候，应该是两个表按照各自的条件过滤，过滤完成之后，**计算参与 join 的各个字段的总数据量，数据量小的那个表，就是“小表”，应该作为驱动表。**
 
-in和exsits优化
+## in和exsits优化
 
 原则：小表驱动大表，即小的数据集驱动大的数据集
 
@@ -238,26 +238,32 @@ in：当B表的数据集小于A表的数据集时，in优于exists
 
 ```sql
  select * from A where id in (select id from B)  
- #等价于： 　for(select id from B){      select * from A where A.id = B.id    }  
+ #等价于： 　
+ for(select id from B){   
+ 	select * from A where A.id = B.id 
+ }  
 ```
 
 exists：当A表的数据集小于B表的数据集时，exists优于in
 
-　　将主查询A的数据，放到子查询B中做条件验证，根据验证结果（true或false）来决定主查询的数据是否保留
+　　**将主查询A的数据，放到子查询B中做条件验证，根据验证结果（true或false）来决定主查询的数据是否保留**
 
 ```sql
   select * from A where exists (select 1 from B where B.id = A.id) 
-  #等价于：    for(select * from A){      select * from B where B.id = A.id    }     
+  #等价于：    
+  for(select * from A){  
+  	select * from B where B.id = A.id  
+  }     
   #A表与B表的ID字段应建立索引            
 ```
 
-1、EXISTS (subquery)只返回TRUE或FALSE,因此子查询中的SELECT * 也可以用SELECT 1替换,官方说法是实际执行时会忽略SELECT清单,因此没有区别
+1、EXISTS (subquery)只返回TRUE或FALSE，因此子查询中的SELECT * 也可以用SELECT 1替换，官方说法是实际执行时会忽略SELECT清单，因此没有区别
 
 2、EXISTS子查询的实际执行过程可能经过了优化而不是我们理解上的逐条对比
 
-3、EXISTS子查询往往也可以用JOIN来代替，何种最优需要具体问题具体分析
+3、EXISTS子查询往往也可以用**JOIN**来代替，何种最优需要具体问题具体分析
 
-count(*)查询优化
+## count(*)查询优化
 
  -- 临时关闭mysql查询缓存，为了查看sql多次执行的真实时间
 
@@ -274,17 +280,21 @@ mysql> EXPLAIN select count(*) from employees;
 
 四个sql的执行计划一样，说明这四个sql执行效率应该差不多
 
-字段有索引：count(*)≈count(1)>count(字段)>count(主键 id)    //字段有索引，count(字段)统计走二级索引，二级索引存储数据比主键索引少，所以count(字段)>count(主键 id) 
+**字段有索引：count(*)≈count(1)>count(字段)>count(主键 id)**   
 
-字段无索引：count(*)≈count(1)>count(主键 id)>count(字段)    //字段没有索引count(字段)统计走不了索引，count(主键 id)还可以走主键索引，所以count(主键 id)>count(字段)
+ **//字段有索引，count(字段)统计走二级索引，二级索引存储数据比主键索引少，所以count(字段)>count(主键 id)** 
 
-count(1)跟count(字段)执行过程类似，不过count(1)不需要取出字段统计，就用常量1做统计，count(字段)还需要取出字段，所以理论上count(1)比count(字段)会快一点。
+**字段无索引：count(*)≈count(1)>count(主键 id)>count(字段)**    
 
-count() 是例外，mysql并不会把全部字段取出来，而是专门做了优化，不取值，按行累加，效率很高，所以不需要用count(列名)或count(常量)来替代 count()。
+**//字段没有索引count(字段)统计走不了索引，count(主键 id)还可以走主键索引，所以count(主键 id)>count(字段)**
+
+count(1)跟count(字段)执行过程类似，不过count(1)不需要取出字段统计，**就用常量1做统计**，count(字段)还需要取出字段，所以理论上count(1)比count(字段)会快一点。
+
+count(\*) 是例外，mysql并不会把全部字段取出来，而是专门做了优化，不取值，按行累加，效率很高，所以不需要用count(列名)或count(常量)来替代 count(\*)。
 
 为什么对于count(id)，mysql最终选择辅助索引而不是主键聚集索引？因为二级索引相对主键索引存储数据更少，检索性能应该更高，mysql内部做了点优化(应该是在5.7版本才优化)。
 
-常见优化方法
+## 常见优化方法
 
 1、查询mysql自己维护的总行数
 
@@ -292,7 +302,7 @@ count() 是例外，mysql并不会把全部字段取出来，而是专门做了�
 
 ![image-20220728172704262](./5%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%BA%8C.assets/image-20220728172704262-16590004257846.png)
 
-对于innodb存储引擎的表mysql不会存储表的总记录行数(因为有MVCC机制，后面会讲)，查询count需要实时计算
+对于innodb存储引擎的表mysql不会存储表的总记录行数(因为有**MVCC机制**，后面会讲)，查询count需要实时计算
 
 2、show table status
 
@@ -308,7 +318,7 @@ count() 是例外，mysql并不会把全部字段取出来，而是专门做了�
 
 插入或删除表数据行的时候同时维护计数表，让他们在同一个事务里操作
 
-阿里巴巴Mysql规范解读
+## 阿里巴巴Mysql规范解读
 
 补充：MySQL数据类型选择
 
