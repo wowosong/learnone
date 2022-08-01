@@ -258,7 +258,7 @@ idx_order_no对应的搜索条件是：order_no IN ('DD00_6S', 'DD00_9S', 'DD00_
 由于使用idx_expire_time时有3个单点区间，所以每个单点区间都需要查找一遍对应的二级索引记录数，三个单点区间总共需要回表的记录数是58。
 
 ```sql
-explain SELECT * FROM order_exp WHERE order_no IN ('DD00_6S', 'DD00_9S', 'DD00_10S');   
+explain SELECT * FROM order_exp WHERE order_no IN ('DD00_6S', 'DD00_9S', 'DD00_10S'); 
 ```
 
 ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204048.png)
@@ -340,7 +340,6 @@ SELECT * FROM order_exp WHERE order_no IN ('aa1', 'aa2', 'aa3', ... , 'zzz');
 ```sql
 show variables like '%dive%';
 ```
-
 ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204253.png)
 
 也就是说如果我们的IN语句中的参数个数小于200个的话，将使用index dive的方式计算各个单点区间对应的记录条数，如果大于或等于200个的话，可就不能使用index dive了，要使用所谓的索引统计数据来进行估算。怎么个估算法？
@@ -1182,7 +1181,7 @@ ALTER TABLE 表名 Engine=InnoDB, STATS_AUTO_RECALC = (1|0);
 
 mysql> **ANALYZE TABLE order_exp;**
 
-   ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204802.png)ANALYZE TABLE语句会立即重新计算统计数据，也就是这个过程是同步的，在表中索引多或者采样页面特别多时这个过程可能会特别慢最好在业务不是很繁忙的时候再运行。
+![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228204802.png)ANALYZE TABLE语句会立即重新计算统计数据，也就是这个过程是同步的，在表中索引多或者采样页面特别多时这个过程可能会特别慢最好在业务不是很繁忙的时候再运行。
 
 **手动更新innodb_table_stats和innodb_index_stats表**
 
