@@ -233,7 +233,6 @@ Tips：应用程序向磁盘写入文件时其实是先写到操作系统的缓�
 我们可以使用SHOW ENGINE INNODB STATUS命令查看当前InnoDB存储引擎中的各种LSN值的情况，比如：
 
 SHOW ENGINE INNODB STATUS\\G
-
 ![img](./14%E3%80%81InnoDB%E5%BC%95%E6%93%8E%E5%BA%95%E5%B1%82%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%8E%9F%E7%90%86.assets/20220115185319.png)
 
 其中：
@@ -255,7 +254,6 @@ Last checkpoint at：当前系统的checkpoint\_lsn值。
 这样很明显会加快请求处理速度，但是如果事务提交后服务器挂了，后台线程没有及时将redo日志刷新到磁盘，那么该事务对页面的修改会丢失。
 
 1：当该系统变量值为1时，表示在事务提交时需要将redo日志同步到磁盘，可以保证事务的持久性。1也是innodb\_flush\_log\_at\_trx\_commit的默认值。
-
 ![img](./14%E3%80%81InnoDB%E5%BC%95%E6%93%8E%E5%BA%95%E5%B1%82%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%8E%9F%E7%90%86.assets/20220115185325.png)
 
 2：当该系统变量值为2时，表示在事务提交时需要将redo日志写到操作系统的缓冲区中，但并不需要保证将日志真正的刷新到磁盘。

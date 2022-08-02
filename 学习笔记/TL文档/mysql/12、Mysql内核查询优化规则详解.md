@@ -158,7 +158,7 @@ SELECT (SELECT m1 FROM e1 LIMIT 1);
 SELECT m, n FROM (SELECT m2 + 1 AS m, n2 AS n FROM e2 WHERE m2 > 2) AS t;
 ```
 
-这个例子中的子查询是：(SELECT m2 + 1 AS m, n2 AS n FROM e2 WHERE m2 > 2)，这里可以把子查询的查询结果当作是一个表，子查询后边的AS t表明这个子查询的结果就相当于一个名称为t的表，这个名叫t的表的列就是子查询结果中的列，比如例子中表t就有两个列：m列和n列。这个放在FROM子句中的子查询本质上相当于一个表，但又和我们平常使用的表有点儿不一样，MySQL把这种由子查询结果集组成的表称之为<p style="color: red;">派生表。</p>
+这个例子中的子查询是：(SELECT m2 + 1 AS m, n2 AS n FROM e2 WHERE m2 > 2)，这里可以把子查询的查询结果当作是一个表，子查询后边的AS t表明这个子查询的结果就相当于一个名称为t的表，这个名叫t的表的列就是子查询结果中的列，比如例子中表t就有两个列：m列和n列。这个放在FROM子句中的子查询本质上相当于一个表，但又和我们平常使用的表有点儿不一样，MySQL把这种由子查询结果集组成的表称之为<p style="color:red">派生表。</p>
 
 **WHERE或ON子句中**
 

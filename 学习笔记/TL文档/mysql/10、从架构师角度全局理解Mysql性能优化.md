@@ -48,10 +48,11 @@ MySQL性能优化其实是个很大的课题，在优化上存在着一个调优
 
 我们已经知道慢查询日志可以帮助定位可能存在问题的SQL语句，从而进行SQL语句层面的优化。但是默认值为关闭的，需要我们手动开启。
 
-```
+```sql
 show VARIABLES like 'slow_query_log';
 ```
 ![img](./10%E3%80%81%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%B8%88%E8%A7%92%E5%BA%A6%E5%85%A8%E5%B1%80%E7%90%86%E8%A7%A3Mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.assets/20211229225548.png)
+
 开启：
 
 set GLOBAL slow_query_log=1;
