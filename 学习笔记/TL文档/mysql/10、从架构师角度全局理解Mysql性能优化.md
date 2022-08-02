@@ -48,12 +48,13 @@ MySQL性能优化其实是个很大的课题，在优化上存在着一个调优
 
 我们已经知道慢查询日志可以帮助定位可能存在问题的SQL语句，从而进行SQL语句层面的优化。但是默认值为关闭的，需要我们手动开启。
 
-**show VARIABLES like 'slow_query_log';**
+```
+show VARIABLES like 'slow_query_log';
+```
 ![img](./10%E3%80%81%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%B8%88%E8%A7%92%E5%BA%A6%E5%85%A8%E5%B1%80%E7%90%86%E8%A7%A3Mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.assets/20211229225548.png)
-
 开启：
 
-**set GLOBAL slow_query_log=1;**
+set GLOBAL slow_query_log=1;
 ![img](./10%E3%80%81%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%B8%88%E8%A7%92%E5%BA%A6%E5%85%A8%E5%B1%80%E7%90%86%E8%A7%A3Mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.assets/20211229225601.png)
 
 但是多慢算慢？MySQL中可以设定一个阈值，将运行时间超过该值的所有SQL语句都记录到慢查询日志中。long_query_time参数就是这个阈值。默认值为10，代表10秒。
@@ -63,28 +64,26 @@ MySQL性能优化其实是个很大的课题，在优化上存在着一个调优
 当然也可以设置
 
 **set global long_query_time=0;**   ---默认10秒，这里为了演示方便设置为0
-
-   ![img](./10%E3%80%81%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%B8%88%E8%A7%92%E5%BA%A6%E5%85%A8%E5%B1%80%E7%90%86%E8%A7%A3Mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.assets/20211229225617.png)
+![img](./10%E3%80%81%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%B8%88%E8%A7%92%E5%BA%A6%E5%85%A8%E5%B1%80%E7%90%86%E8%A7%A3Mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.assets/20211229225617.png)
 
 同时对于没有运行的SQL语句没有使用索引，则MySQL数据库也可以将这条SQL语句记录到慢查询日志文件，控制参数是：
 
 **show VARIABLES like '%log_queries_not_using_indexes%';**
-
-​    ![img](./10%E3%80%81%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%B8%88%E8%A7%92%E5%BA%A6%E5%85%A8%E5%B1%80%E7%90%86%E8%A7%A3Mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.assets/20211229225637.png)
+![img](./10%E3%80%81%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%B8%88%E8%A7%92%E5%BA%A6%E5%85%A8%E5%B1%80%E7%90%86%E8%A7%A3Mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.assets/20211229225637.png)
 
 对于产生的慢查询日志，可以指定输出的位置，通过参数log_output来控制，可以输出到[TABLE][FILE][FILE,TABLE]。比如
 
 set global log_output='FILE,TABLE'，缺省是输出到文件，我们的配置把慢查询输出到表，不过一般不推荐输出到表。
 
-**show VARIABLES like 'log_output';ls** 
-
-​    ![img](./10%E3%80%81%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%B8%88%E8%A7%92%E5%BA%A6%E5%85%A8%E5%B1%80%E7%90%86%E8%A7%A3Mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.assets/20211229225656.png)
-
+```sql
+show VARIABLES like 'log_output';
+```
+![img](./10%E3%80%81%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%B8%88%E8%A7%92%E5%BA%A6%E5%85%A8%E5%B1%80%E7%90%86%E8%A7%A3Mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.assets/20211229225656.png)
 ### **慢查询解读分析**
-
 #### **日志格式**
 
-开启慢查询功能以后，会根据我们的配置产生慢查询日志    ![img](./10%E3%80%81%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%B8%88%E8%A7%92%E5%BA%A6%E5%85%A8%E5%B1%80%E7%90%86%E8%A7%A3Mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.assets/20211229225716.png)
+开启慢查询功能以后，会根据我们的配置产生慢查询日志   
+![img](./10%E3%80%81%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%B8%88%E8%A7%92%E5%BA%A6%E5%85%A8%E5%B1%80%E7%90%86%E8%A7%A3Mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.assets/20211229225716.png)
 
 从慢查询日志里面摘选一条慢查询日志，数据组成如下
 
