@@ -56,7 +56,8 @@ show VARIABLES like 'slow_query_log';
 开启：
 
 set GLOBAL slow_query_log=1;
-![img](./10%E3%80%81%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%B8%88%E8%A7%92%E5%BA%A6%E5%85%A8%E5%B1%80%E7%90%86%E8%A7%A3Mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.assets/20211229225601.png)
+
+ ![img](./10%E3%80%81%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%B8%88%E8%A7%92%E5%BA%A6%E5%85%A8%E5%B1%80%E7%90%86%E8%A7%A3Mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.assets/20211229225601.png)
 
 但是多慢算慢？MySQL中可以设定一个阈值，将运行时间超过该值的所有SQL语句都记录到慢查询日志中。long_query_time参数就是这个阈值。**默认值为10，代表10秒**。
 
