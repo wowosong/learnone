@@ -82,7 +82,7 @@ MySQL觉得下边这种查询运行的特别快：
 
 **使用主键等值匹配或者唯一二级索引列等值匹配作为搜索条件来查询某个表。**
 
-MySQL觉得这两种查询花费的时间特别少，少到可以忽略，所以也把通过这两种方式查询的表称之为常量表（英文名：constant tables）。优化器在分析一个查询语句时，先首先执行常量表查询，然后把查询中涉及到该表的条件全部替换成常数，最后再分析其余表的查询成本，比方说这个查询语句：
+MySQL觉得这两种查询花费的时间特别少，少到可以忽略，所以也把通过这两种方式查询的表称之为**常量表（**英文名：constant tables）。优化器在分析一个查询语句时，先首先执行常量表查询，然后把查询中涉及到该表的条件全部替换成常数，最后再分析其余表的查询成本，比方说这个查询语句：
 
 ```sql
 SELECT * FROM table1 INNER JOIN table2 ON table1.column1 = table2.column2 WHERE table1.primary_key = 1;
@@ -586,7 +586,7 @@ outer_expr IN (SELECT inner_expr FROM ... WHERE subquery_where)
 EXISTS (SELECT inner_expr FROM ... WHERE subquery_where AND outer_expr=inner_expr)
 ```
 
-为啥要转换呢？这是因为不转换的话可能用不到索引，比方说下边这个查询：
+为啥要转换呢？这是因为**不转换的话可能用不到索引**，比方说下边这个查询：
 
 ```sql
 SELECT * FROM s1  WHERE order_no IN (SELECT order_no FROM s2 where s1.order_note = s2.order_note) OR insert_time > ‘2021-03-22 18:28:28’;
