@@ -227,7 +227,7 @@ Query OK, 0 rows affected, 1 warning (0.05 sec)
 
 （6）在客户端A查询表account的所有记录，没有查出新增数据，所以没有出现幻读
 
-![image-20211213220434685](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213220434.png)
+​	![image-20211213220434685](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213220434.png)
 
 （7)验证幻读
 
@@ -241,7 +241,7 @@ Query OK, 0 rows affected, 1 warning (0.05 sec)
 
 **set tx_isolation='**serializable**';**
 
-![image-20211213220759096](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213220759.png)
+​	![image-20211213220759096](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213220759.png)
 
 （2）打开一个客户端B，并设置当前事务模式为serializable，更新相同的id为1的记录会被阻塞等待，更新id为2的记录可以成功，说明在串行模式下innodb的查询也会被加上行锁。
 
@@ -255,7 +255,7 @@ Query OK, 0 rows affected, 1 warning (0.05 sec)
 
 假设account表里数据如下：
 
-![image-20211213220906580](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20220115182508.png)
+​	![image-20211213220906580](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20220115182508.png)
 
 那么间隙就有 id 为 (3,10)，(10,20)，(20,正无穷) 这三个区间，
 

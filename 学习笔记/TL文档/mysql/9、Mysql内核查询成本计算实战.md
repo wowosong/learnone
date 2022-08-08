@@ -29,7 +29,7 @@ SELECT * FROM information_schema.OPTIMIZER_TRACE\G;
 ```
 可以看见全表扫描的成本：2169.9
 
-![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228203742.png)
+ ![img](./9%E3%80%81Mysql%E5%86%85%E6%A0%B8%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%AE%9E%E6%88%98.assets/20211228203742.png)
 
 使用索引idx_order_no的成本为72.61：
 
