@@ -102,7 +102,7 @@ userService.test();
 所以，我们就可以分析出来，在调用AnnotationConfigApplicationContext的构造方法时，也就是第一行代码，会去做一些事情：
 
 1. 解析AppConfig.class，得到扫描路径
-1. 遍历扫描路径下的所有Java类，如果发现某个类上存在@Component、@Service等注解，那么Spring就把这个类记录下来，存在一个Map中，比如Map<String, Class>。（**实际上，Spring源码中确实存在类似的这么一个Map，叫做BeanDefinitionMap，后续课程会讲到**）
+1. 遍历扫描路径下的所有Java类，如果发现某个类上存在@Component、@Service等注解，那么Spring就**把这个类**记录下来，存在一个Map中，比如Map<String, Class>。（**实际上，Spring源码中确实存在类似的这么一个Map，叫做BeanDefinitionMap，后续课程会讲到**）
 1. Spring会根据某个规则生成当前类对应的beanName，作为key存入Map，当前类作为value
 
 
@@ -179,7 +179,7 @@ Spring会根据入参的类型和入参的名字去Spring中找Bean对象（**�
 **​**
 
 ## AOP大致流程
-AOP就是进行**动态代理**，在创建一个Bean的过程中	，Spring在最后一步会去判断当前正在创建的这个Bean是不是需要进行AOP，如果需要则会进行动态代理。
+AOP就是进行**动态代理**，在创建一个Bean的过程中，Spring在最后一步会去判断当前正在创建的这个Bean是不是需要进行AOP，如果需要则会进行动态代理。
 
 
 如何判断当前Bean对象需不需要进行AOP:
@@ -191,7 +191,7 @@ AOP就是进行**动态代理**，在创建一个Bean的过程中	，Spring在�
 
 
 
-利用cglib进行AOP的大致流程：
+利用**cglib**进行AOP的大致流程：
 
 1. 生成代理类UserServiceProxy，代理类继承UserService
 1. 代理类中重写了父类的方法，比如UserService中的test()方法
