@@ -52,14 +52,13 @@ beanDefinition.setInitMethodName("init"); // 设置初始化方法
 beanDefinition.setLazyInit(true); // 设置懒加载
 ```
 
-
-和申明式事务、编程式事务类似，通过<bean/>，@Bean，@Component等申明式方式所定义的Bean，最终都会被Spring解析为对应的BeanDefinition对象，并放入Spring容器中。
+**和申明式事务、编程式事务类似，通过<bean/>，@Bean，@Component等申明式方式所定义的Bean，最终都会被Spring解析为对应的BeanDefinition对象，并放入Spring容器中。**
 
 
 ## BeanDefinitionReader
 
 
-接下来，我们来介绍几种在Spring源码中所提供的BeanDefinition读取器（BeanDefinitionReader），这些BeanDefinitionReader在我们使用Spring时用得少，但在Spring源码中用得多，相当于Spring源码的基础设施。
+接下来，我们来介绍几种在Spring源码中所提供的**BeanDefinition读取器**（BeanDefinitionReader），这些BeanDefinitionReader在我们使用Spring时用得少，但在Spring源码中用得多，相当于Spring源码的基础设施。
 ### AnnotatedBeanDefinitionReader
 
 
@@ -96,7 +95,7 @@ System.out.println(context.getBean("user"));
 ### ClassPathBeanDefinitionScanner
 
 
-ClassPathBeanDefinitionScanner是扫描器，但是它的作用和BeanDefinitionReader类似，它可以进行扫描，扫描某个包路径，对扫描到的类进行解析，比如，扫描到的类上如果存在@Component注解，那么就会把这个类解析为一个BeanDefinition，比如：
+ClassPathBeanDefinitionScanner是扫描器，但是它的作用和BeanDefinitionReader类似，它可以进行扫描，扫描某个包路径，对扫描到的类进行解析，比如，**扫描到的类上如果存在@Component注解，那么就会把这个类解析为一个BeanDefinition，**比如：
 
 ```java
 AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
@@ -114,7 +113,6 @@ System.out.println(context.getBean("userService"));
 **BeanFactory表示Bean工厂，所以很明显，BeanFactory会负责创建Bean，并且提供获取Bean的API。**
 
 **而ApplicationContext是BeanFactory的一种，在Spring源码中，是这么定义的：**
-​
 
 ```java
 public interface ApplicationContext extends EnvironmentCapable, ListableBeanFactory, HierarchicalBeanFactory,
@@ -160,8 +158,8 @@ System.out.println(beanFactory.getBean("user"));
 1. BeanFactory：Bean工厂，可以根据某个bean的名字、或类型、或别名获取某个Bean对象
 1. SingletonBeanRegistry：可以直接注册、获取某个**单例**Bean
 1. SimpleAliasRegistry：它是一个类，实现了AliasRegistry接口中所定义的功能，支持别名功能
-1. ListableBeanFactory：在BeanFactory的基础上，增加了其他功能，可以获取所有BeanDefinition的beanNames，可以根据某个类型获取对应的beanNames，可以根据某个类型获取{类型：对应的Bean}的映射关系
-1. HierarchicalBeanFactory：在BeanFactory的基础上，添加了获取父BeanFactory的功能
+1. ListableBeanFactory：在BeanFactory的基础上，增加了其他功能，可以获取所有BeanDefinition的beanNames，可以根据某个类型获取对应的beanNames，可以根据某个类型获取{**类型：对应的Bean**}的映射关系
+1. HierarchicalBeanFactory：**在BeanFactory的基础上，添加了获取父BeanFactory的功能**
 1. DefaultSingletonBeanRegistry：它是一个类，实现了SingletonBeanRegistry接口，拥有了直接注册、获取某个**单例**Bean的功能
 1. ConfigurableBeanFactory：在HierarchicalBeanFactory和SingletonBeanRegistry的基础上，添加了设置父BeanFactory、类加载器（表示可以指定某个类加载器进行类的加载）、设置Spring EL表达式解析器（表示该BeanFactory可以解析EL表达式）、设置类型转化服务（表示该BeanFactory可以进行类型转化）、可以添加BeanPostProcessor（表示该BeanFactory支持Bean的后置处理器），可以合并BeanDefinition，可以销毁某个Bean等等功能
 1. FactoryBeanRegistrySupport：支持了FactoryBean的功能
@@ -201,13 +199,12 @@ System.out.println(beanFactory.getBean("user"));
 ### AnnotationConfigApplicationContext
 ![image (1)](./03-Spring%E4%B9%8B%E5%BA%95%E5%B1%82%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%A7%A3%E6%9E%90.assets/202202091708466.png)
 
-
 **这部分现在看不懂没关系，源码熟悉一点后回来再来看都可以。**
 
 1. ConfigurableApplicationContext：继承了ApplicationContext接口，增加了添加事件监听器、添加BeanFactoryPostProcessor、设置Environment，获取ConfigurableListableBeanFactory等功能
 1. AbstractApplicationContext：实现了ConfigurableApplicationContext接口
 1. GenericApplicationContext：继承了AbstractApplicationContext，实现了BeanDefinitionRegistry接口，拥有了所有ApplicationContext的功能，并且可以注册BeanDefinition，注意这个类中有一个属性(DefaultListableBeanFactory **beanFactory**)
-1. AnnotationConfigRegistry：可以单独注册某个为类为BeanDefinition（可以处理该类上的**@Configuration注解**，已经可以处理**@Bean注解**），同时可以扫描
+1. AnnotationConfigRegistry：可以单独注册某个类为BeanDefinition（可以处理该类上的**@Configuration注解**，已经可以处理**@Bean注解**），同时可以扫描
 1. AnnotationConfigApplicationContext：继承了GenericApplicationContext，实现了AnnotationConfigRegistry接口，拥有了以上所有的功能
 
 
@@ -332,7 +329,7 @@ context.publishEvent("kkk");
 ## 类型转化
 
 
-在Spring源码中，有可能需要把String转成其他类型，所以在Spring源码中提供了一些技术来更方便的做对象的类型转化，关于类型转化的应用场景， 后续看源码的过程中会遇到很多。
+在Spring源码中，有可能需要把String转成其他类型，所以在Spring源码中提供了一些技术来更方便的做对象的类型转化，关于**类型转化**的应用场景， 后续看源码的过程中会遇到很多。
 
 
 ### PropertyEditor
@@ -559,8 +556,7 @@ public class Main {
 
 
 ## BeanPostProcessor
-BeanPostProcess表示Bena的后置处理器，我们可以定义一个或多个BeanPostProcessor，比如通过一下代码定义一个BeanPostProcessor：
-​
+BeanPostProcess表示Bena的后置处理器，我们可以定义一个或多个BeanPostProcessor，比如通过代码定义一个BeanPostProcessor：
 
 ```java
 @Component
@@ -586,14 +582,12 @@ public class ZhouyuBeanPostProcessor implements BeanPostProcessor {
 }
 ```
 
-
-一个BeanPostProcessor可以在**任意一个Bean**的**初始化之前**以及**初始化之后**去额外的做一些用户自定义的逻辑，当然，我们可以通过判断beanName来进行针对性处理（针对某个Bean，或某部分Bean）。
+**一个BeanPostProcessor可以在任意一个Bean的初始化之前以及初始化之后去额外的做一些用户自定义的逻辑**，当然，我们可以通过判断beanName来进行针对性处理（针对某个Bean，或某部分Bean）。
 
 **我们可以通过定义BeanPostProcessor来干涉Spring创建Bean的过程。**
 
 ## BeanFactoryPostProcessor
 BeanFactoryPostProcessor表示Bean工厂的后置处理器，其实和BeanPostProcessor类似，BeanPostProcessor是干涉Bean的创建过程，BeanFactoryPostProcessor是干涉BeanFactory的创建过程。比如，我们可以这样定义一个BeanFactoryPostProcessor：
-​
 
 ```java
 @Component
@@ -634,7 +628,6 @@ public class ZhouyuFactoryBean implements FactoryBean {
 
 
 通过上面这段代码，我们自己创造了一个UserService对象，并且它将成为Bean。但是通过这种方式创造出来的UserService的Bean，**只会经过初始化后**，其他Spring的生命周期步骤是不会经过的，比如依赖注入。
-
 
 有同学可能会想到，**通过@Bean也可以自己生成一个对象作为Bean，那么和FactoryBean的区别是什么呢？其实在很多场景下他俩是可以替换的，但是站在原理层面来说的，区别很明显，@Bean定义的Bean是会经过完整的Bean生命周期的。**
 ​
