@@ -9,7 +9,8 @@ Spring最重要的功能就是帮助程序员创建对象（也就是IOC），�
 Bean的生命周期就是指：**在Spring中，一个Bean是如何生成的，如何销毁的**
 
 Bean生命周期流程图：[https://www.processon.com/view/link/5f8588c87d9c0806f27358c1](https://www.processon.com/view/link/5f8588c87d9c0806f27358c1)
-![image-20220312162112200](./04-Spring%E4%B9%8BBean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B8%8A.assets/20220312162112.png)
+
+![image-20220812110530940](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/TL%E6%96%87%E6%A1%A3/Spring/04-Spring%E4%B9%8BBean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B8%8A.assets/image-20220812110530940.png)
 
 附带资料JFR介绍：[https://zhuanlan.zhihu.com/p/122247741](https://zhuanlan.zhihu.com/p/122247741)
 
@@ -17,17 +18,16 @@ Bean生命周期流程图：[https://www.processon.com/view/link/5f8588c87d9c080
 
 
 ### 1. 生成BeanDefinition
-Spring启动的时候会进行扫描，会先调用`org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider#scanCandidateComponents(String basePackage)`
-扫描某个包路径，并得到BeanDefinition的Set集合。
-​
+Spring启动的时候会进行扫描，会先调用（doScan）`org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider#scanCandidateComponents(String basePackage)`
+**扫描某个包路径，并得到BeanDefinition的Set集合。**
+**​**
 
 **关于Spring启动流程，后续会单独的课详细讲，这里先讲一下Spring扫描的底层实现：**
 **​**
 
 Spring扫描底层流程：[https://www.processon.com/view/link/61370ee60e3e7412ecd95d43](https://www.processon.com/view/link/61370ee60e3e7412ecd95d43)
-**​**
 
-![image-20220312162346993](./04-Spring%E4%B9%8BBean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B8%8A.assets/20220312162347-8242036.png)
+![Spring扫描底层流程](./04-Spring%E4%B9%8BBean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B8%8A.assets/Spring%E6%89%AB%E6%8F%8F%E5%BA%95%E5%B1%82%E6%B5%81%E7%A8%8B-16605569211793.png)
 
 
 1. 首先，通过ResourcePatternResolver获得指定包路径下的所有`.class`文件（Spring源码中将此文件包装成了Resource对象）
@@ -64,7 +64,7 @@ MetadataReader表示类的元数据读取器，主要包含了一个AnnotationMe
 ### 2. 合并BeanDefinition
 
 
-通过扫描得到所有BeanDefinition之后，就可以根据BeanDefinition创建Bean对象了，但是在Spring中支持父子BeanDefinition，和Java父子类类似，但是完全不是一回事。
+通过扫描得到所有BeanDefinition之后，就可以根据BeanDefinition创建Bean对象了，但是**在Spring中支持父子BeanDefinition**，和Java父子类类似，但是完全不是一回事。
 
 
 父子BeanDefinition实际用的比较少，使用是这样的，比如：
@@ -83,7 +83,7 @@ MetadataReader表示类的元数据读取器，主要包含了一个AnnotationMe
 因为child的父BeanDefinition是parent，所以会继承parent上所定义的scope属性。
 ​
 
-而在根据child来生成Bean对象之前，需要进行BeanDefinition的合并，得到完整的child的BeanDefinition。
+**而在根据child来生成Bean对象之前，需要进行BeanDefinition的合并，得到完整的child的BeanDefinition。**
 ​
 
 ### 3. 加载类
@@ -132,7 +132,6 @@ public boolean hasBeanClass() {
 ​
 
 在Spring中，实例化对象之前，Spring提供了一个扩展点，允许用户来控制是否在某个或某些Bean实例化之前做一些启动动作。这个扩展点叫**InstantiationAwareBeanPostProcessor.postProcessBeforeInstantiation()**。比如：
-​
 
 ```java
 @Component
@@ -168,12 +167,11 @@ public class ZhouyuBeanPostProcessor implements InstantiationAwareBeanPostProces
 
 
 userService这个Bean，在实例化前会直接返回一个由我们所定义的UserService对象。如果是这样，表示不需要Spring来实例化了，并且后续的Spring依赖注入也不会进行了，会跳过一些步骤，直接执行初始化后这一步。
-### 
 ### 5. 实例化
 在这个步骤中就会根据BeanDefinition去创建一个对象了。
 
 
-### 5.1 Supplier创建对象
+#### 5.1 Supplier创建对象
 首先判断BeanDefinition中是否设置了Supplier，如果设置了则调用Supplier的get()得到对象。
 ​
 
@@ -188,8 +186,7 @@ beanDefinition.setInstanceSupplier(new Supplier<Object>() {
 });
 context.registerBeanDefinition("userService", beanDefinition);
 ```
-### 5.2 工厂方法创建对象
-
+#### 5.2 工厂方法创建对象
 
 如果没有设置Supplier，则检查BeanDefinition中是否设置了factoryMethod，也就是工厂方法，有两种方式可以设置factoryMethod，比如：
 ​
@@ -238,7 +235,7 @@ Spring发现当前BeanDefinition方法设置了工厂方法后，就会区分这
 值得注意的是，我们通过@Bean所定义的BeanDefinition，是存在factoryMethod和factoryBean的，也就是和上面的方式二非常类似，@Bean所注解的方法就是factoryMethod，AppConfig对象就是factoryBean。如果@Bean所所注解的方法是static的，那么对应的就是方式一。
 
 
-### 5.3 推断构造方法
+#### 5.3 推断构造方法
 第一节已经讲过一遍大概原理了，后面有一节课单独分析源码实现。推断完构造方法后，就会使用构造方法来进行实例化了。
 ​
 

@@ -154,7 +154,7 @@ System.out.println(beanFactory.getBean("user"));
 它实现了很多接口，表示，它拥有很多功能：
 
 1. AliasRegistry：支持别名功能，一个名字可以对应多个别名
-1. BeanDefinitionRegistry：可以注册、保存、移除、获取某个BeanDefinition
+1. BeanDefinitionRegistry：可**以注册、保存、移除、获取某个BeanDefinition**
 1. BeanFactory：Bean工厂，可以根据某个bean的名字、或类型、或别名获取某个Bean对象
 1. SingletonBeanRegistry：可以直接注册、获取某个**单例**Bean
 1. SimpleAliasRegistry：它是一个类，实现了AliasRegistry接口中所定义的功能，支持别名功能
@@ -210,7 +210,7 @@ System.out.println(beanFactory.getBean("user"));
 
 
 ### ClassPathXmlApplicationContext
-![image (2)](./03-Spring%E4%B9%8B%E5%BA%95%E5%B1%82%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%A7%A3%E6%9E%90.assets/202202091709511.png)
+![ClassPathXmlApplicationContext](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/TL%E6%96%87%E6%A1%A3/Spring/03-Spring%E4%B9%8B%E5%BA%95%E5%B1%82%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%A7%A3%E6%9E%90.assets/ClassPathXmlApplicationContext.png)
 它也是继承了AbstractApplicationContext，但是相对于AnnotationConfigApplicationContext而言，功能没有AnnotationConfigApplicationContext强大，比如不能注册BeanDefinition
 
 
@@ -587,7 +587,7 @@ public class ZhouyuBeanPostProcessor implements BeanPostProcessor {
 **我们可以通过定义BeanPostProcessor来干涉Spring创建Bean的过程。**
 
 ## BeanFactoryPostProcessor
-BeanFactoryPostProcessor表示Bean工厂的后置处理器，其实和BeanPostProcessor类似，BeanPostProcessor是干涉Bean的创建过程，BeanFactoryPostProcessor是干涉BeanFactory的创建过程。比如，我们可以这样定义一个BeanFactoryPostProcessor：
+BeanFactoryPostProcessor表示Bean工厂的后置处理器，**其实和BeanPostProcessor类似，BeanPostProcessor是干涉Bean的创建过程，BeanFactoryPostProcessor是干涉BeanFactory的创建过程**。比如，我们可以这样定义一个BeanFactoryPostProcessor：
 
 ```java
 @Component
