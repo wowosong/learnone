@@ -11,7 +11,6 @@ Object resolveDependency(DependencyDescriptor descriptor, @Nullable String reque
 ```
 该方法表示，传入一个依赖描述（DependencyDescriptor），该方法会根据该依赖描述从BeanFactory中找出对应的唯一的一个Bean对象。
 
-
 下面来分析一下**DefaultListableBeanFactory**中**resolveDependency()**方法的具体实现，**具体流程图**：
 [https://www.processon.com/view/link/5f8d3c895653bb06ef076688](https://www.processon.com/view/link/5f8d3c895653bb06ef076688)
 
@@ -120,7 +119,6 @@ public class TypeTest<T> {
 
 
 Spring中，但注入点是一个泛型时，也是会进行处理的，比如：
-​
 
 ```java
 @Component
@@ -141,7 +139,7 @@ public class BaseService<O, S> {
 	protected S s;
 }
 ```
-​
+
 
 
 1. Spring扫描时发现UserService是一个Bean
@@ -150,15 +148,15 @@ public class BaseService<O, S> {
 1. 因为当前正在创建的是UserService的Bean，所以可以通过`userService.getClass().getGenericSuperclass().getTypeName()`获取到具体的泛型信息，比如`com.zhouyu.service.BaseService<com.zhouyu.service.OrderService, com.zhouyu.service.StockService>`
 1. 然后再拿到UserService的父类BaseService的泛型变量：` for (TypeVariable<? extends Class<?>> typeParameter : userService.getClass().getSuperclass().getTypeParameters()) {
    System._out_.println(typeParameter.getName());
-}`
+   }`
 1. 通过上面两段代码，就能知道，o对应的具体就是OrderService，s对应的具体类型就是StockService
 1. 然后再调用`oField.getGenericType()`就知道当前field使用的是哪个泛型，就能知道具体类型了
 
-​
 
-​
 
-​
+
+
+
 
 ## @Qualifier的使用
 
@@ -178,7 +176,7 @@ public @interface Random {
 public @interface RoundRobin {
 }
 ```
-​
+
 
 定义一个接口和两个实现类，表示负载均衡：
 ```java
@@ -186,7 +184,7 @@ public interface LoadBalance {
 	String select();
 }
 ```
-​
+
 
 ```java
 @Component
@@ -212,7 +210,7 @@ public class RoundRobinStrategy implements LoadBalance {
 	}
 }
 ```
-​
+
 
 使用：
 ```java
@@ -229,10 +227,9 @@ public class UserService  {
 
 }
 ```
-​
+
 
 ## @Resource
-
 
 @Resource注解底层工作流程图：
 [https://www.processon.com/view/link/5f91275f07912906db381f6e](https://www.processon.com/view/link/5f91275f07912906db381f6e)

@@ -1,9 +1,9 @@
 有道云链接：http://note.youdao.com/noteshare?id=bb7e5f810ade4bab72d7af5b9d6c1e97&sub=B26AAB65D991490D9C547529F6AED86B
 ​（复制链接到浏览器的时候注意转行的空格）
 
-
 依赖注入底层原理流程图：
 [https://www.processon.com/view/link/5f899fa5f346fb06e1d8f570](https://www.processon.com/view/link/5f899fa5f346fb06e1d8f570)
+
 ## Spring中到底有几种依赖注入的方式？
 
 
@@ -20,13 +20,13 @@
 
 
 在XML中定义Bean时，就是手动注入，因为是**程序员手动给某个属性指定了值**。
-```java
+```xml
 <bean name="userService" class="com.luban.service.UserService">
 	<property name="orderService" ref="orderService"/>
 </bean>
 ```
 上面这种底层是通过**set方法**进行注入。
-```java
+```xml
 <bean name="userService" class="com.luban.service.UserService">
 	<constructor-arg index="0" ref="orderService"/>
 </bean>
@@ -68,8 +68,7 @@
 ```
 这么写，表示Spring会自动的给userService中所有的属性自动赋值（**不需要**这个属性上有@Autowired注解，但需要这个属性有对应的**set方法**）。
 
-
-在创建Bean的过程中，在填充属性时，Spring会去解析当前类，把**当前类的所有方法**都解析出来，Spring会去解析每个方法得到对应的PropertyDescriptor对象，PropertyDescriptor中有几个属性：
+**在创建Bean的过程中，在填充属性时，Spring会去解析当前类，把当前类的所有方法都解析出来，Spring会去解析每个方法得到对应的PropertyDescriptor对象，PropertyDescriptor中有几个属性：**
 
 1. **name：这个name并不是方法的名字，而是拿方法名字进过处理后的名字**
    1. **如果方法名字以“get”开头，比如“getXXX”,那么name=XXX**
@@ -88,7 +87,6 @@
 **get方法的定义是：** 方法参数个数为0个，并且 （方法名字以"get"开头 或者 方法名字以"is"开头并且方法的返回类型为boolean）
 
 **set方法的定义是：**方法参数个数为1个，并且 （方法名字以"set"开头并且方法返回类型为void）
-
 
 **所以，Spring在通过byName的自动填充属性时流程是：**
 
@@ -206,8 +204,6 @@ XML中的autowire控制的是整个bean的所有属性，而@Autowired注解是�
 
 
 ### static的字段或方法为什么不支持
-
-
 
 
 ```java
