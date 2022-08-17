@@ -1,6 +1,6 @@
 有道云链接：http://note.youdao.com/noteshare?id=e6ce24e9411eab5445612286d641eccd&sub=29A52DF2ACB64C4D974730C75D409180
 ## 前言分析
-​
+
 
 通常，我们说的Spring启动，就是构造ApplicationContext对象以及调用refresh()方法的过程。
 ​
@@ -33,7 +33,7 @@
 
 
 ## BeanFactoryPostProcessor
-​
+
 
 BeanPostProcessor表示Bean的后置处理器，是用来对Bean进行加工的，类似的，BeanFactoryPostProcessor理解为BeanFactory的后置处理器，用来用对BeanFactory进行加工的。
 ​
@@ -110,7 +110,7 @@ public class ZhouyuBeanDefinitionRegistryPostProcessor implements BeanDefinition
 ```
 
 
-这是ConfigurableApplicationContext接口上refresh()方法的注释，意思是：加载或刷新持久化的配置，可能是XML文件、属性文件或关系数据库中存储的。由于这是一个启动方法，如果失败，它应该销毁已经创建的单例，以避免暂用资源。换句话说，在调用该方法之后，应该实例化所有的单例，或者根本不实例化单例 。
+这是ConfigurableApplicationContext接口上refresh()方法的注释，意思是：加载或刷新持久化的配置，可能是XML文件、属性文件或关系数据库中存储的。由于这是一个启动方法，如果失败，它应该销毁已经创建的单例，以避免占用资源。换句话说，在调用该方法之后，应该实例化所有的单例，或者根本不实例化单例 。
 
 
 有个理念需要注意：**ApplicationContext关闭之后不代表JVM也关闭了，ApplicationContext是属于JVM的，说白了ApplicationContext也是JVM中的一个对象。**

@@ -58,7 +58,7 @@ MetadataReader表示类的元数据读取器，主要包含了一个AnnotationMe
 值得注意的是，CachingMetadataReaderFactory解析某个.class文件得到MetadataReader对象是利用的**ASM**技术，并没有加载这个类到JVM。并且，最终得到的ScannedGenericBeanDefinition对象，**beanClass属性存储的是当前类的名字，而不是class对象**。（beanClass属性的类型是Object，它即可以存储类的名字，也可以存储class对象）
 ​
 
-最后，上面是说的通过扫描得到BeanDefinition对象，我们还可以通过直接定义BeanDefinition，或解析spring.xml文件的<bean/>，或者@Bean注解得到BeanDefinition对象。（后续课程会分析@Bean注解是怎么生成BeanDefinition的）。
+最后，上面是说的通过扫描得到BeanDefinition对象，我们还可以通过直接定义BeanDefinition，或解析spring.xml文件的<bean/>，或者@Bean注解得到BeanDefinition对象。（后续课程会分析**@Bean注解是怎么生成BeanDefinition的**）。
 
 
 ### 2. 合并BeanDefinition
@@ -83,8 +83,7 @@ MetadataReader表示类的元数据读取器，主要包含了一个AnnotationMe
 因为child的父BeanDefinition是parent，所以会继承parent上所定义的scope属性。
 ​
 
-**而在根据child来生成Bean对象之前，需要进行BeanDefinition的合并，得到完整的child的BeanDefinition。**
-​
+**而在根据child来生成Bean对象之前，需要进行BeanDefinition的合并，得到完整的child的BeanDefinition。**（就是复制父bean属性到子bean对象）（**getMergedBeanDefinition**）
 
 ### 3. 加载类
 
@@ -168,7 +167,7 @@ public class ZhouyuBeanPostProcessor implements InstantiationAwareBeanPostProces
 
 userService这个Bean，在实例化前会直接返回一个由我们所定义的UserService对象。如果是这样，表示不需要Spring来实例化了，并且后续的Spring依赖注入也不会进行了，会跳过一些步骤，直接执行初始化后这一步。
 ### 5. 实例化
-在这个步骤中就会根据BeanDefinition去创建一个对象了。
+在这个步骤中就会根据BeanDefinition去**创建一个对象**了。
 
 
 #### 5.1 Supplier创建对象
@@ -228,21 +227,20 @@ public class CommonService {
 }
 ```
 
-
 Spring发现当前BeanDefinition方法设置了工厂方法后，就会区分这两种方式，然后调用工厂方法得到对象。
 ​
 
-值得注意的是，我们通过@Bean所定义的BeanDefinition，是存在factoryMethod和factoryBean的，也就是和上面的方式二非常类似，@Bean所注解的方法就是factoryMethod，AppConfig对象就是factoryBean。如果@Bean所所注解的方法是static的，那么对应的就是方式一。
+值得注意的是，我们通过@Bean所定义的BeanDefinition，是存在factoryMethod和factoryBean的，也就是和上面的方式二非常类似，**@Bean所注解的方法就是factoryMethod，AppConfig对象就是factoryBean**。如果@Bean所所注解的方法是static的，那么对应的就是方式一。
 
 
 #### 5.3 推断构造方法
 第一节已经讲过一遍大概原理了，后面有一节课单独分析源码实现。推断完构造方法后，就会使用构造方法来进行实例化了。
 ​
 
-额外的，在推断构造方法逻辑中除开会去选择构造方法以及查找入参对象意外，会还判断是否在对应的类中是否存在使用**@Lookup注解**了方法。如果存在则把该方法封装为LookupOverride对象并添加到BeanDefinition中。
+额外的，在推断构造方法逻辑中除开会去选择构造方法以及查找入参对象以外，会还判断是否在对应的类中是否存在使用**@Lookup注解**了方法。如果存在则把该方法封装为LookupOverride对象并添加到BeanDefinition中。
 ​
 
-在实例化时，如果判断出来当前BeanDefinition中没有LookupOverride，那就直接用构造方法反射得到一个实例对象。如果存在LookupOverride对象，也就是类中存在@Lookup注解了的方法，那就会生成一个代理对象。
+在实例化时，**如果判断出来当前BeanDefinition中没有LookupOverride，那就直接用构造方法反射得到一个实例对象。如果存在LookupOverride对象，也就是类中存在@Lookup注解了的方法，那就会生成一个代理对象**。
 ​
 
 
@@ -318,7 +316,7 @@ public class ZhouyuInstantiationAwareBeanPostProcessor implements InstantiationA
 ​
 
 ### 9. 处理属性
-这个步骤中，就会处理@Autowired、@Resource、@Value等注解，也是通过**InstantiationAwareBeanPostProcessor.postProcessProperties()**扩展点来实现的，比如我们甚至可以实现一个自己的自动注入功能，比如：
+这个步骤中，就会处理**@Autowired、@Resource、@Value等注解**，也是通过**InstantiationAwareBeanPostProcessor.postProcessProperties()**扩展点来实现的，比如我们甚至可以实现一个自己的自动注入功能，比如：
 ```java
 @Component
 public class ZhouyuInstantiationAwareBeanPostProcessor implements InstantiationAwareBeanPostProcessor {
@@ -375,13 +373,12 @@ public class ZhouyuBeanPostProcessor implements BeanPostProcessor {
 }
 ```
 
-
 利用初始化前，可以对进行了依赖注入的Bean进行处理。
 ​
 
 在Spring源码中：
 
-1. InitDestroyAnnotationBeanPostProcessor会在初始化前这个步骤中执行@PostConstruct的方法，
+1. **InitDestroyAnnotationBeanPostProcessor会在初始化前这个步骤中执行@PostConstruct的方法，**
 1. ApplicationContextAwareProcessor会在初始化前这个步骤中进行其他Aware的回调：
    1. EnvironmentAware：回传环境变量
    1. EmbeddedValueResolverAware：回传占位符解析器
@@ -424,7 +421,7 @@ public class ZhouyuBeanPostProcessor implements BeanPostProcessor {
 
 1. InstantiationAwareBeanPostProcessor.postProcessBeforeInstantiation()
 1. 实例化
-1. MergedBeanDefinitionPostProcessor.postProcessMergedBeanDefinition()
+1. MergedBeanDefinitionPostProcessor.postProcessMergedBeanDefinition()--->扩展bean的属性
 1. InstantiationAwareBeanPostProcessor.postProcessAfterInstantiation()
 1. 自动注入
 1. InstantiationAwareBeanPostProcessor.postProcessProperties()
