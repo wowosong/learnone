@@ -4,7 +4,7 @@
 
 ## 技术发展
 
-$\textcolor{red}{**技术的分类**}$
+$\textcolor{red}{技术的分类}$
 
 1、解决功能性的问题：Java、Jsp、RDBMS、Tomcat、HTML、Linux、JDBC、SVN
 
