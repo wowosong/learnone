@@ -82,7 +82,7 @@
 
 - 将上述jar包拷贝到Java工程的一个目录中，习惯上新建一个lib文件夹。
 
- ![1566134718955](/Users/jiusonghuang/pic-md/20211028125608.png)
+ ![1566134718955](./JDBC%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7_%E5%AE%8B%E7%BA%A2%E5%BA%B7%EF%BC%89.assets/20211028125608.png)
 
 
 
@@ -105,7 +105,7 @@
 
   - 通常不用显式调用 DriverManager 类的 registerDriver() 方法来注册驱动程序类的实例，因为 Driver 接口的驱动程序类**都**包含了静态代码块，在这个静态代码块中，会调用 DriverManager.registerDriver() 方法来注册自身的一个实例。下图是MySQL的Driver实现类的源码：
 
-    ![1566136831283](./JDBC%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7_%E5%AE%8B%E7%BA%A2%E5%BA%B7%EF%BC%89.assets/20211028095606.png)
+    ![1566136831283](./JDBC%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7_%E5%AE%8B%E7%BA%A2%E5%BA%B7%EF%BC%89.assets/20211028095606.png) 
 
 ### 2.2 要素二：URL
 

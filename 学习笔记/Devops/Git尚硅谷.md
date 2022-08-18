@@ -64,19 +64,19 @@ CVS、**SVN**、VSS……
 
 **单点故障**
 
-![img](/Users/jiusonghuang/pic-md/20220122132842.png) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122132842.png) 
 
 **分布式版本控制工具：**(每个用户机,也都有版本历史)意味可以本地库传本地不建议这么做**
 
 **Git**、Mercurial、Bazaar、Darcs……
 
-![image-20220122135538422](/Users/jiusonghuang/pic-md/20220122135538.png)
+![image-20220122135538422](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122135538.png)
 
 ## **3 Git** **简介** 
 
 ### 3.1、Git 简史
 
-  ![img](/Users/jiusonghuang/pic-md/20220122132904.jpg)
+  ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122132904.jpg)
 
 
 
@@ -86,7 +86,7 @@ CVS、**SVN**、VSS……
 
 **Logo**：**
 
-![img](/Users/jiusonghuang/pic-md/20220122132914.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122132914.jpg) 
 
 
 
@@ -110,33 +110,33 @@ https://www.cnblogs.com/wlming/p/12213876.html Windows安装
 
 (linux直接yum install -y git),加-y自动选择y，全自动
 
- ![img](/Users/jiusonghuang/pic-md/20220122132923.jpg)
+ ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122132923.jpg)
 
 2下面默认设置就行:下图(下一步) **3**这个的下一步也使用默认 直接下一步
 
-![img](/Users/jiusonghuang/pic-md/20220122132929.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122132929.jpg) 
 
  
 
 **4** **选择默认的文本编辑器**
 
-![img](/Users/jiusonghuang/pic-md/20220122132935.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122132935.jpg) 
 
 **5** 然后修改环境变量(选第一完全不修改),下面选项第二个(是被认为安全的)
 
-![image-20220122140125722](/Users/jiusonghuang/pic-md/20220122140125.png)
+![image-20220122140125722](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122140125.png)
 
 **6** 选择客服端**本地库和远程库连接方式**(1通用连接2使用Windows连接方式)
 
-![img](/Users/jiusonghuang/pic-md/20220122132950.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122132950.jpg) 
 
 **7** **选择换行符的方式**(**1**检查文件时LF 转为 CRLF 提交相反)
 
-![image-20220122135811389](/Users/jiusonghuang/Library/Application%20Support/typora-user-images/image-20220122135811389.png) 
+
 
 8 **选择终端**(1Git默认终端(是liunx命令)2选择Windows终端(wind命令))
 
-![img](/Users/jiusonghuang/pic-md/20220122133003.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133003.jpg) 
 
 **9** 使用默认(选择第二个需要安装.NET framework c4.5.1以上版本)
 
@@ -144,21 +144,21 @@ NET framework安装失败解决方案:
 
 https://jingyan.baidu.com/article/fb48e8bee50ebf6e632e1464.html 
 
-![img](/Users/jiusonghuang/pic-md/20220122133009.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133009.jpg) 
 
  
 
 **10** 
 
-![img](/Users/jiusonghuang/pic-md/20220122133015.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133015.jpg) 
 
 **11** (1加载他的git Bash终端2查看更新的文档)
 
-![image-20220122135501717](/Users/jiusonghuang/pic-md/20220122135501.png)
+![image-20220122135501717](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122135501.png)
 
 ### 3.5、Git 结构 
 
-![img](/Users/jiusonghuang/pic-md/20220122133036.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133036.jpg) 
 
 ### 3.6、Git和代码托管中心
 
@@ -178,11 +178,11 @@ https://jingyan.baidu.com/article/fb48e8bee50ebf6e632e1464.html
 
 **3.7.1 团队内部协作**
 
-![img](/Users/jiusonghuang/pic-md/20220122133043.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133043.jpg) 
 
 **3.7.2** **跨团队协作** **p9**
 
-![img](/Users/jiusonghuang/pic-md/20220122133049.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133049.jpg) 
 
  
 
@@ -196,7 +196,7 @@ https://jingyan.baidu.com/article/fb48e8bee50ebf6e632e1464.html
 
 **效果:** 会在当前目录 生成.git目录(隐藏的)
 
-![img](/Users/jiusonghuang/pic-md/20220122133056.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133056.jpg) 
 
 注意：.git 目录中存放的是本地库相关的子目录和文件，不要删除，也不要胡乱修改。
 
@@ -226,7 +226,7 @@ Email 地址：hong.@qq.com
 
 信息保存位置：**./.git/config 文件**
 
-![img](/Users/jiusonghuang/pic-md/20220122133103.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133103.jpg) 
 
 ##### 系统用户级别：
 
@@ -236,7 +236,7 @@ Email 地址：hong.@qq.com
 
 信息保存位置：**~/.gitconfig** **文件** **(家目录下c/user)**
 
-![img](/Users/jiusonghuang/pic-md/20220122133109.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133109.jpg) 
 
 
 
@@ -314,7 +314,7 @@ Email 地址：hong.@qq.com
 
 查看版本记录
 
-![img](/Users/jiusonghuang/pic-md/20220122133118.png) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133118.png) 
 
 多屏显示控制方式：空格向下翻页 ,b 向上翻页 ,q 退出(超过了自动多屏)
 
@@ -324,7 +324,7 @@ Email 地址：hong.@qq.com
 
 每个历史只显示一行(hash值和日志)
 
- ![img](/Users/jiusonghuang/pic-md/20220122133128.png)
+ ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133128.png)
 
 
 
@@ -332,7 +332,7 @@ Email 地址：hong.@qq.com
 
 每个历史只显示一行且显示hash的部分值
 
- ![img](/Users/jiusonghuang/pic-md/20220122133137.png)
+ ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133137.png)
 
 
 
@@ -340,7 +340,7 @@ Email 地址：hong.@qq.com
 
 显示历史只显示一行，并且显示指针(要移动到版本多少步)
 
- ![img](/Users/jiusonghuang/pic-md/20220122133146.png)
+ ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133146.png)
 
 HEAD@{移动到当前版本需要多少步}
 
@@ -350,7 +350,7 @@ HEAD@{移动到当前版本需要多少步}
 
 **本质:指针移动**
 
-  ![img](/Users/jiusonghuang/pic-md/20220122133152.jpg)
+  ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133152.jpg)
 
 ##### 1、基于`索引值`操作 [推荐]
 
@@ -388,7 +388,7 @@ HEAD@{移动到当前版本需要多少步}
 
 **仅仅在本地库移动** HEAD 指针 (查看状态时,绿色提示,本地库和暂存区不同步)，相当于撤销了 commit 操纵
 
-![img](/Users/jiusonghuang/pic-md/20220122133201.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133201.jpg) 
 
 
 
@@ -398,7 +398,7 @@ HEAD@{移动到当前版本需要多少步}
 
 重置**暂存区**
 
-![img](/Users/jiusonghuang/pic-md/20220122133207.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133207.jpg) 
 
 
 
@@ -464,7 +464,7 @@ HEAD@{移动到当前版本需要多少步}
 
 1、在版本控制过程中，使用多条线同时推进多个任务。
 
-![img](/Users/jiusonghuang/pic-md/20220122133216.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133216.jpg) 
 
 2、分支的好处？
 
@@ -520,7 +520,7 @@ HEAD@{移动到当前版本需要多少步}
 
 ​	**冲突的表现：**
 
-   ![img](/Users/jiusonghuang/pic-md/20220122133225.jpg)
+   ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133225.jpg)
 
 ​	**冲突的解决：**
 
@@ -540,7 +540,7 @@ HEAD@{移动到当前版本需要多少步}
 
 ### 5.1、哈希  
 
-![img](/Users/jiusonghuang/pic-md/20220122133232.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133232.jpg) 
 
 **哈希是一个系列的加密算法，**各个不同的哈希算法虽然加密强度不同，但是有以下
 
@@ -558,7 +558,7 @@ HEAD@{移动到当前版本需要多少步}
 
 哈希算法可以被用来验证文件。原理如下图所示：(传输前后hash值对比)
 
- ![img](/Users/jiusonghuang/pic-md/20220122133238.jpg)
+ ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133238.jpg)
 
 **Git** **就是**靠这种机制**来从根本上**保证数据完整性**的。**
 
@@ -570,23 +570,23 @@ HEAD@{移动到当前版本需要多少步}
 
 以文件变更列表的方式存储信息。这类系统将它们保存的信息看作是一组基本文件和每个文件随时间逐步累积的差异。SVN
 
- ![img](/Users/jiusonghuang/pic-md/20220122133245.png)
+ ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133245.png)
 
 #### 5.2.2 Git 的文件管理机制
 
 Git 把数据看作是小型文件系统的一组快照。每次提交更新时 Git 都会对当前的全部文件制作一个快照并**保存这个快照的索引**。为了高效，如果文件没有修改， Git 不再重新存储该文件，而是只保留一个链接指向之前存储的文件。所以 Git 的工作方式可以称之为**快照流**。
 
-![img](/Users/jiusonghuang/pic-md/20220122133254.png) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133254.png) 
 
 #### 5.2.3 Git 文件管理机制细节
 
 Git 的“提交对象” (每个文件对应的hash值)
 
-![img](/Users/jiusonghuang/pic-md/20220122133301.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133301.jpg) 
 
 提交对象及其父对象形成的链条
 
-![img](/Users/jiusonghuang/pic-md/20220122133307.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133307.jpg) 
 
 
 
@@ -594,27 +594,27 @@ Git 的“提交对象” (每个文件对应的hash值)
 
 #### 5.3.1 分支的创建(就是新建一个指针)
 
- ![img](/Users/jiusonghuang/pic-md/20220122133315.jpg)
+ ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133315.jpg)
 
 #### 5.3.2 分支的切换 (HEAD指向) 
 
-![image-20220122133401670](/Users/jiusonghuang/pic-md/20220122133401.png)
+![image-20220122133401670](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133401.png)
 
  
 
 #### 5.3.3 HEAD指向testing时提交了内容
 
- ![img](/Users/jiusonghuang/pic-md/20220122133437.jpg)
+ ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133437.jpg)
 
 #### 5.3.4 切换回 master
 
-  ![img](/Users/jiusonghuang/pic-md/20220122133443.jpg)
+  ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133443.jpg)
 
  
 
 #### 5.3.5  HEAD指向master时 提交了数据
 
-  ![img](/Users/jiusonghuang/pic-md/20220122133449.jpg)
+  ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133449.jpg)
 
  
 
@@ -624,28 +624,28 @@ Git 的“提交对象” (每个文件对应的hash值)
 
 GitHub 首页就是注册页面：https://github.com/
 
-| ![img](/Users/jiusonghuang/pic-md/20220122133458.jpg) | Email 地址：atguigu2018ybuq@aliyun.comGitHub 账号：atguigu2018ybuq |
+| ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133458.jpg) | Email 地址：atguigu2018ybuq@aliyun.comGitHub 账号：atguigu2018ybuq |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![img](/Users/jiusonghuang/pic-md/20220122133506.jpg) | Email 地址：atguigu2018lhuc@aliyun.comGitHub 账号：atguigu2018lhuc |
-| ![img](/Users/jiusonghuang/pic-md/20220122133516.jpg) | Email 地址：atguigu2018east@aliyun.comGitHub 账号：atguigu2018east |
+| ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133506.jpg) | Email 地址：atguigu2018lhuc@aliyun.comGitHub 账号：atguigu2018lhuc |
+| ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133516.jpg) | Email 地址：atguigu2018east@aliyun.comGitHub 账号：atguigu2018east |
 
 
 
 ### 6.2、创建远程库 
 
-![img](/Users/jiusonghuang/pic-md/20220122133526.png) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133526.png) 
 
-![image-20220122140251381](/Users/jiusonghuang/pic-md/20220122140251.png)
+![image-20220122140251381](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122140251.png)
 
 ### 6.3、创建远程库地址别名 
 
-![img](/Users/jiusonghuang/pic-md/20220122133541.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133541.jpg) 
 
 **`git remote -v`**  查看当前所有远程地址别名 
 
 **`git remote add [别名] [远程地址]`**  添加远程地址
 
-![img](/Users/jiusonghuang/pic-md/20220122133547.png) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133547.png) 
 
 
 
@@ -653,7 +653,7 @@ GitHub 首页就是注册页面：https://github.com/
 
 **`git push [别名] [分支名]`**  git push origin master  ( 回车可能需要等待一会会，弹出对话框 > 输入用户和密码 )
 
-  ![img](/Users/jiusonghuang/pic-md/20220122133556.png)
+  ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133556.png)
 
 
 
@@ -661,11 +661,11 @@ GitHub 首页就是注册页面：https://github.com/
 
 `git clone [远程地址] `
 
-![img](/Users/jiusonghuang/pic-md/20220122133606.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133606.jpg) 
 
 成功:
 
-![img](/Users/jiusonghuang/pic-md/20220122133613.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133613.jpg) 
 
 **克隆效果：**
 
@@ -679,27 +679,27 @@ GitHub 首页就是注册页面：https://github.com/
 
 ### 6.6、团队成员邀请(邀请用户才能提交)
 
- ![img](/Users/jiusonghuang/pic-md/20220122133619.jpg)
+ ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133619.jpg)
 
 **和老师笔记不一样的地方**
 
-![img](/Users/jiusonghuang/pic-md/20220122133628.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133628.jpg) 
 
  
 
-![img](/Users/jiusonghuang/pic-md/20220122133635.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133635.jpg) 
 
 “岳不群”其他方式**把邀请链接发送给“令狐冲”，“**令狐冲”**登录自己的** **GitHub** **账号，**访问邀请链接。
 
 点击接受 >然后在执行推送
 
-![img](/Users/jiusonghuang/pic-md/20220122133642.png) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133642.png) 
 
 :推送了第一次在此推送不要输入用户名:git 本身不具备记录功能,Windows中**凭据管理器**记录用户名和密码
 
 **控制面板\所有控制面板项\凭据管理器**(如果想切换用户:删除记录)**
 
-![img](/Users/jiusonghuang/pic-md/20220122133652.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133652.jpg) 
 
  lhc>提交后>>然后推送 **git push origin master**
 
@@ -745,55 +745,55 @@ pull=fetch+merge
 
 **1(**先复制**当前库地址**,发式给dfbb,然后有**dfbb登录**访问这个地址)>然后**Fork** 
 
-  ![img](/Users/jiusonghuang/pic-md/20220122133709.jpg)
+  ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133709.jpg)
 
-![img](/Users/jiusonghuang/pic-md/20220122133715.jpg)正在fork的界面
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133715.jpg)正在fork的界面
 
 fork 过来的仓库说明 回多下面一行(forked from at...)说明fork来源
 
-![img](/Users/jiusonghuang/pic-md/20220122133721.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133721.jpg) 
 
 2 dfbb(”东方不败”)本地修改，然后推送到远程 git push origin master
 
 **3** dfbb在远程库中选择Pull Request
 
-![img](/Users/jiusonghuang/pic-md/20220122133727.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133727.jpg) 
 
-![img](/Users/jiusonghuang/pic-md/20220122133739.jpg)3.2然后点击里面的New pull requset
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133739.jpg)3.2然后点击里面的New pull requset
 
-![img](/Users/jiusonghuang/pic-md/20220122133743.jpg)3.3 然后点击 Create pull request
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133743.jpg)3.3 然后点击 Create pull request
 
  3.4 然后发送消息给,fork的库(ybq(岳不群))
 
-![img](/Users/jiusonghuang/pic-md/20220122133749.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133749.jpg) 
 
 **4** ybq操作
 
-![img](/Users/jiusonghuang/pic-md/20220122133758.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133758.jpg) 
 
-**5**![img](/Users/jiusonghuang/pic-md/20220122133805.jpg)
+**5**![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133805.jpg)
 
 **5.2**对话** **(这时还可以相互对话)**
 
-![img](/Users/jiusonghuang/pic-md/20220122133812.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133812.jpg) 
 
-![img](/Users/jiusonghuang/pic-md/20220122133822.png) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133822.png) 
 
 **6** **审核代码**
 
-![img](/Users/jiusonghuang/pic-md/20220122133830.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133830.jpg) 
 
 **合并代码** **(回到对话Conversation>>合并操作如图)**
 
  
 
-![img](/Users/jiusonghuang/pic-md/20220122133837.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133837.jpg) 
 
  
 
-![img](/Users/jiusonghuang/pic-md/20220122133842.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133842.jpg) 
 
-![img](/Users/jiusonghuang/pic-md/20220122133847.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133847.jpg) 
 
 **上面操作完了就远程库就有合并内容>然后**>将远程库修改拉取到本地**
 
@@ -841,11 +841,11 @@ $ **cat id_rsa.pub**
 
 **工程→右键→Team→Share Project→Git**
 
- ![img](/Users/jiusonghuang/pic-md/20220122133858.jpg)
+ ![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133858.jpg)
 
 2 Create Repository
 
-![img](/Users/jiusonghuang/pic-md/20220122133906.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133906.jpg) 
 
 **3** **Finish**
 
@@ -855,23 +855,23 @@ $ **cat id_rsa.pub**
 
 **1 设置用户名字 p45**
 
-![img](/Users/jiusonghuang/pic-md/20220122133912.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133912.jpg) 
 
 **2 设置用户email** 
 
-![img](/Users/jiusonghuang/pic-md/20220122133918.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133918.jpg) 
 
 **Eclipse查看git文件标识说明: window>prefer.>Team>Git>Label D..  p46**
 
-![img](/Users/jiusonghuang/pic-md/20220122133924.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133924.jpg) 
 
 **Eclipse:文件追踪添加到缓存区:**文件/项目> **右键>>Team>Commit**  **p47**
 
-![img](/Users/jiusonghuang/pic-md/20220122133931.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133931.jpg) 
 
 **Eclipse**查看项目中的所有文件的**Navigator窗口打开**
 
-![img](/Users/jiusonghuang/pic-md/20220122133939.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133939.jpg) 
 
   
 
@@ -942,7 +942,7 @@ excludesfile = **C:/Users/Lenovo/Java.gitignore**
 
 3完成后在Eclipse查看.gitconfig 配置:**window>prefer.>Team>Git>Configuration**
 
-![img](/Users/jiusonghuang/pic-md/20220122133948.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133948.jpg) 
 
 **3.2** **重启eclipse >**Navigator窗口**查看忽略是否成功**
 
@@ -952,43 +952,43 @@ excludesfile = **C:/Users/Lenovo/Java.gitignore**
 
 **2** 提交到本地库中: **项目右键>**Team>**Commit**  **(我的快捷键:**ctrl+shift+#**)**
 
-![img](/Users/jiusonghuang/pic-md/20220122133954.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122133954.jpg) 
 
 ### **7.3**推送到远程库** **p50 (:在GitHub创建新的远程库,名为TestGit)**
 
-![image-20220122140339311](/Users/jiusonghuang/pic-md/20220122140339.png)
+![image-20220122140339311](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122140339.png)
 
 URI: 粘贴在GitHub复制的地址,后面2个默认;User账号,下面:密码
 
-![img](/Users/jiusonghuang/pic-md/20220122134008.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134008.jpg) 
 
 点击Add All Bran... > 然后下一步/或者直接Finish
 
-![img](/Users/jiusonghuang/pic-md/20220122134014.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134014.jpg) 
 
 可以添加一些日志信息>Finish
 
-![image-20220122140403391](/Users/jiusonghuang/pic-md/20220122140403.png)
+![image-20220122140403391](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122140403.png)
 
 执行成功的结果
 
-![image-20220122140426840](/Users/jiusonghuang/pic-md/20220122140427.png)
+![image-20220122140426840](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122140427.png)
 
 ### **7.4Oxygen Eclipse** 克隆工程操作 **p51**
 
 **1** **Import...导入工程**
 
-![img](/Users/jiusonghuang/pic-md/20220122134821.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134821.jpg) 
 
-![img](/Users/jiusonghuang/pic-md/20220122134828.png) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134828.png) 
 
 **2** **到远程库复制工程地址**
 
-![img](/Users/jiusonghuang/pic-md/20220122134037.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134037.jpg) 
 
 **3粘贴到URL  如下: >然后点击next**
 
- ![image-20220122140446873](/Users/jiusonghuang/pic-md/20220122140447.png)
+ ![image-20220122140446873](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122140447.png)
 
  
 
@@ -996,31 +996,31 @@ URI: 粘贴在GitHub复制的地址,后面2个默认;User账号,下面:密码
 
 **4** 选择分支 Next
 
-![image-20220122140512609](/Users/jiusonghuang/pic-md/20220122140512.png)
+![image-20220122140512609](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122140512.png)
 
 **5**指定工程的保存位置**(最好选择eclipse工作区) 然后next**
 
-![img](/Users/jiusonghuang/pic-md/20220122134101.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134101.jpg) 
 
 等待下载
 
 6指定工程导入方式，**这里只能用：Import as general project** **(作为普通工程导入)**
 
-![img](/Users/jiusonghuang/pic-md/20220122134111.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134111.jpg) 
 
 **7** 点击Finish
 
-![img](/Users/jiusonghuang/pic-md/20220122134118.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134118.jpg) 
 
  
 
 **8** **转换工程类型 (导入进来的不适合编写.需要修改Eclipse工程)**
 
-![img](/Users/jiusonghuang/pic-md/20220122134124.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134124.jpg) 
 
 **9**最终效果** 
 
-![img](/Users/jiusonghuang/pic-md/20220122134134.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134134.jpg) 
 
 ### **7.5Kepler Eclipse** **克隆工程操作**p52(版本比较低的Eclipse)** 
 
@@ -1028,11 +1028,11 @@ URI: 粘贴在GitHub复制的地址,后面2个默认;User账号,下面:密码
 
 放在工作区[第7 步时]不能导入,如下图:
 
-![img](/Users/jiusonghuang/pic-md/20220122134141.png) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134141.png) 
 
 正确做法：**保存到工作区以外的目录中**,其他的和上面都一样**
 
-![img](/Users/jiusonghuang/pic-md/20220122134146.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134146.jpg) 
 
 ### **7.6**解决冲突** **p53**
 
@@ -1046,7 +1046,7 @@ URI: 粘贴在GitHub复制的地址,后面2个默认;User账号,下面:密码
 
 **工程右键>Team>Push Branch** **‘**master**’**)(所以默认直接下一步)>>等条读完(弹出对话窗口)
 
-4**这时TestGit2不能推送**,会出现这个图![img](/Users/jiusonghuang/pic-md/20220122134158.jpg),因为不是最新版本,
+4**这时TestGit2不能推送**,会出现这个图![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134158.jpg),因为不是最新版本,
 
 更新:**右键>Team>pull**
 
@@ -1054,7 +1054,7 @@ URI: 粘贴在GitHub复制的地址,后面2个默认;User账号,下面:密码
 
 1 **冲突文件→右键→Team→Merge Tool** 
 
-![img](/Users/jiusonghuang/pic-md/20220122134204.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134204.jpg) 
 
 2修改完成后Eclipse正常执行[该文件] **add/commit** **操作即可**
 
@@ -1074,11 +1074,11 @@ Git 的方式
 
  
 
-![img](/Users/jiusonghuang/pic-md/20220122134211.jpg)**8.2.2 GitFlow 工作流**(最金典,用得最多)**
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134211.jpg)**8.2.2 GitFlow 工作流**(最金典,用得最多)**
 
 Gitflow 工作流通过为**功能开发**、**发布准备**和**维护设立**了**独立的分支**，让发布迭代过程更流畅。严格的分支模型也为大型项目提供了一些非常必要的结构。
 
-![img](/Users/jiusonghuang/pic-md/20220122134218.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134218.jpg) 
 
 **8.2.3 Forking 工作流**()**
 
@@ -1086,7 +1086,7 @@ Forking 工作流是在 GitFlow 基础上，充分利用了 Git 的 **Fork 和 p
 
  
 
-![img](/Users/jiusonghuang/pic-md/20220122134224.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134224.jpg) 
 
 ### **8.3GitFlow 工作流详解** 
 
@@ -1118,11 +1118,11 @@ Forking 工作流是在 GitFlow 基础上，充分利用了 Git 的 **Fork 和 p
 
 下面是**GitFlow 工作流举例**图**:**
 
-![img](/Users/jiusonghuang/pic-md/20220122134233.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134233.jpg) 
 
 **8.3.3 分支实战** **p55**
 
-![img](/Users/jiusonghuang/pic-md/20220122134240.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134240.jpg) 
 
  
 
@@ -1130,11 +1130,11 @@ Forking 工作流是在 GitFlow 基础上，充分利用了 Git 的 **Fork 和 p
 
 **1**创建分支**:** **右键>Team>Switch To >New Branch**
 
-![img](/Users/jiusonghuang/pic-md/20220122134246.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134246.jpg) 
 
 **2**给分支命名>Finish** (**创建后自动切换到分支**)
 
-![img](/Users/jiusonghuang/pic-md/20220122134253.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134253.jpg) 
 
 3修改分支hot_fix的happy.java的内容(要避免冲突),提交到本地库
 
@@ -1142,15 +1142,15 @@ Forking 工作流是在 GitFlow 基础上，充分利用了 Git 的 **Fork 和 p
 
  **选择文件**happy.java**>>** **右键>> Repository>>Pish Branch** **’**hot_fix**’**
 
-![img](/Users/jiusonghuang/pic-md/20220122134259.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134259.jpg) 
 
 **4.2**  **然后下一步>>然后(没截图)push**
 
-![img](/Users/jiusonghuang/pic-md/20220122134305.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134305.jpg) 
 
 4.3 等待一会儿,弹出下面对话窗口说明成功了
 
-![img](/Users/jiusonghuang/pic-md/20220122134311.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134311.jpg) 
 
 **o5** **ybq拉取操作不不需要选择分支:(这里有TestGit2模拟岳不群)**
 
@@ -1160,47 +1160,47 @@ Forking 工作流是在 GitFlow 基础上，充分利用了 Git 的 **Fork 和 p
 
 **项目右键>Team>Remote>**Fetch Tags**
 
-![img](/Users/jiusonghuang/pic-md/20220122134319.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134319.jpg) 
 
  
 
-![img](/Users/jiusonghuang/pic-md/20220122134325.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134325.jpg) 
 
  
 
-![img](/Users/jiusonghuang/pic-md/20220122134332.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134332.jpg) 
 
 **o6**切换分支审查代码:**项目右键>Team>Switch To > Other**
 
-![img](/Users/jiusonghuang/pic-md/20220122134343.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134343.jpg) 
 
 **o7** 选择分支
 
-![img](/Users/jiusonghuang/pic-md/20220122134348.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134348.jpg) 
 
 **o8** 
 
-![img](/Users/jiusonghuang/pic-md/20220122134355.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134355.jpg) 
 
 **o9**创建新分支,选择**Check out new** **branch**为**检出**远程新分支**
 
-![img](/Users/jiusonghuang/pic-md/20220122134403.png) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134403.png) 
 
 **o10**切换回 master 
 
-![img](/Users/jiusonghuang/pic-md/20220122134410.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134410.jpg) 
 
 **o11**合并分支
 
-![img](/Users/jiusonghuang/pic-md/20220122134426.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134426.jpg) 
 
-![img](/Users/jiusonghuang/pic-md/20220122134431.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134431.jpg) 
 
  
 
 **合并结果**
 
-![img](/Users/jiusonghuang/pic-md/20220122134438.jpg) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134438.jpg) 
 
  **合并后直接提交到远程库**(本地库已经提交)
 
@@ -1274,7 +1274,7 @@ sudo EXTERNAL_URL="http://gitlab.example.com" yum -y install gitlab-**c**e**
 
 初次登录时需要为 **gitlab 的 root 用户设置密码。**
 
-![img](/Users/jiusonghuang/pic-md/20220122134446.png) 
+![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134446.png) 
 
 root/atguigu2018good
 
