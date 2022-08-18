@@ -134,14 +134,14 @@ axios.spread(): 用来指定接收所有成功数据的回调函数的方法
     3). dispatchRequest(config): 转换请求数据 ===> 调用xhrAdapter()发请求 ===> 请求返回后转换响应数据. 返回promise
     4). xhrAdapter(config): 创建XHR对象, 根据config进行相应设置, 发送特定请求, 并接收响应数据, 返回promise 
 ```
-![](./axois%E7%AC%94%E8%AE%B0.assets/e5692e36861bd1d2fa1735c5ab801af7.png)
+![](./Axois.assets/e5692e36861bd1d2fa1735c5ab801af7.png)
 
     4. axios的请求/响应拦截器是什么?
         1). 请求拦截器: 在真正发请求前, 可以对请求进行检查或配置进行特定处理的函数, 
                    包括成功/失败的函数, 传递的必须是config
         2). 响应拦截器: 在请求返回后, 可以对响应数据进行特定处理的函数,
                    包括成功/失败的函数, 传递的默认是response
-![](./axois%E7%AC%94%E8%AE%B0.assets/b0f95169782409e7576bc9704b93b693-8315928.png)
+![](./Axois.assets/b0f95169782409e7576bc9704b93b693-8315928.png)
 
 ```javascript
 5. axios的请求/响应数据转换器是什么?
