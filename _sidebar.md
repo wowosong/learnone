@@ -1,6 +1,6 @@
 <!-- 侧边栏 docs/_sidebar.md -->
 
-- [📙wowosong学习笔记](http://wowosong.gitee.io/learn-new/)
+- [📙喔喔松学习笔记](http://wowosong.gitee.io/learnone/#/)
     - 前端
       - [Html+css](/学习笔记/前端/html+css（尚硅谷）.md)
       - [Vue](/学习笔记/前端/Vue.md)

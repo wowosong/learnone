@@ -1,10 +1,9 @@
 有道云链接：http://note.youdao.com/noteshare?id=d60421c376588a19e20eb8ff7f80115d&sub=33E9155BB2564F86A54DD1F1C3D89DE4
 
-
 **推断构造方法流程图**：[https://www.processon.com/view/link/5f97bc717d9c0806f291d7eb](https://www.processon.com/view/link/5f97bc717d9c0806f291d7eb)
 ​
 
-​
+
 
 AutowiredAnnotationBeanPostProcessor中推断构造方法不同情况思维脑图：[https://www.processon.com/view/link/6146def57d9c08198c58bb26](https://www.processon.com/view/link/6146def57d9c08198c58bb26)
 ​
@@ -15,7 +14,7 @@ Spring中的一个bean，需要实例化得到一个对象，而实例化就需�
 一般情况下，一个类只有一个构造方法：
 
 1. 要么是无参的构造方法
-1. 要么是有参的构造方法
+2. 要么是有参的构造方法
 
 
 
