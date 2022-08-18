@@ -187,7 +187,7 @@ Query OK, 0 rows affected, 1 warning (0.05 sec)
 
 **3、读已提交**
 
-（1）打开一个客户端A，并设置当前事务模式为read committed（未提交读），查询表account的所有记录：
+（1）打开一个客户端A，并设置当前事务模式为read committed（已提交读），查询表account的所有记录：
 
 **set tx_isolation='**read-committed**';**    ![image-20211213215412087](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213215412.png)　　　　
 
