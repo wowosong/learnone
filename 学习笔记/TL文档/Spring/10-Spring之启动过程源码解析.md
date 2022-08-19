@@ -1,8 +1,7 @@
 有道云链接：http://note.youdao.com/noteshare?id=e6ce24e9411eab5445612286d641eccd&sub=29A52DF2ACB64C4D974730C75D409180
 ## 前言分析
 
-
-通常，我们说的Spring启动，就是构造ApplicationContext对象以及调用refresh()方法的过程。
+通常，我们说的Spring启动，就是构造**ApplicationContext对象以及调用refresh()方法的过程**。
 ​
 
 首先，Spring启动过程主要做了这么几件事情：
@@ -14,7 +13,7 @@
    1. 解析@Bean
    1. ...
 3. 因为ApplicationContext还支持国际化，所以还需要初始化MessageSource对象
-3. 因为ApplicationContext还支持事件机制，所以还需要初始化ApplicationEventMulticaster对象
+3. 因为ApplicationContext还支持事件机制，所以还需要**初始化ApplicationEventMulticaster对象**
 3. 把用户定义的ApplicationListener对象添加到ApplicationContext中，等Spring启动完了就要发布事件了
 3. 创建**非懒加载的单例**Bean对象，并存在BeanFactory的单例池中。
 3. 调用Lifecycle Bean的start()方法
@@ -33,7 +32,6 @@
 
 
 ## BeanFactoryPostProcessor
-
 
 BeanPostProcessor表示Bean的后置处理器，是用来对Bean进行加工的，类似的，BeanFactoryPostProcessor理解为BeanFactory的后置处理器，用来用对BeanFactory进行加工的。
 ​
@@ -127,7 +125,6 @@ AbstractRefreshableApplicationContext extends AbstractApplicationContext
 GenericApplicationContext extends AbstractApplicationContext
 ```
 就是不可以刷新的。
-
 
 AnnotationConfigApplicationContext继承的是GenericApplicationContext，所以它是不能刷新的。
 AnnotationConfigWebApplicationContext继承的是AbstractRefreshableWebApplicationContext，所以它是可以刷的。
