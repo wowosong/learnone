@@ -84,16 +84,16 @@ DefaultAdvisorAutoProxyCreator的父类是AbstractAdvisorAutoProxyCreator。
 
 ## @EnableAspectJAutoProxy
 这个注解主要就是往Spring容器中添加了一个AnnotationAwareAspectJAutoProxyCreator类型的Bean。
-![AnnotationAwareAspectJAutoProxyCreator.png](https://cdn.nlark.com/yuque/0/2021/png/365147/1628753226288-643a0eb5-c2a9-4d8a-9d22-a5a47a6ffb0c.png#clientId=u0a702ee4-5d30-4&from=drop&id=ucb37071f&margin=%5Bobject%20Object%5D&name=AnnotationAwareAspectJAutoProxyCreator.png&originHeight=700&originWidth=1666&originalType=binary&ratio=1&size=36272&status=done&style=none&taskId=ub1757d0e-50d6-4471-9b7e-f6dca61b145)
+
+![AnnotationAwareAspectJAutoProxyCreator](./14-Spring%E4%B9%8BAOP%E5%BA%95%E5%B1%82%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%88%E4%B8%8B%EF%BC%89.assets/AnnotationAwareAspectJAutoProxyCreator-1871020-1871021.png)
 **AspectJAwareAdvisorAutoProxyCreator**继承了**AbstractAdvisorAutoProxyCreator**，重写了findCandidateAdvisors()方法，**AbstractAdvisorAutoProxyCreator**只能找到所有Advisor类型的Bean对象，但是**AspectJAwareAdvisorAutoProxyCreator**除开可以找到所有Advisor类型的Bean对象，还能把@Aspect注解所标注的Bean中的@Before等注解及方法进行解析，并生成对应的Advisor对象。
-​
+
 
 所以，我们可以理解@EnableAspectJAutoProxy，其实就是像Spring容器中添加了一个AbstractAdvisorAutoProxyCreator类型的Bean，从而开启了AOP，并且还会解析@Before等注解生成Advisor。
 
 
 ## Spring中AOP原理流程图
 [https://www.processon.com/view/link/5faa4ccce0b34d7a1aa2a9a5](https://www.processon.com/view/link/5faa4ccce0b34d7a1aa2a9a5)
-
 
 
 

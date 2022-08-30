@@ -44,11 +44,10 @@ userService.test();
 ```
 得到的都是UserService对象，但是执行test()方法时的效果却不一样了，这就是代理所带来的效果。
 
-
 上面是通过cglib来实现的代理对象的创建，是基于**父子类**的，被代理类（UserService）是父类，代理类是子类，代理对象就是代理类的实例对象，代理类是由cglib创建的，对于程序员来说不用关心。
 ​
 
-除开cglib技术，jdk本身也提供了一种创建代理对象的动态代理机制，但是它只能代理接口，也就是UserService得先有一个接口才能利用jdk动态代理机制来生成一个代理对象，比如：
+除开cglib技术，jdk本身也提供了一种创建代理对象的动态代理机制，但是它**只能代理接口**，也就是UserService得先有一个接口才能利用jdk动态代理机制来生成一个代理对象，比如：
 ```java
 public interface UserInterface {
 	public void test();
@@ -123,7 +122,7 @@ userService.test();
 1. After (finally) advice：方法执行完finally之后执行，这是最后的，比return更后
 1. Around advice：这是功能最强大的Advice，可以自定义执行顺序
 
-​
+
 
 看课上给的代码例子将一目了然
 ​
@@ -226,7 +225,7 @@ public ProxyFactoryBean userService(){
 	return proxyFactoryBean;
 }
 ```
-​
+
 
 ### BeanNameAutoProxyCreator
 
@@ -330,9 +329,9 @@ IDEA中使用Aspectj：[https://blog.csdn.net/gavin_john/article/details/8015696
 1. AOP proxy：表示代理工厂，用来创建代理对象的，在Spring Framework中，要么是JDK动态代理，要么是CGLIB代理
 1. Weaving：表示织入，表示创建代理对象的动作，这个动作可以发生在编译时期（比如Aspejctj），或者运行时，比如Spring AOP
 
-​
 
-​
+
+
 
 ## Advice在Spring AOP中对应API
 上面说到的Aspject中的注解，其中有五个是用来定义Advice的，表示代理逻辑，以及执行时机：
@@ -343,7 +342,7 @@ IDEA中使用Aspectj：[https://blog.csdn.net/gavin_john/article/details/8015696
 1. @After
 1. @Around
 
-​
+
 
 我们前面也提到过，Spring自己也提供了类似的执行实际的实现类：
 
@@ -353,7 +352,7 @@ IDEA中使用Aspectj：[https://blog.csdn.net/gavin_john/article/details/8015696
 1. 接口AfterAdvice
 1. 接口MethodInterceptor
 
-​
+
 
 Spring会把五个注解解析为对应的Advice类：
 
