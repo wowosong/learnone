@@ -1,6 +1,7 @@
 有道云链接：http://note.youdao.com/noteshare?id=8ae9d210cbb3a9bea75d8a142152f011&sub=F6098FC783F649CE85530DDC2456085D
 
 ## ProxyFactory选择cglib或jdk动态代理原理
+
 ProxyFactory在生成代理对象之前需要决定到底是使用JDK动态代理还是CGLIB技术：
 ```java
 // config就是ProxyFactory对象
@@ -26,6 +27,7 @@ else {
 ```
 ### 
 ## 代理对象创建过程
+
 ### JdkDynamicAopProxy
 
 1. 在构造JdkDynamicAopProxy对象时，会先拿到被代理对象自己所实现的接口，并且额外的增加SpringProxy、Advised、DecoratingProxy三个接口，组合成一个Class[]，并赋值给proxiedInterfaces属性

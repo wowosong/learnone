@@ -90,8 +90,8 @@ Exception in thread "main" java.lang.IllegalArgumentException: com.zhouyu.servic
 
 由于这个限制，所以产生的代理对象的类型是UserInterface，而不是UserService，这是需要注意的。
 
-
 ## ProxyFactory
+
 上面我们介绍了两种动态代理技术，那么在Spring中进行了封装，封装出来的类叫做ProxyFactory，表示是创建代理对象的一个工厂，使用起来会比上面的更加方便，比如：
 ```java
 UserService target = new UserService();
@@ -111,8 +111,7 @@ proxyFactory.addAdvice(new MethodInterceptor() {
 UserInterface userService = (UserInterface) proxyFactory.getProxy();
 userService.test();
 ```
-通过ProxyFactory，我们可以不再关系到底是用cglib还是jdk动态代理了，ProxyFactory会帮我们去判断，如果UserService实现了接口，那么ProxyFactory底层就会用jdk动态代理，如果没有实现接口，就会用cglib技术，上面的代码，就是由于UserService实现了UserInterface接口，所以最后产生的代理对象是UserInterface类型。
-
+通过ProxyFactory，我们可以不再关心到底是用cglib还是jdk动态代理了，**ProxyFactory会帮我们去判断，如果UserService实现了接口，那么ProxyFactory底层就会用jdk动态代理，如果没有实现接口，就会用cglib技术**，上面的代码，就是由于UserService实现了UserInterface接口，所以最后产生的代理对象是UserInterface类型。
 
 ## Advice的分类
 
@@ -128,6 +127,7 @@ userService.test();
 ​
 
 ## Advisor的理解
+
 跟Advice类似的还有一个Advisor的概念，一个Advisor是有一个Pointcut和一个Advice组成的，通过Pointcut可以指定要需要被代理的逻辑，比如一个UserService类中有两个方法，按上面的例子，这两个方法都会被代理，被增强，那么我们现在可以通过Advisor，来控制到具体代理哪一个方法，比如：
 ```java
 		UserService target = new UserService();
@@ -175,8 +175,8 @@ userService.test();
 
 上面介绍了Spring中所提供了ProxyFactory、Advisor、Advice、PointCut等技术来实现代理对象的创建，但是我们在使用Spring时，我们并不会直接这么去使用ProxyFactory，比如说，我们希望ProxyFactory所产生的代理对象能直接就是Bean，能直接从Spring容器中得到UserSerivce的代理对象，而这些，Spring都是支持的，只不过，作为开发者的我们肯定得告诉Spring，那些类需要被代理，代理逻辑是什么。
 
-
 ### ProxyFactoryBean
+
 ```java
 @Bean
 public ProxyFactoryBean userServiceProxy(){
@@ -304,7 +304,6 @@ compile group: 'org.aspectj', name: 'aspectjrt', version: '1.9.5'
 compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.5'
 ```
 
-
 值得注意的是：AspectJ是在编译时对字节码进行了修改，是直接在UserService类对应的字节码中进行增强的，也就是可以理解为是在编译时就会去解析@Before这些注解，然后得到代理逻辑，加入到被代理的类中的字节码中去的，所以如果想用AspectJ技术来生成代理对象 ，是需要用单独的AspectJ编译器的。我们在项目中很少这么用，我们仅仅只是用了@Before这些注解，而我们在启动Spring的过程中，Spring会去解析这些注解，然后利用动态代理机制生成代理对象的。
 ​
 
@@ -334,6 +333,7 @@ IDEA中使用Aspectj：[https://blog.csdn.net/gavin_john/article/details/8015696
 
 
 ## Advice在Spring AOP中对应API
+
 上面说到的Aspject中的注解，其中有五个是用来定义Advice的，表示代理逻辑，以及执行时机：
 
 1. @Before
