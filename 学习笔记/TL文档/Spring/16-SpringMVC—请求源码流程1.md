@@ -52,7 +52,7 @@ Spring Web MVC是基于Servlet API构建的原始Web框架，从一开始就已�
 
 Web框架的升级是一个不断偷懒的过程
 
-从最开始的Servlet到现在的SpringMVC、SpringBoot等等
+**从最开始的Servlet到现在的SpringMVC、SpringBoot等等**
 
 ## SpringMVC
 
@@ -62,7 +62,7 @@ Web框架的升级是一个不断偷懒的过程
 
 2.添加SpringMVC的配置信息
 
-*   继承类/实现接口 方式：
+*   继承类/实现接口方式：
 
 ```xml
 implements HttpRequestHandler 
@@ -110,7 +110,7 @@ View：进行视图渲染（将jsp转换成html内容 --这是Servlet容器的�
 
 1.  处理器映射器根据请求url找到具体的处理器，生成处理器执行链HandlerExecutionChain(包括处理器对象和处理器拦截器)一并返回给DispatcherServlet。
 
-3.  DispatcherServlet根据处理器Handler获取处理器适配器HandlerAdapter,执行HandlerAdapter处理一系列的操作，如：参数封装，数据格式转换，数据验证等操作
+3.  DispatcherServlet根据处理器Handler获取处理器适配器HandlerAdapter，执行HandlerAdapter处理一系列的操作，如：参数封装，数据格式转换，数据验证等操作
 
 4.  执行处理器Handler(Controller，也叫页面控制器)。
 
@@ -130,7 +130,7 @@ View：进行视图渲染（将jsp转换成html内容 --这是Servlet容器的�
 
 1.  用户发送请求至前端控制器DispatcherServlet
 
-*   由于它是个Servlet会先进入service方法——>doGet/doPost——>processRequestdoService——>doDispatch ↓
+*   由于它是个Servlet会先进入service方法——>doGet/doPost——>processRequest——>doService——>doDispatch ↓
 
 *   这个doDispatch非常重要--体现了整个请求流程
 

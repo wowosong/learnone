@@ -1,28 +1,44 @@
 
 
-MyBatis解析全局配置文件
+# MyBatis解析全局配置文件
 
 有道云链接：http://note.youdao.com/noteshare?id=afc77bcd736625615de69179b2fac56f&sub=EB1083FF31A64AAC93C2AEA47C1A3A63
 
-MyBatis解析全局配置文件
+Git地址：https://gitee.com/tuling_xushu/mybatis-3-5.3.x.git
 
-MyBatis介绍
-
-传统JDBC和Mybatis相比的弊病
-
-MyBatis 源码编译
-
-启动流程分析
-
-简单总结
+MyBatis源码脑图：https://www.processon.com/view/link/5f5075eaf346fb7afd409dd6
 
 文档：MyBatis的二级缓存原理分析（请暂时关注解析缓存内容）
 
+链接：http://note.youdao.com/noteshare?id=b97d399a65e31008fef704164d24c784&sub=wcp1596698664968348
+
 文档：Mybatis解析动态sql原理分析
+
+链接：http://note.youdao.com/noteshare?id=8b076e28061434f6693d99401d3ed400&sub=D948A34AA06045AEB7A01733A98A4C06
 
 文档：Mybatis-设计模式总结.note
 
-MyBatis介绍
+链接：http://note.youdao.com/noteshare?id=4975cd9e83f1e73e14a369598a232abe&sub=5D52C27921074712B1AB91C9A72455C0
+
+ [MyBatis解析全局配置文件](#3714-1596607404727)        
+
+​            [MyBatis介绍](#5696-1634707863417)        
+
+​            [传统JDBC和Mybatis相比的弊病](#1265-1634707861961)
+
+​            [MyBatis 源码编译](#1387-1603261909056)        
+
+​            [启动流程分析](#1940-1596607406048)        
+
+​            [简单总结](#9661-1603261142655)        
+
+​            [文档：MyBatis的二级缓存原理分析（请暂时关注解析缓存内容）](#9642-1603261265777)        
+
+​            [文档：Mybatis解析动态sql原理分析](#1058-1603261291948)        
+
+​            [文档：Mybatis-设计模式总结.note](#8673-1603261340319)        
+
+## MyBatis介绍
 
 MyBatis是一个持久层的ORM框架，使用简单，学习成本较低。可以执行自己手写的SQL语句，比较灵活。但是MyBatis的自动化程度不高，移植性也不高，有时从一个数据库迁移到另外一个数据库的时候需要自己修改配置，所以称只为半自动ORM框架
 
@@ -32,7 +48,7 @@ MyBaits基础应用：
 
 链接：[http://note.youdao.com/noteshare?id=5d41fd41d970f1af9185ea2ec0647b64](http://note.youdao.com/noteshare?id=5d41fd41d970f1af9185ea2ec0647b64)﻿
 
-传统JDBC和Mybatis相比的弊病
+## 传统JDBC和Mybatis相比的弊病
 
 传统JDBC
 
@@ -57,11 +73,11 @@ MyBaits基础应用：
             //ResultSet rs= pstmt.executeQuery();
             pstmt.execute();
             ResultSet rs= pstmt.getResultSet();
-           rs.next();
+            rs.next();
             User user =new User();
             user.setId(rs.getLong("id"));
             user.setUserName(rs.getString("user_name"));
-           user.setCreateTime(rs.getDate("create_time"));
+            user.setCreateTime(rs.getDate("create_time"));
             System.out.println(user.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,17 +97,17 @@ MyBaits基础应用：
         }
 ```
 
-传统JDBC的问题如下：
+**传统JDBC的问题如下：**
 
-1.数据库连接创建，释放频繁造成西戎资源的浪费，从而影响系统性能，使用数据库连接池可以解决问题。
+1.数据库连接创建，释放频繁造成稀缺资源的浪费，从而影响系统性能，使用数据库连接池可以解决问题。
 
 2.sql语句在代码中硬编码，造成代码的不已维护，实际应用中sql的变化可能较大，sql代码和java代码没有分离开来维护不方便。
 
-3.使用preparedStatement向有占位符传递参数存在硬编码问题因为sql中的where子句的条件不确定，同样是修改不方便/
+3.使用preparedStatement向有占位符传递参数存在硬编码问题因为sql中的where子句的条件不确定，同样是修改不方便
 
 4.对结果集中解析存在硬编码问题，sql的变化导致解析代码的变化，系统维护不方便。
 
-mybatis对传统的JDBC的解决方案
+**mybatis对传统的JDBC的解决方案**
 
 1、数据库连接创建、释放频繁造成系统资源浪费从而影响系统性能，如果使用数据库连接池可解决此问题。
 
@@ -109,7 +125,7 @@ mybatis对传统的JDBC的解决方案
 
 解决：Mybatis自动将sql执行结果映射至java对象，通过statement中的resultType定义输出结果的类型。
 
-Mybaits整体体系图
+## Mybaits整体体系图
 
 ![img](./18-MyBatis%E8%A7%A3%E6%9E%90%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.assets/202201190929867.png)
 
@@ -119,8 +135,7 @@ Mybaits整体体系图
 
 ```java
    /***
-    * @Author 徐庶   QQ:1092002729
-     * @Slogan 致敬大师，致敬未来的你
+    * @Author 
     */
     public class App {
         public static void main(String[] args) {
@@ -137,7 +152,7 @@ Mybaits整体体系图
                     // 执行查询 底层执行jdbc
                     //User user = (User)session.selectOne("com.tuling.mapper.selectById", 1);
                     UserMapper mapper = session.getMapper(UserMapper.class);
-                   System.out.println(mapper.getClass());
+                    System.out.println(mapper.getClass());
                     User user = mapper.selectById(1L);
                     System.out.println(user.getUserName());
                 } catch (Exception e) {
@@ -161,7 +176,7 @@ Mybaits整体体系图
 
 *   执行完相关操作之后关闭Session。
 
-MyBatis 源码编译
+## MyBatis 源码编译
 
 MyBatis的源码编译比较简单， 随便在网上找一篇博客即可，在这里不多说
 
@@ -171,7 +186,7 @@ MyBatis的源码编译比较简单， 随便在网上找一篇博客即可，在
 
 1.  修改你mybatis源码的pom的<version> 这样可以和官方的区分开来
 
-```plain
+```xml
 <version>3.5.3-xsls</version>
 ```
 
@@ -179,11 +194,11 @@ MyBatis的源码编译比较简单， 随便在网上找一篇博客即可，在
 
 1.  如果引入mybatis-spring 同样需要做1、3步骤
 
-```plain
+```
 compile("org.mybatis:mybatis-spring:2.0.3-xsls")  
 ```
 
-3.  当然，如果你想在spring这边看到你mybatis源码相关的注释，还得在mybatis源码的pom里面加入plugin,使它生成 jar 的同时 生成 sources 包
+3.  当然，如果你想在spring这边看到你mybatis源码相关的注释，还得在mybatis源码的pom里面加入plugin,使它生成 jar 的同时生成 sources 包
 
     ```xml
         <plugin>
@@ -202,29 +217,20 @@ compile("org.mybatis:mybatis-spring:2.0.3-xsls")
           </executions>
     ```
 
-    启动流程分析
+    ## 启动流程分析
 
-```plain
+```java
 String resource = "mybatis-config.xml";
-```
-
-```plain
 //将XML配置文件构建为Configuration配置类
-```
-
-```plain
 reader = Resources.getResourceAsReader(resource);
-```
-
-```plain
-// 通过加载配置文件流构建一个SqlSessionFactory  DefaultSqlSessionFactory
+//通过加载配置文件流构建一个SqlSessionFactory  DefaultSqlSessionFactory
 ```
 
 通过上面代码发现，创建SqlSessionFactory的代码在SqlSessionFactoryBuilder中，进去一探究竟：
 
 ```java
  //整个过程就是将配置文件解析成Configration对象，然后创建SqlSessionFactory的过程
-    //Configuration是SqlSessionFactory的一个内部属性
+ //Configuration是SqlSessionFactory的一个内部属性
     public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
         try {
           XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);
@@ -314,7 +320,6 @@ reader = Resources.getResourceAsReader(resource);
 下面是解析配置文件的核心方法：
 
 ```java
-
     private void parseConfiguration(XNode root) {
         try {
           //issue #117 read properties first
@@ -329,11 +334,11 @@ reader = Resources.getResourceAsReader(resource);
           //mybatis默认设置了很多别名，参考附录部分
           typeAliasesElement(root.evalNode("typeAliases"));
           //解析拦截器和拦截器的属性，set到Configration的interceptorChain中
-          //MyBatis 允许你在已映射语句执行过程中的某一点进行拦截调用。默认情况下，MyBatis 允许使用插件来拦截的方法调用包括：
+        //MyBatis允许你在已映射语句执行过程中的某一点进行拦截调用。默认情况下，MyBatis允许使用插件来拦截的方法调用包括：
           //Executor (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)
-            //ParameterHandler (getParameterObject, setParameters)
-            //ResultSetHandler (handleResultSets, handleOutputParameters)
-            //StatementHandler (prepare, parameterize, batch, update, query)
+          //ParameterHandler (getParameterObject, setParameters)
+          //ResultSetHandler (handleResultSets, handleOutputParameters)
+          //StatementHandler (prepare, parameterize, batch, update, query)
           pluginElement(root.evalNode("plugins"));
           //Mybatis创建对象是会使用objectFactory来创建对象，一般情况下不会自己配置这个objectFactory，使用系统默认的objectFactory就好了
           objectFactoryElement(root.evalNode("objectFactory"));
@@ -359,7 +364,7 @@ reader = Resources.getResourceAsReader(resource);
 
 上面解析流程结束后会生成一个Configration对象，包含所有配置信息，然后会创建一个SqlSessionFactory对象，这个对象包含了Configration对象。
 
-简单总结
+### 简单总结
 
 对于MyBatis启动的流程（获取SqlSession的过程）这边简单总结下：
 
@@ -367,14 +372,14 @@ reader = Resources.getResourceAsReader(resource);
 
 这里解析的东西比较多，大致概况：会把所有的信息都解析到Configration对象中，比较简单不多介绍。简单介绍一下：
 
-文档：MyBatis的二级缓存原理分析（请暂时关注解析缓存内容）
+## 文档：MyBatis的二级缓存原理分析（请暂时关注解析缓存内容）
 
 链接：[http://note.youdao.com/noteshare?id=b97d399a65e31008fef704164d24c784&sub=wcp1596698664968348](http://note.youdao.com/noteshare?id=b97d399a65e31008fef704164d24c784&sub=wcp1596698664968348)﻿
 
-文档：Mybatis解析动态sql原理分析
+## 文档：Mybatis解析动态sql原理分析
 
 链接：[http://note.youdao.com/noteshare?id=8b076e28061434f6693d99401d3ed400&sub=D948A34AA06045AEB7A01733A98A4C06](http://note.youdao.com/noteshare?id=8b076e28061434f6693d99401d3ed400&sub=D948A34AA06045AEB7A01733A98A4C06)﻿
 
-文档：Mybatis-设计模式总结.note
+## 文档：Mybatis-设计模式总结.note
 
 链接：[http://note.youdao.com/noteshare?id=4975cd9e83f1e73e14a369598a232abe&sub=5D52C27921074712B1AB91C9A72455C0](http://note.youdao.com/noteshare?id=4975cd9e83f1e73e14a369598a232abe&sub=5D52C27921074712B1AB91C9A72455C0)
