@@ -378,7 +378,7 @@ Installed:
 
 ![image-20220627223715172](./SpringBoot%E6%95%B4%E5%90%88.assets/image-20220627223715172-6340637.png)
 
-三、邮件任务
+## 三、邮件任务
 
 • 邮件发送需要引入spring-boot-starter-mail
 

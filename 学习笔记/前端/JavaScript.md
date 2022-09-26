@@ -1009,7 +1009,7 @@ for (var i=0; i < count; i++) {**
 • 除了字符串、数字、true、false、null和undefined之外，JS中的值都是对象。
 
 ```javascript
-/*
+			/*
 			 * JS中数据类型
 			 * 	- String 字符串
 			 *  - Number 数值
@@ -1205,6 +1205,7 @@ var person = {
 
 ![image-20220331222704706](./JavaScript.assets/image-20220331222704706.png)
 
+
 # 数组
 
 • 数组也是对象的一种。
@@ -1369,7 +1370,7 @@ sum(123,456);*/
 ## 返回值
 
 ```javascript
-/*
+			/*
 			 * 创建一个函数，用来计算三个数的和
 			 * 
 			 * 可以使用 return 来设置函数的返回值
@@ -1770,7 +1771,7 @@ Person.prototype.sayName = function(){
 • 需要注意的是，我们可以获取到Object的原型对象，也可以对它的属性进行操作，但是我们不能修改Object原型对象的引用。
 
 ```javascript
-//使用in检查对象中是否含有某个属性时，如果对象中没有但是原型中有，也会返回true
+			//使用in检查对象中是否含有某个属性时，如果对象中没有但是原型中有，也会返回true
 			//console.log("name" in mc);
 			
 			//可以使用对象的hasOwnProperty()来检查对象自身中是否含有该属性
