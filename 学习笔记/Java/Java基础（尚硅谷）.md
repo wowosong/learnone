@@ -2742,13 +2742,13 @@ abstract修饰方法：抽象方法
 ```java
 public abstract class Vehicle{
   public abstract double calcFuelEfficiency();//计算燃料效率的抽象方法
-  public abstract doube calcTripDistance();//计算行驶距离的抽象方法
+  public abstract double calcTripDistance();//计算行驶距离的抽象方法
 }
 public class Truck extends Vehicle(){
   public double calcFuelEfficiency(){
     //写出计算卡车的燃料效率的具体方法
   }
-  public doube calcTripDistance(){
+  public double calcTripDistance(){
     //写出计算卡车行驶距离的具体方法
   }
 }
@@ -2756,7 +2756,7 @@ public class RiverBarge extends Vehicle(){
   public double calcFuelEfficiency(){
     //写出计算驳船的燃料效率的具体方法
   }
-  public doube calcTripDistance(){
+  public double calcTripDistance(){
     //写出计算驳船行驶距离的具体方法
   }
 }
@@ -3042,7 +3042,7 @@ class ProxyServer implements NetWork{
  *      可以被4种不同的权限修饰
 
 另一方面，作为一个类：
- * 类内可以定义属性、方法、构造器等
+ * 类内可以定义**属性、方法、构造器**等
 
  * 可以被final修饰，表示此类不能被继承。言外之意，不使用final，就可以被继承
 
@@ -3111,8 +3111,8 @@ public Comparable getComparable(){
 注意点：
 在局部内部类的方法中（比如：show如果调用局部内部类所声明的方法(比如：method)中的局部变量(比如：num)的话,**要求此局部变量声明为final的。**
 
-jdk 7及之前版本：要求此局部变量显式的声明为final的
-jdk 8及之后的版本：可以省略final的声明
+**jdk 7及之前版本：要求此局部变量显式的声明为final的**
+**jdk 8及之后的版本：可以省略final的声明**
 总结：
 成员内部类和局部内部类，在编译以后，都会生成字节码文件。
 格式：成员内部类：外部类$内部类名.class
@@ -3257,7 +3257,7 @@ finally{
 
 5. 常用的异常对象处理的方式： ① String  getMessage()    ② printStackTrace()
 
-6. 在try结构中声明的变量，在出了try结构以后，就不能再被调用
+6. **在try结构中声明的变量，在出了try结构以后，就不能再被调用**
 
 7. try-catch-finally结构可以嵌套
 
@@ -3398,7 +3398,7 @@ public String toString() {
 一个Java应用程序java.exe，其实至少三个线程：main()主线程，gc()垃圾回收线程，异常处理线程。当然如果发生异常，会影响主线程。
 02. 并行与并发的理解
 并行：多个CPU同时执行多个任务。比如：多个人同时做不同的事。
-并发：一个CPU(采用时间片)同时执行多个任务。比如：秒杀、多个人做同一件事
+并发：一个CPU(采用时间片)**同时执行多个任务**。比如：秒杀、多个人做同一件事
 
 ### 创建多线程的两种方式
 
@@ -3412,7 +3412,7 @@ public String toString() {
 4. 通过此对象调用start()：①启动当前线程 ② 调用当前线程的run()
 
 说明两个问题：
-问题一：我们启动一个线程，必须调用start()，不能调用run()的方式启动线程。
+问题一：**我们启动一个线程，必须调用start()，不能调用run()的方式启动线程。**
 问题二：如果再启动一个线程，必须重新创建一个Thread子类的对象，调用此对象的start().
 
 方式二：实现Runnable接口的方式：
@@ -3898,7 +3898,7 @@ String s = new String("abc");方式创建对象，在内存中创建了几个对
 ![image-20211231113105086](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311131260.png)
 4. 字符串拼接方式赋值的对比
     4.1 说明
-    1.常量与常量的拼接结果在常量池。且常量池中不会存在相同内容的常量。
+    1.**常量与常量的拼接结果在常量池。且常量池中不会存在相同内容的常量。**
     2.只要其中一个是变量，结果就在堆中。
     3.如果拼接的结果调用intern()方法，返回值就在常量池中
     4.2 代码举例
@@ -4131,11 +4131,11 @@ System.out.println(time);
    如何将java.util.Date对象转换为java.sql.Date对象
    
    */
-   @Test
-   public void test2(){
-   //构造器一：Date()：创建一个对应当前时间的Date对象
-   Date date1 = new Date();
-   System.out.println(date1.toString());//Sat Feb 16 16:35:31 GMT+08:00 2019
+     @Test
+     public void test2(){
+     //构造器一：Date()：创建一个对应当前时间的Date对象
+     Date date1 = new Date();
+     System.out.println(date1.toString());//Sat Feb 16 16:35:31 GMT+08:00 2019
     System.out.println(date1.getTime());//1550306204104
    
     //构造器二：创建指定毫秒数的Date对象
@@ -4254,7 +4254,7 @@ public void testExer() throws ParseException {
 
 3.java 8 中新的日期时间API涉及到的包
 
-4.本地日期、本地时间、本地日期时间的使用：LocalDate / LocalTime / LocalDateTime
+4.本地日期、本地时间、本地日期时间的使用：**LocalDate / LocalTime / LocalDateTime**
 4.1 说明：
 ① 分别表示使用 ISO-8601日历系统的日期、时间、日期和时间。它们提供了简单的本地日期或时间，并不包含当前的时间信息，也不包含与时区相关的信息。
 ② LocalDateTime相较于LocalDate、LocalTime，使用频率要高
@@ -4451,7 +4451,6 @@ public class Goods implements  Comparable{
 }
 ```
 
-
 3.定制排序：使用Comparator接口
 
 3.1 说明
@@ -4514,7 +4513,20 @@ java.lang.Math提供了一系列静态方法用于科学计算。其方法的参
 
 代码举例：
 
-![image-20211231114554196](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311145384.png)
+```java
+    @Test
+    public void test2() {
+        BigInteger bi = new BigInteger("1243324112234324324325235245346567657653");
+        BigDecimal bd = new BigDecimal("12435.351");
+        new BigDecimal(1000);
+        BigDecimal bd2 = new BigDecimal("11");
+        System.out.println(bi);
+//         System.out.println(bd.divide(bd2));
+        System.out.println(bd.divide(bd2, BigDecimal.ROUND_HALF_UP));
+        System.out.println(bd.divide(bd2, 25, BigDecimal.ROUND_HALF_UP));
+
+    }
+```
 
 ## 10_枚举类和注解
 
@@ -4705,7 +4717,6 @@ enum Season1 implements Info{
 
 ④ 如果自定义注解没成员，表明是一个标识作用。
 
-
 说明：
 如果注解有成员，在使用注解时，需要指明成员的值。
 自定义注解必须配上注解的信息处理流程(使用反射)才意义。
@@ -4732,12 +4743,13 @@ Retention：指定所修饰的 Annotation 的生命周期：SOURCE\CLASS（默�
 Target:用于指定被修饰的 Annotation 能用于修饰哪些程序元素
 **出现的频率较低**
 Documented:表示所修饰的注解在被javadoc解析时，保留下来。
-Inherited:被它修饰的 Annotation 将具继承性。
+Inherited**:被它修饰的 Annotation 将具继承性**。
 
 --->类比：元数据的概念：String name = "Tom";
-5. 如何获取注解信息:通过发射来进行获取、调用。
+
+5. 如何获取注解信息:通过反射来进行获取、调用。
 前提：要求此注解的元注解Retention中声明的生命周期状态为：RUNTIME.
-6.JDK8中注解的新特性：可重复注解、类型注解
+6. JDK8中注解的新特性：可重复注解、类型注解
 
 6.1 可重复注解：
 
