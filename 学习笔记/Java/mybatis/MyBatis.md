@@ -323,7 +323,7 @@ int save(User user);
 <!--
     insert: 配置insert语句
         id: 对应的方法名
-        parameterType: 指定参数类型为pojo, 可以直接写属性名获得属性值, 优先调用getting方法, 如果没有getting方法则直接从属性中取值
+        parameterType: 指定参数类型为pojo, 可以直接写属性名获得属性值, 优先调用getting方法, 如果没				 有getting方法则直接从属性中取值
  -->
 <insert id="save" parameterType="org.hong.pojo.User">
     insert into user(name, pwd) values(#{name}, #{pwd})
@@ -466,7 +466,7 @@ public void update(){
 [main] [org.hong.mapper.UserMapper.get]-[DEBUG] <==      Total: 1
 ## 修改sql
 [main] [org.hong.mapper.UserMapper.update]-[DEBUG] ==>  Preparing: update user set name = ?, pwd = ? where id = ? 
-[main] [org.hong.mapper.UserMapper.update]-[DEBUG] ==> Parameters: 谢禹宏(String), 123456(String), 1(Integer)
+[main] [org.hong.mapper.UserMapper.update]-[DEBUG] ==> Parameters: (String), 123456(String), 1(Integer)
 [main] [org.hong.mapper.UserMapper.update]-[DEBUG] <==    Updates: 1
 User(id=1, name=谢禹宏, pwd=123456)
 ```
@@ -1040,7 +1040,7 @@ User(id=2, name=Tom, pwd=123456)
 
 ### TO
 
-​	**多个参数不是业务模型中的数据, 但经常要使用,<font color='red'> 推荐编写TO(Transfer Object)数据传输对象, 就是再专门写个类</font>**
+**多个参数不是业务模型中的数据, 但经常要使用,<font color='red'> 推荐编写TO(Transfer Object)数据传输对象, 就是再专门写个类</font>**
 
 
 
@@ -1048,7 +1048,7 @@ User(id=2, name=Tom, pwd=123456)
 
 `#{}是占位符，${}是拼接符。`
 
-```
+```xml
 #{}是预编译处理，${}是字符串替换。
 Mybatis 在处理#{}时，会将 sql 中的#{}替换为?号，调用 PreparedStatement 的set 方法来赋值。
 Mybatis 在处理$ {}时，就是把${}替换成变量的值。
@@ -1611,7 +1611,7 @@ public class ResultTypeTest {
 
 MyBatis的配置文件包含了影响MyBatis行为的设置和属性信息
 
-```xml
+```properties
 configuration（配置）
 properties（属性）
 settings（设置）
@@ -1686,7 +1686,7 @@ password=1234
 
 ```xml
 <!-- 
-引入外部配置文件
+	引入外部配置文件
 	首先读取在 properties 元素体内指定的属性。
 	然后根据 properties 元素中的 resource 属性读取类路径下属性文件，或根据 url 属性指定的路径读取属性文件，并覆盖之前读取过的同名属性。
 -->
@@ -2694,14 +2694,14 @@ public interface EmployeeMapper {
     </resultMap>
 
     <resultMap id="employee3" type="org.hong.pojo.Employee" extends="employeeBase">
-        <!-- 方式三: 使用association节点的resultMap属性指定级联对象的映射规则, 而不是再写一份 -->
-        <association property="dept" resultMap="org.hong.mapper.DeptMapper.deptBase"></association>
+        <!--方式三: 使用association节点的resultMap属性指定级联对象的映射规则, 而不是再写一份 -->
+        <association property="dept" resultMap="org.hong.mapper.DeptMapper.deptBase">				</association>
     </resultMap>
 
     <!-- 查询Employee的同时查询出对应Dept, 此时使用resultType就做不到了, 需要使用resultMap引用自自定义的映射规则 -->
     <select id="getAll" resultMap="employee3">
         <!-- 内连接 -->
-        select e.*, d.id did, d.name dname from employee e inner join dept d on e.did = d.id
+ select e.*, d.id did, d.name dname from employee e inner join dept d on e.did = d.id
     </select>
 </mapper>
 ```

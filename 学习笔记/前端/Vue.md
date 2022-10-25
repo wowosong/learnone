@@ -17,7 +17,7 @@
 3) 它本身只关注 UI, 可以轻松引入 vue 插件或其它第三库开发项目
 ### 1.1.4. 与其它前端 JS 框架的关联
 1) 借鉴 angular 的模板和数据绑定技术
-2) 借鉴 react 的组件化和虚拟 DOM 技术H5 前端课程系列
+2) 借鉴 react 的组件化和虚拟 DOM 技术
 ### 1.1.5. Vue 扩展插件
 1) vue-cli: vue 脚手架
 2) vue-resource(axios): ajax 请求
