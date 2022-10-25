@@ -59,7 +59,7 @@ public V put(K key, V value)
 这里添加一个节点需要检查是否超出容量，出现一个负载因子
 
 ```java
-void addEntry(int hash, K key, V value, int bucketIndex)
+void addEntry(int hash, K key, V valuee        h,dc             cccccccvvvvvvnuoeeedcn jnrl gnbbbbbbjh 1rr{"tweb, int bucketIndex)
 {
     Entry<K,V> e = table[bucketIndex];
     table[bucketIndex] = new Entry<K,V>(hash, key, value, e);
