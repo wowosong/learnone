@@ -91,9 +91,9 @@ vue ui
 
 创建项目的时候预设选择Vue3即可 
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/c7b24b1d4bc9467daad5c1ceb07315ef~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-20221104210214544-7566935.awebp)
+![在这里插入图片描述](./assets/c7b24b1d4bc9467daad5c1ceb07315ef~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-20221104210214544-7566935.awebp)
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/e36f40582ff441c38d49a981640e7e74~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7566959.awebp)
+![在这里插入图片描述](./assets/e36f40582ff441c38d49a981640e7e74~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7566959.awebp)
 
 ## 2\. 使用 vite 创建
 
@@ -109,11 +109,11 @@ vite官网：[vitejs.cn](https://link.juejin.cn/?target=https%3A%2F%2Fvitejs.cn 
     *   轻量快速的热重载（HMR）。
     *   真正的按需编译，不再等待整个应用编译完成。
 *   传统构建 与 vite构建对比图
-*   ![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/af5f8d4493f3423087d6b9e6c5e60fa1~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7566968-7566970.awebp)
+*   ![在这里插入图片描述](./assets/af5f8d4493f3423087d6b9e6c5e60fa1~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7566968-7566970.awebp)
 
 传统构建模式，是将所有资源都打包好，再上线
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/c57d4d695fe64014b78610ff2a5cd2b6~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7566993-7566994.awebp)
+![在这里插入图片描述](./assets/c57d4d695fe64014b78610ff2a5cd2b6~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7566993-7566994.awebp)
 
  而Vite有点按需加载的意思在那里了~
 
@@ -131,11 +131,11 @@ npm run dev
 复制代码
 ```
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/eb36a577794e46468cf2eddc8b19fc14~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567006.awebp)
+![在这里插入图片描述](./assets/eb36a577794e46468cf2eddc8b19fc14~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567006.awebp)
 
 构建速度明显vite快 
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/3061b8587d9e4824905163ca82e84d2b~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567027.awebp)
+![在这里插入图片描述](./assets/3061b8587d9e4824905163ca82e84d2b~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567027.awebp)
 
 > 项目构建完了，我们就来看看Vue3与Vue2在直观上，有哪些区别吧~
 
@@ -170,7 +170,7 @@ vm.$mount('#app')
 复制代码
 ```
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/a67c6abe6ceb4e3680958614d6e4c788~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567047.awebp)
+![在这里插入图片描述](./assets/a67c6abe6ceb4e3680958614d6e4c788~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567047.awebp)
 
 我们再来看看Vue3项目中的main.js
 
@@ -200,7 +200,7 @@ app.mount('#app')
 
 这里的app到底是啥，我们输出到控制台看看
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/296fe368188e454e84ea45641aef957e~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567061.awebp)
+![在这里插入图片描述](./assets/296fe368188e454e84ea45641aef957e~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567061.awebp)
 
 ## App.vue
 
@@ -233,17 +233,17 @@ app.mount('#app')
 
 使用传统Options API（配置式API）中，新增或者修改一个需求，就需要分别在data，methods，computed里修改 。
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/d48b8aecd4834019bd4e4fb02d52f333~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567079-7567080.awebp)
+![在这里插入图片描述](./assets/d48b8aecd4834019bd4e4fb02d52f333~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567079-7567080.awebp)
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/82d55db075ff4119a7a5e55f0f0da69a~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567116.awebp)
+![在这里插入图片描述](./assets/82d55db075ff4119a7a5e55f0f0da69a~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567116.awebp)
 
 ## 2.Composition API 的优势
 
 我们可以更加优雅的组织我们的代码，函数。让相关功能的代码更加有序的组织在一起。
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/0f9d33731796417c9b8035990e4e52cd~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567126.awebp)
+![在这里插入图片描述](./assets/0f9d33731796417c9b8035990e4e52cd~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567126.awebp)
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/dbee55cc74ba45e2b7883c78cf7aa691~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567139.awebp)
+![在这里插入图片描述](./assets/dbee55cc74ba45e2b7883c78cf7aa691~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567139.awebp)
 
 > 看不明白不要慌，学完下面的内容，再回来看你就懂了~
 
@@ -292,9 +292,9 @@ export default {
 复制代码
 ```
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/c0d9aa64acb049cbac1a8e867e5d82c6~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567165.awebp) 如果返回的是渲染函数
+![在这里插入图片描述](./assets/c0d9aa64acb049cbac1a8e867e5d82c6~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567165.awebp) 如果返回的是渲染函数
 
-那你在`template`里写的模板都不奏效了，页面渲染的就是你写的h函数中的内容 ![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/a177c338e7fa4628baf05e9e9af30084~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp)
+那你在`template`里写的模板都不奏效了，页面渲染的就是你写的h函数中的内容 ![在这里插入图片描述](./assets/a177c338e7fa4628baf05e9e9af30084~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp)
 
 5.  注意点：
     1.  尽量**不要**与Vue2.x配置混用
@@ -363,7 +363,7 @@ export default {
 复制代码
 ```
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/b4cdf1b0a60a4838a52ac9f6c5376796~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567205.awebp)
+![在这里插入图片描述](./assets/b4cdf1b0a60a4838a52ac9f6c5376796~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567205.awebp)
 
 通过看源码可以知道调用ref会返回一个RefImpl的实例对象，RefImpl类中有getter和setter可以检测到数据的变化
 
@@ -590,7 +590,7 @@ export default {
 复制代码
 ```
 
-![GIF 2021-9-8 18-22-52.gif](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/5f82ff53a3034196b2fd945f2cb16acf~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567241.awebp)
+![GIF 2021-9-8 18-22-52.gif](./assets/5f82ff53a3034196b2fd945f2cb16acf~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567241.awebp)
 
 *   实现原理
     *   通过 `Proxy`（代理）: 拦截对象中任意属性的变化, 包括：属性值的读写、属性的添加、属性的删除等。
@@ -653,7 +653,7 @@ const p = new Proxy(person,{
     *   `ref`定义的数据：操作数据**需要**`.value`，读取数据时模板中直接读取**不需要**`.value`。
     *   reactive定义的数据：操作数据与读取数据：**均不需要**`.value`。
 
-![image.png](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/159fbabfe7ac4cdb9414d69ae4defa36~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567267.awebp)
+![image.png](./assets/159fbabfe7ac4cdb9414d69ae4defa36~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567267.awebp)
 
 ### ⑥ `setup`的两个注意点
 
@@ -665,7 +665,7 @@ const p = new Proxy(person,{
 
 将`setup`接收的两个参数`(props, context)`打印在控制台，如下
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/38e38c2b41944292bd9a9a705599bf18~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567281.awebp)
+![在这里插入图片描述](./assets/38e38c2b41944292bd9a9a705599bf18~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567281.awebp)
 
 *   `props`：值为对象，包含：组件外部传递过来，且组件内部声明接收了的属性。
 *   `context`：上下文对象
@@ -721,7 +721,7 @@ export default {
 复制代码
 ```
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/37c3fe57949649d7b310edad8ed6ff89~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567311.awebp)
+![在这里插入图片描述](./assets/37c3fe57949649d7b310edad8ed6ff89~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567311.awebp)
 
 ##### 自定义事件
 
@@ -772,7 +772,7 @@ export default {
 复制代码
 ```
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/5274fa4993a949119f3af6b7465807fe~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567337.awebp)如果不用emits选项接收，会报警告
+![在这里插入图片描述](./assets/5274fa4993a949119f3af6b7465807fe~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567337.awebp)如果不用emits选项接收，会报警告
 
 ##### 插槽
 
@@ -796,7 +796,7 @@ export default {
 复制代码
 ```
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/b13ec625ed7a47eab0517f0fda301b95~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567357.awebp)
+![在这里插入图片描述](./assets/b13ec625ed7a47eab0517f0fda301b95~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567357.awebp)
 
 具名插槽
 
@@ -820,7 +820,7 @@ export default {
 复制代码
 ```
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/12715168c92a45849c0ee5cc5d722c84~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567376.awebp)
+![在这里插入图片描述](./assets/12715168c92a45849c0ee5cc5d722c84~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567376.awebp)
 
 ### ⑦计算属性与监视
 
@@ -967,7 +967,7 @@ watchEffect(()=>{
 
 ### ⑧ 生命周期
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/18732d5f4bc54f1eba4e1baa18851ed0~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567416.awebp)
+![在这里插入图片描述](./assets/18732d5f4bc54f1eba4e1baa18851ed0~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567416.awebp)
 
 *   Vue3.0中可以继续使用Vue2.x中的生命周期钩子，但有有两个被更名：
     *   `beforeDestroy`改名为 `beforeUnmount`
@@ -1049,7 +1049,7 @@ export default function() {
 复制代码
 ```
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/26b272c72ede43a1acb50937d8e6ef67~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567445.awebp)
+![在这里插入图片描述](./assets/26b272c72ede43a1acb50937d8e6ef67~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567445.awebp)
 
 ### ⑩ `toRef`
 
@@ -1195,7 +1195,7 @@ export default {
 
 ## 5\. `provide` 与 `inject`
 
-![img](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/f766fada7fdb47b59a1191e3402e9bb2~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp)
+![img](./assets/f766fada7fdb47b59a1191e3402e9bb2~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp)
 
 *   作用：实现**祖与后代组件间**通信
     
@@ -1405,9 +1405,9 @@ export default {
 
 我故意给最里面的盒子加了定位，因为相对定位会找他外层最近的定位盒子进行定位，所以效果就是这样了，我们希望这个弹窗是在body下呈现的
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/5688f59fb6744e1d8ad3ad34d86d7032~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567527.awebp)
+![在这里插入图片描述](./assets/5688f59fb6744e1d8ad3ad34d86d7032~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567527.awebp)
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/6a4237950e6f4bc89961c74aa6744ea3~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567540.awebp)
+![在这里插入图片描述](./assets/6a4237950e6f4bc89961c74aa6744ea3~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567540.awebp)
 
 我们在Dialog组件中加一个`teleport`标签
 
@@ -1431,9 +1431,9 @@ export default {
 复制代码
 ```
 
-这样就好了![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/2a7567065dfb4cf6a1c483e1e4e41382~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567557.awebp)
+这样就好了![在这里插入图片描述](./assets/2a7567065dfb4cf6a1c483e1e4e41382~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567557.awebp)
 
-![在这里插入图片描述](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/Vue3/assets/d86fe61cb6dc41ad9f24a1b78889dcd1~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp)
+![在这里插入图片描述](./assets/d86fe61cb6dc41ad9f24a1b78889dcd1~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp)
 
 ## 3\. `Suspense`
 
