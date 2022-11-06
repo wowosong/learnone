@@ -215,7 +215,7 @@
       - [HashMap](/学习笔记/Java/Java8/HashMap.md)
     - SpringCloud
       <!-- - [SpringCloud(H版&alibaba)](/学习笔记/Java/SpringCloud/尚硅谷SpringCloud(H版&alibaba).md) -->
-      - [SpringCloud](学习笔记/Java/SpringCloud/SpringCloud.md)
+      - [SpringCloud](/学习笔记/Java/SpringCloud/SpringCloud.md)
     - Java
       - [Java 基础](/学习笔记/Java/Java基础)
       - [Idea使用](/学习笔记/Java/Idea使用)
@@ -232,7 +232,7 @@
       - [Docker底层原理浅析](/学习笔记/Linux运维/Docker/Docker底层原理浅析.md)
       - [Docker网络](/学习笔记/Linux运维/Docker/Docker网络.md)
       - [Kubernetes](/学习笔记/Linux运维/Docker/Kubernetes.md)
-      - [K8s](/Users/jiusonghuang/Desktop/learn-new/学习笔记/Linux运维/K8s/index.md)
+      - [K8s](/学习笔记/Linux运维/K8s/index.md)
     - Nginx
       - [KeepalivedNginx高可用集群](/学习笔记/Linux运维/Nginx/KeepalivedNginx高可用集群.md)
       - [Keepalived配置详解](/学习笔记/Linux运维/Nginx/Keepalived配置详解.md)

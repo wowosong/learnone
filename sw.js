@@ -2,7 +2,7 @@
  * @Author: wowosong 164644354@qq.com
  * @Date: 2022-03-03 21:04:31
  * @LastEditors: wowosong 164644354@qq.com
- * @LastEditTime: 2022-11-05 20:49:39
+ * @LastEditTime: 2022-11-06 15:58:55
  * @FilePath: /learn-new/sw.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -18,7 +18,7 @@ const RUNTIME = 'docsify'
 const HOSTNAME_WHITELIST = [
   self.location.hostname,
   'fonts.gstatic.com',
-  // 'fonts.googleapis.com',
+  'fonts.googleapis.com',
   'fonts.useso.com',
   'fonts.geekzu.org',
   'cdn.jsdelivr.net'

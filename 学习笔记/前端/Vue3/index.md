@@ -1,7 +1,5 @@
 # 【Vue】带你快速上手Vue3 - 使用 - Composition API - 响应式原理 - 新特性
 
-> Vue3早就发布了，博主一直拖到今天才开始学习，主要还是因为博主 ~懒~ 学习前端时间不长，前端要学的东西太多了，加上博主买的书还有学习的项目都是Vue2的，所以就一直在研究Vue2了，今天终于准备上手Vue3了！！！来带你一起快速上手
-
 > 本文是根据B站尚硅谷的视频[《尚硅谷Vue2.0+Vue3.0全套教程，全网最新最强vuejs从入门到精通》](https://link.juejin.cn/?target=https%3A%2F%2Fwww.bilibili.com%2Fvideo%2FBV1Zy4y1K7SH%3Fp%3D136 "https://www.bilibili.com/video/BV1Zy4y1K7SH?p=136") Vue3部分形成的笔记
 
 # 一、简介
@@ -25,7 +23,7 @@
 
 ### 2.源码的升级
 
-*   使用`Proxy`代替`defineProperty`实现响应式
+*   **使用`Proxy`代替`defineProperty`实现响应式**
     
 *   重写虚拟`DOM`的实现和`Tree-Shaking`
     
