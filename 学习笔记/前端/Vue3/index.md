@@ -40,10 +40,10 @@
 
 1.  Composition API（组合API）
     
-    *   `setup`配置
-    *   `ref`与`reactive`
-    *   `watch`与`watchEffect`
-    *   `provide`与 `inject`
+    *   **`setup`配置**
+    *   **`ref`与`reactive`**
+    *   **`watch`与`watchEffect`**
+    *   **`provide`与 `inject`**
 2.  新的内置组件
     
     *   `Fragment`
@@ -52,7 +52,7 @@
 3.  其他改变
     
     *   新的生命周期钩子
-    *   `data` 选项应始终被声明为一个函数
+    *   **`data` 选项应始终被声明为一个函数**
     *   移除`keyCode`支持作为 `v-on` 的修饰符
 
 > 这里有很多新名词，别着急，我们 ~快速~ 慢慢上手！
@@ -73,7 +73,6 @@ vue create vue_test
 ## 启动
 cd vue_test
 npm run serve
-
 ```
 
 ![在这里插入图片描述](./assets/d122d890006045629124cddabb01f10c~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-20221104210148091-7566909-7566910.awebp)
@@ -82,9 +81,8 @@ npm run serve
 
 > 博主认为，作为前端开发工程师，一切的可视化都是好的！！哈哈，我喜欢用可视化面板，包括git的操作，我也喜欢用VScode的可视化面板操作
 
-```powershell
+```shell
 vue ui 
-
 ```
 
 创建项目的时候预设选择Vue3即可 
@@ -100,16 +98,14 @@ vue ui
 vite官网：[vitejs.cn](https://link.juejin.cn/?target=https%3A%2F%2Fvitejs.cn "https://vitejs.cn")
 
 *   什么是vite？—— 是Vue团队打造的新一代前端构建工具。
-    
 *   优势如下：
     
     *   开发环境中，无需打包操作，可快速的冷启动。
     *   轻量快速的热重载（HMR）。
     *   真正的按需编译，不再等待整个应用编译完成。
-*   传统构建 与 vite构建对比图
-*   ![在这里插入图片描述](./assets/af5f8d4493f3423087d6b9e6c5e60fa1~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7566968-7566970.awebp)
+*   传统构建 与 vite构建对比图![在这里插入图片描述](./assets/af5f8d4493f3423087d6b9e6c5e60fa1~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7566968-7566970.awebp)
 
-传统构建模式，是将所有资源都打包好，再上线
+**传统构建模式，是将所有资源都打包好，再上线**
 
 ![在这里插入图片描述](./assets/c57d4d695fe64014b78610ff2a5cd2b6~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7566993-7566994.awebp)
 
@@ -204,7 +200,7 @@ app.mount('#app')
 
 我们再来看看组件
 
-在`template`标签里可以没有根标签了
+**在`template`标签里可以没有根标签了**
 
 ```html
 <template>
@@ -212,7 +208,6 @@ app.mount('#app')
 	<img alt="Vue logo" src="./assets/logo.png">
 	<HelloWorld msg="Welcome to Your Vue.js App"/>
 </template>
-
 ```
 
 > 接下来我们就来正式的学习Vue3的内容了~
@@ -251,9 +246,9 @@ app.mount('#app')
 
 1.  理解：Vue3.0中一个新的配置项，值为一个函数。
 2.  `setup`是所有**Composition API（组合API）**_“ 表演的舞台 ”_。
-3.  组件中所用到的：**数据**、**方法**等等，均要配置在`setup`中。
+3.  **组件中所用到的：数据、方法等等，均要配置在`setup`中。**
 4.  `setup`函数的两种返回值：
-    1.  **若返回一个对象，则对象中的属性、方法, 在模板中均可以直接使用。（重点关注！）**
+    1.  **若返回一个对象，则对象中的属性、方法， 在模板中均可以直接使用。（重点关注！）**
     2.  若返回一个渲染函数：则可以自定义渲染内容。（了解） (不常用)
 
 ```html
@@ -290,16 +285,18 @@ export default {
 
 ```
 
-![在这里插入图片描述](./assets/c0d9aa64acb049cbac1a8e867e5d82c6~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567165.awebp) 如果返回的是渲染函数
+![在这里插入图片描述](./assets/c0d9aa64acb049cbac1a8e867e5d82c6~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567165.awebp) 
+
+如果返回的是渲染函数
 
 那你在`template`里写的模板都不奏效了，页面渲染的就是你写的h函数中的内容 ![在这里插入图片描述](./assets/a177c338e7fa4628baf05e9e9af30084~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp)
 
 5.  注意点：
     1.  尽量**不要**与Vue2.x配置混用
-        *   Vue2.x配置（data、methos、computed...）中**可以访问到**setup中的属性、方法。
+        *   Vue2.x配置（data、methods、computed...）中**可以访问到**setup中的属性、方法。
         *   但在setup中**不能访问到**Vue2.x配置（data、methods、computed...）。
         *   如果有重名, `setup`优先。
-    2.  `setup`不能是一个`async`函数，因为返回值不再是对象, 而是`promise`, 模板看不到return对象中的属性。（后期也可以返回一个Promise实例，但需要Suspense和异步组件的配合）
+    2.  `setup`不能是一个`async`函数，因为返回值不再是对象, 而是`promise`, 模板看不到return对象中的属性。（**后期也可以返回一个Promise实例，但需要Suspense和异步组件的配合**）
 
 > 上面的数据不是响应式的数据，我们修改它，页面不会有更新，如何定义响应式的数据呢？
 
@@ -308,8 +305,8 @@ export default {
 *   作用: 定义一个**响应式**的数据
 *   语法: `const xxx = ref(initValue)`
     *   创建一个包含响应式数据的**引用对象（reference对象，简称ref对象）**。
-    *   JS中操作数据： `xxx.value`
-    *   模板中读取数据: 不需要`.value`，直接：`<div>{{xxx}}</div>`
+    *   **JS中操作数据： `xxx.value`**
+    *   **模板中读取数据: 不需要`.value`，直接：`<div>{{xxx}}</div>`**
 *   备注：
     *   接收的数据可以是：基本类型、也可以是对象类型。
     *   基本类型的数据：响应式依靠的是类上的`getter`与`setter`完成的（我们等下看下源码你就知道了）。
@@ -358,7 +355,6 @@ export default {
   },
 };
 </script>
-
 ```
 
 ![在这里插入图片描述](./assets/b4cdf1b0a60a4838a52ac9f6c5376796~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567205.awebp)
@@ -398,12 +394,11 @@ class RefImpl {
         }
     }
 }
-
 ```
 
 ### ③ `reactive`函数
 
-*   作用: 定义一个**对象类型**的响应式数据（基本类型不要用它，要用`ref`函数）
+*   作用: 定义一个**对象类型**的响应式数据（**基本类型不要用它，要用`ref`函数**）
 *   语法：`const 代理对象= reactive(源对象)`接收一个对象（或数组），返回一个**代理对象（`Proxy`的实例对象，简称`proxy`对象）**
 *   `reactive`定义的响应式数据是“深层次的”。
 *   内部基于 ES6 的 `Proxy` 实现，通过代理对象操作源对象内部数据进行操作。
@@ -458,7 +453,6 @@ export default {
   },
 };
 </script>
-
 ```
 
 ### ④ Vue3.0中的响应式原理
@@ -471,12 +465,11 @@ export default {
         
     *   数组类型：通过重写更新数组的一系列方法来实现拦截。（对数组的变更方法进行了包裹）。
         
-        ```js
+        ```javascript
         Object.defineProperty(data, 'count', {
             get () {}, 
             set () {}
         })
-        
         ```
     
 *   存在问题
@@ -485,7 +478,7 @@ export default {
     *   直接通过**下标修改**数组, 界面不会自动更新。
 *   解决方案
     
-    *   使用`Vue.set`、`Vue.delete`或者`vm.$set`、`vm.$delete`这些API
+    *   **使用`Vue.set`、`Vue.delete`或者`vm.$set`、`vm.$delete`这些API**
 
 模拟Vue2中实现响应式
 
@@ -521,7 +514,7 @@ Object.defineProperty(p,'age',{
 
 #### Vue3.0的响应式
 
-上面例子中看到数组可以通过下标进行修改，我们再测试下增加属性和删除属性在Vue3中好不好使
+上面例子中看到数组可以通过下标进行修改，我们再测试下**增加属性和删除属性**在Vue3中好不好使
 
 ```html
 <template>
@@ -591,8 +584,8 @@ export default {
 ![GIF 2021-9-8 18-22-52.gif](./assets/5f82ff53a3034196b2fd945f2cb16acf~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567241.awebp)
 
 *   实现原理
-    *   通过 `Proxy`（代理）: 拦截对象中任意属性的变化, 包括：属性值的读写、属性的添加、属性的删除等。
-    *   通过`Reflect`（反射）: 对源对象的属性进行操作。
+    *   通过 `Proxy`（代理）: **拦截对象中任意属性的变化, 包括：属性值的读写、属性的添加、属性的删除等**。
+    *   通过`Reflect`（反射）: **对源对象的属性进行操作**。
     *   MDN文档中描述的`Proxy`与`Reflect`：
         *   Proxy：[developer.mozilla.org/zh-CN/docs/…](https://link.juejin.cn/?target=https%3A%2F%2Fdeveloper.mozilla.org%2Fzh-CN%2Fdocs%2FWeb%2FJavaScript%2FReference%2FGlobal_Objects%2FProxy "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy")
             
@@ -637,7 +630,7 @@ const p = new Proxy(person,{
 *   从**定义**数据角度对比
     *   `ref`用来定义：**基本类型数据**。
     *   `reactive`用来定义：**对象（或数组）类型数据**。
-    *   备注：`ref`也可以用来定义**对象（或数组）类型数据**, 它内部会自动通过`reactive`转为**代理对象**。
+    *   备注：**`ref`也可以用来定义对象（或数组）类型数据, 它内部会自动通过`reactive`转为代理对象。**
 
 * * *
 
@@ -648,8 +641,8 @@ const p = new Proxy(person,{
 * * *
 
 *   从**使用**角度对比
-    *   `ref`定义的数据：操作数据**需要**`.value`，读取数据时模板中直接读取**不需要**`.value`。
-    *   reactive定义的数据：操作数据与读取数据：**均不需要**`.value`。
+    *   **`ref`定义的数据：操作数据需要`.value`，读取数据时模板中直接读取不需要`.value`。**
+    *   **reactive定义的数据：操作数据与读取数据：均不需要`.value`。**
 
 ![image.png](./assets/159fbabfe7ac4cdb9414d69ae4defa36~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567267.awebp)
 
@@ -660,15 +653,15 @@ const p = new Proxy(person,{
     *   在`beforeCreate`之前执行一次，`this`是`undefined`。
 *   `setup`的参数
 
-将`setup`接收的两个参数`(props, context)`打印在控制台，如下
+**将`setup`接收的两个参数`(props, context)`打印在控制台，如下**
 
 ![在这里插入图片描述](./assets/38e38c2b41944292bd9a9a705599bf18~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567281.awebp)
 
-*   `props`：值为对象，包含：组件外部传递过来，且组件内部声明接收了的属性。
+*   `props`：值为对象，包含：**组件外部传递过来，且组件内部声明接收了的属性**。
 *   `context`：上下文对象
-    *   `attrs`: 值为对象，包含：组件外部传递过来，但没有在props配置中声明的属性, 相当于 `this.$attrs`。
-    *   `slots`: 收到的插槽内容, 相当于 `this.$slots`。
-    *   `emit`: 分发自定义事件的函数, 相当于 `this.$emit`。
+    *   `attrs`: 值为对象，包含：**组件外部传递过来，但没有在props配置中声明的属性, 相当于 `this.$attrs`。**
+    *   `slots`: **收到的插槽内容, 相当于 `this.$slots`。**
+    *   `emit`: **分发自定义事件的函数, 相当于 `this.$emit`。**
 
 测试一下
 
@@ -769,7 +762,7 @@ export default {
 
 ```
 
-![在这里插入图片描述](./assets/5274fa4993a949119f3af6b7465807fe~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567337.awebp)如果不用emits选项接收，会报警告
+![在这里插入图片描述](./assets/5274fa4993a949119f3af6b7465807fe~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567337.awebp)**如果不用emits选项接收，会报警告**
 
 ##### 插槽
 
@@ -782,7 +775,6 @@ export default {
     <span>YK菌，你好</span>
   </HelloWorld>
 </template>
-
 ```
 
 ```html
@@ -790,7 +782,6 @@ export default {
   <h2>姓名：{{ yk.name }}</h2>
   <slot></slot>
 </template>
-
 ```
 
 ![在这里插入图片描述](./assets/b13ec625ed7a47eab0517f0fda301b95~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567357.awebp)
@@ -806,7 +797,6 @@ export default {
 	</template>
   </HelloWorld>
 </template>
-
 ```
 
 ```html
@@ -814,7 +804,6 @@ export default {
   <h2>姓名：{{ yk.name }}</h2>
   <slot name="ykMsg"></slot>
 </template>
-
 ```
 
 ![在这里插入图片描述](./assets/12715168c92a45849c0ee5cc5d722c84~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567376.awebp)
@@ -849,7 +838,6 @@ setup(){
         }
     })
 }
-
 ```
 
 #### `watch`函数
@@ -858,8 +846,8 @@ setup(){
     
 *   两个小“坑”：
     
-    *   监视`reactive`定义的响应式数据时：`oldValue`无法正确获取、强制开启了深度监视（`deep`配置失效）。
-    *   监视`reactive`定义的响应式数据中某个属性时：`deep`配置有效。
+    *   **监视`reactive`定义的响应式数据时：`oldValue`无法正确获取、强制开启了深度监视（`deep`配置失效）。**
+    *   **监视`reactive`定义的响应式数据中某个属性时：`deep`配置有效。**
 
 情况一：监视ref定义的响应式数据
 
@@ -868,7 +856,6 @@ setup(){
 watch(sum,(newValue,oldValue)=>{
 	console.log('sum变化了',newValue,oldValue)
 },{immediate:true})
-
 ```
 
 如果用ref定义了一个对象
@@ -877,16 +864,16 @@ watch(sum,(newValue,oldValue)=>{
 watch(person.value,(newValue,oldValue)=>{
 	console.log('person变化了',newValue,oldValue)
 }) 
-
 ```
 
 或者这样
 
 ```javascript
 watch(person,(newValue,oldValue)=>{
-	console.log('person变化了',newValue,oldValue)
-},{deep: true}) 
-
+        console.log('person变化了',newValue,oldValue)
+      },
+      {deep: true}
+     ) 
 ```
 
 情况二：监视多个ref定义的响应式数据
@@ -895,8 +882,7 @@ watch(person,(newValue,oldValue)=>{
 //情况二：监视多个ref定义的响应式数据
 watch([sum,msg],(newValue,oldValue)=>{
 	console.log('sum或msg变化了',newValue,oldValue)
-}) 
-
+})
 ```
 
 情况三：监视reactive定义的响应式数据
@@ -908,7 +894,6 @@ watch([sum,msg],(newValue,oldValue)=>{
 watch(person,(newValue,oldValue)=>{
 	console.log('person变化了',newValue,oldValue)
 },{immediate:true,deep:false}) //此处的deep配置不再奏效
-
 ```
 
 情况四：监视reactive定义的响应式数据中的某个属性
@@ -918,7 +903,6 @@ watch(person,(newValue,oldValue)=>{
 watch(()=>person.job,(newValue,oldValue)=>{
 	console.log('person的job变化了',newValue,oldValue)
 },{immediate:true,deep:true}) 
-
 ```
 
 情况五：监视reactive定义的响应式数据中的某些属性
@@ -938,7 +922,6 @@ watch([()=>person.job,()=>person.name],(newValue,oldValue)=>{
 watch(()=>person.job,(newValue,oldValue)=>{
     console.log('person的job变化了',newValue,oldValue)
 },{deep:true}) //此处由于监视的是reactive素定义的对象中的某个属性，所以deep配置有效
-
 ```
 
 #### `watchEffect`函数
@@ -959,7 +942,6 @@ watchEffect(()=>{
     const x2 = person.age
     console.log('watchEffect配置的回调执行了')
 })
-
 ```
 
 ### ⑧ 生命周期
@@ -1022,7 +1004,6 @@ export default function() {
 
   return point;
 }
-
 ```
 
 在组件种使用
@@ -1043,7 +1024,6 @@ export default function() {
 		}
 	}
 </script>
-
 ```
 
 ![在这里插入图片描述](./assets/26b272c72ede43a1acb50937d8e6ef67~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567445.awebp)
@@ -1054,7 +1034,7 @@ export default function() {
     
 *   语法：`const name = toRef(person,'name')`
     
-*   应用: 要将响应式对象中的某个属性单独提供给外部使用时。
+*   应用: **要将响应式对象中的某个属性单独提供给外部使用时。**
     
 *   扩展：`toRefs`与`toRef`功能一致，但可以批量创建多个 ref 对象，语法：`toRefs(person)`
     
@@ -1130,7 +1110,6 @@ export default function() {
 ## 3\. `toRaw` 与 `markRaw`
 
 *   `toRaw`
-    
     *   作用：将一个由`reactive`生成的**响应式对象**转为**普通对象**。
     *   使用场景：用于读取响应式对象对应的普通对象，对这个普通对象的所有操作，不会引起页面更新。
 *   `markRaw`
