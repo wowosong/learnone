@@ -75,7 +75,7 @@ vue create vue_test
 ## 启动
 cd vue_test
 npm run serve
-复制代码
+
 ```
 
 ![在这里插入图片描述](./assets/d122d890006045629124cddabb01f10c~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-20221104210148091-7566909-7566910.awebp)
@@ -86,7 +86,7 @@ npm run serve
 
 ```powershell
 vue ui 
-复制代码
+
 ```
 
 创建项目的时候预设选择Vue3即可 
@@ -128,7 +128,7 @@ cd yk_vue3
 npm install
 ## 运行
 npm run dev
-复制代码
+
 ```
 
 ![在这里插入图片描述](./assets/eb36a577794e46468cf2eddc8b19fc14~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567006.awebp)
@@ -154,7 +154,7 @@ Vue.config.productionTip = false
 new Vue({
   render: h => h(App),
 }).$mount('#app')
-复制代码
+
 ```
 
 看看vm是什么
@@ -167,7 +167,7 @@ const vm = new Vue({
 console.log(vm)
 
 vm.$mount('#app')
-复制代码
+
 ```
 
 ![在这里插入图片描述](./assets/a67c6abe6ceb4e3680958614d6e4c788~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567047.awebp)
@@ -179,7 +179,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 
 createApp(App).mount('#app')
-复制代码
+
 ```
 
 我们来分析一下吧
@@ -195,7 +195,7 @@ console.log(app)
 // 挂载
 app.mount('#app')
 
-复制代码
+
 ```
 
 这里的app到底是啥，我们输出到控制台看看
@@ -214,7 +214,7 @@ app.mount('#app')
 	<img alt="Vue logo" src="./assets/logo.png">
 	<HelloWorld msg="Welcome to Your Vue.js App"/>
 </template>
-复制代码
+
 ```
 
 > 接下来我们就来正式的学习Vue3的内容了~
@@ -289,7 +289,7 @@ export default {
   }
 };
 </script>
-复制代码
+
 ```
 
 ![在这里插入图片描述](./assets/c0d9aa64acb049cbac1a8e867e5d82c6~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567165.awebp) 如果返回的是渲染函数
@@ -360,7 +360,7 @@ export default {
   },
 };
 </script>
-复制代码
+
 ```
 
 ![在这里插入图片描述](./assets/b4cdf1b0a60a4838a52ac9f6c5376796~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567205.awebp)
@@ -400,7 +400,7 @@ class RefImpl {
         }
     }
 }
-复制代码
+
 ```
 
 ### ③ `reactive`函数
@@ -460,7 +460,7 @@ export default {
   },
 };
 </script>
-复制代码
+
 ```
 
 ### ④ Vue3.0中的响应式原理
@@ -478,7 +478,7 @@ export default {
             get () {}, 
             set () {}
         })
-        复制代码
+        
         ```
     
 *   存在问题
@@ -518,7 +518,7 @@ Object.defineProperty(p,'age',{
 		person.age = value
 	}
 })
-复制代码
+
 ```
 
 #### Vue3.0的响应式
@@ -587,7 +587,7 @@ export default {
   },
 };
 </script>
-复制代码
+
 ```
 
 ![GIF 2021-9-8 18-22-52.gif](./assets/5f82ff53a3034196b2fd945f2cb16acf~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567241.awebp)
@@ -631,7 +631,7 @@ const p = new Proxy(person,{
        return Reflect.deleteProperty(target,propName)
 	}
 })
-复制代码
+
 ```
 
 ### ⑤ `reactive`对比`ref`
@@ -661,7 +661,6 @@ const p = new Proxy(person,{
     
     *   在`beforeCreate`之前执行一次，`this`是`undefined`。
 *   `setup`的参数
-    
 
 将`setup`接收的两个参数`(props, context)`打印在控制台，如下
 
@@ -694,7 +693,7 @@ export default {
 </script>
 
 <style></style>
-复制代码
+
 ```
 
 ```html
@@ -718,7 +717,7 @@ export default {
   },
 };
 </script>
-复制代码
+
 ```
 
 ![在这里插入图片描述](./assets/37c3fe57949649d7b310edad8ed6ff89~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567311.awebp)
@@ -744,7 +743,7 @@ export default {
   components: { HelloWorld },
 };
 </script>
-复制代码
+
 ```
 
 ```javascript
@@ -769,7 +768,7 @@ export default {
   },
 };
 </script>
-复制代码
+
 ```
 
 ![在这里插入图片描述](./assets/5274fa4993a949119f3af6b7465807fe~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567337.awebp)如果不用emits选项接收，会报警告
@@ -785,7 +784,7 @@ export default {
     <span>YK菌，你好</span>
   </HelloWorld>
 </template>
-复制代码
+
 ```
 
 ```html
@@ -793,7 +792,7 @@ export default {
   <h2>姓名：{{ yk.name }}</h2>
   <slot></slot>
 </template>
-复制代码
+
 ```
 
 ![在这里插入图片描述](./assets/b13ec625ed7a47eab0517f0fda301b95~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567357.awebp)
@@ -809,7 +808,7 @@ export default {
 	</template>
   </HelloWorld>
 </template>
-复制代码
+
 ```
 
 ```html
@@ -817,7 +816,7 @@ export default {
   <h2>姓名：{{ yk.name }}</h2>
   <slot name="ykMsg"></slot>
 </template>
-复制代码
+
 ```
 
 ![在这里插入图片描述](./assets/12715168c92a45849c0ee5cc5d722c84~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567376.awebp)
@@ -852,7 +851,7 @@ setup(){
         }
     })
 }
-复制代码
+
 ```
 
 #### `watch`函数
@@ -871,7 +870,7 @@ setup(){
 watch(sum,(newValue,oldValue)=>{
 	console.log('sum变化了',newValue,oldValue)
 },{immediate:true})
-复制代码
+
 ```
 
 如果用ref定义了一个对象
@@ -880,7 +879,7 @@ watch(sum,(newValue,oldValue)=>{
 watch(person.value,(newValue,oldValue)=>{
 	console.log('person变化了',newValue,oldValue)
 }) 
-复制代码
+
 ```
 
 或者这样
@@ -889,7 +888,7 @@ watch(person.value,(newValue,oldValue)=>{
 watch(person,(newValue,oldValue)=>{
 	console.log('person变化了',newValue,oldValue)
 },{deep: true}) 
-复制代码
+
 ```
 
 情况二：监视多个ref定义的响应式数据
@@ -899,7 +898,7 @@ watch(person,(newValue,oldValue)=>{
 watch([sum,msg],(newValue,oldValue)=>{
 	console.log('sum或msg变化了',newValue,oldValue)
 }) 
-复制代码
+
 ```
 
 情况三：监视reactive定义的响应式数据
@@ -911,7 +910,7 @@ watch([sum,msg],(newValue,oldValue)=>{
 watch(person,(newValue,oldValue)=>{
 	console.log('person变化了',newValue,oldValue)
 },{immediate:true,deep:false}) //此处的deep配置不再奏效
-复制代码
+
 ```
 
 情况四：监视reactive定义的响应式数据中的某个属性
@@ -921,7 +920,7 @@ watch(person,(newValue,oldValue)=>{
 watch(()=>person.job,(newValue,oldValue)=>{
 	console.log('person的job变化了',newValue,oldValue)
 },{immediate:true,deep:true}) 
-复制代码
+
 ```
 
 情况五：监视reactive定义的响应式数据中的某些属性
@@ -931,7 +930,7 @@ watch(()=>person.job,(newValue,oldValue)=>{
 watch([()=>person.job,()=>person.name],(newValue,oldValue)=>{
 	console.log('person的job变化了',newValue,oldValue)
 },{immediate:true,deep:true})
-复制代码
+
 ```
 
 特殊情况
@@ -941,7 +940,7 @@ watch([()=>person.job,()=>person.name],(newValue,oldValue)=>{
 watch(()=>person.job,(newValue,oldValue)=>{
     console.log('person的job变化了',newValue,oldValue)
 },{deep:true}) //此处由于监视的是reactive素定义的对象中的某个属性，所以deep配置有效
-复制代码
+
 ```
 
 #### `watchEffect`函数
@@ -962,7 +961,7 @@ watchEffect(()=>{
     const x2 = person.age
     console.log('watchEffect配置的回调执行了')
 })
-复制代码
+
 ```
 
 ### ⑧ 生命周期
@@ -973,7 +972,7 @@ watchEffect(()=>{
     *   `beforeDestroy`改名为 `beforeUnmount`
     *   `destroyed`改名为 `unmounted`
 
-可以直接已配置项的形式使用生命周期钩子，也可以使用组合式API的形式使用，尽量统一
+可以直接以配置项的形式使用生命周期钩子，也可以使用组合式API的形式使用，尽量统一
 
 一般来说，组合式API里的钩子会比配置项的钩子先执行，组合式API的钩子名字有变化
 
@@ -993,7 +992,7 @@ watchEffect(()=>{
     
 *   类似于vue2.x中的`mixin`。
     
-*   自定义`hook`的优势: 复用代码, 让`setup`中的逻辑更清楚易懂。
+*   自定义`hook`的优势: 复用代码，让`setup`中的逻辑更清楚易懂。
     
 
 创建一个hooks文件夹，里面创建文件usePoint.js
@@ -1025,7 +1024,7 @@ export default function() {
 
   return point;
 }
-复制代码
+
 ```
 
 在组件种使用
@@ -1046,7 +1045,7 @@ export default function() {
 		}
 	}
 </script>
-复制代码
+
 ```
 
 ![在这里插入图片描述](./assets/26b272c72ede43a1acb50937d8e6ef67~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567445.awebp)
@@ -1108,7 +1107,7 @@ export default function() {
 		}
 	}
 </script>
-复制代码
+
 ```
 
 # 五、其它 Composition API
@@ -1190,7 +1189,7 @@ export default {
   },
 };
 </script>
-复制代码
+
 ```
 
 ## 5\. `provide` 与 `inject`
@@ -1213,7 +1212,7 @@ setup(){
     provide('car',car) // 给自己的后代组件传递数据
     ......
 }
-复制代码
+
 ```
 
 后代组件中：
@@ -1225,7 +1224,7 @@ setup(props,context){
     return {car}
 	......
 }
-复制代码
+
 ```
 
 ## 6\. 响应式数据的判断
@@ -1258,7 +1257,7 @@ Composition API 差不多就介绍完了，此时回去再看那个动图，就�
 		</div>
 	</div>
 </teleport>
-复制代码
+
 ```
 
 以一个弹窗组件为示例来看看
@@ -1290,7 +1289,7 @@ export default {
 }
 </style>
 
-复制代码
+
 ```
 
 Child
@@ -1318,7 +1317,7 @@ export default {
 }
 </style>
 
-复制代码
+
 ```
 
 Son
@@ -1347,7 +1346,7 @@ export default {
 }
 </style>
 
-复制代码
+
 ```
 
 Dialog
@@ -1400,7 +1399,7 @@ export default {
 }
 </style>
 
-复制代码
+
 ```
 
 我故意给最里面的盒子加了定位，因为相对定位会找他外层最近的定位盒子进行定位，所以效果就是这样了，我们希望这个弹窗是在body下呈现的
@@ -1428,7 +1427,7 @@ export default {
     </teleport>
   </div>
 </template>
-复制代码
+
 ```
 
 这样就好了![在这里插入图片描述](./assets/2a7567065dfb4cf6a1c483e1e4e41382~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0-7567557.awebp)
@@ -1446,7 +1445,7 @@ export default {
 ```javascript
 import {defineAsyncComponent} from 'vue'
 const Child = defineAsyncComponent(()=>import('./components/Child.vue'))
-复制代码
+
 ```
 
 使用`Suspense`包裹组件，并配置好`default`与 `fallback`
@@ -1465,7 +1464,7 @@ const Child = defineAsyncComponent(()=>import('./components/Child.vue'))
 		</Suspense>
 	</div>
 </template>
-复制代码
+
 ```
 
 default：就是组件要显示的内容
@@ -1492,7 +1491,7 @@ Vue.component('MyButton', {
 Vue.directive('focus', {
   inserted: el => el.focus()
 }
-复制代码
+
 ```
 
 Vue3.0中对这些API做出了调整：
@@ -1527,7 +1526,7 @@ Vue2.x写法
 .v-enter-to {
   opacity: 1;
 }
-复制代码
+
 ```
 
 Vue3.x写法
@@ -1542,7 +1541,7 @@ Vue3.x写法
 .v-enter-to {
   opacity: 1;
 }
-复制代码
+
 ```
 
 ### ③ 移除`keyCode`作为 `v-on` 的修饰符，同时也不再支持`config.keyCodes`
@@ -1556,7 +1555,7 @@ Vue3.x写法
   v-on:close="handleComponentEvent"
   v-on:click="handleNativeClickEvent"
 />
-复制代码
+
 ```
 
 子组件中声明自定义事件
@@ -1567,7 +1566,7 @@ Vue3.x写法
     emits: ['close']
   }
 </script>
-复制代码
+
 ```
 
 ### ⑤ 移除过滤器（filter）

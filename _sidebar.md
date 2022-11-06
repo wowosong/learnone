@@ -1,6 +1,6 @@
 <!-- 侧边栏 docs/_sidebar.md -->
 
-- [📙喔喔松学习笔记](http://wowosong.gitee.io/learnone/#/)
+- [📙喔喔松学习笔记](https://gitee.com/wowosong/learnone)
     - 前端
       - [Html+css](/学习笔记/前端/html+css（尚硅谷）.md)
       - [Vue](/学习笔记/前端/Vue.md)
@@ -232,6 +232,7 @@
       - [Docker底层原理浅析](/学习笔记/Linux运维/Docker/Docker底层原理浅析.md)
       - [Docker网络](/学习笔记/Linux运维/Docker/Docker网络.md)
       - [Kubernetes](/学习笔记/Linux运维/Docker/Kubernetes.md)
+      - [K8s](/Users/jiusonghuang/Desktop/learn-new/学习笔记/Linux运维/K8s/index.md)
     - Nginx
       - [KeepalivedNginx高可用集群](/学习笔记/Linux运维/Nginx/KeepalivedNginx高可用集群.md)
       - [Keepalived配置详解](/学习笔记/Linux运维/Nginx/Keepalived配置详解.md)
