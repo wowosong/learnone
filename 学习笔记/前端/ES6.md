@@ -58,7 +58,7 @@ let 关键字用来声明变量，使用 let 声明的变量有几个特点：
 
 2. 块儿级作用域
 
-3. 不存在变量提升
+3. **不存在变量提升**
 
 4. 不影响作用域链
     **应用场景：以后声明变量使用 let 就对了**
@@ -73,12 +73,12 @@ let 关键字用来声明变量，使用 let 声明的变量有几个特点：
 4. 值不允许修改
 
 5. 块儿级作用域
-    **注意: 对象属性修改和数组元素变化不会出发 const 错误**
+    **注意: 对象属性修改和数组元素变化不会触发 const 错误**
     **应用场景：声明对象类型使用 const，非对象类型声明选择 let**
 
 ## 2.3.变量的解构赋值
 
-​    ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构赋值。
+​    ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为**解构赋值**。
 
 ```javascript
 //数组的解构赋值
@@ -174,7 +174,7 @@ let 关键字用来声明变量，使用 let 声明的变量有几个特点：
 
 3. 箭头函数 this 指向声明时所在作用域下 this 的值
 
-4. 箭头函数不能作为构造函数实例化
+4. **箭头函数不能作为构造函数实例化**
 
 5. 不能使用 arguments
 
@@ -193,7 +193,7 @@ let 关键字用来声明变量，使用 let 声明的变量有几个特点：
   * 4. this 指向声明时所在作用域中 this 的值
   */
   let fn4 = () => {
-  	console.log(this);
+  	console.log(this);//指向window
   }
   let school = {
     name: '尚硅谷',
@@ -204,9 +204,21 @@ let 关键字用来声明变量，使用 let 声明的变量有几个特点：
       fn5();
     }
   };
+  arr.forEach(item=>{
+    console.log(item)
+  })
+  arr.map(item=>item*2).forEach(i=>console.log(i))
+  
+  const result = arr.filter(item => item % 2 === 0);
+  console.log(arr.findIndex(x=>x>10))
+  
+  console.log(result);
+  
   ```
 
     注意：箭头函数不会更改 this 指向，用来指定回调函数会非常合适
+    // 箭头函数适合与 this 无关的回调. 定时器, 数组的方法回调
+    // 箭头函数不适合与 this 有关的回调.事件回调, 对象的方法
 ## 2.7. rest 参数
 
     ES6 引入 rest 参数，用于获取函数的实参，用来代替 arguments
@@ -226,13 +238,35 @@ let 关键字用来声明变量，使用 let 声明的变量有几个特点：
     console.log(a,b,args);
   }
   minus(100,1,2,3,4,5,19);
+  
+  //ES6 允许给函数参数赋值初始值
+  //1. 形参初始值 具有默认值的参数, 一般位置要靠后(潜规则)
+  function add(a,b,c=10) {
+    return a + b + c;
+  }
+  let result = add(1,2);
+  console.log(result);
+  
+  //2. 与解构赋值结合
+  function connect({host="127.0.0.1", username,password, port}){
+    console.log(host);
+    console.log(username);
+    console.log(password);
+    console.log(port);
+  }
+  connect({
+    host: 'atguigu.com',
+    username: 'root',
+    password: 'root',
+    port: 3306
+  });
   ```
 
-  注意： rest 参数非常适合不定个数参数函数的场景
+  注意： **rest 参数非常适合不定个数参数函数的场景**
 
 ## 2.8. spread 扩展运算符
 
-  扩展运算符（spread）也是三个点（...）。它好比 rest 参数的逆运算，将一个数组转为用逗号分隔的参数序列，对数组进行解包。
+  扩展运算符（spread）也是三个点（...）。它好比 rest 参数的逆运算，**将一个数组转为用逗号分隔的参数序列，对数组进行解包。**
 
   ```javascript
   /**
@@ -573,6 +607,7 @@ async 和 await 两种语法结合可以让异步代码像同步代码一样
 1. async 函数的返回值为 promise 对象，
 2. promise 对象的结果由 async 函数执行的返回值决定
 ### 4.1.2.await 表达式
+
 1. await 必须写在 async 函数中
 2. await 右侧的表达式一般为 promise 对象
 3. await 返回的是 promise 成功的值
@@ -662,13 +697,17 @@ console.log(data);
 
 # 第 6 章 ECMASript 10 新特性
 ## 6.1. Object.fromEntries
+
 ## 6.2. trimStart 和 trimEnd
 ## 6.3. Array.prototype.flat 与 flatMap
+
 ## 6.4. Symbol.prototype.description
+
 # 第 7 章 ECMASript 11 新特性
 ## 7.1. String.prototype.matchAll
 ## 7.2.类的私有属性
 ## 7.3. Promise.allSettled
 ## 7.4.可选链操作符
 ## 7.5.动态 import 导入
+
 ## 7.6. globalThis 对象
