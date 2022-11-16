@@ -7,11 +7,11 @@
 
 1. 抽象表达:
      1) Promise 是一门新的技术(ES6 规范)
-     2) Promise 是 JS 中进行异步编程的新解决方案
+     2) Promise 是 JS 中进行**异步编程**的新解决方案
      备注：旧方案是单纯使用回调函数
 2. 具体表达:
      1) 从语法上来说: Promise 是一个构造函数
-     2) 从功能上来说: promise 对象用来封装一个异步操作并可以获取其成功/失败的结果值
+     2) 从功能上来说: promise 对象用来封装一个异步操作并可以获取其**成功/失败**的结果值
 
 ### 1.1.2. promise 的状态改变
 
@@ -20,28 +20,30 @@
 2. pending 变为 rejected
    说明: 只有这 2 种, 且一个 promise 对象只能改变一次
    无论变为成功还是失败, 都会有一个结果数据
-   成功的结果数据一般称为 value, 失败的结果数据一般称为 reason
+   **成功的结果数据一般称为 value, 失败的结果数据一般称为 reason**
 ### 1.1.3. promise 的基本流程
+
 ![image-20220421102019564](./Promise.assets/image-20220421102019564.png)
 
 ### 1.1.4. promise 的基本使用
+
 1) 使用 1: 基本编码流程
-```javascript <script>
+```javascript
   // 1) 创建 promise 对象(pending 状态), 指定执行器函数
   const p = new Promise((resolve, reject) => {
-    // 2) 在执行器函数中启动异步任务
-    setTimeout(() => {
-    const time = Date.now()
-    // 3) 根据结果做不同处理
-    // 3.1) 如果成功了, 调用 resolve(), 指定成功的 value, 变为 resolved 状态
-    if (time%2===1) {
-    resolve('成功的值 '+ time)
-    } else { 
-    // 3.2) 如果失败了, 调用 reject(), 指定失败的 reason, 变为
-      rejected 状态
-      reject('失败的值' + time)
-    }
-    }, 2000)
+      // 2) 在执行器函数中启动异步任务
+      setTimeout(() => {
+      const time = Date.now()
+      // 3) 根据结果做不同处理
+        // 3.1) 如果成功了, 调用 resolve(), 指定成功的 value, 变为 resolved 状态
+        if (time%2===1) {
+        resolve('成功的值 '+ time)
+        } else { 
+        // 3.2) 如果失败了, 调用 reject(), 指定失败的 reason, 变为
+          rejected 状态
+          reject('失败的值' + time)
+        }
+      }, 2000)
   })
   // 4) 能 promise 指定成功或失败的回调函数来获取成功的 vlaue 或失败的 reason
   p.then(
@@ -57,7 +59,7 @@
   </script>
 ```
  2) 使用 2: 使用 promise 封装基于定时器的异步
-```javascript  <script>
+```javascript
   function doDelay(time) {
     // 1. 创建 promise 对象
     return new Promise((resolve, reject) => {
@@ -203,7 +205,9 @@
   }
   ```
 ## 1.3. 如何使用 Promise?
+
 ### 1.3.1. API
+
   1. Promise 构造函数: Promise (excutor) {}
 
 ​			(1) executor 函数: 执行器 (resolve, reject) => {}
@@ -636,6 +640,7 @@ function Promise(excutor) {
   https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/await
 
 ## 3.2. async 函数
+
   1. 函数的返回值为 promise 对象
   2. promise 对象的结果由 async 函数执行的返回值决定
 ## 3.3. await 表达式
