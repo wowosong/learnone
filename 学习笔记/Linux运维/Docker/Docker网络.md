@@ -1,6 +1,7 @@
-使用容器总是感觉像使用魔法一样。对于那些理解底层原理的人来说容器很好用，但是对于不理解的人来说就是个噩梦。很幸运的是，我们已经研究容器技术很久了，甚至成功揭秘容器只是隔离并受限的Linux进程，运行容器并不需要镜像，以及另一个方面，构建镜像需要运行一些容器。
+使用容器总是感觉像使用魔法一样。对于那些理解底层原理的人来说容器很好用，但是对于不理解的人来说就是个噩梦。很幸运的是，我们已经研究容器技术很久了，甚至成功揭秘容器只是隔离并受限的Linux进程，运行容器并不需要镜像，以及另一个方面，构建镜像需要运行一些容器。 
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/20210910091025.webp)
+![img](https://gitee.com/wowosong/pic-md/raw/master/20210910091025.webp)
+
 
 现在是时候解决容器网络问题了。或者更准确地说，单主机容器网络问题。本文会回答这些问题：
 
@@ -103,9 +104,7 @@ $ sudo nsenter --net=/var/run/netns/netns0 bash
 
 从上面的输出可以清楚地看到bash进程运行在netns0命名空间，这时看到的是完全不同的网络栈。这里没有路由规则，没有自定义的iptables chain，只有一个loopback的网络设备。
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/20210910091034.webp)
-
-
+![img](https://gitee.com/wowosong/pic-md/raw/master/20210910091034.webp)
 
 ## 使用虚拟的Ethernet设备（veth）将容器连接到主机上
 

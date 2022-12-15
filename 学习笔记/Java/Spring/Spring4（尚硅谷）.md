@@ -16,7 +16,7 @@ Spring 是什么(1)
 框架: Spring 实现了使用简单的组件配置组合成一个复杂的应用. 在 Spring 中可以使用 XML 和 Java 注解组合这些对象
 一站式：在 IOC 和 AOP 的基础上可以整合各种企业应用的开源框架和优秀的第三方类库 （实际上 Spring 自身也提供了展现层的 SpringMVC 和 持久层的 Spring JDBC）
 
-![image-20210626114512017](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210626114512.png)
+![image-20210626114512017](https://gitee.com/wowosong/pic-md/raw/master/202212151054580.png)
 
 #  搭建 Spring 开发环境
 
@@ -86,16 +86,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
     public static void main(String[] args) {
-				//1.创建spring的IOC容器
+        //1.创建spring的IOC容器
         //ApplicationContext 代表IOC容器
         //ClassPathXmlApplicationContext：是ApplicationContext接口的实现类，该实现类从类路径下来加载配置文件
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-				//2.从容器中获取Bean
+        //2.从容器中获取Bean
         //利用ID定位到容器中的Bean
         HelloWorld helloworld = (HelloWorld) context.getBean("helloWorld");
         //利用类型返回IOC容器中的bean，但是要求IOC容器中必须只有一个该类型的bean
         HelloWorld helloWorld=context.getBean(HelloWorld.class);
-				//3.调用方法
+        //3.调用方法
         helloworld.HelloWorld();
     }
 }
@@ -117,11 +117,11 @@ IOC(Inversion of Control)：其思想是反转资源获取的方向。传统的�
 
 DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些预先定义好的方式(例如: setter 方法)接受来自如容器的资源注入. 相对于 IOC 而言，这种表述更直接
 
-![image-20210626170713309](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210626170713.png)
+![image-20210626170713309](https://gitee.com/wowosong/pic-md/raw/master/202212151054003.png)
 
-![image-20210626171045182](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210626171045.png)
+![image-20210626171045182](https://gitee.com/wowosong/pic-md/raw/master/202212151055604.png)
 
-![image-20210626171127941](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210626171128.png)
+![image-20210626171127941](https://gitee.com/wowosong/pic-md/raw/master/202212151055944.png)
 
 ## 配置 bean
 
@@ -129,11 +129,11 @@ DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些�
 
 * 在 xml 文件中通过 bean 节点来配置 bean
 ```xml
-   <!-- 配置bean时，通过反射的方式在IOC容器中创建bean，所以要求Bean中必须有无参构造器-->
-          <bean id="helloworld" class="com.hbd.wowosong.beans.Helloworld">
-              <property name="name" value="wowosong"></property>
-              <property name="age" value="30"></property>
-          </bean>
+<!-- 配置bean时，通过反射的方式在IOC容器中创建bean，所以要求Bean中必须有无参构造器-->
+<bean id="helloworld" class="com.hbd.wowosong.beans.Helloworld">
+    <property name="name" value="wowosong"></property>
+    <property name="age" value="30"></property>
+</bean>
 ```
 
 * id：Bean 的名称。
@@ -170,7 +170,7 @@ DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些�
 
 1. 调用 ApplicationContext 的 getBean() 方法，在父接口ListableBeanFactory中
 
-![image-20211218103139137](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20211218103139.png)
+![image-20211218103139137](https://gitee.com/wowosong/pic-md/raw/master/202212151055680.png)
 
 ## 依赖注入的方式：
 
@@ -180,34 +180,34 @@ DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些�
 
 1. 属性注入即通过 setter 方法注入Bean 的属性值或依赖的对象
 
-2. 属性注入使用 <property> 元素, 使用 name 属性指定 Bean 的属性名称，value 属性或 <value> 子节点指定属性值 
+2. 属性注入使用 \<property> 元素, 使用 name 属性指定 Bean 的属性名称，value 属性或\<value> 子节点指定属性值 
 
 3. 属性注入是实际应用中最常用的注入方式  
 
    ```xml
    <!--    配置bean时，通过反射的方式在IOC容器中创建bean，所以要求Bean中必须有无参构造器-->
-       <!--    id:标识容器中bean，id唯一-->
-       <bean id="helloworld" class="com.hbd.wowosong.beans.Helloworld">
-           <property name="name" value="wowosong"></property>
-           <property name="age" value="30"></property>
-       </bean>
+   <!--    id:标识容器中bean，id唯一-->
+   <bean id="helloworld" class="com.hbd.wowosong.beans.Helloworld">
+       <property name="name" value="wowosong"></property>
+       <property name="age" value="30"></property>
+   </bean>
    ```
 
 ### 构造器注入
 
 1. 通过构造方法注入Bean 的属性值或依赖的对象，它保证了 Bean 实例在实例化后就可以使用。
 
-2. 构造器注入在 <constructor-arg> 元素里声明属性, <constructor-arg> 中没有 name 属性
+2. 构造器注入在 \<constructor-arg> 元素里声明属性, \<constructor-arg> 中没有 name 属性
 
    ```xml
-   	<!--
+   <!--
      通过构造方法配置bean的属性,xml中配置的属性应该与bean中构造器中的属性一致，否则提示异常
      -->
-     <bean id="car" class="com.hbd.beans.Car">
-         <constructor-arg value="Audo"></constructor-arg>
-         <constructor-arg value="123"></constructor-arg>
-         <constructor-arg value="1200"></constructor-arg>
-     </bean>
+   <bean id="car" class="com.hbd.beans.Car">
+       <constructor-arg value="Audo"></constructor-arg>
+       <constructor-arg value="123"></constructor-arg>
+       <constructor-arg value="1200"></constructor-arg>
+   </bean>
    ```
 
 ```java
@@ -229,11 +229,11 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "brand='" + brand + '\'' +
-                ", corp='" + corp + '\'' +
-                ", price=" + price +
-                ", maxSpeed=" + maxSpeed +
-                '}';
+            "brand='" + brand + '\'' +
+            ", corp='" + corp + '\'' +
+            ", price=" + price +
+            ", maxSpeed=" + maxSpeed +
+            '}';
     }
 }
 ```
@@ -244,47 +244,47 @@ public class Car {
 
 ```xml
 <!--    通过构造方法获取bean-->
-    <bean id="car" class="com.hbd.wowosong.beans.Car">
-        <constructor-arg index="0" value="Audo"/>
-        <constructor-arg index="1" value="chengdu"/>
-        <constructor-arg index="2" value="123" type="double"/> 将price改成double类型
-    </bean>
+<bean id="car" class="com.hbd.wowosong.beans.Car">
+    <constructor-arg index="0" value="Audo"/>
+    <constructor-arg index="1" value="chengdu"/>
+    <constructor-arg index="2" value="123" type="double"/> 将price改成double类型
+</bean>
 ```
 
 按类型匹配入参：
 
 ```xml
- <!---
+<!---
     使用构造器注入属性可以指定参数的位置和参数的类型，以区分重载的构造器
  -->
 <bean id="car1" class="com.hbd.beans.Car">
-        <constructor-arg value="Audo" type="java.lang.String"></constructor-arg>
-        <constructor-arg value="上海" type="java.lang.String"></constructor-arg>
-        <constructor-arg value="123" type="int"></constructor-arg>
- </bean>
+    <constructor-arg value="Audo" type="java.lang.String"></constructor-arg>
+    <constructor-arg value="上海" type="java.lang.String"></constructor-arg>
+    <constructor-arg value="123" type="int"></constructor-arg>
+</bean>
 ```
 
 ### 注入属性值细节
 
 - 字面值
 
-  1. 字面值：可用字符串表示的值，可以通过 <value> 元素标签或 value 属性进行注入。
+  1. 字面值：可用字符串表示的值，可以通过 \<value> 元素标签或 value 属性进行注入。
 
     ```xml
-     <constructor-arg  type="java.lang.String">
+    <constructor-arg  type="java.lang.String">
         <value>"上海"</value>
-     </constructor-arg>
+    </constructor-arg>
     ```
 
   2. 基本数据类型及其封装类、String 等类型都可以采取字面值注入的方式
 
-  3. 若字面值中包含特殊字符，可以使用 <![CDATA[]]> 把字面值包裹起来。
+  3. 若字面值中包含特殊字符，可以使用 \<![CDATA[]]> 把字面值包裹起来。
 
     ```xml
     <constructor-arg index="1" type="java.lang.String">
-       <!--            如果字面值包含特殊字符可以使用[<![CDATA[]]> 包裹起来-->
-       <!--            属性值也可以使用value子节点进行配置-->
-       <value>[<![CDATA[Shanghai]]>]</value>
+        <!--            如果字面值包含特殊字符可以使用[<![CDATA[]]> 包裹起来-->
+        <!--            属性值也可以使用value子节点进行配置-->
+        <value>[<![CDATA[Shanghai]]>]</value>
     </constructor-arg>
     ```
 
@@ -292,211 +292,211 @@ public class Car {
 
  1. 组成应用程序的 Bean 经常需要相互协作以完成应用程序的功能. 要使 Bean 能够相互访问, 就必须在 Bean 配置文件中指定对 Bean 的引用
 
- 2. 在 Bean 的配置文件中, 可以通过 <ref> 元素或 ref  属性为 Bean 的属性或构造器参数指定对 Bean 的引用. 
+ 2. 在 Bean 的配置文件中, 可以通过 \<ref> 元素或 ref  属性为 Bean 的属性或构造器参数指定对 Bean 的引用. 
 
    ```xml
    <bean id="person" class="com.hbd.beans.Person">
-           <constructor-arg value="wowosong"></constructor-arg>
-           <constructor-arg value="12"></constructor-arg>
-           <constructor-arg name="car" ref="car"></constructor-arg>
+       <constructor-arg value="wowosong"></constructor-arg>
+       <constructor-arg value="12"></constructor-arg>
+       <constructor-arg name="car" ref="car"></constructor-arg>
    </bean>
    
-    <bean id="person" class="com.hbd.beans.Person">
-           <property name="name" value="wowosong"></property>
-           <property name="age" value="12"></property>
-           <!--- 可以通过property的ref属性建立bean之间的引用关系--->
-           <property name="car" >
-           	<ref bean="car">
-           </property>
+   <bean id="person" class="com.hbd.beans.Person">
+       <property name="name" value="wowosong"></property>
+       <property name="age" value="12"></property>
+       <!--- 可以通过property的ref属性建立bean之间的引用关系--->
+       <property name="car" >
+           <ref bean="car">
+               </property>
            <property name="car" ref="car"></property>
-    </bean>
+           </bean>
    ```
 
  3. 也可以在属性或构造器里包含 Bean 的声明, 这样的 Bean 称为内部 Bean
 
-   当 Bean 实例仅仅给一个特定的属性使用时, 可以将其声明为内部 Bean. 内部 Bean 声明直接包含在 <property> 或 <constructor-arg> 元素里， 不需要设置任何 id 或 name 属性
+   当 Bean 实例仅仅给一个特定的属性使用时, 可以将其声明为内部 Bean. 内部 Bean 声明直接包含在 \<property> 或 \<constructor-arg> 元素里， 不需要设置任何 id 或 name 属性
 
    **内部 Bean 不能使用在任何其他地方**
 
    ```xml
-    <bean id="person" class="com.hbd.beans.Person">
-      <property name="name" value="wowosong"></property>
-      <property name="age" value="12"></property>
-      <property name="car">
-        <bean class="com.hbd.beans.Car">
-          <constructor-arg name="brand" value="Ford"></constructor-arg>
-          <constructor-arg name="corp" value="Chengdu"></constructor-arg>
-          <constructor-arg name="price" value="1100000"></constructor-arg>
-        </bean>
-      </property>
+   <bean id="person" class="com.hbd.beans.Person">
+       <property name="name" value="wowosong"></property>
+       <property name="age" value="12"></property>
+       <property name="car">
+           <bean class="com.hbd.beans.Car">
+               <constructor-arg name="brand" value="Ford"></constructor-arg>
+               <constructor-arg name="corp" value="Chengdu"></constructor-arg>
+               <constructor-arg name="price" value="1100000"></constructor-arg>
+           </bean>
+       </property>
    </bean>
    ```
 
 ##  注入参数详解：null 值和级联属性
 
-1. 可以使用专用的 <null/> 元素标签为 Bean 的字符串或其它对象类型的属性注入 null 值
+1. 可以使用专用的 \<null/> 元素标签为 Bean 的字符串或其它对象类型的属性注入 null 值
 
 ```xml
-   <bean id="person3" class="com.hbd.wowosong.beans.Person">
-          <constructor-arg value="qwer"></constructor-arg>
-          <constructor-arg value="33"></constructor-arg>
-  <!--        <constructor-arg ref="car1"></constructor-arg>-->
-  <!--        测试null-->
-          <constructor-arg ><null/></constructor-arg>
-  </bean>
-  <bean id="person1" class="com.hbd.beans.Person">
-      <constructor-arg  value="wowosong"></constructor-arg>
-      <constructor-arg  value="12"></constructor-arg>
-      <constructor-arg ref="car"></constructor-arg>
-      <!--- 
-      	为级联属性赋值，注意：属性需要先初始化(要有set和get方法)后才可以为级联属性赋值，否则会有异常，和Structs2不同
+<bean id="person3" class="com.hbd.wowosong.beans.Person">
+    <constructor-arg value="qwer"></constructor-arg>
+    <constructor-arg value="33"></constructor-arg>
+    <!--        <constructor-arg ref="car1"></constructor-arg>-->
+    <!--        测试null-->
+    <constructor-arg ><null/></constructor-arg>
+</bean>
+<bean id="person1" class="com.hbd.beans.Person">
+    <constructor-arg  value="wowosong"></constructor-arg>
+    <constructor-arg  value="12"></constructor-arg>
+    <constructor-arg ref="car"></constructor-arg>
+    <!--- 
+       为级联属性赋值，注意：属性需要先初始化(要有set和get方法)后才可以为级联属性赋值，否则会有异常，和Structs2不同
       --->
-    	<!--下面的car.maxSpeed等属性赋值，会覆盖上面构造器注入的属性值 -->
-      <property name="car.maxSpeed" value="1111111111"></property>
-      <property name="car.price" value="123"></property>
-      <property name="car.brand" value="Mazada"></property>
-      <property name="car.corp" value="Xi'an"></property>
-  </bean>
+    <!--下面的car.maxSpeed等属性赋值，会覆盖上面构造器注入的属性值 -->
+    <property name="car.maxSpeed" value="1111111111"></property>
+    <property name="car.price" value="123"></property>
+    <property name="car.brand" value="Mazada"></property>
+    <property name="car.corp" value="Xi'an"></property>
+</bean>
 ```
 
 ```java
-  public void setPrice(double price) {
-  	this.price=price;
-  }
-  
-  public void setMaxSpeed(int maxSpeed) {
-  	this.maxSpeed=maxSpeed;
-  }
-  
-  public void setBrand(String brand) {
-  	this.brand=brand;
-  }
-  
-  public void setCorp(String corp) {
-  	this.corp=corp;
-  }
+public void setPrice(double price) {
+    this.price=price;
+}
+
+public void setMaxSpeed(int maxSpeed) {
+    this.maxSpeed=maxSpeed;
+}
+
+public void setBrand(String brand) {
+    this.brand=brand;
+}
+
+public void setCorp(String corp) {
+    this.corp=corp;
+}
 ```
 
 2. 和 Struts、Hiberante 等框架一样，Spring 支持级联属性的配置。
 
 ## **集合属性**
 
-1. 在 Spring中可以通过一组内置的 xml 标签(例如: <list>, <set> 或 <map>) 来配置集合属性.
+1. 在 Spring中可以通过一组内置的 xml 标签(例如: \<list>, \<set> 或 \<map>) 来配置集合属性.
 
 ```xml
-   <!---测试集合属性-->
-   <bean id="person2" class="com.hbd.beans.collections.Person">
-     <property name="age" value="1100"></property>
-     <property name="name" value="wowosong"></property>
-     <property name="carList" >
-       <list>
-         <ref bean="car"/>
-         <ref bean="car1"/>
-       </list>
-     </property>
-   </bean>
-  
-Person{name='wowosong', age=1100, carList=[Car{brand='Mazada', corp='Xi'an', price=123.0, maxSpeed=1111111111}, Car{brand='Audo', corp='<上海>', price=0.0, maxSpeed=123}]}
-```
-
-2. 配置 java.util.List 类型的属性, 需要指定 <list>  标签, 在标签里包含一些元素. 这些标签可以通过 <value> 指定简单的常量值, 通过 <ref> 指定对其他 Bean 的引用. 通过<bean> 指定内置 Bean 定义. 通过 <null/> 指定空元素. 甚至可以内嵌其他集合.
-
-3. 数组的定义和 List 一样, 都使用 <list>
-
-   ```xml
-   <bean id="person" class="com.hbd.wowosong.collections.beans.Person">
-     <property name="name" value="wowosong"></property>
-     <property name="age" value="40"></property>
-     <property name="cars" >
-       <list>
-         <ref bean="carp1"></ref>
-         <ref bean="carp"></ref>
-         <bean class="com.hbd.wowosong.collections.beans.Car">
-           <constructor-arg value="Ford"></constructor-arg>
-           <constructor-arg value="111111"></constructor-arg>
-           <constructor-arg value="30"></constructor-arg>
-         </bean>
-       </list>
-     </property>
-   </bean>
-   ```
-
-4. 配置 java.util.Set 需要使用 <set> 标签, 定义元素的方法与 List 一样.
-
-5. Java.util.Map 通过 <map> 标签定义, <map> 标签里可以使用多个 <entry> 作为子标签. 每个条目包含一个键和一个值. 
-
-```xml
-  <!--
-      配置map属性
-  -->
-  <bean id="newPerson" class="com.hbd.beans.collections.newPerson">
+<!---测试集合属性-->
+<bean id="person2" class="com.hbd.beans.collections.Person">
     <property name="age" value="1100"></property>
     <property name="name" value="wowosong"></property>
     <property name="carList" >
-      <!--
-       使用map节点及map的entry 子节点配置map类型的成员变量
-       -->
-      <map>
-        <entry key="AA" value-ref="car"></entry>
-        <entry key="BB" value-ref="car1"></entry>
-      </map>
+        <list>
+            <ref bean="car"/>
+            <ref bean="car1"/>
+        </list>
     </property>
-  </bean>
+</bean>
+
+Person{name='wowosong', age=1100, carList=[Car{brand='Mazada', corp='Xi'an', price=123.0, maxSpeed=1111111111}, Car{brand='Audo', corp='<上海>', price=0.0, maxSpeed=123}]}
 ```
 
-6. 必须在 <key> 标签里定义键
+2. 配置 java.util.List 类型的属性, 需要指定 \<list>  标签, 在标签里包含一些元素. 这些标签可以通过 \<value> 指定简单的常量值, 通过 \<ref> 指定对其他 Bean 的引用. 通过\<bean> 指定内置 Bean 定义. 通过 \<null/> 指定空元素. 甚至可以内嵌其他集合.
 
-7. **因为键和值的类型没有限制, 所以可以自由地为它们指定 <value>, <ref>, <bean> 或 <null> 元素.** 
-
-8. 可以将 Map 的键和值作为 <entry> 的属性定义: 简单常量使用 key 和 value 来定义; **Bean 引用通过 key-ref 和 value-ref 属性定义**
-
-9. 使用 <props> 定义 java.util.Properties, 该标签使用多个 <prop> 作为子标签. 每个 <prop> 标签必须定义 key 属性. 
+3. 数组的定义和 List 一样, 都使用 \<list>
 
 ```xml
-  <!--
+<bean id="person" class="com.hbd.wowosong.collections.beans.Person">
+    <property name="name" value="wowosong"></property>
+    <property name="age" value="40"></property>
+    <property name="cars" >
+        <list>
+            <ref bean="carp1"></ref>
+            <ref bean="carp"></ref>
+            <bean class="com.hbd.wowosong.collections.beans.Car">
+                <constructor-arg value="Ford"></constructor-arg>
+                <constructor-arg value="111111"></constructor-arg>
+                <constructor-arg value="30"></constructor-arg>
+            </bean>
+        </list>
+    </property>
+</bean>
+```
+
+4. 配置 java.util.Set 需要使用 \<set> 标签, 定义元素的方法与 List 一样.
+
+5. Java.util.Map 通过 \<map> 标签定义, \<map> 标签里可以使用多个 \<entry> 作为子标签. 每个条目包含一个键和一个值. 
+
+```xml
+<!--
+      配置map属性
+  -->
+<bean id="newPerson" class="com.hbd.beans.collections.newPerson">
+    <property name="age" value="1100"></property>
+    <property name="name" value="wowosong"></property>
+    <property name="carList" >
+        <!--
+       使用map节点及map的entry 子节点配置map类型的成员变量
+       -->
+        <map>
+            <entry key="AA" value-ref="car"></entry>
+            <entry key="BB" value-ref="car1"></entry>
+        </map>
+    </property>
+</bean>
+```
+
+6. 必须在 \<key> 标签里定义键
+
+7. **因为键和值的类型没有限制, 所以可以自由地为它们指定 \<value>, \<ref>, \<bean> 或 \<null> 元素.** 
+
+8. 可以将 Map 的键和值作为 \<entry> 的属性定义: 简单常量使用 key 和 value 来定义; **Bean 引用通过 key-ref 和 value-ref 属性定义**
+
+9. 使用 \<props> 定义 java.util.Properties, 该标签使用多个 \<prop> 作为子标签. 每个 \<prop> 标签必须定义 key 属性. 
+
+```xml
+<!--
        配置properties属性值
   -->
-    <bean id="DataSource" class="com.hbd.beans.collections.DataSource">
-       <property name="properties">
-         <props >
-           使用props和prop子节点为properties赋值
-           <prop key="user"></prop>
-           <prop key="password"></prop>
-           <prop key="jdbcUrl">jdbc:mysql://test</prop>
-           <prop key="driverClass">com.mysql.jdbc.Driver</prop>
-         </props>
-       </property>
-    </bean>
+<bean id="DataSource" class="com.hbd.beans.collections.DataSource">
+    <property name="properties">
+        <props >
+            使用props和prop子节点为properties赋值
+            <prop key="user"></prop>
+            <prop key="password"></prop>
+            <prop key="jdbcUrl">jdbc:mysql://test</prop>
+            <prop key="driverClass">com.mysql.jdbc.Driver</prop>
+        </props>
+    </property>
+</bean>
 ```
 
 ## **使用 utility scheme 定义集合**
 
 1. 使用基本的集合标签定义集合时, 不能将集合作为独立的 Bean 定义, 导致其他 Bean 无法引用该集合, 所以无法在不同 Bean 之间共享集合.
 
-2. 可以使用 util schema 里的集合标签定义独立的集合 Bean. 需要注意的是, 必须在 <beans> 根元素里添加 util schema 定义
+2. 可以使用 util schema 里的集合标签定义独立的集合 Bean. 需要注意的是, 必须在 \<beans> 根元素里添加 util schema 定义
 
 ```xml
-  <util:list id="cars">
+<util:list id="cars">
     <ref  bean="car" />
     <ref  bean="car1"/>
-  </util:list>
-  
-  <bean id="person6" class="com.hbd.beans.collections.Person">
+</util:list>
+
+<bean id="person6" class="com.hbd.beans.collections.Person">
     <property name="age" value="11"></property>
     <property name="name" value="wowosong"></property>
     <property name="carList" ref="cars"></property>
-  </bean>
+</bean>
 ```
 
 ## **使用 p 命名空间**
 
 1. 为了简化 XML 文件的配置，越来越多的 XML 文件采用属性而非子元素配置信息。
 
-2. Spring 从 2.5 版本开始引入了一个新的 p 命名空间，可以通过 <bean> 元素属性的方式配置 Bean 的属性。
+2. Spring 从 2.5 版本开始引入了一个新的 p 命名空间，可以通过 \<bean> 元素属性的方式配置 Bean 的属性。
 
 ```xml
-   <bean id="person3" class="com.hbd.beans.collections.Person" p:name="wowosong" p:age="31" p:carList-ref="cars">
-   </bean>
+<bean id="person3" class="com.hbd.beans.collections.Person" p:name="wowosong" p:age="31" p:carList-ref="cars">
+</bean>
 ```
 
 3. 使用 p 命名空间后，基于 XML 的配置方式将进一步简化
@@ -505,7 +505,7 @@ Person{name='wowosong', age=1100, carList=[Car{brand='Mazada', corp='Xi'an', pri
 
 ### XML 配置里的 Bean 自动装配
 
-1. Spring IOC 容器可以自动装配 Bean. 需要做的仅仅是在 <bean> 的 autowire 属性里指定自动装配的模式
+1. Spring IOC 容器可以自动装配 Bean. 需要做的仅仅是在 \<bean> 的 autowire 属性里指定自动装配的模式
 
 2. byType(根据类型自动装配): 若 IOC 容器中有多个与目标 Bean 类型一致的 Bean. 在这种情况下, Spring 将无法判定哪个 Bean 最合适该属性, 所以不能执行自动装配.
 
@@ -513,7 +513,7 @@ Person{name='wowosong', age=1100, carList=[Car{brand='Mazada', corp='Xi'an', pri
 <bean id="address" class="com.hbd.beans.autoware.Address" p:city="chengdu" p:street="Huayang"></bean>
 <bean id="car" class="com.hbd.beans.autoware.Car" p:price="10000" p:brand="baoma"></bean>
 <bean id="person" class="com.hbd.beans.autoware.Person" p:name="wowosong" p:address="chengduhuayang" p:car-ref="car" p:address-ref="address"></bean>
- <bean id="person2" class="com.hbd.beans.autoware.Person" p:name="wowosong" autowire="byType"></bean>
+<bean id="person2" class="com.hbd.beans.autoware.Person" p:name="wowosong" autowire="byType"></bean>
 ```
 
 3. byName(根据名称自动装配): 必须将目标 Bean 的名称和属性名设置的完全相同.
@@ -522,7 +522,7 @@ Person{name='wowosong', age=1100, carList=[Car{brand='Mazada', corp='Xi'an', pri
 
 ```xml
 <bean id="address" class="com.hbd.beans.autoware.Address" p:city="chengdu" p:street="Huayang">
- </bean>
+</bean>
 
 <bean id="car" class="com.hbd.beans.autoware.Car" p:price="10000" p:brand="baoma"></bean>
 
@@ -546,7 +546,7 @@ Person{name='wowosong', age=1100, carList=[Car{brand='Mazada', corp='Xi'an', pri
 ### **继承**
 
 ```xml
-<!--		bean配置的继承：使用bean的parent属性指定继承哪个bean的配置-->
+<!--	bean配置的继承：使用bean的parent属性指定继承哪个bean的配置-->
 <!--    抽象bean：bean的abstract属性为true的bean，这样的bean不能被实例化，只能被继承配置-->
 <!--    若一个bean 的class属性没有指定，则该bean必须是一个抽象bean-->
 <bean id="person3" class="com.hbd.beans.autoware.Person" parent="person">
@@ -559,9 +559,9 @@ Spring 允许继承 bean 的配置， 被继承的 bean 称为父 bean. 继承�
 
 **子 Bean 也可以覆盖从父 Bean 继承过来的配置**
 
-父 Bean 可以作为配置模板, 也可以作为 Bean 实例. 若只想把父 Bean 作为模板, **可以设置 <bean> 的abstract 属性为 true, 这样Spring 将不会实例化这个 Bean**
+父 Bean 可以作为配置模板, 也可以作为 Bean 实例. 若只想把父 Bean 作为模板, **可以设置 \<bean> 的abstract 属性为 true, 这样Spring 将不会实例化这个 Bean**
 
-并不是 <bean> 元素里的所有属性都会被继承. 比如: autowire, abstract 等.
+并不是 \<bean> 元素里的所有属性都会被继承. 比如: autowire, abstract 等.
 
 **也可以忽略父 Bean 的 class 属性, 让子 Bean 指定自己的类, 而共享相同的属性配置. 但此时 abstract 必须设为 true**
 
@@ -575,15 +575,15 @@ Spring 允许继承 bean 的配置， 被继承的 bean 称为父 bean. 继承�
 Spring 允许继承 bean 的配置, 被继承的 bean 称为父 bean. 继承这个父 Bean 的 Bean 称为子 Bean
 子 Bean 从父 Bean 中继承配置, 包括 Bean 的属性配置
 子 Bean 也可以覆盖从父 Bean 继承过来的配置
-父 Bean 可以作为配置模板, 也可以作为 Bean 实例. **若只想把父 Bean 作为模板, 可以设置 <bean> 的abstract 属性为 true, 这样 Spring 将不会实例化这个 Bean**
-并不是 <bean> 元素里的所有属性都会被继承. 比如: autowire, abstract 等.
+父 Bean 可以作为配置模板, 也可以作为 Bean 实例. **若只想把父 Bean 作为模板, 可以设置 \<bean> 的abstract 属性为 true, 这样 Spring 将不会实例化这个 Bean**
+并不是 \<bean> 元素里的所有属性都会被继承. 比如: autowire, abstract 等.
 也可以忽略父 Bean 的 class 属性, 让子 Bean 指定自己的类, 而共享相同的属性配置. 但此时 abstract 必须设为 true
 
 ## bean 的作用域
 
 **singleton；prototype；WEB 环境作用域**
 
-在 Spring 中, 可以在 <bean> 元素的 scope 属性里设置 Bean 的作用域. 
+在 Spring 中, 可以在 \<bean> 元素的 scope 属性里设置 Bean 的作用域. 
 
 默认情况下, Spring 只为每个在 IOC 容器里声明的 Bean 创建唯一一个实例, 整个 IOC 容器范围内都能共享该实例：所有后续的 getBean() 调用和 Bean 引用都将返回这个唯一的 Bean 实例.该作用域被称为 singleton, 它是所有 Bean 的默认作用域.
 
@@ -593,10 +593,10 @@ Spring 允许继承 bean 的配置, 被继承的 bean 称为父 bean. 继承这�
     singleton：默认值，容器初始化时创建bean实例，在整个容器的生命周期内只创建这一个，单例
     prototype：原型的。容器初始化时不创建bean实例，而在每次请求时都创建一个新的bean实例，并返回
 -->
-    <bean id="car" class="com.hbd.wowosong.scope.Car" scope="prototype">
-        <property name="brand" value="Ford"></property>
-        <property name="price" value="10000" ></property>
-    </bean>
+<bean id="car" class="com.hbd.wowosong.scope.Car" scope="prototype">
+    <property name="brand" value="Ford"></property>
+    <property name="price" value="10000" ></property>
+</bean>
 ```
 
 | 类别      | 说明                                                         |
@@ -623,13 +623,13 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
 
    ```xml
    <!--导入属性文件-->
-       <context:property-placeholder location="db.properties"></context:property-placeholder>
-       <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-           <property name="user" value="${user}"></property>
-           <property name="password" value="${password}" ></property>
-           <property name="driverClass" value="${driveClass}" ></property>
-           <property name="jdbcUrl" value="${jdbcUrl}" ></property>
-       </bean>
+   <context:property-placeholder location="db.properties"></context:property-placeholder>
+   <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+       <property name="user" value="${user}"></property>
+       <property name="password" value="${password}" ></property>
+       <property name="driverClass" value="${driveClass}" ></property>
+       <property name="jdbcUrl" value="${jdbcUrl}" ></property>
+   </bean>
    ```
 
    ```properties
@@ -768,26 +768,26 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
 ```
 
 ```xml
-    <bean id="address" class="com.hbd.wowosong.spel.Address">
-				<!--        使用spel为属性赋值一个字面值-->
-        <property name="city" value="#{'Beijing'}"></property>
-        <property name="street" value="WudaoKou"></property>
-    </bean>
-    <bean id="car" class="com.hbd.wowosong.spel.Car">
-        <property name="brand" value="Audo8"></property>
-        <property name="price" value="500000"></property>
-				<!--        使用SpEL引用类的静态属性-->
-        <property name="tyrePermiter" value="#{T(java.lang.Math).PI*80}"></property>
-    </bean>
-    <bean id="person" class="com.hbd.wowosong.spel.Person">
-				<!--        使用SpEl引用其他bean-->
-        <property name="car" value="#{car}"></property>
-				<!--        使用SpEL引用其他bean的属性-->
-        <property name="city" value="#{address.city}"></property>
-				<!--        使用SpEl中使用运算符-->
-        <property name="info" value="#{car.price>30000?'金领':'白领'}"></property>
-        <property name="name" value="Tom"></property>
-    </bean>
+<bean id="address" class="com.hbd.wowosong.spel.Address">
+    <!--        使用spel为属性赋值一个字面值-->
+    <property name="city" value="#{'Beijing'}"></property>
+    <property name="street" value="WudaoKou"></property>
+</bean>
+<bean id="car" class="com.hbd.wowosong.spel.Car">
+    <property name="brand" value="Audo8"></property>
+    <property name="price" value="500000"></property>
+    <!--        使用SpEL引用类的静态属性-->
+    <property name="tyrePermiter" value="#{T(java.lang.Math).PI*80}"></property>
+</bean>
+<bean id="person" class="com.hbd.wowosong.spel.Person">
+    <!--        使用SpEl引用其他bean-->
+    <property name="car" value="#{car}"></property>
+    <!--        使用SpEL引用其他bean的属性-->
+    <property name="city" value="#{address.city}"></property>
+    <!--        使用SpEl中使用运算符-->
+    <property name="info" value="#{car.price>30000?'金领':'白领'}"></property>
+    <property name="name" value="Tom"></property>
+</bean>
 ```
 
 ##  IOC 容器中 Bean 的生命周期
@@ -806,7 +806,7 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
 
   ```xml
   <bean id="car" class="com.hbd.wowosong.cycle.Car" init-method="init" destroy-method="destory">
-          <property name="brand" value="Audo A7"></property>
+      <property name="brand" value="Audo A7"></property>
   </bean>
   ```
 
@@ -834,8 +834,8 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
       @Override
       public String toString() {
           return "Car{" +
-                  "brand='" + brand + '\'' +
-                  '}';
+              "brand='" + brand + '\'' +
+              '}';
       }
   }
   ```
@@ -849,7 +849,7 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
 * 对Bean 后置处理器而言, 需要实现BeanPostProcessor 接口. 在初始化方法被调用前后, Spring 将把每个 Bean 实例分别传递给上述接口的以下两个方法:
 
 ```java
-  /**
+/**
   	 * Apply this BeanPostProcessor to the given new bean instance <i>before</i> any bean
   	 * initialization callbacks (like InitializingBean's {@code afterPropertiesSet}
   	 * or a custom init-method). The bean will already be populated with property values.
@@ -861,8 +861,8 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
   	 * @throws org.springframework.beans.BeansException in case of errors
   	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet
   	 */
-  	Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException;
-  	/**
+Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException;
+/**
   	 * Apply this BeanPostProcessor to the given new bean instance <i>after</i> any bean
   	 * initialization callbacks (like InitializingBean's {@code afterPropertiesSet}
   	 * or a custom init-method). The bean will already be populated with property values.
@@ -882,7 +882,7 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
   	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet
   	 * @see org.springframework.beans.factory.FactoryBean
   	 */
-  	Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException;
+Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException;
 ```
 
   ```xml
@@ -893,7 +893,7 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
       返回值：返回到用户的bean，注意：可以在以上两个方法中修改返回的bean，甚至返回一个新的bean
       配置后置处理器：不需要配置id，IOC容器自动识别是一个BeanPostProcessor后置处理器
    -->
-      <bean class="com.hbd.wowosong.cycle.MyBeanPostProcessor"></bean>
+  <bean class="com.hbd.wowosong.cycle.MyBeanPostProcessor"></bean>
   ```
 
   ```java
@@ -930,7 +930,7 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
 
 调用静态工厂方法创建 Bean是将对象创建的过程封装到静态方法中. 当客户端需要对象时, 只需要简单地调用静态方法, 而不同关心创建对象的细节.
 
-**要声明通过静态方法创建的 Bean, 需要在 Bean 的 class 属性里指定拥有该工厂的方法的类, 同时在 factory-method 属性里指定工厂方法的名称. 最后, 使用 <constrctor-arg> 元素为该方法传递方法参数.**
+**要声明通过静态方法创建的 Bean, 需要在 Bean 的 class 属性里指定拥有该工厂的方法的类, 同时在 factory-method 属性里指定工厂方法的名称. 最后, 使用 \<constrctor-arg> 元素为该方法传递方法参数.**
 
 ```java
 /**
@@ -964,7 +964,7 @@ factory-method：指向静态工厂方法的方法名
 constructor-arg：如果工厂方法需要传入参数，则使用constructor-arg来配置参数
 -->     
 <bean id="staticFactory" class="com.hbd.wowosong.factory.StaticCarFactory" factory-method="getCar">
-      <constructor-arg value="baoma"></constructor-arg>
+    <constructor-arg value="baoma"></constructor-arg>
 </bean>
 ```
 
@@ -988,7 +988,7 @@ public class InstanceCarFactory {
 
     private Map<String,Car> cars=null;
     public InstanceCarFactory(){
-      	//通过构造器
+        //通过构造器
         cars=new HashMap<String,Car>();
         cars.put("audi",new Car("audi",100000));
         cars.put("Tesal",new Car("Tesal",30000));
@@ -1000,19 +1000,19 @@ public class InstanceCarFactory {
 ```
 
 ```xml
-		<!--    配置工厂实例-->
-    <bean id="carFactory" class="com.hbd.wowosong.factory.InstanceCarFactory">
-    </bean>
-    <!--    通过实例工厂方法来配置bean-->
-    <!-- 
+<!--    配置工厂实例-->
+<bean id="carFactory" class="com.hbd.wowosong.factory.InstanceCarFactory">
+</bean>
+<!--    通过实例工厂方法来配置bean-->
+<!-- 
     factory-bean属性：执行实例工厂方法的bean
     factory-method：指向静态工厂方法的名字
     constructor-arg：如果工厂方法需要传入参数，则使用constructor-arg来配置参数
     -->
-    
-    <bean id="car2" factory-bean="carFactory" factory-method="getCar">
-        <constructor-arg value="audi"></constructor-arg>
-    </bean>
+
+<bean id="car2" factory-bean="carFactory" factory-method="getCar">
+    <constructor-arg value="audi"></constructor-arg>
+</bean>
 ```
 
 ## 实现 FactoryBean 接口在 Spring IOC 容器中配置 Bean
@@ -1065,15 +1065,15 @@ public class CarFactoryBean implements FactoryBean<Car> {
 ```
 
 ```xml
- <!--
-        通过FactoryBean来配置bean实例
-        class指向FactroyBean的全类名
-        property：配置FactoryBean的属性
-        但是实际返回的实例指向FactoryBean的getObject方法返回的bean实例
-    -->
-    <bean id="car" class="com.hbd.wowosong.factorybean.CarFactoryBean">
-        <property name="brand" value="BMW"></property>
-    </bean>
+<!--
+  通过FactoryBean来配置bean实例
+   class指向FactroyBean的全类名
+   roperty：配置FactoryBean的属性
+   但是实际返回的实例指向FactoryBean的getObject方法返回的bean实例
+-->
+<bean id="car" class="com.hbd.wowosong.factorybean.CarFactoryBean">
+    <property name="brand" value="BMW"></property>
+</bean>
 ```
 
 ## 基于注解的方式（基于注解配置 Bean；基于注解来装配 Bean 的属性）
@@ -1106,8 +1106,8 @@ public class CarFactoryBean implements FactoryBean<Car> {
 
    ```xml
    <context:component-scan base-package="com.hbd.wowosong.annotation">
-   <context:exclude-filter type="annotation"expression="org.springframework.stereotype.Repository"/>
-       </context:component-scan>
+       <context:exclude-filter type="annotation"expression="org.springframework.stereotype.Repository"/>
+   </context:component-scan>
    <!--指定SpringIOC容器扫描的包-->
    ```
    
@@ -1150,7 +1150,7 @@ public class CarFactoryBean implements FactoryBean<Car> {
 
 **Spring 4.x 中可以为子类注入子类对应的泛型类型的成员变量的引用;创建两个带泛型的类,并配置两者的依赖关系，对于继承这两个类的子类,如果泛型相同,则会继承这种依赖关系**： 
 
-![](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210709224341.png)
+![](https://gitee.com/wowosong/pic-md/raw/master/202212151055057.png)
 
 ```java
 public class BaseService<T> {
@@ -1191,7 +1191,7 @@ com.hbd.wowosong.generic.di.UserRepository@ba8d91c
 
 ## 整合多个配置文件
 
-1. Spring 允许通过 <import> 将多个配置文件引入到一个文件中，进行配置文件的集成。这样在启动 Spring 容器时，仅需要指定这个合并好的配置文件就可以。
+1. Spring 允许通过 \<import> 将多个配置文件引入到一个文件中，进行配置文件的集成。这样在启动 Spring 容器时，仅需要指定这个合并好的配置文件就可以。
 2. import 元素的 resource 属性支持 Spring 的标准的路径资源
 
 | 地址前缀   | 示例                                      | 对应资源类型                                        |
@@ -1203,7 +1203,7 @@ com.hbd.wowosong.generic.di.UserRepository@ba8d91c
 
 ## Spring AOP
 
-<img src="./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20211219205555.png" alt="image-20211219205555657" style="zoom:50%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151055452.png" alt="image-20211219205555657" style="zoom:50%;" />
 
 ```java
 package com.hbd.wowosong.aop;
@@ -1270,11 +1270,11 @@ public interface ArithmeticCaculator {
 
 代理设计模式的原理: **使用一个代理将对象包装起来, 然后用该代理对象取代原始对象.** 任何对原始对象的调用都要通过代理. 代理对象决定是否以及何时将方法调用转到原始对象上.实现**InvocationHandler**
 
-![image-20210812212835845](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210812212836.png)
+![image-20210812212835845](https://gitee.com/wowosong/pic-md/raw/master/202212151056372.png)
 
 ```java
 public class ArithmeticCaculatorLogProxyHandler implements InvocationHandler {
- 		 //第一种实现
+    //第一种实现
     public Log log = LogFactory.getLog(this.getClass());
     /**
      * 被代理对象
@@ -1348,11 +1348,11 @@ public class ArithmeticCaculatorLogProxy {
 
     public ArithmeticCaculator getLoggingProxy(){
         ArithmeticCaculator proxy=null;
-//        代理对象由哪一个类加载器负责加载
+        //        代理对象由哪一个类加载器负责加载
         ClassLoader loader=target.getClass().getClassLoader();
-//        代理对象的类型，即其中由哪些方法
+        //        代理对象的类型，即其中由哪些方法
         Class<?>[] interfaces=new Class[]{ArithmeticCaculator.class};
-//       当调用代理对象其中的方法时，该执行的代码
+        //       当调用代理对象其中的方法时，该执行的代码
         InvocationHandler h =new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
@@ -1362,9 +1362,9 @@ public class ArithmeticCaculatorLogProxy {
                  * args：调用方法时，传入的参数
                  */
                 String methodName = method.getName();
-//                日志
+                //                日志
                 System.out.println("The method...."+methodName+"begin with"+ Arrays.asList(args));
-//                执行方法
+                //                执行方法
                 Object result = method.invoke(target, args);
                 System.out.println("The method...."+methodName+"end with "+result);
                 return result;
@@ -1397,7 +1397,7 @@ System.out.println(add);
 3. AOP 的好处：
    每个事物逻辑位于一个位置，代码不分散，便于维护和升级业务模块更简洁, 只包含核心业务代码。
 
-![image-20210812214231774](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210812214231.png)
+![image-20210812214231774](https://gitee.com/wowosong/pic-md/raw/master/202212151056823.png)
 
 **AOP 术语**
 
@@ -1473,16 +1473,16 @@ public class LoggingAspect {
 
 ```java
 @Pointcut("execution(* com.hbd.wowosong.aopimpl.ArithmeticCaculatorImpl.*(..)) || execution(* com.hbd.wowosong.aopimpl.ArithmeticCaculatorImpl.*(..))")
-    public void declareJointPoint() {
-        System.out.println("-----declareJointPoint-------");
-    }
-    
-    @Before("declareJointPoint()")
-    public void BeforeMethod(JoinPoint joinPoint) {
-        String name = joinPoint.getSignature().getName();
-        Object[] args = joinPoint.getArgs();
-        System.out.println("The method " + name + " begin with args " + Arrays.asList(args) + " ");
-    }
+public void declareJointPoint() {
+    System.out.println("-----declareJointPoint-------");
+}
+
+@Before("declareJointPoint()")
+public void BeforeMethod(JoinPoint joinPoint) {
+    String name = joinPoint.getSignature().getName();
+    Object[] args = joinPoint.getArgs();
+    System.out.println("The method " + name + " begin with args " + Arrays.asList(args) + " ");
+}
 ```
 
 #### 让通知访问当前连接点的细节
@@ -1594,7 +1594,7 @@ public class LoggingAspect {
 ```
 
 ```xml
-  <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 <!--    使用AspectJ注解作用：自动为匹配的类生成代理对象-->
 ```
 
@@ -1611,12 +1611,12 @@ public class LoggingAspect {
      * 在方法正常返回后的执行代码
      * @param joinPoint
      */
-    @AfterReturning(value = "execution(* com.hbd.wowosong.aopimpl.ArithmeticCaculatorImpl.*(int,int))",returning = "result")
-    public void  AfterReturning(JoinPoint joinPoint,Object result){
-        String name = joinPoint.getSignature().getName();
-        Object[] args = joinPoint.getArgs();
-        System.out.println("The method "+name+" end  with "+result);
-    }
+@AfterReturning(value = "execution(* com.hbd.wowosong.aopimpl.ArithmeticCaculatorImpl.*(int,int))",returning = "result")
+public void  AfterReturning(JoinPoint joinPoint,Object result){
+    String name = joinPoint.getSignature().getName();
+    Object[] args = joinPoint.getArgs();
+    System.out.println("The method "+name+" end  with "+result);
+}
 ```
 
 #### 异常通知
@@ -1626,16 +1626,16 @@ public class LoggingAspect {
 * 如果只对某种特殊的异常类型感兴趣, 可以将参数声明为其他异常的参数类型. 然后通知就只在抛出这个类型及其子类的异常时才被执行.
 
 ```java
- /**
+/**
      * 在方法异常后的执行代码
      *
      * @param joinPoint
      */
-    @AfterThrowing(value = "execution(* com.hbd.wowosong.aopimpl.ArithmeticCaculatorImpl.*(int,int))", throwing = "ex")
-    public void AfterThrowing(JoinPoint joinPoint, Exception ex) {
-        String name = joinPoint.getSignature().getName();
-        System.out.println("The method " + name + "  occur  with " + ex);
-    }
+@AfterThrowing(value = "execution(* com.hbd.wowosong.aopimpl.ArithmeticCaculatorImpl.*(int,int))", throwing = "ex")
+public void AfterThrowing(JoinPoint joinPoint, Exception ex) {
+    String name = joinPoint.getSignature().getName();
+    System.out.println("The method " + name + "  occur  with " + ex);
+}
 ```
 
 #### 环绕通知
@@ -1647,26 +1647,26 @@ public class LoggingAspect {
 
 ```java
 @Around(value = "execution(* com.hbd.wowosong.aopimpl.ArithmeticCaculatorImpl.*(..))")
-    public Object Around(ProceedingJoinPoint proceedingJoinPoint) {
-        String name = proceedingJoinPoint.getSignature().getName();
-        System.out.println("Around.....");
-        Object result=null;
-        try {
-            // 前置通知
-            System.out.println("The method around "+name+" args with :"+Arrays.asList(proceedingJoinPoint.getArgs()));
-						//执行目标方法
-            result = proceedingJoinPoint.proceed();
-            System.out.println("The method around "+name+" ends with :"+result);
-        } catch (Throwable e) {
-						// 异常通知
-            System.out.println("The method   around " + name + "  occur  with " + e);
-            e.printStackTrace();
-        }
-					// 后置通知
-        System.out.println("The method   around " + name + "  ends");
-
-        return result;
+public Object Around(ProceedingJoinPoint proceedingJoinPoint) {
+    String name = proceedingJoinPoint.getSignature().getName();
+    System.out.println("Around.....");
+    Object result=null;
+    try {
+        // 前置通知
+        System.out.println("The method around "+name+" args with :"+Arrays.asList(proceedingJoinPoint.getArgs()));
+        //执行目标方法
+        result = proceedingJoinPoint.proceed();
+        System.out.println("The method around "+name+" ends with :"+result);
+    } catch (Throwable e) {
+        // 异常通知
+        System.out.println("The method   around " + name + "  occur  with " + e);
+        e.printStackTrace();
     }
+    // 后置通知
+    System.out.println("The method   around " + name + "  ends");
+
+    return result;
+}
 ```
 
 #### 指定切面的优先级
@@ -1708,16 +1708,16 @@ public class ValidationAspect {
 * **其他通知可以通过方法名称引入该切入点.**
 
 ```java
- @Pointcut("execution(* com.hbd.wowosong.aopimpl.ArithmeticCaculatorImpl.*(..))")
-    public void declareJointPoint(){
+@Pointcut("execution(* com.hbd.wowosong.aopimpl.ArithmeticCaculatorImpl.*(..))")
+public void declareJointPoint(){
 
-    }
-    @Before("declareJointPoint()")
-    public void BeforeMethod(JoinPoint joinPoint) {
-        String name = joinPoint.getSignature().getName();
-        Object[] args = joinPoint.getArgs();
-        System.out.println("The method " + name + " begin with args " + Arrays.asList(args) + " ");
-    }
+}
+@Before("declareJointPoint()")
+public void BeforeMethod(JoinPoint joinPoint) {
+    String name = joinPoint.getSignature().getName();
+    Object[] args = joinPoint.getArgs();
+    System.out.println("The method " + name + " begin with args " + Arrays.asList(args) + " ");
+}
 ```
 
 #### 用基于 XML 的配置声明切面
@@ -1732,24 +1732,24 @@ public class ValidationAspect {
   <bean id="loggingAspect"  class="com.hbd.wowosong.aopxml.LoggingAspect"></bean>
   <bean id="validationAspect" class="com.hbd.wowosong.aopxml.ValidationAspect"></bean>
   <!--    配置AOP-->
-      <aop:config>
-          <aop:pointcut id="pointcut" expression="execution(*  com.hbd.wowosong.aopxml.ArithmeticCaculatorImpl.*(int ,int))"/>
-          <aop:aspect ref="loggingAspect" order="2">
-              <aop:before method="BeforeMethod" pointcut-ref="pointcut"></aop:before>
-              <aop:after method="AfterMethod" pointcut-ref="pointcut"></aop:after>
-              <aop:after-returning method="AfterReturning" returning="result" pointcut-ref="pointcut"></aop:after-returning>
-              <aop:after-throwing method="AfterThrowing" pointcut-ref="pointcut" throwing="ex"></aop:after-throwing>
-          </aop:aspect>
-          <aop:aspect ref="validationAspect" order="1">
-              <aop:before method="BeforeMethod" pointcut-ref="pointcut"></aop:before>
-          </aop:aspect>
-      </aop:config>
+  <aop:config>
+      <aop:pointcut id="pointcut" expression="execution(*  com.hbd.wowosong.aopxml.ArithmeticCaculatorImpl.*(int ,int))"/>
+      <aop:aspect ref="loggingAspect" order="2">
+          <aop:before method="BeforeMethod" pointcut-ref="pointcut"></aop:before>
+          <aop:after method="AfterMethod" pointcut-ref="pointcut"></aop:after>
+          <aop:after-returning method="AfterReturning" returning="result" pointcut-ref="pointcut"></aop:after-returning>
+          <aop:after-throwing method="AfterThrowing" pointcut-ref="pointcut" throwing="ex"></aop:after-throwing>
+      </aop:aspect>
+      <aop:aspect ref="validationAspect" order="1">
+          <aop:before method="BeforeMethod" pointcut-ref="pointcut"></aop:before>
+      </aop:aspect>
+  </aop:config>
   ```
 
 
 ##### 基于 XML ---- 声明切面
 
-* 当使用 XML 声明切面时, 需要在 <beans> 根元素中导入 aop Schema
+* 当使用 XML 声明切面时, 需要在 \<beans> 根元素中导入 aop Schema
 * 在 Bean 配置文件中, 所有的 Spring AOP 配置都必须定义在 <aop:config> 元素内部. 对于每个切面而言, 都要创建一个 <aop:aspect> 元素来为具体的切面实现引用后端 Bean 实例. 
 *  切面 Bean 必须有一个标示符, 供 <aop:aspect> 元素引用
 
@@ -1764,7 +1764,7 @@ public class ValidationAspect {
 ##### 基于 XML ---- 声明通知
 
 * 在 aop Schema 中, 每种通知类型都对应一个特定的 XML 元素. 
-* 通知元素需要使用 <pointcut-ref> 来引用切入点, 或用 <pointcut> 直接嵌入切入点表达式.  method 属性指定切面类中通知方法的名称.
+* 通知元素需要使用 \<pointcut-ref> 来引用切入点, 或用 \<pointcut> 直接嵌入切入点表达式.  method 属性指定切面类中通知方法的名称.
 
 ##### 声明引入
 
@@ -1793,12 +1793,12 @@ public int[] batchUpdate(String sql,List<Object[]> batchArgs)
 ```java
 //* 查询单行：
 public <T> t queryForObject(String sql,ParameterizedRowMapper<T> rm,Object... args) throw DataAccessException
-//* 便利的BeanPropertyRowMapper实现
-  org.springframework.jdbc.core.sample.ParameterizedRowMapper<T>
-//* 查询多行：
-public <T> List<T> query(String sql,ParameterizedRowMapper<T> rm,Object... args) throw DataAccessException
-//* 单值查询：
-public <T> T queryForObject(String sql,Class<T> requireType,Object... args) throws DataAccesException
+    //* 便利的BeanPropertyRowMapper实现
+    org.springframework.jdbc.core.sample.ParameterizedRowMapper<T>
+    //* 查询多行：
+    public <T> List<T> query(String sql,ParameterizedRowMapper<T> rm,Object... args) throw DataAccessException
+    //* 单值查询：
+    public <T> T queryForObject(String sql,Class<T> requireType,Object... args) throws DataAccesException
 ```
 
 ```java
@@ -1904,22 +1904,22 @@ public <T> T queryForObject(String sql,Class<T> requireType,Object... args) thro
 
   ```xml
   <bean id="parameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-          <constructor-arg ref="dataSource"></constructor-arg>
+      <constructor-arg ref="dataSource"></constructor-arg>
   </bean>
   ```
 
   ```java
   @Test
   public void test_nameparmeter() {
-          String sql="insert into student(id,learnNo,birthday,sex,name)  values(:id,:learnNo,:birthday,:sex,:name) ";
-          Map<String,Object> map=new HashMap<>();
-          map.put("id",111);
-          map.put("learnNo",789);
-          map.put("birthday","2017-10-20");
-          map.put("sex","女");
-          map.put("name","test1234");
-          int update = namedParameterJdbcTemplate.update(sql, map);
-          System.out.println(update);
+      String sql="insert into student(id,learnNo,birthday,sex,name)  values(:id,:learnNo,:birthday,:sex,:name) ";
+      Map<String,Object> map=new HashMap<>();
+      map.put("id",111);
+      map.put("learnNo",789);
+      map.put("birthday","2017-10-20");
+      map.put("sex","女");
+      map.put("name","test1234");
+      int update = namedParameterJdbcTemplate.update(sql, map);
+      System.out.println(update);
   }
   ```
 
@@ -1946,17 +1946,17 @@ public <T> T queryForObject(String sql,Class<T> requireType,Object... args) thro
   * 2.使用SqlParameterSource的BeanPropertySqlParameterSource 实现类作为参数
   */
   @Test
-      public void test_nameparmeter() {
-          String sql="insert into student(id,learnNo,birthday,sex,name)  values(:id,:learnNo,:birthday,:sex,:name) ";
-          Map<String,Object> map=new HashMap<>();
-          map.put("id",1111);
-          map.put("learnNo",789);
-          map.put("birthday","2017-10-20");
-          map.put("sex","女");
-          map.put("name","test1234");
-          int update = namedParameterJdbcTemplate.update(sql, map);
-          System.out.println(update);
-      }
+  public void test_nameparmeter() {
+      String sql="insert into student(id,learnNo,birthday,sex,name)  values(:id,:learnNo,:birthday,:sex,:name) ";
+      Map<String,Object> map=new HashMap<>();
+      map.put("id",1111);
+      map.put("learnNo",789);
+      map.put("birthday","2017-10-20");
+      map.put("sex","女");
+      map.put("name","test1234");
+      int update = namedParameterJdbcTemplate.update(sql, map);
+      System.out.println(update);
+  }
   ```
 
 ## Spring  中的事务管理
@@ -1981,90 +1981,90 @@ public <T> T queryForObject(String sql,Class<T> requireType,Object... args) thro
 * 这段代码是特定于 JDBC 的, 一旦选择类其它数据库存取技术, 代码需要作出相应的修改
 
 ```java
-	// 使用Statement实现对数据表的查询操作
-	public <T> T get(String sql, Class<T> clazz) {
-		T t = null;
-	Connection conn = null;
-	Statement st = null;
-	ResultSet rs = null;
-	try {
-		// 1.加载配置文件
-		InputStream is = getClass().getClassLoader().getResourceAsStream("jdbc.properties");
-		Properties pros = new Properties();
-		pros.load(is);
+// 使用Statement实现对数据表的查询操作
+public <T> T get(String sql, Class<T> clazz) {
+    T t = null;
+    Connection conn = null;
+    Statement st = null;
+    ResultSet rs = null;
+    try {
+        // 1.加载配置文件
+        InputStream is = getClass().getClassLoader().getResourceAsStream("jdbc.properties");
+        Properties pros = new Properties();
+        pros.load(is);
 
-		// 2.读取配置信息
-		String user = pros.getProperty("user");
-		String password = pros.getProperty("password");
-		String url = pros.getProperty("url");
-		String driverClass = pros.getProperty("driverClass");
+        // 2.读取配置信息
+        String user = pros.getProperty("user");
+        String password = pros.getProperty("password");
+        String url = pros.getProperty("url");
+        String driverClass = pros.getProperty("driverClass");
 
-		// 3.加载驱动
-		Class.forName(driverClass);
+        // 3.加载驱动
+        Class.forName(driverClass);
 
-		// 4.获取连接
-		conn = DriverManager.getConnection(url, user, password);
+        // 4.获取连接
+        conn = DriverManager.getConnection(url, user, password);
 
-		st = conn.createStatement();
+        st = conn.createStatement();
 
-		rs = st.executeQuery(sql);
+        rs = st.executeQuery(sql);
 
-		// 获取结果集的元数据
-		ResultSetMetaData rsmd = rs.getMetaData();
+        // 获取结果集的元数据
+        ResultSetMetaData rsmd = rs.getMetaData();
 
-		// 获取结果集的列数
-		int columnCount = rsmd.getColumnCount();
+        // 获取结果集的列数
+        int columnCount = rsmd.getColumnCount();
 
-		if (rs.next()) {
+        if (rs.next()) {
 
-			t = clazz.newInstance();
+            t = clazz.newInstance();
 
-			for (int i = 0; i < columnCount; i++) {
-				// 1. 获取列的名称
-				// String columnName = rsmd.getColumnName(i+1);
-				// 1. 获取列的别名
-				String columnName = rsmd.getColumnLabel(i + 1);
-				System.out.println(columnName);
+            for (int i = 0; i < columnCount; i++) {
+                // 1. 获取列的名称
+                // String columnName = rsmd.getColumnName(i+1);
+                // 1. 获取列的别名
+                String columnName = rsmd.getColumnLabel(i + 1);
+                System.out.println(columnName);
 
-				// 2. 根据列名获取对应数据表中的数据
-				Object columnVal = rs.getObject(columnName);
+                // 2. 根据列名获取对应数据表中的数据
+                Object columnVal = rs.getObject(columnName);
 
-				// 3. 将数据表中得到的数据，封装进对象
-				Field field = clazz.getDeclaredField(columnName);
-				field.setAccessible(true);
-				field.set(t, columnVal);
-			}
-			return t;
-		}
-	} catch (Exception e) {
-		e.printStackTrace();
-	} finally {
-		// 关闭资源
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		if (st != null) {
-			try {
-				st.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+                // 3. 将数据表中得到的数据，封装进对象
+                Field field = clazz.getDeclaredField(columnName);
+                field.setAccessible(true);
+                field.set(t, columnVal);
+            }
+            return t;
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        // 关闭资源
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (st != null) {
+            try {
+                st.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
-		if (conn != null) {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-	return null;
+    return null;
 }
 ```
 
@@ -2090,18 +2090,18 @@ public <T> T queryForObject(String sql,Class<T> requireType,Object... args) thro
 
 ### 需求
 
-![image-20211220204212636](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20211220204212.png)
+![image-20211220204212636](https://gitee.com/wowosong/pic-md/raw/master/202212151056841.png)
 
 ### 用事务通知声明式地管理事务
 
 * **事务管理是一种横切关注点**
-* 为了在 Spring 2.x 中启用声明式事务管理, 可以通过 tx Schema 中定义的 <tx:advice> 元素声明事务通知, 为此必须事先将这个 Schema 定义添加到 <beans> 根元素中去.
+* 为了在 Spring 2.x 中启用声明式事务管理, 可以通过 tx Schema 中定义的 <tx:advice> 元素声明事务通知, 为此必须事先将这个 Schema 定义添加到 \<beans> 根元素中去.
 * 声明了事务通知后, 就需要将它与切入点关联起来. 由于事务通知是在 <aop:config> 元素外部声明的, 所以它无法直接与切入点产生关联. 所以必须在 <aop:config> 元素中声明一个增强器通知与切入点关联起来.
 * **由于 Spring AOP 是基于代理的方法, 所以只能增强公共方法. 因此, 只有公有方法才能通过 Spring AOP 进行事务管理.**
 
 ### 用事务通知声明式地管理事务示例代码
 
-![image-20211221124555153](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112211246575.png)
+![image-20211221124555153](https://gitee.com/wowosong/pic-md/raw/master/202212151057736.png)
 
 ### 用 @Transactional 注解声明式地管理事务
 
@@ -2162,7 +2162,7 @@ public void purcharse(String username, String isbn) {
 * 当 bookService 的 purchase() 方法被另一个事务方法 checkout() 调用时, 它默认会在现有的事务内运行. 这个默认的传播行为就是 REQUIRED. 因此在 checkout() 方法的开始和终止边界内只有一个事务. **这个事务只在 checkout() 方法结束的时候被提交, 结果用户一本书都买不了**
 * 事务传播属性可以在 @Transactional 注解的 propagation 属性中定义
 
-![image-20211221132204515](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112211322047.png)
+![image-20211221132204515](https://gitee.com/wowosong/pic-md/raw/master/202212151057841.png)
 
 #### REQUIRES_NEW 传播行为
 
@@ -2181,9 +2181,9 @@ public void purcharse(String username, String isbn) {
 
 ```xml
 <tx:advice id="bookShopTxAdvice" transaction-manage="transactionManager">
-	<tx:attributes>
-		<tx:method name="purchase" propagation="REQUIRES_NEW"
-	</tx:attributes>
+    <tx:attributes>
+        <tx:method name="purchase" propagation="REQUIRES_NEW"></tx:method>
+    </tx:attributes>
 </tx:advice>
 ```
 
@@ -2227,14 +2227,14 @@ public void purcharse(String username, String isbn) {
 在 Spring 2.x 事务通知中, 可以在 <tx:method> 元素中指定隔离级别
 
 ```xml
- <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="*"/>
-            <!--            根据方法名，指定事务属性-->
-            <tx:method name="purcharse" propagation="REQUIRES_NEW" rollback-for="" isolation="READ_COMMITTED" no-rollback-for=""></tx:method>
-            <tx:method name="find*" read-only="true" timeout="30"></tx:method>
-        </tx:attributes>
-    </tx:advice>
+<tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+        <tx:method name="*"/>
+        <!--根据方法名，指定事务属性-->
+        <tx:method name="purcharse" propagation="REQUIRES_NEW" rollback-for="" isolation="READ_COMMITTED" no-rollback-for=""></tx:method>
+        <tx:method name="find*" read-only="true" timeout="30"></tx:method>
+    </tx:attributes>
+</tx:advice>
 ```
 
 #### 设置回滚事务属性
@@ -2244,44 +2244,44 @@ public void purcharse(String username, String isbn) {
   * rollbackFor:  遇到时必须进行回滚
 
 ```java
-    //1.使用propagation指定事务的传播行为，即当前事务方法被另个事务方法调用
-    //默认为require
-    //REQUIRES_NEW:事务自己的事务，调用的事务方法的事务被挂起
-    //2.使用isolation来设置事务的隔离级别，常用的是read_commited
-    //3.默认情况下spring对所有异常情况都进行回滚，也可以通过对应的属性进行设置
-    //@Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED,
-    //noRollbackFor = UserAccountException.class)
-    //4.使用readonly 指定事务为只读，表示这个事务只读数据不更新数据，可以数据库引擎进行优化事务;若真的是一个只读数据的方法，应设置readonly=true
-    //5.timeout可以指定事务强制回滚前，事务可以占用的时间
-    @Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED,readOnly = false,timeout = 3)
-    @Override
-    public void purcharse(String username, String isbn) {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        //获取书的单价
-        int bookPriceByIsBn = bookShopDao.findBookPriceByIsBn(isbn);
-        //更新书的库存
-        bookShopDao.updateBookStock(isbn);
-        //更新用户余额
-        bookShopDao.updateUserAccount(username, bookPriceByIsBn);
+//1.使用propagation指定事务的传播行为，即当前事务方法被另个事务方法调用
+//默认为require
+//REQUIRES_NEW:事务自己的事务，调用的事务方法的事务被挂起
+//2.使用isolation来设置事务的隔离级别，常用的是read_commited
+//3.默认情况下spring对所有异常情况都进行回滚，也可以通过对应的属性进行设置
+//@Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED,
+//noRollbackFor = UserAccountException.class)
+//4.使用readonly 指定事务为只读，表示这个事务只读数据不更新数据，可以数据库引擎进行优化事务;若真的是一个只读数据的方法，应设置readonly=true
+//5.timeout可以指定事务强制回滚前，事务可以占用的时间
+@Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED,readOnly = false,timeout = 3)
+@Override
+public void purcharse(String username, String isbn) {
+    try {
+        Thread.sleep(5000);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
     }
+    //获取书的单价
+    int bookPriceByIsBn = bookShopDao.findBookPriceByIsBn(isbn);
+    //更新书的库存
+    bookShopDao.updateBookStock(isbn);
+    //更新用户余额
+    bookShopDao.updateUserAccount(username, bookPriceByIsBn);
+}
 ```
 
 * 在 Spring 2.x 事务通知中, 可以在 <tx:method> 元素中指定回滚规则. 如果有不止一种异常, 用逗号分隔.
 
 ```xml
- <!--   2.配置事务属性-->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="*"/>
-            <!--            根据方法名，指定事务属性-->
-            <tx:method name="purcharse" propagation="REQUIRES_NEW" rollback-for="" isolation="READ_COMMITTED" no-rollback-for=""></tx:method>
-            <tx:method name="find*" read-only="true"></tx:method>
-        </tx:attributes>
-    </tx:advice>
+<!--   2.配置事务属性-->
+<tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+        <tx:method name="*"/>
+        <!--根据方法名，指定事务属性-->
+        <tx:method name="purcharse" propagation="REQUIRES_NEW" rollback-for="" isolation="READ_COMMITTED" no-rollback-for=""></tx:method>
+        <tx:method name="find*" read-only="true"></tx:method>
+    </tx:attributes>
+</tx:advice>
 ```
 
 #### 超时和只读属性
@@ -2296,19 +2296,18 @@ public void purcharse(String username, String isbn) {
 * 超时和只读属性可以在 @Transactional 注解中定义.超时属性以秒为单位来计算.
 
   ```java
-  		//1.使用propagation指定事务的传播行为，即当前事务方法被另个事务方法调用
-      //默认为require
-      //REQUIRES_NEW:事务自己的事务，调用的事务方法的事务被挂起
-      //2.使用isolation来设置事务的隔离级别，常用的是read_commited
-      //3.默认情况下spring对所有异常情况都进行回滚，也可以通过对应的属性进行设置
-      //@Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED,
-      //noRollbackFor = UserAccountException.class)
-      //4.使用readonly 指定事务为只读，表示这个事务只读数据不更新数据，可以数据库引擎进行优化事务;若真的是一个只读数据的方法，应设置readonly=true
-      //5.timeout可以指定事务强制回滚前，事务可以占用的时间
-      @Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED,
-     readOnly = false,timeout = 3)
+  //1.使用propagation指定事务的传播行为，即当前事务方法被另个事务方法调用
+  //默认为require
+  //REQUIRES_NEW:事务自己的事务，调用的事务方法的事务被挂起
+  //2.使用isolation来设置事务的隔离级别，常用的是read_commited
+  //3.默认情况下spring对所有异常情况都进行回滚，也可以通过对应的属性进行设置
+  //@Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED,
+  //noRollbackFor = UserAccountException.class)
+  //4.使用readonly 指定事务为只读，表示这个事务只读数据不更新数据，可以数据库引擎进行优化事务;若真的是一个只读数据的方法，应设置readonly=true
+  //5.timeout可以指定事务强制回滚前，事务可以占用的时间
+  @Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED,readOnly = false,timeout = 3)
   ```
-
+  
 * 在 Spring 2.x 事务通知中, 超时和只读属性可以在 <tx:method> 元素中进行指定.
 
 ```xml
@@ -2326,30 +2325,30 @@ public void purcharse(String username, String isbn) {
 ### Spring_使用XML文件的方式配置事务
 
 ```xml
- <bean id="bookShopService" class="com.hbd.wowosong.xml.tx.service.impl.BookShopServiceImpl">
-        <property name="bookShopDao" ref="bookShopDao"></property>
-    </bean>
-    <bean id="cashier" class="com.hbd.wowosong.xml.tx.service.impl.CashierImpl">
-        <property name="bookShopService" ref="bookShopService"></property>
-    </bean>
-    <!--   1. 配置事务管理器-->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource2"></property>
-    </bean>
-    <!--   2.配置事务属性-->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="*"/>
-            <!--根据方法名，指定事务属性-->
-            <tx:method name="purcharse" propagation="REQUIRES_NEW"></tx:method>
-            <tx:method name="find*" read-only="true"></tx:method>
-        </tx:attributes>
-    </tx:advice>
-    <!--    3.配置事务切入点，以及把切入点和事务关联-->
-    <aop:config>
-        <aop:pointcut id="txPoint" expression="execution(* com.hbd.wowosong.xml.tx.service.*.*(..))"/>
-        <aop:advisor pointcut-ref="txPoint" advice-ref="txAdvice"></aop:advisor>
-    </aop:config>
+<bean id="bookShopService" class="com.hbd.wowosong.xml.tx.service.impl.BookShopServiceImpl">
+    <property name="bookShopDao" ref="bookShopDao"></property>
+</bean>
+<bean id="cashier" class="com.hbd.wowosong.xml.tx.service.impl.CashierImpl">
+    <property name="bookShopService" ref="bookShopService"></property>
+</bean>
+<!--   1. 配置事务管理器-->
+<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource2"></property>
+</bean>
+<!--   2.配置事务属性-->
+<tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+        <tx:method name="*"/>
+        <!--根据方法名，指定事务属性-->
+        <tx:method name="purcharse" propagation="REQUIRES_NEW"></tx:method>
+        <tx:method name="find*" read-only="true"></tx:method>
+    </tx:attributes>
+</tx:advice>
+<!--    3.配置事务切入点，以及把切入点和事务关联-->
+<aop:config>
+    <aop:pointcut id="txPoint" expression="execution(* com.hbd.wowosong.xml.tx.service.*.*(..))"/>
+    <aop:advisor pointcut-ref="txPoint" advice-ref="txAdvice"></aop:advisor>
+</aop:config>
 ```
 
 ## Spring  整合 Hibernate
@@ -2363,31 +2362,31 @@ public void purcharse(String username, String isbn) {
 * 对于 Hibernate 而言, 必须从原生的 Hibernate API 中构建 SessionFactory. 此外, 应用程序也无法利用 Spring 提供的数据存储机制(例如: Spring 的事务管理机制)
 * Spring 提供了对应的工厂 Bean, 可以用单实例的形式在 IOC 容器中创建 SessionFactory 实例.
 
-![image-20211221144453970](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112211444993.png)
+![image-20211221144453970](D:\huangjiusong\learnone\学习笔记\Java\Spring\Spring4（尚硅谷）.assets\202212151057217.png)
 
 * 可以利用 LocalSessionFactoryBean 工厂 Bean, 声明一个使用 XML 映射文件的 SessionFactory 实例.
 * 需要为该工厂 Bean 指定 configLocation 属性来加载 Hibernate 配置文件.
 
-![image-20211221144518752](./Spring4%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112211445092.png)
+![image-20211221144518752](https://gitee.com/wowosong/pic-md/raw/master/202212151057482.png)
 
 * 如果在 Spring IOC 容器中配置数据源. 可以将该数据源注入到 LocalSessionFactoryBean 的 dataSource 属性中. 该属性可以指定的数据源会覆盖掉 Hibernate 配置文件里的数据库配置.
 
 ```xml
- <!-- 配置自动扫描的包 -->
-    <context:component-scan base-package="com.hbd.wowosong.hibernate"></context:component-scan>
+<!-- 配置自动扫描的包 -->
+<context:component-scan base-package="com.hbd.wowosong.hibernate"></context:component-scan>
 
-    <!-- 配置数据源 -->
-    <!-- 导入资源文件 -->
-    <context:property-placeholder location="classpath:db.properties"/>
+<!-- 配置数据源 -->
+<!-- 导入资源文件 -->
+<context:property-placeholder location="classpath:db.properties"/>
 
-    <bean id="dataSource3" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="user" value="${jdbc.user}"></property>
-        <property name="password" value="${jdbc.password}"></property>
-        <property name="driverClass" value="${jdbc.driveClass}"></property>
-        <property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
-        <property name="initialPoolSize" value="${jdbc.initialPoolSize}"></property>
-        <property name="maxPoolSize" value="${jdbc.maxPoolSize}"></property>
-    </bean>
+<bean id="dataSource3" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    <property name="user" value="${jdbc.user}"></property>
+    <property name="password" value="${jdbc.password}"></property>
+    <property name="driverClass" value="${jdbc.driveClass}"></property>
+    <property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+    <property name="initialPoolSize" value="${jdbc.initialPoolSize}"></property>
+    <property name="maxPoolSize" value="${jdbc.maxPoolSize}"></property>
+</bean>
 ```
 
 * 可以将所有配置合并到 LocalSessionFactoryBean 中,从而忽略 Hibernate 配置文件. 
@@ -2402,9 +2401,9 @@ public void purcharse(String username, String isbn) {
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+                           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
     <!-- 配置 Hibernate 的 SessionFactory 实例: 通过 Spring 提供的 LocalSessionFactoryBean 进行配置 -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">

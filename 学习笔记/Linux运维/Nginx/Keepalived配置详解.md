@@ -12,17 +12,19 @@
 
 全局配置是对整个 Keepalived 生效的配置，一个典型的配置如下：
 
-```
+```shell
 global_defs {
-   notification_email {         #设置 keepalived 在发生事件（比如切换）的时候，需要发送到的email地址，可以设置多个，每行一个。
-     acassen@firewall.loc
-     failover@firewall.loc
-     sysadmin@firewall.loc
-   }
-   notification_email_from Alexandre.Cassen@firewall.loc    #设置通知邮件发送来自于哪里，如果本地开启了sendmail的话，可以使用上面的默认值。
-   smtp_server 192.168.200.1    #指定发送邮件的smtp服务器。
-   smtp_connect_timeout 30      #设置smtp连接超时时间，单位为秒。
-   router_id LVS_DEVEL          #是运行keepalived的一个表示，多个集群设置不同。
+    notification_email {         
+      #设置keepalived在发生事件（比如切换）的时候，需要发送到的email地址，可以设置多个，每行一个。
+        acassen@firewall.loc
+        failover@firewall.loc
+        sysadmin@firewall.loc
+    }
+    notification_email_from Alexandre.Cassen@firewall.loc   
+    #设置通知邮件发送来自于哪里，如果本地开启了sendmail的话，可以使用上面的默认值。
+    smtp_server 192.168.200.1    #指定发送邮件的smtp服务器。
+    smtp_connect_timeout 30      #设置smtp连接超时时间，单位为秒。
+    router_id LVS_DEVEL          #是运行keepalived的一个表示，多个集群设置不同。
 }
 ```
 
@@ -36,18 +38,18 @@ VRRPD 的配置是 Keepalived 比较重要的配置，主要分为两个部分 V
 
 不使用Sync Group的话，如果机器（或者说router）有两个网段，一个内网一个外网，每个网段开启一个VRRP实例，假设VRRP配置为检查内网，那么当外网出现问题时，VRRPD认为自己仍然健康，那么不会发生Master和Backup的切换，从而导致了问题。Sync group就是为了解决这个问题，可以把两个实例都放进一个Sync Group，这样的话，group里面任何一个实例出现问题都会发生切换。
 
-```
+```shell
 vrrp_sync_group VG_1{ #监控多个网段的实例
-group {
-　　　　VI_1 #实例名
-　　　　VI_2
-　　　　......
-}
-notify_master /path/xx.sh 　　　　#指定当切换到master时，执行的脚本
-netify_backup /path/xx.sh 　　　　#指定当切换到backup时，执行的脚本
-notify_fault "path/xx.sh VG_1"   #故障时执行的脚本
-notify /path/xx.sh 
-smtp_alert 　　#使用global_defs中提供的邮件地址和smtp服务器发送邮件通知
+    group {
+        VI_1 #实例名
+        VI_2
+        ......
+    }
+    notify_master /path/xx.sh 　　　　#指定当切换到master时，执行的脚本
+    netify_backup /path/xx.sh 　　　　#指定当切换到backup时，执行的脚本
+    notify_fault "path/xx.sh VG_1"   #故障时执行的脚本
+    notify /path/xx.sh 
+    smtp_alert 　　#使用global_defs中提供的邮件地址和smtp服务器发送邮件通知
 }
 ```
 
@@ -55,7 +57,7 @@ smtp_alert 　　#使用global_defs中提供的邮件地址和smtp服务器发�
 
 VRRP实例就表示在上面开启了VRRP协议，这个实例说明了VRRP的一些特征，比如主从，VRID等，可以在每个interface上开启一个实例。
 
-```
+```shell
 vrrp_instance VI_1 {    
     state MASTER         #指定实例初始状态，实际的MASTER和BACKUP是选举决定的。
     interface eth0       #指定实例绑定的网卡
@@ -81,9 +83,7 @@ vrrp_instance VI_1 {
 
 虚拟服务器virtual_server定义块 ，虚拟服务器定义是keepalived框架最重要的项目了，是keepalived.conf必不可少的部分。 该部分是用来管理LVS的，是实现keepalive和LVS相结合的模块。ipvsadm命令可以实现的管理在这里都可以通过参数配置实现，注意：real_server是被包含在viyual_server模块中的，是子模块。
 
-
-
-```
+```shell
 virtual_server 192.168.202.200 23 {        //VIP地址，要和vrrp_instance模块中的virtual_ipaddress地址一致
 　　　　delay_loop 6   #健康检查时间间隔 
 　　　　lb_algo rr 　　#lvs调度算法rr|wrr|lc|wlc|lblc|sh|dh 

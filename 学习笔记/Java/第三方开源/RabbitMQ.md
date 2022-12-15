@@ -14,19 +14,19 @@ MQ(message queue)，从字面意思上看，本质是个队列，FIFO 先入先�
 
 举个例子，如果订单系统最多能处理一万次订单，这个处理能力应付正常时段的下单时绰绰有余，正常时段我们下单一秒后就能返回结果。但是在高峰期，如果有两万次下单操作系统是处理不了的，只能限制订单超过一万后不允许用户下单。使用消息队列做缓冲，我们可以取消这个限制，把一秒内下的订单分散成一段时间来处理，这时有些用户可能在下单十几秒后才能收到下单成功的操作，但是比不能下单的体验要好。
 
-![20211105202548](./RabbitMQ.assets/20211105202548-16532820453684.png)
+![20211105202548](https://gitee.com/wowosong/pic-md/raw/master/202212151223947.png)
 
 2.应用解耦
 
 以电商应用为例，应用中有订单系统、库存系统、物流系统、支付系统。用户创建订单后，如果耦合调用库存系统、物流系统、支付系统，任何一个子系统出了故障，都会造成下单操作异常。当转变成基于消息队列的方式后，系统间调用的问题会减少很多，比如物流系统因为发生故障，需要几分钟来修复。在这几分钟的时间里，物流系统要处理的内存被缓存在消息队列中，用户的下单操作可以正常完成。当物流系统恢复后，继续处理订单信息即可，中单用户感受不到物流系统的故障，提升系统的可用性。
 
-![20211105202225](./RabbitMQ.assets/20211105202225-16532820694565.png)
+![20211105202225](https://gitee.com/wowosong/pic-md/raw/master/202212151223909.png)
 
 3.异步处理
 
 有些服务间调用是异步的，例如 A 调用 B，B 需要花费很长时间执行，但是 A 需要知道 B 什么时候可以执行完，以前一般有两种方式，A 过一段时间去调用 B 的查询 api 查询。或者 A 提供一个 callback api， B 执行完之后调用 api 通知 A 服务。这两种方式都不是很优雅，使用消息总线，可以很方便解决这个问题，A 调用 B 服务后，只需要监听 B 处理完成的消息，当 B 处理完成后，会发送一条消息给 MQ，MQ 会将此消息转发给 A 服务。这样 A 服务既不用循环调用 B 的查询 api，也不用提供 callback api。同样 B 服务也不用做这些操作。A 服务还能及时的得到异步处理成功的消息。
 
-![20211105202801](./RabbitMQ.assets/20211105202801.png)
+![20211105202801](https://gitee.com/wowosong/pic-md/raw/master/202212151223725.png)
 
 ### 1.1.3**MQ 的分类**
 
@@ -104,15 +104,15 @@ RabbitMQ 是一个消息中间件：它接受并转发消息。你可以把它�
 
 消费与接收具有相似的含义。消费者大多时候是一个等待接收消息的程序。请注意生产者，消费者和消息中间件很多时候并不在同一机器上。同一个应用程序既可以是生产者又是可以是消费者。
 
-![20211105211612](./RabbitMQ.assets/20211105211612-16532819558141.png)
+![20211105211612](https://gitee.com/wowosong/pic-md/raw/master/202212151223103.png)
 
 ### **1.2.3. RabbitMQ 核心部分**
 
-![20211105211647](./RabbitMQ.assets/20211105211647-16532819889762.png)
+![20211105211647](https://gitee.com/wowosong/pic-md/raw/master/202212151224983.png)
 
 ### **1.2.4. 各个名词介绍**
 
-![20211105211808](./RabbitMQ.assets/20211105211808-16532820107573.png)
+![20211105211808](https://gitee.com/wowosong/pic-md/raw/master/202212151224876.png)
 
 **Broker**：接收和分发消息的应用，RabbitMQ Server 就是 Message Broker
 
@@ -138,7 +138,7 @@ https://www.rabbitmq.com/download.html
 
 上传到/usr/local/software 目录下(如果没有 software 需要自己创建)
 
-![20211105212858](./RabbitMQ.assets/20211105212858.png)
+![20211105212858](https://gitee.com/wowosong/pic-md/raw/master/202212151224496.png)
 
 3.安装文件(分别按照以下顺序安装)
 
@@ -170,7 +170,7 @@ chkconfig rabbitmq-server on
 /sbin/service rabbitmq-server status
 ```
 
-![20211105212956](./RabbitMQ.assets/20211105212956.png)
+![20211105212956](https://gitee.com/wowosong/pic-md/raw/master/202212151224509.png)
 
 停止服务(选择执行)
 
@@ -186,7 +186,7 @@ rabbitmq-plugins enable rabbitmq_management
 
 用默认账号密码(guest)访问地址 http://127.0.0.1:15672/#/出现权限问题
 
-![20211105213033](./RabbitMQ.assets/20211105213033.png)
+![20211105213033](https://gitee.com/wowosong/pic-md/raw/master/202212151224460.png)
 
 5.添加一个新的用户
 
@@ -220,7 +220,7 @@ rabbitmqctl list_users
 
 6.再次利用 admin 用户登录
 
-<img src="./RabbitMQ.assets/20211105213144.png" alt="image-20211105213144020" style="zoom:50%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151224906.png" alt="image-20211105213144020" style="zoom:50%;" />
 
 7.重置命令
 
@@ -248,7 +248,7 @@ rabbitmqctl start_app
 
 在下图中，“ P”是我们的生产者，“ C”是我们的消费者。中间的框是一个队列-RabbitMQ 代表使用者保留的消息缓冲区
 
-![image-20211105213728955](./RabbitMQ.assets/20211105213729.png)
+![image-20211105213728955](https://gitee.com/wowosong/pic-md/raw/master/202212151224436.png)
 
 ## **2.1.** **依赖**
 
@@ -400,11 +400,11 @@ public class Worker01 {
 }
 ```
 
-<img src="./RabbitMQ.assets/20211106170353.png" alt="image-20211106170353139" style="zoom:50%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151224553.png" alt="image-20211106170353139" style="zoom:50%;" />
 
-![image-20211106170413624](./RabbitMQ.assets/20211106170413.png)
+![image-20211106170413624](https://gitee.com/wowosong/pic-md/raw/master/202212151225267.png)
 
-![image-20211106170429624](./RabbitMQ.assets/20211106170429.png)
+![image-20211106170429624](https://gitee.com/wowosong/pic-md/raw/master/202212151224798.png)
 
 ### **3.1.3. 启动一个发送线程**
 
@@ -430,9 +430,9 @@ public class Task01 {
 
 通过程序执行发现生产者总共发送 4 个消息，消费者 1 和消费者 2 分别分得两个消息，**并且是按照有序的一个接收一次消息**
 
-<img src="./RabbitMQ.assets/20211106172120.png" alt="image-20211106172120589" style="zoom:50%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151225166.png" alt="image-20211106172120589" style="zoom:50%;" />
 
-<img src="./RabbitMQ.assets/20211106172141.png" alt="image-20211106172140987" style="zoom: 50%;" /><img src="./RabbitMQ.assets/20211106172200.png" alt="image-20211106172159874" style="zoom:50%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151225863.png" alt="image-20211106172140987" style="zoom: 50%;" /><img src="https://gitee.com/wowosong/pic-md/raw/master/202212151225444.png" alt="image-20211106172159874" style="zoom:50%;" />
 
 ## **3.2.** **消息应答**
 
@@ -442,7 +442,7 @@ public class Task01 {
 
 为了保证消息在发送过程中不丢失，rabbitmq 引入**消息应答机制**，消息应答就是:**消费者在接收到消息并且处理该消息之后，告诉 rabbitmq 它已经处理了，rabbitmq 可以把该消息删除了。**
 
-![image-20211109100023871](./RabbitMQ.assets/20211109100047.png)
+![image-20211109100023871](https://gitee.com/wowosong/pic-md/raw/master/202212151225120.png)
 
 ### **3.2.2. 自动应答**
 
@@ -466,7 +466,7 @@ public class Task01 {
 
 **手动应答的好处是可以批量应答并且减少网络拥堵**
 
-![image-20211106174056958](./RabbitMQ.assets/20211106174057.png)
+![image-20211106174056958](https://gitee.com/wowosong/pic-md/raw/master/202212151225500.png)
 
 multiple 的 true 和 false 代表不同意思
 
@@ -478,13 +478,13 @@ multiple 的 true 和 false 代表不同意思
 
   只会应答 tag=8 的消息 5,6,7 这三个消息依然不会被确认收到消息应答
 
-<img src="./RabbitMQ.assets/20211106174218.png" alt="image-20211106174218799" style="zoom:50%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151225007.png" alt="image-20211106174218799" style="zoom:50%;" />
 
 ### **3.2.5. 消息自动重新入队**
 
 **如果消费者由于某些原因失去连接(其通道已关闭，连接已关闭或 TCP 连接丢失)，导致消息未发送 ACK 确认，RabbitMQ 将了解到消息未完全处理，并将对其重新排队。**如果此时其他消费者可以处理，它将很快将其重新分发给另一个消费者。这样，即使某个消费者偶尔死亡，也可以确保不会丢失任何消息。
 
-<img src="./RabbitMQ.assets/20211109101347.png" alt="image-20211109101336827" style="zoom:50%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151226720.png" alt="image-20211109101336827" style="zoom:50%;" />
 
 ### **3.2.6.** **消息手动应答代码**
 
@@ -577,17 +577,17 @@ public class Work03 {
 
 正常情况下消息发送方发送两个消息 C1 和 C2 分别接收到消息并进行处理
 
-![image-20211109113809161](./RabbitMQ.assets/20211109113907.png)
+![image-20211109113809161](https://gitee.com/wowosong/pic-md/raw/master/202212151226074.png)
 
-![image-20211109113832227](./RabbitMQ.assets/20211109113912.png)![image-20211109113859464](./RabbitMQ.assets/20211109113918.png)
+![image-20211109113832227](https://gitee.com/wowosong/pic-md/raw/master/202212151226325.png)![image-20211109113859464](https://gitee.com/wowosong/pic-md/raw/master/202212151226150.png)
 
 
 
 在发送者发送消息 dd，发出消息之后的把 C2 消费者停掉，按理说该 C2 来处理该消息，但是由于它处理时间较长，在还未处理完，也就是说 **C2 还没有执行 ack 代码的时候**，C2 被停掉了，此时会看到消息被 C1 接收到了，说明消息 dd 被重新入队，然后分配给能处理消息的 C1 处理了
 
-<img src="./RabbitMQ.assets/20211109114152.png" alt="image-20211109114150384" style="zoom:50%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151226065.png" alt="image-20211109114150384" style="zoom:50%;" />
 
-<img src="./RabbitMQ.assets/20211109114238.png" alt="image-20211109114236653" style="zoom:50%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151226704.png" alt="image-20211109114236653" style="zoom:50%;" />
 
 ## **3.3. RabbitMQ** **持久化**
 
@@ -601,15 +601,15 @@ public class Work03 {
 
 要队列实现持久化 需要在声明队列的时候把 durable 参数设置为持久化
 
-![image-20211109115028473](./RabbitMQ.assets/20211109115042.png)
+![image-20211109115028473](https://gitee.com/wowosong/pic-md/raw/master/202212151227500.png)
 
 但是需要注意的就是如果之前声明的队列不是持久化的，需要把原先队列先删除，或者重新创建一个持久化的队列，不然就会出现错误
 
-![image-20211109115103406](./RabbitMQ.assets/20211109115125.png)
+![image-20211109115103406](https://gitee.com/wowosong/pic-md/raw/master/202212151228703.png)
 
 以下为控制台中持久化与非持久化队列的 UI 显示区
 
-![image-20211109115122342](./RabbitMQ.assets/20211109115128.png)
+![image-20211109115122342](https://gitee.com/wowosong/pic-md/raw/master/202212151228695.png)
 
 这个时候即使重启 rabbitmq 队列也依然存在
 

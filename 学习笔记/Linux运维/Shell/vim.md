@@ -1,16 +1,17 @@
-| Linux编辑器vi/vim | vim主要模式介绍vim命令模式、vim插入模式、vim命令行模式、vim可视化模式设置vim开发环境 | 第5天 | 自定义vim开发环境![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml15300\wps1.jpg) |
-| ----------------- | ------------------------------------------------------------ | ----- | ------------------------------------------------------------ |
-|                   |                                                              |       |                                                              |
+| Linux编辑器vi/vim | vim主要模式介绍vim命令模式、vim插入模式、vim命令行模式、vim可视化模式设置vim开发环境 | 第5天 |      |
+| ----------------- | ------------------------------------------------------------ | ----- | ---- |
+|                   |                                                              |       |      |
 
 # vim 安装
 
+```
 [root@localhost ~]# rpm -ivh /mnt/Packages/vim-minimal-7.2.411-1.6.el6.x86_64.rpm 
 
 warning: /mnt/Packages/vim-minimal-7.2.411-1.6.el6.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID fd431d51: NOKEY
 
 Preparing...         ########################################### [100%]
 
-​    package vim-minimal-2:7.2.411-1.6.el6.x86_64 is already installed
+package vim-minimal-2:7.2.411-1.6.el6.x86_64 is already installed
 
 [root@localhost ~]# rpm -ivh /mnt/Packages/vim-enhanced-7.2.411-1.6.el6.x86_64.rpm 
 
@@ -18,7 +19,10 @@ warning: /mnt/Packages/vim-enhanced-7.2.411-1.6.el6.x86_64.rpm: Header V3 RSA/SH
 
 Preparing...         ########################################### [100%]
 
-​    package vim-enhanced-2:7.2.411-1.6.el6.x86_64 is already installed
+package vim-enhanced-2:7.2.411-1.6.el6.x86_64 is already installed
+```
+
+
 
 # vim 编辑器
 
