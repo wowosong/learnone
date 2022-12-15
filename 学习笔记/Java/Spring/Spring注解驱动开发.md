@@ -1,4 +1,4 @@
-![Spring注解驱动开发](./Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91.assets/20211026170442.png)
+![Spring注解驱动开发](https://gitee.com/wowosong/pic-md/raw/master/202212151103626.png)
 
 # Spring注解驱动开发
 
@@ -37,13 +37,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Maintest {
-public static void main(String[] args) {
-//ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
-//Person person = (Person)ctx.getBean("person");
-//System.out.println(person);
-ApplicationContext ctx=new AnnotationConfigApplicationContext(MainConfig.class);
+    public static void main(String[] args) {
+        //ClassPathXmlApplicationContext ctx =new ClassPathXmlApplicationContext("beans.xml");
+        //Person person = (Person)ctx.getBean("person");
+        //System.out.println(person);
+        ApplicationContext ctx=new AnnotationConfigApplicationContext(MainConfig.class);
         Person bean = ctx.getBean(Person.class);
-      	//String[] beanNamesForType = ctx.getBeanNamesForType(Person.class);
+        //String[] beanNamesForType = ctx.getBeanNamesForType(Person.class);
         String[] beanNamesForType1 = ctx.getBeanDefinitionNames();
         for (String s : beanNamesForType1) {
             System.out.println(s);
@@ -69,7 +69,7 @@ ApplicationContext ctx=new AnnotationConfigApplicationContext(MainConfig.class);
 @Bean(name = "Person"),//指定bean名字
 //给容器中注册Bean,类型为返回值类型,id默认为方法名作为id
 public Person person(){
-  return  new Person("1","123",34);
+    return  new Person("1","123",34);
 }
 ```
 
@@ -77,13 +77,13 @@ public Person person(){
 
 ```java
 @ComponentScans(
-		value = {
-				@ComponentScan(value="com.atguigu",includeFilters = {
-						/*@Filter(type=FilterType.ANNOTATION,classes={Controller.class}),
+    value = {
+        @ComponentScan(value="com.atguigu",includeFilters = {
+            /*@Filter(type=FilterType.ANNOTATION,classes={Controller.class}),
 						@Filter(type=FilterType.ASSIGNABLE_TYPE,classes={BookService.class}),*/
-						@Filter(type=FilterType.CUSTOM,classes={MyTypeFilter.class})
-				},useDefaultFilters = false)	
-		}
+            @Filter(type=FilterType.CUSTOM,classes={MyTypeFilter.class})
+        },useDefaultFilters = false)	
+    }
 )
 //@ComponentScan  value:指定要扫描的包
 //excludeFilters = Filter[] ：指定扫描的时候按照什么规则排除那些组件
@@ -120,13 +120,13 @@ public class MyFilter implements TypeFilter {
 
 ```java
 @Component(value = "MainConfig")---->标记组件名称
-public class MainConfig {
-    @Bean(name = "Person")
-    //给容器中注册Bean,类型为返回值类型,id默认为方法名作为id
-    public Person person(){
-        return  new Person("1","123",34);
+    public class MainConfig {
+        @Bean(name = "Person")
+        //给容器中注册Bean,类型为返回值类型,id默认为方法名作为id
+        public Person person(){
+            return  new Person("1","123",34);
+        }
     }
-}
 //泛指组件,当组件不好归类的时候,我们可以使用这个注解进行标注;
 ```
 
@@ -234,7 +234,7 @@ public class LinuxCondition implements Condition {
 *       2）要获取到工厂bean本身,需要在id前加一个&
 *        &myFactoryBean
 */
-     
+
 @Import({Colors.class, MyImportSelector.class, MyImporBeanDefinitionRegister.class}})
 ```
 
@@ -288,7 +288,7 @@ import org.springframework.beans.factory.FactoryBean;
 import java.awt.*;
 
 /**
- * @author wowosong
+* @author wowosong
  * @date 2021/10/14 0014
  * @apiNote
  **/
@@ -1210,15 +1210,15 @@ public class MainConfigOfTx   {
     }
     @Bean
     public JdbcTemplate jdbcTemplate() throws Exception {
-      // Spring会对Configuration类做特殊处理，在容器中找组件的方法都是从容器中获取组件
+        // Spring会对Configuration类做特殊处理，在容器中找组件的方法都是从容器中获取组件
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
         return jdbcTemplate;
     }
-   @Bean
+    @Bean
     public PlatformTransactionManager platformTransactionManager() throws Exception {
-       PlatformTransactionManager platformTransactionManager = new DataSourceTransactionManager(dataSource());
-       return platformTransactionManager;
-   }
+        PlatformTransactionManager platformTransactionManager = new DataSourceTransactionManager(dataSource());
+        return platformTransactionManager;
+    }
 }
 ```
 
@@ -1288,7 +1288,7 @@ public class extConfig {
 #### BeanDefinitionRegistryPostProcessor
 
 ```java
- /**  2、BeanDefinitionRegistryPostProcessor extends BeanFactoryPostProcessor
+/**  2、BeanDefinitionRegistryPostProcessor extends BeanFactoryPostProcessor
  * 		postProcessBeanDefinitionRegistry();
  * 		在所有bean定义信息将要被加载,bean实例还未创建的;
  * 
@@ -1306,23 +1306,23 @@ public class extConfig {
 @Component
 public class MyBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor{
 
-	@Override
-	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-		// TODO Auto-generated method stub
-		System.out.println("MyBeanDefinitionRegistryPostProcessor...bean的数量："
-                       +beanFactory.getBeanDefinitionCount());
-	}
+    @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        // TODO Auto-generated method stub
+        System.out.println("MyBeanDefinitionRegistryPostProcessor...bean的数量："
+                           +beanFactory.getBeanDefinitionCount());
+    }
 
-	//BeanDefinitionRegistry Bean定义信息的保存中心,以后BeanFactory就是按照BeanDefinitionRegistry里面保存的每一个bean定义信息创建bean实例;
-	@Override
-	public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-		// TODO Auto-generated method stub
-		System.out.println("postProcessBeanDefinitionRegistry...bean的数量："
-                       +registry.getBeanDefinitionCount());
-		//RootBeanDefinition beanDefinition = new RootBeanDefinition(Blue.class);
-		AbstractBeanDefinition beanDefinition = BeanDefinitionBuilder.rootBeanDefinition(Blue.class).getBeanDefinition();
-		registry.registerBeanDefinition("hello", beanDefinition);
-	}
+    //BeanDefinitionRegistry Bean定义信息的保存中心,以后BeanFactory就是按照BeanDefinitionRegistry里面保存的每一个bean定义信息创建bean实例;
+    @Override
+    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
+        // TODO Auto-generated method stub
+        System.out.println("postProcessBeanDefinitionRegistry...bean的数量："
+                           +registry.getBeanDefinitionCount());
+        //RootBeanDefinition beanDefinition = new RootBeanDefinition(Blue.class);
+        AbstractBeanDefinition beanDefinition = BeanDefinitionBuilder.rootBeanDefinition(Blue.class).getBeanDefinition();
+        registry.registerBeanDefinition("hello", beanDefinition);
+    }
 }
 ```
 
@@ -1359,12 +1359,12 @@ public class myApplicationListener  implements ApplicationListener<ApplicationEv
 
 ```java
 public void test_ext(){
-        AnnotationConfigApplicationContext applicationContext =
-                new AnnotationConfigApplicationContext(extConfig.class);
-        applicationContext.publishEvent(new ApplicationEvent("我发布的事件") {
-        });
-        applicationContext.close();
-    }
+    AnnotationConfigApplicationContext applicationContext =
+        new AnnotationConfigApplicationContext(extConfig.class);
+    applicationContext.publishEvent(new ApplicationEvent("我发布的事件") {
+    });
+    applicationContext.close();
+}
 ```
 
 #### ApplicationListener原理
@@ -1644,41 +1644,41 @@ smartSingleton.afterSingletonsInstantiated();
 
 ```java
 12.finshRefresh();完成BeanFactory的初始化创建工作,IOC容器创建完成。
-	1.initLifecycleProcessor();初始化生命周期有关的后置处理器 LifecycleProcessor
-       默认从容器中找lifecycleProcessor【LifecycleProcessor】
-       如果没有则;
-       DefaultLifecycleProcessor defaultProcessor = new DefaultLifecycleProcessor();、
-       加入到容器中
-       // Initialize lifecycle processor for this context.
-       initLifecycleProcessor();
-       写一个LifecycleProcessor的实现类型（id必须为lifecycleProcessor）,可以在BeanFactory
-            void onRefresh() 
-            void onClose()
-   2.getLifecycleProcessor().onRefresh();
-		拿到前面定义的生命周期处理器（BeanFactory）,回调onRefresh()
-   3.publishEvent	 发布容器刷新事件
+    1.initLifecycleProcessor();初始化生命周期有关的后置处理器 LifecycleProcessor
+    默认从容器中找lifecycleProcessor【LifecycleProcessor】
+    如果没有则;
+DefaultLifecycleProcessor defaultProcessor = new DefaultLifecycleProcessor();、
+    加入到容器中
+    // Initialize lifecycle processor for this context.
+    initLifecycleProcessor();
+写一个LifecycleProcessor的实现类型（id必须为lifecycleProcessor）,可以在BeanFactory
+    void onRefresh() 
+    void onClose()
+    2.getLifecycleProcessor().onRefresh();
+拿到前面定义的生命周期处理器（BeanFactory）,回调onRefresh()
+    3.publishEvent	 发布容器刷新事件
     // Publish the final event.
-		publishEvent(new ContextRefreshedEvent(this));
-   4.LiveBeansView.registerApplicationContext(this);
+    publishEvent(new ContextRefreshedEvent(this));
+4.LiveBeansView.registerApplicationContext(this);
 ```
 
 #### Spring源码总结
 
 ```java
 ===================总结=======================
-1）spring在容器启动时,先会保存所有注册进来的bean定义信息
-	1.xml注册bean <bean>
-	2.注解注册bean @Service @Component @Bean
-2)Spring容器会在合适的时机创建这些bean
-	1.用到这个bean时利用getBean创建bean,创建好保存在容器中
-	2.统一创建剩下所有的bean时,finishBeanFactoryInitialization
-3）后置处理器：
-	1.每个bean创建完成,都会使用各种后置处理器进行处理,来增强bean的功能。
-	AutowiredAnnotationBeanPostProcessor：处理自动注入
-	AnnotationAwareAspectJAutoProxyCreator：来做AOP代理对象
-4)事件驱动模型：
+    1）spring在容器启动时,先会保存所有注册进来的bean定义信息
+    1.xml注册bean <bean>
+    2.注解注册bean @Service @Component @Bean
+    2)Spring容器会在合适的时机创建这些bean
+    1.用到这个bean时利用getBean创建bean,创建好保存在容器中
+    2.统一创建剩下所有的bean时,finishBeanFactoryInitialization
+    3）后置处理器：
+    1.每个bean创建完成,都会使用各种后置处理器进行处理,来增强bean的功能。
+    AutowiredAnnotationBeanPostProcessor：处理自动注入
+    AnnotationAwareAspectJAutoProxyCreator：来做AOP代理对象
+    4)事件驱动模型：
     ApplicationListener;事件监听
-    ApplicationEventMulticaster;事件派发
+        ApplicationEventMulticaster;事件派发
 ```
 
 ### servlet3.0（在javaweb中学习,此处不学）

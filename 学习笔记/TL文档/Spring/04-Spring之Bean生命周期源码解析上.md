@@ -10,7 +10,7 @@ Bean的生命周期就是指：**在Spring中，一个Bean是如何生成的，�
 
 Bean生命周期流程图：[https://www.processon.com/view/link/5f8588c87d9c0806f27358c1](https://www.processon.com/view/link/5f8588c87d9c0806f27358c1)
 
-![image-20220812110530940](./04-Spring%E4%B9%8BBean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B8%8A.assets/image-20220812110530940-1501400.png)
+![image-20220812110530940](https://gitee.com/wowosong/pic-md/raw/master/202212151030307.png)
 
 附带资料JFR介绍：[https://zhuanlan.zhihu.com/p/122247741](https://zhuanlan.zhihu.com/p/122247741)
 
@@ -27,7 +27,7 @@ Spring启动的时候会进行扫描，会先调用（doScan）`org.springframew
 
 Spring扫描底层流程：[https://www.processon.com/view/link/61370ee60e3e7412ecd95d43](https://www.processon.com/view/link/61370ee60e3e7412ecd95d43)
 
-![Spring扫描底层流程](./04-Spring%E4%B9%8BBean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B8%8A.assets/Spring%E6%89%AB%E6%8F%8F%E5%BA%95%E5%B1%82%E6%B5%81%E7%A8%8B-16606441409031-16606441447783.png)
+![Spring扫描底层流程](https://gitee.com/wowosong/pic-md/raw/master/202212151031741.png)
 
 
 1. 首先，通过ResourcePatternResolver获得指定包路径下的所有`.class`文件（Spring源码中将此文件包装成了Resource对象）

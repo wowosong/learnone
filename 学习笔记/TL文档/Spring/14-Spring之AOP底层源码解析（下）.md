@@ -87,7 +87,7 @@ DefaultAdvisorAutoProxyCreator的父类是AbstractAdvisorAutoProxyCreator。
 ## @EnableAspectJAutoProxy
 这个注解主要就是往Spring容器中添加了一个AnnotationAwareAspectJAutoProxyCreator类型的Bean。
 
-![AnnotationAwareAspectJAutoProxyCreator](./14-Spring%E4%B9%8BAOP%E5%BA%95%E5%B1%82%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%88%E4%B8%8B%EF%BC%89.assets/AnnotationAwareAspectJAutoProxyCreator-1871020-1871021.png)
+![AnnotationAwareAspectJAutoProxyCreator](https://gitee.com/wowosong/pic-md/raw/master/202212151042482.png)
 **AspectJAwareAdvisorAutoProxyCreator**继承了**AbstractAdvisorAutoProxyCreator**，重写了findCandidateAdvisors()方法，**AbstractAdvisorAutoProxyCreator**只能找到所有Advisor类型的Bean对象，但是**AspectJAwareAdvisorAutoProxyCreator**除开可以找到所有Advisor类型的Bean对象，还能把@Aspect注解所标注的Bean中的@Before等注解及方法进行解析，并生成对应的Advisor对象。
 
 

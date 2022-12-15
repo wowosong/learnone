@@ -84,7 +84,7 @@ docker-common.x86_64                2:1.13.1-208.git7d71120.el7_9      @extras
 docker run ubuntu /bin/echo "hello world"
 
 # 查看docker全部命令
-dokcer
+docker
 # 查看docker具体命令用法
 docker images --help
 ```
@@ -191,10 +191,10 @@ docker rm -f <容器 ID>
 
 我们使用docker run创建Docker容器时，可以用--net选项指定容器的网络模式，Docker有以下4种网络模式：
 
-*   bridge模式，使用--net=bridge指定，**默认**设置
-*   host模式，使用--net=host指定，容器内部网络空间共享宿主机空间，效果类似于直接在宿主机上启动一个进程，端口信息和宿主机共用
-*   container模式，使用--net=container:NAME\_or\_ID指定，指定容器与特定容器共享网络命名空间
-*   none模式，使用--net=none指定，网络模式为空，即保留网络命名空间，但是不做任何网络相关的配置（网卡、IP、路由等）
+*   **bridge模式，使用--net=bridge指定，默认设置**
+*   **host模式，使用--net=host指定，容器内部网络空间共享宿主机空间，效果类似于直接在宿主机上启动一个进程，端口信息和宿主机共用**
+*   **container模式，使用--net=container:NAME\_or\_ID指定，指定容器与特定容器共享网络命名空间**
+*   **none模式，使用--net=none指定，网络模式为空，即保留网络命名空间，但是不做任何网络相关的配置（网卡、IP、路由等）**
 
 ## [4 Dokcerfile](#/Docker?id=_4-dokcerfile)
 

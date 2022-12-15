@@ -4,7 +4,7 @@
 依赖注入底层原理流程图：
 [https://www.processon.com/view/link/5f899fa5f346fb06e1d8f570](https://www.processon.com/view/link/5f899fa5f346fb06e1d8f570)
 
-![](./06-Spring%E4%B9%8B%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%88%E4%B8%8A%EF%BC%89.assets/Spring%E4%B8%ADBean%E7%9A%84%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86-1410760.png)
+![](https://gitee.com/wowosong/pic-md/raw/master/202212151032498.png)
 
 ## Spring中到底有几种依赖注入的方式？
 
