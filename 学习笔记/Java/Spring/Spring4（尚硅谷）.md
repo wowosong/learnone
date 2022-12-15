@@ -86,16 +86,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
     public static void main(String[] args) {
-				//1.创建spring的IOC容器
+        //1.创建spring的IOC容器
         //ApplicationContext 代表IOC容器
         //ClassPathXmlApplicationContext：是ApplicationContext接口的实现类，该实现类从类路径下来加载配置文件
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-				//2.从容器中获取Bean
+        //2.从容器中获取Bean
         //利用ID定位到容器中的Bean
         HelloWorld helloworld = (HelloWorld) context.getBean("helloWorld");
         //利用类型返回IOC容器中的bean，但是要求IOC容器中必须只有一个该类型的bean
         HelloWorld helloWorld=context.getBean(HelloWorld.class);
-				//3.调用方法
+        //3.调用方法
         helloworld.HelloWorld();
     }
 }
@@ -129,11 +129,11 @@ DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些�
 
 * 在 xml 文件中通过 bean 节点来配置 bean
 ```xml
-   <!-- 配置bean时，通过反射的方式在IOC容器中创建bean，所以要求Bean中必须有无参构造器-->
-          <bean id="helloworld" class="com.hbd.wowosong.beans.Helloworld">
-              <property name="name" value="wowosong"></property>
-              <property name="age" value="30"></property>
-          </bean>
+<!-- 配置bean时，通过反射的方式在IOC容器中创建bean，所以要求Bean中必须有无参构造器-->
+<bean id="helloworld" class="com.hbd.wowosong.beans.Helloworld">
+    <property name="name" value="wowosong"></property>
+    <property name="age" value="30"></property>
+</bean>
 ```
 
 * id：Bean 的名称。
@@ -186,11 +186,11 @@ DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些�
 
    ```xml
    <!--    配置bean时，通过反射的方式在IOC容器中创建bean，所以要求Bean中必须有无参构造器-->
-       <!--    id:标识容器中bean，id唯一-->
-       <bean id="helloworld" class="com.hbd.wowosong.beans.Helloworld">
-           <property name="name" value="wowosong"></property>
-           <property name="age" value="30"></property>
-       </bean>
+   <!--    id:标识容器中bean，id唯一-->
+   <bean id="helloworld" class="com.hbd.wowosong.beans.Helloworld">
+       <property name="name" value="wowosong"></property>
+       <property name="age" value="30"></property>
+   </bean>
    ```
 
 ### 构造器注入
@@ -200,14 +200,14 @@ DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些�
 2. 构造器注入在 \<constructor-arg> 元素里声明属性, \<constructor-arg> 中没有 name 属性
 
    ```xml
-   	<!--
+   <!--
      通过构造方法配置bean的属性,xml中配置的属性应该与bean中构造器中的属性一致，否则提示异常
      -->
-     <bean id="car" class="com.hbd.beans.Car">
-         <constructor-arg value="Audo"></constructor-arg>
-         <constructor-arg value="123"></constructor-arg>
-         <constructor-arg value="1200"></constructor-arg>
-     </bean>
+   <bean id="car" class="com.hbd.beans.Car">
+       <constructor-arg value="Audo"></constructor-arg>
+       <constructor-arg value="123"></constructor-arg>
+       <constructor-arg value="1200"></constructor-arg>
+   </bean>
    ```
 
 ```java
@@ -229,11 +229,11 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "brand='" + brand + '\'' +
-                ", corp='" + corp + '\'' +
-                ", price=" + price +
-                ", maxSpeed=" + maxSpeed +
-                '}';
+            "brand='" + brand + '\'' +
+            ", corp='" + corp + '\'' +
+            ", price=" + price +
+            ", maxSpeed=" + maxSpeed +
+            '}';
     }
 }
 ```
@@ -244,24 +244,24 @@ public class Car {
 
 ```xml
 <!--    通过构造方法获取bean-->
-    <bean id="car" class="com.hbd.wowosong.beans.Car">
-        <constructor-arg index="0" value="Audo"/>
-        <constructor-arg index="1" value="chengdu"/>
-        <constructor-arg index="2" value="123" type="double"/> 将price改成double类型
-    </bean>
+<bean id="car" class="com.hbd.wowosong.beans.Car">
+    <constructor-arg index="0" value="Audo"/>
+    <constructor-arg index="1" value="chengdu"/>
+    <constructor-arg index="2" value="123" type="double"/> 将price改成double类型
+</bean>
 ```
 
 按类型匹配入参：
 
 ```xml
- <!---
+<!---
     使用构造器注入属性可以指定参数的位置和参数的类型，以区分重载的构造器
  -->
 <bean id="car1" class="com.hbd.beans.Car">
-        <constructor-arg value="Audo" type="java.lang.String"></constructor-arg>
-        <constructor-arg value="上海" type="java.lang.String"></constructor-arg>
-        <constructor-arg value="123" type="int"></constructor-arg>
- </bean>
+    <constructor-arg value="Audo" type="java.lang.String"></constructor-arg>
+    <constructor-arg value="上海" type="java.lang.String"></constructor-arg>
+    <constructor-arg value="123" type="int"></constructor-arg>
+</bean>
 ```
 
 ### 注入属性值细节
@@ -271,9 +271,9 @@ public class Car {
   1. 字面值：可用字符串表示的值，可以通过 \<value> 元素标签或 value 属性进行注入。
 
     ```xml
-     <constructor-arg  type="java.lang.String">
+    <constructor-arg  type="java.lang.String">
         <value>"上海"</value>
-     </constructor-arg>
+    </constructor-arg>
     ```
 
   2. 基本数据类型及其封装类、String 等类型都可以采取字面值注入的方式
@@ -282,9 +282,9 @@ public class Car {
 
     ```xml
     <constructor-arg index="1" type="java.lang.String">
-       <!--            如果字面值包含特殊字符可以使用[<![CDATA[]]> 包裹起来-->
-       <!--            属性值也可以使用value子节点进行配置-->
-       <value>[<![CDATA[Shanghai]]>]</value>
+        <!--            如果字面值包含特殊字符可以使用[<![CDATA[]]> 包裹起来-->
+        <!--            属性值也可以使用value子节点进行配置-->
+        <value>[<![CDATA[Shanghai]]>]</value>
     </constructor-arg>
     ```
 
@@ -296,20 +296,20 @@ public class Car {
 
    ```xml
    <bean id="person" class="com.hbd.beans.Person">
-           <constructor-arg value="wowosong"></constructor-arg>
-           <constructor-arg value="12"></constructor-arg>
-           <constructor-arg name="car" ref="car"></constructor-arg>
+       <constructor-arg value="wowosong"></constructor-arg>
+       <constructor-arg value="12"></constructor-arg>
+       <constructor-arg name="car" ref="car"></constructor-arg>
    </bean>
    
-    <bean id="person" class="com.hbd.beans.Person">
-           <property name="name" value="wowosong"></property>
-           <property name="age" value="12"></property>
-           <!--- 可以通过property的ref属性建立bean之间的引用关系--->
-           <property name="car" >
-           	<ref bean="car">
-           </property>
+   <bean id="person" class="com.hbd.beans.Person">
+       <property name="name" value="wowosong"></property>
+       <property name="age" value="12"></property>
+       <!--- 可以通过property的ref属性建立bean之间的引用关系--->
+       <property name="car" >
+           <ref bean="car">
+               </property>
            <property name="car" ref="car"></property>
-    </bean>
+           </bean>
    ```
 
  3. 也可以在属性或构造器里包含 Bean 的声明, 这样的 Bean 称为内部 Bean
@@ -319,16 +319,16 @@ public class Car {
    **内部 Bean 不能使用在任何其他地方**
 
    ```xml
-    <bean id="person" class="com.hbd.beans.Person">
-      <property name="name" value="wowosong"></property>
-      <property name="age" value="12"></property>
-      <property name="car">
-        <bean class="com.hbd.beans.Car">
-          <constructor-arg name="brand" value="Ford"></constructor-arg>
-          <constructor-arg name="corp" value="Chengdu"></constructor-arg>
-          <constructor-arg name="price" value="1100000"></constructor-arg>
-        </bean>
-      </property>
+   <bean id="person" class="com.hbd.beans.Person">
+       <property name="name" value="wowosong"></property>
+       <property name="age" value="12"></property>
+       <property name="car">
+           <bean class="com.hbd.beans.Car">
+               <constructor-arg name="brand" value="Ford"></constructor-arg>
+               <constructor-arg name="corp" value="Chengdu"></constructor-arg>
+               <constructor-arg name="price" value="1100000"></constructor-arg>
+           </bean>
+       </property>
    </bean>
    ```
 
@@ -337,44 +337,44 @@ public class Car {
 1. 可以使用专用的 \<null/> 元素标签为 Bean 的字符串或其它对象类型的属性注入 null 值
 
 ```xml
-   <bean id="person3" class="com.hbd.wowosong.beans.Person">
-          <constructor-arg value="qwer"></constructor-arg>
-          <constructor-arg value="33"></constructor-arg>
-  <!--        <constructor-arg ref="car1"></constructor-arg>-->
-  <!--        测试null-->
-          <constructor-arg ><null/></constructor-arg>
-  </bean>
-  <bean id="person1" class="com.hbd.beans.Person">
-      <constructor-arg  value="wowosong"></constructor-arg>
-      <constructor-arg  value="12"></constructor-arg>
-      <constructor-arg ref="car"></constructor-arg>
-      <!--- 
-      	为级联属性赋值，注意：属性需要先初始化(要有set和get方法)后才可以为级联属性赋值，否则会有异常，和Structs2不同
+<bean id="person3" class="com.hbd.wowosong.beans.Person">
+    <constructor-arg value="qwer"></constructor-arg>
+    <constructor-arg value="33"></constructor-arg>
+    <!--        <constructor-arg ref="car1"></constructor-arg>-->
+    <!--        测试null-->
+    <constructor-arg ><null/></constructor-arg>
+</bean>
+<bean id="person1" class="com.hbd.beans.Person">
+    <constructor-arg  value="wowosong"></constructor-arg>
+    <constructor-arg  value="12"></constructor-arg>
+    <constructor-arg ref="car"></constructor-arg>
+    <!--- 
+       为级联属性赋值，注意：属性需要先初始化(要有set和get方法)后才可以为级联属性赋值，否则会有异常，和Structs2不同
       --->
-    	<!--下面的car.maxSpeed等属性赋值，会覆盖上面构造器注入的属性值 -->
-      <property name="car.maxSpeed" value="1111111111"></property>
-      <property name="car.price" value="123"></property>
-      <property name="car.brand" value="Mazada"></property>
-      <property name="car.corp" value="Xi'an"></property>
-  </bean>
+    <!--下面的car.maxSpeed等属性赋值，会覆盖上面构造器注入的属性值 -->
+    <property name="car.maxSpeed" value="1111111111"></property>
+    <property name="car.price" value="123"></property>
+    <property name="car.brand" value="Mazada"></property>
+    <property name="car.corp" value="Xi'an"></property>
+</bean>
 ```
 
 ```java
-  public void setPrice(double price) {
-  	this.price=price;
-  }
-  
-  public void setMaxSpeed(int maxSpeed) {
-  	this.maxSpeed=maxSpeed;
-  }
-  
-  public void setBrand(String brand) {
-  	this.brand=brand;
-  }
-  
-  public void setCorp(String corp) {
-  	this.corp=corp;
-  }
+public void setPrice(double price) {
+    this.price=price;
+}
+
+public void setMaxSpeed(int maxSpeed) {
+    this.maxSpeed=maxSpeed;
+}
+
+public void setBrand(String brand) {
+    this.brand=brand;
+}
+
+public void setCorp(String corp) {
+    this.corp=corp;
+}
 ```
 
 2. 和 Struts、Hiberante 等框架一样，Spring 支持级联属性的配置。
@@ -384,18 +384,18 @@ public class Car {
 1. 在 Spring中可以通过一组内置的 xml 标签(例如: \<list>, \<set> 或 \<map>) 来配置集合属性.
 
 ```xml
-   <!---测试集合属性-->
-   <bean id="person2" class="com.hbd.beans.collections.Person">
-     <property name="age" value="1100"></property>
-     <property name="name" value="wowosong"></property>
-     <property name="carList" >
-       <list>
-         <ref bean="car"/>
-         <ref bean="car1"/>
-       </list>
-     </property>
-   </bean>
-  
+<!---测试集合属性-->
+<bean id="person2" class="com.hbd.beans.collections.Person">
+    <property name="age" value="1100"></property>
+    <property name="name" value="wowosong"></property>
+    <property name="carList" >
+        <list>
+            <ref bean="car"/>
+            <ref bean="car1"/>
+        </list>
+    </property>
+</bean>
+
 Person{name='wowosong', age=1100, carList=[Car{brand='Mazada', corp='Xi'an', price=123.0, maxSpeed=1111111111}, Car{brand='Audo', corp='<上海>', price=0.0, maxSpeed=123}]}
 ```
 
@@ -404,21 +404,21 @@ Person{name='wowosong', age=1100, carList=[Car{brand='Mazada', corp='Xi'an', pri
 3. 数组的定义和 List 一样, 都使用 \<list>
 
 ```xml
-   <bean id="person" class="com.hbd.wowosong.collections.beans.Person">
-     <property name="name" value="wowosong"></property>
-     <property name="age" value="40"></property>
-     <property name="cars" >
-       <list>
-         <ref bean="carp1"></ref>
-         <ref bean="carp"></ref>
-         <bean class="com.hbd.wowosong.collections.beans.Car">
-           <constructor-arg value="Ford"></constructor-arg>
-           <constructor-arg value="111111"></constructor-arg>
-           <constructor-arg value="30"></constructor-arg>
-         </bean>
-       </list>
-     </property>
-   </bean>
+<bean id="person" class="com.hbd.wowosong.collections.beans.Person">
+    <property name="name" value="wowosong"></property>
+    <property name="age" value="40"></property>
+    <property name="cars" >
+        <list>
+            <ref bean="carp1"></ref>
+            <ref bean="carp"></ref>
+            <bean class="com.hbd.wowosong.collections.beans.Car">
+                <constructor-arg value="Ford"></constructor-arg>
+                <constructor-arg value="111111"></constructor-arg>
+                <constructor-arg value="30"></constructor-arg>
+            </bean>
+        </list>
+    </property>
+</bean>
 ```
 
 4. 配置 java.util.Set 需要使用 \<set> 标签, 定义元素的方法与 List 一样.
@@ -426,22 +426,22 @@ Person{name='wowosong', age=1100, carList=[Car{brand='Mazada', corp='Xi'an', pri
 5. Java.util.Map 通过 \<map> 标签定义, \<map> 标签里可以使用多个 \<entry> 作为子标签. 每个条目包含一个键和一个值. 
 
 ```xml
-  <!--
+<!--
       配置map属性
   -->
-  <bean id="newPerson" class="com.hbd.beans.collections.newPerson">
+<bean id="newPerson" class="com.hbd.beans.collections.newPerson">
     <property name="age" value="1100"></property>
     <property name="name" value="wowosong"></property>
     <property name="carList" >
-      <!--
+        <!--
        使用map节点及map的entry 子节点配置map类型的成员变量
        -->
-      <map>
-        <entry key="AA" value-ref="car"></entry>
-        <entry key="BB" value-ref="car1"></entry>
-      </map>
+        <map>
+            <entry key="AA" value-ref="car"></entry>
+            <entry key="BB" value-ref="car1"></entry>
+        </map>
     </property>
-  </bean>
+</bean>
 ```
 
 6. 必须在 \<key> 标签里定义键
@@ -453,20 +453,20 @@ Person{name='wowosong', age=1100, carList=[Car{brand='Mazada', corp='Xi'an', pri
 9. 使用 \<props> 定义 java.util.Properties, 该标签使用多个 \<prop> 作为子标签. 每个 \<prop> 标签必须定义 key 属性. 
 
 ```xml
-  <!--
+<!--
        配置properties属性值
   -->
-    <bean id="DataSource" class="com.hbd.beans.collections.DataSource">
-       <property name="properties">
-         <props >
-           使用props和prop子节点为properties赋值
-           <prop key="user"></prop>
-           <prop key="password"></prop>
-           <prop key="jdbcUrl">jdbc:mysql://test</prop>
-           <prop key="driverClass">com.mysql.jdbc.Driver</prop>
-         </props>
-       </property>
-    </bean>
+<bean id="DataSource" class="com.hbd.beans.collections.DataSource">
+    <property name="properties">
+        <props >
+            使用props和prop子节点为properties赋值
+            <prop key="user"></prop>
+            <prop key="password"></prop>
+            <prop key="jdbcUrl">jdbc:mysql://test</prop>
+            <prop key="driverClass">com.mysql.jdbc.Driver</prop>
+        </props>
+    </property>
+</bean>
 ```
 
 ## **使用 utility scheme 定义集合**
@@ -476,16 +476,16 @@ Person{name='wowosong', age=1100, carList=[Car{brand='Mazada', corp='Xi'an', pri
 2. 可以使用 util schema 里的集合标签定义独立的集合 Bean. 需要注意的是, 必须在 \<beans> 根元素里添加 util schema 定义
 
 ```xml
-  <util:list id="cars">
+<util:list id="cars">
     <ref  bean="car" />
     <ref  bean="car1"/>
-  </util:list>
-  
-  <bean id="person6" class="com.hbd.beans.collections.Person">
+</util:list>
+
+<bean id="person6" class="com.hbd.beans.collections.Person">
     <property name="age" value="11"></property>
     <property name="name" value="wowosong"></property>
     <property name="carList" ref="cars"></property>
-  </bean>
+</bean>
 ```
 
 ## **使用 p 命名空间**
@@ -495,8 +495,8 @@ Person{name='wowosong', age=1100, carList=[Car{brand='Mazada', corp='Xi'an', pri
 2. Spring 从 2.5 版本开始引入了一个新的 p 命名空间，可以通过 \<bean> 元素属性的方式配置 Bean 的属性。
 
 ```xml
-   <bean id="person3" class="com.hbd.beans.collections.Person" p:name="wowosong" p:age="31" p:carList-ref="cars">
-   </bean>
+<bean id="person3" class="com.hbd.beans.collections.Person" p:name="wowosong" p:age="31" p:carList-ref="cars">
+</bean>
 ```
 
 3. 使用 p 命名空间后，基于 XML 的配置方式将进一步简化
@@ -513,7 +513,7 @@ Person{name='wowosong', age=1100, carList=[Car{brand='Mazada', corp='Xi'an', pri
 <bean id="address" class="com.hbd.beans.autoware.Address" p:city="chengdu" p:street="Huayang"></bean>
 <bean id="car" class="com.hbd.beans.autoware.Car" p:price="10000" p:brand="baoma"></bean>
 <bean id="person" class="com.hbd.beans.autoware.Person" p:name="wowosong" p:address="chengduhuayang" p:car-ref="car" p:address-ref="address"></bean>
- <bean id="person2" class="com.hbd.beans.autoware.Person" p:name="wowosong" autowire="byType"></bean>
+<bean id="person2" class="com.hbd.beans.autoware.Person" p:name="wowosong" autowire="byType"></bean>
 ```
 
 3. byName(根据名称自动装配): 必须将目标 Bean 的名称和属性名设置的完全相同.
@@ -522,7 +522,7 @@ Person{name='wowosong', age=1100, carList=[Car{brand='Mazada', corp='Xi'an', pri
 
 ```xml
 <bean id="address" class="com.hbd.beans.autoware.Address" p:city="chengdu" p:street="Huayang">
- </bean>
+</bean>
 
 <bean id="car" class="com.hbd.beans.autoware.Car" p:price="10000" p:brand="baoma"></bean>
 
@@ -593,10 +593,10 @@ Spring 允许继承 bean 的配置, 被继承的 bean 称为父 bean. 继承这�
     singleton：默认值，容器初始化时创建bean实例，在整个容器的生命周期内只创建这一个，单例
     prototype：原型的。容器初始化时不创建bean实例，而在每次请求时都创建一个新的bean实例，并返回
 -->
-    <bean id="car" class="com.hbd.wowosong.scope.Car" scope="prototype">
-        <property name="brand" value="Ford"></property>
-        <property name="price" value="10000" ></property>
-    </bean>
+<bean id="car" class="com.hbd.wowosong.scope.Car" scope="prototype">
+    <property name="brand" value="Ford"></property>
+    <property name="price" value="10000" ></property>
+</bean>
 ```
 
 | 类别      | 说明                                                         |
@@ -623,13 +623,13 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
 
    ```xml
    <!--导入属性文件-->
-       <context:property-placeholder location="db.properties"></context:property-placeholder>
-       <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-           <property name="user" value="${user}"></property>
-           <property name="password" value="${password}" ></property>
-           <property name="driverClass" value="${driveClass}" ></property>
-           <property name="jdbcUrl" value="${jdbcUrl}" ></property>
-       </bean>
+   <context:property-placeholder location="db.properties"></context:property-placeholder>
+   <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+       <property name="user" value="${user}"></property>
+       <property name="password" value="${password}" ></property>
+       <property name="driverClass" value="${driveClass}" ></property>
+       <property name="jdbcUrl" value="${jdbcUrl}" ></property>
+   </bean>
    ```
 
    ```properties
@@ -768,26 +768,26 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
 ```
 
 ```xml
-    <bean id="address" class="com.hbd.wowosong.spel.Address">
-				<!--        使用spel为属性赋值一个字面值-->
-        <property name="city" value="#{'Beijing'}"></property>
-        <property name="street" value="WudaoKou"></property>
-    </bean>
-    <bean id="car" class="com.hbd.wowosong.spel.Car">
-        <property name="brand" value="Audo8"></property>
-        <property name="price" value="500000"></property>
-				<!--        使用SpEL引用类的静态属性-->
-        <property name="tyrePermiter" value="#{T(java.lang.Math).PI*80}"></property>
-    </bean>
-    <bean id="person" class="com.hbd.wowosong.spel.Person">
-				<!--        使用SpEl引用其他bean-->
-        <property name="car" value="#{car}"></property>
-				<!--        使用SpEL引用其他bean的属性-->
-        <property name="city" value="#{address.city}"></property>
-				<!--        使用SpEl中使用运算符-->
-        <property name="info" value="#{car.price>30000?'金领':'白领'}"></property>
-        <property name="name" value="Tom"></property>
-    </bean>
+<bean id="address" class="com.hbd.wowosong.spel.Address">
+    <!--        使用spel为属性赋值一个字面值-->
+    <property name="city" value="#{'Beijing'}"></property>
+    <property name="street" value="WudaoKou"></property>
+</bean>
+<bean id="car" class="com.hbd.wowosong.spel.Car">
+    <property name="brand" value="Audo8"></property>
+    <property name="price" value="500000"></property>
+    <!--        使用SpEL引用类的静态属性-->
+    <property name="tyrePermiter" value="#{T(java.lang.Math).PI*80}"></property>
+</bean>
+<bean id="person" class="com.hbd.wowosong.spel.Person">
+    <!--        使用SpEl引用其他bean-->
+    <property name="car" value="#{car}"></property>
+    <!--        使用SpEL引用其他bean的属性-->
+    <property name="city" value="#{address.city}"></property>
+    <!--        使用SpEl中使用运算符-->
+    <property name="info" value="#{car.price>30000?'金领':'白领'}"></property>
+    <property name="name" value="Tom"></property>
+</bean>
 ```
 
 ##  IOC 容器中 Bean 的生命周期
@@ -806,7 +806,7 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
 
   ```xml
   <bean id="car" class="com.hbd.wowosong.cycle.Car" init-method="init" destroy-method="destory">
-          <property name="brand" value="Audo A7"></property>
+      <property name="brand" value="Audo A7"></property>
   </bean>
   ```
 
@@ -834,8 +834,8 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
       @Override
       public String toString() {
           return "Car{" +
-                  "brand='" + brand + '\'' +
-                  '}';
+              "brand='" + brand + '\'' +
+              '}';
       }
   }
   ```
@@ -849,7 +849,7 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
 * 对Bean 后置处理器而言, 需要实现BeanPostProcessor 接口. 在初始化方法被调用前后, Spring 将把每个 Bean 实例分别传递给上述接口的以下两个方法:
 
 ```java
-  /**
+/**
   	 * Apply this BeanPostProcessor to the given new bean instance <i>before</i> any bean
   	 * initialization callbacks (like InitializingBean's {@code afterPropertiesSet}
   	 * or a custom init-method). The bean will already be populated with property values.
@@ -861,8 +861,8 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
   	 * @throws org.springframework.beans.BeansException in case of errors
   	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet
   	 */
-  	Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException;
-  	/**
+Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException;
+/**
   	 * Apply this BeanPostProcessor to the given new bean instance <i>after</i> any bean
   	 * initialization callbacks (like InitializingBean's {@code afterPropertiesSet}
   	 * or a custom init-method). The bean will already be populated with property values.
@@ -882,7 +882,7 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
   	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet
   	 * @see org.springframework.beans.factory.FactoryBean
   	 */
-  	Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException;
+Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException;
 ```
 
   ```xml
@@ -893,7 +893,7 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
       返回值：返回到用户的bean，注意：可以在以上两个方法中修改返回的bean，甚至返回一个新的bean
       配置后置处理器：不需要配置id，IOC容器自动识别是一个BeanPostProcessor后置处理器
    -->
-      <bean class="com.hbd.wowosong.cycle.MyBeanPostProcessor"></bean>
+  <bean class="com.hbd.wowosong.cycle.MyBeanPostProcessor"></bean>
   ```
 
   ```java
@@ -1066,11 +1066,11 @@ public class CarFactoryBean implements FactoryBean<Car> {
 
 ```xml
 <!--
-        通过FactoryBean来配置bean实例
-        class指向FactroyBean的全类名
-        property：配置FactoryBean的属性
-        但是实际返回的实例指向FactoryBean的getObject方法返回的bean实例
-    -->
+  通过FactoryBean来配置bean实例
+   class指向FactroyBean的全类名
+   roperty：配置FactoryBean的属性
+   但是实际返回的实例指向FactoryBean的getObject方法返回的bean实例
+-->
 <bean id="car" class="com.hbd.wowosong.factorybean.CarFactoryBean">
     <property name="brand" value="BMW"></property>
 </bean>
@@ -1106,8 +1106,8 @@ public class CarFactoryBean implements FactoryBean<Car> {
 
    ```xml
    <context:component-scan base-package="com.hbd.wowosong.annotation">
-   <context:exclude-filter type="annotation"expression="org.springframework.stereotype.Repository"/>
-       </context:component-scan>
+       <context:exclude-filter type="annotation"expression="org.springframework.stereotype.Repository"/>
+   </context:component-scan>
    <!--指定SpringIOC容器扫描的包-->
    ```
    
@@ -2230,7 +2230,7 @@ public void purcharse(String username, String isbn) {
 <tx:advice id="txAdvice" transaction-manager="transactionManager">
     <tx:attributes>
         <tx:method name="*"/>
-        <!--            根据方法名，指定事务属性-->
+        <!--根据方法名，指定事务属性-->
         <tx:method name="purcharse" propagation="REQUIRES_NEW" rollback-for="" isolation="READ_COMMITTED" no-rollback-for=""></tx:method>
         <tx:method name="find*" read-only="true" timeout="30"></tx:method>
     </tx:attributes>
@@ -2277,7 +2277,7 @@ public void purcharse(String username, String isbn) {
 <tx:advice id="txAdvice" transaction-manager="transactionManager">
     <tx:attributes>
         <tx:method name="*"/>
-        <!--            根据方法名，指定事务属性-->
+        <!--根据方法名，指定事务属性-->
         <tx:method name="purcharse" propagation="REQUIRES_NEW" rollback-for="" isolation="READ_COMMITTED" no-rollback-for=""></tx:method>
         <tx:method name="find*" read-only="true"></tx:method>
     </tx:attributes>
@@ -2305,10 +2305,9 @@ public void purcharse(String username, String isbn) {
   //noRollbackFor = UserAccountException.class)
   //4.使用readonly 指定事务为只读，表示这个事务只读数据不更新数据，可以数据库引擎进行优化事务;若真的是一个只读数据的方法，应设置readonly=true
   //5.timeout可以指定事务强制回滚前，事务可以占用的时间
-  @Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED,
-                 readOnly = false,timeout = 3)
+  @Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED,readOnly = false,timeout = 3)
   ```
-
+  
 * 在 Spring 2.x 事务通知中, 超时和只读属性可以在 <tx:method> 元素中进行指定.
 
 ```xml
