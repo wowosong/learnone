@@ -2,7 +2,6 @@
 
 ![img](https://gitee.com/wowosong/pic-md/blob/master/20210910091025.webp)
 
-https://gitee.com/wowosong/pic-md/blob/master/1641957764-098f630845e3f7f4ae917a0e2c82745b.png
 
 现在是时候解决容器网络问题了。或者更准确地说，单主机容器网络问题。本文会回答这些问题：
 

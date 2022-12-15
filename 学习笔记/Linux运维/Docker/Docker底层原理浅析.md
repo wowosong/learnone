@@ -194,7 +194,7 @@ COPY bar /bar
 
 在构建时的输出所代表的含义了。
 
-![图片](https://mmbiz.qpic.cn/mmbiz_jpg/j3gficicyOvasYrf0CiabxIpGJ7hz90zBmLV5EPhea68A7VBz6EfhiauqU4WX2Nj0tU5Cw6U1YJUgxCtZnUuWaG5SA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151526890.webp) 
 
 但是使用 docker pull 拉取的镜像文件，在本地机器上存储在哪，又是如何管理的呢？还是来实际操作认证一下。在 devcloud 上确认当前 docker 所使用的存储驱动（默认是 overlay2）：
 

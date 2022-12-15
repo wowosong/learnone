@@ -204,18 +204,18 @@ public class LinuxCondition implements Condition {
 ```
 
 ```java
-		//放在方法上
-    @Conditional(value = WindowsCondition.class)
-    @Bean("person1")
-    public Person person1(){
-        System.out.println("给容器添加person1...");
-        return new Person("1","Bill Gates",54);
-    };
+//放在方法上
+@Conditional(value = WindowsCondition.class)
+@Bean("person1")
+public Person person1(){
+    System.out.println("给容器添加person1...");
+    return new Person("1","Bill Gates",54);
+};
 ```
 
 ```java
-    @Conditional({WindowsCondition.class})
-    //满足当前条件,这个类下配置的所有bean才会生效
+@Conditional({WindowsCondition.class})
+//满足当前条件,这个类下配置的所有bean才会生效
 ```
 
 #### @Import
@@ -1027,7 +1027,7 @@ public class MainConfigOfAOP {
 #### 创建AOP代理
 
 ```java
-	/** AnnotationAwareAspectJAutoProxyCreator【InstantiationAwareBeanPostProcessor】	的作用：
+/** AnnotationAwareAspectJAutoProxyCreator【InstantiationAwareBeanPostProcessor】	的作用：
  * 1）、每一个bean创建之前,调用postProcessBeforeInstantiation();
         从resolveBeforeInstantiation方法进入
  * 		关心MathCalculator和LogAspect的创建

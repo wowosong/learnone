@@ -79,12 +79,12 @@ xhr.send(body) //get 请求不传 body 参数， 只有 post 请求使用
 ```javascript
 //xhr.responseXML 接收 xml 格式的响应数据
 //xhr.responseText 接收文本格式的响应数据
-  xhr.onreadystatechange = function (){
+xhr.onreadystatechange = function (){
     if(xhr.readyState == 4 && xhr.status == 200){
-    var text = xhr.responseText;
-    console.log(text);
+        var text = xhr.responseText;
+        console.log(text);
     }
- }
+}
 ```
 
 ###     1.4.3 解决 IE 缓存问题
