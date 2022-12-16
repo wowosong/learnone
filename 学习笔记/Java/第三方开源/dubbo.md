@@ -22,15 +22,13 @@ dubbo
 
 ### 1.2）、发展演变
 
-![img](./dubbo.assets/wpsZ6K2rX.png) 
-
- 
+![www.yalijuda.com_202212152247998_AGmpiBfDLU](https://gitee.com/wowosong/pic-md/raw/master/202212152252539.png)
 
 #### **单一应用架构**
 
 当网站流量很小时，只需一个应用，将所有功能都部署在一起，以减少部署节点和成本。此时，用于简化增删改查工作量的数据访问框架(ORM)是关键。
 
-![img](./dubbo.assets/wps5hx0he.jpg) 
+![img](https://gitee.com/wowosong/pic-md/raw/master/202212152247048.jpg) 
 
 适用于小型网站，小型管理系统，将所有功能都部署到一个功能里，简单易用。
 
@@ -46,7 +44,7 @@ dubbo
 
 当访问量逐渐增大，单一应用增加机器带来的加速度越来越小，将应用拆成互不相干的几个应用，以提升效率。此时，用于加速前端页面开发的Web框架(MVC)是关键。
 
-![img](./dubbo.assets/wpsMipwu9.jpg) 
+![img](https://gitee.com/wowosong/pic-md/raw/master/202212152252422.jpg) 
 
 通过切分业务来实现各个模块独立部署，降低了维护和部署的难度，团队各司其职更易管理，性能扩展也更方便，更有针对性。
 
@@ -56,7 +54,7 @@ dubbo
 
 当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。此时，用于提高业务复用及整合的***\*分布式服务框架(RPC)\****是关键。
 
-![img](./dubbo.assets/wpszWFq84.jpg) 
+![img](https://gitee.com/wowosong/pic-md/raw/master/202212152253081.jpg) 
 
  
 
@@ -64,7 +62,7 @@ dubbo
 
 当服务越来越多，容量的评估，小服务资源的浪费等问题逐渐显现，此时需增加一个调度中心基于访问压力实时管理集群容量，提高集群利用率。此时，用于***\*提高机器利用率的资源调度和治理中心\*******\*(SOA)\*******\*[ Service Oriented Architecture]\*******\*是关键\****。
 
-![img](./dubbo.assets/wpsfPbRfY.jpg) 
+![img](https://gitee.com/wowosong/pic-md/raw/master/202212152253096.jpg) 
 
  
 
@@ -78,9 +76,9 @@ RPC【Remote Procedure Call】是指远程过程调用，是一种进程间通�
 
 #### **RPC基本原理**
 
-![img](./dubbo.assets/wpsu9DRhc.jpg) 
+![img](https://gitee.com/wowosong/pic-md/raw/master/202212152253152.jpg) 
 
-![img](./dubbo.assets/wps1fbRIK.jpg) 
+![img](https://gitee.com/wowosong/pic-md/raw/master/202212152253835.jpg) 
 
 RPC两个核心模块：通讯，序列化。
 
@@ -98,7 +96,7 @@ http://dubbo.apache.org/
 
 ### 2.2）、基本概念
 
-![img](./dubbo.assets/wpsu960f3.jpg) 
+![img](https://gitee.com/wowosong/pic-md/raw/master/202212152253113.jpg) 
 
 ​	**服务提供者（Provider）**：暴露服务的服务提供方，服务提供者在启动时，向注册中心注册自己提供的服务。
 
@@ -135,11 +133,11 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 
 但是为了让用户更好的管理监控众多的dubbo服务，官方提供了一个可视化的监控程序，不过这个监控即使不装也不影响使用。
 
-| 1、下载dubbo-adminhttps://github.com/apache/incubator-dubbo-ops ![img](./dubbo.assets/wpsbvcLfc.jpg) |
+| 1、下载dubbo-adminhttps://github.com/apache/incubator-dubbo-ops ![img](https://gitee.com/wowosong/pic-md/raw/master/202212152253658.jpg) |
 | ------------------------------------------------------------ |
-| 2、进入目录，修改dubbo-admin配置修改 src\main\resources\application.properties 指定zookeeper地址![img](./dubbo.assets/wpsWPAEeZ.jpg) |
+| 2、进入目录，修改dubbo-admin配置修改 src\main\resources\application.properties 指定zookeeper地址![img](https://gitee.com/wowosong/pic-md/raw/master/202212152253612.jpg) |
 | 3、打包dubbo-adminmvn clean package -Dmaven.test.skip=true   |
-| 4、运行dubbo-adminjava -jar dubbo-admin-0.0.1-SNAPSHOT.jar注意：【有可能控制台看着启动了，但是网页打不开，需要在控制台按下ctrl+c即可】默认使用root/root 登陆![img](./dubbo.assets/wpswsLvug.jpg) |
+| 4、运行dubbo-adminjava -jar dubbo-admin-0.0.1-SNAPSHOT.jar注意：【有可能控制台看着启动了，但是网页打不开，需要在控制台按下ctrl+c即可】默认使用root/root 登陆![img](https://gitee.com/wowosong/pic-md/raw/master/202212152253093.jpg) |
 
  
 
@@ -151,11 +149,11 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 
 #### **1****、****安装jdk**
 
-| 1、下载jdkhttp://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html![img](./dubbo.assets/wpsJtDRu6.jpg) 不要使用wget命令获取jdk链接，这是默认不同意，导致下载来的jdk压缩内容错误 |
+| 1、下载jdkhttp://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html![img](https://gitee.com/wowosong/pic-md/raw/master/202212152255765.jpg) 不要使用wget命令获取jdk链接，这是默认不同意，导致下载来的jdk压缩内容错误 |
 | ------------------------------------------------------------ |
-| 2、上传到服务器并解压![img](./dubbo.assets/wpsL7ZpRp.jpg) |
-| 3、设置环境变量/usr/local/java/jdk1.8.0_171![img](./dubbo.assets/wpspwgMoY.jpg) 文件末尾加入下面配置export JAVA_HOME=/usr/local/java/jdk1.8.0_171export JRE_HOME=${JAVA_HOME}/jreexport CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/libexport PATH=${JAVA_HOME}/bin:$PATH![img](./dubbo.assets/wpsQBc4Jf.jpg) |
-| 4、使环境变量生效&测试JDK![img](./dubbo.assets/wpspXd0mQ.jpg) |
+| 2、上传到服务器并解压![img](https://gitee.com/wowosong/pic-md/raw/master/202212152255773.jpg) |
+| 3、设置环境变量/usr/local/java/jdk1.8.0_171![img](https://gitee.com/wowosong/pic-md/raw/master/202212152255927.jpg) 文件末尾加入下面配置export JAVA_HOME=/usr/local/java/jdk1.8.0_171export JRE_HOME=${JAVA_HOME}/jreexport CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/libexport PATH=${JAVA_HOME}/bin:$PATH![img](https://gitee.com/wowosong/pic-md/raw/master/202212152255275.jpg) |
+| 4、使环境变量生效&测试JDK![img](https://gitee.com/wowosong/pic-md/raw/master/202212152255628.jpg) |
 
  
 
@@ -163,8 +161,8 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 
 | 1、下载zookeeper网址 https://archive.apache.org/dist/zookeeper/zookeeper-3.4.11/ wget https://archive.apache.org/dist/zookeeper/zookeeper-3.4.11/zookeeper-3.4.11.tar.gz |
 | ------------------------------------------------------------ |
-| 2、解压![img](./dubbo.assets/wpswcCaQN.jpg) |
-| 3、移动到指定位置并改名为zookeeper![img](./dubbo.assets/wpsPcmvbt.jpg) ![img](./dubbo.assets/wpsEcysLm.jpg) |
+| 2、解压![img](https://gitee.com/wowosong/pic-md/raw/master/202212152256574.jpg) |
+| 3、移动到指定位置并改名为zookeeper![img](https://gitee.com/wowosong/pic-md/raw/master/202212152256228.jpg) ![img](./dubbo.assets/wpsEcysLm.jpg) |
 
  
 
@@ -172,42 +170,42 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 
 #### **3**、开机启动zookeeper
 
-1）-复制如下脚本#!/bin/bash#chkconfig:2345 20 90#description:zookeeper#processname:zookeeperZK_PATH=/usr/local/zookeeperexport JAVA_HOME=/usr/local/java/jdk1.8.0_171case $1 in     start) sh  $ZK_PATH/bin/zkServer.sh start;;     stop)  sh  $ZK_PATH/bin/zkServer.sh stop;;     status) sh  $ZK_PATH/bin/zkServer.sh status;;     restart) sh $ZK_PATH/bin/zkServer.sh restart;;     *)  echo "require start|stop|status|restart"  ;;esac ![img](./dubbo.assets/wpscrISUr.jpg) 2）-把脚本注册为Service![img](./dubbo.assets/wpsfVIAwS.jpg) 3）-增加权限![img](./dubbo.assets/wpscnpHpF.jpg) 
+1）-复制如下脚本#!/bin/bash#chkconfig:2345 20 90#description:zookeeper#processname:zookeeperZK_PATH=/usr/local/zookeeperexport JAVA_HOME=/usr/local/java/jdk1.8.0_171case $1 in     start) sh  $ZK_PATH/bin/zkServer.sh start;;     stop)  sh  $ZK_PATH/bin/zkServer.sh stop;;     status) sh  $ZK_PATH/bin/zkServer.sh status;;     restart) sh $ZK_PATH/bin/zkServer.sh restart;;     *)  echo "require start|stop|status|restart"  ;;esac ![img](https://gitee.com/wowosong/pic-md/raw/master/202212152256620.jpg) 2）-把脚本注册为Service![img](https://gitee.com/wowosong/pic-md/raw/master/202212152256341.jpg) 3）-增加权限![img](./dubbo.assets/wpscnpHpF.jpg) 
 
  
 
-#### **4****、****配置****z****ookeeper**
+#### **4****、配置zookeeper**
 
-| 1、初始化zookeeper配置文件拷贝/usr/local/zookeeper/conf/zoo_sample.cfg  到同一个目录下改个名字叫zoo.cfg![img](./dubbo.assets/wpsQAK33b.jpg) |
+| 1、初始化zookeeper配置文件拷贝/usr/local/zookeeper/conf/zoo_sample.cfg  到同一个目录下改个名字叫zoo.cfg![img](https://gitee.com/wowosong/pic-md/raw/master/202212152256262.jpg) |
 | ------------------------------------------------------------ |
-| 2、启动zookeeper![img](./dubbo.assets/wps0chahR.jpg) |
+| 2、启动zookeeper![img](https://gitee.com/wowosong/pic-md/raw/master/202212152256594.jpg) |
 
  
 
 ### 3.4）、【linux】-安装dubbo-admin管理控制台
 
-#### **1、安装Tomcat****8****（旧版d****ubbo-admin是war****，****新版是****j****ar不需要安装****T****omcat****）**
+#### **1、安装Tomcat8（旧版dubbo-admin是war，新版是jar不需要安装Tomcat）
 
 | 1、下载Tomcat8并解压https://tomcat.apache.org/download-80.cgiwget http://mirrors.shu.edu.cn/apache/tomcat/tomcat-8/v8.5.32/bin/apache-tomcat-8.5.32.tar.gz |
 | ------------------------------------------------------------ |
-| 2、解压移动到指定位置![img](./dubbo.assets/wpscXDdHW.jpg) |
-| 3、开机启动tomcat8![img](./dubbo.assets/wpsTyUfDh.jpg) 复制如下脚本#!/bin/bash#chkconfig:2345 21 90#description:apache-tomcat-8#processname:apache-tomcat-8CATALANA_HOME=/opt/apache-tomcat-8.5.32export JAVA_HOME=/opt/java/jdk1.8.0_171case $1 instart)  echo "Starting Tomcat..."    $CATALANA_HOME/bin/startup.sh  ;; stop)  echo "Stopping Tomcat..."    $CATALANA_HOME/bin/shutdown.sh  ;; restart)  echo "Stopping Tomcat..."    $CATALANA_HOME/bin/shutdown.sh  sleep 2  echo    echo "Starting Tomcat..."    $CATALANA_HOME/bin/startup.sh  ;;*)  echo "Usage: tomcat {start\|stop\|restart}"    ;; esac |
-| 4、注册服务&添加权限![img](./dubbo.assets/wpssNVzdi.jpg) ![img](./dubbo.assets/wpscXqHaj.jpg) |
-| 5、启动服务&访问tomcat测试![img](./dubbo.assets/wps1al6GR.jpg) ![img](./dubbo.assets/wpsertOHc.jpg) |
+| 2、解压移动到指定位置![img](https://gitee.com/wowosong/pic-md/raw/master/202212152257407.jpg) |
+| 3、开机启动tomcat8![img](https://gitee.com/wowosong/pic-md/raw/master/202212152257902.jpg) 复制如下脚本#!/bin/bash#chkconfig:2345 21 90#description:apache-tomcat-8#processname:apache-tomcat-8CATALANA_HOME=/opt/apache-tomcat-8.5.32export JAVA_HOME=/opt/java/jdk1.8.0_171case $1 instart)  echo "Starting Tomcat..."    $CATALANA_HOME/bin/startup.sh  ;; stop)  echo "Stopping Tomcat..."    $CATALANA_HOME/bin/shutdown.sh  ;; restart)  echo "Stopping Tomcat..."    $CATALANA_HOME/bin/shutdown.sh  sleep 2  echo    echo "Starting Tomcat..."    $CATALANA_HOME/bin/startup.sh  ;;*)  echo "Usage: tomcat {start\|stop\|restart}"    ;; esac |
+| 4、注册服务&添加权限![img](https://gitee.com/wowosong/pic-md/raw/master/202212152257058.jpg) ![img](https://gitee.com/wowosong/pic-md/raw/master/202212152257337.jpg) |
+| 5、启动服务&访问tomcat测试![img](https://gitee.com/wowosong/pic-md/raw/master/202212152257364.jpg) ![img](https://gitee.com/wowosong/pic-md/raw/master/202212152257929.jpg) |
 
  
 
-#### **2、****安装****d****ubbo-admin**
+#### 2、安装dubbo-admin
 
 dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你的java程序连接到zookeeper，并利用zookeeper消费、提供服务。所以你不用在Linux上启动什么dubbo服务。
 
 但是为了让用户更好的管理监控众多的dubbo服务，官方提供了一个可视化的监控程序，不过这个监控即使不装也不影响使用。
 
-| 1、下载dubbo-adminhttps://github.com/apache/incubator-dubbo-ops ![img](./dubbo.assets/wps1TSSJk.jpg) |
+| 1、下载dubbo-adminhttps://github.com/apache/incubator-dubbo-ops ![img](https://gitee.com/wowosong/pic-md/raw/master/202212152257433.jpg) |
 | ------------------------------------------------------------ |
-| 2、进入目录，修改dubbo-admin配置修改 src\main\resources\application.properties 指定zookeeper地址![img](./dubbo.assets/wps8FkIBi.jpg) |
+| 2、进入目录，修改dubbo-admin配置修改 src\main\resources\application.properties 指定zookeeper地址![img](https://gitee.com/wowosong/pic-md/raw/master/202212152257470.jpg) |
 | 3、打包dubbo-adminmvn clean package -Dmaven.test.skip=true   |
-| 4、运行dubbo-adminjava -jar dubbo-admin-0.0.1-SNAPSHOT.jar默认使用root/root 登陆![img](./dubbo.assets/wpsywH2k9.jpg) |
+| 4、运行dubbo-adminjava -jar dubbo-admin-0.0.1-SNAPSHOT.jar默认使用root/root 登陆![img](https://gitee.com/wowosong/pic-md/raw/master/202212152258492.jpg) |
 
  
 
@@ -252,37 +250,74 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 
 不建议使用过于抽象的通用接口，如：Map query(Map)，这样的接口没有明确语义，会给后期维护带来不便。
 
-![img](./dubbo.assets/wpsJjrkqE.jpg) 
+![img](https://gitee.com/wowosong/pic-md/raw/master/202212152258281.jpg) 
 
 ### 4.3）、创建模块
 
-#### **1****、****gmall-interface****：****公共接口层****（model，service，exception****…****）**
+#### **1**、gmall-interface：公共接口层（model，service，exception…）
 
 | 作用：定义公共接口，也可以导入公共依赖                       |
 | ------------------------------------------------------------ |
 | 1、Bean模型***\*public class\**** UserAddress ***\*implements\**** Serializable{   ***\*private\**** Integer ***\*id\****;   ***\*private\**** String ***\*userAddress\****;   ***\*private\**** String ***\*userId\****;   ***\*private\**** String ***\*consignee\****;   ***\*private\**** String ***\*phoneNum\****;   ***\*private\**** String ***\*isDefault\****;} |
 | 3、Service接口UserService***\*public\**** List<UserAddress> getUserAddressList(String userId) |
-| ![img](./dubbo.assets/wpsZqUTma.jpg) |
+| ![img](https://gitee.com/wowosong/pic-md/raw/master/202212152258133.jpg) |
 
  
 
 #### **2****、gmall-user：用户模块（对用户接口的实现）**
 
-| 1、pom.xml <dependencies> 	<dependency> 		<groupId>com.atguigu.dubbo</groupId> 		<artifactId>gmall-interface</artifactId> 		<version>0.0.1-SNAPSHOT</version> 	</dependency> </dependencies> |
-| ------------------------------------------------------------ |
-| 2、Service***\*public\**** ***\*class\**** UserServiceImpl ***\*implements\**** UserService {			@Override	***\*public\**** List<UserAddress> getUserAddressList(String userId) {		// ***\*TODO\**** Auto-generated method stub		***\*return\**** userAddressDao.getUserAddressById(userId);	} } |
+1、pom.xml 
 
- 
+```xml
+<dependencies> 
+    <dependency> 
+        <groupId>com.atguigu.dubbo</groupId> 
+        <artifactId>gmall-interface</artifactId>
+        <version>0.0.1-SNAPSHOT</version> 
+    </dependency> 
+</dependencies>
+```
 
-#### **4****、****gmall****-****order****-****web****：****订单模块****（调用用户模块）**
+2、Service
 
- 
+```java
+public class UserServiceImpl implements UserService {		
+    @Override	
+    public List<UserAddress> getUserAddressList(String userId) {
 
- 
+        return userAddressDao.getUserAddressById(userId);	
+    } 
+}
 
-| 1、pom.xml<dependencies> 	<dependency> 		<groupId>com.atguigu.dubbo</groupId> 		<artifactId>gmall-interface</artifactId> 		<version>0.0.1-SNAPSHOT</version> 	</dependency>  </dependencies> |
-| ------------------------------------------------------------ |
-| 2、测试***\*public\**** ***\*class\**** OrderService {		UserService userService;		/**	 * 初始化订单，查询用户的所有地址并返回	 * ***\*@param\**** userId	 * ***\*@return\****	 */	***\*public\**** List<UserAddress> initOrder(String userId){		***\*return\**** userService.getUserAddressList(userId);	} } |
+```
+
+#### **4**、gmall-order-web：订单模块（调用用户模块）
+
+1、pom.xml
+
+```xml
+<dependencies> 	
+    <dependency> 	
+        <groupId>com.atguigu.dubbo</groupId> 
+        <artifactId>gmall-interface</artifactId> 
+        <version>0.0.1-SNAPSHOT</version> 
+    </dependency> 
+</dependencies>
+```
+
+2、测试
+
+```java
+public class OrderService {	
+    UserService userService;	
+    /*** 初始化订单，查询用户的所有地址并返回	
+    ***param**** 
+    userId	
+    ***@return*/  
+    public  List<UserAddress> initOrder(String userId){
+        return  userService.getUserAddressList(userId);	}
+}
+```
 
 现在这样是无法进行调用的。我们gmall-order-web引入了gmall-interface，但是interface的实现是gmall-user，我们并没有引入，而且实际他可能还在别的服务器中。
 
@@ -290,34 +325,93 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 
 #### **1、改造g****mall-user作为服务提供者**
 
-| 1、引入dubbo		<!-- 引入dubbo -->		<dependency>			<groupId>com.alibaba</groupId>			<artifactId>dubbo</artifactId>			<version>2.6.2</version>		</dependency>	<!-- 由于我们使用zookeeper作为注册中心，所以需要操作zookeeperdubbo 2.6以前的版本引入zkclient操作zookeeper dubbo 2.6及以后的版本引入curator操作zookeeper下面两个zk客户端根据dubbo版本2选1即可-->		<dependency>			<groupId>com.101tec</groupId>			<artifactId>zkclient</artifactId>			<version>0.10</version>		</dependency>		<!-- curator-framework -->		<dependency>			<groupId>org.apache.curator</groupId>			<artifactId>curator-framework</artifactId>			<version>2.12.0</version>		</dependency> |
-| ------------------------------------------------------------ |
-| 2、配置提供者<!--当前应用的名字  -->	<dubbo:application name=**"gmall-user"**></dubbo:application>	<!--指定注册中心的地址  -->  <dubbo:registry address=**"zookeeper://118.24.44.169:2181"** />  <!--使用dubbo协议，将服务暴露在20880端口  -->  <dubbo:protocol name=**"dubbo"** port=**"20880"** />  <!-- 指定需要暴露的服务 -->  <dubbo:service interface=**"com.atguigu.gmall.service.UserService"** ref=**"userServiceImpl"** /> |
-| 3、启动服务	***\*public\**** ***\*static\**** ***\*void\**** main(String[] args) ***\*throws\**** IOException {		ClassPathXmlApplicationContext context = 				***\*new\**** ClassPathXmlApplicationContext("classpath:spring-beans.xml");				System.***\**in\**\***.read(); 	} |
+1、引入dubbo
 
- 
+```xml
+<!-- 引入dubbo -->
+<dependency>		
+    <groupId>com.alibaba</groupId>	
+    <artifactId>dubbo</artifactId>	
+    <version>2.6.2</version>	
+</dependency>	
+<!-- 由于我们使用zookeeper作为注册中心，所以需要操作zookeeperdubbo 
+2.6以前的版本引入zkclient操作zookeeper
+ dubbo 2.6及以后的版本引入curator操作zookeeper下面两个zk客户端根据dubbo版本2选1即可-->		<dependency>		
+     <groupId>com.101tec</groupId>		
+     <artifactId>zkclient</artifactId>	
+     <version>0.10</version>		
+</dependency>	
+<!-- curator-framework -->	
+<dependency>		
+    <groupId>org.apache.curator</groupId>	
+    <artifactId>curator-framework</artifactId>		
+    <version>2.12.0</version>	
+</dependency>
+```
 
- 
+2、配置提供者
 
-#### **2、改造g****mall-order-web作为服务消费者**
+```java
+<!--当前应用的名字  -->
+    <dubbo:application name="gmall-user"></dubbo:application>	
+        <!--指定注册中心的地址  -->  
+        <dubbo:registry address=**"zookeeper://118.24.44.169:2181"/>
+            <!--使用dubbo协议，将服务暴露在20880端口  -->
+            <dubbo:protocol name=**"dubbo"** port="20880" />  
+                <!-- 指定需要暴露的服务 -->  
+                <dubbo:service interface="com.atguigu.gmall.service.UserService" ref="userServiceImpl" />
+```
 
-| 1、引入dubbo		<!-- 引入dubbo -->		<dependency>			<groupId>com.alibaba</groupId>			<artifactId>dubbo</artifactId>			<version>2.6.2</version>		</dependency>	<!-- 由于我们使用zookeeper作为注册中心，所以需要引入zkclient和curator操作zookeeper -->		<dependency>			<groupId>com.101tec</groupId>			<artifactId>zkclient</artifactId>			<version>0.10</version>		</dependency>		<!-- curator-framework -->		<dependency>			<groupId>org.apache.curator</groupId>			<artifactId>curator-framework</artifactId>			<version>2.12.0</version>		</dependency> |
-| ------------------------------------------------------------ |
-| 2、配置消费者信息<!-- 应用名 -->	<dubbo:application name=**"gmall-order-web"**></dubbo:application>	<!-- 指定注册中心地址 -->	<dubbo:registry address=**"zookeeper://118.24.44.169:2181"** />	<!-- 生成远程服务代理，可以和本地bean一样使用demoService -->	<dubbo:reference id=**"userService"** interface=**"com.atguigu.gmall.service.UserService"**></dubbo:reference> |
+3、启动服务	
 
- 
+```java
+public static void  main(String[] args)  throws  IOException {
+    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring-beans.xml");				System.in.read(); 	
+}
+```
 
- 
+#### **2、改造gmall-order-web作为服务消费者**
+
+1、引入dubbo	
+
+```xml
+<!-- 引入dubbo -->		
+<dependency>			
+    <groupId>com.alibaba</groupId>		
+    <artifactId>dubbo</artifactId>		
+    <version>2.6.2</version>	
+</dependency>	
+<!-- 由于我们使用zookeeper作为注册中心，所以需要引入zkclient和curator操作zookeeper -->	<dependency>		
+    <groupId>com.101tec</groupId>		
+    <artifactId>zkclient</artifactId>	
+    <version>0.10</version>		
+</dependency>	
+<!-- curator-framework -->	
+<dependency>		
+    <groupId>org.apache.curator</groupId>
+    <artifactId>curator-framework</artifactId>	
+    <version>2.12.0</version>	
+</dependency>
+```
+
+2、配置消费者信息
+
+```xml
+<!-- 应用名 -->
+<dubbo:application name="gmall-order-web">
+</dubbo:application>
+<!-- 指定注册中心地址 -->
+<dubbo:registry address="zookeeper://118.24.44.169:2181"/>
+<!-- 生成远程服务代理，可以和本地bean一样使用demoService -->	
+<dubbo:reference id="userService"interface="com.atguigu.gmall.service.UserService">
+</dubbo:reference> 
+```
 
 #### **3、测试调用**
 
 访问gmall-order-web的initOrder请求，会调用UserService获取用户地址；
 
 调用成功。说明我们order已经可以调用远程的UserService了；
-
- 
-
- 
 
 #### **4、注解版**
 
@@ -345,10 +439,10 @@ dubbo本身并不是一个服务软件。它其实就是一个jar包能够帮你
 
 | 1、下载 dubbo-opshttps://github.com/apache/incubator-dubbo-ops |
 | ------------------------------------------------------------ |
-| 2、修改配置指定注册中心地址进入 dubbo-monitor-simple\src\main\resources\conf修改 dubbo.properties文件![img](./dubbo.assets/wpsjSfG4u.jpg) |
+| 2、修改配置指定注册中心地址进入 dubbo-monitor-simple\src\main\resources\conf修改 dubbo.properties文件![img](https://gitee.com/wowosong/pic-md/raw/master/202212152310070.jpeg) |
 | 3、打包dubbo-monitor-simplemvn clean package -Dmaven.test.skip=true |
-| 4、解压 tar.gz 文件，并运行start.bat![img](./dubbo.assets/wpsHta7Pq.jpg) 如果缺少servlet-api，自行导入servlet-api再访问监控中心 |
-| 5、启动访问8080![img](./dubbo.assets/wps6sPie5.jpg) |
+| 4、解压 tar.gz 文件，并运行start.bat![img](https://gitee.com/wowosong/pic-md/raw/master/202212152310832.jpg) 如果缺少servlet-api，自行导入servlet-api再访问监控中心 |
+| 5、启动访问8080![img](https://gitee.com/wowosong/pic-md/raw/master/202212152310326.jpg) |
 
  
 

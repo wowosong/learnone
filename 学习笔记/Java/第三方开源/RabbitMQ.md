@@ -255,30 +255,30 @@ rabbitmqctl start_app
 ```xml
 <!--指定 jdk 编译版本--> 
 <build> 
-  <plugins>
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-compiler-plugin</artifactId> 
-      <configuration>
-        <source>8</source>
-        <target>8</target>
-		</configuration>
-	</plugin>
-</plugins>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId> 
+            <configuration>
+                <source>8</source>
+                <target>8</target>
+            </configuration>
+        </plugin>
+    </plugins>
 </build>
 <dependencies>
-<!--rabbitmq 依赖客户端--> 
+    <!--rabbitmq 依赖客户端--> 
     <dependency> 
-      <groupId>com.rabbitmq</groupId>
-      <artifactId>amqp-client</artifactId> 
-      <version>5.8.0</version>
+        <groupId>com.rabbitmq</groupId>
+        <artifactId>amqp-client</artifactId> 
+        <version>5.8.0</version>
     </dependency>
-  <!--操作文件流的一个依赖-->
+    <!--操作文件流的一个依赖-->
     <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.6</version>
-  </dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>2.6</version>
+    </dependency>
 </dependencies>
 ```
 
@@ -286,17 +286,17 @@ rabbitmqctl start_app
 
 ```java
 public class Producer {
-private final static String QUEUE_NAME = "hello";
-public static void main(String[] args) throws Exception {
-    //创建一个连接工厂
-    ConnectionFactory factory = new ConnectionFactory();
-    factory.setHost("182.92.234.71");
-    factory.setUsername("admin");
-    factory.setPassword("123");
-    //channel 实现了自动 close 接口 自动关闭 不需要显示关闭
-    try(Connection connection = factory.newConnection();
-        Channel channel =  connection.createChannel()) {
-      /**
+    private final static String QUEUE_NAME = "hello";
+    public static void main(String[] args) throws Exception {
+        //创建一个连接工厂
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("182.92.234.71");
+        factory.setUsername("admin");
+        factory.setPassword("123");
+        //channel 实现了自动 close 接口 自动关闭 不需要显示关闭
+        try(Connection connection = factory.newConnection();
+            Channel channel =  connection.createChannel()) {
+            /**
       * 生成一个队列
       * 1.队列名称
       * 2.队列里面的消息是否持久化 默认消息存储在内存中
@@ -304,19 +304,19 @@ public static void main(String[] args) throws Exception {
       * 4.是否自动删除 最后一个消费者断开连接以后 该队列是否自动删除 true 自动删除
       * 5.其他参数
       */
-      channel.queueDeclare(QUEUE_NAME,false,false,false,null);
-      String message="hello world";
-      /**
+            channel.queueDeclare(QUEUE_NAME,false,false,false,null);
+            String message="hello world";
+            /**
       * 发送一个消息
       * 1.发送到那个交换机
       * 2.路由的 key 是哪个
       * 3.其他的参数信息
       * 4.发送消息的消息体
       */
-      channel.basicPublish("",QUEUE_NAME,null,message.getBytes());
-      System.out.println("消息发送完毕");
-		}
-	} 
+            channel.basicPublish("",QUEUE_NAME,null,message.getBytes());
+            System.out.println("消息发送完毕");
+        }
+    } 
 }
 ```
 
@@ -324,34 +324,34 @@ public static void main(String[] args) throws Exception {
 
 ```java
 public class Consumer {
-  private final static String QUEUE_NAME = "hello";
-  public static void main(String[] args) throws Exception {
-    ConnectionFactory factory = new ConnectionFactory();
-    factory.setHost("182.92.234.71");
-    factory.setUsername("admin");
-    factory.setPassword("123");
-    Connection connection = factory.newConnection();
-    Channel channel = connection.createChannel();
-    System.out.println("等待接收消息....");
-    //推送的消息如何进行消费的接口回调
-    DeliverCallback deliverCallback=(consumerTag,delivery)->{
-      String message= new String(delivery.getBody());
-      System.out.println(message);
-    };
-    //取消消费的一个回调接口 如在消费的时候队列被删除掉了
-    CancelCallback cancelCallback=(consumerTag)->{
-    	System.out.println("消息消费被中断");
-    };
-    /**
+    private final static String QUEUE_NAME = "hello";
+    public static void main(String[] args) throws Exception {
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("182.92.234.71");
+        factory.setUsername("admin");
+        factory.setPassword("123");
+        Connection connection = factory.newConnection();
+        Channel channel = connection.createChannel();
+        System.out.println("等待接收消息....");
+        //推送的消息如何进行消费的接口回调
+        DeliverCallback deliverCallback=(consumerTag,delivery)->{
+            String message= new String(delivery.getBody());
+            System.out.println(message);
+        };
+        //取消消费的一个回调接口 如在消费的时候队列被删除掉了
+        CancelCallback cancelCallback=(consumerTag)->{
+            System.out.println("消息消费被中断");
+        };
+        /**
     * 消费者消费消息
     * 1.消费哪个队列
     * 2.消费成功之后是否要自动应答 true 代表自动应答 false 手动应答
     * 3.消费者成功消费的回调
     * 4.消费者取消消费的回调
     */
-    	channel.basicConsume(QUEUE_NAME,true,deliverCallback,cancelCallback);
+        channel.basicConsume(QUEUE_NAME,true,deliverCallback,cancelCallback);
     } 
- }
+}
 ```
 
 # **3. Work Queues**
@@ -366,17 +366,17 @@ public class Consumer {
 
 ```java
 public class RabbitMqUtils {
-//得到一个连接的 channel
-  public static Channel getChannel() throws Exception{
-    //创建一个连接工厂
-    ConnectionFactory factory = new ConnectionFactory();
-    factory.setHost("182.92.234.71");
-    factory.setUsername("admin");
-    factory.setPassword("123");
-    Connection connection = factory.newConnection();
-    Channel channel = connection.createChannel();
-    return channel;
-  } 
+    //得到一个连接的 channel
+    public static Channel getChannel() throws Exception{
+        //创建一个连接工厂
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("182.92.234.71");
+        factory.setUsername("admin");
+        factory.setPassword("123");
+        Connection connection = factory.newConnection();
+        Channel channel = connection.createChannel();
+        return channel;
+    } 
 }
 ```
 
@@ -384,19 +384,19 @@ public class RabbitMqUtils {
 
 ```Java
 public class Worker01 {
-  private static final String QUEUE_NAME="hello";
-  public static void main(String[] args) throws Exception {
-    Channel channel = RabbitMqUtils.getChannel();
-    DeliverCallback deliverCallback=(consumerTag,delivery)->{
-        String receivedMessage = new String(delivery.getBody());
-        System.out.println("接收到消息:"+receivedMessage);
-    };
-    CancelCallback cancelCallback=(consumerTag)->{
-        System.out.println(consumerTag+"消费者取消消费接口回调逻辑");
-    };
-    System.out.println("C2 消费者启动等待消费......");
-    channel.basicConsume(QUEUE_NAME,true,deliverCallback,cancelCallback);
-   } 
+    private static final String QUEUE_NAME="hello";
+    public static void main(String[] args) throws Exception {
+        Channel channel = RabbitMqUtils.getChannel();
+        DeliverCallback deliverCallback=(consumerTag,delivery)->{
+            String receivedMessage = new String(delivery.getBody());
+            System.out.println("接收到消息:"+receivedMessage);
+        };
+        CancelCallback cancelCallback=(consumerTag)->{
+            System.out.println(consumerTag+"消费者取消消费接口回调逻辑");
+        };
+        System.out.println("C2 消费者启动等待消费......");
+        channel.basicConsume(QUEUE_NAME,true,deliverCallback,cancelCallback);
+    } 
 }
 ```
 
@@ -410,19 +410,19 @@ public class Worker01 {
 
 ```java
 public class Task01 {
-  private static final String QUEUE_NAME="hello";
-  public static void main(String[] args) throws Exception {
-    try(Channel channel=RabbitMqUtils.getChannel();) {
-    channel.queueDeclare(QUEUE_NAME,false,false,false,null);
-    //从控制台当中接受信息
-    Scanner scanner = new Scanner(System.in);
-    while (scanner.hasNext()){
-      String message = scanner.next();
-      channel.basicPublish("",QUEUE_NAME,null,message.getBytes());
-      System.out.println("发送消息完成:"+message);
-			} 
-		}
-	}
+    private static final String QUEUE_NAME="hello";
+    public static void main(String[] args) throws Exception {
+        try(Channel channel=RabbitMqUtils.getChannel();) {
+            channel.queueDeclare(QUEUE_NAME,false,false,false,null);
+            //从控制台当中接受信息
+            Scanner scanner = new Scanner(System.in);
+            while (scanner.hasNext()){
+                String message = scanner.next();
+                channel.basicPublish("",QUEUE_NAME,null,message.getBytes());
+                System.out.println("发送消息完成:"+message);
+            } 
+        }
+    }
 }
 ```
 
@@ -617,7 +617,7 @@ public class Work03 {
 
 要想让消息实现持久化需要在消息生产者修改代码，MessageProperties.PERSISTENT_TEXT_PLAIN 添加这个属性。
 
-![image-20211109115243995](./RabbitMQ.assets/20211109115252.png)
+![image-20211109115243995](https://gitee.com/wowosong/pic-md/raw/master/202212152240938.png)
 
 **$\textcolor{red}{将消息标记为持久化并不能完全保证不会丢失消息}$**。**尽管它告诉 RabbitMQ 将消息保存到磁盘，但是这里依然存在当消息刚准备存储在磁盘的时候 但是还没有存储完，消息还在缓存的一个间隔点。此时并没有真正写入磁盘。**持久性保证并不强，但是对于我们的简单任务队列而言，这已经绰绰有余了。如果需要更强有力的持久化策略，参考**后边课件发布确认章节。**
 
@@ -632,9 +632,9 @@ public class Work03 {
  channel.basicQos(prefetchCount);
 ```
 
-<img src="./RabbitMQ.assets/20211109124406.png" alt="image-20211109124355447" style="zoom:50%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152240993.png" alt="image-20211109124355447" style="zoom:50%;" />
 
-<img src="./RabbitMQ.assets/20211109124425.png" alt="image-20211109124422090" style="zoom:50%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152240282.png" alt="image-20211109124422090" style="zoom:50%;" />
 
 意思就是如果这个任务我还没有处理完或者我还没有应答你，你先别分配给我，我目前只能处理一个任务，然后 rabbitmq 就会把该任务分配给没有那么忙的那个空闲消费者，当然如果所有的消费者都没有完成手上任务，队列还在不停的添加新任务，队列有可能就会遇到队列被撑满的情况，这个时候就只能添加新的 worker 或者改变其他存储任务的策略。
 
@@ -642,17 +642,17 @@ public class Work03 {
 
 本身消息的发送就是异步发送的，所以在任何时候，channel 上肯定不止只有一个消息，另外来自消费者的手动确认本质上也是异步的。因此这里就存在一个**未确认的消息缓冲区**，因此希望开发人员能**限制此缓冲区的大小，以避免缓冲区里面无限制的未确认消息问题**。**这个时候就可以通过使用 basic.qos 方法设置“预取计数”值来完成的。该值定义通道上允许的未确认消息的最大数量**。一旦数量达到配置的数量，RabbitMQ 将停止在通道上传递更多消息，除非至少有一个未处理的消息被确认。
 
-<img src="./RabbitMQ.assets/20211109134001.png" alt="image-20211109133956860" style="zoom:100%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152240111.png" alt="image-20211109133956860" style="zoom:100%;" />
 
 例如，假设在通道上有未确认的消息 5、6、7，8，并且通道的预取计数设置为 4，此时 RabbitMQ 将不会在该通道上再传递任何消息，除非至少有一个未应答的消息被 ack。比方说 tag=6 这个消息刚刚被确认 ACK，RabbitMQ 将会感知这个情况到并再发送一条消息。$\textcolor{red}{消息应答和 QoS 预取值对用户吞吐量有重大影响}$。通常，增加预取将提高向消费者传递消息的速度。**虽然自动应答传输消息速率是最佳的，但是，在这种情况下已传递但尚未处理的消息的数量也会增加，从而增加了消费者的 RAM消耗**(随机存取存储器)应该小心使用具有无限预处理的自动确认模式或手动确认模式，**消费者消费了大量的消息如果没有确认的话，会导致消费者连接节点的内存消耗变大，所以找到合适的预取值是一个反复试验的过程，不同的负载，该值取值也不同 。100 到 300 范围内的值通常可提供最佳的吞吐量，并且不会给消费者带来太大的风险。**预取值为 1 是最保守的。当然这将使吞吐量变得很低，特别是消费者连接延迟很严重的情况下，特别是在消费者连接等待时间较长的环境中。对于大多数应用来说，稍微高一点的值将是最佳的。
 
-<img src="./RabbitMQ.assets/20211109135211.png" alt="image-20211109135204790" style="zoom:50%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152240199.png" alt="image-20211109135204790" style="zoom:50%;" />
 
 # **4.** **发布确认**
 
 ## **4.1.** **发布确认原理**
 
-![image-20211109135748773](./RabbitMQ.assets/20211109135750.png)
+![image-20211109135748773](https://gitee.com/wowosong/pic-md/raw/master/202212152240975.png)
 
 生产者将信道设置成 confirm 模式，一旦信道进入 confirm 模式，**所有在该信道上面发布的消息都将会被指派一个唯一的 ID**(从 1 开始)，一旦消息被投递到所有匹配的队列之后，broker就会发送一个确认给生产者(包含消息的唯一 ID)，这就使得生产者知道消息已经正确到达目的队列了，**如果消息和队列是可持久化的，那么确认消息会在将消息写入磁盘之后发出，**broker 回传给生产者的确认消息中 delivery-tag 域包含了确认消息的序列号，此外 broker 也可以设置basic.ack 的 multiple 域，表示到这个序列号之前的所有消息都已经得到了处理。
 
@@ -677,22 +677,22 @@ channel.confirmSelect();
 
 ```java
 public static void publishMessageSingle() throws Exception {
-        Channel channel = RabbitUtil.getChannel();
-        String uuid = UUID.randomUUID().toString();
-        channel.queueDeclare(uuid,false,false,false,null);
-        channel.confirmSelect();
-        //开始时间
-        long begin=System.currentTimeMillis();
-        for (int i=0;i< MESSAGE_COUNT;i++){
-            String message=i+"";
-            channel.basicPublish("",uuid,null,message.getBytes());
-            boolean confirmFlag=channel.waitForConfirms();
-            if(confirmFlag){
-                System.out.println("消息发送成功");
-            }
+    Channel channel = RabbitUtil.getChannel();
+    String uuid = UUID.randomUUID().toString();
+    channel.queueDeclare(uuid,false,false,false,null);
+    channel.confirmSelect();
+    //开始时间
+    long begin=System.currentTimeMillis();
+    for (int i=0;i< MESSAGE_COUNT;i++){
+        String message=i+"";
+        channel.basicPublish("",uuid,null,message.getBytes());
+        boolean confirmFlag=channel.waitForConfirms();
+        if(confirmFlag){
+            System.out.println("消息发送成功");
         }
-        long end=System.currentTimeMillis();
-        System.out.println("发布" + MESSAGE_COUNT + "个单独确认消息,耗时" + (end - begin) + "ms");
+    }
+    long end=System.currentTimeMillis();
+    System.out.println("发布" + MESSAGE_COUNT + "个单独确认消息,耗时" + (end - begin) + "ms");
 }
 ```
 
@@ -702,33 +702,33 @@ public static void publishMessageSingle() throws Exception {
 
 ```java
 public static void publishMessageBatch() throws Exception {
- try (Channel channel = RabbitMqUtils.getChannel()) {
-   String queueName = UUID.randomUUID().toString();
-   channel.queueDeclare(queueName, false, false, false, null);
-   //开启发布确认
-   channel.confirmSelect();
-   //批量确认消息大小
-   int batchSize = 100;
-   //未确认消息个数
-   int outstandingMessageCount = 0;
-   long begin = System.currentTimeMillis();
-   for (int i = 0; i < MESSAGE_COUNT; i++) {
-     String message = i + "";
-     channel.basicPublish("", queueName, null, message.getBytes());
-     outstandingMessageCount++;
-     if (outstandingMessageCount == batchSize) {
-       channel.waitForConfirms();
-       outstandingMessageCount = 0;
-     }
-   }
-   //为了确保还有剩余没有确认消息 再次确认
-   if (outstandingMessageCount > 0) {
-    channel.waitForConfirms();
-   }
-   long end = System.currentTimeMillis();
-   System.out.println("发布" + MESSAGE_COUNT + "个批量确认消息,耗时" + (end - begin) + 
-  "ms");
-   } 
+    try (Channel channel = RabbitMqUtils.getChannel()) {
+        String queueName = UUID.randomUUID().toString();
+        channel.queueDeclare(queueName, false, false, false, null);
+        //开启发布确认
+        channel.confirmSelect();
+        //批量确认消息大小
+        int batchSize = 100;
+        //未确认消息个数
+        int outstandingMessageCount = 0;
+        long begin = System.currentTimeMillis();
+        for (int i = 0; i < MESSAGE_COUNT; i++) {
+            String message = i + "";
+            channel.basicPublish("", queueName, null, message.getBytes());
+            outstandingMessageCount++;
+            if (outstandingMessageCount == batchSize) {
+                channel.waitForConfirms();
+                outstandingMessageCount = 0;
+            }
+        }
+        //为了确保还有剩余没有确认消息 再次确认
+        if (outstandingMessageCount > 0) {
+            channel.waitForConfirms();
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("发布" + MESSAGE_COUNT + "个批量确认消息,耗时" + (end - begin) + 
+                           "ms");
+    } 
 }
 ```
 
@@ -736,66 +736,66 @@ public static void publishMessageBatch() throws Exception {
 
 异步确认虽然编程逻辑比上两个要复杂，但是性价比最高，无论是可靠性还是效率都没得说，他是利用回调函数来达到消息可靠性传递的，这个中间件也是通过函数回调来保证是否投递成功，下面就让我们来详细讲解异步确认是怎么实现的。
 
-<img src="./RabbitMQ.assets/20211109144657.png" alt="image-20211109144655344" style="zoom:50%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152240887.png" alt="image-20211109144655344" style="zoom:50%;" />
 
 ```java
 public static void publishMessageAsync() throws Exception {
-  try (Channel channel = RabbitUtil.getChannel()) {
-    String queueName = UUID.randomUUID().toString();
-    channel.queueDeclare(queueName, false, false, false, null);
-    //开启发布确认
-    channel.confirmSelect();
-    /**
+    try (Channel channel = RabbitUtil.getChannel()) {
+        String queueName = UUID.randomUUID().toString();
+        channel.queueDeclare(queueName, false, false, false, null);
+        //开启发布确认
+        channel.confirmSelect();
+        /**
      * 线程安全有序的一个哈希表，适用于高并发的情况
      * 1.轻松的将序号与消息进行关联
      * 2.轻松批量删除条目 只要给到序列号
      * 3.支持并发访问
      */
-    ConcurrentSkipListMap<Long, String> outstandingConfirms = new
-      ConcurrentSkipListMap<>();
-    /**
+        ConcurrentSkipListMap<Long, String> outstandingConfirms = new
+            ConcurrentSkipListMap<>();
+        /**
     * 确认收到消息的一个回调
     * 1.消息序列号
     * 2.true 可以确认小于等于当前序列号的消息
     * false 确认当前序列号消息
     */
-    ConfirmCallback ackCallback = (sequenceNumber, multiple) -> {
-      if (multiple) {
-        //返回的是小于等于当前序列号的未确认消息 是一个 map
-        ConcurrentNavigableMap<Long, String> confirmed =
-          outstandingConfirms.headMap(sequenceNumber, true);
-        //清除该部分未确认消息
-        confirmed.clear();
-      } else {
-        //只清除当前序列号的消息
-        outstandingConfirms.remove(sequenceNumber);
-      }
-    };
-    ConfirmCallback nackCallback = (sequenceNumber, multiple) -> {
-      String message = outstandingConfirms.get(sequenceNumber);
-      System.out.println("发布的消息" + message + "未被确认，序列号" + sequenceNumber);
-    };
-    /**
+        ConfirmCallback ackCallback = (sequenceNumber, multiple) -> {
+            if (multiple) {
+                //返回的是小于等于当前序列号的未确认消息 是一个 map
+                ConcurrentNavigableMap<Long, String> confirmed =
+                    outstandingConfirms.headMap(sequenceNumber, true);
+                //清除该部分未确认消息
+                confirmed.clear();
+            } else {
+                //只清除当前序列号的消息
+                outstandingConfirms.remove(sequenceNumber);
+            }
+        };
+        ConfirmCallback nackCallback = (sequenceNumber, multiple) -> {
+            String message = outstandingConfirms.get(sequenceNumber);
+            System.out.println("发布的消息" + message + "未被确认，序列号" + sequenceNumber);
+        };
+        /**
     * 添加一个异步确认的监听器
     * 1.确认收到消息的回调
     * 2.未收到消息的回调
      */
-    channel.addConfirmListener(ackCallback, null);
-    long begin = System.currentTimeMillis();
-    for (int i = 0; i < MESSAGE_COUNT; i++) {
-      String message = "消息" + i;
-      /**
+        channel.addConfirmListener(ackCallback, null);
+        long begin = System.currentTimeMillis();
+        for (int i = 0; i < MESSAGE_COUNT; i++) {
+            String message = "消息" + i;
+            /**
        * channel.getNextPublishSeqNo()获取下一个消息的序列号
        * 通过序列号与消息体进行一个关联
        * 全部都是未确认的消息体
        */
-      outstandingConfirms.put(channel.getNextPublishSeqNo(), message);
-      channel.basicPublish("", queueName, null, message.getBytes());
+            outstandingConfirms.put(channel.getNextPublishSeqNo(), message);
+            channel.basicPublish("", queueName, null, message.getBytes());
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("发布" + MESSAGE_COUNT + "个异步确认消息,耗时" + (end - begin) +
+                           "ms");
     }
-    long end = System.currentTimeMillis();
-    System.out.println("发布" + MESSAGE_COUNT + "个异步确认消息,耗时" + (end - begin) +
-                       "ms");
-  }
 }
 ```
 
@@ -805,65 +805,65 @@ public static void publishMessageAsync() throws Exception {
 
 ```java
 public static void publishMessageAsync() throws Exception {
-  try (Channel channel = RabbitUtil.getChannel()) {
-    String queueName = UUID.randomUUID().toString();
-    channel.queueDeclare(queueName, false, false, false, null);
-    //开启发布确认
-    channel.confirmSelect();
-    /**
+    try (Channel channel = RabbitUtil.getChannel()) {
+        String queueName = UUID.randomUUID().toString();
+        channel.queueDeclare(queueName, false, false, false, null);
+        //开启发布确认
+        channel.confirmSelect();
+        /**
       * 线程安全有序的一个哈希表，适用于高并发的情况
       * 1.轻松的将序号与消息进行关联
       * 2.轻松批量删除条目 只要给到序列号
       * 3.支持并发访问
       */
-    ConcurrentSkipListMap<Long, String> outstandingConfirms = new ConcurrentSkipListMap<>();
-    /**
+        ConcurrentSkipListMap<Long, String> outstandingConfirms = new ConcurrentSkipListMap<>();
+        /**
      * 确认收到消息的一个回调
      * 1.消息序列号
      * 2.true 可以确认小于等于当前序列号的消息
      * false 确认当前序列号消息
      */
-    ConfirmCallback ackCallback = (sequenceNumber, multiple) -> {
-      String message = outstandingConfirms.get(sequenceNumber);
-      if (multiple) {
-        //返回的是小于等于当前序列号的未确认消息 是一个 map
-        ConcurrentNavigableMap<Long, String> confirmed =
-          outstandingConfirms.headMap(sequenceNumber, true);
-        //清除该部分未确认消息
-        confirmed.clear();
-      } else {
-        //只清除当前序列号的消息
-        outstandingConfirms.remove(sequenceNumber);
-      }
-      System.out.println("发布的消息" + message + "已被确认，序列号" + sequenceNumber);
-      System.out.println("确认的消息："+sequenceNumber);
-    };
-    ConfirmCallback nackCallback = (sequenceNumber, multiple) -> {
-      String message = outstandingConfirms.get(sequenceNumber);
-      System.out.println("发布的消息" + message + "未被确认，序列号" + sequenceNumber);
-      //System.out.println("未确认的消息："+sequenceNumber);
-    };
-    /**
+        ConfirmCallback ackCallback = (sequenceNumber, multiple) -> {
+            String message = outstandingConfirms.get(sequenceNumber);
+            if (multiple) {
+                //返回的是小于等于当前序列号的未确认消息 是一个 map
+                ConcurrentNavigableMap<Long, String> confirmed =
+                    outstandingConfirms.headMap(sequenceNumber, true);
+                //清除该部分未确认消息
+                confirmed.clear();
+            } else {
+                //只清除当前序列号的消息
+                outstandingConfirms.remove(sequenceNumber);
+            }
+            System.out.println("发布的消息" + message + "已被确认，序列号" + sequenceNumber);
+            System.out.println("确认的消息："+sequenceNumber);
+        };
+        ConfirmCallback nackCallback = (sequenceNumber, multiple) -> {
+            String message = outstandingConfirms.get(sequenceNumber);
+            System.out.println("发布的消息" + message + "未被确认，序列号" + sequenceNumber);
+            //System.out.println("未确认的消息："+sequenceNumber);
+        };
+        /**
      * 添加一个异步确认的监听器
      * 1.确认收到消息的回调
      * 2.未收到消息的回调
      */
-    channel.addConfirmListener(ackCallback, nackCallback);
-    long begin = System.currentTimeMillis();
-    for (int i = 0; i < MESSAGE_COUNT; i++) {
-      String message = "消息" + i;
-      /**
+        channel.addConfirmListener(ackCallback, nackCallback);
+        long begin = System.currentTimeMillis();
+        for (int i = 0; i < MESSAGE_COUNT; i++) {
+            String message = "消息" + i;
+            /**
         * channel.getNextPublishSeqNo()获取下一个消息的序列号
         * 通过序列号与消息体进行一个关联
         * 全部都是未确认的消息体
         */
-      //System.out.println("发送消息：i-"+i+"message:"+message);
-      outstandingConfirms.put(channel.getNextPublishSeqNo(), message);
-      channel.basicPublish("", queueName, null, message.getBytes());
+            //System.out.println("发送消息：i-"+i+"message:"+message);
+            outstandingConfirms.put(channel.getNextPublishSeqNo(), message);
+            channel.basicPublish("", queueName, null, message.getBytes());
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("发布" + MESSAGE_COUNT + "个异步确认消息,耗时" + (end - begin) + "ms");
     }
-    long end = System.currentTimeMillis();
-    System.out.println("发布" + MESSAGE_COUNT + "个异步确认消息,耗时" + (end - begin) + "ms");
-  }
 }
 
 ```
@@ -884,15 +884,15 @@ public static void publishMessageAsync() throws Exception {
 
 ```java
 public static void main(String[] args) throws Exception {
-   //这个消息数量设置为 1000 好些 不然花费时间太长
-   publishMessagesIndividually();
-   publishMessagesInBatch();
-   handlePublishConfirmsAsynchronously();
+    //这个消息数量设置为 1000 好些 不然花费时间太长
+    publishMessagesIndividually();
+    publishMessagesInBatch();
+    handlePublishConfirmsAsynchronously();
 }
 //运行结果
 发布 1,000 个单独确认消息耗时 50,278 ms
-发布 1,000 个批量确认消息耗时 635 ms
-发布 1,000 个异步确认消息耗时 92 ms
+    发布 1,000 个批量确认消息耗时 635 ms
+    发布 1,000 个异步确认消息耗时 92 ms
 ```
 
 # **5.** **交换机**
@@ -909,7 +909,7 @@ RabbitMQ 消息传递模型的核心思想是: **生产者生产的消息从不�
 
 相反，**生产者只能将消息发送到交换机(exchange)**，交换机工作的内容非常简单，一方面它接收来自生产者的消息，另一方面将它们推入队列。交换机必须确切知道如何处理收到的消息。是应该把这些消息放到特定队列还是说把他们到许多队列中还是说应该丢弃它们。这就的由交换机的类型来决定。
 
-![image-20211110100654025](./RabbitMQ.assets/20211110100725.png)
+![image-20211110100654025](https://gitee.com/wowosong/pic-md/raw/master/202212152239543.png)
 
 ### **5.1.2.** **Exchanges 的类型** 
 
@@ -941,13 +941,13 @@ String queueName = channel.queueDeclare().getQueue();
 
 创建出来之后长成这样:
 
-![image-20211110101750622](./RabbitMQ.assets/20211110101801.png)
+![image-20211110101750622](https://gitee.com/wowosong/pic-md/raw/master/202212152239123.png)
 
 ## **5.3.** **绑定**(bindings)
 
 什么是 bingding 呢，binding 其实是 exchange 和 queue 之间的桥梁，它告诉我们 exchange 和那个队列进行了绑定关系。比如说下面这张图告诉我们的就是 X 与 Q1 和 Q2 进行了绑定
 
-![image-20211110101849205](./RabbitMQ.assets/20211110101850.png)
+![image-20211110101849205](https://gitee.com/wowosong/pic-md/raw/master/202212152239782.png)
 
 ## **5.4. Fanout**（发布订阅模式？）
 
@@ -955,38 +955,38 @@ String queueName = channel.queueDeclare().getQueue();
 
 Fanout 这种类型非常简单。正如从名称中猜到的那样，它是将接收到的所有消息**广播**到它知道的所有队列中。系统中默认有些 exchange 类型
 
-<img src="./RabbitMQ.assets/20211110103226.png" alt="image-20211110103225134" style="zoom: 67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152239702.png" alt="image-20211110103225134" style="zoom: 67%;" />
 
 **5.4.2.** **Fanout 实战**
 
-![image-20211110104408993](./RabbitMQ.assets/20211110104557.png)
+![image-20211110104408993](https://gitee.com/wowosong/pic-md/raw/master/202212152239700.png)
 
 Logs 和临时队列的绑定关系如下图
 
-<img src="./RabbitMQ.assets/20211110104716.png" alt="image-20211110104714559" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152239008.png" alt="image-20211110104714559" style="zoom:67%;" />
 
 ReceiveLogs01 将接收到的消息打印在控制台
 
 ```java
 public class ReceiveLogs01 {
-   private static final String EXCHANGE_NAME = "logs";
-   public static void main(String[] argv) throws Exception {
-   Channel channel = RabbitUtils.getChannel();
-   channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
-   /**
+    private static final String EXCHANGE_NAME = "logs";
+    public static void main(String[] argv) throws Exception {
+        Channel channel = RabbitUtils.getChannel();
+        channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
+        /**
    * 生成一个临时的队列 队列的名称是随机的
    * 当消费者断开和该队列的连接时 队列自动删除
    */
-   String queueName = channel.queueDeclare().getQueue();
-   //把该临时队列绑定我们的 exchange 其中 routingkey(也称之为 binding key)为空字符串
-   channel.queueBind(queueName, EXCHANGE_NAME, "");
-   System.out.println("等待接收消息,把接收到的消息打印在屏幕.....");
-   DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-     String message = new String(delivery.getBody(), "UTF-8");
-     System.out.println("控制台打印接收到的消息"+message);
-   };
-   channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
-   } 
+        String queueName = channel.queueDeclare().getQueue();
+        //把该临时队列绑定我们的 exchange 其中 routingkey(也称之为 binding key)为空字符串
+        channel.queueBind(queueName, EXCHANGE_NAME, "");
+        System.out.println("等待接收消息,把接收到的消息打印在屏幕.....");
+        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+            String message = new String(delivery.getBody(), "UTF-8");
+            System.out.println("控制台打印接收到的消息"+message);
+        };
+        channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
+    } 
 }
 ```
 
@@ -994,50 +994,50 @@ ReceiveLogs02 将接收到的消息存储在磁盘
 
 ```java
 public class ReceiveLogs02 {
-   private static final String EXCHANGE_NAME = "logs";
-   public static void main(String[] argv) throws Exception {
-   Channel channel = RabbitUtils.getChannel();
-   channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
-   /**
+    private static final String EXCHANGE_NAME = "logs";
+    public static void main(String[] argv) throws Exception {
+        Channel channel = RabbitUtils.getChannel();
+        channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
+        /**
    * 生成一个临时的队列 队列的名称是随机的
    * 当消费者断开和该队列的连接时 队列自动删除
    */
-   String queueName = channel.queueDeclare().getQueue();
-   //把该临时队列绑定我们的 exchange 其中 routingkey(也称之为 binding key)为空字符串
-   channel.queueBind(queueName, EXCHANGE_NAME, "");
-   System.out.println("等待接收消息,把接收到的消息写到文件.....");
-   DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-     String message = new String(delivery.getBody(), "UTF-8");
-     File file = new File("C:\\work\\rabbitmq_info.txt");
-     FileUtils.writeStringToFile(file,message,"UTF-8");
-     System.out.println("数据写入文件成功");
-   };
-   channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
-   }
+        String queueName = channel.queueDeclare().getQueue();
+        //把该临时队列绑定我们的 exchange 其中 routingkey(也称之为 binding key)为空字符串
+        channel.queueBind(queueName, EXCHANGE_NAME, "");
+        System.out.println("等待接收消息,把接收到的消息写到文件.....");
+        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+            String message = new String(delivery.getBody(), "UTF-8");
+            File file = new File("C:\\work\\rabbitmq_info.txt");
+            FileUtils.writeStringToFile(file,message,"UTF-8");
+            System.out.println("数据写入文件成功");
+        };
+        channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
+    }
 }
 ```
 
 EmitLog 发送消息给两个消费者接收
 
 ```java
- private static final String EXCHANGE_NAME = "logs";
-   public static void main(String[] argv) throws Exception {
-   try (Channel channel = RabbitUtils.getChannel()) {
-   /**
+private static final String EXCHANGE_NAME = "logs";
+public static void main(String[] argv) throws Exception {
+    try (Channel channel = RabbitUtils.getChannel()) {
+        /**
    * 声明一个 exchange
    * 1.exchange 的名称
    * 2.exchange 的类型
    */
-   channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
-   Scanner sc = new Scanner(System.in);
-   System.out.println("请输入信息");
-   while (sc.hasNext()) {
-     String message = sc.nextLine();
-     channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes("UTF-8"));
-     System.out.println("生产者发出消息" + message);
-   }
-  }
- }
+        channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("请输入信息");
+        while (sc.hasNext()) {
+            String message = sc.nextLine();
+            channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes("UTF-8"));
+            System.out.println("生产者发出消息" + message);
+        }
+    }
+}
 }
 ```
 
@@ -1055,7 +1055,7 @@ channel.queueBind(queueName, EXCHANGE_NAME, "routingKey");**绑定之后的意�
 
 上一节中的我们的日志系统将所有消息广播给所有消费者，对此我们想做一些改变，例如我们希望将日志消息写入磁盘的程序仅接收严重错误(errros)，而不存储哪些警告(warning)或信息(info)日志消息避免浪费磁盘空间。Fanout 这种交换类型并不能给我们带来很大的灵活性-它只能进行无意识的广播，在这里我们将使用 direct 这种类型来进行替换，这种类型的工作方式是，消息只去到它绑定的routingKey 队列中去。
 
-<img src="./RabbitMQ.assets/20211110113200.png" alt="image-20211110113158460" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152239138.png" alt="image-20211110113158460" style="zoom:67%;" />
 
 在上面这张图中，我们可以看到 X 绑定了两个队列，绑定类型是 direct。队列 Q1 绑定键为 orange，队列 Q2 绑定键有两个:一个绑定键为 black，另一个绑定键为 green.
 
@@ -1063,85 +1063,85 @@ channel.queueBind(queueName, EXCHANGE_NAME, "routingKey");**绑定之后的意�
 
 ### **5.5.3.** **多重绑定**
 
-![image-20211110135457177](./RabbitMQ.assets/20211110135459.png)
+![image-20211110135457177](https://gitee.com/wowosong/pic-md/raw/master/202212152239821.png)
 
 当然如果 exchange 的绑定类型是 direct，**但是它绑定的多个队列的** **key** **如果都相同**，在这种情况下虽然绑定类型是 direct **但是它表现的就和** **fanout** **有点类似了**，就跟广播差不多，如上图所示。
 
 ### **5.5.4.** **实战** 
 
-<img src="./RabbitMQ.assets/20211110135712.png" alt="image-20211110135710739" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152239808.png" alt="image-20211110135710739" style="zoom:67%;" />
 
-<img src="./RabbitMQ.assets/20211110135838.png" alt="image-20211110135836014" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152239885.png" alt="image-20211110135836014" style="zoom:67%;" />
 
 ```java
 public class ReceiveLogsDirect01 {
- private static final String EXCHANGE_NAME = "direct_logs";
- public static void main(String[] argv) throws Exception {
-     Channel channel = RabbitUtils.getChannel();
-     channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
-     String queueName = "disk";
-     channel.queueDeclare(queueName, false, false, false, null);
-     channel.queueBind(queueName, EXCHANGE_NAME, "error");
-     System.out.println("等待接收消息.....");
-     DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-       String message = new String(delivery.getBody(), "UTF-8");
-       message="接收绑定键:"+delivery.getEnvelope().getRoutingKey()+",消息:"+message;
-       File file = new File("C:\\work\\rabbitmq_info.txt");
-       FileUtils.writeStringToFile(file,message,"UTF-8");
-       System.out.println("错误日志已经接收");
-     };
-     channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
-     });
- 		} 
- }
+    private static final String EXCHANGE_NAME = "direct_logs";
+    public static void main(String[] argv) throws Exception {
+        Channel channel = RabbitUtils.getChannel();
+        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
+        String queueName = "disk";
+        channel.queueDeclare(queueName, false, false, false, null);
+        channel.queueBind(queueName, EXCHANGE_NAME, "error");
+        System.out.println("等待接收消息.....");
+        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+            String message = new String(delivery.getBody(), "UTF-8");
+            message="接收绑定键:"+delivery.getEnvelope().getRoutingKey()+",消息:"+message;
+            File file = new File("C:\\work\\rabbitmq_info.txt");
+            FileUtils.writeStringToFile(file,message,"UTF-8");
+            System.out.println("错误日志已经接收");
+        };
+        channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
+        });
+    } 
+}
 ```
 
 
 
 ```java
 public class ReceiveLogsDirect02 {
-   private static final String EXCHANGE_NAME = "direct_logs";
-   public static void main(String[] argv) throws Exception {
-   Channel channel = RabbitUtils.getChannel();
-   channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
-   String queueName = "console";
-   channel.queueDeclare(queueName, false, false, false, null);
-   channel.queueBind(queueName, EXCHANGE_NAME, "info");
-   channel.queueBind(queueName, EXCHANGE_NAME, "warning");
-   System.out.println("等待接收消息.....");
-   DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-     String message = new String(delivery.getBody(), "UTF-8");
-     System.out.println(" 接收绑定键 :"+delivery.getEnvelope().getRoutingKey()+", 消 息:"+message);
-   };
-   		channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {});
-   } 
- }
+    private static final String EXCHANGE_NAME = "direct_logs";
+    public static void main(String[] argv) throws Exception {
+        Channel channel = RabbitUtils.getChannel();
+        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
+        String queueName = "console";
+        channel.queueDeclare(queueName, false, false, false, null);
+        channel.queueBind(queueName, EXCHANGE_NAME, "info");
+        channel.queueBind(queueName, EXCHANGE_NAME, "warning");
+        System.out.println("等待接收消息.....");
+        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+            String message = new String(delivery.getBody(), "UTF-8");
+            System.out.println(" 接收绑定键 :"+delivery.getEnvelope().getRoutingKey()+", 消 息:"+message);
+        };
+        channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {});
+    } 
+}
 ```
 
 
 
 ```java
 public class EmitLogDirect {
-   private static final String EXCHANGE_NAME = "direct_logs";
-   public static void main(String[] argv) throws Exception {
-   try (Channel channel = RabbitUtils.getChannel()) {
-       channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
-       //创建多个 bindingKey
-       Map<String, String> bindingKeyMap = new HashMap<>();
-       bindingKeyMap.put("info","普通 info 信息");
-       bindingKeyMap.put("warning","警告 warning 信息");
-       bindingKeyMap.put("error","错误 error 信息");
-       //debug 没有消费这接收这个消息 所有就丢失了
-       bindingKeyMap.put("debug","调试 debug 信息");
-       for (Map.Entry<String, String> bindingKeyEntry: bindingKeyMap.entrySet()){
-         String bindingKey = bindingKeyEntry.getKey();
-         String message = bindingKeyEntry.getValue();
-         channel.basicPublish(EXCHANGE_NAME,bindingKey, null,message.getBytes("UTF-8"));
-         System.out.println("生产者发出消息:" + message);
-       }
-     }
-   }
- }
+    private static final String EXCHANGE_NAME = "direct_logs";
+    public static void main(String[] argv) throws Exception {
+        try (Channel channel = RabbitUtils.getChannel()) {
+            channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
+            //创建多个 bindingKey
+            Map<String, String> bindingKeyMap = new HashMap<>();
+            bindingKeyMap.put("info","普通 info 信息");
+            bindingKeyMap.put("warning","警告 warning 信息");
+            bindingKeyMap.put("error","错误 error 信息");
+            //debug 没有消费这接收这个消息 所有就丢失了
+            bindingKeyMap.put("debug","调试 debug 信息");
+            for (Map.Entry<String, String> bindingKeyEntry: bindingKeyMap.entrySet()){
+                String bindingKey = bindingKeyEntry.getKey();
+                String message = bindingKeyEntry.getValue();
+                channel.basicPublish(EXCHANGE_NAME,bindingKey, null,message.getBytes("UTF-8"));
+                System.out.println("生产者发出消息:" + message);
+            }
+        }
+    }
+}
 ```
 
 ## **5.6. Topics**
@@ -1177,7 +1177,7 @@ Q2-->绑定的是
 
 ​		第一个单词是 lazy 的多个单词(lazy.#)
 
-![image-20211110142440924](./RabbitMQ.assets/20211110142442.png)
+![image-20211110142440924](https://gitee.com/wowosong/pic-md/raw/master/202212152239175.png)
 
 上图是一个队列绑定关系图，我们来看看他们之间数据接收情况是怎么样的
 
@@ -1198,7 +1198,7 @@ Q2-->绑定的是
 
 **5.6.4.** **实战** 
 
-![image-20211110155119366](./RabbitMQ.assets/20211115152935.png)
+![image-20211110155119366](https://gitee.com/wowosong/pic-md/raw/master/202212152238784.png)
 
 ```java
 public class RecevieLogTopic02 {
@@ -1281,7 +1281,7 @@ public class RecevieLogTopic01 {
 
 ### **6.3.1.** **代码架构图** 
 
-<img src="./RabbitMQ.assets/20211110161523.png" alt="image-20211110161519720" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152238485.png" alt="image-20211110161519720" style="zoom:67%;" />
 
 ### **6.3.2.** **消息 TTL 过期**
 
@@ -1295,7 +1295,7 @@ public class Produceor {
         Channel channel = RabbitUtil.getChannel();
         //channel.exchangeDeclare(NORMAL_EXCHANGE, BuiltinExchangeType.DIRECT);
         AMQP.BasicProperties properties = new
-                AMQP.BasicProperties().builder().expiration("20000").build();
+            AMQP.BasicProperties().builder().expiration("20000").build();
         for (int i =1;i<11;i++){
             String message="info"+i;
             channel.basicPublish(NORMAL_EXCHANGE,"zhangsan",properties,message.getBytes());
@@ -1342,7 +1342,7 @@ public class Consumer01 {
 }
 ```
 
-<img src="./RabbitMQ.assets/20211111150619.png" alt="image-20211111150512522" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152238573.png" alt="image-20211111150512522" style="zoom:67%;" />
 
 消费者 C2 代码(**以上步骤完成后 启动 C2 消费者 它消费死信队列里面的消息**) 
 
@@ -1370,7 +1370,7 @@ public class Consumer02 {
 
 ```
 
-<img src="./RabbitMQ.assets/20211111150729.png" alt="image-20211111150728371" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152238652.png" alt="image-20211111150728371" style="zoom:67%;" />
 
 ### **6.3.3.** **队列达到最大长度** 
 
@@ -1420,7 +1420,7 @@ public class Consumer01 {
         channel.queueBind(NORMAL_QUEUE, NORMAL_EXCHANGE, "zhangsan");
         System.out.println("等待接收消息.....");
         DeliverCallback deliverCallback = (consumerTag, message) -> {
-       System.out.println("Consumer01接收到的消息：" + new String(message.getBody(), "utf-8"));
+            System.out.println("Consumer01接收到的消息：" + new String(message.getBody(), "utf-8"));
         };
         CancelCallback cancelCallback = (consumerTag) -> {
 
@@ -1434,7 +1434,7 @@ public class Consumer01 {
 
 3. C2 消费者代码不变(启动 C2 消费者)
 
-<img src="./RabbitMQ.assets/20211111153532.png" alt="image-20211111153530525" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152238864.png" alt="image-20211111153530525" style="zoom:67%;" />
 
 **6.3.4.** **消息被拒** 
 
@@ -1481,7 +1481,7 @@ public class Consumer01 {
         CancelCallback cancelCallback = (consumerTag) -> {
 
         };
-      	//开启手动应答
+        //开启手动应答
         channel.basicConsume(NORMAL_QUEUE, false, deliverCallback, cancelCallback);
     }
 }
@@ -1491,7 +1491,7 @@ public class Consumer01 {
 
 **启动消费者 1 然后再启动消费者 2** 
 
-<img src="./RabbitMQ.assets/20211111154808.png" alt="image-20211111154806700" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152238972.png" alt="image-20211111154806700" style="zoom:67%;" />
 
 # **7.** **延迟队列**
 
@@ -1511,15 +1511,15 @@ public class Consumer01 {
 
 但对于数据量比较大，并且时效性较强的场景，如：“订单十分钟内未支付则关闭“，短期内未支付的订单数据可能会有很多，活动期间甚至会达到百万甚至千万级别，对这么庞大的数据量仍旧使用轮询的方式显然是不可取的，很可能在一秒内无法完成所有订单的检查，同时会给数据库带来很大压力，无法满足业务要求而且性能低下。
 
-<img src="./RabbitMQ.assets/20211111164604.png" alt="image-20211111164602414" style="zoom: 100%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152238209.png" alt="image-20211111164602414" style="zoom: 100%;" />
 
 ## **7.3.** **整合** **springboot**
 
 ### **7.3.1.** **创建项目**
 
-<img src="./RabbitMQ.assets/20211112101949.png" alt="image-20211112101931186" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152241092.png" alt="image-20211112101931186" style="zoom:67%;" />
 
-<img src="./RabbitMQ.assets/20211112102008.png" alt="image-20211112102006235" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152241526.png" alt="image-20211112102006235" style="zoom:67%;" />
 
 ### **7.3.2.** **添加依赖** 
 
@@ -1591,23 +1591,23 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
- @Bean
- public Docket webApiConfig(){
-   return new Docket(DocumentationType.SWAGGER_2)
-   .groupName("webApi")
-   .apiInfo(webApiInfo())
-   .select()
-   .build();
-   }
- private ApiInfo webApiInfo(){
-   return new ApiInfoBuilder()
-   .title("rabbitmq 接口文档")
-   .description("本文档描述了 rabbitmq 微服务接口定义")
-   .version("1.0")
-   .contact(new Contact("enjoy6288", "http://atguigu.com", 
-  "1551388580@qq.com"))
-   .build();
-   }
+    @Bean
+    public Docket webApiConfig(){
+        return new Docket(DocumentationType.SWAGGER_2)
+            .groupName("webApi")
+            .apiInfo(webApiInfo())
+            .select()
+            .build();
+    }
+    private ApiInfo webApiInfo(){
+        return new ApiInfoBuilder()
+            .title("rabbitmq 接口文档")
+            .description("本文档描述了 rabbitmq 微服务接口定义")
+            .version("1.0")
+            .contact(new Contact("enjoy6288", "http://atguigu.com", 
+                                 "1551388580@qq.com"))
+            .build();
+    }
 }
 ```
 
@@ -1619,13 +1619,13 @@ TTL 是什么呢？TTL 是 RabbitMQ 中一个消息或者队列的属性，表�
 
 另一种方式便是针对每条消息设置 TTL
 
-![image-20211112103130045](./RabbitMQ.assets/20211112103131.png)
+![image-20211112103130045](https://gitee.com/wowosong/pic-md/raw/master/202212152242843.png)
 
 ### **7.4.2.** **队列设置 TTL** 
 
 第一种是在创建队列的时候设置队列的“x-message-ttl”属性
 
-![](./RabbitMQ.assets/20211112103212.png)
+![](https://gitee.com/wowosong/pic-md/raw/master/202212152242297.png)
 
 ### **7.4.3.** **两者的区别**
 
@@ -1639,7 +1639,7 @@ TTL 是什么呢？TTL 是 RabbitMQ 中一个消息或者队列的属性，表�
 
 创建两个队列 QA 和 QB，两者队列 TTL 分别设置为 10S 和 40S，然后在创建一个交换机 X 和死信交换机 Y，它们的类型都是 direct，创建一个死信队列 QD，它们的绑定关系如下：
 
-![image-20211112110204618](./RabbitMQ.assets/20211112110218.png)
+![image-20211112110204618](https://gitee.com/wowosong/pic-md/raw/master/202212152242945.png)
 
 ### **7.5.2.** **配置文件类代码**
 
@@ -1649,7 +1649,7 @@ public class TtlQueueConfig {
     public static final String X_EXCHANGE = "X";
     public static final String QUEUE_A = "QA";
     public static final String QUEUE_B = "QB";
-  
+
     public static final String Y_DEAD_LETTER_EXCHANGE = "Y";
     public static final String DEAD_LETTER_QUEUE = "QD";
 
@@ -1738,7 +1738,7 @@ public class DeadLetterQueueConsumer {
 
 发起一个请求 http://localhost:8080/ttl/sendMsg/wowosong
 
-![image-20211112140852031](./RabbitMQ.assets/20211112140854.png)
+![image-20211112140852031](https://gitee.com/wowosong/pic-md/raw/master/202212152242572.png)
 
 第一条消息在 10S 后变成了死信消息，然后被消费者消费掉，第二条消息在 40S 之后变成了死信消息，然后被消费掉，这样一个延时队列就打造完成了。
 
@@ -1750,7 +1750,7 @@ public class DeadLetterQueueConsumer {
 
 在这里新增了一个队列 QC,绑定关系如下,该队列不设置 TTL 时间
 
-![image-20211112142651059](./RabbitMQ.assets/20211112142652.png)
+![image-20211112142651059](https://gitee.com/wowosong/pic-md/raw/master/202212152242458.png)
 
 ### **7.6.2.** **配置文件类代码** 
 
@@ -1778,11 +1778,11 @@ public class TtlQueueMsgConfig {
 ```java
 @GetMapping("sendExpirationMsg/{message}/{ttlTime}")
 public void sendMsg(@PathVariable String message,@PathVariable String ttlTime) {
- rabbitTemplate.convertAndSend("X", "XC", message, correlationData ->{
- correlationData.getMessageProperties().setExpiration(ttlTime);
- return correlationData;
- });
- log.info("当前时间：{},发送一条时长{}毫秒 TTL 信息给队列 C:{}", new Date(),ttlTime, message);
+    rabbitTemplate.convertAndSend("X", "XC", message, correlationData ->{
+        correlationData.getMessageProperties().setExpiration(ttlTime);
+        return correlationData;
+    });
+    log.info("当前时间：{},发送一条时长{}毫秒 TTL 信息给队列 C:{}", new Date(),ttlTime, message);
 }
 ```
 
@@ -1792,7 +1792,7 @@ http://localhost:8080/ttl/sendExpirationMsg/你好 1/20000
 
 http://localhost:8080/ttl/sendExpirationMsg/你好 2/2000
 
-![image-20211112212432152](./RabbitMQ.assets/20211112212432.png)
+![image-20211112212432152](https://gitee.com/wowosong/pic-md/raw/master/202212152242135.png)
 
 看起来似乎没什么问题，但是在最开始的时候，就介绍过如果使用在消息属性上设置 TTL 的方式，消息可能并不会按时“死亡“，因为 **RabbitMQ** **只会检查第一个消息是否过期，如果过期则丢到死信队列，如果第一个消息的延时时长很长（因为队列是有顺序的），而第二个消息的延时时长很短，第二个消息并不会优先得到执行**。
 
@@ -1810,17 +1810,17 @@ http://localhost:8080/ttl/sendExpirationMsg/你好 2/2000
 
 rabbitmq-plugins enable rabbitmq_delayed_message_exchange
 
-<img src="./RabbitMQ.assets/20211112174010.png" alt="image-20211112174000134" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152243372.png" alt="image-20211112174000134" style="zoom:67%;" />
 
-![image-20211112174026286](./RabbitMQ.assets/20211112174044.png)
+![image-20211112174026286](https://gitee.com/wowosong/pic-md/raw/master/202212152243117.png)
 
 ### **7.7.2. 代码架构图**
 
 在这里新增了一个队列 delayed.queue,一个自定义交换机 delayed.exchange，绑定关系如下:
 
-![image-20211112213654281](./RabbitMQ.assets/20211112213654.png)
+![image-20211112213654281](https://gitee.com/wowosong/pic-md/raw/master/202212152243318.png)
 
-![image-20211112201056496](./RabbitMQ.assets/20211112201057.png)
+![image-20211112201056496](https://gitee.com/wowosong/pic-md/raw/master/202212152243913.png)
 
 ### **7.7.3. 配置文件类代码**
 
@@ -1841,11 +1841,11 @@ public class DelayQueueConfig {
     public CustomExchange delayedExchange(){
         Map<String, Object> args=new HashMap<>();
         args.put("x-delayed-type","direct");
-       return new CustomExchange(DELAYED_EXCHANGE_NAME, "x-delayed-message",true,false,args);
+        return new CustomExchange(DELAYED_EXCHANGE_NAME, "x-delayed-message",true,false,args);
     }
     @Bean
     public Binding bindingDelayedQueue(@Qualifier("delayedQueue")Queue delayedQueue,@Qualifier("delayedExchange")CustomExchange delayedExchange){
-return BindingBuilder.bind(delayedQueue).to(delayedExchange).with(DELAYED_ROUTING_KEYS).noargs();
+        return BindingBuilder.bind(delayedQueue).to(delayedExchange).with(DELAYED_ROUTING_KEYS).noargs();
     }
 }
 ```
@@ -1853,28 +1853,28 @@ return BindingBuilder.bind(delayedQueue).to(delayedExchange).with(DELAYED_ROUTIN
 ### **7.7.4. 消息生产者代码**
 
 ```java
- public static final String DELAYED_EXCHANGE_NAME = "delayed.exchange";
- public static final String DELAYED_ROUTING_KEY = "delayed.routingkey";
+public static final String DELAYED_EXCHANGE_NAME = "delayed.exchange";
+public static final String DELAYED_ROUTING_KEY = "delayed.routingkey";
 
- @GetMapping("sendDelayMsg/{message}/{delayTime}")
- public void sendMsg01(@PathVariable("message") String message, @PathVariable("delayTime") Integer delayTime) {
-        rabbitTemplate.convertAndSend(DELAYED_EXCHANGE_NAME, DELAYED_ROUTING_KEY, message, correlationData -> {
-            correlationData.getMessageProperties().setDelay(delayTime);
-            return correlationData;
-        });
-        log.info(" 当 前 时 间 ： {}, 发送一条延迟 {} 毫秒的信息给队列 delayed.queue:{}", new Date(), delayTime, message);
-    }
+@GetMapping("sendDelayMsg/{message}/{delayTime}")
+public void sendMsg01(@PathVariable("message") String message, @PathVariable("delayTime") Integer delayTime) {
+    rabbitTemplate.convertAndSend(DELAYED_EXCHANGE_NAME, DELAYED_ROUTING_KEY, message, correlationData -> {
+        correlationData.getMessageProperties().setDelay(delayTime);
+        return correlationData;
+    });
+    log.info(" 当 前 时 间 ： {}, 发送一条延迟 {} 毫秒的信息给队列 delayed.queue:{}", new Date(), delayTime, message);
+}
 ```
 
 ### **7.7.5. 消息消费者代码**
 
 ```java
- public static final String DELAYED_QUEUE_NAME = "delayed.queue";
-    @RabbitListener(queues = DELAYED_QUEUE_NAME)
-    public void receiveDelayedQueue(Message message){
-        String msg = new String(message.getBody());
-        log.info("当前时间：{},收到延时队列的消息：{}", new Date().toString(), msg);
-    }
+public static final String DELAYED_QUEUE_NAME = "delayed.queue";
+@RabbitListener(queues = DELAYED_QUEUE_NAME)
+public void receiveDelayedQueue(Message message){
+    String msg = new String(message.getBody());
+    log.info("当前时间：{},收到延时队列的消息：{}", new Date().toString(), msg);
+}
 ```
 
 发起请求：
@@ -1883,7 +1883,7 @@ http://localhost:8080/ttl/sendDelayMsg/wowosong/1000
 
 http://localhost:8080/ttl/sendDelayMsg/wowosong/10000
 
-![image-20211112205105824](./RabbitMQ.assets/20211112205105.png)
+![image-20211112205105824](https://gitee.com/wowosong/pic-md/raw/master/202212152243777.png)
 
 第二个消息被先消费掉了，符合预期
 
@@ -1910,11 +1910,11 @@ allow us to use it.||Consumer received fatal=false exception on startup:
 
 ### **8.1.1. 确认机制方案**
 
-<img src="./RabbitMQ.assets/20211112205401.png" alt="image-20211112205400921" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152243447.png" alt="image-20211112205400921" style="zoom:67%;" />
 
 ### **8.1.2. 代码架构图**
 
-<img src="./RabbitMQ.assets/20211112205432.png" alt="image-20211112205431945" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152243728.png" alt="image-20211112205431945" style="zoom:67%;" />
 
 ### **8.1.3. 配置文件**
 
@@ -1978,16 +1978,16 @@ public class CofirmConfig {
 ```java
 @GetMapping("/sendmessage/{message}")
 public void sendConfirmQueue(@PathVariable("message") String message){
-  CorrelationData correlationData=new CorrelationData();
-  String routingkey1="key1";
-  correlationData.setId("1");
-  rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE,routingkey1,message+routingkey1,correlationData);
+    CorrelationData correlationData=new CorrelationData();
+    String routingkey1="key1";
+    correlationData.setId("1");
+    rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE,routingkey1,message+routingkey1,correlationData);
 
-  CorrelationData correlationData1=new CorrelationData();
-  String routingkey2="key2";
-  correlationData.setId("2");
-  rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE,routingkey2,message+routingkey2,correlationData1);
-  log.info("发送消息内容:{}",message);
+    CorrelationData correlationData1=new CorrelationData();
+    String routingkey2="key2";
+    correlationData.setId("2");
+    rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE,routingkey2,message+routingkey2,correlationData1);
+    log.info("发送消息内容:{}",message);
 }
 ```
 
@@ -1997,7 +1997,7 @@ public void sendConfirmQueue(@PathVariable("message") String message){
 @Slf4j
 @Component
 public class MyCallBack implements RabbitTemplate.ConfirmCallback {
- 		@Autowired
+    @Autowired
     private RabbitTemplate rabbitTemplate;
     @PostConstruct
     public void init(){
@@ -2028,7 +2028,7 @@ public void receviedConfirmQueue(Message message){
 
 ### **8.1.8. 结果分析**
 
-![image-20211113105116365](./RabbitMQ.assets/20211113105116.png)
+![image-20211113105116365](https://gitee.com/wowosong/pic-md/raw/master/202212152244999.png)
 
 可以看到，发送了两条消息，第一条消息的 RoutingKey 为 "key1"，第二条消息的 RoutingKey 为"key2"，两条消息都成功被交换机接收，也收到了交换机的确认回调，但消费者只收到了一条消息，因为第二条消息的 RoutingKey 与队列的 BindingKey 不一致，也没有其它队列能接收这个消息，所以第二条消息被直接丢弃了。
 
@@ -2047,16 +2047,16 @@ spring.rabbitmq.publisher-returns=true
 ```java
 @GetMapping("/sendmessage/{message}")
 public void sendConfirmQueue(@PathVariable("message") String message){
-  CorrelationData correlationData=new CorrelationData();
-  String routingkey1="key1";
-  correlationData.setId("1");
-  rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME,routingkey1,message+routingkey1,correlationData);
+    CorrelationData correlationData=new CorrelationData();
+    String routingkey1="key1";
+    correlationData.setId("1");
+    rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME,routingkey1,message+routingkey1,correlationData);
 
-  CorrelationData correlationData1=new CorrelationData();
-  String routingkey2="key2";
-  correlationData.setId("2");
-  rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME,routingkey2,message+routingkey2,correlationData1);
-  log.info("发送消息内容:{}",message);
+    CorrelationData correlationData1=new CorrelationData();
+    String routingkey2="key2";
+    correlationData.setId("2");
+    rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME,routingkey2,message+routingkey2,correlationData1);
+    log.info("发送消息内容:{}",message);
 }
 ```
 
@@ -2092,7 +2092,7 @@ public class MyCallBack implements RabbitTemplate.ConfirmCallback,RabbitTemplate
 
 ### **8.2.4. 结果分析**
 
-![image-20211113110807882](./RabbitMQ.assets/20211113110808.png)
+![image-20211113110807882](https://gitee.com/wowosong/pic-md/raw/master/202212152244156.png)
 
 ## **8.3.** **备份交换机**
 
@@ -2100,7 +2100,7 @@ public class MyCallBack implements RabbitTemplate.ConfirmCallback,RabbitTemplate
 
 ### **8.3.1. 代码架构图**
 
-<img src="./RabbitMQ.assets/20211113113940.png" alt="image-20211113113939977" style="zoom:80%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152244121.png" alt="image-20211113113939977" style="zoom:80%;" />
 
 ### **8.3.2. 修改配置类**
 
@@ -2118,7 +2118,7 @@ public class ConfirmConfig {
     @Bean("confirmExchange")
     public DirectExchange confirmExchange(){
         return ExchangeBuilder.directExchange(CONFIRM_EXCHANGE).durable(true).withArgument("alternate-exchange",BACKUP_EXCHANGE).build();
-//        return new DirectExchange(CONFIRM_EXCHANGE);
+        //        return new DirectExchange(CONFIRM_EXCHANGE);
     }
     @Bean
     public FanoutExchange backupExchange(){
@@ -2155,24 +2155,24 @@ public class ConfirmConfig {
 ### **8.3.3. 报警消费者**
 
 ```java
- public static final String WARNING_QUEUE_NAME="warning.queue";
-    @RabbitListener(queues = WARNING_QUEUE_NAME)
-    public void receviedWaringQueue(Message message){
-        String msg = new String(message.getBody());
-        log.info("当前时间：{},收到报警队列的消息：{}", new Date().toString(), msg);
-        log.error("·报警发现不可路由消息：{}", msg);
-    }
+public static final String WARNING_QUEUE_NAME="warning.queue";
+@RabbitListener(queues = WARNING_QUEUE_NAME)
+public void receviedWaringQueue(Message message){
+    String msg = new String(message.getBody());
+    log.info("当前时间：{},收到报警队列的消息：{}", new Date().toString(), msg);
+    log.error("·报警发现不可路由消息：{}", msg);
+}
 ```
 
 ### **8.3.4. 测试注意事项**
 
 重新启动项目的时候需要把原来的 confirm.exchange 删除因为我们修改了其绑定属性，不然报以下错:
 
-![image-20211113114139965](/Users/jiusonghuang/pic-md/20211113114142.png)
+![image-20211113114139965](https://gitee.com/wowosong/pic-md/raw/master/202212152244160.png)
 
 ### **8.3.5. 结果分析**
 
-![image-20211113114219434](./RabbitMQ.assets/20211113114219.png)
+![image-20211113114219434](https://gitee.com/wowosong/pic-md/raw/master/202212152244126.png)
 
 mandatory 参数与备份交换机可以一起使用的时候，如果两者同时开启，消息究竟何去何从？谁优先级高，经过上面结果显示答案是**备份交换机优先级高**。
 
@@ -2214,7 +2214,7 @@ MQ 消费者的幂等性的解决一般使用全局 ID 或者写个唯一标识�
 
 a.控制台页面添加
 
-![image-20211113205527196](./RabbitMQ.assets/20211113205527.png)
+![image-20211113205527196](https://gitee.com/wowosong/pic-md/raw/master/202212152244438.png)
 
 b.队列中代码添加优先级
 
@@ -2224,7 +2224,7 @@ params.put("x-max-priority", 10);
 channel.queueDeclare("hello", true, false, false, params);
 ```
 
-![image-20211113205623561](./RabbitMQ.assets/20211113205623.png)
+![image-20211113205623561](https://gitee.com/wowosong/pic-md/raw/master/202212152245420.png)
 
 c.消息中代码添加优先级
 
@@ -2243,21 +2243,21 @@ a.消息生产者
 public class Producer {
     private static final String QUEUE_NAME="hello";
     public static void main(String[] args) throws Exception {
-      try (Channel channel = RabbitMqUtils.getChannel();) {
-      //给消息赋予一个 priority 属性
-      AMQP.BasicProperties properties = new 
-      AMQP.BasicProperties().builder().priority(5).build();
-      for (int i = 1; i <11; i++) {
-      String message = "info"+i;
-      if(i==5){
-     	 channel.basicPublish("", QUEUE_NAME, properties, message.getBytes());
-      }else{
-      	channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
-      }
-      System.out.println("发送消息完成:" + message);
-      } 
+        try (Channel channel = RabbitMqUtils.getChannel();) {
+            //给消息赋予一个 priority 属性
+            AMQP.BasicProperties properties = new 
+                AMQP.BasicProperties().builder().priority(5).build();
+            for (int i = 1; i <11; i++) {
+                String message = "info"+i;
+                if(i==5){
+                    channel.basicPublish("", QUEUE_NAME, properties, message.getBytes());
+                }else{
+                    channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+                }
+                System.out.println("发送消息完成:" + message);
+            } 
+        }
     }
-  }
 }
 ```
 
@@ -2265,22 +2265,22 @@ b.消息消费者
 
 ```java
 public class Consumer {
-  private static final String QUEUE_NAME="hello";
-  public static void main(String[] args) throws Exception {
-    Channel channel = RabbitMqUtils.getChannel();
-    //设置队列的最大优先级 最大可以设置到 255 官网推荐 1-10 如果设置太高比较吃内存和 CPU
-    Map<String, Object> params = new HashMap();
-    params.put("x-max-priority", 10);
-    channel.queueDeclare(QUEUE_NAME, true, false, false, params);
-    System.out.println("消费者启动等待消费......");
-    DeliverCallback deliverCallback=(consumerTag, delivery)->{
-      String receivedMessage = new String(delivery.getBody());
-      System.out.println("接收到消息:"+receivedMessage);
-    };
-    channel.basicConsume(QUEUE_NAME,true,deliverCallback,(consumerTag)->{
-    	System.out.println("消费者无法消费消息时调用，如队列被删除");
-    });
-  } 
+    private static final String QUEUE_NAME="hello";
+    public static void main(String[] args) throws Exception {
+        Channel channel = RabbitMqUtils.getChannel();
+        //设置队列的最大优先级 最大可以设置到 255 官网推荐 1-10 如果设置太高比较吃内存和 CPU
+        Map<String, Object> params = new HashMap();
+        params.put("x-max-priority", 10);
+        channel.queueDeclare(QUEUE_NAME, true, false, false, params);
+        System.out.println("消费者启动等待消费......");
+        DeliverCallback deliverCallback=(consumerTag, delivery)->{
+            String receivedMessage = new String(delivery.getBody());
+            System.out.println("接收到消息:"+receivedMessage);
+        };
+        channel.basicConsume(QUEUE_NAME,true,deliverCallback,(consumerTag)->{
+            System.out.println("消费者无法消费消息时调用，如队列被删除");
+        });
+    } 
 }
 ```
 
@@ -2306,7 +2306,7 @@ channel.queueDeclare("myqueue", false, false, false, args);
 
 ### **9.3.3. 内存开销对比**
 
-![image-20211113212224010](./RabbitMQ.assets/20211113212224.png)
+![image-20211113212224010](https://gitee.com/wowosong/pic-md/raw/master/202212152245270.png)
 
 在发送 1 百万条消息，每条消息大概占 1KB 的情况下，普通队列占用内存是 1.2GB，而惰性队列仅仅占用 1.5MB
 
@@ -2334,7 +2334,7 @@ vim /etc/hosts
 
 10.211.55.76 node3
 
-![image-20211113212751577](./RabbitMQ.assets/20211113212751.png)
+![image-20211113212751577](https://gitee.com/wowosong/pic-md/raw/master/202212152245142.png)
 
 3.以确保各个节点的 cookie 文件使用的是同一个值
 
@@ -2429,15 +2429,15 @@ rabbitmqctl forget_cluster_node rabbit@node2(node1 机器上执行)
 
 2.随便找一个节点添加 policy
 
-<img src="./RabbitMQ.assets/20211113215327-16532827675146.png" alt="image-20211113215326927" style="zoom:80%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152245190.png" alt="image-20211113215326927" style="zoom:80%;" />
 
 3.在 node1 上创建一个队列发送一条消息，队列存在镜像队列
 
-![image-20211113215358060](./RabbitMQ.assets/20211113215358.png)
+![image-20211113215358060](https://gitee.com/wowosong/pic-md/raw/master/202212152245831.png)
 
 4.停掉 node1 之后发现 node2 成为镜像队列
 
-![image-20211113215448235](./RabbitMQ.assets/20211113215448.png)
+![image-20211113215448235](https://gitee.com/wowosong/pic-md/raw/master/202212152245586.png)
 
 5.就算整个集群只剩下一台机器了 依然能消费队列里面的消息
 
@@ -2447,7 +2447,7 @@ rabbitmqctl forget_cluster_node rabbit@node2(node1 机器上执行)
 
 ### **10.3.1. 整体架构图**
 
-<img src="./RabbitMQ.assets/20211113224124.png" alt="image-20211113224124257" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152245498.png" alt="image-20211113224124257" style="zoom:67%;" />
 
 ### **10.3.2. Haproxy 实现负载均衡**
 
@@ -2465,7 +2465,7 @@ yum -y install haproxy
 
 需要修改红色 IP 为当前机器 IP
 
-![image-20211113224821801](./RabbitMQ.assets/20211113224821.png)
+![image-20211113224821801](https://gitee.com/wowosong/pic-md/raw/master/202212152245839.png)
 
 3.在两台节点启动 haproxy
 
@@ -2535,7 +2535,7 @@ systemctl stop keepalived
 
 将业务(Client 深圳)部署到北京的机房可以解决这个问题，但是如果(Client 深圳)调用的另些服务都部署在深圳，那么又会引发新的时延问题，总不见得将所有业务全部部署在一个机房，那么容灾又何以实现？这里使用 Federation 插件就可以很好地解决这个问题.
 
-<img src="./RabbitMQ.assets/20211113225149.png" alt="image-20211113225149430" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152246008.png" alt="image-20211113225149430" style="zoom:67%;" />
 
 ### **10.4.2. 搭建步骤**
 
@@ -2549,19 +2549,19 @@ rabbitmq-plugins enable rabbitmq_federation_management
 
 3.原理图(先运行 consumer 在 node2 创建 fed_exchange)
 
-<img src="./RabbitMQ.assets/20211113225309.png" alt="image-20211113225309228" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152246688.png" alt="image-20211113225309228" style="zoom:67%;" />
 
 4.在 downstream(node2)配置 upstream(node1)
 
-<img src="./RabbitMQ.assets/20211113225333.png" alt="image-20211113225333142" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152246415.png" alt="image-20211113225333142" style="zoom:67%;" />
 
 5.添加 policy
 
-<img src="./RabbitMQ.assets/20211113225409.png" alt="image-20211113225409419" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152246916.png" alt="image-20211113225409419" style="zoom:67%;" />
 
 6.成功的前提
 
-![image-20211113225435463](./RabbitMQ.assets/20211113225435.png)
+![image-20211113225435463](https://gitee.com/wowosong/pic-md/raw/master/202212152246551.png)
 
 ## **10.5. Federation Queue**
 
@@ -2573,13 +2573,13 @@ rabbitmq-plugins enable rabbitmq_federation_management
 
 1.原理图
 
-![image-20211113225541151](./RabbitMQ.assets/20211113225541.png)
+![image-20211113225541151](https://gitee.com/wowosong/pic-md/raw/master/202212152246659.png)
 
 2.添加 upstream(同上) 
 
 3.添加 policy
 
-![image-20211113225611152](./RabbitMQ.assets/20211113225611.png)
+![image-20211113225611152](https://gitee.com/wowosong/pic-md/raw/master/202212152246552.png)
 
 ## **10.6. Shovel**
 
@@ -2597,9 +2597,9 @@ rabbitmq-plugins enable rabbitmq_shovel_management
 
 2.原理图(在源头发送的消息直接回进入到目的地队列)
 
-<img src="./RabbitMQ.assets/20211113230140.png" alt="image-20211113230140742" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152246759.png" alt="image-20211113230140742" style="zoom:67%;" />
 
 3.添加 shovel 源和目的地
 
-<img src="./RabbitMQ.assets/20211113230202.png" alt="image-20211113230201865" style="zoom:67%;" />
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152246091.png" alt="image-20211113230201865" style="zoom:67%;" />
 

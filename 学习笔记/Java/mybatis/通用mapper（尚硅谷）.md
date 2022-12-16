@@ -247,7 +247,7 @@ WHERE
 
 情况 2：使用@Id 主键明确标记和数据库表中主键字段对应的实体类字段。
 
-![image-20210620103419014](./%E9%80%9A%E7%94%A8mapper%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210620103419.png)
+![image-20210620103419014](https://gitee.com/wowosong/pic-md/raw/master/202212152311602.png)
 
 ## 3.4@GeneratedValue注解
 
@@ -255,11 +255,11 @@ WHERE
 
 自增主键用法： 
 
-![image-20210620103538668](./%E9%80%9A%E7%94%A8mapper%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210620103538.png)
+![image-20210620103538668](https://gitee.com/wowosong/pic-md/raw/master/202212152311655.png)
 
 序列主键用法：
 
-![image-20210620103757861](./%E9%80%9A%E7%94%A8mapper%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210620103757.png)
+![image-20210620103757861](https://gitee.com/wowosong/pic-md/raw/master/202212152312681.png)
 
 应用场景：购物车结账 
 
@@ -311,35 +311,35 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
    ```java
    @Test
    public void testSelectByPrimaryKey() {
-      
-      //1.提供id值
-      Integer empId = 3;
-      
-      //2.执行根据主键进行的查询
-      Employee employee = employeeService.getEmployeeById(empId);
-      
-      //3.打印结果
-      System.out.println(employee);
-      
+   
+       //1.提供id值
+       Integer empId = 3;
+   
+       //2.执行根据主键进行的查询
+       Employee employee = employeeService.getEmployeeById(empId);
+   
+       //3.打印结果
+       System.out.println(employee);
+   
    }
    Preparing: SELECT emp_id,emp_name,emp_salary,emp_age FROM table_emp WHERE emp_id = ?   
-   [DEBUG] 2021-06-20 10:51:05,487(4017) --> [main] org.apache.ibatis.logging.jdbc.BaseJdbcLogger.debug(BaseJdbcLogger.java:139): ==> Parameters: 3(Integer)  
+       [DEBUG] 2021-06-20 10:51:05,487(4017) --> [main] org.apache.ibatis.logging.jdbc.BaseJdbcLogger.debug(BaseJdbcLogger.java:139): ==> Parameters: 3(Integer)  
    ```
 
 2. UpdateByPrimaryKey() 会更新为空的字段，导致该字段为空
 
    ```java
    
-   	@Test
-   	public void testUpdateByPrimaryKey() {
-   		Employee employee = new Employee();
-   		employee.setEmpAge(30);
-   		employee.setEmpId(6);
-   		employee.setEmpName("wowosong");
-   		int i = employeeMapper.updateByPrimaryKey(employee);
-   		System.out.println(i);
-   	}
-   	  
+   @Test
+   public void testUpdateByPrimaryKey() {
+       Employee employee = new Employee();
+       employee.setEmpAge(30);
+       employee.setEmpId(6);
+       employee.setEmpName("wowosong");
+       int i = employeeMapper.updateByPrimaryKey(employee);
+       System.out.println(i);
+   }
+   
    ```
 
    ```sql
@@ -351,13 +351,13 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 
    ```java
    @Test
-   	public void testDeleteByPrimaryKey() {
-   		
-   		//1.提供主键值
-   		Integer empId = 13;
-   		//2.执行删除
-   		employeeMapper.deleteByPrimaryKey(empId);
-   	}
+   public void testDeleteByPrimaryKey() {
+   
+       //1.提供主键值
+       Integer empId = 13;
+       //2.执行删除
+       employeeMapper.deleteByPrimaryKey(empId);
+   }
    ```
    
    ```sql
@@ -368,15 +368,15 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 4. ExistsWithPrimaryKey()
 
    ```java
-   	@Test
-   	public void testExistsWithPrimaryKey() {	
-   		//1.提供主键值
-   		Integer empId = 33;
-   		//2.执行查询
-   		boolean exists = employeeService.isExists(empId);
-   		//3.打印结果
-   		System.out.println(exists);
-   	}
+   @Test
+   public void testExistsWithPrimaryKey() {	
+       //1.提供主键值
+       Integer empId = 33;
+       //2.执行查询
+       boolean exists = employeeService.isExists(empId);
+       //3.打印结果
+       System.out.println(exists);
+   }
    ```
 
 ```sql
@@ -391,13 +391,13 @@ Preparing: SELECT CASE WHEN COUNT(emp_id) > 0 THEN 1 ELSE 0 END AS result FROM t
 1. InsertSelective()
 
    ```java
-   	@Test
-   	public void testInsertSelective() {		
-   		//1.创建实体类对象封装要保存到数据库的数据
-   		Employee employee = new Employee(null, "emp04", null, 23);		
-   		//2.执行插入操作
-   		employeeMapper.insertSelective(employee);		
-   	}
+   @Test
+   public void testInsertSelective() {		
+       //1.创建实体类对象封装要保存到数据库的数据
+       Employee employee = new Employee(null, "emp04", null, 23);		
+       //2.执行插入操作
+       employeeMapper.insertSelective(employee);		
+   }
    ```
    
    ```sql
@@ -408,28 +408,28 @@ Preparing: SELECT CASE WHEN COUNT(emp_id) > 0 THEN 1 ELSE 0 END AS result FROM t
 2. Insert()
 
    ```java
-   	@Test
-   	public void testInsert() {	
-   		//1.创建实体类对象封装要保存到数据库的数据
-   		Employee employee = new Employee(null, "emp03", 3000.00, 23);	
-   		//2.执行插入操作
-   		employeeService.saveEmployee(employee);	
-   		//3.获取employee对象的主键字段值
-   		Integer empId = employee.getEmpId();
-   		System.out.println("empId="+empId);	
-   	}
+   @Test
+   public void testInsert() {	
+       //1.创建实体类对象封装要保存到数据库的数据
+       Employee employee = new Employee(null, "emp03", 3000.00, 23);	
+       //2.执行插入操作
+       employeeService.saveEmployee(employee);	
+       //3.获取employee对象的主键字段值
+       Integer empId = employee.getEmpId();
+       System.out.println("empId="+empId);	
+   }
    ```
    
 3. UpdateByPrimaryKeySelective()
 
    ```java
-   	@Test
-   	public void testUpdateByPrimaryKeySelective() {
-   		//1.创建用于测试的实体类
-   		Employee employee = new Employee(7, "empNewName", null, null);
-   		//2.执行更新
-   		employeeMapper.updateByPrimaryKeySelective(employee);		
-   	}
+   @Test
+   public void testUpdateByPrimaryKeySelective() {
+       //1.创建用于测试的实体类
+       Employee employee = new Employee(7, "empNewName", null, null);
+       //2.执行更新
+       employeeMapper.updateByPrimaryKeySelective(employee);		
+   }
    ```
    
    ```sql
@@ -474,7 +474,7 @@ example.or(criteria02);
 //5.执行查询 
 List<Employee> empList = employeeService.getEmpListByExample(example); 
 for (Employee employee : empList) { 
-		System.out.println(employee); 
+    System.out.println(employee); 
 }
 ```
 
@@ -490,34 +490,34 @@ for (Employee employee : empList) {
 
 ## 6.1原生MyBatis逆向工程和通用Mapper逆向工程对比
 
-![image-20210620182006101](./%E9%80%9A%E7%94%A8mapper%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210620182006.png)
+![image-20210620182006101](https://gitee.com/wowosong/pic-md/raw/master/202212152312524.png)
 
 pom.xml配置信息
 
 ```xml
-	<properties>
-		<!-- ${basedir}引用工程根目录 -->
-		<!-- targetJavaProject：声明存放源码的目录位置 -->
-		<targetJavaProject>${basedir}/src/main/java</targetJavaProject>
+<properties>
+    <!-- ${basedir}引用工程根目录 -->
+    <!-- targetJavaProject：声明存放源码的目录位置 -->
+    <targetJavaProject>${basedir}/src/main/java</targetJavaProject>
 
-		<!-- targetMapperPackage：声明MBG生成XxxMapper接口后存放的package位置 -->
-		<targetMapperPackage>com.atguigu.shop.mappers</targetMapperPackage>
+    <!-- targetMapperPackage：声明MBG生成XxxMapper接口后存放的package位置 -->
+    <targetMapperPackage>com.atguigu.shop.mappers</targetMapperPackage>
 
-		<!-- targetModelPackage：声明MBG生成实体类后存放的package位置 -->
-		<targetModelPackage>com.atguigu.shop.entities</targetModelPackage>
+    <!-- targetModelPackage：声明MBG生成实体类后存放的package位置 -->
+    <targetModelPackage>com.atguigu.shop.entities</targetModelPackage>
 
-		<!-- targetResourcesProject：声明存放资源文件和XML配置文件的目录位置 -->
-		<targetResourcesProject>${basedir}/src/main/resources</targetResourcesProject>
+    <!-- targetResourcesProject：声明存放资源文件和XML配置文件的目录位置 -->
+    <targetResourcesProject>${basedir}/src/main/resources</targetResourcesProject>
 
-		<!-- targetXMLPackage：声明存放具体XxxMapper.xml文件的目录位置 -->
-		<targetXMLPackage>mappers</targetXMLPackage>
+    <!-- targetXMLPackage：声明存放具体XxxMapper.xml文件的目录位置 -->
+    <targetXMLPackage>mappers</targetXMLPackage>
 
-		<!-- 通用Mapper的版本号 -->
-		<mapper.version>4.0.0-beta3</mapper.version>
+    <!-- 通用Mapper的版本号 -->
+    <mapper.version>4.0.0-beta3</mapper.version>
 
-		<!-- MySQL驱动版本号 -->
-		<mysql.version>5.1.37</mysql.version>
-	</properties>
+    <!-- MySQL驱动版本号 -->
+    <mysql.version>5.1.37</mysql.version>
+</properties>
 ```
 
 plugin配置
@@ -548,7 +548,7 @@ plugin配置
             <version>${mapper.version}</version>
         </dependency>
     </dependencies>
- </plugin>
+</plugin>
 ```
 
 generatorConfig.xml
@@ -560,52 +560,52 @@ generatorConfig.xml
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-	<!-- 引入外部属性文件 -->
-	<properties resource="config.properties" />
+    <!-- 引入外部属性文件 -->
+    <properties resource="config.properties" />
 
-	<context id="Mysql" targetRuntime="MyBatis3Simple"
-		defaultModelType="flat">
-		<property name="beginningDelimiter" value="`" />
-		<property name="endingDelimiter" value="`" />
+    <context id="Mysql" targetRuntime="MyBatis3Simple"
+             defaultModelType="flat">
+        <property name="beginningDelimiter" value="`" />
+        <property name="endingDelimiter" value="`" />
 
-		<!-- 配置通用Mapper的MBG插件相关信息 -->
-		<plugin type="${mapper.plugin}">
-			<property name="mappers" value="${mapper.Mapper}" />
-		</plugin>
+        <!-- 配置通用Mapper的MBG插件相关信息 -->
+        <plugin type="${mapper.plugin}">
+            <property name="mappers" value="${mapper.Mapper}" />
+        </plugin>
 
-		<!-- 配置连接数据库的基本信息 -->
-		<jdbcConnection 
-			driverClass="${jdbc.driverClass}"
-			connectionURL="${jdbc.url}" 
-			userId="${jdbc.user}" 
-			password="${jdbc.password}">
-		</jdbcConnection>
-	
-		<!-- 配置Java实体类存放位置 -->
-		<javaModelGenerator 
-			targetPackage="${targetModelPackage}"
-			targetProject="${targetJavaProject}" />
+        <!-- 配置连接数据库的基本信息 -->
+        <jdbcConnection 
+                        driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.url}" 
+                        userId="${jdbc.user}" 
+                        password="${jdbc.password}">
+        </jdbcConnection>
 
-		<!-- 配置XxxMapper.xml存放位置 -->
-		<sqlMapGenerator 
-			targetPackage="${targetXMLPackage}"
-			targetProject="${targetResourcesProject}" />
+        <!-- 配置Java实体类存放位置 -->
+        <javaModelGenerator 
+                            targetPackage="${targetModelPackage}"
+                            targetProject="${targetJavaProject}" />
 
-		<!-- 配置XxxMapper.java存放位置 -->
-		<javaClientGenerator 
-			targetPackage="${targetMapperPackage}"
-			targetProject="${targetJavaProject}" 
-			type="XMLMAPPER" />
+        <!-- 配置XxxMapper.xml存放位置 -->
+        <sqlMapGenerator 
+                         targetPackage="${targetXMLPackage}"
+                         targetProject="${targetResourcesProject}" />
 
-		<!-- 根据数据库表生成Java文件的相关规则 -->
-		<!-- tableName="%"表示数据库中所有表都参与逆向工程，此时使用默认规则 -->
-		<!-- 默认规则：table_dept→TableDept -->
-		<!-- 不符合默认规则时需要使用tableName和domainObjectName两个属性明确指定 -->
-		<table tableName="tabple_emp" domainObjectName="Employee">
-			<!-- 配置主键生成策略 -->
-			<generatedKey column="emp_id" sqlStatement="Mysql" identity="true" />
-		</table>
-	</context>
+        <!-- 配置XxxMapper.java存放位置 -->
+        <javaClientGenerator 
+                             targetPackage="${targetMapperPackage}"
+                             targetProject="${targetJavaProject}" 
+                             type="XMLMAPPER" />
+
+        <!-- 根据数据库表生成Java文件的相关规则 -->
+        <!-- tableName="%"表示数据库中所有表都参与逆向工程，此时使用默认规则 -->
+        <!-- 默认规则：table_dept→TableDept -->
+        <!-- 不符合默认规则时需要使用tableName和domainObjectName两个属性明确指定 -->
+        <table tableName="tabple_emp" domainObjectName="Employee">
+            <!-- 配置主键生成策略 -->
+            <generatedKey column="emp_id" sqlStatement="Mysql" identity="true" />
+        </table>
+    </context>
 </generatorConfiguration>
 ```
 
@@ -613,7 +613,7 @@ generatorConfig.xml
 
 在 pom.xml 这一级目录的命令行窗口执行 `mvn mybatis-generator:generate`即可（前提是配置了mvn）。
 
-![image-20210620185823833](./%E9%80%9A%E7%94%A8mapper%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210620185824.png)
+![image-20210620185823833](https://gitee.com/wowosong/pic-md/raw/master/202212152312575.png)
 
 ## 6.2参考文档地址
 
@@ -621,7 +621,7 @@ https://github.com/abel533/Mapper/wiki/4.1.mappergenerator
 
 # **7** 自定义Mapper<T>接口
 
-![image-20210620191515136](./%E9%80%9A%E7%94%A8mapper%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210620191515.png)
+![image-20210620191515136](https://gitee.com/wowosong/pic-md/raw/master/202212152312182.png)
 
 ## 7.1用途
 
@@ -650,17 +650,17 @@ public interface EmployeeMapper extends MyMapper<Employee>{
 ## 7.3配置MapperScannerConfigurer注册MyMapper<T>
 
 ```xml
-	<!-- 整合通用Mapper所需要做的配置修改： -->
-	<!-- 原始全类名：org.mybatis.spring.mapper.MapperScannerConfigurer -->
-	<!-- 通用Mapper使用：tk.mybatis.spring.mapper.MapperScannerConfigurer -->
-	<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.atguigu.mapper.mappers"/>
-		<property name="properties">
-			<value>
-				mappers=com.atguigu.shop.mymapper.MyMapper
-			</value>
-		</property>
-	</bean>
+<!-- 整合通用Mapper所需要做的配置修改： -->
+<!-- 原始全类名：org.mybatis.spring.mapper.MapperScannerConfigurer -->
+<!-- 通用Mapper使用：tk.mybatis.spring.mapper.MapperScannerConfigurer -->
+<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="basePackage" value="com.atguigu.mapper.mappers"/>
+    <property name="properties">
+        <value>
+            mappers=com.atguigu.shop.mymapper.MyMapper
+        </value>
+    </property>
+</bean>
 ```
 
 # **8** **通用** **Mapper** **接口扩展** 
@@ -701,7 +701,7 @@ UPDATE tabple_emp SET emp_name=?,emp_age=?,emp_salary=? where emp_id=? ;
 
 ## 8.3我们需要提供的接口和实现类
 
-![image-20210621220217397](./%E9%80%9A%E7%94%A8mapper%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210621220218.png)
+![image-20210621220217397](https://gitee.com/wowosong/pic-md/raw/master/202212152313376.png)
 
 ## 8.4参考代码
 
@@ -743,7 +743,7 @@ import tk.mybatis.mapper.common.base.select.SelectAllMapper;
 import tk.mybatis.mapper.common.example.SelectByExampleMapper;
 
 public interface MyMapper<T> 
-		extends SelectAllMapper<T>,SelectByExampleMapper<T> ,MyBatchUpdateMapper<T>{
+    extends SelectAllMapper<T>,SelectByExampleMapper<T> ,MyBatchUpdateMapper<T>{
 
 }
 
@@ -766,15 +766,15 @@ public class MyBatchUpdateProvider extends MapperTemplate {
         super(mapperClass, mapperHelper);
     }
     public String batchUpdate(MappedStatement statement){
-//        <foreach collection="list" item="record" separator=";" >
-//        UPDATE tabple_emp
-//            <set>
-//        SET emp_name=#{record.empName},
-//        emp_age=#{record.empAge},
-//        emp_salary=#{record.empSalary}
-//              </set>
-//        where emp_id=#{record.empId}
-//        </foreach>
+        //        <foreach collection="list" item="record" separator=";" >
+        //        UPDATE tabple_emp
+        //            <set>
+        //        SET emp_name=#{record.empName},
+        //        emp_age=#{record.empAge},
+        //        emp_salary=#{record.empSalary}
+        //              </set>
+        //        where emp_id=#{record.empId}
+        //        </foreach>
         //1.实体类对象
         Class<?> entityClass = super.getEntityClass(statement);
         //2.表名对象
@@ -809,7 +809,7 @@ public class MyBatchUpdateProvider extends MapperTemplate {
         }
         stringBuilder.append("</set>");
         //vii.拼where子句
-        
+
         stringBuilder.append("where ").append(idColunm).append("=").append(idValue);
         stringBuilder.append("</foreach>");
         return stringBuilder.toString();
@@ -858,7 +858,7 @@ public interface EmployeeMapper extends MyMapper<Employee> {
 
 ### 10.2.1自定义类型转换器
 
-![image-20210621232259141](./%E9%80%9A%E7%94%A8mapper%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210621232259.png)
+![image-20210621232259141](https://gitee.com/wowosong/pic-md/raw/master/202212152313418.png)
 
 ### 10.2.2 TypeHandler接口
 
@@ -878,7 +878,7 @@ public interface TypeHandler<T> {
 
 ### 10.2.3继承树
 
-![image-20210621233111017](./%E9%80%9A%E7%94%A8mapper%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210621233111.png)
+![image-20210621233111017](https://gitee.com/wowosong/pic-md/raw/master/202212152313057.png)
 
 ### 10.2.4 BaseTypeHandler类中的抽象方法说明
 
@@ -983,13 +983,13 @@ public class AddressTypeHandler extends BaseTypeHandler<Address> {
 
 > 方法一 字段级别：@ColumnType 注解
 
-![image-20210621233546515](./%E9%80%9A%E7%94%A8mapper%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210621233546.png)
+![image-20210621233546515](https://gitee.com/wowosong/pic-md/raw/master/202212152314546.png)
 
 > 方法二 全局级别：在 MyBatis 配置文件中配置 typeHandlers
 
-![image-20210621233636499](./%E9%80%9A%E7%94%A8mapper%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210621233636.png)
+![image-20210621233636499](https://gitee.com/wowosong/pic-md/raw/master/202212152314317.png)
 
-![image-20210621233657972](./%E9%80%9A%E7%94%A8mapper%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210621233658.png)
+![image-20210621233657972](https://gitee.com/wowosong/pic-md/raw/master/202212152314559.png)
 
 ## 10.3枚举类型
 
@@ -999,7 +999,7 @@ public class AddressTypeHandler extends BaseTypeHandler<Address> {
 
 在 Spring 配置文件中找到 MapperScannerConfigurer
 
-![image-20210621234136053](./%E9%80%9A%E7%94%A8mapper%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210621234136.png)
+![image-20210621234136053](https://gitee.com/wowosong/pic-md/raw/master/202212152314838.png)
 
 > 本质
 
@@ -1007,7 +1007,7 @@ public class AddressTypeHandler extends BaseTypeHandler<Address> {
 
 ### 10.3.2办法二：为枚举类型配置对应的类型处理器
 
-![image-20210621234412998](./%E9%80%9A%E7%94%A8mapper%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210621234413.png)
+![image-20210621234412998](https://gitee.com/wowosong/pic-md/raw/master/202212152314236.png)
 
 > 类型处理器
 
@@ -1027,11 +1027,11 @@ public class AddressTypeHandler extends BaseTypeHandler<Address> {
 
 （1）**不能使用@ColumnType 注解**
 
-![image-20210622001956190](./%E9%80%9A%E7%94%A8mapper%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210622001956.png)
+![image-20210622001956190](https://gitee.com/wowosong/pic-md/raw/master/202212152314139.png)
 
 （2）**需要在 MyBatis 配置文件中配置专门的类型处理器并在字段上使用 @Column 注解**
 
-![image-20210622002204142](./%E9%80%9A%E7%94%A8mapper%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210622002204.png)
+![image-20210622002204142](https://gitee.com/wowosong/pic-md/raw/master/202212152314486.png)
 
 ※注意：加@Column 注解的作用是让通用 Mapper 不忽略枚举类型。
 

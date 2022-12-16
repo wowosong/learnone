@@ -30,10 +30,10 @@ mybatis运行原理：
 ```mysql
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) DEFAULT NULL,
-  `pwd` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(30) DEFAULT NULL,
+    `pwd` varchar(30) DEFAULT NULL,
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -169,10 +169,10 @@ public interface UserMapper {
 <!-- configuration: 核心配置文件 -->
 <configuration>
     <!-- 
-		properties: 引入外部properties文件 必须放在最前面,否则会报错
-			resource: 类路径下
-			url: 磁盘路径或网络路径
- 		-->
+  properties: 引入外部properties文件 必须放在最前面,否则会报错
+   resource: 类路径下
+   url: 磁盘路径或网络路径
+   -->
     <properties resource="jdbc.properties"/>
     <!-- 设置日志输出, 方便观察sql语句和参数 -->
     <settings>
@@ -557,7 +557,7 @@ public interface UserMapper {
 <mapper namespace="org.hong.mapper.UserMapper">
 
     <!--
-        inserte: 配置insert语句
+        insert: 配置insert语句
             id: 对应的方法名
             parameterType: 指定参数类型为pojo, 可以直接写属性名获得属性值, 优先调用getting方法, 如果没有getting方法则直接从属性中取值
      -->
@@ -731,8 +731,8 @@ User(id=4, name=SAVE ID, pwd=123)
 
 ```xml
 <insert id="addEmp">
-	<!-- 
-		selectKey: 配置查询主键的sql语句
+    <!-- 
+  selectKey: 配置查询主键的sql语句
             keyProperty:查出的主键值封装给javaBean的哪个属性
             order: 
                 BEFORE:当前sql在插入sql之前运行
@@ -745,15 +745,15 @@ User(id=4, name=SAVE ID, pwd=123)
             AFTER运行顺序:
                 先运行插入的sql（从序列中取出新值作为id）;
                 再运行selectKey查询id的sql, 回填到javaBean的id属性中
-	 -->
-	<selectKey keyProperty="id" order="BEFORE" resultType="Integer">
-		<!-- 编写查询主键的sql语句 -->
-		select EMPLOYEES_SEQ.nextval from dual 
-	</selectKey>
-	<!-- 插入时的主键是从序列中拿到的 -->
-	<!-- BEFORE:-->
-	insert into employees(EMPLOYEE_ID,LAST_NAME,EMAIL) 
-	values(#{id},#{lastName},#{email}) 
+  -->
+    <selectKey keyProperty="id" order="BEFORE" resultType="Integer">
+        <!-- 编写查询主键的sql语句 -->
+        select EMPLOYEES_SEQ.nextval from dual 
+    </selectKey>
+    <!-- 插入时的主键是从序列中拿到的 -->
+    <!-- BEFORE:-->
+    insert into employees(EMPLOYEE_ID,LAST_NAME,EMAIL) 
+    values(#{id},#{lastName},#{email}) 
 </insert>
 ```
 
@@ -883,8 +883,7 @@ User(id=2, name=Tom, pwd=123456)
 
 ```java
 // 命名参数
-User getAnnoParam(@Param("name") String name,
-                  String pwd);
+User getAnnoParam(@Param("name") String name, String pwd);
 ```
 
 **方法映射**
@@ -1129,8 +1128,7 @@ public interface UserMapper {
     User getParams(String name, String pwd);
 
     // 命名参数
-    User getAnnoParam(@Param("name") String name,
-                      String pwd);
+    User getAnnoParam(@Param("name") String name, String pwd);
 
     // pojo
     int updatePojo(User user);
@@ -1180,7 +1178,7 @@ public interface UserMapper {
     <select id="getMapParam" resultType="org.hong.pojo.User">
         select * from user where name = #{name} and pwd = #{pwd}
     </select>
-    
+
     <!-- #{}和${}的区别 -->
     <select id="getOrderBy" resultType="org.hong.pojo.User">
         select * from user order by id ${order}
@@ -1282,7 +1280,7 @@ public class CRUDTest {
         // 5.关闭sqlSession
         sqlSession.close();
     }
-    
+
     @Test
     public void test$(){
         // 1.获取sqlSession对象
@@ -1306,13 +1304,13 @@ public class CRUDTest {
 
 ```java
 public User getEmp(@Param("id")Integer id, Strig name);
-	// 取值: id-->#{id|param1}		name-->#{param2}
+// 取值: id-->#{id|param1}		name-->#{param2}
 
 public User getEmp(Integer id, @Param("e")Emp emp);
-	// 取值: id-->#{param1} 	name-->#{param2.name|e.name}
+// 取值: id-->#{param1} 	name-->#{param2.name|e.name}
 
 public User getEmpById(List<Integer> ids);
-	/*
+/*
 	##特别注意: 
 		如果是Collection(List, Set) or Array, 也会特殊处理, 把传入的list或数组封装在map中。
 		Key: Collection(collection) | List(list) | Array(array) | Set(set)
@@ -2409,21 +2407,21 @@ User(user_id=5, username=SAVE ID, password=123)
 
 ```mysql
 CREATE TABLE `dept` (
-  `id` INT(10) NOT NULL,
-  `name` VARCHAR(30) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+    `id` INT(10) NOT NULL,
+    `name` VARCHAR(30) DEFAULT NULL,
+    PRIMARY KEY (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8
 
 INSERT INTO dept(`id`, `name`) VALUES (1, '开发部'); 
 INSERT INTO dept(`id`, `name`) VALUES (2, '测试部'); 
 
 CREATE TABLE `employee` (
-  `id` INT(10) NOT NULL,
-  `name` VARCHAR(30) DEFAULT NULL,
-  `did` INT(10) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fkdid` (`did`),
-  CONSTRAINT `fkdid` FOREIGN KEY (`did`) REFERENCES `dept` (`id`)
+    `id` INT(10) NOT NULL,
+    `name` VARCHAR(30) DEFAULT NULL,
+    `did` INT(10) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `fkdid` (`did`),
+    CONSTRAINT `fkdid` FOREIGN KEY (`did`) REFERENCES `dept` (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8
 
 INSERT INTO `employee` (`id`, `name`, `did`) VALUES ('1', '小明', '1'); 
@@ -2623,7 +2621,7 @@ package org.hong.mapper;
 import org.hong.pojo.Dept;
 
 public interface DeptMapper {
-   	
+
 }
 ```
 
@@ -2701,7 +2699,7 @@ public interface EmployeeMapper {
     <!-- 查询Employee的同时查询出对应Dept, 此时使用resultType就做不到了, 需要使用resultMap引用自自定义的映射规则 -->
     <select id="getAll" resultMap="employee3">
         <!-- 内连接 -->
- select e.*, d.id did, d.name dname from employee e inner join dept d on e.did = d.id
+        select e.*, d.id did, d.name dname from employee e inner join dept d on e.did = d.id
     </select>
 </mapper>
 ```
@@ -2764,14 +2762,14 @@ public interface EmployeeMapper {
         思路:
             1.查询所有员工的信息
             2.根据查询出来的员工的did查询对应的部门
- 	-->
+  -->
     <resultMap id="employee" type="org.hong.pojo.Employee">
         <id property="id" column="id"></id>
         <result property="name" column="name"></result>
         <!--
             association:定义关联对象的封装规则
-             	select: 表明当前属性是调用select指定的方法查出的结果
-             	column: 指定将那一列的值传给select
+              select: 表明当前属性是调用select指定的方法查出的结果
+              column: 指定将那一列的值传给select
          -->
         <association property="dept"
                      column="did"
@@ -2960,10 +2958,10 @@ public interface EmployeeMapper {
     <resultMap id="dept3" type="org.hong.pojo.Dept" extends="deptBase">
         <!-- 方式二 -->
         <!-- 
-			collection: 表示查询的多条数据
-				ofType: 指定集合中属性对象的类型[不能省略];
-						需要注意的是, collection使用ofType来指定集合中对象的类型, 而不是javaType
- 		-->
+   collection: 表示查询的多条数据
+    ofType: 指定集合中属性对象的类型[不能省略];
+      需要注意的是, collection使用ofType来指定集合中对象的类型, 而不是javaType
+   -->
         <collection property="employees"
                     ofType="org.hong.pojo.Employee" 
                     resultMap="org.hong.mapper.EmployeeMapper.employeeBase">
@@ -3037,11 +3035,11 @@ public interface EmployeeMapper {
     </resultMap>
     <resultMap id="dept1" type="org.hong.pojo.Dept" extends="deptBase">
         <!--
-			collection: 定义关联集合类型的属性的封装规则
+   collection: 定义关联集合类型的属性的封装规则
                 ofType: 指定集合里面元素的类型
                 select: 表明当前属性是调用select指定的方法查出的结果
                 column: 指定将那一列的值传给select
-		 -->
+   -->
         <collection property="employees"
                     column="id"
                     select="org.hong.mapper.EmployeeMapper.getByDid"></collection>
@@ -3141,7 +3139,7 @@ Dept(id=1, name=开发部, employees=[Employee(id=1, name=小明), Employee(id=3
     <!--
         lazyLoadingEnabled:
             全局启用或禁用延迟加载。
-			禁用时: 所有关联对象都会即时加载。
+   禁用时: 所有关联对象都会即时加载。
      -->
     <setting name="lazyLoadingEnabled" value="true"/>
 </settings>
@@ -3207,8 +3205,8 @@ Dept(id=1, name=开发部, employees=[Employee(id=1, name=小明), Employee(id=3
         -   ```java
             // 传递多列的值
             column="{key1=column1, key2=column2}"
-            	key: select指定的查询的#{key}中的key
-            	colnmn: 列名
+                key: select指定的查询的#{key}中的key
+                    colnmn: 列名
             ```
 
         -   <span style='background:yellow;'><font color='red'>流程：使用select指定的方法(传入column指定的列的参数值)查出对象, 并封装给property</font></span>
@@ -3235,12 +3233,12 @@ Dept(id=1, name=开发部, employees=[Employee(id=1, name=小明), Employee(id=3
 ```mysql
 DROP TABLE IF EXISTS `blog`;
 CREATE TABLE `blog` (
-  `id` varchar(50) NOT NULL COMMENT '博客id',
-  `title` varchar(100) NOT NULL COMMENT '博客标题',
-  `author` varchar(30) NOT NULL COMMENT '博客作者',
-  `create_time` datetime NOT NULL COMMENT '创建时间',
-  `views` int(30) NOT NULL COMMENT '浏览量',
-  PRIMARY KEY (`id`)
+    `id` varchar(50) NOT NULL COMMENT '博客id',
+    `title` varchar(100) NOT NULL COMMENT '博客标题',
+    `author` varchar(30) NOT NULL COMMENT '博客作者',
+    `create_time` datetime NOT NULL COMMENT '创建时间',
+    `views` int(30) NOT NULL COMMENT '浏览量',
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `blog` VALUES ('0001', 'hong/My-Note', '谢禹宏', '2021-04-21 00:00:00', '100');
@@ -3629,7 +3627,8 @@ int update(Blog blog);
 
 ```d
 @Test
-public void testSet(){
+    public void testSet(){
+
     SqlSession sqlSession = MyBatisUtil.getSqlSession();
     BlogMapper mapper = sqlSession.getMapper(BlogMapper.class);
 
@@ -3931,14 +3930,14 @@ Blog(id=0005, title=Hello Linux, author=林纳斯, createTime=2001-04-21, views=
 
     ```xml
     <!-- 
-    	开启mapper下的namespace的二级缓存,
-    	cache标签中的所有属性都是可选的
+     开启mapper下的namespace的二级缓存,
+     cache标签中的所有属性都是可选的
      --> 
     <cache
-      eviction="FIFO"
-      flushInterval="60000"
-      size="512"
-      readOnly="true"/>
+           eviction="FIFO"
+           flushInterval="60000"
+           size="512"
+           readOnly="true"/>
     ```
 
 -   cache标签的属性
@@ -3966,7 +3965,7 @@ Blog(id=0005, title=Hello Linux, author=林纳斯, createTime=2001-04-21, views=
 
 ### 缓存原理图
 
-![image-20211218122751234](./MyBatis.assets/20211218122752.png)
+![image-20211218122751234](https://gitee.com/wowosong/pic-md/raw/master/202212152338915.png)
 
 ### MyBatis整合ehcache
 
@@ -4081,7 +4080,7 @@ public class MyBatisTest {
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
         myBatisGenerator.generate(null);
     }
-    
+
     @Test
     public void testMyBatis3(){
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
@@ -4130,12 +4129,12 @@ public class MyBatisTest {
 ```mysql
 DROP TABLE IF EXISTS `blog`;
 CREATE TABLE `blog` (
-  `id` varchar(50) NOT NULL COMMENT '博客id',
-  `title` varchar(100) NOT NULL COMMENT '博客标题',
-  `author` varchar(30) NOT NULL COMMENT '博客作者',
-  `create_time` datetime NOT NULL COMMENT '创建时间',
-  `views` int(30) NOT NULL COMMENT '浏览量',
-  PRIMARY KEY (`id`)
+    `id` varchar(50) NOT NULL COMMENT '博客id',
+    `title` varchar(100) NOT NULL COMMENT '博客标题',
+    `author` varchar(30) NOT NULL COMMENT '博客作者',
+    `create_time` datetime NOT NULL COMMENT '创建时间',
+    `views` int(30) NOT NULL COMMENT '浏览量',
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `blog` VALUES ('0001', 'hong/My-Note', '谢禹宏', '2021-04-21 00:00:00', '100');
@@ -4253,7 +4252,7 @@ log4j.appender.A1.layout.ConversionPattern=[%t] [%c]-[%p] %m%n
     <!-- 导入外部配置文件, 放在最前面 -->
     <properties resource="jdbc.properties"/>
 
-     <settings>
+    <settings>
         <!-- 设置日志输出, 方便观察sql语句和参数 -->
         <setting name="logImpl" value="LOG4J"/>
         <!-- 开启驼峰命名法 -->
@@ -4304,7 +4303,7 @@ public interface BlogMapper {
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.hong.mapper.BlogMapper">
-    
+
 </mapper>
 ```
 
@@ -4504,8 +4503,10 @@ Blog(id=0004, title=Hello Vuew, author=尤雨溪, createTime=2021-01-21, views=1
 ```java
 // 我们不需要处理pageNum和pageSize
 @Select("select * from blog")
-List<Blog> getPageMethod(@Param("pageNum")Integer pageNum, // 起始页数, 必须使用@Param注解指定key为pageNum
-                         @Param("pageSize")Integer pageSize); // 每页数量, 必须使用@Param注解指定key为pageSize
+List<Blog> getPageMethod(@Param("pageNum")Integer pageNum,
+                         // 起始页数, 必须使用@Param注解指定key为pageNum
+                         @Param("pageSize")Integer pageSize); 
+// 每页数量, 必须使用@Param注解指定key为pageSize
 ```
 
 ##### 测试用例
@@ -4881,11 +4882,11 @@ public class BatchTest {
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/mvc
-       http://www.springframework.org/schema/mvc/spring-mvc.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd">
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- SpringMVC配置文件, 包含网站跳转逻辑的控制配置 -->
     <context:component-scan base-package="org.hong" use-default-filters="false">
@@ -5034,7 +5035,7 @@ log4j.appender.A1.layout.ConversionPattern=[%t] [%c]-[%p] %m%n
 
 ### 项目结构
 
-![image-20211218122854798](./MyBatis.assets/20211218122855.png)
+![image-20211218122854798](https://gitee.com/wowosong/pic-md/raw/master/202212152340171.png)
 
 ### 测试 SSM
 
@@ -5044,20 +5045,20 @@ log4j.appender.A1.layout.ConversionPattern=[%t] [%c]-[%p] %m%n
 
 ```mysql
 CREATE TABLE `tbl_dept` (
-  `dept_id` INT(10) NOT NULL AUTO_INCREMENT,
-  `dept_name` VARCHAR(30) DEFAULT NULL,
-  PRIMARY KEY (`dept_id`)
+    `dept_id` INT(10) NOT NULL AUTO_INCREMENT,
+    `dept_name` VARCHAR(30) DEFAULT NULL,
+    PRIMARY KEY (`dept_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 INSERT INTO tbl_dept(`dept_id`, `dept_name`) VALUES (1, '开发部'); 
 INSERT INTO tbl_dept(`dept_id`, `dept_name`) VALUES (2, '测试部'); 
 
 CREATE TABLE `tbl_employee` (
-  `emp_id` INT(10) NOT NULL AUTO_INCREMENT,
-  `emp_name` VARCHAR(30) DEFAULT NULL,
-  `emp_gender` VARCHAR(30) DEFAULT NULL,
-  `emp_email` VARCHAR(30) DEFAULT NULL,
-  `d_id` INT(10) DEFAULT NULL,
-  PRIMARY KEY (`emp_id`)
+    `emp_id` INT(10) NOT NULL AUTO_INCREMENT,
+    `emp_name` VARCHAR(30) DEFAULT NULL,
+    `emp_gender` VARCHAR(30) DEFAULT NULL,
+    `emp_email` VARCHAR(30) DEFAULT NULL,
+    `d_id` INT(10) DEFAULT NULL,
+    PRIMARY KEY (`emp_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 INSERT INTO `tbl_employee`(`emp_id`, `emp_name`, `emp_gender`, `emp_email`, `d_id`) VALUES (1, 'Hong', '男', '190464706@qq.com', 1);
 INSERT INTO `tbl_employee`(`emp_id`, `emp_name`, `emp_gender`, `emp_email`, `d_id`) VALUES (2, 'Tom', '男', 'Tom@qq.com', 2);
@@ -5143,23 +5144,23 @@ public interface EmployeeMapper {
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.hong.mapper.EmployeeMapper">
-  <resultMap id="BaseResultMap" type="org.hong.pojo.Employee">
-    <id column="emp_id" jdbcType="INTEGER" property="id" />
-    <result column="emp_name" jdbcType="VARCHAR" property="name" />
-    <result column="emp_gender" jdbcType="CHAR" property="gender" />
-    <result column="emp_email" jdbcType="VARCHAR" property="email" />
-  </resultMap>
-  <resultMap id="EmployeeJoin" type="Employee" extends="BaseResultMap">
-    <association property="dept" resultMap="org.hong.mapper.DeptMapper.BaseResultMap"></association>
-  </resultMap>
+    <resultMap id="BaseResultMap" type="org.hong.pojo.Employee">
+        <id column="emp_id" jdbcType="INTEGER" property="id" />
+        <result column="emp_name" jdbcType="VARCHAR" property="name" />
+        <result column="emp_gender" jdbcType="CHAR" property="gender" />
+        <result column="emp_email" jdbcType="VARCHAR" property="email" />
+    </resultMap>
+    <resultMap id="EmployeeJoin" type="Employee" extends="BaseResultMap">
+        <association property="dept" resultMap="org.hong.mapper.DeptMapper.BaseResultMap"></association>
+    </resultMap>
 
-  <sql id="JoinColumn">
-    emp_id, emp_name, emp_gender, emp_email, dept_id, dept_name
-  </sql>
+    <sql id="JoinColumn">
+        emp_id, emp_name, emp_gender, emp_email, dept_id, dept_name
+    </sql>
 
-  <select id="getAll" resultMap="EmployeeJoin">
-    select <include refid="JoinColumn"/> from tbl_employee left join tbl_dept on d_id = dept_id
-  </select>
+    <select id="getAll" resultMap="EmployeeJoin">
+        select <include refid="JoinColumn"/> from tbl_employee left join tbl_dept on d_id = dept_id
+    </select>
 </mapper>
 ```
 
@@ -5239,38 +5240,38 @@ public class EmployeeController {
 
 ```jsp
 <%--
-  Created by IntelliJ IDEA.
-  User: 谢禹宏
-  Date: 2021-04-22
-  Time: 10:37
-  To change this template use File | Settings | File Templates.
---%>
+    Created by IntelliJ IDEA.
+    User: 谢禹宏
+        Date: 2021-04-22
+            Time: 10:37
+                To change this template use File | Settings | File Templates.
+                --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-    <table align="center">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Email</th>
-            <th>DeptName</th>
-        </tr>
-        <c:forEach items="${requestScope.employees}" var="employee">
+    <head>
+        <title>Title</title>
+    </head>
+    <body>
+        <table align="center">
             <tr>
-                <td>${employee.id}</td>
-                <td>${employee.name}</td>
-                <td>${employee.gender}</td>
-                <td>${employee.email}</td>
-                <td>${employee.dept.name}</td>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Email</th>
+                <th>DeptName</th>
             </tr>
-        </c:forEach>
-    </table>
-</body>
+            <c:forEach items="${requestScope.employees}" var="employee">
+                <tr>
+                    <td>${employee.id}</td>
+                    <td>${employee.name}</td>
+                    <td>${employee.gender}</td>
+                    <td>${employee.email}</td>
+                    <td>${employee.dept.name}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </body>
 </html>
 ```
 

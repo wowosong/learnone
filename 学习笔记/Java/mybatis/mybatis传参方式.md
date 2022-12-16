@@ -36,7 +36,7 @@ UserInfo selectByUserId(String userId);
 
 ```xml
 <select id="selectByUserId" resultType="cn.cb.demo.domain.UserInfo">
-        select * from user_info where user_id=#{userId} and status=1
+    select * from user_info where user_id=#{userId} and status=1
 </select>
 ```
 
@@ -57,7 +57,7 @@ UserInfo selectByUserIdAndStatus(String userId,Integer status);
 
 ```xml
 <select id="selectByUserIdAndStatus" resultType="cn.cb.demo.domain.UserInfo">
-        select * from user_info where user_id=#{param1} and status=#{param2}
+    select * from user_info where user_id=#{param1} and status=#{param2}
 </select>
 ```
 
@@ -76,7 +76,7 @@ UserInfo selectByUserIdAndStatus(@Param("userId") String userId,@Param("status")
 
 ```xml
 <select id="selectByUserIdAndStatus" resultType="cn.cb.demo.domain.UserInfo">
-        select * from user_info where user_id=#{userId} and status=#{status}
+    select * from user_info where user_id=#{userId} and status=#{status}
 </select>
 ```
 
@@ -93,7 +93,7 @@ UserInfo selectByUserIdAndStatusMap(Map<String,Object> map);
 
 ```xml
 <select id="selectByUserIdAndStatusMap" resultType="cn.cb.demo.domain.UserInfo">
-        select * from user_info where user_id=#{userId} and status=#{status}
+    select * from user_info where user_id=#{userId} and status=#{status}
 </select>
 ```
 
@@ -102,11 +102,11 @@ UserInfo selectByUserIdAndStatusMap(Map<String,Object> map);
 ```java
 @Test
 void contextLoads() {
-  Map<String,Object> map=new HashMap<>();
-  map.put("userId","1222");
-  map.put("status",1);
-  UserInfo userInfo = userMapper.selectByUserIdAndStatusMap(map);
-  System.out.println(userInfo);
+    Map<String,Object> map=new HashMap<>();
+    map.put("userId","1222");
+    map.put("status",1);
+    UserInfo userInfo = userMapper.selectByUserIdAndStatusMap(map);
+    System.out.println(userInfo);
 }
 ```
 
@@ -123,7 +123,7 @@ UserInfo selectByEntity(UserInfoReq userInfoReq);
 
 ```xml
 <select id="selectByEntity" resultType="cn.cb.demo.domain.UserInfo">
-        select * from user_info where user_id=#{userId} and status=#{status}
+    select * from user_info where user_id=#{userId} and status=#{status}
 </select>
 ```
 
@@ -150,11 +150,11 @@ List<UserInfo> selectList( List<String> userIds);
 
 ```xml
 <select id="selectList" resultMap="userResultMap">
-        select * from user_info where status=1
-        and user_id in
-        <foreach collection="list" item="item" open="(" separator="," close=")" >
-            #{item}
-        </foreach>
+    select * from user_info where status=1
+    and user_id in
+    <foreach collection="list" item="item" open="(" separator="," close=")" >
+        #{item}
+    </foreach>
 </select>
 ```
 
@@ -171,11 +171,11 @@ List<UserInfo> selectList( String[] userIds);
 
 ```xml
 <select id="selectList" resultMap="userResultMap">
-        select * from user_info where status=1
-        and user_id in
-        <foreach collection="array" item="item" open="(" separator="," close=")" >
-            #{item}
-        </foreach>
+    select * from user_info where status=1
+    and user_id in
+    <foreach collection="array" item="item" open="(" separator="," close=")" >
+        #{item}
+    </foreach>
 </select>
 ```
 

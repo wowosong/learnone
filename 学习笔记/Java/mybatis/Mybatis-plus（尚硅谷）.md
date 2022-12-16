@@ -39,11 +39,11 @@ CREATE DATABASE mp;
 USE mp;
 -- 创建表
 CREATE TABLE tbl_employee(
-  id INT(11) PRIMARY KEY AUTO_INCREMENT,
-  last_name VARCHAR(50),
-  email VARCHAR(50),
-  gender CHAR(1),
-  age int
+    id INT(11) PRIMARY KEY AUTO_INCREMENT,
+    last_name VARCHAR(50),
+    email VARCHAR(50),
+    gender CHAR(1),
+    age int
 );
 
 INSERT INTO tbl_employee(last_name,email,gender,age)VALUES('Tom','tom@atguigu.com',1,22);
@@ -75,12 +75,12 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                "id=" + id +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", gender=" + gender +
-                ", age=" + age +
-                '}';
+            "id=" + id +
+            ", lastName='" + lastName + '\'' +
+            ", email='" + email + '\'' +
+            ", gender=" + gender +
+            ", age=" + age +
+            '}';
     }
 }
 
@@ -149,7 +149,7 @@ public class Employee {
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	
+
 </configuration>
 ```
 
@@ -158,25 +158,25 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
- 
+
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
- 
- <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
-   <param name="Encoding" value="UTF-8" />
-   <layout class="org.apache.log4j.PatternLayout">
-    <param name="ConversionPattern" value="%-5p %d{MM-dd HH:mm:ss,SSS} %m  (%F:%L) \n" />
-   </layout>
- </appender>
- <logger name="java.sql">
-   <level value="debug" />
- </logger>
- <logger name="org.apache.ibatis">
-   <level value="info" />
- </logger>
- <root>
-   <level value="debug" />
-   <appender-ref ref="STDOUT" />
- </root>
+
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+        <param name="Encoding" value="UTF-8" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p %d{MM-dd HH:mm:ss,SSS} %m  (%F:%L) \n" />
+        </layout>
+    </appender>
+    <logger name="java.sql">
+        <level value="debug" />
+    </logger>
+    <logger name="org.apache.ibatis">
+        <level value="info" />
+    </logger>
+    <root>
+        <level value="debug" />
+        <appender-ref ref="STDOUT" />
+    </root>
 </log4j:configuration>
 
 ```
@@ -194,68 +194,68 @@ jdbc.password=1234
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
-	
-	<!-- 数据源 -->
-	<context:property-placeholder location="classpath:db.properties"/>
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="${jdbc.driver}"></property>
-		<property name="jdbcUrl" value="${jdbc.url}"></property>
-		<property name="user" value="${jdbc.username}"></property>
-		<property name="password" value="${jdbc.password}"></property>
-	</bean>
-	
-	<!-- 事务管理器 -->
-	<bean id="dataSourceTransactionManager" 
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-	<!-- 基于注解的事务管理 -->
-	<tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
-	
-	<!--  配置SqlSessionFactoryBean 
-		Mybatis提供的: org.mybatis.spring.SqlSessionFactoryBean
-		MP提供的:com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean
-	 -->
-	 <!--	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+                           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
-	<bean id="sqlSessionFactoryBean" class="com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean">
-		<!-- 数据源 -->
-		<property name="dataSource" ref="dataSource"></property>
-		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-		<!-- 别名处理 -->
-		<property name="typeAliasesPackage" value="domain"></property>
-		
-		<!-- 注入全局MP策略配置 -->
-		<property name="globalConfig" ref="globalConfiguration"></property>
-	</bean>
-	
-	<!-- 定义MybatisPlus的全局策略配置-->
-	<bean id ="globalConfiguration" class="com.baomidou.mybatisplus.entity.GlobalConfiguration">
-		<!-- 在2.3版本以后，dbColumnUnderline 默认值就是true -->
-		<property name="dbColumnUnderline" value="true"></property>
-		
-		<!-- 全局的主键策略 -->
-		<property name="idType" value="0"></property>
-		
-		<!-- 全局的表前缀策略配置 -->
-		<property name="tablePrefix" value="tbl_"></property>
+    <!-- 数据源 -->
+    <context:property-placeholder location="classpath:db.properties"/>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"></property>
+        <property name="jdbcUrl" value="${jdbc.url}"></property>
+        <property name="user" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
 
-	</bean>
-	
-	<!-- 
-		配置mybatis 扫描mapper接口的路径
-	 -->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="mapper"></property>
-	</bean>	
+    <!-- 事务管理器 -->
+    <bean id="dataSourceTransactionManager" 
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <!-- 基于注解的事务管理 -->
+    <tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
+
+    <!--  配置SqlSessionFactoryBean 
+  Mybatis提供的: org.mybatis.spring.SqlSessionFactoryBean
+  MP提供的:com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean
+  -->
+    <!--	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+
+    <bean id="sqlSessionFactoryBean" class="com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean">
+        <!-- 数据源 -->
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+        <!-- 别名处理 -->
+        <property name="typeAliasesPackage" value="domain"></property>
+
+        <!-- 注入全局MP策略配置 -->
+        <property name="globalConfig" ref="globalConfiguration"></property>
+    </bean>
+
+    <!-- 定义MybatisPlus的全局策略配置-->
+    <bean id ="globalConfiguration" class="com.baomidou.mybatisplus.entity.GlobalConfiguration">
+        <!-- 在2.3版本以后，dbColumnUnderline 默认值就是true -->
+        <property name="dbColumnUnderline" value="true"></property>
+
+        <!-- 全局的主键策略 -->
+        <property name="idType" value="0"></property>
+
+        <!-- 全局的表前缀策略配置 -->
+        <property name="tablePrefix" value="tbl_"></property>
+
+    </bean>
+
+    <!-- 
+  配置mybatis 扫描mapper接口的路径
+  -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="mapper"></property>
+    </bean>	
 </beans>
 
 ```
@@ -291,7 +291,7 @@ Mybatis-Plus的集成非常简单，对于Spring，我们仅仅需要把Mybatis�
 
 ```xml
 <bean id="sqlSessionFactoryBean" class="com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean">
-		<!--数据源-->
+    <!--数据源-->
     <property name="dataSource" ref="dataSource"></property>
     <property name="configLocation" value="classpath:mybatis-config.xml"></property>
     <!--别名处理-->
@@ -343,24 +343,24 @@ public interface EmployeeMapper  extends BaseMapper<Employee> {
    insert方法在插入时，会根据实体类的每个属性进行非空判断，只有非空属性对应的字段才会出现到sql语句中
 
    ```java
-   		private ApplicationContext ioc=new ClassPathXmlApplicationContext("applicationContext.xml");
-       private EmployeeMapper employeeMapper=ioc.getBean("employeeMapper",EmployeeMapper.class);
+   private ApplicationContext ioc=new ClassPathXmlApplicationContext("applicationContext.xml");
+   private EmployeeMapper employeeMapper=ioc.getBean("employeeMapper",EmployeeMapper.class);
    
-       /**
+   /**
         * 通用插入操作
         */
    
-       @Test
-       public void TestCommonInsert(){
-           Employee employee = new Employee();
-           employee.setAge(1);
-           employee.setEmail("164644354@qq.com");
-           employee.setId(1);
-           employee.setLastName("wowosong");
-           employee.setGender(1);
-           Integer result = employeeMapper.insert(employee);
-           System.out.println(result);
-       }
+   @Test
+   public void TestCommonInsert(){
+       Employee employee = new Employee();
+       employee.setAge(1);
+       employee.setEmail("164644354@qq.com");
+       employee.setId(1);
+       employee.setLastName("wowosong");
+       employee.setGender(1);
+       Integer result = employeeMapper.insert(employee);
+       System.out.println(result);
+   }
    ```
 
 2. @TableId
@@ -371,8 +371,8 @@ public interface EmployeeMapper  extends BaseMapper<Employee> {
         * value :指定表中的主键列的列名，如果实体属性名与列名一致，可以省略不指定
         * type：指定主键策略
         */
-       @TableId(value = "",type = IdType.AUTO)
-    
+   @TableId(value = "",type = IdType.AUTO)
+   
    ```
 
 3. @TableName 
@@ -389,7 +389,7 @@ public interface EmployeeMapper  extends BaseMapper<Employee> {
         * value :指定表中的主键列的列名，如果实体属性名与列名一致，可以省略不指定
         * type：指定主键策略
         */
-      
+   
    }
    ```
 
@@ -397,31 +397,31 @@ public interface EmployeeMapper  extends BaseMapper<Employee> {
 
    ```xml
    <!-- 定义MybatisPlus的全局策略配置-->
-   	<bean id ="globalConfiguration" class="com.baomidou.mybatisplus.entity.GlobalConfiguration">
-   		<!-- 在2.3版本以后，dbColumnUnderline 默认值就是true -->
-   		<!--驼峰命名到下划线>
-   		<property name="dbColumnUnderline" value="true"></property>
-   	
-   		<!-- 全局的主键策略 -->
-   		<property name="idType" value="0"></property>
-   		
-   		<!-- 全局的表前缀策略配置 -->
-   		<property name="tablePrefix" value="tbl_"></property>
-   	</bean>
+   <bean id ="globalConfiguration" class="com.baomidou.mybatisplus.entity.GlobalConfiguration">
+       <!-- 在2.3版本以后，dbColumnUnderline 默认值就是true -->
+       <!--驼峰命名到下划线>
+     <property name="dbColumnUnderline" value="true"></property>
+   
+     <!-- 全局的主键策略 -->
+       <property name="idType" value="0"></property>
+   
+       <!-- 全局的表前缀策略配置 -->
+       <property name="tablePrefix" value="tbl_"></property>
+   </bean>
    ```
 
    ```xml
    配置全局策略后需要注入到mybatis-plus
    <bean id="sqlSessionFactoryBean" class="com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean">
-   		<!-- 数据源 -->
-   		<property name="dataSource" ref="dataSource"></property>
-   		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-   		<!-- 别名处理 -->
-   		<property name="typeAliasesPackage" value="domain"></property>
-   		
-   		<!-- 注入全局MP策略配置 -->
-   		<property name="globalConfig" ref="globalConfiguration"></property>
-   	</bean>
+       <!-- 数据源 -->
+       <property name="dataSource" ref="dataSource"></property>
+       <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+       <!-- 别名处理 -->
+       <property name="typeAliasesPackage" value="domain"></property>
+   
+       <!-- 注入全局MP策略配置 -->
+       <property name="globalConfig" ref="globalConfiguration"></property>
+   </bean>
    ```
 
 5. 全局的MP下划线到驼峰命名配置:<propertyname="dbColumnUnderline"value="true"></property>
@@ -437,7 +437,7 @@ public interface EmployeeMapper  extends BaseMapper<Employee> {
         * value :指定表中列的列名，如果实体属性名与列名一致，可以省略不指定
         * exist：指定字段是否在数据库中存在
         */
-       
+   
        @TableField(value = "last_name",exist = true)
        private String lastName;
        @TableField(exist=false)
@@ -474,16 +474,16 @@ updateById方法在更新时，会根据实体类的每个属性进行非空判�
 /**
      * 通用更新操作
      */
-    @Test
-    public void testCommonUpdte(){
-        Employee employee = new Employee();
-        employee.setId(1);
-        employee.setEmail("wowosong@qq.com");
-        employee.setLastName("test");
-        Integer integer = employeeMapper.updateById(employee);
-        System.out.println(integer);
-    }
- 
+@Test
+public void testCommonUpdte(){
+    Employee employee = new Employee();
+    employee.setId(1);
+    employee.setEmail("wowosong@qq.com");
+    employee.setLastName("test");
+    Integer integer = employeeMapper.updateById(employee);
+    System.out.println(integer);
+}
+
 ```
 
 ```sql
@@ -496,18 +496,18 @@ DEBUG 06-14 22:32:20,673 ==> Parameters: test(String), wowosong@qq.com(String), 
 updateAllColumnById方法在更新时，不管属性是否为空，所有属性对应的字段都会出现到sql语句中
 
 ```java
-    /**
+/**
      * 通用更新操作
      */
-    @Test
-    public void testCommonUpdte(){
-      Employee employee = new Employee();
-      employee.setId(1);
-      employee.setEmail("wowosong@qq.com");
-      employee.setLastName("test");
-      Integer integer1 = employeeMapper.updateAllColumnById(employee);
-      System.out.println(integer1);
-    }
+@Test
+public void testCommonUpdte(){
+    Employee employee = new Employee();
+    employee.setId(1);
+    employee.setEmail("wowosong@qq.com");
+    employee.setLastName("test");
+    Integer integer1 = employeeMapper.updateAllColumnById(employee);
+    System.out.println(integer1);
+}
 
 ```
 
@@ -533,8 +533,8 @@ int update(@Param(Constants.ENTITY) T updateEntity, @Param(Constants.WRAPPER) Wr
  */
 @Test
 public void testSelect(){
-  Employee employee = employeeMapper.selectById(1);
-  System.out.println(employee);
+    Employee employee = employeeMapper.selectById(1);
+    System.out.println(employee);
 }
 ```
 
@@ -549,11 +549,11 @@ DEBUG 06-15 21:36:14,203 ==> Parameters: 1(Integer)  (JakartaCommonsLoggingImpl.
 
 ```java
 //通过多列查询
-    Employee employee = new Employee();
-    employee.setLastName("wowosong");
-    employee.setId(1);
-    Employee employee1 = employeeMapper.selectOne(employee);
-    System.out.println(employee1);
+Employee employee = new Employee();
+employee.setLastName("wowosong");
+employee.setId(1);
+Employee employee1 = employeeMapper.selectOne(employee);
+System.out.println(employee1);
 ```
 
 ```sql
@@ -565,8 +565,8 @@ DEBUG 06-15 21:40:18,197 ==> Parameters: 1(Integer), wowosong(String)  (JakartaC
 
 ```java
 //  通过多个ID查询
-    List<Integer> list= Arrays.asList(1,2,3,4,1);
-    employeeMapper.selectBatchIds(list);
+List<Integer> list= Arrays.asList(1,2,3,4,1);
+employeeMapper.selectBatchIds(list);
 ```
 
 ```sql
@@ -577,11 +577,11 @@ DEBUG 06-15 21:46:11,451 ==> Parameters: 1(Integer), 2(Integer), 3(Integer), 4(I
 4) List<T> selectByMap(@Param("cm") Map<String, Object> columnMap);
 
 ```java
-   通过Map封装查询
-   Map map=new HashMap();
-   map.put("id",1);
-   map.put("last_Name","wowosong");//写列名
-   employeeMapper.selectByMap(map);
+//通过Map封装查询
+Map map=new HashMap();
+map.put("id",1);
+map.put("last_Name","wowosong");//写列名
+employeeMapper.selectByMap(map);
 ```
 
 ```sql
@@ -592,9 +592,9 @@ DEBUG 06-15 21:50:17,267 ==> Parameters: 1(Integer), wowosong(String)  (JakartaC
 5) List<T> selectPage(RowBounds rowBounds, @Param("ew") Wrapper<T> wrapper);
 
 ```java
- 分页查询
- List<Employee> employees = employeeMapper.selectPage(new Page(2, 2), null);
- System.out.println(employees); 
+//分页查询
+List<Employee> employees = employeeMapper.selectPage(new Page(2, 2), null);
+System.out.println(employees); 
 ```
 
 ```sql
@@ -612,8 +612,8 @@ DEBUG 06-15 21:55:37,146 ==> Parameters:   (JakartaCommonsLoggingImpl.java:54)
 */
 @Test
 public void testDelete(){
-  Integer integer = employeeMapper.deleteById(1);
-  System.out.println(integer);
+    Integer integer = employeeMapper.deleteById(1);
+    System.out.println(integer);
 }
 ```
 
@@ -641,11 +641,11 @@ DEBUG 06-15 22:03:06,177 ==> Parameters: 1(Integer)  (JakartaCommonsLoggingImpl.
 **idList不能为空，否则sql异常**
 
 ```java
-   根据多个IDs删除
-   List<Integer> list=new ArrayList<Integer>();
-   list.add(1);
-   list.add(2);
-   employeeMapper.deleteBatchIds(list);
+//根据多个IDs删除
+List<Integer> list=new ArrayList<Integer>();
+list.add(1);
+list.add(2);
+employeeMapper.deleteBatchIds(list);
 ```
 
 ```sql
@@ -671,7 +671,7 @@ A． employeeMapper 的本质 org.apache.ibatis.binding.MapperProxy
 
 B． MapperProxy 中 sqlSession –>SqlSessionFactory
 
-![](./mybatis/Mybatis-plus%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210615222437.png)
+![](https://gitee.com/wowosong/pic-md/raw/master/20210615222437.png)
 
 C． SqlSessionFacotry 中 → Configuration→ MappedStatements每一个 mappedStatement 都表示 Mapper 接口中的一个方法与 Mapper 映射文件中的一个 SQL。
 
@@ -703,9 +703,9 @@ SqlSource: SQL 语句处理对象
 
 MapperBuilderAssistant： 用于缓存、SQL 参数、查询方剂结果集处理等。通过 MapperBuilderAssistant 将每一个 mappedStatement添加到 configuration 中的 mappedstatements 中
 
-![image-20210615225843047](./mybatis/Mybatis-plus%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210615225843.png)
+![image-20210615225843047](https://gitee.com/wowosong/pic-md/raw/master/20210615225843.png)
 
-![image-20210615225919151](./mybatis/Mybatis-plus%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210615225919.png)
+![image-20210615225919151](https://gitee.com/wowosong/pic-md/raw/master/20210615225919.png)
 
 ## **3.7** **通用** **CRUD** **小结**
 
@@ -731,7 +731,7 @@ MP: 依旧不用编写 SQL 语句, MP 提供了功能强大的条件构造器 En
 
 4) 条件参数说明:
 
-![image-20210616204149905](./mybatis/Mybatis-plus%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210616204150.png)
+![image-20210616204149905](https://gitee.com/wowosong/pic-md/raw/master/20210616204150.png)
 
 ## **4.2** **使用** **EntityWrapper**的方式打开如上需求
 
@@ -740,16 +740,13 @@ MP: 依旧不用编写 SQL 语句, MP 提供了功能强大的条件构造器 En
      *
     分页查询 tbl_employee表中，年龄在 18~50之间性别为男且姓名为 xx的所有用户，这时候我们该如何实现上述需求呢？
      */
-    @Test
-    public void  testWrapper(){
-        List<Employee> employees = employeeMapper.selectPage(new Page<Employee>(1, 2),
-                new EntityWrapper<Employee>().
-                        between("age", 15, 18)
-                        .eq("gender", 1)
-                        .eq("last_name", "wowosong"));
-        System.out.println(employees);
-    }
- 
+@Test
+public void  testWrapper(){
+    List<Employee> employees = employeeMapper.selectPage(new Page<Employee>(1, 2),
+                                                         new EntityWrapper<Employee>().between("age", 15, 18).eq("gender", 1).eq("last_name", "wowosong"));
+    System.out.println(employees);
+}
+
 ```
 
 ```sql
@@ -768,12 +765,11 @@ DEBUG 06-16 20:52:27,050 ==> Parameters: 15(Integer), 18(Integer), 1(Integer), w
  * 查询出性别为男，且名字中含老师，或邮箱中含a
  */
 List<Employee> employees = employeeMapper.selectList(new EntityWrapper<Employee>()
-                .eq("gender", 1)
-                .like("last_name", "老师")
-                .or()//WHERE (gender = ? AND last_name LIKE ? OR email LIKE ?)  
-                .orNew()  // (gender = ? AND last_name LIKE ?) OR (email LIKE ?) 
-                .like("email", "a"));
- System.out.println(employees);
+  .eq("gender", 1).like("last_name", "老师").or()
+ //WHERE (gender = ? AND last_name LIKE ? OR email LIKE ?).orNew() 
+ // (gender = ? AND last_name LIKE ?) OR (email LIKE ?) 
+ .like("email", "a"));
+System.out.println(employees);
 ```
 
 ```sql
@@ -791,15 +787,15 @@ DEBUG 06-16 21:00:59,860 ==> Parameters: 1(Integer), %老师%(String), %a%(Strin
 /**
      * 条件构造器 更新操作
      */
-    @Test
-    public void testEntityUpdateWrapper(){
-        Employee employee = new Employee();
-        employee.setLastName("111");
-        employee.setEmail("1231@qq.com");
-        employeeMapper.update(employee,new EntityWrapper<Employee>().
-                eq("last_name","wowosong"));
-    }
-    
+@Test
+public void testEntityUpdateWrapper(){
+    Employee employee = new Employee();
+    employee.setLastName("111");
+    employee.setEmail("1231@qq.com");
+    employeeMapper.update(employee,new EntityWrapper<Employee>().
+                          eq("last_name","wowosong"));
+}
+
 ```
 
 ```sql
@@ -823,7 +819,7 @@ public void testEntityDeleteWrapper(){
     employee.setLastName("111");
     employee.setEmail("1231@qq.com");
     employeeMapper.delete(new EntityWrapper<Employee>().
-            eq("last_name","wowosong"));
+                          eq("last_name","wowosong"));
 }
 ```
 
@@ -848,11 +844,11 @@ DEBUG 06-16 21:53:30,643 ==> Parameters:   (JakartaCommonsLoggingImpl.java:54)
 
 ```java
 List<Employee> userListCondition = employeeMapper.selectPage(
-new Page<Employee>(2,3), 
-Condition.create().
-eq("gender", 1).
-eq("last_name", "MyBatisPlus").
-between("age", 18, 50));
+    new Page<Employee>(2,3), 
+    Condition.create().
+    eq("gender", 1).
+    eq("last_name", "MyBatisPlus").
+    between("age", 18, 50));
 ```
 
 ## **4.7** **小结**
@@ -895,12 +891,12 @@ public class Employee extends Model<Employee> {
     @Override
     public String toString() {
         return "Employee{" +
-                "id=" + id +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", gender=" + gender +
-                ", age=" + age +
-                '}';
+            "id=" + id +
+            ", lastName='" + lastName + '\'' +
+            ", email='" + email + '\'' +
+            ", gender=" + gender +
+            ", age=" + age +
+            '}';
     }
 
     protected Serializable pkVal() {
@@ -916,20 +912,20 @@ public class Employee extends Model<Employee> {
 public boolean insert()
 
 ```java
-  /**
+/**
      * AR 插入操作
      */
-    @Test
-    public void testAR(){
-        Employee employee = new Employee();
-        employee.setId(1);
-        employee.setLastName("wowosong");
-        employee.setEmail("huang@qq.com");
-        employee.setGender(1);
-        employee.setAge(30);
-        employee.insert();
-    }
- 
+@Test
+public void testAR(){
+    Employee employee = new Employee();
+    employee.setId(1);
+    employee.setLastName("wowosong");
+    employee.setEmail("huang@qq.com");
+    employee.setGender(1);
+    employee.setAge(30);
+    employee.insert();
+}
+
 ```
 
 ```sql
@@ -945,17 +941,17 @@ public boolean updateById()
 /**
      * AR 更新操作
      */
-    @Test
-    public void testARUpdate(){
-        Employee employee = new Employee();
-        employee.setId(1);
-        employee.setLastName("wowosong");
-        employee.setEmail("huang@qq.com");
-        employee.setGender(1);
-        employee.setAge(30);
-        boolean b = employee.updateById();
-        System.out.println(b);
-    } 
+@Test
+public void testARUpdate(){
+    Employee employee = new Employee();
+    employee.setId(1);
+    employee.setLastName("wowosong");
+    employee.setEmail("huang@qq.com");
+    employee.setGender(1);
+    employee.setAge(30);
+    boolean b = employee.updateById();
+    System.out.println(b);
+} 
 
 ```
 
@@ -970,17 +966,17 @@ DEBUG 06-16 22:19:58,532 <==    Updates: 0  (JakartaCommonsLoggingImpl.java:54)
 public T selectById()
 
 ```java
-  /**
+/**
      * AR 查询操作
      */
-    @Test
-    public void testARSelect(){
-        Employee employee = new Employee();
-        employee.setId(3);
-        Employee employee1 = employee.selectById();
-        System.out.println(employee1);
-    }
- 
+@Test
+public void testARSelect(){
+    Employee employee = new Employee();
+    employee.setId(3);
+    Employee employee1 = employee.selectById();
+    System.out.println(employee1);
+}
+
 ```
 
 ```sql
@@ -994,13 +990,13 @@ public T selectById(Serializable id)
 /**
      * AR 查询操作
      */
-    @Test
-    public void testARSelect(){
-        Employee employee = new Employee();
-        Employee employee2 = employee.selectById(4);
-        System.out.println(employee2);
-    }
- 
+@Test
+public void testARSelect(){
+    Employee employee = new Employee();
+    Employee employee2 = employee.selectById(4);
+    System.out.println(employee2);
+}
+
 ```
 
 ```sql
@@ -1014,12 +1010,12 @@ public List<T> selectAll()
 /**
      * AR 查询操作
      */
-    @Test
-    public void testARSelect(){
-        Employee employee = new Employee();
-        List<Employee> employees = employee.selectAll();
-        System.out.println(employees);
-    }
+@Test
+public void testARSelect(){
+    Employee employee = new Employee();
+    List<Employee> employees = employee.selectAll();
+    System.out.println(employees);
+}
 
 ```
 
@@ -1035,12 +1031,12 @@ public List<T> selectList(Wrapper wrapper)
 /**
      * AR 查询操作
      */
-    @Test
-    public void testARSelect(){
-        Employee employee = new Employee();
-        List<Employee> employees = employee.selectList(new EntityWrapper().eq("last_name", "wowosong"));
-        System.out.println(employees);
-    }
+@Test
+public void testARSelect(){
+    Employee employee = new Employee();
+    List<Employee> employees = employee.selectList(new EntityWrapper().eq("last_name", "wowosong"));
+    System.out.println(employees);
+}
 
 ```
 
@@ -1055,13 +1051,13 @@ public int selectCount(Wrapper wrapper)
 /**
      * AR 查询操作
      */
-    @Test
-    public void testARSelect(){
-        Employee employee = new Employee();
-        int i = employee.selectCount(new EntityWrapper().eq("last_name", "wowosong"));
-        System.out.println(i);
-    }
- 
+@Test
+public void testARSelect(){
+    Employee employee = new Employee();
+    int i = employee.selectCount(new EntityWrapper().eq("last_name", "wowosong"));
+    System.out.println(i);
+}
+
 ```
 
 ```sql
@@ -1077,13 +1073,13 @@ public boolean deleteById()
 /**
      * AR 删除操作
      */
-    @Test
-    public void testARDelete(){
-        Employee employee = new Employee();
-        employee.setId(3);
-        employee.deleteById();
-    }
-    
+@Test
+public void testARDelete(){
+    Employee employee = new Employee();
+    employee.setId(3);
+    employee.deleteById();
+}
+
 ```
 
 ```sql
@@ -1097,12 +1093,12 @@ public boolean deleteById(Serializable id)
 /**
      * AR 删除操作
      */
-    @Test
-    public void testARDelete(){
-        Employee employee = new Employee();
-        employee.deleteById(4);
-    }
-   
+@Test
+public void testARDelete(){
+    Employee employee = new Employee();
+    employee.deleteById(4);
+}
+
 ```
 
 ```sql
@@ -1116,13 +1112,13 @@ public boolean delete(Wrapper wrapper)
 /**
      * AR 删除操作
      */
-    @Test
-    public void testARDelete(){
-        Employee employee = new Employee();
-        boolean delete = employee.delete(new EntityWrapper().eq("last_name", "wowosong"));
-        System.out.println(delete);
-    }
-     
+@Test
+public void testARDelete(){
+    Employee employee = new Employee();
+    boolean delete = employee.delete(new EntityWrapper().eq("last_name", "wowosong"));
+    System.out.println(delete);
+}
+
 ```
 
 ```sql
@@ -1138,14 +1134,14 @@ public Page<T> selectPage(Page<T> page, Wrapper<T> wrapper)
 /**
      * AR 分页查询
      */
-    @Test
-    public void testSelectPage(){
-        Employee employee = new Employee();
-        Page<Employee> employeePage = employee.selectPage(new Page<Employee>(1, 2), new EntityWrapper<Employee>().eq("last_name", "wowosong"));
-        List<Employee> records = employeePage.getRecords();
-        System.out.println("records:"+records);
-    }
-   
+@Test
+public void testSelectPage(){
+    Employee employee = new Employee();
+    Page<Employee> employeePage = employee.selectPage(new Page<Employee>(1, 2), new EntityWrapper<Employee>().eq("last_name", "wowosong"));
+    List<Employee> records = employeePage.getRecords();
+    System.out.println("records:"+records);
+}
+
 ```
 
 ```sql
@@ -1222,39 +1218,39 @@ MP 的代码生成器默认使用的是 Apache 的 Velocity 模板，当然也�
 ```java
 @Test
 public void testGenerator() {
-		//全局配置
-	GlobalConfig config = new GlobalConfig();
+    //全局配置
+    GlobalConfig config = new GlobalConfig();
     config.setActiveRecord(true) //是否支持AR模式
-    .setAuthor("weiyunhui") //作者
-    .setOutputDir("D:\\workspace_my\\mp03\\src\\main\\java") 
-    //生成路径
-    .setFileOverride(true)//文件覆盖
-    .setServiceName("%sService") //设置生成的service接口名首字母是否为I
-    .setIdType(IdType.AUTO); //主键策略
+        .setAuthor("weiyunhui") //作者
+        .setOutputDir("D:\\workspace_my\\mp03\\src\\main\\java") 
+        //生成路径
+        .setFileOverride(true)//文件覆盖
+        .setServiceName("%sService") //设置生成的service接口名首字母是否为I
+        .setIdType(IdType.AUTO); //主键策略
     //数据源配置
     DataSourceConfig dsConfig = new DataSourceConfig();
     dsConfig.setDbType(DbType.MYSQL)
-    .setUrl("jdbc:mysql://localhost:3306/mp")
-    .setDriverName("com.mysql.jdbc.Driver")
-    .setUsername("root")
-    .setPassword("password");
+        .setUrl("jdbc:mysql://localhost:3306/mp")
+        .setDriverName("com.mysql.jdbc.Driver")
+        .setUsername("root")
+        .setPassword("password");
     //策略配置
     StrategyConfig stConfig = new StrategyConfig();
     stConfig.setCapitalMode(true) // 全局大写命名
-    .setDbColumnUnderline(true) //表名 字段名 是否使用下滑线命名
-    .setNaming(NamingStrategy.underline_to_camel) // 数据库表映射到实体的命名策略
-    .setInclude("tbl_employee") //生成的表
-    .setTablePrefix("tbl_"); // 表前缀
+        .setDbColumnUnderline(true) //表名 字段名 是否使用下滑线命名
+        .setNaming(NamingStrategy.underline_to_camel) // 数据库表映射到实体的命名策略
+        .setInclude("tbl_employee") //生成的表
+        .setTablePrefix("tbl_"); // 表前缀
     //包名策略
     PackageConfig pkConfig = new PackageConfig();
     pkConfig.setParent("com.atguigu.mp")
-    .setController("controller")
-    .setEntity("beans")
-    .setService("service");
+        .setController("controller")
+        .setEntity("beans")
+        .setService("service");
     AutoGenerator ag = new   AutoGenerator().setGlobalConfig(config)
-    .setDataSource(dsConfig)
-    .setStrategy(stConfig)
-    .setPackageInfo(pkConfig);
+        .setDataSource(dsConfig)
+        .setStrategy(stConfig)
+        .setPackageInfo(pkConfig);
     ag.execute();
 }
 ```
@@ -1359,27 +1355,27 @@ import com.baomidou.mybatisplus.mapper.AutoSqlInjector;
  * 自定义全局操作
  */
 public class MySqlInjector  extends AutoSqlInjector{
-	
-	/**
+
+    /**
 	 * 扩展inject 方法，完成自定义全局操作
 	 */
-	@Override
-	public void inject(Configuration configuration, MapperBuilderAssistant builderAssistant, Class<?> mapperClass,
-			Class<?> modelClass, TableInfo table) {
-		//将EmployeeMapper中定义的deleteAll， 处理成对应的MappedStatement对象，加入到configuration对象中。
-		
-		//注入的SQL语句
-		String sql = "delete from " +table.getTableName();
-		//注入的方法名   一定要与EmployeeMapper接口中的方法名一致
-		String method = "deleteAll" ;
-		
-		//构造SqlSource对象
-		SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
-		
-		//构造一个删除的MappedStatement
-		this.addDeleteMappedStatement(mapperClass, method, sqlSource);
-		
-	}
+    @Override
+    public void inject(Configuration configuration, MapperBuilderAssistant builderAssistant, Class<?> mapperClass,
+                       Class<?> modelClass, TableInfo table) {
+        //将EmployeeMapper中定义的deleteAll， 处理成对应的MappedStatement对象，加入到configuration对象中。
+
+        //注入的SQL语句
+        String sql = "delete from " +table.getTableName();
+        //注入的方法名   一定要与EmployeeMapper接口中的方法名一致
+        String method = "deleteAll" ;
+
+        //构造SqlSource对象
+        SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
+
+        //构造一个删除的MappedStatement
+        this.addDeleteMappedStatement(mapperClass, method, sqlSource);
+
+    }
 }
 ```
 
@@ -1388,121 +1384,121 @@ public class MySqlInjector  extends AutoSqlInjector{
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
-	
-	
-	<!-- 数据源 -->
-	<context:property-placeholder location="classpath:db.properties"/>
-	<!-- Mysql
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="${jdbc.driver}"></property>
-		<property name="jdbcUrl" value="${jdbc.url}"></property>
-		<property name="user" value="${jdbc.username}"></property>
-		<property name="password" value="${jdbc.password}"></property>
-	</bean>
-	 -->
-	 <!-- Oracle -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="${orcl.driver}"></property>
-		<property name="jdbcUrl" value="${orcl.url}"></property>
-		<property name="user" value="${orcl.username}"></property>
-		<property name="password" value="${orcl.password}"></property>
-	</bean>
-	
-	<!-- 事务管理器 -->
-	<bean id="dataSourceTransactionManager" 
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-	<!-- 基于注解的事务管理 -->
-	<tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
-		
-	<!--  配置SqlSessionFactoryBean 
-		Mybatis提供的: org.mybatis.spring.SqlSessionFactoryBean
-		MP提供的:com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean
-	 -->
-	<bean id="sqlSessionFactoryBean" class="com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean">
-		<!-- 数据源 -->
-		<property name="dataSource" ref="dataSource"></property>
-		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-		<!-- 别名处理 -->
-		<property name="typeAliasesPackage" value="com.atguigu.mp.beans"></property>	
-		<!-- 注入全局MP策略配置 -->
-		<property name="globalConfig" ref="globalConfiguration"></property>
-		<!-- 插件注册 -->
-		<property name="plugins">
-			<list>
-				<!-- 注册分页插件 -->
-				<bean class="com.baomidou.mybatisplus.plugins.PaginationInterceptor"></bean>
-				<!-- 注册执行分析插件
-				<bean class="com.baomidou.mybatisplus.plugins.SqlExplainInterceptor">
-					<property name="stopProceed" value="true"></property>
-				</bean>
-				 -->
-				<!-- 注册性能分析插件 -->
-				<bean class="com.baomidou.mybatisplus.plugins.PerformanceInterceptor">
-					<property name="format" value="true"></property>
-					<!-- <property name="maxTime" value="5"></property> -->
-				</bean>
-				<!-- 注册乐观锁插件 -->
-				<bean 	                    class="com.baomidou.mybatisplus.plugins.OptimisticLockerInterceptor">
-				</bean>
-			</list>
-		</property>
-	</bean>
-	
-	<!-- 定义MybatisPlus的全局策略配置-->
-	<bean id ="globalConfiguration" class="com.baomidou.mybatisplus.entity.GlobalConfiguration">
-		<!-- 在2.3版本以后，dbColumnUnderline 默认值就是true -->
-		<property name="dbColumnUnderline" value="true"></property>
-		
-		<!-- Mysql 全局的主键策略 -->
-		<!-- <property name="idType" value="0"></property> -->
-		<!-- Oracle全局主键策略 -->
-		<property name="idType" value="1"></property>
-		
-		<!-- 全局的表前缀策略配置 -->
-		<property name="tablePrefix" value="tbl_"></property>
-		
-		<!--注入自定义全局操作 
-		<property name="sqlInjector" ref="mySqlInjector"></property>
-	 	-->
-	 	<!-- 注入逻辑删除 -->
-	 	<property name="sqlInjector" ref="logicSqlInjector"></property>
-	 	
-	 	<!-- 注入逻辑删除全局值 -->
-	 	<property name="logicDeleteValue" value = "-1"></property>
-	 	<property name="logicNotDeleteValue" value="1"></property>
-	 	
-	 	<!-- 注入公共字段填充处理器 -->
-	 	<property name="metaObjectHandler" ref="myMetaObjectHandler"></property>
-	 	
-	 	<!-- 注入Oracle主键Sequence -->
-	 	<property name="keyGenerator" ref="oracleKeyGenerator"></property>
-	</bean>
-	
-	<!-- 定义自定义注入器 -->
-	<bean id="mySqlInjector" class="com.atguigu.mp.injector.MySqlInjector"></bean>
-	<!-- 逻辑删除 -->
-	<bean id="logicSqlInjector" class="com.baomidou.mybatisplus.mapper.LogicSqlInjector"></bean>
-	<!-- 公共字段填充 处理器 -->
-	<bean id="myMetaObjectHandler" class="com.atguigu.mp.metaObjectHandler.MyMetaObjectHandler"> </bean>
-	
-	<!-- 配置Oracle主键Sequence -->
-	<bean id="oracleKeyGenerator" class="com.baomidou.mybatisplus.incrementer.OracleKeyGenerator"></bean>
-	<!-- 
-		配置mybatis 扫描mapper接口的路径
-	 -->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.atguigu.mp.mapper"></property>
-	</bean>
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+                           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+
+    <!-- 数据源 -->
+    <context:property-placeholder location="classpath:db.properties"/>
+    <!-- Mysql
+ <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+  <property name="driverClass" value="${jdbc.driver}"></property>
+  <property name="jdbcUrl" value="${jdbc.url}"></property>
+  <property name="user" value="${jdbc.username}"></property>
+  <property name="password" value="${jdbc.password}"></property>
+ </bean>
+  -->
+    <!-- Oracle -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${orcl.driver}"></property>
+        <property name="jdbcUrl" value="${orcl.url}"></property>
+        <property name="user" value="${orcl.username}"></property>
+        <property name="password" value="${orcl.password}"></property>
+    </bean>
+
+    <!-- 事务管理器 -->
+    <bean id="dataSourceTransactionManager" 
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <!-- 基于注解的事务管理 -->
+    <tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
+
+    <!--  配置SqlSessionFactoryBean 
+  Mybatis提供的: org.mybatis.spring.SqlSessionFactoryBean
+  MP提供的:com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean
+  -->
+    <bean id="sqlSessionFactoryBean" class="com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean">
+        <!-- 数据源 -->
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+        <!-- 别名处理 -->
+        <property name="typeAliasesPackage" value="com.atguigu.mp.beans"></property>	
+        <!-- 注入全局MP策略配置 -->
+        <property name="globalConfig" ref="globalConfiguration"></property>
+        <!-- 插件注册 -->
+        <property name="plugins">
+            <list>
+                <!-- 注册分页插件 -->
+                <bean class="com.baomidou.mybatisplus.plugins.PaginationInterceptor"></bean>
+                <!-- 注册执行分析插件
+    <bean class="com.baomidou.mybatisplus.plugins.SqlExplainInterceptor">
+     <property name="stopProceed" value="true"></property>
+    </bean>
+     -->
+                <!-- 注册性能分析插件 -->
+                <bean class="com.baomidou.mybatisplus.plugins.PerformanceInterceptor">
+                    <property name="format" value="true"></property>
+                    <!-- <property name="maxTime" value="5"></property> -->
+                </bean>
+                <!-- 注册乐观锁插件 -->
+                <bean 	                    class="com.baomidou.mybatisplus.plugins.OptimisticLockerInterceptor">
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 定义MybatisPlus的全局策略配置-->
+    <bean id ="globalConfiguration" class="com.baomidou.mybatisplus.entity.GlobalConfiguration">
+        <!-- 在2.3版本以后，dbColumnUnderline 默认值就是true -->
+        <property name="dbColumnUnderline" value="true"></property>
+
+        <!-- Mysql 全局的主键策略 -->
+        <!-- <property name="idType" value="0"></property> -->
+        <!-- Oracle全局主键策略 -->
+        <property name="idType" value="1"></property>
+
+        <!-- 全局的表前缀策略配置 -->
+        <property name="tablePrefix" value="tbl_"></property>
+
+        <!--注入自定义全局操作 
+  <property name="sqlInjector" ref="mySqlInjector"></property>
+   -->
+        <!-- 注入逻辑删除 -->
+        <property name="sqlInjector" ref="logicSqlInjector"></property>
+
+        <!-- 注入逻辑删除全局值 -->
+        <property name="logicDeleteValue" value = "-1"></property>
+        <property name="logicNotDeleteValue" value="1"></property>
+
+        <!-- 注入公共字段填充处理器 -->
+        <property name="metaObjectHandler" ref="myMetaObjectHandler"></property>
+
+        <!-- 注入Oracle主键Sequence -->
+        <property name="keyGenerator" ref="oracleKeyGenerator"></property>
+    </bean>
+
+    <!-- 定义自定义注入器 -->
+    <bean id="mySqlInjector" class="com.atguigu.mp.injector.MySqlInjector"></bean>
+    <!-- 逻辑删除 -->
+    <bean id="logicSqlInjector" class="com.baomidou.mybatisplus.mapper.LogicSqlInjector"></bean>
+    <!-- 公共字段填充 处理器 -->
+    <bean id="myMetaObjectHandler" class="com.atguigu.mp.metaObjectHandler.MyMetaObjectHandler"> </bean>
+
+    <!-- 配置Oracle主键Sequence -->
+    <bean id="oracleKeyGenerator" class="com.baomidou.mybatisplus.incrementer.OracleKeyGenerator"></bean>
+    <!-- 
+  配置mybatis 扫描mapper接口的路径
+  -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.atguigu.mp.mapper"></property>
+    </bean>
 </beans>
 ```
 
@@ -1552,30 +1548,30 @@ import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
  * 自定义公共字段填充处理器
  */
 public class MyMetaObjectHandler extends MetaObjectHandler {
-	
-	/**
+
+    /**
 	 * 插入操作 自动填充
 	 */
-	@Override
-	public void insertFill(MetaObject metaObject) {
-		//获取到需要被填充的字段的值
-		Object fieldValue = getFieldValByName("name", metaObject);
-		if(fieldValue == null) {
-			System.out.println("*******插入操作 满足填充条件*********");
-			setFieldValByName("name", "weiyunhui", metaObject);
-		}
-	}
-	/**
+    @Override
+    public void insertFill(MetaObject metaObject) {
+        //获取到需要被填充的字段的值
+        Object fieldValue = getFieldValByName("name", metaObject);
+        if(fieldValue == null) {
+            System.out.println("*******插入操作 满足填充条件*********");
+            setFieldValByName("name", "weiyunhui", metaObject);
+        }
+    }
+    /**
 	 * 修改操作自动填充
 	 */
-	@Override
-	public void updateFill(MetaObject metaObject) {
-		Object fieldValue = getFieldValByName("name", metaObject);
-		if(fieldValue == null) {
-			System.out.println("*******修改操作 满足填充条件*********");
-			setFieldValByName("name", "weiyh", metaObject);
-		}
-	}
+    @Override
+    public void updateFill(MetaObject metaObject) {
+        Object fieldValue = getFieldValByName("name", metaObject);
+        if(fieldValue == null) {
+            System.out.println("*******修改操作 满足填充条件*********");
+            setFieldValByName("name", "weiyh", metaObject);
+        }
+    }
 }
 
 ```
@@ -1583,10 +1579,10 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
 3) MP 全局注入自定义公共字段填充处理器
 
 ```xml
-	<!-- 公共字段填充 处理器 -->
-	<bean id="myMetaObjectHandler" class="com.atguigu.mp.metaObjectHandler.MyMetaObjectHandler"> </bean>
-	<!-- 注入公共字段填充处理器 -->
-	<property name="metaObjectHandler" ref="myMetaObjectHandler"></property>
+<!-- 公共字段填充 处理器 -->
+<bean id="myMetaObjectHandler" class="com.atguigu.mp.metaObjectHandler.MyMetaObjectHandler"> </bean>
+<!-- 注入公共字段填充处理器 -->
+<property name="metaObjectHandler" ref="myMetaObjectHandler"></property>
 ```
 
 # **第** **10** **章** **Oracle** **主键** **Sequence**

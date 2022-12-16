@@ -19,9 +19,9 @@
 ​	从 XML 文件中构建 SqlSessionFactory 的实例非常简单，建议使用**类路径下的资源文件**进行配置。 但也可以使用任意的输入流（InputStream）实例，比如用文件路径字符串或 file:// URL 构造的输入流。 **MyBatis 包含一个名叫 Resources 的工具类，它包含一些实用方法，使得从类路径或其它位置加载资源文件更加容易。**
 
 ```java
-  String resource = "org/mybatis/example/mybatis-config.xml";
-  InputStream inputStream = Resources.getResourceAsStream(resource);
-  SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);   
+String resource = "org/mybatis/example/mybatis-config.xml";
+InputStream inputStream = Resources.getResourceAsStream(resource);
+SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);   
 ```
 
 ​	**XML 配置文件中包含了对 MyBatis 系统的核心设置，包括获取数据库连接实例的数据源（DataSource）以及决定事务作用域和控制方式的事务管理器（TransactionManager）**。后面会再探讨 XML 配置文件的详细内容，这里先给出一个简单的示例：
@@ -29,21 +29,21 @@
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE configurationPUBLIC "-//mybatis.org//DTD Config 3.0//EN""http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-<environments default="development">
-    <environment id="development">
-    <transactionManager type="JDBC"/>
-    <dataSource type="POOLED">
-    <property name="driver" value="${driver}"/>
-    <property name="url" value="${url}"/>
-    <property name="username" value="${username}"/>
-    <property name="password" value="${password}"/>
-    </dataSource>
-    </environment>
-</environments>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
 
-<mappers>
-		<mapper resource="org/mybatis/example/BlogMapper.xml"/>
-</mappers>
+    <mappers>
+        <mapper resource="org/mybatis/example/BlogMapper.xml"/>
+    </mappers>
 </configuration> 
 ```
 
@@ -75,7 +75,7 @@ SqlSessionFactory sqlSessionFactory = new sqlSessionFactoryBuilder().build(confi
 
 ```java
 try (SqlSession session = sqlSessionFactory.openSession()){
- 		Blog blog = (Blog) session.selectOne("org.mybatis.example.BlogMapper.selectBlog", 101);
+    Blog blog = (Blog) session.selectOne("org.mybatis.example.BlogMapper.selectBlog", 101);
 }
 ```
 
@@ -85,8 +85,8 @@ try (SqlSession session = sqlSessionFactory.openSession()){
 
 ```java
 try (SqlSession session = sqlSessionFactory.openSession()) {
-		BlogMapper mapper = session.getMapper(BlogMapper.class);
-		Blog blog = mapper.selectBlog(101);
+    BlogMapper mapper = session.getMapper(BlogMapper.class);
+    Blog blog = mapper.selectBlog(101);
 }
 ```
 
@@ -104,7 +104,7 @@ try (SqlSession session = sqlSessionFactory.openSession()) {
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.mybatis.example.BlogMapper">
     <select id="selectBlog" resultType="Blog">
-      select * from Blog where id = #{id}
+        select * from Blog where id = #{id}
     </select>
 </mapper>
 ```
@@ -145,8 +145,8 @@ Blog blog = mapper.selectBlog(101);
 ```java
 package org.mybatis.example;
 public interface BlogMapper {
-@Select("SELECT * FROM blog WHERE id = #{id}")
-	Blog selectBlog(int id);
+    @Select("SELECT * FROM blog WHERE id = #{id}")
+    Blog selectBlog(int id);
 }
 ```
 
@@ -177,7 +177,7 @@ SqlSessionFactory 一旦被创建就应该在应用的运行期间一直存在�
 ```java
 try (SqlSession session = sqlSessionFactory.openSession()) {
 
-// 你的应用逻辑代码
+    // 你的应用逻辑代码
 
 }
 ```
@@ -233,10 +233,10 @@ MyBatis 的配置文件包含了会深深影响 MyBatis 行为的设置和属性
 
 ```xml
 <dataSource type="POOLED">
-     <property name="driver" value="${driver}"/>
-     <property name="url" value="${url}"/>
-     <property name="username" value="${username}"/>
-     <property name="password" value="${password}"/>
+    <property name="driver" value="${driver}"/>
+    <property name="url" value="${url}"/>
+    <property name="username" value="${username}"/>
+    <property name="password" value="${password}"/>
 </dataSource>
 ```
 
@@ -264,9 +264,9 @@ SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader, environ
 
 ```xml
 <dataSource type="POOLED">
-<!-- ... -->
-	<property name="username" value="${username:ut_user}"/> 
-	<!-- 如果属性 'username' 没有被配置， 'username' 属性的值将为 'ut_user' -->
+    <!-- ... -->
+    <property name="username" value="${username:ut_user}"/> 
+    <!-- 如果属性 'username' 没有被配置， 'username' 属性的值将为 'ut_user' -->
 </dataSource>
 ```
 
@@ -367,12 +367,12 @@ SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader, environ
 
 ```xml
 <typeAliases>
-     <typeAlias alias="Author" type="domain.blog.Author"/>
-     <typeAlias alias="Blog" type="domain.blog.Blog"/>
-     <typeAlias alias="Comment" type="domain.blog.Comment"/>
-     <typeAlias alias="Post" type="domain.blog.Post"/>
-     <typeAlias alias="Section" type="domain.blog.Section"/>
-     <typeAlias alias="Tag" type="domain.blog.Tag"/>
+    <typeAlias alias="Author" type="domain.blog.Author"/>
+    <typeAlias alias="Blog" type="domain.blog.Blog"/>
+    <typeAlias alias="Comment" type="domain.blog.Comment"/>
+    <typeAlias alias="Post" type="domain.blog.Post"/>
+    <typeAlias alias="Section" type="domain.blog.Section"/>
+    <typeAlias alias="Tag" type="domain.blog.Tag"/>
 </typeAliases>
 ```
 
@@ -382,7 +382,7 @@ SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader, environ
 
 ```xml
 <typeAliases>
- 	<package name="domain.blog"/>
+    <package name="domain.blog"/>
 </typeAliases>
 ```
 
@@ -393,7 +393,7 @@ SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader, environ
 
 public class Author {
 
-	...
+    ...
 
 }
 ```
@@ -481,29 +481,29 @@ public class Author {
 // ExampleTypeHandler.java
 @MappedJdbcTypes(JdbcType.VARCHAR)
 public class ExampleTypeHandler extends BaseTypeHandler<String> {
-	@Override
-	public void setNonNullParameter(PreparedStatement ps, int i, String parameter, JdbcType jdbcType) throws SQLException {
-		ps.setString(i, parameter);
-	}
-	@Override
-	public String getNullableResult(ResultSet rs, String columnName) throws SQLException {
-		return rs.getString(columnName);
-	}
-	@Override
-	public String getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-		return rs.getString(columnIndex);
-}
-	@Override
-	public String getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-		return cs.getString(columnIndex);
-	}
+    @Override
+    public void setNonNullParameter(PreparedStatement ps, int i, String parameter, JdbcType jdbcType) throws SQLException {
+        ps.setString(i, parameter);
+    }
+    @Override
+    public String getNullableResult(ResultSet rs, String columnName) throws SQLException {
+        return rs.getString(columnName);
+    }
+    @Override
+    public String getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+        return rs.getString(columnIndex);
+    }
+    @Override
+    public String getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+        return cs.getString(columnIndex);
+    }
 }
 ```
 
 ```xml
 <!-- mybatis-config.xml -->
 <typeHandlers>
-		<typeHandler handler="org.mybatis.example.ExampleTypeHandler"/>
+    <typeHandler handler="org.mybatis.example.ExampleTypeHandler"/>
 </typeHandlers>
 ```
 
@@ -525,7 +525,7 @@ public class ExampleTypeHandler extends BaseTypeHandler<String> {
 ```xml
 <!-- mybatis-config.xml -->
 <typeHandlers>
-		<package name="org.mybatis.example"/>
+    <package name="org.mybatis.example"/>
 </typeHandlers>
 ```
 
@@ -535,13 +535,13 @@ public class ExampleTypeHandler extends BaseTypeHandler<String> {
 ```java
 //GenericTypeHandler.java
 public class GenericTypeHandler<E extends MyObject> extends BaseTypeHandler<E> {
-		private Class<E> type;
-		public GenericTypeHandler(Class<E> type) {
-		if (type == null) 
-		throw new IllegalArgumentException("Type argument cannot be null");
-		this.type = type;
-}
-...
+    private Class<E> type;
+    public GenericTypeHandler(Class<E> type) {
+        if (type == null) 
+            throw new IllegalArgumentException("Type argument cannot be null");
+        this.type = type;
+    }
+    ...
 ```
 
 
@@ -558,7 +558,7 @@ EnumTypeHandler 和 EnumOrdinalTypeHandler 都是泛型类型处理器，我们�
 <!-- mybatis-config.xml -->
 <typeHandlers>
     <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler"
-    javaType="java.math.RoundingMode"/>
+                 javaType="java.math.RoundingMode"/>
 </typeHandlers>
 ```
 
@@ -571,32 +571,32 @@ EnumTypeHandler 和 EnumOrdinalTypeHandler 都是泛型类型处理器，我们�
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.apache.ibatis.submitted.rounding.Mapper">
-<resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap">
-	<id column="id" property="id"/>
-	<result column="name" property="name"/>
-	<result column="funkyNumber" property="funkyNumber"/>
-	<result column="roundingMode" property="roundingMode"/>
-</resultMap>
-<select id="getUser" resultMap="usermap">
-	select * from users
-</select>
-<insert id="insert">
-    insert into users (id, name, funkyNumber, roundingMode) values (#{id}, #{name}, #{funkyNumber}, #{roundingMode}
-    )
-</insert>
-<resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap2">
-	<id column="id" property="id"/>
-	<result column="name" property="name"/>
-	<result column="funkyNumber" property="funkyNumber"/>
-	<result column="roundingMode" property="roundingMode" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
-</resultMap>
-<select id="getUser2" resultMap="usermap2">
-	select * from users2
-</select>
-<insert id="insert2">
-    insert into users2 (id, name, funkyNumber, roundingMode) values(#{id}, #{name}, #{funkyNumber}, #		{roundingMode,typeHandler=org.apache.ibatis.type.EnumTypeHandler}
-  )
-</insert>
+    <resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="funkyNumber" property="funkyNumber"/>
+        <result column="roundingMode" property="roundingMode"/>
+    </resultMap>
+    <select id="getUser" resultMap="usermap">
+        select * from users
+    </select>
+    <insert id="insert">
+        insert into users (id, name, funkyNumber, roundingMode) values (#{id}, #{name}, #{funkyNumber}, #{roundingMode}
+        )
+    </insert>
+    <resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap2">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="funkyNumber" property="funkyNumber"/>
+        <result column="roundingMode" property="roundingMode" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
+    </resultMap>
+    <select id="getUser2" resultMap="usermap2">
+        select * from users2
+    </select>
+    <insert id="insert2">
+        insert into users2 (id, name, funkyNumber, roundingMode) values(#{id}, #{name}, #{funkyNumber}, #		{roundingMode,typeHandler=org.apache.ibatis.type.EnumTypeHandler}
+        )
+    </insert>
 </mapper>
 ```
 
@@ -609,24 +609,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 ```java
 // ExampleObjectFactory.java
 public class ExampleObjectFactory extends DefaultObjectFactory {
-	public Object create(Class type) {
-		return super.create(type);
-}
-public Object create(Class type, List<Class> constructorArgTypes, List<Object> constructorArgs) {
-	return super.create(type, constructorArgTypes, constructorArgs);
-}
-public void setProperties(Properties properties) {
-	super.setProperties(properties);
-}
-public <T> boolean isCollection(Class<T> type) {
-	return Collection.class.isAssignableFrom(type);
-}}
+    public Object create(Class type) {
+        return super.create(type);
+    }
+    public Object create(Class type, List<Class> constructorArgTypes, List<Object> constructorArgs) {
+        return super.create(type, constructorArgTypes, constructorArgs);
+    }
+    public void setProperties(Properties properties) {
+        super.setProperties(properties);
+    }
+    public <T> boolean isCollection(Class<T> type) {
+        return Collection.class.isAssignableFrom(type);
+    }}
 ```
 
 ```xml
 <!-- mybatis-config.xml -->
 <objectFactory type="org.mybatis.example.ExampleObjectFactory">
-	<property name="someProperty" value="100"/>
+    <property name="someProperty" value="100"/>
 </objectFactory>
 ```
 
@@ -635,10 +635,10 @@ ObjectFactory 接口很简单，它包含两个创建实例用的方法，一个
 MyBatis 允许你在映射语句执行过程中的某一点进行拦截调用。默认情况下， MyBatis允许使用插件来拦截的方法调用包括：
 
 ```java
-• Executor (update,query,flushStatements,commit,rollback,getTransaction,close,isClosed)
-• ParameterHandler (getParameterObject, setParameters)
-• ResultSetHandler (handleResultSets, handleOutputParameters)
-• StatementHandler (prepare, parameterize, batch, update, query)
+Executor (update,query,flushStatements,commit,rollback,getTransaction,close,isClosed)
+ParameterHandler (getParameterObject, setParameters)
+ResultSetHandler (handleResultSets, handleOutputParameters)
+StatementHandler (prepare, parameterize, batch, update, query)
 ```
 
 这些类中方法的细节可以通过查看每个方法的签名来发现，或者直接查看 MyBatis 发行包中的源代码。 如果你想做的不仅仅是监控方法的调用，那么你最好相当了解要重写的方法的行为。 因为在试图修改或重写已有方法的行为时，很可能会破坏 MyBatis 的核心模块。 这些都是更底层的类和方法，所以使用插件的时候要特别当心。
@@ -648,25 +648,25 @@ MyBatis 允许你在映射语句执行过程中的某一点进行拦截调用。
 // ExamplePlugin.java
 @Intercepts({@Signature(type= Executor.class,method = "update",args = {MappedStatement.class,Object.class})})
 public class ExamplePlugin implements Interceptor {
-	private Properties properties = new Properties();
-	public Object intercept(Invocation invocation) throws Throwable {
-	// implement pre processing if need
-	Object returnObject = invocation.proceed();
-	// implement post processing if need
-	return returnObject;
-	}
-public void setProperties(Properties properties) {
-	this.properties = properties;
-	}
+    private Properties properties = new Properties();
+    public Object intercept(Invocation invocation) throws Throwable {
+        // implement pre processing if need
+        Object returnObject = invocation.proceed();
+        // implement post processing if need
+        return returnObject;
+    }
+    public void setProperties(Properties properties) {
+        this.properties = properties;
+    }
 }
 ```
 
 ```xml
 <!-- mybatis-config.xml -->
 <plugins>
-	<plugin interceptor="org.mybatis.example.ExamplePlugin">
-		<property name="someProperty" value="100"/>
-	</plugin>
+    <plugin interceptor="org.mybatis.example.ExamplePlugin">
+        <property name="someProperty" value="100"/>
+    </plugin>
 </plugins>
 ```
 
@@ -700,17 +700,17 @@ environments 元素定义了如何配置环境。
 
 ```xml
 <environments default="development">
-	<environment id="development">
-		<transactionManager type="JDBC">
-			<property name="..." value="..."/>
-		</transactionManager>
-		<dataSource type="POOLED">
-			<property name="driver" value="${driver}"/>
-			<property name="url" value="${url}"/>
-			<property name="username" value="${username}"/>
-			<property name="password" value="${password}"/>
-		</dataSource>
-	</environment>
+    <environment id="development">
+        <transactionManager type="JDBC">
+            <property name="..." value="..."/>
+        </transactionManager>
+        <dataSource type="POOLED">
+            <property name="driver" value="${driver}"/>
+            <property name="url" value="${url}"/>
+            <property name="username" value="${username}"/>
+            <property name="password" value="${password}"/>
+        </dataSource>
+    </environment>
 </environments>
 ```
 
@@ -731,7 +731,7 @@ environments 元素定义了如何配置环境。
 
 ```xml
 <transactionManager type="MANAGED">
-		<property name="closeConnection" value="false"/>
+    <property name="closeConnection" value="false"/>
 </transactionManager>
 ```
 
@@ -742,9 +742,9 @@ environments 元素定义了如何配置环境。
 
 ```java
 public interface TransactionFactory {
-	default void setProperties(Properties props) { // 从 3.5.2 开始，该方法为默认方法
-     // 空实现
-}
+    default void setProperties(Properties props) { // 从 3.5.2 开始，该方法为默认方法
+        // 空实现
+    }
     Transaction newTransaction(Connection conn);
     Transaction newTransaction(DataSource dataSource, TransactionIsolationLevel level, boolean autoCommit);
 }
@@ -754,11 +754,11 @@ public interface TransactionFactory {
 
 ```java
 public interface Transaction {
-	Connection getConnection() throws SQLException;
-	void commit() throws SQLException;
-	void rollback() throws SQLException;
-	void close() throws SQLException;
-	Integer getTimeout() throws SQLException;
+    Connection getConnection() throws SQLException;
+    void commit() throws SQLException;
+    void rollback() throws SQLException;
+    void close() throws SQLException;
+    Integer getTimeout() throws SQLException;
 }
 ```
 
@@ -804,8 +804,8 @@ dataSource 元素使用标准的 JDBC 数据源接口来配置 JDBC 连接对象
 
 ```java
 public interface DataSourceFactory {
-		void setProperties(Properties props);
-		DataSource getDataSource();
+    void setProperties(Properties props);
+    DataSource getDataSource();
 }
 ```
 
@@ -815,9 +815,9 @@ org.apache.ibatis.datasource.unpooled.UnpooledDataSourceFactory 可被用作父�
 import org.apache.ibatis.datasource.unpooled.UnpooledDataSourceFactory;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 public class C3P0DataSourceFactory extends UnpooledDataSourceFactory {
-		public C3P0DataSourceFactory() {
-		this.dataSource = new ComboPooledDataSource();
-	}
+    public C3P0DataSourceFactory() {
+        this.dataSource = new ComboPooledDataSource();
+    }
 }
 ```
 
@@ -825,10 +825,10 @@ public class C3P0DataSourceFactory extends UnpooledDataSourceFactory {
 
 ```xml
 <dataSource type="org.myproject.C3P0DataSourceFactory">
-	<property name="driver" value="org.postgresql.Driver"/>
-	<property name="url" value="jdbc:postgresql:mydb"/>
-	<property name="username" value="postgres"/>
-	<property name="password" value="root"/>
+    <property name="driver" value="org.postgresql.Driver"/>
+    <property name="url" value="jdbc:postgresql:mydb"/>
+    <property name="username" value="postgres"/>
+    <property name="password" value="root"/>
 </dataSource>
 ```
 
@@ -844,9 +844,9 @@ databaseIdProvider 对应的 DB_VENDOR 实现会将 databaseId 设置为 Databas
 
 ```xml
 <databaseIdProvider type="DB_VENDOR">
-	<property name="SQL Server" value="sqlserver"/>
-	<property name="DB2" value="db2"/>
-	<property name="Oracle" value="oracle" />
+    <property name="SQL Server" value="sqlserver"/>
+    <property name="DB2" value="db2"/>
+    <property name="Oracle" value="oracle" />
 </databaseIdProvider>
 ```
 
@@ -855,10 +855,10 @@ databaseIdProvider 对应的 DB_VENDOR 实现会将 databaseId 设置为 Databas
 
 ```java
 public interface DatabaseIdProvider {
-	default void setProperties(Properties p) { // 从 3.5.2 开始，该方法为默认方法
-// 空实现
-}
-	String getDatabaseId(DataSource dataSource) throws SQLException;
+    default void setProperties(Properties p) { // 从 3.5.2 开始，该方法为默认方法
+        // 空实现
+    }
+    String getDatabaseId(DataSource dataSource) throws SQLException;
 }
 ```
 
@@ -869,25 +869,25 @@ public interface DatabaseIdProvider {
 ```xml
 <!-- 使用相对于类路径的资源引用 -->
 <mappers>
-	<mapper resource="org/mybatis/builder/AuthorMapper.xml"/>
-	<mapper resource="org/mybatis/builder/BlogMapper.xml"/>
-	<mapper resource="org/mybatis/builder/PostMapper.xml"/>
+    <mapper resource="org/mybatis/builder/AuthorMapper.xml"/>
+    <mapper resource="org/mybatis/builder/BlogMapper.xml"/>
+    <mapper resource="org/mybatis/builder/PostMapper.xml"/>
 </mappers>
 <!-- 使用完全限定资源定位符（URL） -->
 <mappers>
-	<mapper url="file:///var/mappers/AuthorMapper.xml"/>
-	<mapper url="file:///var/mappers/BlogMapper.xml"/>
-	<mapper url="file:///var/mappers/PostMapper.xml"/>
+    <mapper url="file:///var/mappers/AuthorMapper.xml"/>
+    <mapper url="file:///var/mappers/BlogMapper.xml"/>
+    <mapper url="file:///var/mappers/PostMapper.xml"/>
 </mappers>
 <!-- 使用映射器接口实现类的完全限定类名 -->
 <mappers>
-	<mapper class="org.mybatis.builder.AuthorMapper"/>
-	<mapper class="org.mybatis.builder.BlogMapper"/>
-	<mapper class="org.mybatis.builder.PostMapper"/>
+    <mapper class="org.mybatis.builder.AuthorMapper"/>
+    <mapper class="org.mybatis.builder.BlogMapper"/>
+    <mapper class="org.mybatis.builder.PostMapper"/>
 </mappers>
 <!-- 将包内的映射器接口实现全部注册为映射器 -->
 <mappers>
-	<package name="org.mybatis.builder"/>
+    <package name="org.mybatis.builder"/>
 </mappers>
 ```
 
@@ -915,7 +915,7 @@ SQL 映射文件只有很少的几个顶级元素（按照应被定义的顺序�
 
 ```xml
 <select id="selectPerson" parameterType="int" resultType="hashmap">
-	SELECT * FROM PERSON WHERE ID = #{id}
+    SELECT * FROM PERSON WHERE ID = #{id}
 </select>
 ```
 
@@ -941,17 +941,17 @@ select 元素允许你配置很多属性来配置每条语句的行为细节。
 
 ```xml
 <select
-id="selectPerson"
-parameterType="int"
-parameterMap="deprecated"
-resultType="hashmap"
-resultMap="personResultMap"
-flushCache="false"
-useCache="true"
-timeout="10"
-fetchSize="256"
-statementType="PREPARED"
-resultSetType="FORWARD_ONLY">
+        id="selectPerson"
+        parameterType="int"
+        parameterMap="deprecated"
+        resultType="hashmap"
+        resultMap="personResultMap"
+        flushCache="false"
+        useCache="true"
+        timeout="10"
+        fetchSize="256"
+        statementType="PREPARED"
+        resultSetType="FORWARD_ONLY">
 ```
 
 
@@ -982,28 +982,30 @@ resultSetType="FORWARD_ONLY">
 
 ```xml
 <insert
-id="insertAuthor"
-parameterType="domain.blog.Author"
-flushCache="true"
-statementType="PREPARED"
-keyProperty=""
-keyColumn=""
-useGeneratedKeys=""
-timeout="20">
+        id="insertAuthor"
+        parameterType="domain.blog.Author"
+        flushCache="true"
+        statementType="PREPARED"
+        keyProperty=""
+        keyColumn=""
+        useGeneratedKeys=""
+        timeout="20">
+</insert>
 
 <update
-id="updateAuthor"
-parameterType="domain.blog.Author"
-flushCache="true"
-statementType="PREPARED"
-timeout="20">
-
+        id="updateAuthor"
+        parameterType="domain.blog.Author"
+        flushCache="true"
+        statementType="PREPARED"
+        timeout="20">
+</update>
 <delete
-id="deleteAuthor"
-parameterType="domain.blog.Author"
-flushCache="true"
-statementType="PREPARED"
-timeout="20">
+        id="deleteAuthor"
+        parameterType="domain.blog.Author"
+        flushCache="true"
+        statementType="PREPARED"
+        timeout="20">
+</delete>
 ```
 
 | Insert, Update, Delete 元素的属性 |                                                              |
@@ -1024,18 +1026,18 @@ timeout="20">
 
 ```xml
 <insert id="insertAuthor">
-insert into Author (id,username,password,email,bio)values (#{id},#{username},#{password},#{email},#{bio})
+    insert into Author (id,username,password,email,bio)values (#{id},#{username},#{password},#{email},#{bio})
 </insert>
 <update id="updateAuthor">
-  update Author set
-      username = #{username},
-      password = #{password},
-      email = #{email},
-      bio = #{bio}
+    update Author set
+    username = #{username},
+    password = #{password},
+    email = #{email},
+    bio = #{bio}
     where id = #{id}
 </update>
 <delete id="deleteAuthor">
-	delete from Author where id = #{id}
+    delete from Author where id = #{id}
 </delete>
 ```
 
@@ -1045,7 +1047,7 @@ insert into Author (id,username,password,email,bio)values (#{id},#{username},#{p
 
 ```xml
 <insert id="insertAuthor" useGeneratedKeys="true"keyProperty="id">
-	insert into Author (username,password,email,bio)values (#{username},#{password},#{email},#{bio})
+    insert into Author (username,password,email,bio)values (#{username},#{password},#{email},#{bio})
 </insert>
 ```
 
@@ -1053,9 +1055,9 @@ insert into Author (id,username,password,email,bio)values (#{id},#{username},#{p
 
 ```xml
 <insert id="insertAuthor" useGeneratedKeys="true"keyProperty="id">
-insert into Author (username, password, email, bio) values
+    insert into Author (username, password, email, bio) values
     <foreach item="item" collection="list" separator=",">
-    (#{item.username}, #{item.password}, #{item.email}, #{item.bio})
+        (#{item.username}, #{item.password}, #{item.email}, #{item.bio})
     </foreach>
 </insert>
 ```
@@ -1066,12 +1068,12 @@ insert into Author (username, password, email, bio) values
 
 ```xml
 <insert id="insertAuthor">
-     <selectKey keyProperty="id" resultType="int" order="BEFORE">
-     select CAST(RANDOM()*1000000 as INTEGER) a from SYSIBM.SYSDUMMY1
-     </selectKey> 
-     insert into Author(id, username, password, email,bio, favourite_section)
-     values
-     (#{id}, #{username}, #{password}, #{email}, #{bio}, #{favouriteSection,jdbcType=VARCHAR})
+    <selectKey keyProperty="id" resultType="int" order="BEFORE">
+        select CAST(RANDOM()*1000000 as INTEGER) a from SYSIBM.SYSDUMMY1
+    </selectKey> 
+    insert into Author(id, username, password, email,bio, favourite_section)
+    values
+    (#{id}, #{username}, #{password}, #{email}, #{bio}, #{favouriteSection,jdbcType=VARCHAR})
 </insert>
 ```
 
@@ -1081,10 +1083,10 @@ selectKey 元素描述如下：
 
 ```xml
 <selectKey
-    keyProperty="id"
-    resultType="int"
-    order="BEFORE"
-    statementType="PREPARED">
+           keyProperty="id"
+           resultType="int"
+           order="BEFORE"
+           statementType="PREPARED">
 ```
 
 | selectKey 元素的属性 |                                                              |
@@ -1108,10 +1110,10 @@ selectKey 元素描述如下：
 
 ```xml
 <select id="selectUsers" resultType="map">
-	select
-    	<include refid="userColumns"><property name="alias" value="t1"/></include>,
-    	<include refid="userColumns"><property name="alias" value="t2"/></include>
-		from some_table t1 cross join some_table t2
+    select
+    <include refid="userColumns"><property name="alias" value="t1"/></include>,
+    <include refid="userColumns"><property name="alias" value="t2"/></include>
+    from some_table t1 cross join some_table t2
 </select>
 ```
 
@@ -1142,9 +1144,9 @@ selectKey 元素描述如下：
 
 ```xml
 <select id="selectUsers" resultType="User">
-	select id, username, password
- 	from users
- 	where id = #{id}
+    select id, username, password
+    from users
+    where id = #{id}
 </select>
 ```
 
@@ -1152,8 +1154,8 @@ selectKey 元素描述如下：
 
 ```xml
 <insert id="insertUser" parameterType="User">
-     insert into users (id, username, password)
-     values (#{id}, #{username}, #{password})
+    insert into users (id, username, password)
+    values (#{id}, #{username}, #{password})
 </insert>
 ```
 
@@ -1266,11 +1268,11 @@ resultMap 元素是 MyBatis 中最重要最强大的元素。它可以让你从 
 
 ```xml
 <select id="selectUsers" resultType="map">
-		select id, username, hashedPassword 
-		from some_table 
-		where id = #{id}
+    select id, username, hashedPassword 
+    from some_table 
+    where id = #{id}
 </select>
-		
+
 ```
 
 上述语句只是简单地将所有的列映射到 HashMap 的键上，这由 resultType 属性指定。虽然在大部分情况下都够用，但是 HashMap 并不是一个很好的领域模型。你的程序更可能会使用 JavaBean 或 POJO（Plain Old Java Objects，普通老式 Java 对象）作为领域模型。 MyBatis 对两者都提供了支持。看看下面这个 JavaBean：
@@ -1278,27 +1280,27 @@ resultMap 元素是 MyBatis 中最重要最强大的元素。它可以让你从 
 ```java
 package com.someapp.model;
 public class User {
-  private int id;
-  private String username;
-  private String hashedPassword;
-  public int getId() {
-  return id;
-  }
-  public void setId(int id) {
-  this.id = id;
-  }
-  public String getUsername() {
-  return username;
-  }
-  public void setUsername(String username) {
-  this.username = username;
-  }
-  public String getHashedPassword() {
-  return hashedPassword;
-  }
-  public void setHashedPassword(String hashedPassword) {
-  this.hashedPassword = hashedPassword;
-  }
+    private int id;
+    private String username;
+    private String hashedPassword;
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
+    }
 }
 ```
 
@@ -1308,7 +1310,7 @@ public class User {
 
 ```xml
 <select id="selectUsers" resultType="com.someapp.model.User">
-	select id, username, hashedPassword from some_table	where id = #{id}
+    select id, username, hashedPassword from some_table	where id = #{id}
 </select>
 ```
 
@@ -1319,9 +1321,9 @@ public class User {
 <typeAlias type="com.someapp.model.User" alias="User"/>
 <!-- SQL 映射 XML 中 -->
 <select id="selectUsers" resultType="User">
-		select id, username, hashedPassword
-		from some_table
-		where id = #{id}
+    select id, username, hashedPassword
+    from some_table
+    where id = #{id}
 </select>
 ```
 
@@ -1329,12 +1331,12 @@ public class User {
 
 ```xml
 <select id="selectUsers" resultType="User">
-	select 
+    select 
     user_id as "id",
-		user_name as "userName",
-		hashed_password as "hashedPassword"
-	from some_table
-	where id = #{id}
+    user_name as "userName",
+    hashed_password as "hashedPassword"
+    from some_table
+    where id = #{id}
 </select>
 ```
 
@@ -1342,9 +1344,9 @@ public class User {
 
 ```xml
 <resultMap id="userResultMap" type="User">
-	<id property="id" column="user_id" />
-	<result property="username" column="user_name"/>
-	<result property="password" column="hashed_password"/>
+    <id property="id" column="user_id" />
+    <result property="username" column="user_name"/>
+    <result property="password" column="hashed_password"/>
 </resultMap>
 ```
 
@@ -1352,8 +1354,8 @@ public class User {
 
 ```xml
 <select id="selectUsers" resultMap="userResultMap">
-	select user_id, user_name, hashed_password
-	from some_tablewhere id = #{id}
+    select user_id, user_name, hashed_password
+    from some_tablewhere id = #{id}
 </select>
 ```
 
@@ -1368,35 +1370,35 @@ MyBatis 创建时的一个思想是：数据库不可能永远是你所想或所
 ```xml
 <!-- 非常复杂的语句 -->
 <select id="selectBlogDetails" resultMap="detailedBlogResultMap">
-  selectB.id as blog_id,
-  B.title as blog_title,
-  B.author_id as blog_author_id,
-  A.id as author_id,
-  A.username as author_username,
-  A.password as author_password,
-  A.email as author_email,
-  A.bio as author_bio,
-  A.favourite_section as author_favourite_section,
-  P.id as post_id,
-  P.blog_id as post_blog_id,
-  P.author_id as post_author_id,
-  P.created_on as post_created_on,
-  P.section as post_section,
-  P.subject as post_subject,
-  P.draft as draft,
-  P.body as post_body,
-  C.id as comment_id,
-  C.post_id as comment_post_id,
-  C.name as comment_name,
-  C.comment as comment_text,
-  T.id as tag_id,
-  T.name as tag_name
-from Blog B 
-  left outer join Author A on B.author_id = A.id
-  left outer join Post P on B.id = P.blog_id
-  left outer join Comment C on P.id = C.post_id
-  left outer join Post_Tag PT on PT.post_id = P.id
-  left outer join Tag T on PT.tag_id = T.idwhere B.id = #{id}
+    selectB.id as blog_id,
+    B.title as blog_title,
+    B.author_id as blog_author_id,
+    A.id as author_id,
+    A.username as author_username,
+    A.password as author_password,
+    A.email as author_email,
+    A.bio as author_bio,
+    A.favourite_section as author_favourite_section,
+    P.id as post_id,
+    P.blog_id as post_blog_id,
+    P.author_id as post_author_id,
+    P.created_on as post_created_on,
+    P.section as post_section,
+    P.subject as post_subject,
+    P.draft as draft,
+    P.body as post_body,
+    C.id as comment_id,
+    C.post_id as comment_post_id,
+    C.name as comment_name,
+    C.comment as comment_text,
+    T.id as tag_id,
+    T.name as tag_name
+    from Blog B 
+    left outer join Author A on B.author_id = A.id
+    left outer join Post P on B.id = P.blog_id
+    left outer join Comment C on P.id = C.post_id
+    left outer join Post_Tag PT on PT.post_id = P.id
+    left outer join Tag T on PT.tag_id = T.idwhere B.id = #{id}
 </select>
 
 ```
@@ -1406,32 +1408,32 @@ from Blog B
 ```xml
 <!-- 非常复杂的结果映射 -->
 <resultMap id="detailedBlogResultMap" type="Blog">
-<constructor>
-	<idArg column="blog_id" javaType="int"/>
-</constructor>
-<result property="title" column="blog_title"/>
-<association property="author" javaType="Author">
-	<id property="id" column="author_id"/>
-	<result property="username" column="author_username"/>
-	<result property="password" column="author_password"/>
-	<result property="email" column="author_email"/>
-	<result property="bio" column="author_bio"/>
-	<result property="favouriteSection" column="author_favourite_section"/>
-</association>
-<collection property="posts" ofType="Post">
-	<id property="id" column="post_id"/>
-	<result property="subject" column="post_subject"/>
-	<association property="author" javaType="Author"/>
-	<collection property="comments" ofType="Comment">
-		<id property="id" column="comment_id"/>
-	</collection>
-<collection property="tags" ofType="Tag" >
-	<id property="id" column="tag_id"/>
-</collection>
-<discriminator javaType="int" column="draft">
-	<case value="1" resultType="DraftPost"/>
-</discriminator>
-</collection>
+    <constructor>
+        <idArg column="blog_id" javaType="int"/>
+    </constructor>
+    <result property="title" column="blog_title"/>
+    <association property="author" javaType="Author">
+        <id property="id" column="author_id"/>
+        <result property="username" column="author_username"/>
+        <result property="password" column="author_password"/>
+        <result property="email" column="author_email"/>
+        <result property="bio" column="author_bio"/>
+        <result property="favouriteSection" column="author_favourite_section"/>
+    </association>
+    <collection property="posts" ofType="Post">
+        <id property="id" column="post_id"/>
+        <result property="subject" column="post_subject"/>
+        <association property="author" javaType="Author"/>
+        <collection property="comments" ofType="Comment">
+            <id property="id" column="comment_id"/>
+        </collection>
+        <collection property="tags" ofType="Tag" >
+            <id property="id" column="tag_id"/>
+        </collection>
+        <discriminator javaType="int" column="draft">
+            <case value="1" resultType="DraftPost"/>
+        </discriminator>
+    </collection>
 </resultMap>
 
 ```
@@ -1519,15 +1521,15 @@ resultMap 元素有很多子元素和一个值得深入探讨的结构。 下面
 ```java
 public class User {
 
-	//...
+    //...
 
-	public User(Integer id, String username, int age) {
+    public User(Integer id, String username, int age) {
 
-	//...
+        //...
 
-	}
+    }
 
-	//...
+    //...
 
 }
 
@@ -1535,11 +1537,11 @@ public class User {
 
 为了将结果注入构造方法， MyBatis 需要通过某种方式定位相应的构造方法。 在下面的例子中， MyBatis 搜索一个声明了三个形参的的构造方法，参数类型以 java.lang.Integer, java.lang.String 和 int 的顺序给出。
 
-```java
+```XML
 <constructor>
-	<idArg column="id" javaType="int"/>
-	<arg column="username" javaType="String"/>
-	<arg column="age" javaType="_int"/>
+    <idArg column="id" javaType="int"/>
+    <arg column="username" javaType="String"/>
+    <arg column="age" javaType="_int"/>
 </constructor>
 ```
 
@@ -1547,9 +1549,9 @@ public class User {
 
 ```xml
 <constructor>
-	<idArg column="id" javaType="int" name="id" />
-	<arg column="age" javaType="_int" name="age" />
-	<arg column="username" javaType="String" name="username" />
+    <idArg column="id" javaType="int" name="id" />
+    <arg column="age" javaType="_int" name="age" />
+    <arg column="username" javaType="String" name="username" />
 </constructor>
 ```
 
@@ -1569,8 +1571,8 @@ public class User {
 
 ```xml
 <association property="author" column="blog_author_id" javaType="Author">
-	<id property="id" column="author_id"/>
-	<result property="username" column="author_username"/>
+    <id property="id" column="author_id"/>
+    <result property="username" column="author_username"/>
 </association>
 ```
 
@@ -1599,14 +1601,14 @@ public class User {
 
 ```xml
 <resultMap id="blogResult" type="Blog">
-	<association property="author" column="author_id" javaType="Author" select="selectAuthor"/>
+    <association property="author" column="author_id" javaType="Author" select="selectAuthor"/>
 </resultMap>
 
 <select id="selectBlog" resultMap="blogResult">
-	SELECT * FROM BLOG WHERE ID = #{id}
+    SELECT * FROM BLOG WHERE ID = #{id}
 </select>
 <select id="selectAuthor" resultType="Author">
-	SELECT * FROM AUTHOR WHERE ID = #{id}
+    SELECT * FROM AUTHOR WHERE ID = #{id}
 </select>
 ```
 
@@ -1635,7 +1637,7 @@ public class User {
 
 ```xml
 <select id="selectBlog" resultMap="blogResult">
-	select
+    select
     B.id  as blog_id,                     
     B.title as blog_title,                  	                                
     B.author_id  as blog_author_id ,
@@ -1644,9 +1646,9 @@ public class User {
     A.password as author_password,	                                
     A.email 	as author_email,
     A.bio as author_bio  
-	from Blog B
-	left outer join Author A on B.author_id = A.id
-	where B.id = #{id}
+    from Blog B
+    left outer join Author A on B.author_id = A.id
+    where B.id = #{id}
 </select>
 
 ```
@@ -1655,15 +1657,15 @@ public class User {
 
 ```xml
 <resultMap id="blogResult" type="Blog">
-	<id property="id" column="blog_id" />
-	<result property="title" column="blog_title"/>
-	<association property="author" column="blog_author_id" javaType="Author" resultMap="authorResult"/></resultMap>
+    <id property="id" column="blog_id" />
+    <result property="title" column="blog_title"/>
+    <association property="author" column="blog_author_id" javaType="Author" resultMap="authorResult"/></resultMap>
 <resultMap id="authorResult" type="Author">
-	<id property="id" column="author_id"/>
-	<result property="username" column="author_username"/>
-	<result property="password" column="author_password"/>
-	<result property="email" column="author_email"/>
-	<result property="bio" column="author_bio"/>
+    <id property="id" column="author_id"/>
+    <result property="username" column="author_username"/>
+    <result property="password" column="author_password"/>
+    <result property="email" column="author_email"/>
+    <result property="bio" column="author_bio"/>
 </resultMap>
 ```
 
@@ -1675,15 +1677,15 @@ public class User {
 
 ```xml
 <resultMap id="blogResult" type="Blog">
-	<id property="id" column="blog_id" />
-	<result property="title" column="blog_title"/>
-	<association property="author" javaType="Author">
-		<id property="id" column="author_id"/>
-		<result property="username" column="author_username"/>
-		<result property="password" column="author_password"/>
-		<result property="email" column="author_email"/>
-		<result property="bio" column="author_bio"/>
-	</association>
+    <id property="id" column="blog_id" />
+    <result property="title" column="blog_title"/>
+    <association property="author" javaType="Author">
+        <id property="id" column="author_id"/>
+        <result property="username" column="author_username"/>
+        <result property="password" column="author_password"/>
+        <result property="email" column="author_email"/>
+        <result property="bio" column="author_bio"/>
+    </association>
 </resultMap>
 ```
 
@@ -1691,7 +1693,7 @@ public class User {
 
 ```xml
 <select id="selectBlog" resultMap="blogResult">
-  select
+    select
     B.id    as blog_id,                             
     B.title as blog_title,                  	                                        
     A.id    	as author_id,                           
@@ -1704,9 +1706,9 @@ public class User {
     CA.password as co_author_password,	                                        
     CA.email 	as co_author_email,  CA.bio  as co_author_bio 
     from Blog B             
-  left outer join Author A on B.author_id = A.id
-  left outer join Author CA on B.co_author_id = CA.id
-  where B.id = #{id}
+    left outer join Author A on B.author_id = A.id
+    left outer join Author CA on B.co_author_id = CA.id
+    where B.id = #{id}
 </select>
 
 ```
@@ -1715,11 +1717,11 @@ public class User {
 
 ```xml
 <resultMap id="authorResult" type="Author">
-	<id property="id" column="author_id"/>
-	<result property="username" column="author_username"/>
-	<result property="password" column="author_password"/>
-	<result property="email" column="author_email"/>
-	<result property="bio" column="author_bio"/>
+    <id property="id" column="author_id"/>
+    <result property="username" column="author_username"/>
+    <result property="password" column="author_password"/>
+    <result property="email" column="author_email"/>
+    <result property="bio" column="author_bio"/>
 </resultMap>
 ```
 
@@ -1727,10 +1729,10 @@ public class User {
 
 ```xml
 <resultMap id="blogResult" type="Blog">
-	<id property="id" column="blog_id" />
-	<result property="title" column="blog_title"/>
-	<association property="author"resultMap="authorResult" />
-	<association property="coAuthor"resultMap="authorResult"columnPrefix="co_" />
+    <id property="id" column="blog_id" />
+    <result property="title" column="blog_title"/>
+    <association property="author"resultMap="authorResult" />
+    <association property="coAuthor"resultMap="authorResult"columnPrefix="co_" />
 </resultMap>
 
 ```
@@ -1758,7 +1760,7 @@ SELECT * FROM AUTHOR WHERE ID = #{id}
 
 ```xml
 <select id="selectBlog" resultSets="blogs,authors" resultMap="blogResult" statementType="CALLABLE">
-  {call getBlogsAndAuthors(#{id,jdbcType=INTEGER,mode=IN})}
+    {call getBlogsAndAuthors(#{id,jdbcType=INTEGER,mode=IN})}
 </select>
 ```
 
@@ -1767,15 +1769,15 @@ SELECT * FROM AUTHOR WHERE ID = #{id}
 
 ```xml
 <resultMap id="blogResult" type="Blog">
-	<id property="id" column="id" />
-	<result property="title" column="title"/>
-	<association property="author" javaType="Author" resultSet="authors" column="author_id" foreignColumn="id">
-		<id property="id" column="id"/>
-		<result property="username" column="username"/>
-		<result property="password" column="password"/>
-		<result property="email" column="email"/>
-		<result property="bio" column="bio"/>
-	</association>
+    <id property="id" column="id" />
+    <result property="title" column="title"/>
+    <association property="author" javaType="Author" resultSet="authors" column="author_id" foreignColumn="id">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="email" column="email"/>
+        <result property="bio" column="bio"/>
+    </association>
 </resultMap>
 
 ```
@@ -1786,9 +1788,9 @@ SELECT * FROM AUTHOR WHERE ID = #{id}
 
 ```xml
 <collection property="posts" ofType="domain.blog.Post">
-	<id property="id" column="post_id"/>
-	<result property="subject" column="post_subject"/>
-	<result property="body" column="post_body"/>
+    <id property="id" column="post_id"/>
+    <result property="subject" column="post_subject"/>
+    <result property="body" column="post_body"/>
 </collection>
 ```
 
@@ -1808,16 +1810,16 @@ private List<Post> posts;
 
 ```xml
 <resultMap id="blogResult" type="Blog">
-	<collection property="posts" javaType="ArrayList" column="id" ofType="Post" select="selectPostsForBlog"/>
+    <collection property="posts" javaType="ArrayList" column="id" ofType="Post" select="selectPostsForBlog"/>
 
 </resultMap>
 
 <select id="selectBlog" resultMap="blogResult">
-  SELECT * FROM BLOG WHERE ID = #{id}
+    SELECT * FROM BLOG WHERE ID = #{id}
 </select>
 
 <select id="selectPostsForBlog" resultType="Post">
-  SELECT * FROM POST WHERE BLOG_ID = #{id}
+    SELECT * FROM POST WHERE BLOG_ID = #{id}
 </select>
 ```
 
@@ -1844,15 +1846,15 @@ private List<Post> posts;
 
 ```xml
 <select id="selectBlog" resultMap="blogResult">
-  select B.id as blog_id,
-  B.title as blog_title,
-  B.author_id as blog_author_id,
-  P.id as post_id,
-  P.subject as post_subject,
-  P.body as post_body,
-  from Blog B
-  left outer join Post P on B.id = P.blog_id
-  where B.id = #{id}
+    select B.id as blog_id,
+    B.title as blog_title,
+    B.author_id as blog_author_id,
+    P.id as post_id,
+    P.subject as post_subject,
+    P.body as post_body,
+    from Blog B
+    left outer join Post P on B.id = P.blog_id
+    where B.id = #{id}
 </select>
 ```
 
@@ -1861,13 +1863,13 @@ private List<Post> posts;
 
 ```xml
 <resultMap id="blogResult" type="Blog">
-	<id property="id" column="blog_id" />
-	<result property="title" column="blog_title"/>
-	<collection property="posts" ofType="Post">	
-		<id property="id" column="post_id"/>
-		<result property="subject" column="post_subject"/>
-		<result property="body" column="post_body"/>
-	</collection>
+    <id property="id" column="blog_id" />
+    <result property="title" column="blog_title"/>
+    <collection property="posts" ofType="Post">	
+        <id property="id" column="post_id"/>
+        <result property="subject" column="post_subject"/>
+        <result property="body" column="post_body"/>
+    </collection>
 </resultMap>
 ```
 
@@ -1877,15 +1879,15 @@ private List<Post> posts;
 
 ```xml
 <resultMap id="blogResult" type="Blog">
-	<id property="id" column="blog_id" />
-	<result property="title" column="blog_title"/>
-	<collection property="posts" ofType="Post" resultMap="blogPostResult" columnPrefix="post_"/>
+    <id property="id" column="blog_id" />
+    <result property="title" column="blog_title"/>
+    <collection property="posts" ofType="Post" resultMap="blogPostResult" columnPrefix="post_"/>
 </resultMap>
 
 <resultMap id="blogPostResult" type="Post">
-	<id property="id" column="id"/>
-	<result property="subject" column="subject"/>
-	<result property="body" column="body"/>
+    <id property="id" column="id"/>
+    <result property="subject" column="subject"/>
+    <result property="body" column="body"/>
 </resultMap>
 
 ```
@@ -1903,7 +1905,7 @@ SELECT * FROM POST WHERE BLOG_ID = #{id}
 
 ```xml
 <select id="selectBlog" resultSets="blogs,posts" resultMap="blogResult">
-  {call getBlogsAndPosts(#{id,jdbcType=INTEGER,mode=IN})}
+    {call getBlogsAndPosts(#{id,jdbcType=INTEGER,mode=IN})}
 </select>
 ```
 
@@ -1911,13 +1913,13 @@ SELECT * FROM POST WHERE BLOG_ID = #{id}
 
 ```xml
 <resultMap id="blogResult" type="Blog">
-	<id property="id" column="id" />
-	<result property="title" column="title"/>
-	<collection property="posts" ofType="Post" resultSet="posts" column="id" foreignColumn="blog_id">
-		<id property="id" column="id"/>
-		<result property="subject" column="subject"/>
-		<result property="body" column="body"/>
-	</collection>
+    <id property="id" column="id" />
+    <result property="title" column="title"/>
+    <collection property="posts" ofType="Post" resultSet="posts" column="id" foreignColumn="blog_id">
+        <id property="id" column="id"/>
+        <result property="subject" column="subject"/>
+        <result property="body" column="body"/>
+    </collection>
 </resultMap>
 ```
 
@@ -1929,8 +1931,8 @@ SELECT * FROM POST WHERE BLOG_ID = #{id}
 
 ```xml
 <discriminator javaType="int" column="draft">
-	<case value="1" resultType="DraftPost"/>
-</discriminator>
+    <case value="1" resultType="DraftPost"/>
+</discriminator>	
 ```
 
 有时候，一个数据库查询可能会返回多个不同的结果集（但总体上还是有一定的联系的）。 鉴别器（discriminator）元素就是被设计来应对这种情况的，另外也能处理其它情况，例如类的继承层次结构。 鉴别器的概念很好理解——它很像 Java 语言中的switch 语句。
@@ -1939,18 +1941,18 @@ SELECT * FROM POST WHERE BLOG_ID = #{id}
 
 ```xml
 <resultMap id="vehicleResult" type="Vehicle">
-	<id property="id" column="id" />
-	<result property="vin" column="vin"/>
-	<result property="year" column="year"/>
-	<result property="make" column="make"/>
-	<result property="model" column="model"/>
-	<result property="color" column="color"/>
-	<discriminator javaType="int" column="vehicle_type">
-		<case value="1" resultMap="carResult"/>
-		<case value="2" resultMap="truckResult"/>
-		<case value="3" resultMap="vanResult"/>
-		<case value="4" resultMap="suvResult"/>
-	</discriminator>
+    <id property="id" column="id" />
+    <result property="vin" column="vin"/>
+    <result property="year" column="year"/>
+    <result property="make" column="make"/>
+    <result property="model" column="model"/>
+    <result property="color" column="color"/>
+    <discriminator javaType="int" column="vehicle_type">
+        <case value="1" resultMap="carResult"/>
+        <case value="2" resultMap="truckResult"/>
+        <case value="3" resultMap="vanResult"/>
+        <case value="4" resultMap="suvResult"/>
+    </discriminator>
 </resultMap>
 ```
 
@@ -1958,7 +1960,7 @@ SELECT * FROM POST WHERE BLOG_ID = #{id}
 
 ```xml
 <resultMap id="carResult" type="Car">
-	<result property="doorCount" column="door_count" />
+    <result property="doorCount" column="door_count" />
 </resultMap>
 ```
 
@@ -1966,7 +1968,7 @@ SELECT * FROM POST WHERE BLOG_ID = #{id}
 
 ```xml
 <resultMap id="carResult" type="Car" extends="vehicleResult">
-	<result property="doorCount" column="door_count" />
+    <result property="doorCount" column="door_count" />
 </resultMap>
 ```
 
@@ -1974,27 +1976,27 @@ SELECT * FROM POST WHERE BLOG_ID = #{id}
 
 ```xml
 <resultMap id="vehicleResult" type="Vehicle">
-	<id property="id" column="id" />
-	<result property="vin" column="vin"/>
-	<result property="year" column="year"/>
-	<result property="make" column="make"/>
-	<result property="model" column="model"/>
-	<result property="color" column="color"/>
-<discriminator javaType="int" column="vehicle_type">
-	<case value="1" resultType="carResult">
-		<result property="doorCount" column="door_count" />
-	</case>
-	<case value="2" resultType="truckResult">
-		<result property="boxSize" column="box_size" />
-		<result property="extendedCab" column="extended_cab" />
-	</case>
-	<case value="3" resultType="vanResult">
-		<result property="powerSlidingDoor" column="power_sliding_door" />
-	</case>
-	<case value="4" resultType="suvResult">
-		<result property="allWheelDrive" column="all_wheel_drive" />
-	</case>
-	</discriminator>
+    <id property="id" column="id" />
+    <result property="vin" column="vin"/>
+    <result property="year" column="year"/>
+    <result property="make" column="make"/>
+    <result property="model" column="model"/>
+    <result property="color" column="color"/>
+    <discriminator javaType="int" column="vehicle_type">
+        <case value="1" resultType="carResult">
+            <result property="doorCount" column="door_count" />
+        </case>
+        <case value="2" resultType="truckResult">
+            <result property="boxSize" column="box_size" />
+            <result property="extendedCab" column="extended_cab" />
+        </case>
+        <case value="3" resultType="vanResult">
+            <result property="powerSlidingDoor" column="power_sliding_door" />
+        </case>
+        <case value="4" resultType="suvResult">
+            <result property="allWheelDrive" column="all_wheel_drive" />
+        </case>
+    </discriminator>
 </resultMap>
 ```
 
@@ -2013,11 +2015,11 @@ SELECT * FROM POST WHERE BLOG_ID = #{id}
 
 ```xml
 <select id="selectUsers" resultMap="userResultMap">
-  select user_id as "id",user_name as "userName",hashed_password from some_table where id = #{id}
+    select user_id as "id",user_name as "userName",hashed_password from some_table where id = #{id}
 </select>
 
 <resultMap id="userResultMap" type="User">
-	<result property="password" column="hashed_password"/>
+    <result property="password" column="hashed_password"/>
 </resultMap>
 ```
 
@@ -2033,17 +2035,17 @@ SELECT * FROM POST WHERE BLOG_ID = #{id}
 
 ```xml
 <select id="selectBlog" resultMap="blogResult">
-  select B.id,B.title,A.username,from Blog B 
-  left outer join Author A on B.author_id = A.id
-  where B.id = #{id}
+    select B.id,B.title,A.username,from Blog B 
+    left outer join Author A on B.author_id = A.id
+    where B.id = #{id}
 </select>
 
 <resultMap id="blogResult" type="Blog">
-	<association property="author" resultMap="authorResult"/>
+    <association property="author" resultMap="authorResult"/>
 </resultMap>
 
 <resultMap id="authorResult" type="Author">
-	<result property="username" column="author_username"/>
+    <result property="username" column="author_username"/>
 </resultMap>
 
 ```
@@ -2054,7 +2056,7 @@ SELECT * FROM POST WHERE BLOG_ID = #{id}
 
 ```xml
 <resultMap id="userResultMap" type="User" autoMapping="false">
-<result property="password" column="hashed_password"/>
+    <result property="password" column="hashed_password"/>
 </resultMap>
 ```
 
@@ -2129,17 +2131,17 @@ readOnly（只读）属性可以被设置为 true 或 false。只读的缓存会
 ```java
 public interface Cache {
 
-String getId();int getSize();
+    String getId();int getSize();
 
-void putObject(Object key, Object value);
+    void putObject(Object key, Object value);
 
-Object getObject(Object key);
+    Object getObject(Object key);
 
-boolean hasKey(Object key);
+    boolean hasKey(Object key);
 
-Object removeObject(Object key);
+    Object removeObject(Object key);
 
-void clear();
+    void clear();
 
 }
 
@@ -2149,7 +2151,7 @@ void clear();
 
 ```xml
 <cache type="com.domain.something.MyCustomCache">
-	<property name="cacheFile" value="/tmp/my-custom-cache.tmp"/>
+    <property name="cacheFile" value="/tmp/my-custom-cache.tmp"/>
 </cache>
 ```
 
@@ -2160,7 +2162,7 @@ void clear();
 ```java
 public interface InitializingObject {
 
-void initialize() throws Exception;
+    void initialize() throws Exception;
 
 }
 ```
@@ -2214,11 +2216,11 @@ void initialize() throws Exception;
 
 ```xml
 <select id="findActiveBlogWithTitleLike" resultType="Blog">
-  SELECT * FROM BLOG 
-  WHERE state = ‘ACTIVE’
-  <if test="title != null">
-  	AND title like #{title}
-  </if>
+    SELECT * FROM BLOG 
+    WHERE state = ‘ACTIVE’
+    <if test="title != null">
+        AND title like #{title}
+    </if>
 </select>
 ```
 
@@ -2229,13 +2231,13 @@ void initialize() throws Exception;
 
 ```xml
 <select id="findActiveBlogLike" resultType="Blog">
-  SELECT * FROM BLOG WHERE state = ‘ACTIVE’
-  <if test="title != null">
-  	AND title like #{title}
-  </if>
-  <if test="author != null and author.name != null">
-  	AND author_name like #{author.name}
-  </if>
+    SELECT * FROM BLOG WHERE state = ‘ACTIVE’
+    <if test="title != null">
+        AND title like #{title}
+    </if>
+    <if test="author != null and author.name != null">
+        AND author_name like #{author.name}
+    </if>
 </select>
 ```
 
@@ -2247,16 +2249,16 @@ void initialize() throws Exception;
 
 ```xml
 <select id="findActiveBlogLike"resultType="Blog">
-  SELECT * FROM BLOG 
-  WHERE state = ‘ACTIVE’
-  <choose>
-    <when test="title != null">AND title like #{title}
-    </when>
-    <when test="author != null and author.name != null">AND author_name like #{author.name}
-    </when>
-    <otherwise>AND featured = 1
-    </otherwise>
-  </choose>
+    SELECT * FROM BLOG 
+    WHERE state = ‘ACTIVE’
+    <choose>
+        <when test="title != null">AND title like #{title}
+        </when>
+        <when test="author != null and author.name != null">AND author_name like #{author.name}
+        </when>
+        <otherwise>AND featured = 1
+        </otherwise>
+    </choose>
 </select>
 ```
 
@@ -2266,17 +2268,17 @@ void initialize() throws Exception;
 
 ```xml
 <select id="findActiveBlogLike"resultType="Blog">
-  SELECT * FROM BLOG
-  WHERE
-  <if test="state != null">
-  	state = #{state}
-  </if>
-  <if test="title != null">
-  	AND title like #{title}
-  </if>
-  <if test="author != null and author.name != null">
-  	AND author_name like #{author.name}
-  </if>
+    SELECT * FROM BLOG
+    WHERE
+    <if test="state != null">
+        state = #{state}
+    </if>
+    <if test="title != null">
+        AND title like #{title}
+    </if>
+    <if test="author != null and author.name != null">
+        AND author_name like #{author.name}
+    </if>
 </select>
 ```
 
@@ -2298,17 +2300,17 @@ MyBatis 有一个简单且适合大多数场景的解决办法。而在其他场
 
 ```xml
 <select id="findActiveBlogLike" resultType="Blog">
-	SELECT * FROM BLOG
+    SELECT * FROM BLOG
     <where>
-      <if test="state != null">
-        state = #{state}
-      </if>
-      <if test="title != null">
-        AND title like #{title}
-      </if>
-      <if test="author != null and author.name != null">
-          AND author_name like #{author.name}
-      </if>
+        <if test="state != null">
+            state = #{state}
+        </if>
+        <if test="title != null">
+            AND title like #{title}
+        </if>
+        <if test="author != null and author.name != null">
+            AND author_name like #{author.name}
+        </if>
     </where>
 </select>
 ```
@@ -2329,14 +2331,14 @@ prefixOverrides 属性会忽略通过管道符分隔的文本序列（注意此�
 
 ```xml
 <update id="updateAuthorIfNecessary">
-  update Author
+    update Author
     <set>
-      <if test="username != null">username=#{username},</if>
-      <if test="password != null">password=#{password},</if>
-      <if test="email != null">email=#{email},</if>
-      <if test="bio != null">bio=#{bio}</if>
+        <if test="username != null">username=#{username},</if>
+        <if test="password != null">password=#{password},</if>
+        <if test="email != null">email=#{email},</if>
+        <if test="bio != null">bio=#{bio}</if>
     </set>
-  where id=#{id}
+    where id=#{id}
 </update>
 
 ```
@@ -2348,7 +2350,7 @@ prefixOverrides 属性会忽略通过管道符分隔的文本序列（注意此�
 ```xml
 <trim prefix="SET" suffixOverrides=",">
 
-...
+    ...
 
 </trim>
 
@@ -2362,11 +2364,11 @@ prefixOverrides 属性会忽略通过管道符分隔的文本序列（注意此�
 
 ```xml
 <select id="selectPostIn" resultType="domain.blog.Post">
-  SELECT * FROM POST P
-  WHERE ID in
-  <foreach item="item" index="index" collection="list"open="(" separator="," close=")">
-    #{item}
-  </foreach>
+    SELECT * FROM POST P
+    WHERE ID in
+    <foreach item="item" index="index" collection="list"open="(" separator="," close=")">
+        #{item}
+    </foreach>
 </select>
 ```
 
@@ -2385,23 +2387,23 @@ foreach 元素的功能非常强大，它允许你指定一个集合，声明可
 ```java
 @Update({"<script>",
 
-"update Author",
+         "update Author",
 
-" <set>",
+         " <set>",
 
-" <if test='username != null'>username=#{username},</if>",
+         " <if test='username != null'>username=#{username},</if>",
 
-" <if test='password != null'>password=#{password},</if>",
+         " <if test='password != null'>password=#{password},</if>",
 
-" <if test='email != null'>email=#{email},</if>",
+         " <if test='email != null'>email=#{email},</if>",
 
-" <if test='bio != null'>bio=#{bio}</if>",
+         " <if test='bio != null'>bio=#{bio}</if>",
 
-" </set>",
+         " </set>",
 
-"where id=#{id}",
+         "where id=#{id}",
 
-"</script>"})
+         "</script>"})
 
 void updateAuthorValues(Author author);
 
@@ -2415,9 +2417,9 @@ bind 元素允许你在 OGNL 表达式以外创建一个变量，并将其绑定
 
 ```xml
 <select id="selectBlogsLike" resultType="Blog">
-  <bind name="pattern" value="'%' + _parameter.getTitle() + '%'" />
-  SELECT * FROM BLOG 
-  WHERE title LIKE #{pattern}
+    <bind name="pattern" value="'%' + _parameter.getTitle() + '%'" />
+    SELECT * FROM BLOG 
+    WHERE title LIKE #{pattern}
 </select>
 ```
 
@@ -2429,15 +2431,15 @@ bind 元素允许你在 OGNL 表达式以外创建一个变量，并将其绑定
 
 ```xml
 <insert id="insert">
-  <selectKey keyProperty="id" resultType="int" order="BEFORE">
-    <if test="databaseId == 'oracle'">
-    	select seq_users.nextval from dual
-    </if>
-    <if test="_databaseId == 'db2'">
-   		 select nextval for seq_users from sysibm.sysdummy1"
-    </if>
-  </selectKey>
-  insert into users values (#{id}, #{name})
+    <selectKey keyProperty="id" resultType="int" order="BEFORE">
+        <if test="databaseId == 'oracle'">
+            select seq_users.nextval from dual
+        </if>
+        <if test="_databaseId == 'db2'">
+            select nextval for seq_users from sysibm.sysdummy1"
+        </if>
+    </selectKey>
+    insert into users values (#{id}, #{name})
 </insert>
 ```
 
@@ -2450,11 +2452,11 @@ MyBatis 从 3.2 版本开始支持插入脚本语言，这允许你插入一种�
 ```java
 public interface LanguageDriver {
 
-ParameterHandler createParameterHandler(MappedStatement mappedStatement,Object parameterObject, BoundSql boundSql);
+    ParameterHandler createParameterHandler(MappedStatement mappedStatement,Object parameterObject, BoundSql boundSql);
 
-SqlSource createSqlSource(Configuration configuration, XNode script, Class<?> parameterType);
+    SqlSource createSqlSource(Configuration configuration, XNode script, Class<?> parameterType);
 
-SqlSource createSqlSource(Configuration configuration, String script, Class<?> parameterType);
+    SqlSource createSqlSource(Configuration configuration, String script, Class<?> parameterType);
 
 }
 ```
@@ -2463,10 +2465,10 @@ SqlSource createSqlSource(Configuration configuration, String script, Class<?> p
 
 ```xml
 <typeAliases>
-	<typeAlias type="org.sample.MyLanguageDriver" alias="myLanguage"/>
+    <typeAlias type="org.sample.MyLanguageDriver" alias="myLanguage"/>
 </typeAliases>
 <settings>
-	<setting name="defaultScriptingLanguage" value="myLanguage"/>
+    <setting name="defaultScriptingLanguage" value="myLanguage"/>
 </settings>
 ```
 
@@ -2474,7 +2476,7 @@ SqlSource createSqlSource(Configuration configuration, String script, Class<?> p
 
 ```xml
 <select id="selectBlog" lang="myLanguage">
-  SELECT * FROM BLOG
+    SELECT * FROM BLOG
 </select>
 ```
 
@@ -2485,11 +2487,11 @@ SqlSource createSqlSource(Configuration configuration, String script, Class<?> p
 ```java
 public interface Mapper {
 
-@Lang(MyLanguageDriver.class)
+    @Lang(MyLanguageDriver.class)
 
-@Select("SELECT * FROM BLOG")
+    @Select("SELECT * FROM BLOG")
 
-List<Blog> selectBlog();
+    List<Blog> selectBlog();
 
 }
 
@@ -2509,9 +2511,9 @@ List<Blog> selectBlog();
 
 在我们深入 Java API 之前，理解关于目录结构的最佳实践是很重要的。 MyBatis 非常灵活，你可以随意安排你的文件。但和其它框架一样，目录结构有一种最佳实践。让我们看一下典型的应用目录结构：
 
-![image-20210611215827382](/Users/jiusonghuang/pic-md/20210611215827.png)
+![image-20210611215827382](https://gitee.com/wowosong/pic-md/raw/master/20210611215827.png)
 
-![image-20210611215905529](/Users/jiusonghuang/pic-md/20210611215905.png)
+![image-20210611215905529](https://gitee.com/wowosong/pic-md/raw/master/20210611215905.png)
 
 当然，这是推荐的目录结构，并非强制要求，但使用一个通用的目录结构将更有利于大家沟通。
 本章接下来的示例将假定你遵循这种目录结构。
@@ -2541,18 +2543,22 @@ environment 决定加载哪种环境，包括数据源和事务管理器。比�
 
 ```xml
 <environments default="development">
-	<environment id="development">
-		<transactionManager type="JDBC">
-			...
-	<dataSource type="POOLED">
-	...
-	</environment>
-<environment id="production">
-	<transactionManager type="MANAGED">
-	...
-	<dataSource type="JNDI">
-	...
-	</environment>
+    <environment id="development">
+        <transactionManager type="JDBC">
+            ...
+            <dataSource type="POOLED">
+                ...
+            </dataSource>
+        </transactionManager>
+    </environment>
+    <environment id="production">
+        <transactionManager type="MANAGED">
+            ...
+            <dataSource type="JNDI">
+                ...
+            </dataSource>
+        </transactionManager>
+    </environment>
 </environments>
 ```
 
@@ -2573,48 +2579,48 @@ resource 或 url 属性中加载了的重复属性。
 总结一下，前四个方法很大程度上是相同的，但提供了不同的覆盖选项，允许你可选地指定 environment 和/或 properties。以下给出一个从 mybatis-config.xml 文件创建SqlSessionFactory 的示例：
 
 ```java
-	String resource = "org/mybatis/builder/mybatis-config.xml";
-	InputStream inputStream = Resources.getResourceAsStream(resource);
-	SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
-	SqlSessionFactory factory = builder.build(inputStream);
+String resource = "org/mybatis/builder/mybatis-config.xml";
+InputStream inputStream = Resources.getResourceAsStream(resource);
+SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+SqlSessionFactory factory = builder.build(inputStream);
 ```
 
 注意，这里我们使用了 Resources 工具类，这个类在 org.apache.ibatis.io 包中。
 		Resources 类正如其名，会帮助你从类路径下、文件系统或一个 web URL 中加载资源文件。在略读该类的源代码或用 IDE 查看该类信息后，你会发现一整套相当实用的方法。这里给出一个简表：
 
 ```java
-		URL getResourceURL(String resource)
-		URL getResourceURL(ClassLoader loader, String resource)
-		InputStream getResourceAsStream(String resource)
-		InputStream getResourceAsStream(ClassLoader loader, String resource)
-		Properties getResourceAsProperties(String resource)
-		Properties getResourceAsProperties(ClassLoader loader, String resource)
-		Reader getResourceAsReader(String resource)
-		Reader getResourceAsReader(ClassLoader loader, String resource)
-		File getResourceAsFile(String resource)
-		File getResourceAsFile(ClassLoader loader, String resource)
-		InputStream getUrlAsStream(String urlString)
-		Reader getUrlAsReader(String urlString)
-		Properties getUrlAsProperties(String urlString)
-		Class classForName(String className)
+URL getResourceURL(String resource)
+    URL getResourceURL(ClassLoader loader, String resource)
+    InputStream getResourceAsStream(String resource)
+    InputStream getResourceAsStream(ClassLoader loader, String resource)
+    Properties getResourceAsProperties(String resource)
+    Properties getResourceAsProperties(ClassLoader loader, String resource)
+    Reader getResourceAsReader(String resource)
+    Reader getResourceAsReader(ClassLoader loader, String resource)
+    File getResourceAsFile(String resource)
+    File getResourceAsFile(ClassLoader loader, String resource)
+    InputStream getUrlAsStream(String urlString)
+    Reader getUrlAsReader(String urlString)
+    Properties getUrlAsProperties(String urlString)
+    Class classForName(String className)
 ```
 
 最后一个 build 方法接受一个 Configuration 实例。 Configuration 类包含了对一个SqlSessionFactory 实例你可能关心的所有内容。在检查配置时， Configuration 类很有用，它允许你查找和操纵 SQL 映射（但当应用开始接收请求时不推荐使用）。你之前学习过的所有配置开关都存在于 Configuration 类，只不过它们是以 Java API 形式暴露的。以下是一个简单的示例，演示如何手动配置 Configuration 实例，然后将它传递给 build() 方法来创建 SqlSessionFactory。
 
 ```java
-	  DataSource dataSource = BaseDataTest.createBlogDataSource();
-		TransactionFactory transactionFactory = new JdbcTransactionFactory();
-		Environment environment = new Environment("development", transactionFactory, dataSource);
-		Configuration configuration = new Configuration(environment);
-		configuration.setLazyLoadingEnabled(true);
-		configuration.setEnhancementEnabled(true);
-		configuration.getTypeAliasRegistry().registerAlias(Blog.class);
-		configuration.getTypeAliasRegistry().registerAlias(Post.class);
-		configuration.getTypeAliasRegistry().registerAlias(Author.class);
-		configuration.addMapper(BoundBlogMapper.class);
-		configuration.addMapper(BoundAuthorMapper.class);
-		SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
-		SqlSessionFactory factory = builder.build(configuration);
+DataSource dataSource = BaseDataTest.createBlogDataSource();
+TransactionFactory transactionFactory = new JdbcTransactionFactory();
+Environment environment = new Environment("development", transactionFactory, dataSource);
+Configuration configuration = new Configuration(environment);
+configuration.setLazyLoadingEnabled(true);
+configuration.setEnhancementEnabled(true);
+configuration.getTypeAliasRegistry().registerAlias(Blog.class);
+configuration.getTypeAliasRegistry().registerAlias(Post.class);
+configuration.getTypeAliasRegistry().registerAlias(Author.class);
+configuration.addMapper(BoundBlogMapper.class);
+configuration.addMapper(BoundAuthorMapper.class);
+SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+SqlSessionFactory factory = builder.build(configuration);
 ```
 
 现在你就获得一个可以用来创建 SqlSession 实例的 SqlSessionFactory 了。
@@ -2628,15 +2634,15 @@ SqlSessionFactory 有六个方法创建 SqlSession 实例。通常来说，当�
 基于以上需求，有下列已重载的多个 openSession() 方法供使用。
 
 ```java
-		SqlSession openSession()
-		SqlSession openSession(boolean autoCommit)
-		SqlSession openSession(Connection connection)
-		SqlSession openSession(TransactionIsolationLevel level)
-		SqlSession openSession(ExecutorType execType, TransactionIsolationLevel level)
-		SqlSession openSession(ExecutorType execType)
-		SqlSession openSession(ExecutorType execType, boolean autoCommit)
-		SqlSession openSession(ExecutorType execType, Connection connection)
-		Configuration getConfiguration();
+SqlSession openSession()
+    SqlSession openSession(boolean autoCommit)
+    SqlSession openSession(Connection connection)
+    SqlSession openSession(TransactionIsolationLevel level)
+    SqlSession openSession(ExecutorType execType, TransactionIsolationLevel level)
+    SqlSession openSession(ExecutorType execType)
+    SqlSession openSession(ExecutorType execType, boolean autoCommit)
+    SqlSession openSession(ExecutorType execType, Connection connection)
+    Configuration getConfiguration();
 ```
 
 默认的 openSession() 方法没有参数，它会创建具备如下特性的 SqlSession：
@@ -2668,13 +2674,13 @@ SqlSessionFactory 有六个方法创建 SqlSession 实例。通常来说，当�
 这些方法被用来执行定义在 SQL 映射 XML 文件中的 SELECT、 INSERT、 UPDATE和 DELETE 语句。你可以通过名字快速了解它们的作用，每一方法都接受语句的 ID以及参数对象，参数可以是原始类型（支持自动装箱或包装类）、 JavaBean、 POJO或 Map。
 
 ```java
-		<T> T selectOne(String statement, Object parameter)
-		<E> List<E> selectList(String statement, Object parameter)
-		<T> Cursor<T> selectCursor(String statement, Object parameter)
-		<K,V> Map<K,V> selectMap(String statement, Object parameter, String mapKey)
-		int insert(String statement, Object parameter)
-		int update(String statement, Object parameter)
-		int delete(String statement, Object parameter)
+<T> T selectOne(String statement, Object parameter)
+    <E> List<E> selectList(String statement, Object parameter)
+    <T> Cursor<T> selectCursor(String statement, Object parameter)
+    <K,V> Map<K,V> selectMap(String statement, Object parameter, String mapKey)
+    int insert(String statement, Object parameter)
+    int update(String statement, Object parameter)
+    int delete(String statement, Object parameter)
 ```
 
 selectOne 和 selectList 的不同仅仅是 selectOne 必须返回一个对象或 null 值。如果返回值多于一个，就会抛出异常。如果你不知道返回对象会有多少，请使用selectList。如果需要查看某个对象是否存在，最好的办法是查询一个 count 值（0 或1）。 selectMap 稍微特殊一点，它会将返回对象的其中一个属性作为 key 值，将对象作为 value 值，从而将多个结果集转为 Map 类型值。由于并不是所有语句都需要参数，所以这些方法都具有一个不需要参数的重载形式。
@@ -2682,41 +2688,41 @@ selectOne 和 selectList 的不同仅仅是 selectOne 必须返回一个对象�
 
 ```java
 try (Cursor<MyEntity> entities = session.selectCursor(statement, param)) {
-	for (MyEntity entity:entities) {
-		// 处理单个实体
-	}
+    for (MyEntity entity:entities) {
+        // 处理单个实体
+    }
 }
 ```
 
 insert、 update 以及 delete 方法返回的值表示受该语句影响的行数。
 
 ```java
-	<T> T selectOne(String statement)
-	<E> List<E> selectList(String statement)
-	<T> Cursor<T> selectCursor(String statement)
-	<K,V> Map<K,V> selectMap(String statement, String mapKey)
-	int insert(String statement)
-	int update(String statement)
-	int delete(String statement)
+<T> T selectOne(String statement)
+    <E> List<E> selectList(String statement)
+    <T> Cursor<T> selectCursor(String statement)
+    <K,V> Map<K,V> selectMap(String statement, String mapKey)
+    int insert(String statement)
+    int update(String statement)
+    int delete(String statement)
 ```
 
 最后，还有 select 方法的三个高级版本，它们允许你限制返回行数的范围，或是提供自定义结果处理逻辑，通常在数据集非常庞大的情形下使用。
 
 ```java
-	<E> List<E> selectList (String statement, Object parameter, RowBounds rowBounds)
-	<T> Cursor<T> selectCursor(String statement, Object parameter, RowBounds rowBounds)
-	<K,V> Map<K,V> selectMap(String statement, Object parameter, String mapKey,RowBounds rowbounds)
-	void select (String statement, Object parameter, ResultHandler<T> handler)
-	void select (String statement, Object parameter, RowBounds rowBounds, ResultHandler<T> handler)
+<E> List<E> selectList (String statement, Object parameter, RowBounds rowBounds)
+    <T> Cursor<T> selectCursor(String statement, Object parameter, RowBounds rowBounds)
+    <K,V> Map<K,V> selectMap(String statement, Object parameter, String mapKey,RowBounds rowbounds)
+    void select (String statement, Object parameter, ResultHandler<T> handler)
+    void select (String statement, Object parameter, RowBounds rowBounds, ResultHandler<T> handler)
 ```
 
 RowBounds 参数会告诉 MyBatis 略过指定数量的记录，并限制返回结果的数量。
 RowBounds 类的 offset 和 limit 值只有在构造函数时才能传入，其它时候是不能修改的。
 
 ```java
-	int offset = 100;
-	int limit = 25;
-	RowBounds rowBounds = new RowBounds(offset, limit);
+int offset = 100;
+int limit = 25;
+RowBounds rowBounds = new RowBounds(offset, limit);
 ```
 
 数据库驱动决定了略过记录时的查询效率。为了获得最佳的性能，建议将 ResultSet 类型设置为 SCROLL_SENSITIVE 或 SCROLL_INSENSITIVE（换句话说：不要使用FORWARD_ONLY）。
@@ -2727,7 +2733,7 @@ RowBounds 类的 offset 和 limit 值只有在构造函数时才能传入，其�
 ```java
 package org.apache.ibatis.session;
 public interface ResultHandler<T> {
-		void handleResult(ResultContext<? extends T> context);
+    void handleResult(ResultContext<? extends T> context);
 }
 ```
 
@@ -2749,10 +2755,10 @@ List<BatchResult> flushStatements()
 有四个方法用来控制事务作用域。当然，如果你已经设置了自动提交或你使用了外部事务管理器，这些方法就没什么作用了。然而，如果你正在使用由 Connection 实例控制的 JDBC 事务管理器，那么这四个方法就会派上用场：
 
 ```java
-	void commit()
-	void commit(boolean force)
-	void rollback()
-	void rollback(boolean force)
+void commit()
+    void commit(boolean force)
+    void rollback()
+    void rollback(boolean force)
 ```
 
 默认情况下 MyBatis 不会自动提交事务，除非它侦测到调用了插入、更新或删除方法改变了数据库。如果你没有使用这些方法提交修改，那么你可以在 commit 和 rollback方法参数中传入 true 值，来保证事务被正常提交（注意，在自动提交模式或者使用了外部事务管理器的情况下，设置 force 值对 session 无效）。大部分情况下你无需调用 rollback()，因为 MyBatis 会在你没有调用 commit 时替你完成回滚操作。不过，当你要在一个可能多次提交或回滚的 session 中详细控制事务，回滚操作就派上用场了。
@@ -2815,19 +2821,19 @@ Configuration getConfiguration()
 
 ```java
 public interface AuthorMapper {
-	// (Author) selectOne("selectAuthor",5);
-	Author selectAuthor(int id);
-	// (List<Author>) selectList(“selectAuthors”)
-	List<Author> selectAuthors();
-	// (Map<Integer,Author>) selectMap("selectAuthors", "id")
-	@MapKey("id")
-	Map<Integer, Author> selectAuthors();
-	// insert("insertAuthor", author)
-	int insertAuthor(Author author);
-	// updateAuthor("updateAuthor", author)
-	int updateAuthor(Author author);
-	// delete("deleteAuthor",5)
-	int deleteAuthor(int id);
+    // (Author) selectOne("selectAuthor",5);
+    Author selectAuthor(int id);
+    // (List<Author>) selectList(“selectAuthors”)
+    List<Author> selectAuthors();
+    // (Map<Integer,Author>) selectMap("selectAuthors", "id")
+    @MapKey("id")
+    Map<Integer, Author> selectAuthors();
+    // insert("insertAuthor", author)
+    int insertAuthor(Author author);
+    // updateAuthor("updateAuthor", author)
+    int updateAuthor(Author author);
+    // delete("deleteAuthor",5)
+    int deleteAuthor(int id);
 }
 ```
 
@@ -2916,17 +2922,17 @@ List<BatchResult> flush();
 
 ```java
 @Results(id = "userResult", value = {
-@Result(property = "id", column = "uid", id = true),
-@Result(property = "firstName", column = "first_name"),
-@Result(property = "lastName", column = "last_name")
+    @Result(property = "id", column = "uid", id = true),
+    @Result(property = "firstName", column = "first_name"),
+    @Result(property = "lastName", column = "last_name")
 })
 @Select("select * from users where id = #{id}")
 User getUserById(Integer id);
 
 @Results(id = "companyResults")
 @ConstructorArgs({
-@Arg(column = "cid", javaType = Integer.class, id = true),
-@Arg(column = "name", javaType = String.class)
+    @Arg(column = "cid", javaType = Integer.class, id = true),
+    @Arg(column = "name", javaType = String.class)
 })
 @Select("select * from company where id = #{id}")
 Company getCompanyById(Integer id);
@@ -2936,20 +2942,19 @@ Company getCompanyById(Integer id);
 这个例子展示了如何使用单个参数的 @SqlProvider 注解：
 
 ```java
-@SelectProvider(type = UserSqlBuilder.class, method = "buildGetUsersByName
-")
+@SelectProvider(type = UserSqlBuilder.class, method = "buildGetUsersByName")
 List<User> getUsersByName(String name);
 class UserSqlBuilder {
-public static String buildGetUsersByName(final String name) {
-	return new SQL(){{
-		SELECT("");
-		FROM("users");
-		if (name != null) {
-			WHERE("name like #{value} || '%'");
-		}
-		ORDER_BY("id");
-	}}.toString();
-	}
+    public static String buildGetUsersByName(final String name) {
+        return new SQL(){{
+            SELECT("");
+            FROM("users");
+            if (name != null) {
+                WHERE("name like #{value} || '%'");
+            }
+            ORDER_BY("id");
+        }}.toString();
+    }
 }
 ```
 
@@ -2958,28 +2963,28 @@ public static String buildGetUsersByName(final String name) {
 ```java
 @SelectProvider(type = UserSqlBuilder.class, method = "buildGetUsersByName")
 List<User> getUsersByName(
-@Param("name") String name, @Param("orderByColumn") String orderByColumn);
+    @Param("name") String name, @Param("orderByColumn") String orderByColumn);
 class UserSqlBuilder {
-// 如果不使用 @Param，就应该定义与 mapper 方法相同的参数
-public static String buildGetUsersByName(
-final String name, final String orderByColumn) {
-	return new SQL(){{
-		SELECT("*");
-		FROM("users");
-		WHERE("name like #{name} || '%'");
-		ORDER_BY(orderByColumn);
-	}}.toString();
-}
-// 如果使用 @Param，就可以只定义需要使用的参数
-public static String buildGetUsersByName(@Param("orderByColumn") final Str
-ing orderByColumn) {
-	return new SQL(){{
-		SELECT("*");
-		FROM("users");
-		WHERE("name like #{name} || '%'");
-		ORDER_BY(orderByColumn);
-	}}.toString();
-}
+    // 如果不使用 @Param，就应该定义与 mapper 方法相同的参数
+    public static String buildGetUsersByName(
+        final String name, final String orderByColumn) {
+        return new SQL(){{
+            SELECT("*");
+            FROM("users");
+            WHERE("name like #{name} || '%'");
+            ORDER_BY(orderByColumn);
+        }}.toString();
+    }
+    // 如果使用 @Param，就可以只定义需要使用的参数
+    public static String buildGetUsersByName(@Param("orderByColumn") final Str
+                                             ing orderByColumn) {
+        return new SQL(){{
+            SELECT("*");
+            FROM("users");
+            WHERE("name like #{name} || '%'");
+            ORDER_BY(orderByColumn);
+        }}.toString();
+    }
 }
 ```
 
@@ -2988,28 +2993,28 @@ ing orderByColumn) {
 ```java
 @SelectProvider(type = UserSqlBuilder.class, method = "buildGetUsersByName")
 List<User> getUsersByName(
-@Param("name") String name, @Param("orderByColumn") String orderByColumn);
+    @Param("name") String name, @Param("orderByColumn") String orderByColumn);
 class UserSqlBuilder {
-// 如果不使用 @Param，就应该定义与 mapper 方法相同的参数
-public static String buildGetUsersByName(
-final String name, final String orderByColumn) {
-	return new SQL(){{
-		SELECT("*");
-		FROM("users");
-		WHERE("name like #{name} || '%'");
-		ORDER_BY(orderByColumn);
-	}}.toString();
-}
-// 如果使用 @Param，就可以只定义需要使用的参数
-public static String buildGetUsersByName(@Param("orderByColumn") final Str
-ing orderByColumn) {
-	return new SQL(){{
-		SELECT("*");
-		FROM("users");
-		WHERE("name like #{name} || '%'");
-		ORDER_BY(orderByColumn);
-	}}.toString();
-}
+    // 如果不使用 @Param，就应该定义与 mapper 方法相同的参数
+    public static String buildGetUsersByName(
+        final String name, final String orderByColumn) {
+        return new SQL(){{
+            SELECT("*");
+            FROM("users");
+            WHERE("name like #{name} || '%'");
+            ORDER_BY(orderByColumn);
+        }}.toString();
+    }
+    // 如果使用 @Param，就可以只定义需要使用的参数
+    public static String buildGetUsersByName(@Param("orderByColumn") final Str
+                                             ing orderByColumn) {
+        return new SQL(){{
+            SELECT("*");
+            FROM("users");
+            WHERE("name like #{name} || '%'");
+            ORDER_BY(orderByColumn);
+        }}.toString();
+    }
 }
 ```
 
@@ -3023,16 +3028,16 @@ Java 程序员面对的最痛苦的事情之一就是在 Java 代码中嵌入 SQ
 
 ```java
 String sql = "SELECT P.ID, P.USERNAME, P.PASSWORD, P.FULL_NAME, "
-"P.LAST_NAME,P.CREATED_ON, P.UPDATED_ON " +
-"FROM PERSON P, ACCOUNT A " +
-"INNER JOIN DEPARTMENT D on D.ID = P.DEPARTMENT_ID " +
-"INNER JOIN COMPANY C on D.COMPANY_ID = C.ID " +
-"WHERE (P.ID = A.ID AND P.FIRST_NAME like ?) " +
-"OR (P.LAST_NAME like ?) " +
-"GROUP BY P.ID " +
-"HAVING (P.LAST_NAME like ?) " +
-"OR (P.FIRST_NAME like ?) " +
-"ORDER BY P.ID, P.FULL_NAME";
+    "P.LAST_NAME,P.CREATED_ON, P.UPDATED_ON " +
+    "FROM PERSON P, ACCOUNT A " +
+    "INNER JOIN DEPARTMENT D on D.ID = P.DEPARTMENT_ID " +
+    "INNER JOIN COMPANY C on D.COMPANY_ID = C.ID " +
+    "WHERE (P.ID = A.ID AND P.FIRST_NAME like ?) " +
+    "OR (P.LAST_NAME like ?) " +
+    "GROUP BY P.ID " +
+    "HAVING (P.LAST_NAME like ?) " +
+    "OR (P.FIRST_NAME like ?) " +
+    "ORDER BY P.ID, P.FULL_NAME";
 ```
 
 
@@ -3043,24 +3048,24 @@ MyBatis 3 提供了方便的工具类来帮助解决此问题。借助 SQL 类�
 
 ```java
 private String selectPersonSql() {
-	return new SQL() {{
-		SELECT("P.ID, P.USERNAME, P.PASSWORD, P.FULL_NAME");
-		SELECT("P.LAST_NAME, P.CREATED_ON, P.UPDATED_ON");
-		FROM("PERSON P");
-		FROM("ACCOUNT A");
-		INNER_JOIN("DEPARTMENT D on D.ID = P.DEPARTMENT_ID");
-		INNER_JOIN("COMPANY C on D.COMPANY_ID = C.ID");
-		WHERE("P.ID = A.ID");
-		WHERE("P.FIRST_NAME like ?");
-		OR();
-		WHERE("P.LAST_NAME like ?");
-		GROUP_BY("P.ID");
-		HAVING("P.LAST_NAME like ?");
-		OR();
-		HAVING("P.FIRST_NAME like ?");
-		ORDER_BY("P.ID");
-		ORDER_BY("P.FULL_NAME");
-	}}.toString();
+    return new SQL() {{
+        SELECT("P.ID, P.USERNAME, P.PASSWORD, P.FULL_NAME");
+        SELECT("P.LAST_NAME, P.CREATED_ON, P.UPDATED_ON");
+        FROM("PERSON P");
+        FROM("ACCOUNT A");
+        INNER_JOIN("DEPARTMENT D on D.ID = P.DEPARTMENT_ID");
+        INNER_JOIN("COMPANY C on D.COMPANY_ID = C.ID");
+        WHERE("P.ID = A.ID");
+        WHERE("P.FIRST_NAME like ?");
+        OR();
+        WHERE("P.LAST_NAME like ?");
+        GROUP_BY("P.ID");
+        HAVING("P.LAST_NAME like ?");
+        OR();
+        HAVING("P.FIRST_NAME like ?");
+        ORDER_BY("P.ID");
+        ORDER_BY("P.FULL_NAME");
+    }}.toString();
 }
 ```
 
@@ -3074,56 +3079,56 @@ private String selectPersonSql() {
 ```java
 // 匿名内部类风格
 public String deletePersonSql() {
-	return new SQL() {{
-		DELETE_FROM("PERSON");
-		WHERE("ID = #{id}");
-	}}.toString();
+    return new SQL() {{
+        DELETE_FROM("PERSON");
+        WHERE("ID = #{id}");
+    }}.toString();
 }
 // Builder / Fluent 风格
 public String insertPersonSql() {
-	String sql = new SQL()
-		.INSERT_INTO("PERSON")
-		.VALUES("ID, FIRST_NAME", "#{id}, #{firstName}")
-		.VALUES("LAST_NAME", "#{lastName}")
-		.toString();
-return sql;
+    String sql = new SQL()
+        .INSERT_INTO("PERSON")
+        .VALUES("ID, FIRST_NAME", "#{id}, #{firstName}")
+        .VALUES("LAST_NAME", "#{lastName}")
+        .toString();
+    return sql;
 }
 // 动态条件（注意参数需要使用 final 修饰，以便匿名内部类对它们进行访问）
 public String selectPersonLike(final String id, final String firstName, final String lastName) {
-	return new SQL() {{
-		SELECT("P.ID, P.USERNAME, P.PASSWORD, P.FIRST_NAME, P.LAST_NAME");
-		FROM("PERSON P");
-		if (id != null) {
-			WHERE("P.ID like #{id}");
-		}
-		if (firstName != null) {
-			WHERE("P.FIRST_NAME like #{firstName}");
-		}
-		if (lastName != null) {
-		WHERE("P.LAST_NAME like #{lastName}");
-		}
-		ORDER_BY("P.LAST_NAME");
-		}}.toString();
-	}
+    return new SQL() {{
+        SELECT("P.ID, P.USERNAME, P.PASSWORD, P.FIRST_NAME, P.LAST_NAME");
+        FROM("PERSON P");
+        if (id != null) {
+            WHERE("P.ID like #{id}");
+        }
+        if (firstName != null) {
+            WHERE("P.FIRST_NAME like #{firstName}");
+        }
+        if (lastName != null) {
+            WHERE("P.LAST_NAME like #{lastName}");
+        }
+        ORDER_BY("P.LAST_NAME");
+    }}.toString();
+}
 public String deletePersonSql() {
-	return new SQL() {{
-		DELETE_FROM("PERSON");
-		WHERE("ID = #{id}");
-		}}.toString();
-	}
+    return new SQL() {{
+        DELETE_FROM("PERSON");
+        WHERE("ID = #{id}");
+    }}.toString();
+}
 public String insertPersonSql() {
-	return new SQL() {{
-		INSERT_INTO("PERSON");
-		VALUES("ID, FIRST_NAME", "#{id}, #{firstName}");
-		VALUES("LAST_NAME", "#{lastName}");
-		}}.toString();
-	}
+    return new SQL() {{
+        INSERT_INTO("PERSON");
+        VALUES("ID, FIRST_NAME", "#{id}, #{firstName}");
+        VALUES("LAST_NAME", "#{lastName}");
+    }}.toString();
+}
 public String updatePersonSql() {
-	return new SQL() {{
-		UPDATE("PERSON");
-		SET("FIRST_NAME = #{firstName}");
-		WHERE("ID = #{id}");
-	}}.toString();
+    return new SQL() {{
+        UPDATE("PERSON");
+        SET("FIRST_NAME = #{firstName}");
+        WHERE("ID = #{id}");
+    }}.toString();
 }
 ```
 
@@ -3166,45 +3171,44 @@ public String updatePersonSql() {
 
 ```java
 public String selectPersonSql() {
-	return new SQL()
-  	.SELECT("P.ID", "A.USERNAME", "A.PASSWORD", "P.FULL_NAME", "D.DEPARTMENT
-		_NAME", "C.COMPANY_NAME")
-		.FROM("PERSON P", "ACCOUNT A")
-		.INNER_JOIN("DEPARTMENT D on D.ID = P.DEPARTMENT_ID", "COMPANY C on D.CO
-		MPANY_ID = C.ID")
-		.WHERE("P.ID = A.ID", "P.FULL_NAME like #{name}")
-		.ORDER_BY("P.ID", "P.FULL_NAME")
-		.toString();
-}
-public String insertPersonSql() {
-	return new SQL()
-		.INSERT_INTO("PERSON")
-		.INTO_COLUMNS("ID", "FULL_NAME")
-		.INTO_VALUES("#{id}", "#{fullName}")
-	.toString();
-}
-public String updatePersonSql() {
-	return new SQL()
-		.UPDATE("PERSON")
-		.SET("FULL_NAME = #{fullName}", "DATE_OF_BIRTH = #{dateOfBirth}")
-		.WHERE("ID = #{id}")
-	.toString();
-}
+    return new SQL()
+        .SELECT("P.ID", "A.USERNAME", "A.PASSWORD", "P.FULL_NAME", "D.DEPARTMENT
+                _NAME", "C.COMPANY_NAME")
+                .FROM("PERSON P", "ACCOUNT A")
+                .INNER_JOIN("DEPARTMENT D on D.ID = P.DEPARTMENT_ID", "COMPANY C on D.COMPANY_ID = C.ID")
+                .WHERE("P.ID = A.ID", "P.FULL_NAME like #{name}")
+                .ORDER_BY("P.ID", "P.FULL_NAME")
+                .toString();
+                }
+                public String insertPersonSql() {
+                    return new SQL()
+                        .INSERT_INTO("PERSON")
+                        .INTO_COLUMNS("ID", "FULL_NAME")
+                        .INTO_VALUES("#{id}", "#{fullName}")
+                        .toString();
+                }
+                public String updatePersonSql() {
+                    return new SQL()
+                        .UPDATE("PERSON")
+                        .SET("FULL_NAME = #{fullName}", "DATE_OF_BIRTH = #{dateOfBirth}")
+                        .WHERE("ID = #{id}")
+                        .toString();
+                }
 ```
 
 从版本 3.5.2 开始，你可以像下面这样构建批量插入语句：
 
 ```java
 public String insertPersonsSql() {
-// INSERT INTO PERSON (ID, FULL_NAME)
-// VALUES (#{mainPerson.id}, #{mainPerson.fullName}) , (#{subPerson.id}, #{subPerson.fullName})
-	return new SQL()
-		.INSERT_INTO("PERSON")
-		.INTO_COLUMNS("ID", "FULL_NAME")
-		.INTO_VALUES("#{mainPerson.id}", "#{mainPerson.fullName}")
-		.ADD_ROW()
-		.INTO_VALUES("#{subPerson.id}", "#{subPerson.fullName}")
-		.toString();
+    // INSERT INTO PERSON (ID, FULL_NAME)
+    // VALUES (#{mainPerson.id}, #{mainPerson.fullName}) , (#{subPerson.id}, #{subPerson.fullName})
+    return new SQL()
+        .INSERT_INTO("PERSON")
+        .INTO_COLUMNS("ID", "FULL_NAME")
+        .INTO_VALUES("#{mainPerson.id}", "#{mainPerson.fullName}")
+        .ADD_ROW()
+        .INTO_VALUES("#{subPerson.id}", "#{subPerson.fullName}")
+        .toString();
 }
 ```
 
@@ -3212,24 +3216,24 @@ public String insertPersonsSql() {
 
 ```java
 public String selectPersonsWithOffsetLimitSql() {
-// SELECT id, name FROM PERSON
-// LIMIT #{limit} OFFSET #{offset}
-	return new SQL()
-		.SELECT("id", "name")
-		.FROM("PERSON")
-		.LIMIT("#{limit}")
-		.OFFSET("#{offset}")
-		.toString();
-	}
+    // SELECT id, name FROM PERSON
+    // LIMIT #{limit} OFFSET #{offset}
+    return new SQL()
+        .SELECT("id", "name")
+        .FROM("PERSON")
+        .LIMIT("#{limit}")
+        .OFFSET("#{offset}")
+        .toString();
+}
 public String selectPersonsWithFetchFirstSql() {
-// SELECT id, name FROM PERSON
-// OFFSET #{offset} ROWS FETCH FIRST #{limit} ROWS ONLY
-	return new SQL()
-		.SELECT("id", "name")
-		.FROM("PERSON")
-		.OFFSET_ROWS("#{offset}")
-		.FETCH_FIRST_ROWS_ONLY("#{limit}")
-		.toString();
+    // SELECT id, name FROM PERSON
+    // OFFSET #{offset} ROWS FETCH FIRST #{limit} ROWS ONLY
+    return new SQL()
+        .SELECT("id", "name")
+        .FROM("PERSON")
+        .OFFSET_ROWS("#{offset}")
+        .FETCH_FIRST_ROWS_ONLY("#{limit}")
+        .toString();
 }
 ```
 
@@ -3265,24 +3269,24 @@ public String selectBlogsSql() {
 }
 /* 已被废弃 */
 private String selectPersonSql() {
-	BEGIN(); // 重置 ThreadLocal 状态变量
-	SELECT("P.ID, P.USERNAME, P.PASSWORD, P.FULL_NAME");
-	SELECT("P.LAST_NAME, P.CREATED_ON, P.UPDATED_ON");
-	FROM("PERSON P");
-	FROM("ACCOUNT A");
-	INNER_JOIN("DEPARTMENT D on D.ID = P.DEPARTMENT_ID");
-	INNER_JOIN("COMPANY C on D.COMPANY_ID = C.ID");
-	WHERE("P.ID = A.ID");
-	WHERE("P.FIRST_NAME like ?");
-	OR();
-	WHERE("P.LAST_NAME like ?");
-	GROUP_BY("P.ID");
-	HAVING("P.LAST_NAME like ?");
-	OR();
-	HAVING("P.FIRST_NAME like ?");
-	ORDER_BY("P.ID");
-	ORDER_BY("P.FULL_NAME");
-	return SQL();
+    BEGIN(); // 重置 ThreadLocal 状态变量
+    SELECT("P.ID, P.USERNAME, P.PASSWORD, P.FULL_NAME");
+    SELECT("P.LAST_NAME, P.CREATED_ON, P.UPDATED_ON");
+    FROM("PERSON P");
+    FROM("ACCOUNT A");
+    INNER_JOIN("DEPARTMENT D on D.ID = P.DEPARTMENT_ID");
+    INNER_JOIN("COMPANY C on D.COMPANY_ID = C.ID");
+    WHERE("P.ID = A.ID");
+    WHERE("P.FIRST_NAME like ?");
+    OR();
+    WHERE("P.LAST_NAME like ?");
+    GROUP_BY("P.ID");
+    HAVING("P.LAST_NAME like ?");
+    OR();
+    HAVING("P.FIRST_NAME like ?");
+    ORDER_BY("P.ID");
+    ORDER_BY("P.FULL_NAME");
+    return SQL();
 }
 ```
 
@@ -3301,11 +3305,11 @@ Mybatis 通过使用内置的日志工厂提供日志功能。内置日志工厂
 
 ```xml
 <configuration>
-  <settings>
-  	...
-  	<setting name="logImpl" value="LOG4J"/>
- 	 ...
-  </settings>
+    <settings>
+        ...
+        <setting name="logImpl" value="LOG4J"/>
+        ...
+    </settings>
 </configuration>
 ```
 
@@ -3313,11 +3317,11 @@ Mybatis 通过使用内置的日志工厂提供日志功能。内置日志工厂
 你也可以调用以下任一方法来选择日志实现：
 
 ```
-	org.apache.ibatis.logging.LogFactory.useSlf4jLogging();
-	org.apache.ibatis.logging.LogFactory.useLog4JLogging();
-	org.apache.ibatis.logging.LogFactory.useJdkLogging();
-	org.apache.ibatis.logging.LogFactory.useCommonsLogging();
-	org.apache.ibatis.logging.LogFactory.useStdOutLogging();
+org.apache.ibatis.logging.LogFactory.useSlf4jLogging();
+org.apache.ibatis.logging.LogFactory.useLog4JLogging();
+org.apache.ibatis.logging.LogFactory.useJdkLogging();
+org.apache.ibatis.logging.LogFactory.useCommonsLogging();
+org.apache.ibatis.logging.LogFactory.useStdOutLogging();
 ```
 
 你应该在调用其它 MyBatis 方法之前调用以上的某个方法。另外，仅当运行时类路径中存在该日志实现时，日志实现的切换才会生效。如果你的环境中并不存在 Log4J，你却试图调用了相应的方法， MyBatis 就会忽略这一切换请求，并将以默认的查找顺序决定使用的日志实现。
@@ -3343,8 +3347,8 @@ Mybatis 通过使用内置的日志工厂提供日志功能。内置日志工厂
 ```java
 package org.mybatis.example;
 public interface BlogMapper {
-	@Select("SELECT * FROM blog WHERE id = #{id}")
-	Blog selectBlog(int id);
+    @Select("SELECT * FROM blog WHERE id = #{id}")
+    Blog selectBlog(int id);
 }
 ```
 
@@ -3388,9 +3392,9 @@ log4j.logger.org.mybatis.example=DEBUG
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.mybatis.example.BlogMapper">
-  <select id="selectBlog" resultType="Blog">
-  	select * from Blog where id = #{id}
-  </select>
+    <select id="selectBlog" resultType="Blog">
+        select * from Blog where id = #{id}
+    </select>
 </mapper>
 ```
 

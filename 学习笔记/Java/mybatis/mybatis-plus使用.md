@@ -12,62 +12,62 @@ MyBatis-plus 是一款 Mybatis 增强工具，用于简化开发，提高效率�
 
 ```xml
 <!-- pom.xml -->  
-   <?xml version="1.0" encoding="UTF-8"?>  
-   <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
-            xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">  
-       <modelVersion>4.0.0</modelVersion>  
-       <parent>  
-           <groupId>org.springframework.boot</groupId>  
-           <artifactId>spring-boot-starter-parent</artifactId>  
-           <version>2.3.4.RELEASE</version>  
-           <relativePath/> 
-           <!-- lookup parent from repository -->  
-       </parent>  
-       <groupId>com.example</groupId>  
-       <artifactId>mybatis-plus</artifactId>  
-       <version>0.0.1-SNAPSHOT</version>  
-       <name>mybatis-plus</name>  
-       <properties>  
-           <java.version>1.8</java.version>  
-       </properties>  
-       <dependencies>  
-           <dependency>  
-               <groupId>org.springframework.boot</groupId>  
-               <artifactId>spring-boot-starter</artifactId>  
-           </dependency>  
-           <dependency>  
-               <groupId>org.springframework.boot</groupId>  
-               <artifactId>spring-boot-starter-test</artifactId>  
-               <scope>test</scope>  
-           </dependency>  
-           <dependency>  
-               <groupId>org.springframework.boot</groupId>  
-               <artifactId>spring-boot-configuration-processor</artifactId>  
-           </dependency>  
-           <dependency>  
-               <groupId>com.baomidou</groupId>  
-               <artifactId>mybatis-plus-boot-starter</artifactId>  
-               <version>3.4.2</version>  
-           </dependency>  
-           <dependency>  
-               <groupId>mysql</groupId>  
-               <artifactId>mysql-connector-java</artifactId>  
-               <scope>runtime</scope>  
-           </dependency>  
-           <dependency>  
-               <groupId>org.projectlombok</groupId>  
-               <artifactId>lombok</artifactId>  
-           </dependency>  
-       </dependencies>  
-       <build>  
-           <plugins>  
-               <plugin>  
-                   <groupId>org.springframework.boot</groupId>  
-                   <artifactId>spring-boot-maven-plugin</artifactId>  
-               </plugin>  
-           </plugins>  
-       </build>  
-   </project>
+<?xml version="1.0" encoding="UTF-8"?>  
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">  
+    <modelVersion>4.0.0</modelVersion>  
+    <parent>  
+        <groupId>org.springframework.boot</groupId>  
+        <artifactId>spring-boot-starter-parent</artifactId>  
+        <version>2.3.4.RELEASE</version>  
+        <relativePath/> 
+        <!-- lookup parent from repository -->  
+    </parent>  
+    <groupId>com.example</groupId>  
+    <artifactId>mybatis-plus</artifactId>  
+    <version>0.0.1-SNAPSHOT</version>  
+    <name>mybatis-plus</name>  
+    <properties>  
+        <java.version>1.8</java.version>  
+    </properties>  
+    <dependencies>  
+        <dependency>  
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter</artifactId>  
+        </dependency>  
+        <dependency>  
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-test</artifactId>  
+            <scope>test</scope>  
+        </dependency>  
+        <dependency>  
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-configuration-processor</artifactId>  
+        </dependency>  
+        <dependency>  
+            <groupId>com.baomidou</groupId>  
+            <artifactId>mybatis-plus-boot-starter</artifactId>  
+            <version>3.4.2</version>  
+        </dependency>  
+        <dependency>  
+            <groupId>mysql</groupId>  
+            <artifactId>mysql-connector-java</artifactId>  
+            <scope>runtime</scope>  
+        </dependency>  
+        <dependency>  
+            <groupId>org.projectlombok</groupId>  
+            <artifactId>lombok</artifactId>  
+        </dependency>  
+    </dependencies>  
+    <build>  
+        <plugins>  
+            <plugin>  
+                <groupId>org.springframework.boot</groupId>  
+                <artifactId>spring-boot-maven-plugin</artifactId>  
+            </plugin>  
+        </plugins>  
+    </build>  
+</project>
 ```
 
 3.配置数据库
@@ -89,44 +89,45 @@ MyBatis-plus 是一款 Mybatis 增强工具，用于简化开发，提高效率�
 4.创建一个实体类
 
 ```java
-   package com.example.mp.po;  
-   import lombok.Data;  
-   import java.time.LocalDateTime;  
-   @Data  
-   public class User {  
+package com.example.mp.po;  
+import lombok.Data;  
+import java.time.LocalDateTime;  
+@Data  
+public class User {  
     private Long id;  
     private String name;  
     private Integer age;  
     private String email;  
     private Long managerId;  
     private LocalDateTime createTime;  
-   }
+}
 ```
 
 5.创建一个mapper接口
 
 ```java
-	 package com.example.mp.mappers;  
-   import com.baomidou.mybatisplus.core.mapper.BaseMapper;  
-   import com.example.mp.po.User;  
-   public interface UserMapper extends BaseMapper<User> {
-   }
+package com.example.mp.mappers;  
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;  
+import com.example.mp.po.User;  
+public interface UserMapper extends BaseMapper<User> {
+    
+}
 ```
 
 6.在SpringBoot启动类上配置mapper接口的扫描路径
 
 ```java
-   package com.example.mp;  
-   import org.mybatis.spring.annotation.MapperScan;  
-   import org.springframework.boot.SpringApplication;  
-   import org.springframework.boot.autoconfigure.SpringBootApplication;  
-   @SpringBootApplication  
-   @MapperScan("com.example.mp.mappers")  
-   public class MybatisPlusApplication {  
+package com.example.mp;  
+import org.mybatis.spring.annotation.MapperScan;  
+import org.springframework.boot.SpringApplication;  
+import org.springframework.boot.autoconfigure.SpringBootApplication;  
+@SpringBootApplication  
+@MapperScan("com.example.mp.mappers")  
+public class MybatisPlusApplication {  
     public static void main(String[] args) {  
-     SpringApplication.run(MybatisPlusApplication.class, args);  
+        SpringApplication.run(MybatisPlusApplication.class, args);  
     }  
-   }
+}
 ```
 
 7.在数据库中创建表
@@ -134,15 +135,15 @@ MyBatis-plus 是一款 Mybatis 增强工具，用于简化开发，提高效率�
 ```sql
    DROP TABLE IF EXISTS user;  
    CREATE TABLE user (  
-   id BIGINT(20) PRIMARY KEY NOT NULL COMMENT '主键',  
-   name VARCHAR(30) DEFAULT NULL COMMENT '姓名',  
-   age INT(11) DEFAULT NULL COMMENT '年龄',  
-   email VARCHAR(50) DEFAULT NULL COMMENT '邮箱',  
-   manager_id BIGINT(20) DEFAULT NULL COMMENT '直属上级id',  
-   create_time DATETIME DEFAULT NULL COMMENT '创建时间',  
-   CONSTRAINT manager_fk FOREIGN KEY(manager_id) REFERENCES user (id)  
+       id BIGINT(20) PRIMARY KEY NOT NULL COMMENT '主键',  
+       name VARCHAR(30) DEFAULT NULL COMMENT '姓名',  
+       age INT(11) DEFAULT NULL COMMENT '年龄',  
+       email VARCHAR(50) DEFAULT NULL COMMENT '邮箱',  
+       manager_id BIGINT(20) DEFAULT NULL COMMENT '直属上级id',  
+       create_time DATETIME DEFAULT NULL COMMENT '创建时间',  
+       CONSTRAINT manager_fk FOREIGN KEY(manager_id) REFERENCES user (id)  
    ) ENGINE=INNODB CHARSET=UTF8;  
-     
+
    INSERT INTO user (id, name, age ,email, manager_id, create_time) VALUES  
    (1, '大BOSS', 40, 'boss@baomidou.com', NULL, '2021-03-22 09:48:00'),  
    (2, '李经理', 40, 'boss@baomidou.com', 1, '2021-01-22 09:48:00'),  
@@ -154,41 +155,41 @@ MyBatis-plus 是一款 Mybatis 增强工具，用于简化开发，提高效率�
 8.编写一个SpringBoot测试类
 
 ```java
-   package com.example.mp;  
-   import com.example.mp.mappers.UserMapper;  
-   import com.example.mp.po.User;  
-   import org.junit.Test;  
-   import org.junit.runner.RunWith;  
-   import org.springframework.beans.factory.annotation.Autowired;  
-   import org.springframework.boot.test.context.SpringBootTest;  
-   import org.springframework.test.context.junit4.SpringRunner;  
-   import java.util.List;  
-   import static org.junit.Assert.*;  
-   @RunWith(SpringRunner.class)  
-   @SpringBootTest  
-   public class SampleTest {  
+package com.example.mp;  
+import com.example.mp.mappers.UserMapper;  
+import com.example.mp.po.User;  
+import org.junit.Test;  
+import org.junit.runner.RunWith;  
+import org.springframework.beans.factory.annotation.Autowired;  
+import org.springframework.boot.test.context.SpringBootTest;  
+import org.springframework.test.context.junit4.SpringRunner;  
+import java.util.List;  
+import static org.junit.Assert.*;  
+@RunWith(SpringRunner.class)  
+@SpringBootTest  
+public class SampleTest {  
     @Autowired  
     private UserMapper mapper;  
     @Test  
     public void testSelect() {  
-     List<User> list = mapper.selectList(null);  
-     assertEquals(5, list.size());  
-     list.forEach(System.out::println);  
+        List<User> list = mapper.selectList(null);  
+        assertEquals(5, list.size());  
+        list.forEach(System.out::println);  
     }  
-   }
+}
 ```
 
 准备工作完成，数据库情况如下：
 
 项目目录如下：
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615125140.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152321207.png)
 
 ​																		图片
 
 运行测试类
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615125158.png)																				图片
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152322248.png)																				图片
 
 可以看到，针对单表的基本CRUD操作，只需要创建好实体类，并创建一个继承自`BaseMapper`的接口即可，可谓非常简洁。并且，我们注意到，`User`类中的`managerId`，`createTime`属性，自动和数据库表中的`manager_id`，`create_time`对应了起来，这是因为mp自动做了数据库下划线命名，到Java类的驼峰命名之间的转化。
 
@@ -305,12 +306,12 @@ mp封装了一些最基础的CRUD方法，只需要直接继承mp提供的接口
 
 ```java
 @Test  
-   public void test3() {  
+public void test3() {  
     QueryWrapper<User> wrapper = new QueryWrapper<>();  
     wrapper.select("id","name","email").likeRight("name","黄");  
     List<Map<String, Object>> maps = userMapper.selectMaps(wrapper);  
     maps.forEach(System.out::println);  
-   }
+}
 ```
 
 **进行数据统计**
@@ -319,20 +320,20 @@ mp封装了一些最基础的CRUD方法，只需要直接继承mp提供的接口
 
 ```java
 // 按照直属上级进行分组，查询每组的平均年龄，最大年龄，最小年龄  
-  /**  
+/**  
   select avg(age) avg_age ,min(age) min_age, max(age) max_age from user group by manager_id having sum(age) < 500;  
   **/  
-    
-  @Test  
-  public void test3() {  
-   QueryWrapper<User> wrapper = new QueryWrapper<>();  
-   wrapper.select("manager_id", "avg(age) avg_age", "min(age) min_age", "max(age) max_age").groupBy("manager_id").having("sum(age) < {0}", 500);  
-   List<Map<String, Object>> maps = userMapper.selectMaps(wrapper);  
-   maps.forEach(System.out::println);  
-  }
+
+@Test  
+public void test3() {  
+    QueryWrapper<User> wrapper = new QueryWrapper<>();  
+    wrapper.select("manager_id", "avg(age) avg_age", "min(age) min_age", "max(age) max_age").groupBy("manager_id").having("sum(age) < {0}", 500);  
+    List<Map<String, Object>> maps = userMapper.selectMaps(wrapper);  
+    maps.forEach(System.out::println);  
+}
 ```
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615125904.webp)																					图片
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152322083.webp)																					图片
 
 ##### selectObjs
 
@@ -360,16 +361,16 @@ mp封装了一些最基础的CRUD方法，只需要直接继承mp提供的接口
 
 ```java
 @Test  
- public void test3() {  
-  QueryWrapper<User> wrapper = new QueryWrapper<>();  
-  wrapper.like("name", "黄");  
-  
-  Integer count = userMapper.selectCount(wrapper);  
-  System.out.println(count);  
- }
+public void test3() {  
+    QueryWrapper<User> wrapper = new QueryWrapper<>();  
+    wrapper.like("name", "黄");  
+
+    Integer count = userMapper.selectCount(wrapper);  
+    System.out.println(count);  
+}
 ```
 
-![image-20210615130128913](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615130134.png)																							图片
+![image-20210615130128913](https://gitee.com/wowosong/pic-md/raw/master/202212152322947.png)																							图片
 
 #### Service CRUD 接口
 
@@ -380,90 +381,90 @@ mp封装了一些最基础的CRUD方法，只需要直接继承mp提供的接口
 1.首先，新建一个接口，继承`IService`
 
 ```java
-	 package com.example.mp.service;  
-   import com.baomidou.mybatisplus.extension.service.IService;  
-   import com.example.mp.po.User;  
-   public interface UserService extends IService<User> {  
-   
-   }
+package com.example.mp.service;  
+import com.baomidou.mybatisplus.extension.service.IService;  
+import com.example.mp.po.User;  
+public interface UserService extends IService<User> {  
+
+}
 ```
 
 2.创建这个接口的实现类，并继承`ServiceImpl`，最后打上`@Service`注解，注册到**Spring容器**中，即可使用
 
 ```java
-   package com.example.mp.service.impl;    
-   import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;  
-   import com.example.mp.mappers.UserMapper;  
-   import com.example.mp.po.User;  
-   import com.example.mp.service.UserService;  
-   import org.springframework.stereotype.Service;  
-     
-   @Service  
-   public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements UserService 	{
-     
-  }
+package com.example.mp.service.impl;    
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;  
+import com.example.mp.mappers.UserMapper;  
+import com.example.mp.po.User;  
+import com.example.mp.service.UserService;  
+import org.springframework.stereotype.Service;  
+
+@Service  
+public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements UserService 	{
+
+}
 ```
 
 3.测试代码
 
 ```java
-   package com.example.mp;     
-   import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;  
-   import com.baomidou.mybatisplus.core.toolkit.Wrappers;  
-   import com.example.mp.po.User;  
-   import com.example.mp.service.UserService;  
-   import org.junit.Test;  
-   import org.junit.runner.RunWith;  
-   import org.springframework.beans.factory.annotation.Autowired;  
-   import org.springframework.boot.test.context.SpringBootTest;  
-   import org.springframework.test.context.junit4.SpringRunner;  
-   @RunWith(SpringRunner.class)  
-   @SpringBootTest  
-   public class ServiceTest {  
+package com.example.mp;     
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;  
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;  
+import com.example.mp.po.User;  
+import com.example.mp.service.UserService;  
+import org.junit.Test;  
+import org.junit.runner.RunWith;  
+import org.springframework.beans.factory.annotation.Autowired;  
+import org.springframework.boot.test.context.SpringBootTest;  
+import org.springframework.test.context.junit4.SpringRunner;  
+@RunWith(SpringRunner.class)  
+@SpringBootTest  
+public class ServiceTest {  
     @Autowired  
     private UserService userService;  
     @Test  
     public void testGetOne() {  
-     LambdaQueryWrapper<User> wrapper = Wrappers.<User>lambdaQuery();  
-     wrapper.gt(User::getAge, 28);  
-     User one = userService.getOne(wrapper, false); 
-     // 第二参数指定为false,使得在查到了多行记录时,不抛出异常,而返回第一条记录  
-     System.out.println(one);  
+        LambdaQueryWrapper<User> wrapper = Wrappers.<User>lambdaQuery();  
+        wrapper.gt(User::getAge, 28);  
+        User one = userService.getOne(wrapper, false); 
+        // 第二参数指定为false,使得在查到了多行记录时,不抛出异常,而返回第一条记录  
+        System.out.println(one);  
     }  
-   }
+}
 ```
 
 4.结果
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615130338.webp)																													图片
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152322089.webp)																													图片
 
 另，`IService`也支持链式调用，代码写起来非常简洁，查询示例如下
 
 ```java
- @Test  
- public void testChain() {  
-  List<User> list = userService.lambdaQuery()  
-    .gt(User::getAge, 39)  
-    .likeRight(User::getName, "王")  
-    .list();  
-  list.forEach(System.out::println);  
- }
+@Test  
+public void testChain() {  
+    List<User> list = userService.lambdaQuery()  
+        .gt(User::getAge, 39)  
+        .likeRight(User::getName, "王")  
+        .list();  
+    list.forEach(System.out::println);  
+}
 ```
 
 更新示例如下
 
 ```java
 @Test  
- public void testChain() {  
-  userService.lambdaUpdate()  
-    .gt(User::getAge, 39)  
-    .likeRight(User::getName, "王")  
-    .set(User::getEmail, "w39@baomidou.com")  
-    .update();  
- }
+public void testChain() {  
+    userService.lambdaUpdate()  
+        .gt(User::getAge, 39)  
+        .likeRight(User::getName, "王")  
+        .set(User::getEmail, "w39@baomidou.com")  
+        .update();  
+}
 ```
 
-![image-20210615130600905](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615130604.png)
+![image-20210615130600905](https://gitee.com/wowosong/pic-md/raw/master/202212152322776.png)
 
 图片
 
@@ -471,14 +472,14 @@ mp封装了一些最基础的CRUD方法，只需要直接继承mp提供的接口
 
 ```java
 @Test  
- public void testChain() {  
-  userService.lambdaUpdate()  
-    .like(User::getName, "青蛙")  
-    .remove();  
- }
+public void testChain() {  
+    userService.lambdaUpdate()  
+        .like(User::getName, "青蛙")  
+        .remove();  
+}
 ```
 
-![image-20210615130651332](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615130653.png)
+![image-20210615130651332](https://gitee.com/wowosong/pic-md/raw/master/202212152322183.png)
 
 图片
 
@@ -486,7 +487,7 @@ mp封装了一些最基础的CRUD方法，只需要直接继承mp提供的接口
 
 mp让我觉得极其方便的一点在于其提供了强大的条件构造器`Wrapper`，可以非常方便的构造WHERE条件。条件构造器主要涉及到3个类，`AbstractWrapper`、`QueryWrapper`、`UpdateWrapper`，它们的类关系如下
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615130624.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152322842.png)
 
 ​																				图片
 
@@ -521,66 +522,66 @@ mp让我觉得极其方便的一点在于其提供了强大的条件构造器`Wr
 
 ```java
 // 案例先展示需要完成的SQL语句，后展示Wrapper的写法  
-  
+
 // 1. 名字中包含佳，且年龄小于25  
 // SELECT * FROM user WHERE name like '%佳%' AND age < 25  
 QueryWrapper<User> wrapper = new QueryWrapper<>();  
 wrapper.like("name", "佳").lt("age", 25);  
 List<User> users = userMapper.selectList(wrapper);  
 // 下面展示SQL时，仅展示WHERE条件；展示代码时, 仅展示Wrapper构建部分  
-  
+
 // 2. 姓名为黄姓，且年龄大于等于20，小于等于40，且email字段不为空  
 // name like '黄%' AND age BETWEEN 20 AND 40 AND email is not null  
 wrapper.likeRight("name","黄").between("age", 20, 40).isNotNull("email");  
-  
+
 // 3. 姓名为黄姓，或者年龄大于等于40，按照年龄降序排列，年龄相同则按照id升序排列  
 // name like '黄%' OR age >= 40 order by age desc, id asc  
 wrapper.likeRight("name","黄").or().ge("age",40).orderByDesc("age").orderByAsc("id");  
-  
+
 // 4.创建日期为2021年3月22日，并且直属上级的名字为李姓  
 // date_format(create_time,'%Y-%m-%d') = '2021-03-22' AND manager_id IN (SELECT id FROM user WHERE name like '李%')  
 wrapper.apply("date_format(create_time, '%Y-%m-%d') = {0}", "2021-03-22") // 建议采用{index}这种方式动态传参, 可防止SQL注入  
     .inSql("manager_id", "SELECT id FROM user WHERE name like '李%'");  
 // 上面的apply, 也可以直接使用下面这种方式做字符串拼接，但当这个日期是一个外部参数时，这种方式有SQL注入的风险  
 wrapper.apply("date_format(create_time, '%Y-%m-%d') = '2021-03-22'");  
-  
+
 // 5. 名字为王姓，并且（年龄小于40，或者邮箱不为空）  
 // name like '王%' AND (age < 40 OR email is not null)  
 wrapper.likeRight("name", "王").and(q -> q.lt("age", 40).or().isNotNull("email"));  
-  
+
 // 6. 名字为王姓，或者（年龄小于40并且年龄大于20并且邮箱不为空）  
 // name like '王%' OR (age < 40 AND age > 20 AND email is not null)  
 wrapper.likeRight("name", "王").or(  
     q -> q.lt("age",40)  
-      .gt("age",20)  
-      .isNotNull("email")  
-  );  
-  
+    .gt("age",20)  
+    .isNotNull("email")  
+);  
+
 // 7. (年龄小于40或者邮箱不为空) 并且名字为王姓  
 // (age < 40 OR email is not null) AND name like '王%'  
 wrapper.nested(q -> q.lt("age", 40).or().isNotNull("email"))  
     .likeRight("name", "王");  
-  
+
 // 8. 年龄为30，31，34，35  
 // age IN (30,31,34,35)  
 wrapper.in("age", Arrays.asList(30,31,34,35));  
 // 或  
 wrapper.inSql("age","30,31,34,35");  
-  
+
 // 9. 年龄为30，31，34，35, 返回满足条件的第一条记录  
 // age IN (30,31,34,35) LIMIT 1  
 wrapper.in("age", Arrays.asList(30,31,34,35)).last("LIMIT 1");  
-  
+
 // 10. 只选出id, name 列 (QueryWrapper 特有)  
 // SELECT id, name FROM user;  
 wrapper.select("id", "name");  
-  
+
 // 11. 选出id, name, age, email, 等同于排除 manager_id 和 create_time  
 // 当列特别多, 而只需要排除个别列时, 采用上面的方式可能需要写很多个列, 可以采用重载的select方法，指定需要排除的列  
 wrapper.select(User.class, info -> {  
-   String columnName = info.getColumn();  
-   return !"create_time".equals(columnName) && !"manager_id".equals(columnName);  
-  });
+    String columnName = info.getColumn();  
+    return !"create_time".equals(columnName) && !"manager_id".equals(columnName);  
+});
 ```
 
 #### Condition
@@ -594,7 +595,7 @@ wrapper.like(StringUtils.hasText(name), "name", name);
 // 仅当 StringUtils.hasText(name) 为 true 时, 会拼接这个like语句到WHERE中  
 // 其实就是对下面代码的简化  
 if (StringUtils.hasText(name)) {  
- wrapper.like("name", name);  
+    wrapper.like("name", name);  
 }
 ```
 
@@ -606,14 +607,14 @@ if (StringUtils.hasText(name)) {
 
 ```java
 @Test  
- public void test3() {  
-  User user = new User();  
-  user.setName("黄主管");  
-  user.setAge(28);  
-  QueryWrapper<User> wrapper = new QueryWrapper<>(user);  
-  List<User> users = userMapper.selectList(wrapper);  
-  users.forEach(System.out::println);  
- }
+public void test3() {  
+    User user = new User();  
+    user.setName("黄主管");  
+    user.setAge(28);  
+    QueryWrapper<User> wrapper = new QueryWrapper<>(user);  
+    List<User> users = userMapper.selectList(wrapper);  
+    users.forEach(System.out::println);  
+}
 ```
 
 执行结果如下。可以看到，是根据实体对象中的非空属性，进行了**等值匹配查询**。
@@ -628,13 +629,13 @@ import lombok.Data;
 import java.time.LocalDateTime;  
 @Data  
 public class User {  
- private Long id;  
- @TableField(condition = SqlCondition.LIKE) // 配置该字段使用like进行拼接  
- private String name;  
- private Integer age;  
- private String email;  
- private Long managerId;  
- private LocalDateTime createTime;  
+    private Long id;  
+    @TableField(condition = SqlCondition.LIKE) // 配置该字段使用like进行拼接  
+    private String name;  
+    private Integer age;  
+    private String email;  
+    private Long managerId;  
+    private LocalDateTime createTime;  
 }
 ```
 
@@ -642,24 +643,24 @@ public class User {
 
 ```java
 @Test  
- public void test3() {  
-  User user = new User();  
-  user.setName("黄");  
-  QueryWrapper<User> wrapper = new QueryWrapper<>(user);  
-  List<User> users = userMapper.selectList(wrapper);  
-  users.forEach(System.out::println);  
- }
+public void test3() {  
+    User user = new User();  
+    user.setName("黄");  
+    QueryWrapper<User> wrapper = new QueryWrapper<>(user);  
+    List<User> users = userMapper.selectList(wrapper);  
+    users.forEach(System.out::println);  
+}
 ```
 
 从下图得到的结果来看，对于实体对象中的`name`字段，采用了`like`进行拼接
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615130746.png)																								图片
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152323932.png)																								图片
 
 `@TableField`中配置的`condition`属性实则是一个字符串，`SqlCondition`类中预定义了一些字符串以供选择
 
 ```java
 package com.baomidou.mybatisplus.annotation;  
-  
+
 public class SqlCondition {  
     //下面的字符串中, %s 是占位符, 第一个 %s 是列名, 第二个 %s 是列的值  
     public static final String EQUAL = "%s=#{%s}";  
@@ -680,14 +681,14 @@ import lombok.Data;
 import java.time.LocalDateTime;  
 @Data  
 public class User {  
- private Long id;  
- @TableField(condition = SqlCondition.LIKE)  
- private String name;  
- @TableField(condition = "%s &gt; #{%s}") // 这里相当于大于, 其中 &gt; 是字符实体  
- private Integer age;  
- private String email;  
- private Long managerId;  
- private LocalDateTime createTime;  
+    private Long id;  
+    @TableField(condition = SqlCondition.LIKE)  
+    private String name;  
+    @TableField(condition = "%s &gt; #{%s}") // 这里相当于大于, 其中 &gt; 是字符实体  
+    private Integer age;  
+    private String email;  
+    private Long managerId;  
+    private LocalDateTime createTime;  
 }
 ```
 
@@ -695,19 +696,19 @@ public class User {
 
 ```java
 @Test  
- public void test3() {  
-  User user = new User();  
-  user.setName("黄");  
-        user.setAge(30);  
-  QueryWrapper<User> wrapper = new QueryWrapper<>(user);  
-  List<User> users = userMapper.selectList(wrapper);  
-  users.forEach(System.out::println);  
- }
+public void test3() {  
+    User user = new User();  
+    user.setName("黄");  
+    user.setAge(30);  
+    QueryWrapper<User> wrapper = new QueryWrapper<>(user);  
+    List<User> users = userMapper.selectList(wrapper);  
+    users.forEach(System.out::println);  
+}
 ```
 
 从下图得到的结果，可以看出，`name`属性是用`like`拼接的，而`age`属性是用`>`拼接的
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615130741.png)																						图片
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152323332.png)																						图片
 
 #### allEq方法
 
@@ -715,18 +716,18 @@ allEq方法传入一个`map`，用来做等值匹配
 
 ```java
 @Test  
- public void test3() {  
-  QueryWrapper<User> wrapper = new QueryWrapper<>();  
-  Map<String, Object> param = new HashMap<>();  
-  param.put("age", 40);  
-  param.put("name", "黄飞飞");  
-  wrapper.allEq(param);  
-  List<User> users = userMapper.selectList(wrapper);  
-  users.forEach(System.out::println);  
- }
+public void test3() {  
+    QueryWrapper<User> wrapper = new QueryWrapper<>();  
+    Map<String, Object> param = new HashMap<>();  
+    param.put("age", 40);  
+    param.put("name", "黄飞飞");  
+    wrapper.allEq(param);  
+    List<User> users = userMapper.selectList(wrapper);  
+    users.forEach(System.out::println);  
+}
 ```
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615130836.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152323172.png)
 
 ​																				图片
 
@@ -734,50 +735,50 @@ allEq方法传入一个`map`，用来做等值匹配
 
 ```java
 @Test  
- public void test3() {  
-  QueryWrapper<User> wrapper = new QueryWrapper<>();  
-  Map<String, Object> param = new HashMap<>();  
-  param.put("age", 40);  
-  param.put("name", null);  
-  wrapper.allEq(param);  
-  List<User> users = userMapper.selectList(wrapper);  
-  users.forEach(System.out::println);  
- }
+public void test3() {  
+    QueryWrapper<User> wrapper = new QueryWrapper<>();  
+    Map<String, Object> param = new HashMap<>();  
+    param.put("age", 40);  
+    param.put("name", null);  
+    wrapper.allEq(param);  
+    List<User> users = userMapper.selectList(wrapper);  
+    users.forEach(System.out::println);  
+}
 ```
 
 若想忽略map中value为`null`的元素，可以在调用allEq时，设置参数`boolean null2IsNull`为`false`
 
 ```java
 @Test  
- public void test3() {  
-  QueryWrapper<User> wrapper = new QueryWrapper<>();  
-  Map<String, Object> param = new HashMap<>();  
-  param.put("age", 40);  
-  param.put("name", null);  
-  wrapper.allEq(param, false);  
-  List<User> users = userMapper.selectList(wrapper);  
-  users.forEach(System.out::println);  
- }
+public void test3() {  
+    QueryWrapper<User> wrapper = new QueryWrapper<>();  
+    Map<String, Object> param = new HashMap<>();  
+    param.put("age", 40);  
+    param.put("name", null);  
+    wrapper.allEq(param, false);  
+    List<User> users = userMapper.selectList(wrapper);  
+    users.forEach(System.out::println);  
+}
 ```
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615130803.webp)																						图片
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152323087.webp)																						图片
 
 若想要在执行allEq时，过滤掉Map中的某些元素，可以调用allEq的重载方法`allEq(BiPredicate<R, V> filter, Map<R, V> params)`
 
 ```java
 @Test  
- public void test3() {  
-  QueryWrapper<User> wrapper = new QueryWrapper<>();  
-  Map<String, Object> param = new HashMap<>();  
-  param.put("age", 40);  
-  param.put("name", "黄飞飞");  
-  wrapper.allEq((k,v) -> !"name".equals(k), param); // 过滤掉map中key为name的元素  
-  List<User> users = userMapper.selectList(wrapper);  
-  users.forEach(System.out::println);  
- }
+public void test3() {  
+    QueryWrapper<User> wrapper = new QueryWrapper<>();  
+    Map<String, Object> param = new HashMap<>();  
+    param.put("age", 40);  
+    param.put("name", "黄飞飞");  
+    wrapper.allEq((k,v) -> !"name".equals(k), param); // 过滤掉map中key为name的元素  
+    List<User> users = userMapper.selectList(wrapper);  
+    users.forEach(System.out::println);  
+}
 ```
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/640.webp)																							图片
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152323343.webp)																							图片
 
 #### lambda条件构造器
 
@@ -785,12 +786,12 @@ lambda条件构造器，支持lambda表达式，可以不必像普通条件构�
 
 ```java
 @Test  
- public void testLambda() {  
-  LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();  
-  wrapper.like(User::getName, "黄").lt(User::getAge, 30);  
-  List<User> users = userMapper.selectList(wrapper);  
-  users.forEach(System.out::println);  
- }
+public void testLambda() {  
+    LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();  
+    wrapper.like(User::getName, "黄").lt(User::getAge, 30);  
+    List<User> users = userMapper.selectList(wrapper);  
+    users.forEach(System.out::println);  
+}
 ```
 
 像普通的条件构造器，列名是用字符串的形式指定，无法在编译期进行列名合法性的检查，这就不如lambda条件构造器来的优雅。
@@ -799,11 +800,11 @@ lambda条件构造器，支持lambda表达式，可以不必像普通条件构�
 
 ```java
 @Test  
- public void testLambda() {  
-  LambdaQueryChainWrapper<User> chainWrapper = new LambdaQueryChainWrapper<>(userMapper);  
-  List<User> users = chainWrapper.like(User::getName, "黄").gt(User::getAge, 30).list();  
-  users.forEach(System.out::println);  
- }
+public void testLambda() {  
+    LambdaQueryChainWrapper<User> chainWrapper = new LambdaQueryChainWrapper<>(userMapper);  
+    List<User> users = chainWrapper.like(User::getName, "黄").gt(User::getAge, 30).list();  
+    users.forEach(System.out::println);  
+}
 ```
 
 ### 更新操作
@@ -818,21 +819,21 @@ lambda条件构造器，支持lambda表达式，可以不必像普通条件构�
 
 ```java
 @RunWith(SpringRunner.class)  
-  @SpringBootTest  
-  public class UpdateTest {  
-   @Autowired  
-   private UserMapper userMapper;  
-   @Test  
-   public void testUpdate() {  
-    User user = new User();  
-    user.setId(2L);  
-    user.setAge(18);  
-    userMapper.updateById(user);  
-   }  
-  }
+@SpringBootTest  
+public class UpdateTest {  
+    @Autowired  
+    private UserMapper userMapper;  
+    @Test  
+    public void testUpdate() {  
+        User user = new User();  
+        user.setId(2L);  
+        user.setAge(18);  
+        userMapper.updateById(user);  
+    }  
+}
 ```
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615130918.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152324110.png)
 
 ​																				图片
 
@@ -842,31 +843,31 @@ lambda条件构造器，支持lambda表达式，可以不必像普通条件构�
 
 ```java
 @Test  
-   public void testUpdate2() {  
+public void testUpdate2() {  
     User user = new User();  
     user.setName("王三蛋");  
     LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();  
     wrapper.between(User::getAge, 26,31).likeRight(User::getName,"吴");  
     userMapper.update(user, wrapper);  
-   }
+}
 ```
 
 额外演示一下，把实体对象传入`Wrapper`，即用实体对象构造WHERE条件的案例
 
 ```java
 @Test  
-   public void testUpdate3() {  
+public void testUpdate3() {  
     User whereUser = new User();  
     whereUser.setAge(40);  
     whereUser.setName("王");  
-    
+
     LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>(whereUser);  
     User user = new User();  
     user.setEmail("share@baomidou.com");  
     user.setManagerId(10L);  
-   
+
     userMapper.update(user, wrapper);  
-   }
+}
 ```
 
 注意到我们的User类中，对`name`属性和`age`属性进行了如下的设置
@@ -874,39 +875,39 @@ lambda条件构造器，支持lambda表达式，可以不必像普通条件构�
 ```java
 @Data  
 public class User {  
- private Long id;  
- @TableField(condition = SqlCondition.LIKE)  
- private String name;  
- @TableField(condition = "%s &gt; #{%s}")  
- private Integer age;  
- private String email;  
- private Long managerId;  
- private LocalDateTime createTime;  
+    private Long id;  
+    @TableField(condition = SqlCondition.LIKE)  
+    private String name;  
+    @TableField(condition = "%s &gt; #{%s}")  
+    private Integer age;  
+    private String email;  
+    private Long managerId;  
+    private LocalDateTime createTime;  
 }
 ```
 
 执行结果
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615130931.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152324383.png)
 
 ​																			图片
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615130940.png)图片
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152324275.png)图片
 
 再额外演示一下，链式lambda条件构造器的使用
 
 ```java
 @Test  
- public void testUpdate5() {  
-  LambdaUpdateChainWrapper<User> wrapper = new LambdaUpdateChainWrapper<>(userMapper);  
-  wrapper.likeRight(User::getEmail, "share")  
-    .like(User::getName, "飞飞")  
-    .set(User::getEmail, "ff@baomidou.com")  
-    .update();  
- }
+public void testUpdate5() {  
+    LambdaUpdateChainWrapper<User> wrapper = new LambdaUpdateChainWrapper<>(userMapper);  
+    wrapper.likeRight(User::getEmail, "share")  
+        .like(User::getName, "飞飞")  
+        .set(User::getEmail, "ff@baomidou.com")  
+        .update();  
+}
 ```
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615130943.png)																								图片
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152324459.png)																								图片
 
 **反思**
 
@@ -914,14 +915,14 @@ public class User {
 
 ```java
 @Test  
- public void testUpdate4() {  
-  LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();  
-  wrapper.likeRight(User::getEmail, "share").set(User::getManagerId, 9L);  
-  userMapper.update(null, wrapper);  
- }
+public void testUpdate4() {  
+    LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();  
+    wrapper.likeRight(User::getEmail, "share").set(User::getManagerId, 9L);  
+    userMapper.update(null, wrapper);  
+}
 ```
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615130954.png)																									图片
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152324565.png)																									图片
 
 ### 删除操作
 
@@ -946,45 +947,51 @@ public class User {
 
 ```java
 package com.example.mp.mappers;  
-  
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;  
 import com.example.mp.po.User;  
 import org.apache.ibatis.annotations.Select;  
-  
+
 import java.util.List;  
-  
+
 /**  
  * @Author yogurtzzz  
  * @Date 2021/3/18 11:21  
  **/  
 public interface UserMapper extends BaseMapper<User> {  
-   
- @Select("select * from user")  
- List<User> selectRaw();  
+
+    @Select("select * from user")  
+    List<User> selectRaw();  
 }
 ```
 
 - xml方式
 
-```java
+```xml
 <?xml version="1.0" encoding="UTF-8"?>  
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
-<mapper namespace="com.example.mp.mappers.UserMapper">  
- <select id="selectRaw" resultType="com.example.mp.po.User">  
-        SELECT * FROM user  
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+    <mapper namespace="com.example.mp.mappers.UserMapper">  
+    <select id="selectRaw" resultType="com.example.mp.po.User">  
+    SELECT * FROM user  
     </select>  
-</mapper>  
+    </mapper>  
+<xml>
+```
+
+```java
 package com.example.mp.mappers;  
-  
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;  
 import com.example.mp.po.User;  
 import org.apache.ibatis.annotations.Select;  
 import java.util.List;  
-  
+
 public interface UserMapper extends BaseMapper<User> {  
- List<User> selectRaw();  
+    List<User> selectRaw();  
 }
 ```
+
+
 
 使用xml时，**若xml文件与mapper接口文件不在同一目录下**，则需要在`application.yml`中配置mapper.xml的存放路径
 
@@ -1006,15 +1013,15 @@ mybatis-plus:
 
 ```java
 @Test  
- public void testCustomRawSql() {  
-  List<User> users = userMapper.selectRaw();  
-  users.forEach(System.out::println);  
- }
+public void testCustomRawSql() {  
+    List<User> users = userMapper.selectRaw();  
+    users.forEach(System.out::println);  
+}
 ```
 
 结果
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131006.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152325317.png)
 
 ​																					图片
 
@@ -1035,32 +1042,35 @@ import com.example.mp.po.User;
 import org.apache.ibatis.annotations.Param;  
 import org.apache.ibatis.annotations.Select;  
 import java.util.List;  
-  
+
 public interface UserMapper extends BaseMapper<User> {  
-  
+
     // SQL中不写WHERE关键字，且固定使用${ew.customSqlSegment}  
- @Select("select * from user ${ew.customSqlSegment}")  
- List<User> findAll(@Param(Constants.WRAPPER)Wrapper<User> wrapper);  
+    @Select("select * from user ${ew.customSqlSegment}")  
+    List<User> findAll(@Param(Constants.WRAPPER)Wrapper<User> wrapper);  
 }
 ```
 
 - xml方式
 
-```xml
-package com.example.mp.mappers;  
-import com.baomidou.mybatisplus.core.conditions.Wrapper;  
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;  
-import com.example.mp.po.User;  
-import java.util.List;  
+  ```JAVA
+  package com.example.mp.mappers;  
+  import com.baomidou.mybatisplus.core.conditions.Wrapper;  
+  import com.baomidou.mybatisplus.core.mapper.BaseMapper;  
+  import com.example.mp.po.User;  
+  import java.util.List;  
   
-public interface UserMapper extends BaseMapper<User> {  
- List<User> findAll(Wrapper<User> wrapper);  
-}  
+  public interface UserMapper extends BaseMapper<User> {  
+      List<User> findAll(Wrapper<User> wrapper);  
+  } 
+  ```
+
+```xml
 <!-- UserMapper.xml -->  
 <?xml version="1.0" encoding="UTF-8"?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
 <mapper namespace="com.example.mp.mappers.UserMapper">  
-  
+
     <select id="findAll" resultType="com.example.mp.po.User">  
         SELECT * FROM user ${ew.customSqlSegment}  
     </select>  
@@ -1075,49 +1085,49 @@ public interface UserMapper extends BaseMapper<User> {
 
 ```java
 package com.example.mp.config;  
-   import com.baomidou.mybatisplus.annotation.DbType;  
-   import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;  
-   import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;  
-   import org.springframework.context.annotation.Bean;  
-   import org.springframework.context.annotation.Configuration;  
-     
-   @Configuration  
-   public class MybatisPlusConfig {  
-     
-       /** 新版mp **/  
+import com.baomidou.mybatisplus.annotation.DbType;  
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;  
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;  
+import org.springframework.context.annotation.Bean;  
+import org.springframework.context.annotation.Configuration;  
+
+@Configuration  
+public class MybatisPlusConfig {  
+
+    /** 新版mp **/  
     @Bean  
     public MybatisPlusInterceptor mybatisPlusInterceptor() {  
-     MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();  
-     interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));  
-     return interceptor;  
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();  
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));  
+        return interceptor;  
     }  
-       /** 旧版mp 用 PaginationInterceptor **/  
-   }
+    /** 旧版mp 用 PaginationInterceptor **/  
+}
 ```
 
 2. 执行分页查询
 
 ```java
 @Test  
-    public void testPage() {  
-     LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();  
-     wrapper.ge(User::getAge, 28);  
-           // 设置分页信息, 查第3页, 每页2条数据  
-     Page<User> page = new Page<>(3, 2);  
-           // 执行分页查询  
-     Page<User> userPage = userMapper.selectPage(page, wrapper);  
-     System.out.println("总记录数 = " + userPage.getTotal());  
-     System.out.println("总页数 = " + userPage.getPages());  
-     System.out.println("当前页码 = " + userPage.getCurrent());  
-           // 获取分页查询结果  
-     List<User> records = userPage.getRecords();  
-     records.forEach(System.out::println);  
-    }
+public void testPage() {  
+    LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();  
+    wrapper.ge(User::getAge, 28);  
+    // 设置分页信息, 查第3页, 每页2条数据  
+    Page<User> page = new Page<>(3, 2);  
+    // 执行分页查询  
+    Page<User> userPage = userMapper.selectPage(page, wrapper);  
+    System.out.println("总记录数 = " + userPage.getTotal());  
+    System.out.println("总页数 = " + userPage.getPages());  
+    System.out.println("当前页码 = " + userPage.getCurrent());  
+    // 获取分页查询结果  
+    List<User> records = userPage.getRecords();  
+    records.forEach(System.out::println);  
+}
 ```
 
 3. 结果
 
-   ![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131023.png)																						图片
+   ![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152326649.png)																						图片
 
 4. 其他
 
@@ -1142,18 +1152,18 @@ Page<User> selectUserPage(Page<User> page, @Param(Constants.WRAPPER) Wrapper<Use
 ```java
 @Test  
 public void testPage2() {  
-  LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();  
-  wrapper.ge(User::getAge, 28).likeRight(User::getName, "王");  
-  Page<User> page = new Page<>(3,2);  
-  Page<User> userPage = userMapper.selectUserPage(page, wrapper);  
-  System.out.println("总记录数 = " + userPage.getTotal());  
-  System.out.println("总页数 = " + userPage.getPages());  
- userPage.getRecords().forEach(System.out::println);  
+    LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();  
+    wrapper.ge(User::getAge, 28).likeRight(User::getName, "王");  
+    Page<User> page = new Page<>(3,2);  
+    Page<User> userPage = userMapper.selectUserPage(page, wrapper);  
+    System.out.println("总记录数 = " + userPage.getTotal());  
+    System.out.println("总页数 = " + userPage.getPages());  
+    userPage.getRecords().forEach(System.out::println);  
 }
 ```
 
 3. 结果
-   ![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131030.webp)
+   ![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152327814.webp)
 
 ### AR模式
 
@@ -1165,17 +1175,17 @@ ActiveRecord模式，通过操作实体对象，直接操作数据库表。与OR
 
 ```java
 package com.example.mp.po;  
-     
-   import com.baomidou.mybatisplus.annotation.SqlCondition;  
-   import com.baomidou.mybatisplus.annotation.TableField;  
-   import com.baomidou.mybatisplus.extension.activerecord.Model;  
-   import lombok.Data;  
-   import lombok.EqualsAndHashCode;  
-   import java.time.LocalDateTime;  
-     
-   @EqualsAndHashCode(callSuper = false)  
-   @Data  
-   public class User extends Model<User> {  
+
+import com.baomidou.mybatisplus.annotation.SqlCondition;  
+import com.baomidou.mybatisplus.annotation.TableField;  
+import com.baomidou.mybatisplus.extension.activerecord.Model;  
+import lombok.Data;  
+import lombok.EqualsAndHashCode;  
+import java.time.LocalDateTime;  
+
+@EqualsAndHashCode(callSuper = false)  
+@Data  
+public class User extends Model<User> {  
     private Long id;  
     @TableField(condition = SqlCondition.LIKE)  
     private String name;  
@@ -1184,7 +1194,7 @@ package com.example.mp.po;
     private String email;  
     private Long managerId;  
     private LocalDateTime createTime;  
-   }
+}
 ```
 
 1. 直接调用实体对象上的方法
@@ -1205,7 +1215,7 @@ public void insertAr() {
 
 1. 结果
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131042.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152327879.png)
 
 图片
 
@@ -1213,28 +1223,28 @@ public void insertAr() {
 
 ```java
 // 查询  
- @Test  
- public void selectAr() {  
-  User user = new User();  
-        user.setId(15L);  
-  User result = user.selectById();  
-  System.out.println(result);  
- }  
- // 更新  
- @Test  
- public void updateAr() {  
-  User user = new User();  
-  user.setId(15L);  
-  user.setName("王全蛋");  
-  user.updateById();  
- }  
- //删除  
- @Test  
- public void deleteAr() {  
-  User user = new User();  
-  user.setId(15L);  
-  user.deleteById();  
- }
+@Test  
+public void selectAr() {  
+    User user = new User();  
+    user.setId(15L);  
+    User result = user.selectById();  
+    System.out.println(result);  
+}  
+// 更新  
+@Test  
+public void updateAr() {  
+    User user = new User();  
+    user.setId(15L);  
+    user.setName("王全蛋");  
+    user.updateById();  
+}  
+//删除  
+@Test  
+public void deleteAr() {  
+    User user = new User();  
+    user.setId(15L);  
+    user.deleteById();  
+}
 ```
 
 ### 主键策略
@@ -1283,36 +1293,36 @@ mybatis-plus:
 
 ```java
 @EqualsAndHashCode(callSuper = false)  
-  @Data  
-  public class User extends Model<User> {  
-   @TableId(type = IdType.AUTO)  
-   private Long id;  
-   @TableField(condition = SqlCondition.LIKE)  
-   private String name;  
-   @TableField(condition = "%s &gt; #{%s}")  
-   private Integer age;  
-   private String email;  
-   private Long managerId;  
-   private LocalDateTime createTime;  
-  }
+@Data  
+public class User extends Model<User> {  
+    @TableId(type = IdType.AUTO)  
+    private Long id;  
+    @TableField(condition = SqlCondition.LIKE)  
+    private String name;  
+    @TableField(condition = "%s &gt; #{%s}")  
+    private Integer age;  
+    private String email;  
+    private Long managerId;  
+    private LocalDateTime createTime;  
+}
 ```
 
 测试
 
 ```java
 @Test  
-   public void testAuto() {  
+public void testAuto() {  
     User user = new User();  
     user.setName("我是青蛙呱呱");  
     user.setAge(99);  
     user.setEmail("frog@baomidou.com");  
     user.setCreateTime(LocalDateTime.now());  
     userMapper.insert(user);  
-          System.out.println(user.getId());  
-   }结果
+    System.out.println(user.getId());  
+}结果
 ```
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131053.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152327826.png)
 
 图片
 
@@ -1438,17 +1448,17 @@ mybatis-plus:
 
 ```java
 @Test  
-   public void test3() {  
+public void test3() {  
     QueryWrapper<User> wrapper = new QueryWrapper<>();  
     wrapper.like("name", "黄");  
     Integer count = userMapper.selectCount(wrapper);  
     System.out.println(count);  
-   }
+}
 ```
 
 可以看到拼接出来的SQL，在表名前面添加了前缀
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131110.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152327360.png)
 
 图片
 
@@ -1460,60 +1470,60 @@ mp提供一个生成器，可快速生成Entity实体类，Mapper接口，Servic
 
 ```java
 public class GeneratorTest {  
- @Test  
- public void generate() {  
-  AutoGenerator generator = new AutoGenerator();  
-  
-  // 全局配置  
-  GlobalConfig config = new GlobalConfig();  
-  String projectPath = System.getProperty("user.dir");  
-  // 设置输出到的目录  
-  config.setOutputDir(projectPath + "/src/main/java");  
-  config.setAuthor("yogurt");  
-  // 生成结束后是否打开文件夹  
-  config.setOpen(false);  
-  
-  // 全局配置添加到 generator 上  
-  generator.setGlobalConfig(config);  
-  
-  // 数据源配置  
-  DataSourceConfig dataSourceConfig = new DataSourceConfig();  
-  dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/yogurt?serverTimezone=Asia/Shanghai");  
-  dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");  
-  dataSourceConfig.setUsername("root");  
-  dataSourceConfig.setPassword("root");  
-  
-  // 数据源配置添加到 generator  
-  generator.setDataSource(dataSourceConfig);  
-  
-  // 包配置, 生成的代码放在哪个包下  
-  PackageConfig packageConfig = new PackageConfig();  
-  packageConfig.setParent("com.example.mp.generator");  
-  
-  // 包配置添加到 generator  
-  generator.setPackageInfo(packageConfig);  
-  
-  // 策略配置  
-  StrategyConfig strategyConfig = new StrategyConfig();  
-  // 下划线驼峰命名转换  
-  strategyConfig.setNaming(NamingStrategy.underline_to_camel);  
-  strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);  
-  // 开启lombok  
-  strategyConfig.setEntityLombokModel(true);  
-  // 开启RestController  
-  strategyConfig.setRestControllerStyle(true);  
-  generator.setStrategy(strategyConfig);  
-  generator.setTemplateEngine(new FreemarkerTemplateEngine());  
-  
-  // 开始生成  
-  generator.execute();  
- }  
+    @Test  
+    public void generate() {  
+        AutoGenerator generator = new AutoGenerator();  
+
+        // 全局配置  
+        GlobalConfig config = new GlobalConfig();  
+        String projectPath = System.getProperty("user.dir");  
+        // 设置输出到的目录  
+        config.setOutputDir(projectPath + "/src/main/java");  
+        config.setAuthor("yogurt");  
+        // 生成结束后是否打开文件夹  
+        config.setOpen(false);  
+
+        // 全局配置添加到 generator 上  
+        generator.setGlobalConfig(config);  
+
+        // 数据源配置  
+        DataSourceConfig dataSourceConfig = new DataSourceConfig();  
+        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/yogurt?serverTimezone=Asia/Shanghai");  
+        dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");  
+        dataSourceConfig.setUsername("root");  
+        dataSourceConfig.setPassword("root");  
+
+        // 数据源配置添加到 generator  
+        generator.setDataSource(dataSourceConfig);  
+
+        // 包配置, 生成的代码放在哪个包下  
+        PackageConfig packageConfig = new PackageConfig();  
+        packageConfig.setParent("com.example.mp.generator");  
+
+        // 包配置添加到 generator  
+        generator.setPackageInfo(packageConfig);  
+
+        // 策略配置  
+        StrategyConfig strategyConfig = new StrategyConfig();  
+        // 下划线驼峰命名转换  
+        strategyConfig.setNaming(NamingStrategy.underline_to_camel);  
+        strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);  
+        // 开启lombok  
+        strategyConfig.setEntityLombokModel(true);  
+        // 开启RestController  
+        strategyConfig.setRestControllerStyle(true);  
+        generator.setStrategy(strategyConfig);  
+        generator.setTemplateEngine(new FreemarkerTemplateEngine());  
+
+        // 开始生成  
+        generator.execute();  
+    }  
 }
 ```
 
 运行后，可以看到生成了如下图所示的全套代码
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131117.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152327469.png)
 
 图片
 
@@ -1524,18 +1534,18 @@ public class GeneratorTest {
 ```sql
 DROP TABLE IF EXISTS user2;  
 CREATE TABLE user2 (  
-id BIGINT(20) PRIMARY KEY NOT NULL COMMENT '主键id',  
-name VARCHAR(30) DEFAULT NULL COMMENT '姓名',  
-age INT(11) DEFAULT NULL COMMENT '年龄',  
-email VARCHAR(50) DEFAULT NULL COMMENT '邮箱',  
-manager_id BIGINT(20) DEFAULT NULL COMMENT '直属上级id',  
-create_time DATETIME DEFAULT NULL COMMENT '创建时间',  
-update_time DATETIME DEFAULT NULL COMMENT '修改时间',  
-version INT(11) DEFAULT '1' COMMENT '版本',  
-deleted INT(1) DEFAULT '0' COMMENT '逻辑删除标识,0-未删除,1-已删除',  
-CONSTRAINT manager_fk FOREIGN KEY(manager_id) REFERENCES user2(id)  
+    id BIGINT(20) PRIMARY KEY NOT NULL COMMENT '主键id',  
+    name VARCHAR(30) DEFAULT NULL COMMENT '姓名',  
+    age INT(11) DEFAULT NULL COMMENT '年龄',  
+    email VARCHAR(50) DEFAULT NULL COMMENT '邮箱',  
+    manager_id BIGINT(20) DEFAULT NULL COMMENT '直属上级id',  
+    create_time DATETIME DEFAULT NULL COMMENT '创建时间',  
+    update_time DATETIME DEFAULT NULL COMMENT '修改时间',  
+    version INT(11) DEFAULT '1' COMMENT '版本',  
+    deleted INT(1) DEFAULT '0' COMMENT '逻辑删除标识,0-未删除,1-已删除',  
+    CONSTRAINT manager_fk FOREIGN KEY(manager_id) REFERENCES user2(id)  
 ) ENGINE = INNODB CHARSET=UTF8;  
-  
+
 INSERT INTO user2(id, name, age, email, manager_id, create_time)  
 VALUES  
 (1, '老板', 40 ,'boss@baomidou.com' ,NULL, '2021-03-28 13:12:40'),  
@@ -1555,15 +1565,15 @@ import lombok.Data;
 import java.time.LocalDateTime;  
 @Data  
 public class User2 {  
- private Long id;  
- private String name;  
- private Integer age;  
- private String email;  
- private Long managerId;  
- private LocalDateTime createTime;  
- private LocalDateTime updateTime;  
- private Integer version;  
- private Integer deleted;  
+    private Long id;  
+    private String name;  
+    private Integer age;  
+    private String email;  
+    private Long managerId;  
+    private LocalDateTime createTime;  
+    private LocalDateTime updateTime;  
+    private Integer version;  
+    private Integer deleted;  
 }
 ```
 
@@ -1573,7 +1583,9 @@ public class User2 {
 package com.example.mp.mappers;  
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;  
 import com.example.mp.po.User2;  
-public interface User2Mapper extends BaseMapper<User2> { }
+public interface User2Mapper extends BaseMapper<User2> {
+
+}
 ```
 
 ### 逻辑删除
@@ -1611,19 +1623,19 @@ import java.util.List;
 @RunWith(SpringRunner.class)  
 @SpringBootTest  
 public class LogicDeleteTest {  
- @Autowired  
- private User2Mapper mapper;  
- @Test  
- public void testLogicDel() {  
-  int i = mapper.deleteById(6);  
-  System.out.println("rowAffected = " + i);  
- }  
+    @Autowired  
+    private User2Mapper mapper;  
+    @Test  
+    public void testLogicDel() {  
+        int i = mapper.deleteById(6);  
+        System.out.println("rowAffected = " + i);  
+    }  
 }
 ```
 
 结果
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131131.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152328907.png)
 
 图片
 
@@ -1632,13 +1644,13 @@ public class LogicDeleteTest {
 此时我们再执行一次`SELECT`
 
 ```java
- @Test  
- public void testSelect() {  
-  List<User2> users = mapper.selectList(null);  
- }
+@Test  
+public void testSelect() {  
+    List<User2> users = mapper.selectList(null);  
+}
 ```
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131134.webp)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152328731.webp)
 
 图片
 
@@ -1653,7 +1665,7 @@ private Integer deleted;
 
 可以看到下图的执行结果中，SELECT中已经不包含deleted这一列了
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131138.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152328303.png)
 
 图片
 
@@ -1677,8 +1689,8 @@ private Integer deleted;
 
 ```java
 public interface User2Mapper extends BaseMapper<User2> {  
- @Select("select * from user2")  
- List<User2> selectRaw();  
+    @Select("select * from user2")  
+    List<User2> selectRaw();  
 }
 ```
 
@@ -1705,49 +1717,49 @@ public class User2 {
     private LocalDateTime updateTime;  
     private Integer version;  
     private Integer deleted;  
-   }
+}
 ```
 
 2. 实现自动填充处理器
 
 ```java
 package com.example.mp.component;  
-   import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;  
-   import org.apache.ibatis.reflection.MetaObject;  
-   import org.springframework.stereotype.Component;  
-   import java.time.LocalDateTime;  
-     
-   @Component //需要注册到Spring容器中  
-   public class MyMetaObjectHandler implements MetaObjectHandler {  
-     
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;  
+import org.apache.ibatis.reflection.MetaObject;  
+import org.springframework.stereotype.Component;  
+import java.time.LocalDateTime;  
+
+@Component //需要注册到Spring容器中  
+public class MyMetaObjectHandler implements MetaObjectHandler {  
+
     @Override  
     public void insertFill(MetaObject metaObject) {  
-           // 插入时自动填充  
-           // 注意第二个参数要填写实体类中的字段名称，而不是表的列名称  
-     strictFillStrategy(metaObject, "createTime", LocalDateTime::now);  
+        // 插入时自动填充  
+        // 注意第二个参数要填写实体类中的字段名称，而不是表的列名称  
+        strictFillStrategy(metaObject, "createTime", LocalDateTime::now);  
     }  
-     
+
     @Override  
     public void updateFill(MetaObject metaObject) {  
-           // 更新时自动填充  
-     strictFillStrategy(metaObject, "updateTime", LocalDateTime::now);  
+        // 更新时自动填充  
+        strictFillStrategy(metaObject, "updateTime", LocalDateTime::now);  
     }  
-   }
+}
 ```
 
 测试
 
 ```java
 @Test  
- public void test() {  
-  User2 user = new User2();  
-  user.setId(8L);  
-  user.setName("王一蛋");  
-  user.setAge(29);  
-  user.setEmail("yd@baomidou.com");  
-  user.setManagerId(2L);  
-  mapper.insert(user);  
- }
+public void test() {  
+    User2 user = new User2();  
+    user.setId(8L);  
+    user.setName("王一蛋");  
+    user.setAge(29);  
+    user.setEmail("yd@baomidou.com");  
+    user.setManagerId(2L);  
+    mapper.insert(user);  
+}
 ```
 
 根据下图结果，可以看到对createTime进行了自动填充
@@ -1756,19 +1768,19 @@ package com.example.mp.component;
 
 ```java
 @Test  
- public void test() {  
-  User2 user = new User2();  
-  user.setId(8L);  
-  user.setName("王一蛋");  
-  user.setAge(29);  
-  user.setEmail("yd@baomidou.com");  
-  user.setManagerId(2L);  
-  user.setCreateTime(LocalDateTime.of(2000,1,1,8,0,0));  
-  mapper.insert(user);  
- }
+public void test() {  
+    User2 user = new User2();  
+    user.setId(8L);  
+    user.setName("王一蛋");  
+    user.setAge(29);  
+    user.setEmail("yd@baomidou.com");  
+    user.setManagerId(2L);  
+    user.setCreateTime(LocalDateTime.of(2000,1,1,8,0,0));  
+    mapper.insert(user);  
+}
 ```
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131148.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152328556.png)
 
 图片
 
@@ -1776,16 +1788,16 @@ package com.example.mp.component;
 
 ```java
 @Test  
- public void test() {  
-  User2 user = new User2();  
-  user.setId(8L);  
-  user.setName("王一蛋");  
-  user.setAge(99);  
-  mapper.updateById(user);  
- }
+public void test() {  
+    User2 user = new User2();  
+    user.setId(8L);  
+    user.setName("王一蛋");  
+    user.setAge(99);  
+    mapper.updateById(user);  
+}
 ```
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131154.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152328246.png)
 
 图片
 
@@ -1808,39 +1820,39 @@ package com.example.mp.component;
 
 乐观锁的实现步骤如下
 
-\1. 配置乐观锁插件
+1. 配置乐观锁插件
 
 ```java
 package com.example.mp.config;  
-     
-   import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;  
-   import org.springframework.context.annotation.Bean;  
-   import org.springframework.context.annotation.Configuration;  
-     
-   @Configuration  
-   public class MybatisPlusConfig {  
-       /** 3.4.0以后的mp版本，推荐用如下的配置方式 **/  
+
+import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;  
+import org.springframework.context.annotation.Bean;  
+import org.springframework.context.annotation.Configuration;  
+
+@Configuration  
+public class MybatisPlusConfig {  
+    /** 3.4.0以后的mp版本，推荐用如下的配置方式 **/  
     @Bean  
     public MybatisPlusInterceptor mybatisPlusInterceptor() {  
-     MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();  
-     interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());  
-     return interceptor;  
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();  
+        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());  
+        return interceptor;  
     }  
-       /** 旧版mp可以采用如下方式。注意新旧版本中，新版的类，名称带有Inner, 旧版的不带, 不要配错了 **/  
-       /*  
+    /** 旧版mp可以采用如下方式。注意新旧版本中，新版的类，名称带有Inner, 旧版的不带, 不要配错了 **/  
+    /*  
        @Bean  
     public OptimisticLockerInterceptor opLocker() {  
      return new OptimisticLockerInterceptor();  
     }  
     */  
-   }
+}
 ```
 
-\2. 在实体类中表示版本的字段上添加注解`@Version`
+2. 在实体类中表示版本的字段上添加注解`@Version`
 
 ```java
 @Data  
-   public class User2 {  
+public class User2 {  
     private Long id;  
     private String name;  
     private Integer age;  
@@ -1851,32 +1863,32 @@ package com.example.mp.config;
     @Version  
     private Integer version;  
     private Integer deleted;  
-   }
+}
 ```
 
 测试代码
 
 ```java
 @Test  
- public void testOpLocker() {  
-  int version = 1; // 假设这个version是先前查询时获得的  
-  User2 user = new User2();  
-  user.setId(8L);  
-  user.setEmail("version@baomidou.com");  
-  user.setVersion(version);  
-  int i = mapper.updateById(user);  
- }
+public void testOpLocker() {  
+    int version = 1; // 假设这个version是先前查询时获得的  
+    User2 user = new User2();  
+    user.setId(8L);  
+    user.setEmail("version@baomidou.com");  
+    user.setVersion(version);  
+    int i = mapper.updateById(user);  
+}
 ```
 
 执行之前先看一下数据库的情况
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131212.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152329995.png)
 
 图片
 
 根据下图执行结果，可以看到SQL语句中添加了version相关的操作
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131215.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152329966.png)
 
 图片
 
@@ -1890,24 +1902,24 @@ package com.example.mp.config;
 
 ```java
 @Test  
- public void testOpLocker() {  
-  User2 user = new User2();  
-  user.setId(8L);  
-  user.setVersion(1);  
-  user.setAge(2);  
-  
-  // 第一次使用  
-  LambdaQueryWrapper<User2> wrapper = new LambdaQueryWrapper<>();  
-  wrapper.eq(User2::getName, "王一蛋");  
-  mapper.update(user, wrapper);  
-  
-  // 第二次复用  
-  user.setAge(3);  
-  mapper.update(user, wrapper);  
- }
+public void testOpLocker() {  
+    User2 user = new User2();  
+    user.setId(8L);  
+    user.setVersion(1);  
+    user.setAge(2);  
+
+    // 第一次使用  
+    LambdaQueryWrapper<User2> wrapper = new LambdaQueryWrapper<>();  
+    wrapper.eq(User2::getName, "王一蛋");  
+    mapper.update(user, wrapper);  
+
+    // 第二次复用  
+    user.setAge(3);  
+    mapper.update(user, wrapper);  
+}
 ```
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131219.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152329935.png)
 
 图片
 
@@ -1925,10 +1937,10 @@ package com.example.mp.config;
 
 ```xml
 <dependency>  
-       <groupId>p6spy</groupId>  
-       <artifactId>p6spy</artifactId>  
-       <version>3.9.1</version>  
-   </dependency>
+    <groupId>p6spy</groupId>  
+    <artifactId>p6spy</artifactId>  
+    <version>3.9.1</version>  
+</dependency>
 ```
 
 2. 修改`application.yml`
@@ -1946,37 +1958,37 @@ spring:
 
 ```properties
 #spy.properties  
-   #3.2.1以上使用  
-   modulelist=com.baomidou.mybatisplus.extension.p6spy.MybatisPlusLogFactory,com.p6spy.engine.outage.P6OutageFactory  
-   # 真实JDBC driver , 多个以逗号分割,默认为空。由于上面设置了modulelist, 这里可以不用设置driverlist  
-   #driverlist=com.mysql.cj.jdbc.Driver  
-   # 自定义日志打印  
-   logMessageFormat=com.baomidou.mybatisplus.extension.p6spy.P6SpyLogger  
-   #日志输出到控制台  
-   appender=com.baomidou.mybatisplus.extension.p6spy.StdoutLogger  
-   #若要日志输出到文件, 把上面的appnder注释掉, 或者采用下面的appender, 再添加logfile配置  
-   #不配置appender时, 默认是往文件进行输出的  
-   #appender=com.p6spy.engine.spy.appender.FileLogger  
-   #logfile=log.log  
-   # 设置 p6spy driver 代理  
-   deregisterdrivers=true  
-   # 取消JDBC URL前缀  
-   useprefix=true  
-   # 配置记录 Log 例外,可去掉的结果集有error,info,batch,debug,statement,commit,rollback,result,resultset.  
-   excludecategories=info,debug,result,commit,resultset  
-   # 日期格式  
-   dateformat=yyyy-MM-dd HH:mm:ss  
-   # 是否开启慢SQL记录  
-   outagedetection=true  
-   # 慢SQL记录标准 2 秒  
-   outagedetectioninterval=2  
-   # 执行时间设置, 只有超过这个执行时间的才进行记录, 默认值0, 单位毫秒  
-   executionThreshold=10
+#3.2.1以上使用  
+modulelist=com.baomidou.mybatisplus.extension.p6spy.MybatisPlusLogFactory,com.p6spy.engine.outage.P6OutageFactory  
+# 真实JDBC driver , 多个以逗号分割,默认为空。由于上面设置了modulelist, 这里可以不用设置driverlist  
+#driverlist=com.mysql.cj.jdbc.Driver  
+# 自定义日志打印  
+logMessageFormat=com.baomidou.mybatisplus.extension.p6spy.P6SpyLogger  
+#日志输出到控制台  
+appender=com.baomidou.mybatisplus.extension.p6spy.StdoutLogger  
+#若要日志输出到文件, 把上面的appnder注释掉, 或者采用下面的appender, 再添加logfile配置  
+#不配置appender时, 默认是往文件进行输出的  
+#appender=com.p6spy.engine.spy.appender.FileLogger  
+#logfile=log.log  
+# 设置 p6spy driver 代理  
+deregisterdrivers=true  
+# 取消JDBC URL前缀  
+useprefix=true  
+# 配置记录 Log 例外,可去掉的结果集有error,info,batch,debug,statement,commit,rollback,result,resultset.  
+excludecategories=info,debug,result,commit,resultset  
+# 日期格式  
+dateformat=yyyy-MM-dd HH:mm:ss  
+# 是否开启慢SQL记录  
+outagedetection=true  
+# 慢SQL记录标准 2 秒  
+outagedetectioninterval=2  
+# 执行时间设置, 只有超过这个执行时间的才进行记录, 默认值0, 单位毫秒  
+executionThreshold=10
 ```
 
 随便运行一个测试用例，可以看到该SQL的执行时长被记录了下来
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131225.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152329609.png)
 
 图片
 
@@ -2006,7 +2018,7 @@ spring:
 
 ```java
 package com.example.mp.config;  
-  
+
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;  
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;  
 import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;  
@@ -2014,42 +2026,42 @@ import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;  
 import org.springframework.context.annotation.Bean;  
 import org.springframework.context.annotation.Configuration;  
-  
+
 @Configuration  
 public class MybatisPlusConfig {  
-  
- @Bean  
- public MybatisPlusInterceptor mybatisPlusInterceptor() {  
-  MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();  
-  interceptor.addInnerInterceptor(new TenantLineInnerInterceptor(new TenantLineHandler() {  
-   @Override  
-   public Expression getTenantId() {  
-    // 返回租户id的值, 这里固定写死为1  
+
+    @Bean  
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {  
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();  
+        interceptor.addInnerInterceptor(new TenantLineInnerInterceptor(new TenantLineHandler() {  
+            @Override  
+            public Expression getTenantId() {  
+                // 返回租户id的值, 这里固定写死为1  
                 // 一般是从当前上下文中取出一个 租户id  
-    return new LongValue(1);  
-   }  
-  
+                return new LongValue(1);  
+            }  
+
             /**  
             ** 通常会将表示租户id的列名，需要排除租户id的表等信息，封装到一个配置类中（如TenantConfig）  
             **/  
-   @Override  
-   public String getTenantIdColumn() {  
-    // 返回表中的表示租户id的列名  
-    return "manager_id";  
-   }  
-  
-   @Override  
-   public boolean ignoreTable(String tableName) {  
-    // 表名不为 user2 的表, 不拼接多租户条件  
-    return !"user2".equals(tableName);  
-   }  
-  }));  
-          
+            @Override  
+            public String getTenantIdColumn() {  
+                // 返回表中的表示租户id的列名  
+                return "manager_id";  
+            }  
+
+            @Override  
+            public boolean ignoreTable(String tableName) {  
+                // 表名不为 user2 的表, 不拼接多租户条件  
+                return !"user2".equals(tableName);  
+            }  
+        }));  
+
         // 如果用了分页插件注意先 add TenantLineInnerInterceptor 再 add PaginationInnerInterceptor  
         // 用了分页插件必须设置 MybatisConfiguration#useDeprecatedExecutor = false  
-  return interceptor;  
- }  
-  
+        return interceptor;  
+    }  
+
 }
 ```
 
@@ -2057,12 +2069,12 @@ public class MybatisPlusConfig {
 
 ```java
 @Test  
- public void testTenant() {  
-  LambdaQueryWrapper<User2> wrapper = new LambdaQueryWrapper<>();  
-  wrapper.likeRight(User2::getName, "王")  
-    .select(User2::getName, User2::getAge, User2::getEmail, User2::getManagerId);  
-  user2Mapper.selectList(wrapper);  
- }
+public void testTenant() {  
+    LambdaQueryWrapper<User2> wrapper = new LambdaQueryWrapper<>();  
+    wrapper.likeRight(User2::getName, "王")  
+        .select(User2::getName, User2::getAge, User2::getEmail, User2::getManagerId);  
+    user2Mapper.selectList(wrapper);  
+}
 ```
 
 ### 动态表名SQL解析器
@@ -2071,13 +2083,13 @@ public class MybatisPlusConfig {
 
 先在mysql中拷贝一下`user2`表
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131231.png)图片
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152330557.png)图片
 
 配置动态表名拦截器
 
 ```java
 package com.example.mp.config;  
-  
+
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;  
 import com.baomidou.mybatisplus.extension.plugins.handler.TableNameHandler;  
 import com.baomidou.mybatisplus.extension.plugins.inner.DynamicTableNameInnerInterceptor;  
@@ -2085,26 +2097,26 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;  
 import java.util.HashMap;  
 import java.util.Random;  
-  
+
 @Configuration  
 public class MybatisPlusConfig {  
-  
- @Bean  
- public MybatisPlusInterceptor mybatisPlusInterceptor() {  
-  MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();  
-  DynamicTableNameInnerInterceptor dynamicTableNameInnerInterceptor = new DynamicTableNameInnerInterceptor();  
-  HashMap<String, TableNameHandler> map = new HashMap<>();  
+
+    @Bean  
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {  
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();  
+        DynamicTableNameInnerInterceptor dynamicTableNameInnerInterceptor = new DynamicTableNameInnerInterceptor();  
+        HashMap<String, TableNameHandler> map = new HashMap<>();  
         // 对于user2表，进行动态表名设置  
-  map.put("user2", (sql, tableName) -> {  
-   String _ = "_";  
-   int random = new Random().nextInt(2) + 1;  
-   return tableName + _ + random; // 若返回null, 则不会进行动态表名替换, 还是会使用user2  
-  });  
-  dynamicTableNameInnerInterceptor.setTableNameHandlerMap(map);  
-  interceptor.addInnerInterceptor(dynamicTableNameInnerInterceptor);  
-  return interceptor;  
- }  
-  
+        map.put("user2", (sql, tableName) -> {  
+            String _ = "_";  
+            int random = new Random().nextInt(2) + 1;  
+            return tableName + _ + random; // 若返回null, 则不会进行动态表名替换, 还是会使用user2  
+        });  
+        dynamicTableNameInnerInterceptor.setTableNameHandlerMap(map);  
+        interceptor.addInnerInterceptor(dynamicTableNameInnerInterceptor);  
+        return interceptor;  
+    }  
+
 }
 ```
 
@@ -2112,12 +2124,12 @@ public class MybatisPlusConfig {
 
 ```java
 @Test  
- public void testDynamicTable() {  
-  user2Mapper.selectList(null);  
- }
+public void testDynamicTable() {  
+    user2Mapper.selectList(null);  
+}
 ```
 
-![图片](./mybatis-plus%E4%BD%BF%E7%94%A8.assets/20210615131235.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152330455.png)
 
 图片
 

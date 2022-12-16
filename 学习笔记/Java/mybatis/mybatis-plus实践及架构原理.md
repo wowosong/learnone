@@ -30,20 +30,20 @@
 
 **mybatis 架构图**
 
-![image-20210709220630492](./mybatis-plus%E5%AE%9E%E8%B7%B5%E5%8F%8A%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86.assets/20210709220630.png)
+![image-20210709220630492](https://gitee.com/wowosong/pic-md/raw/master/202212152320779.png)
 
-![image-20210709220710270](./mybatis-plus%E5%AE%9E%E8%B7%B5%E5%8F%8A%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86.assets/20210709220710-16548494315591.png)
+![image-20210709220710270](https://gitee.com/wowosong/pic-md/raw/master/202212152320900.png)
 
-![image-20210709220745461](./mybatis-plus%E5%AE%9E%E8%B7%B5%E5%8F%8A%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86.assets/20210709220745.png)
+![image-20210709220745461](https://gitee.com/wowosong/pic-md/raw/master/202212152320015.png)
 
 ![image-20210709220807474](./mybatis-plus%E5%AE%9E%E8%B7%B5%E5%8F%8A%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86.assets/20210709220807.png)
 
-![image-20210709220832171](./mybatis-plus%E5%AE%9E%E8%B7%B5%E5%8F%8A%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86.assets/20210709220832.png)
+![image-20210709220832171](https://gitee.com/wowosong/pic-md/raw/master/202212152320482.png)
 
-![image-20210709220913827](./mybatis-plus%E5%AE%9E%E8%B7%B5%E5%8F%8A%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86.assets/20210709220913.png)
+![image-20210709220913827](https://gitee.com/wowosong/pic-md/raw/master/202212152320751.png)
 
-![image-20210709220930918](./mybatis-plus%E5%AE%9E%E8%B7%B5%E5%8F%8A%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86.assets/20210709220930.png)
+![image-20210709220930918](https://gitee.com/wowosong/pic-md/raw/master/202212152321450.png)
 
-![image-20210709220946357](./mybatis-plus%E5%AE%9E%E8%B7%B5%E5%8F%8A%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86.assets/20210709220946.png)
+![image-20210709220946357](https://gitee.com/wowosong/pic-md/raw/master/202212152321679.png)
 
-![image-20210709221004589](./mybatis-plus%E5%AE%9E%E8%B7%B5%E5%8F%8A%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86.assets/20210709221004.png)
+![image-20210709221004589](https://gitee.com/wowosong/pic-md/raw/master/202212152321454.png)
