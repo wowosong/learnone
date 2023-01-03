@@ -13,7 +13,7 @@
 | Maven                | 3.5及以上     |
 | MySQL                | 5.7及以上     |
 
-![](./SpringCloud.assets/20220121224814.png)
+![](https://gitee.com/wowosong/pic-md/raw/master/202212290910285.png)
 
 通过查看 `Spring` 官网选择任意版本的 `Spring Cloud` 可以查看官方推荐与这个版本的 `Spring Cloud`  配套使用的 `Spring Boot` 版本
 

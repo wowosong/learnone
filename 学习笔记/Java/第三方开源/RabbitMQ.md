@@ -26,7 +26,7 @@ MQ(message queue)，从字面意思上看，本质是个队列，FIFO 先入先�
 
 有些服务间调用是异步的，例如 A 调用 B，B 需要花费很长时间执行，但是 A 需要知道 B 什么时候可以执行完，以前一般有两种方式，A 过一段时间去调用 B 的查询 api 查询。或者 A 提供一个 callback api， B 执行完之后调用 api 通知 A 服务。这两种方式都不是很优雅，使用消息总线，可以很方便解决这个问题，A 调用 B 服务后，只需要监听 B 处理完成的消息，当 B 处理完成后，会发送一条消息给 MQ，MQ 会将此消息转发给 A 服务。这样 A 服务既不用循环调用 B 的查询 api，也不用提供 callback api。同样 B 服务也不用做这些操作。A 服务还能及时的得到异步处理成功的消息。
 
-![20211105202801](https://gitee.com/wowosong/pic-md/raw/master/202212151223725.png)
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151223725.png" alt="20211105202801" style="zoom:50%;" />
 
 ### 1.1.3**MQ 的分类**
 
@@ -94,7 +94,7 @@ RabbitMQ 是一个消息中间件：它接受并转发消息。你可以把它�
 
 **交换机**
 
-交换机是 RabbitMQ 非常重要的一个部件，一方面它接收来自生产者的消息，另一方面它将消息推送到队列中。交换机必须确切知道如何处理它接收到的消息，是将这些消息推送到特定队列还是推送到多个队列，亦或者是把消息丢弃，这个得有**交换机类型**决定
+交换机是 RabbitMQ 非常重要的一个部件，一方面它接收来自生产者的消息，另一方面它将消息推送到队列中。交换机必须确切知道如何处理它接收到的消息，是将这些消息推送到**特定队列还是推送到多个队列，亦或者是把消息丢弃，这个得有交换机类型决定**
 
 **队列**
 
@@ -186,7 +186,7 @@ rabbitmq-plugins enable rabbitmq_management
 
 用默认账号密码(guest)访问地址 http://127.0.0.1:15672/#/出现权限问题
 
-![20211105213033](https://gitee.com/wowosong/pic-md/raw/master/202212151224460.png)
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151224460.png" alt="20211105213033" style="zoom:50%;" />
 
 5.添加一个新的用户
 
@@ -296,23 +296,23 @@ public class Producer {
         //channel 实现了自动 close 接口 自动关闭 不需要显示关闭
         try(Connection connection = factory.newConnection();
             Channel channel =  connection.createChannel()) {
-            /**
-      * 生成一个队列
-      * 1.队列名称
-      * 2.队列里面的消息是否持久化 默认消息存储在内存中
-      * 3.该队列是否只供一个消费者进行消费 是否进行共享 true 可以多个消费者消费
-      * 4.是否自动删除 最后一个消费者断开连接以后 该队列是否自动删除 true 自动删除
-      * 5.其他参数
-      */
+              /**
+              * 生成一个队列
+              * 1.队列名称
+              * 2.队列里面的消息是否持久化 默认消息存储在内存中
+              * 3.该队列是否只供一个消费者进行消费 是否进行共享 true 可以多个消费者消费
+              * 4.是否自动删除 最后一个消费者断开连接以后 该队列是否自动删除 true 自动删除
+              * 5.其他参数
+              */
             channel.queueDeclare(QUEUE_NAME,false,false,false,null);
             String message="hello world";
             /**
-      * 发送一个消息
-      * 1.发送到那个交换机
-      * 2.路由的 key 是哪个
-      * 3.其他的参数信息
-      * 4.发送消息的消息体
-      */
+              * 发送一个消息
+              * 1.发送到那个交换机
+              * 2.路由的 key 是哪个
+              * 3.其他的参数信息
+              * 4.发送消息的消息体
+              */
             channel.basicPublish("",QUEUE_NAME,null,message.getBytes());
             System.out.println("消息发送完毕");
         }
@@ -343,12 +343,12 @@ public class Consumer {
             System.out.println("消息消费被中断");
         };
         /**
-    * 消费者消费消息
-    * 1.消费哪个队列
-    * 2.消费成功之后是否要自动应答 true 代表自动应答 false 手动应答
-    * 3.消费者成功消费的回调
-    * 4.消费者取消消费的回调
-    */
+        * 消费者消费消息
+        * 1.消费哪个队列
+        * 2.消费成功之后是否要自动应答 true 代表自动应答 false 手动应答
+        * 3.消费者成功消费的回调
+        * 4.消费者取消消费的回调
+        */
         channel.basicConsume(QUEUE_NAME,true,deliverCallback,cancelCallback);
     } 
 }
