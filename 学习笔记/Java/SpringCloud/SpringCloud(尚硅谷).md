@@ -31,7 +31,7 @@ consul agent -dev -ui -client 0.0.0.0  开启UI界面和允许其他客户端访
 ```
 lookup WIN-0MEFH5DJSEQ on 100.100.2.138:53: no such host consul 
 关闭heartbeat:
-          enabled: true
+    enabled: true
 ```
 
 ![image-20211119212512194](./SpringCloud(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211119212512.png)

@@ -657,8 +657,6 @@ eureka:
 高可用，试想你的注册中心只有一个only one。它出了故障就呵呵了，会导致整个服务环境不可用，所以解决办法：搭建Eureka注册中心集群，实现负载均衡+故障容错
 ```
 
-
-
 **集群构建原理:**
 
  互相注册
@@ -1355,9 +1353,24 @@ Ribbon在工作时分成两步
 
 #### 3，RestTemplate类:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301031507195.png)
+```java
+//返回对象为响应体中数据转化成的对象，基本上可以理解为Json
+@GetMapping("/consumer/payment/getId/{id}")
+public CommonResult<Payment> getId(@PathVariable("id") String id) {
+    return restTemplate.getForObject(PAYMENT_URL + "/payment/getPaymentByid/" + id, CommonResult.class);
+}
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301031649367.png)
+@GetMapping("/consumer/payment/getEntity/{id}")
+public CommonResult<Payment> getId1(@PathVariable("id") String id) {
+    //返回对象为ResponseEntity对象，包含了响应中的一些重要信息，比如响应头、响应状态码、响应体等
+    ResponseEntity<CommonResult> entity = restTemplate.getForEntity(PAYMENT_URL + "/payment/getPaymentByid/" + id, CommonResult.class);
+    if (entity.getStatusCode().is2xxSuccessful()) {
+        return entity.getBody();//这个ResponseEntity中有判断，这里是判断，状态码是不是2xx,
+    } else {
+        return new CommonResult<>(444, "操作失败");
+    }
+}
+```
 
 ```java
 RestTemplate的:
@@ -1536,7 +1549,7 @@ Feign旨在使编写Java HTTP客户端变得更容易，就是远程调用其他
 
 <span style="color:blue">**Feign集成了Ribbon**</span>
 
-利用Ribbon维护额Payment的服务列表信息，并且通过轮询实现了客户端的负载均衡。而与Ribbon不同的是，<span style="color:red">**通过fegin只需要定义服务绑定接口且以声明式的方法，**</span>优雅而简单的实现了服务调用
+利用Ribbon维护Payment的服务列表信息，并且通过轮询实现了客户端的负载均衡。而与Ribbon不同的是，<span style="color:red">**通过fegin只需要定义服务绑定接口且以声明式的方法，**</span>优雅而简单的实现了服务调用
 
 **就是A要调用B，Feign就是在A中创建一个一模一样的B对外提供服务的的接口，我们调用这个接口，就可以服务到B**
 
@@ -1900,10 +1913,6 @@ public class OrderHystrixFeiginController {
 }
 ```
 
-
-
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291647858.png)
-
 ##### 7，测试
 
  启动order模块，访问pay
@@ -1930,7 +1939,17 @@ public class OrderHystrixFeiginController {
 
 ###### 2，主启动类上，添加激活hystrix的注解
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291651471.png)
+```java
+@SpringBootApplication
+@EnableEurekaClient
+@EnableDiscoveryClient
+@EnableCircuitBreaker
+public class PaymentHystrix8001 {
+    public static void main(String[] args) {
+        SpringApplication.run(PaymentHystrix8001.class, args);
+    }
+}
+```
 
 ###### 3，触发异常
 
@@ -1954,9 +1973,17 @@ feign:
 
 ###### **2，主启动类添加直接，启用hystrix:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291653387.png)
-
-
+```java
+@SpringBootApplication
+@EnableFeignClients
+@EnableHystrix
+@EnableCircuitBreaker
+public class OrderHystrixFeignMain80 {
+    public static void main(String[] args) {
+        SpringApplication.run(OrderHystrixFeignMain80.class,args);
+    }
+}
+```
 
 ###### 3，修改controller，添加降级方法什么的
 
@@ -2001,7 +2028,7 @@ public String paymentglobalHandler() {
 
 ###### 4，测试:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291655799.png)
+![](https://gitee.com/wowosong/pic-md/raw/master/202212291655799.png) 
 
 ##### 解决代码耦合度的问题:
 
@@ -2036,7 +2063,7 @@ feign:
 
 **此时将pay服务关闭，order再次访问**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291655793.png)
+![](https://gitee.com/wowosong/pic-md/raw/master/202212291655793.png) 
 
 可以看到，并没有报500错误，而是降级访问**实现类**的同名方法
 
@@ -2079,19 +2106,19 @@ IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法�
 
 ```java
 断路器的打开和关闭，是按照一下5步决定的
-        1，并发此时是否达到我们指定的阈值
-        2，错误百分比，比如我们配置了60%，那么如果并发请求中，10次有6次是失败的，就开启断路器
-        3，上面的条件符合，断路器改变状态为open(开启)
-        4，这个服务的断路器开启，所有请求无法访问
-        5，在我们的时间窗口期，期间，尝试让一些请求通过(半开状态)，如果请求还是失败，证明断路器还是开启状态，服务没有恢复
-        如果请求成功了，证明服务已经恢复，断路器状态变为close关闭状态
+    1，并发此时是否达到我们指定的阈值
+    2，错误百分比，比如我们配置了60%，那么如果并发请求中，10次有6次是失败的，就开启断路器
+    3，上面的条件符合，断路器改变状态为open(开启)
+    4，这个服务的断路器开启，所有请求无法访问
+    5，在我们的时间窗口期，期间，尝试让一些请求通过(半开状态)，如果请求还是失败，证明断路器还是开启状态，服务没有恢复
+    如果请求成功了，证明服务已经恢复，断路器状态变为close关闭状态
 ```
 
 ##### 2，修改controller
 
 添加一个测试方法;
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291656089.png)
+![](https://gitee.com/wowosong/pic-md/raw/master/202212291656089.png) 
 
 ##### 3，测试:
 
@@ -2099,7 +2126,7 @@ IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法�
 
 ==多次访问，并且错误率超过60%:==
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291656333.png)
+![](https://gitee.com/wowosong/pic-md/raw/master/202212291656333.png) 
 
 此时服务熔断，此时即使访问正确的也会报错:
 
@@ -2179,7 +2206,16 @@ server:
 
 ##### 4，主启动类
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291700870.png)
+```java
+@SpringBootApplication
+@EnableHystrixDashboard
+//表示开启HystrixDashboard
+public class HystrixDashBoard9001 {
+    public static void main(String[] args) {
+        SpringApplication.run(HystrixDashBoard9001.class,args);
+    }
+}
+```
 
 ##### 5，修改所有pay模块(8001，8002，8003...)
 
@@ -2205,7 +2241,32 @@ server:
 
 **8001的主启动类添加:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291704046.png)
+```java
+@SpringBootApplication
+@EnableEurekaClient
+@EnableDiscoveryClient
+@EnableCircuitBreaker
+public class PaymentHystrix8001 {
+    public static void main(String[] args) {
+        SpringApplication.run(PaymentHystrix8001.class, args);
+    }
+    /**
+    * 此配置是为了服务监控而配置，与服务容错本身无关，SpringCloud升级后坑，
+    * ServletRegistrationBean因为Springboot的默认路径不是"/hystrix.stream",
+    * 只要在自己的项目里配置上下面的Servlet就可以了
+    */
+    @Bean
+    public ServletRegistrationBean getServlet() {
+        HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(streamServlet);
+        registrationBean.setLoadOnStartup(1);
+        registrationBean.addUrlMappings("/actuator/hystrix.stream");
+        registrationBean.setName("HystrixMetricsStreamServlet");
+        return registrationBean;
+    }
+    
+}
+```
 
 **其他8002，8003都是一样的**
 
@@ -2235,31 +2296,56 @@ zuul停更了，
 
 Gateway是在Spring生态系统之上构建的API网关服务，基于Spring 5，Spring Boot 2 和Project Reactor等技术。Gateway旨在提供一种简单而有效的方式来对API进行路由，以及提供一些强大的过滤器功能，例如：熔断、限流、重试等。
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291705563.png)
+SpringCloud Gateway是SpringCloud的一个全新项目，基于Spring 5.0+Spring Boot 2.0和Project Reactor等技术开发的网关，它旨在为微服务架构提供一种简单有效的统一的API路由管理方式。
 
-**gateway之所以性能好，因为底层使用WebFlux，而webFlux底层使用netty通信(NIO)**
+SpringCloud Gateway作为Spring Cloud生态系统中的网关，目标是替代Zuul，在Spring Cloud 2.0以上版本中，没有对新版的Zuul2.0以上最新高性能版本进行集成，仍然还是**使用的Zuul1.x非Reactor模式的老版本**。而**为了提升网关的性能**，**Spring Cloud Gateway是基于WebFlux框架事项的，而WebFlux框架底层则使用了高性能的Reactor模式通信框架Netty**。
+
+Spring Cloud Gateway的目标提供统一的路由方式且基于Filter链的方式提供了网关基本的功能。例如：安全、监控/指标，和限流。
+
+**Gateway之所以性能好，因为底层使用WebFlux，而webFlux底层使用netty通信(NIO)**
 
 ![](https://gitee.com/wowosong/pic-md/raw/master/202212291705186.png)
 
 ### GateWay的特性:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291705080.png)
+Spring Cloud Gateway具有如下特性：
+
+- <span style="color:red">**基于Spring Framework 5，Project Reactor 和Spring Boot 2.0进行构建；**</span>
+- 动态路由：能够匹配任何请求属性；
+- 可以对路由指定Predicate(断言)和Filter(过滤器)；
+- 集成Hystrix的断路器功能；
+- 集成Spring Cloud服务发现功能；
+- 易于编写的Predicate(断言)和Filter(过滤器)；
+- 请求限流功能；
+- 支持路径重写。
 
 ### GateWay与zuul的区别:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291706812.png)
+在Spring Cloud Finchley正式版之前，Spring Cloud推荐的网关是Netflix提供的Zuul：
+
+1. Zuul 1.x，是一个基于阻塞I/O的API Gateway
+2. Zuul 1.x<span style="color:red">**基于Servlet 2.5使用阻塞架构**</span>它不支持**<u>任何长连接(如WebSocket)</u>**Zuul的设计模式和Nginx较像，<u>**每次I/O操作**</u>都是从<u>**工作线程中选择一个执行**</u>，<u>**请求线程被阻塞到工作线程完成**</u>，但是差别是Nginx用C++实现，Zuul用Java实现，而JVM本身会有第一次加载较慢的情况，使得Zuul的性能相对较差。
+3. Zuul 2.x理念更先进，想**<u>基于Netty非阻塞和支持长连接</u>**，但SpringCloud目前还没有整合。Zuul2.x的性能较Zuul1.x有较大提升。在性能方面，根据官方提供的基准测试，SpringCloud Gateway的RPS(每秒请求数)是Zuul的1.6倍。
+4. Spring Cloud Gateway建立在Spring Framework 5、Project Reactor和Spring Boot 2之上，使用**<u>非阻塞API</u>**。
+5. Spring Cloud Gateway还支持WebSocket，并且与Spring紧密集成拥有更好的开发体验
 
 ### zuul1.x的模型:
 
 ![](https://gitee.com/wowosong/pic-md/raw/master/202212291706297.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291706869.png)
+<span style="color:blue">**上述模式的缺点：**</span>
+
+Servlet是一个简单的网络IO模型，当请求进入servlet container时，Servlet Container就会为其绑定一个线程。在<span style="color:blue">**并发不高的场景下**</span>这种模式是适用的。但是<u>**一旦高并发**</u>(比如抽风用jmeter压)，<u>**线程数量就会上涨，而线程资源代价是昂贵的(上下文切换，内存消耗大)严重影响请求的处理时间**</u>。在一些简单业务场景下，不希望为每个request分配一个线程，只需要1个或几个线程就能应对极大并发的请求，这种业务场景下Servlet模型没有优势。
+
+所以Zuul 1.x是<span style="color:blue">**基于Servlet之上的一个阻塞式处理模型**</span>，即Spring实现了处理所有request请求的一个Servlet(DispatcherServlet)并由该Servlet阻塞式处理。所以Spring Cloud Zuul无法摆脱Servlet模型的弊端。
 
 ### 什么是webflux:
 
 **是一个非阻塞的web框架，类似springmvc这样的**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291706176.png)
+传统的Web框架，比如说：structs2，springmvc等都是<span style="color:blue">**<u>基于Servlet API与Servlet容器基础之上运行的</u>。**</span>但是<span style="color:blue">**<u>在Servlet 3.1之后有了异步非阻塞的支持</u>。**</span>而**<u>WebFlux是一个典型非阻塞异步的框架。它的核心是基于Reactor的相关API实现的</u>**。相对于传统的web框架来说，它可以运行在诸如Netty，Undertow及支持Servlet3.1的容器上。非阻塞式+函数式编程(Spring 5必须让你使用Java 8)
+
+Spring WebFlux是Spring 5.0引入的新的响应式框架，区别于Spring MVC，它不需要依赖Servlet API，它是完全异步非阻塞的，并且基于Reactor来实现响应式流规范。
 
 ### GateWay的一些概念:
 
@@ -2305,7 +2391,24 @@ Filter在"pre"类型的过滤器可以做参数校验、权限校验、流量监
 
 #### 2，配置文件
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291719700.png) 
+```yaml
+server:
+  port: 9572
+spring:
+  application:
+    name: cloud-gateway9572-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/ 
+```
 
 #### 3，主启动类
 
@@ -2360,7 +2463,19 @@ public class Gateway9572 {
 
 ##### 创建配置类:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291729412.png)
+```java
+@Configuration
+public class GatewayConfig {
+    @Bean
+    //javaconfig方式配置
+    public RouteLocator routeLocator(RouteLocatorBuilder builder) {
+        //id为test1对应配置文件中的routes
+        RouteLocator build = builder.routes().route("test1", r -> r.path("/guonei").uri("http://news.baidu.com/guonei")).build();
+        // 当访问localhost:9527/guonei时，路由到http://news.baidu.com/guonei
+        return build;
+    }
+}
+```
 
 #### 8，然后重启服务即可
 
@@ -2514,7 +2629,7 @@ Query:
    必须带有请求参数才可以访问
 ```
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291752326.png)
+![](https://gitee.com/wowosong/pic-md/raw/master/202212291752326.png) 
 
 ### Filter过滤器:
 
@@ -2540,13 +2655,35 @@ GlobalFilter，全局过滤器:
 
 实现两个接口
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291801928.png)
+```java
+@Component
+@Slf4j
+public class myGatewayFilter implements GlobalFilter, Ordered {
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        log.info("*************myGatewayFilter*************:{}",new Date());
+        String username = exchange.getRequest().getQueryParams().getFirst("username");//获取到请求参数username
+        //如果username为空，就直接过滤掉，不走路由
+        if(username==null){
+            exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
+            log.info("*************username：{}，非法用户*************",username);
+            return exchange.getResponse().setComplete();
+        }
+        return chain.filter(exchange);//反之，调用下一个过滤器，也就是执行
+    }
 
-​    **然后启动服务，即可，因为过滤器通过@Component已经加入到容器了**
+    @Override
+    public int getOrder() {
+        return 0;
+    }
+}
+```
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032139124.png)
+​    **然后启动服务即可，因为过滤器通过@Component已经加入到容器了**
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202301032139883.png" style="zoom:50%;" />
+![](https://gitee.com/wowosong/pic-md/raw/master/202301032139124.png) 
+
+<img src="https://gitee.com/wowosong/pic-md/raw/master/202301032139883.png" style="zoom:50%;" /> 
 
 # 6.服务配置:
 
@@ -2565,9 +2702,17 @@ SpringCloud Config为微服务架构中的微服务提供**<u>集中化的外部
 
 ![](https://gitee.com/wowosong/pic-md/raw/master/202301032140956.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032157301.png)
+SpringCloud Config分为<span style="color:red">**服务端和客户端两部分。**</span>
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032157627.png)
+服务端也称为<span style="color:red">**分布式配置中心，它是一个独立的微服务应用**</span>，用来连接配置服务器并为客户端提供获取配置信息，加密/解密信息等访问接口。
+
+客户端则是通过指定的配置中心来管理应用资源，以及与业务相关的配置内容，并在**<u>启动的时候从配置中心获取和加载配置信息</u>**。**<u>配置服务器默认采用git来存储配置信息</u>**，这样就有助于对环境配置进行版本管理，并且可以通过git客户端工具来方便的管理和访问配置内容。
+
+- 集中**管理配置**文件
+- 不同环境不同配置，动态化的配置更新，分环境部署比如dev/test/prod/beta/release
+- 运行期间**动态调整**配置，不在需要在每个服务部署的机器上编写配置文件，**服务会向配置中心统一拉取配置自己的信息**
+- 当配置发生变动时，服务**不需要重启**即可感知到配置的变化并应用新的配置
+- 将配置信息以REST接口的形式暴露，**post、curl访问刷新均可**........
 
 ### 使用配置中心:
 
@@ -2589,7 +2734,18 @@ SpringCloud Config为微服务架构中的微服务提供**<u>集中化的外部
 
 #### 4，主启动类
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032202135.png)
+```java
+@SpringBootApplication
+@EnableEurekaClient
+@EnableConfigServer 
+//启动配置中心的服务端
+@RefreshScope
+public class ConfigServerMain3344 {
+    public static void main(String[] args) {
+        SpringApplication.run(ConfigServerMain3344.class,args);
+    }
+}
+```
 
 #### 5，修改hosts:
 
@@ -2615,7 +2771,23 @@ SpringCloud Config为微服务架构中的微服务提供**<u>集中化的外部
 
 **这里默认会读取master分支，因为我们配置文件中配置了**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032203918.png)
+```yaml
+spring:
+  application:
+    name: cloud-config-center3344
+  cloud:
+    config:
+      server:
+        git:
+          #搜索目录
+          search-paths: springcloud-config
+          uri: https://gitee.com/wowosong/springcloud-config.git 
+          #gitee的git仓库名字
+          username: 164644354@qq.com
+          password: Huangluo03270254
+      #读取分支
+      label: master
+```
 
 **3**
 
@@ -2643,19 +2815,48 @@ SpringCloud Config为微服务架构中的微服务提供**<u>集中化的外部
 
 这个配置文件的作用是，先到配置中心加载配置，然后加载到application.yml中
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032204927.png)
+application.yml是用户级的资源配置项
+
+bootstrap.yml是**<u>系统级的</u>**，<span style="color:red">**优先级更加高**</span>
+
+Spring Cloud会创建一个"Bootstrap Context"，作为Spring应用的"Application Context"的<span style="color:red">**父上下文**</span>。初始化的时候，"Bootstrap Context"负责**<u>从<span style="color:blue">从外部源</span>加载配置属性并解析配置</u>**。这两个上下文共享一个从外部获取的"Environment"。
+
+**<u>"Bootstrap"属性有高优先级</u>**，默认情况下，<u>**它们不会被本地配置覆盖**</u>。"Bootstrap Context"和"Application Context"有着不同的约定，所以新增了一个"Bootstrap.yml"文件，保证"Bootstrap Context"和"Application Context"配置的分离。
+
+<span style="color:red">**要将Client模块下的application.yml文件改为bootstrap.yml，这是很关键的，**</span>
+
+**<u>因为bootstrap.yml是比application.yml先加载的。bootstrap.yml优先级高于application.yml</u>**
 
 ![](https://gitee.com/wowosong/pic-md/raw/master/202301032204504.png)
 
 #### 4，主启动类:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032206169.png) 
+```java
+@SpringBootApplication
+@EnableEurekaClient
+public class ConfigClient3355 {
+    public static void main(String[] args) {
+        SpringApplication.run(ConfigClient3355.class,args);
+    }
+} 
+```
 
 #### 5，controller类
 
 就是上面提到的，以rest风格将配置对外暴露
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032206883.png) 
+```java
+@RestController
+public class ConfigClientController {
+    @Value("${config.info}")
+    private String configInfo;
+
+    @GetMapping(value = "getInfo")
+    public String getInfo() {
+        return configInfo;
+    }
+} 
+```
 
 ![](https://gitee.com/wowosong/pic-md/raw/master/202301032206681.png) 
 
@@ -2681,15 +2882,39 @@ SpringCloud Config为微服务架构中的微服务提供**<u>集中化的外部
 
 ##### 1，修改3355，添加一个pom依赖:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032206846.png) 
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency> 
+```
 
 ##### 2，修改配置文件，添加一个配置:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032207440.png) 
+```yaml
+#暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" 
+```
 
-##### 3，修改controller:
+##### 3，修改controller:添加RefreshScope注解
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032207287.png) 
+```java
+@RestController
+@RefreshScope
+public class ConfigClientController {
+    @Value("${config.info}")
+    private String configInfo;
+
+    @GetMapping(value = "getInfo")
+    public String getInfo() {
+        return configInfo;
+    }
+} 
+```
 
 ##### 4，此时重启服务
 
@@ -2723,9 +2948,11 @@ SpringCloud Config为微服务架构中的微服务提供**<u>集中化的外部
 
 ## SpringCloud Bus:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032208989.png)
+<span style="color:red">**Spring Cloud Bus配合Spring Cloud Config使用可以实现配置的动态刷新。**</span>
 
-![springconfig的27](https://gitee.com/wowosong/pic-md/raw/master/202301032209064.png)
+![image-20230106222614592](https://gitee.com/wowosong/pic-md/raw/master/202301062226595.png) 
+
+<span style="color:red">**Spring Cloud Bus能管理和传播分布式系统间的消息，就像一个分布式执行器，可用于广播状态更改、事件推送等，也可以当作微服务间的通信通道。**</span>
 
 ![](https://gitee.com/wowosong/pic-md/raw/master/202301032210495.png)
 
@@ -2770,13 +2997,16 @@ ConfigClient实例都监听MQ中同一个topic(默认是SpringCloudBus)。当一
 
  **就是上面两个图片的两种方式**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032211895.png)
+- 利用消息总线触发一个客户端/bus/refresh，而刷新所有客户端的配置
+- 利用消息总线触发一个服务端ConfigServer的/bus/refresh端点，而刷新所有客户端的配置
 
 **这两种方式，第二种跟合适，因为:**
 
  **第一种的缺点:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032211060.png)
+- **打破了微服务的职责单一性，因为微服务本身是业务模块，它本不应该承担配置刷新的职责。**
+- 破坏了微服务各节点的对等性。<span style="color:red">**因为第一种，有一个客户端需要额外的承担刷新职责，而其他的客户端却只有业务职责**</span>
+- **有一定的局限性。例如，微服务在迁移时，它的网路地址常常会发生变化，此时如果要做到自动刷新，那就会增加更多的修改**
 
 #### **配置第二种方式:**
 
@@ -2790,17 +3020,35 @@ ConfigClient实例都监听MQ中同一个topic(默认是SpringCloudBus)。当一
 
 **springboot的监控组件，和消息总线**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032211650.png) 
+```xml
+<!-- 添加消息总线RabbitMQ支持--> 
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+</dependency>
 
-![Bus的2](https://gitee.com/wowosong/pic-md/raw/master/202301032211815.png) 
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency> 
+```
 
 ##### 2，修改3355(配置中心的客户端)
 
 ###### 1，pom:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301052126494.png) 
+```xml
+<!-- 添加消息总线RabbitMQ支持--> 
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+</dependency>
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032211815.png) 
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>  
+```
 
 ###### 2，配置文件:
 
@@ -2826,7 +3074,9 @@ ConfigClient实例都监听MQ中同一个topic(默认是SpringCloudBus)。当一
 
 其原理就是:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032213722.png)
+<span style="color:blue">**基本原理**</span>
+
+ConfigClient实例都监听MQ中同一个topic(默认是<span style="color:red">**SpringCloudBus**</span>)。当一个服务刷新数据的时候，它会把这个信息放入到Topic中，这样其他监听同一Topic的服务就能得到通知，然后去更新自身的配置。
 
 **所有客户端都监听了一个rabbitMq的topic，我们将信息放入这个topic，所有客户端都可以送到，从而实时更新**
 
@@ -2834,17 +3084,21 @@ ConfigClient实例都监听MQ中同一个topic(默认是SpringCloudBus)。当一
 
  就是只通知部分服务，比如只通知3355，不通知3366
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032213908.png)
+```
+公式：http://localhost:3344/actuator/bus-refresh/{destination}
+```
 
-![Bus的8](https://gitee.com/wowosong/pic-md/raw/master/202301032213693.png)
+```
+/bus-refresh请求不再发送到具体的服务实例上，而是发给config server并通过destination参数类指定需要更新配置的服务或实例
+```
 
 **只通知3355**
 
 ![](https://gitee.com/wowosong/pic-md/raw/master/202301032213875.png)
 
-​    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032213483.png)
+![](https://gitee.com/wowosong/pic-md/raw/master/202301032213483.png) 
 
-**可以看到，实际上就是通过==微服务的名称+端口号==进行指定**
+**可以看到，实际上就是通过<span style="color:red">微服务的名称+端口号</span>进行指定**
 
 # 8.消息驱动:
 
@@ -2852,43 +3106,73 @@ ConfigClient实例都监听MQ中同一个topic(默认是SpringCloudBus)。当一
 
 ```java
 现在一个很项目可能分为三部分:
-        前端--->后端---->大数据
-        而后端开发使用消息中间件，可能会使用RabbitMq
-        而大数据开发，一般都是使用Kafka，
-        那么一个项目中有多个消息中间件，对于程序员，因为人员都不友好
+    前端--->后端---->大数据
+    而后端开发使用消息中间件，可能会使用RabbitMq
+    而大数据开发，一般都是使用Kafka，
+    那么一个项目中有多个消息中间件，对于程序员，因为人员都不友好
 ```
 
-而Spring Cloud Stream就类似jpa，屏蔽底层消息中间件的差异，程序员主要操作Spring Cloud Stream即可
+而Spring Cloud Stream就类似jpa，屏蔽底层消息中间件的差异，程序员主要操作Spring Cloud Stream即可，不需要管底层是kafka还是rabbitMq。
 
- 不需要管底层是kafka还是rabbitMq
+**<u>屏蔽底层消息中间件的差异，降低切换成本，统一消息的编程模型</u>** 
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032213999.png) 
+### <span style="color:blue">什么是Spring Cloud Stream</span>
 
-### 什么是Spring Cloud Stream
+官方定义Spring Cloud Stream是一个构建消息驱动微服务的框架。
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032213124.png)
+应用程序通过inputs(生产者)或者outputs(消费者)来与Spring Cloud Stream中binder对象交互。<span style="color:red">**我们主要就是操作binder对象与底层mq交换**</span>。
 
-![SpringCloudStream的3](https://gitee.com/wowosong/pic-md/raw/master/202301032215225.png)
+通过我们配置来binding(绑定)，而Spring Cloud Stream的binder对象负责与消息中间件交互。
+
+所以我么只需要搞清楚如何与Spring Cloud Stream交互就可以方便使用消息驱动的方式。
+
+通过使用Spring Integration来连接消息代理中间件以实现消息事件驱动。
+
+Spring Cloud Stream为一些供应商的消息中间件产品提供了个性化的自动化配置实现，引用了发布-订阅、消费组、分区的三个核心概念。
+
+<span style="color:red">**目前仅支持RabbitMQ、Kafka**</span>
+
+<span style="color:blue">**为什么用Cloud Stream**</span>
+
+比方说我们用到了RabbitMQ和Kafka，由于这两个消息中间件的架构上的不同，像RabbitMQ有exchange，Kafka有Topic和Partitions分区。
 
 ![SpringCloudStream的4](https://gitee.com/wowosong/pic-md/raw/master/202301032215625.png)
 
-![SpringCloudStream的5](https://gitee.com/wowosong/pic-md/raw/master/202301032215323.png)
+这些中间件的差异性导致我们实际项目开发给我们造成了一定的困扰，我们如果用了两个消息队列的其中一种，后面的业务需求，我想往另外一种消息队列进行迁移，这时候无疑就是一个灾难性的，<span style="color:red">**一大堆东西都要重新推倒重新做**</span>，因为它跟我们的系统耦合了，这时候SpringCloud Stream给我们提供了一种解耦合的方式。
 
 ### **Spring Cloud Stream是怎么屏蔽底层差异的?**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032216783.png)
+在没有绑定器这个概念的情况下，我们的SpringBoot应用要直接与消息中间件进行信息交互的时候，由于各消息中间件构建的初衷不同，它们的实现细节上会有较大的差异性。
+
+通过定义绑定器作为中间层，<span style="color:red">**完美地实现了应用程序与消息中间件细节之间的隔离。**</span>
+
+通过向应用程序暴露统一的<span style="color:blue">**Channel通道**</span>，使得应用程序不需要再考虑各种不同的消息中间件实现。
+
+<span style="color:red">**通过定义绑定器Binder作为中间层，实现了应用程序与消息中间件细节之间的隔离。**</span>
 
 **绑定器:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032216724.png)
+<span style="color:red">**Binder**</span>
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032216047.png)
+- **INPUT对应于消费者**
+- **OUTPUT对应于生产者**
+
+<span style="color:red">**Binder**</span>
+
+在没有绑定器这个概念的情况下，我们的SpringBoot应用要直接与消息中间件进行信息交互的时候，由于各消息中间件构建的初衷不同，它们的实现细节上会有较大的差异性。通过定义绑定器作为中间层，<span style="color:red">**完美地实现了应用程序与消息中间件细节之间的隔离。**</span>Stream对消息中间件的进一步封装，可以做到代码层面对中间件的无感知，甚至于动态的切换中间件（RabbitMQ切换为Kafka)，使得微服务开发的高度解耦，服务可以更多地关注自己的业务流程。
 
 ![](https://gitee.com/wowosong/pic-md/raw/master/202301032217469.png)
 
-### **Spring Cloud Streamd 通信模式:**
+### **Spring Cloud Stream 通信模式:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032217364.png)![](https://gitee.com/wowosong/pic-md/raw/master/202301032217369.png)
+```
+Stream中的消息通信方式遵循了发布-订阅模式
+```
+
+Topic主题进行广播
+
+- **在RabbitMQ就是Exchange**
+- **在Kafka中就是Topic**
 
 ### Spring Cloud Stream的业务流程:
 
@@ -2896,7 +3180,17 @@ ConfigClient实例都监听MQ中同一个topic(默认是SpringCloudBus)。当一
 
 ![](https://gitee.com/wowosong/pic-md/raw/master/202301032217532.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032217744.png)
+**Source和Sink：**
+
+```
+简单的可理解为参照对象是Spring Cloud Stream自身，从Stream发布消息就是输出，接受消息就是输入。
+```
+
+**Channel**
+
+```
+通道，是队列Queue的一种抽象，在消息通讯系统中就是实现存储和转发的媒介。
+```
 
 ```java
 类似flume中的channel，source，sink 估计是借鉴(抄袭)的
@@ -2926,21 +3220,59 @@ channel类似SpringCloudStream中的中间件，用于存放source接收到的�
 
 #### 3，主启动类
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032218290.png) 
+```java
+@SpringBootApplication
+@EnableEurekaClient
+public class StreamRabbitmqMain8801 {
+    public static void main(String[] args) {
+        SpringApplication.run(StreamRabbitmqMain8801.class,args);
+    }
+}
+```
 
 #### 4，service和实现类
 
 service定义发送消息
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032218682.png) 
+```java
+public interface IMessageProvicderService {
+    public String send();
+}
+```
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032218051.png)
+```java
+@EnableBinding(Source.class)//表示当前这个类是source，负责生产消息，并且发送给channel
+@Slf4j
+public class IMessageProviderServiceImpl  implements IMessageProvicderService {
+    @Resource
+    private MessageChannel output;//channel，我们将消息发送到这个channel，消息发送管道
+    @Override
+    public String send() {
+        String uuid= UUID.randomUUID().toString();
+        output.send(MessageBuilder.withPayload(uuid).build());//发送，build方法会构建一个Message类
+        log.info("Send Message:{}",uuid);
+        return uuid;
+    }
+}
+```
+
+
 
 **这里，就会调用send方法，将消息发送给channel，然后channel将消费发送给binder，然后发送到rabbitmq中**
 
 #### 5，controller
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032219849.png) 
+```java
+@RestController
+public class StremController {
+    @Resource
+    private  IMessageProvicderService provicderService;
+    @GetMapping(value = "sendMsg")
+    public void send(){
+        String send = provicderService.send();
+    }
+} 
+```
 
 #### 6，可以测试
 
@@ -2968,11 +3300,36 @@ service定义发送消息
 
 #### 3，主启动类
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032219505.png) 
+```java
+@SpringBootApplication
+@EnableEurekaClient
+public class StreamRabbitMQMain8802 {
+    public static void main(String[] args) {
+        SpringApplication.run(StreamRabbitMQMain8802.class,args);
+    }
+} 
+```
 
 #### 4，业务类(消费数据)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032219783.png)
+```java
+@Component
+@EnableBinding(Sink.class)//启动绑定，就是表示当前类是sink，负责介绍channel发送过来的数据进行消费
+@Slf4j
+public class MessageRecieverController {
+
+    @Value("${server.port}")
+    private String serverPort;
+
+
+    @StreamListener(Sink.INPUT)
+    //这里表示监听sink的input，而input我们在配置文件中配置了，绑定在一个指定Exchange上获取数据
+    public void input(Message<String> message){
+        System.out.println(message.getPayload()+"serverPort:  "+serverPort);
+        log.info("收到Message----->：{},  Port:{}",message.getPayload(),serverPort);
+    }
+}
+```
 
 **生产者发送消息时，使用send方法发送，send方法发送的是一个个Message，里面封装了数据**
 
@@ -3061,7 +3418,7 @@ service定义发送消息
 
 **sleuth要解决的问题:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032220763.png)
+在微服务框架中，一个由客户端发起的请求在后端系统中会经过多个不同的服务节点调用来协同产生最后的请求结果，每一个前端请求都会形成一个复杂的分布式服务调用链路，链路中的任何一环出现高延时或错误都会引起整个请求最后的失败。
 
 **而sleuth就是用于追踪每个请求的整体链路**
 
@@ -3101,7 +3458,15 @@ service定义发送消息
 
 **引入pom:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032221474.png) 
+```xml
+<dependency> 
+    <!-- 包含了sleuth和zipkin -->
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-zipkin</artifactId>
+    <version>2.2.1.RELEASE</version>
+</dependency>
+ 
+```
 
 这个包虽然叫zipkin但是，里面包含了zpikin与sleuth
 
@@ -3208,7 +3573,15 @@ Apache Dubbo是一个高性能的Java RPC框架。
 
 ![](https://gitee.com/wowosong/pic-md/raw/master/202301032222722.png) 
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032222404.png) 
+```xml
+<dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+        <version>2.1.0.RELEASE</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+```
 
 9001的pom:
 
@@ -3220,11 +3593,31 @@ Apache Dubbo是一个高性能的Java RPC框架。
 
 #### 3，启动类
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032222492.png) 
+```java
+@SpringBootApplication
+@EnableDiscoveryClient
+public class AlibabaPayment9001 {
+    public static void main(String[] args) {
+        SpringApplication.run(AlibabaPayment9001.class,args);
+    }
+} 
+```
 
 #### 4，controller:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032222008.png)
+```java
+@RestController
+@Slf4j
+public class paymentController {
+    @Value("${server.port}")
+    private  String serverPort;
+    @GetMapping("/payment/nacos")
+    public String getFromNacos(){
+        log.info("The info from nacos port:{}",serverPort);
+        return "The info from nacos port: "+serverPort;
+    }
+}
+```
 
 #### 5，测试
 
@@ -3256,7 +3649,15 @@ Apache Dubbo是一个高性能的Java RPC框架。
 
 #### 3，主启动类
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032222971.png) 
+```java
+@SpringBootApplication
+@EnableDiscoveryClient
+public class AlibabaPayment9002 {
+    public static void main(String[] args) {
+        SpringApplication.run(AlibabaPayment9002.class,args);
+    }
+} 
+```
 
 #### 4，编写配置类
 
@@ -3350,11 +3751,33 @@ cloudalibaba-Nacos-config-client-3377
 
 #### 3.主启动类
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032223374.png) 
+```java
+@SpringBootApplication
+@EnableDiscoveryClient
+public class AlibabaNacosConfigMain3377 {
+    public static void main(String[] args) {
+        SpringApplication.run(AlibabaNacosConfigMain3377.class,args);
+    }
+} 
+```
 
 #### 4.controller
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032223998.png) 
+```java
+@RestController
+@Slf4j
+@RefreshScope //支持Nacos的动态刷新功能
+public class NacosConfigController {
+   
+    @Value("${configInfo.info}")
+    private String info;
+  
+    @GetMapping("/getConfigInfo")
+    public String getConfigInfo(){
+        return "ConfigInfo: "+info;
+    }
+} 
+```
 
 ```java
 可以看到，这里也添加了@RefreshScope
@@ -3374,7 +3797,9 @@ cloudalibaba-Nacos-config-client-3377
 
 默认的命名方式:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032224537.png) 
+```
+${prefix}-${spring.profile.active}.${file-extension} 
+```
 
 ```java
 prefix:
@@ -3421,11 +3846,27 @@ prefix:
 
 ### Nacos配置中心之分类配置:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032224719.png)
+**问题1：**
+
+实际开发中，通常一个系统会准备
+
+- dev开发环境
+
+- test测试环境
+
+- prod生产环境
+
+如何保证指定环境启动时服务能正确读取到Nacos上相应环境的配置文件呢？
+
+**问题2：**
+
+一个大型分布式微服务系统会有很多微服务子项目，每个微服务项目又都会有相应的开发环境、测试环境、预发环境、正式环境....
+
+那怎么对这些微服务配置进行管理呢？
 
 ![](https://gitee.com/wowosong/pic-md/raw/master/202301032224471.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032224660.png) 
+**Namespace+Group+Data ID三者关系？为什么这么设计？** 
 
 NameSpace默认有一个：public名称空间
 
@@ -3459,13 +3900,13 @@ NameSpace默认有一个：public名称空间
 
 在客户端配置，使用指定组的配置文件:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032225517.png) 
+```
+bootstrap + application 
+```
 
 **这两个配置文件都要修改**
 
 ![](https://gitee.com/wowosong/pic-md/raw/master/202301032225393.png)
-
-
 
 重启服务，即可
 
@@ -3646,11 +4087,34 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
 3. 主启动类
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032229507.png) 
+```java
+@SpringBootApplication
+@EnableDiscoveryClient
+public class AlibabaSentinelMain {
+    public static void main(String[] args) {
+        SpringApplication.run(AlibabaSentinelMain.class,args);
+    }
+}
+```
 
 4. controller 
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032235050.png) 
+```java
+@RestController
+@Slf4j
+public class AlibabaSentinelController {
+    @GetMapping("/testA")
+    public String getTestA() {
+        return "------testA------";
+    }
+
+    @GetMapping("/testB")
+    public String getTestB() {
+        log.info("pass request.... testB "+Thread.currentThread().getName()+"===============");
+        return "------testB------";
+    }
+}
+```
 
 5. 到这里就可以启动8401
 
@@ -3719,15 +4183,19 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
 5. 预热Warm up:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032239090.png)
+- Warm Up(RuleConstant.CONTROL_BEHAVIOR_WARM_UP)方式，即预热/冷启动方式。当系统长期处于低水位的情况下，当流量突然增加时，直接把系统拉升到高水位可能瞬间把系统压垮。通过"冷启动"，让通过的流量缓慢增加，在一定时间内逐渐增加到阈值上限，给冷系统一个预热的时间，避免冷系统被压垮。详细文档可以参考"流量控制-Warm Up文档"
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032239356.png)
+- Warm Up:根据codeFactor(冷加载因子，默认为3)的值。从阈值/codeFactor，经过预热时长，才打到设置的QPS阈值。
+
+ 
 
 ![](https://gitee.com/wowosong/pic-md/raw/master/202301032239200.png)
 
 **应用场景**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032239240.png)
+```
+如：秒杀系统在开启的瞬间，会有很多流量上来，很有可能把系统打死，预热方式就是把为了保护系统，可慢慢的把流量放进来，慢慢的把阈值增长到设置的阈值。
+```
 
 7. 排队等待:
 
@@ -3920,8 +4388,15 @@ int age =10/0，这个是Java运行时报出的运行时异常RuntimeException�
 
    添加我们自己的commone包的依赖
 
-   ![](https://gitee.com/wowosong/pic-md/raw/master/202301032249112.png) 
-
+   ```xml
+   <dependency>
+       <!-- 引入自己定义的api通用包，可以使用Payment支付Entity -->
+       <groupId>org.atguigu.springcloud</groupId>
+       <artifactId>cloud-api-common</artifactId>
+       <version>1.0-SNAPSHOT</version>
+   </dependency> 
+   ```
+   
    额外创建一个controller类
 
 ![](https://gitee.com/wowosong/pic-md/raw/master/202301032249997.png)
@@ -3953,7 +4428,10 @@ int age =10/0，这个是Java运行时报出的运行时异常RuntimeException�
 
  每个业务方法都需要对应一个降级方法
 
-![image-20211129211547629](https://gitee.com/wowosong/pic-md/raw/master/202301032249839.png) 
+- **系统默认的，没有体现我们自己的业务要求。**
+- **依照现有条件，我们自定义的处理方法又和业务代码耦合一块，不直观。**
+- **每个业务方法都添加一个兜底的，那代码膨胀加剧。**
+- **全家统一的处理方法没有体现。** 
 
 #### 自定义限流处理逻辑:
 
@@ -3982,9 +4460,38 @@ int age =10/0，这个是Java运行时报出的运行时异常RuntimeException�
 
 ### @SentinelResource注解的其他属性:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032250861.png) 
+<span style="color:red">**注意：注解方式埋点不支持private方法。**</span>
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032250044.png)
+@SentinelResource用于定义资源，并提供可选的异常处理和fallback配置项。@SentinelResource注解包含以下属性：
+
+- value：资源名称，必需项(不能为空)
+
+- entryType: entry类型，可选项(默认为EntryType.OUT)
+
+- blockHandler/blockHanderClass：blockHander对应处理BlockException的函数名称，可选项。blockHandler函数访问范围需要是public。返回类型需要与原方法相匹配，参数类型需要和原方法相匹配并且最后加一个额外的参数，类型为BlockException。blockHandler函数默认需要和原方法在同一个类中。若希望使用其他类的函数，则可以指定blockHandlerClass为对应的类的Class对象。注意对应的函数必须为static函数，否则无法解析。
+
+- fallback：fallback函数名称，可选项，用于在抛出异常的时候提供发了fallback处理逻辑。fallback函数可以针对所有类型的异常(除了ExceptionToIgnore里面排除掉的异常类型)进行处理。
+
+  **fallback函数签名和位置要求：**
+
+  - 返回值类型必须与原函数返回值类型一致；
+
+  - 方法参数列表需要和原函数一致，或者可以额外多一个Throwable类型的参数用于接受对应的异常。
+
+  - fallback函数默认需要和原方法在同一个类中。若希望使用其他类的函数，则可以指定fallbackClass为对应的类的Class对象。注意对应的函数必须为static函数，否则无法解析。
+
+- defaultFallback(since 1.6.0)：默认的fallback函数名称，可选项。通常用于通用的fallback逻辑(即可以用于很多服务或方法)。默认的fallback函数可以针对所有类型的异常(除了ExceptionToIgnore里面排除掉的异常类型)进行处理。若同时配置了fallback和defaultFallback，则只有fallback会生效。
+
+  **defaultFallback函数签名要求：**
+
+  - 返回值类型必须与原函数返回值类型一致；
+  - 方法参数列表需要为空，或则可以额外多一个Throwable类型的参数用于接收对应的异常。
+
+Sentinel主要有三个核心API：
+
+-  **SphU定义资源**
+- **Tracer定义统计**
+- **ContextUtil定义了上下文**
 
 ### 服务熔断:
 
@@ -4049,15 +4556,12 @@ int age =10/0，这个是Java运行时报出的运行时异常RuntimeException�
 
         测试:
 
-        ![](https://gitee.com/wowosong/pic-md/raw/master/202301032251611.png)
-
-         
-
-         所以fallback是用于管理异常的，当业务方法发生异常，可以降级到指定方法
+        ![](https://gitee.com/wowosong/pic-md/raw/master/202301032251611.png)所以fallback是用于管理异常的，当业务方法发生异常，可以降级到指定方法
 
     
+
     注意，我们这里并没有使用sentinel配置任何规则，但是却降级成功，就是因为fallback是用于管理异常的，当业务方法发生异常，可以降级到指定方法
-    
+
     6.   **为业务方法添加blockHandler，看看是什么效果**
     
          ![](https://gitee.com/wowosong/pic-md/raw/master/202301032251214.png)
