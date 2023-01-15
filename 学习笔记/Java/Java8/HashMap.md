@@ -1,18 +1,4 @@
-
 # HashMap变化
-
-# [Java8新特性](#/./%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95/Java8%E6%96%B0%E7%89%B9%E6%80%A7/1_HashMap%E5%8F%98%E5%8C%96/README?id=java8%e6%96%b0%e7%89%b9%e6%80%a7)
-
-## 主要特性
-
-*   Lambda表达式
-*   函数式接口
-*   方法引用与构造器引用
-*   Stream API
-*   接口中默认方法与静态方法
-*   新时间日期API
-*   最大化减少空指针异常（Optional）
-*   。。。。
 
 ## [HashMap1.7](#/./%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95/Java8%E6%96%B0%E7%89%B9%E6%80%A7/1_HashMap%E5%8F%98%E5%8C%96/README?id=hashmap17)
 
