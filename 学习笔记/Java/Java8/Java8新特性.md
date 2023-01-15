@@ -20,11 +20,11 @@
 
 ⚫ 代码更少（增加了新的语法 **Lambda** **表达式**） 
 
-⚫ 强大的 **Stream API**
+⚫ 强大的 **Stream API** 
 
 ⚫ 便于并行
 
-⚫ 最大化减少空指针异常 Optional
+⚫ 最大化减少空指针异常 Optional 
 
 其中最为核心的为 Lambda 表达式与Stream API
 
@@ -39,36 +39,34 @@ Lambda 是一个**匿名函数**，我们可以把 Lambda表达式理解为是**
 #### 从匿名类到 Lambda 的转换
 
 ```java
- //匿名内部类
- Runnable runnable=new Runnable() {
- @Override
- public void run() {
- 		System.out.println("hello lamda");
- 	}
- };
- runnable.run();
- //Lambda表达式
- Runnable runnable1=()-> System.out.println("hello world");;
- runnable1.run();
+//匿名内部类
+Runnable runnable=new Runnable() {
+  @Override
+  public void run() {
+    System.out.println("hello lamda");
+  }
+};
+runnable.run();
+//Lambda表达式
+Runnable runnable1=()-> System.out.println("hello world");;
+runnable1.run();
 ```
 
 ```java
- Comparator<String > com=new Comparator<String>() {
- @Override
- public int compare(String o1, String  o2) {
- 		return Integer.compare(o1.length(),o2.length());
- 	}
- };
- TreeSet treeSet=new TreeSet(com);
+Comparator<String > com=new Comparator<String>() {
+  @Override
+  public int compare(String o1, String  o2) {
+    return Integer.compare(o1.length(),o2.length());
+  }
+};
+TreeSet treeSet=new TreeSet(com);
 
- TreeSet<String> treeSet1=new TreeSet<String >((o1, o2) ->  Integer.compare(o1.length(),o2.length()));
+TreeSet<String> treeSet1=new TreeSet<String >((o1, o2) ->  Integer.compare(o1.length(),o2.length()));
 ```
 
 ### Lambda表达式语法
 
-Lambda 表达式在Java 语言中引入了一个新的语法元素和操作符。**这个操作符为 “->” ， 该操作符被称**
-
-**为 Lambda 操作符或剪头操作符。它将 Lambda 分两个部分：**
+Lambda 表达式在Java 语言中引入了一个新的语法元素和操作符。**这个操作符为 “->” ， 该操作符被称为 Lambda 操作符或剪头操作符。它将 Lambda 分两个部分：**
 
 **左侧：**指定了 Lambda 表达式需要的所有参数
 
@@ -98,8 +96,8 @@ consumer.accept("wowosong");
 
 ```java
 BinaryOperator<Long> bo=(x,y)->{
-    System.out.println("方式");
-    return x+y;
+  System.out.println("方式");
+  return x+y;
 };
 System.out.println(bo.apply(1L,10L));
 ```
@@ -115,9 +113,9 @@ System.out.println(bo.apply(1L,10L));
 
 ```java
 BinaryOperator<Long> bo=(Long x,Long y)->{
-		//数据类型可以省略，因为可由编译器推断得出，称为“类型推断”
-    System.out.println("方式");
-    return x+y;
+  //数据类型可以省略，因为可由编译器推断得出，称为“类型推断”
+  System.out.println("方式");
+  return x+y;
 };
 ```
 
@@ -140,7 +138,7 @@ BinaryOperator<Long> bo=(Long x,Long y)->{
 ```java
 @FunctionalInterface
 public interface MyFunction<> {
-    public double getValue();
+  public double getValue();
 }
 ```
 
@@ -149,7 +147,7 @@ public interface MyFunction<> {
 ```java
 @FunctionalInterface
 public interface MyFunction<T> {
-    public T getValue(T t);
+  public T getValue(T t);
 }
 ```
 
@@ -157,18 +155,18 @@ public interface MyFunction<T> {
 
 ```java
 public Object strHandler(MyFunction mf, String string){
-    return mf.getValue(string);
+  return mf.getValue(string);
 }
 ```
 
 作为参数传递Lambda表达式：
 
 ```java
- @Test
- public void  test4(){
-   String test = (String) strHandler((x) ->x.toString().toUpperCase(), "test");
-   System.out.println(test);
- }
+@Test
+public void  test4(){
+  String test = (String) strHandler((x) ->x.toString().toUpperCase(), "test");
+  System.out.println(test);
+}
 ```
 
 作为参数传递 Lambda 表达式：为了将 Lambda 表达式作为参数传递，接收Lambda 表达式的参数类型必须是与该 Lambda 表达式兼容的函数式接口的类型。
@@ -186,13 +184,13 @@ public Object strHandler(MyFunction mf, String string){
 
 ```java
 public void  test5(){
-   happy(1000,(x)->{
-       System.out.println(x+":"+x*2);
-   });
+  happy(1000,(x)->{
+    System.out.println(x+":"+x*2);
+  });
 
 }
 public void happy(double money,Consumer<Double> consumer){
-    consumer.accept(money);
+  consumer.accept(money);
 }
 ```
 
@@ -221,14 +219,14 @@ public List<Integer> getNum(int num, Supplier<Integer> supplier){
 ```java
 @Test
 public  void test7(){
-    String string = handlerString("wowosong", (x) -> {
-        return x.toUpperCase();
-    });
-    System.out.println(string);
+  String string = handlerString("wowosong", (x) -> {
+    return x.toUpperCase();
+  });
+  System.out.println(string);
 
 }
 public String handlerString(String string, Function<String,String> function){
-    return function.apply(string);
+  return function.apply(string);
 }
 ```
 
@@ -237,20 +235,20 @@ public String handlerString(String string, Function<String,String> function){
 ```java
 @Test
 public void test8(){
-    List<String> list= Arrays.asList("111","221111111111112","333");
-    List<String> list1 = filterString(list, (x) -> x.length() > 10);
-    for (String s : list1) {
-        System.out.println(s);
-    }
+  List<String> list= Arrays.asList("111","221111111111112","333");
+  List<String> list1 = filterString(list, (x) -> x.length() > 10);
+  for (String s : list1) {
+    System.out.println(s);
+  }
 }
 public List<String> filterString(List<String> list, Predicate<String> predicate){
-    List<String> list1=new ArrayList<>();
-    for (String s : list) {
-        if(predicate.test(s)){
-            list1.add(s);
-        }
+  List<String> list1=new ArrayList<>();
+  for (String s : list) {
+    if(predicate.test(s)){
+      list1.add(s);
     }
-    return  list1;
+  }
+  return  list1;
 }
 ```
 
@@ -459,7 +457,7 @@ iterate.limit(10).forEach(System.out::println);
 
 ```java
 List<Integer> collect1 = employeeList.stream().map(employee -> {
-    return employee.getAge();
+  return employee.getAge();
 }).collect(Collectors.toList());
 ```
 
@@ -551,7 +549,7 @@ Optional<Employee> collect6 = employeeList.stream().collect(Collectors.maxBy((x,
 System.out.println(collect6);
 Optional<Employee> collect7 = employeeList.stream().collect(Collectors.minBy((x, y) -> Double.compare(x.getAge(), y.getAge())));
 System.out.println(collect7);
- Map<Integer, List<Employee>> collect8 = employeeList.stream().collect(Collectors.groupingBy(Employee::getAge));
+Map<Integer, List<Employee>> collect8 = employeeList.stream().collect(Collectors.groupingBy(Employee::getAge));
 System.out.println(collect8);
 Map<Boolean, List<Employee>> collect9 = employeeList.stream().collect(Collectors.partitioningBy(employee -> employee.getAge() > 40));
 System.out.println(collect9);
@@ -586,7 +584,7 @@ Java 8 中将并行进行了优化，我们可以很容易的对数据进行并�
 ⚫ LocalDate、LocalTime、LocalDateTime 类的实例是不可变的对象，分别表示使用 ISO-8601日历系统的日期、时间、日期和时间。它们提供了简单的日期或时间，并不包含当前的时间信 息。也不包含与时区相关的信息。
 
 ```java
-SimpleDateFormat sd =new SimpleDateFormat("yyyy-MM-dd");存在线程安全问题
+SimpleDateFormat sd =new SimpleDateFormat("yyyy-MM-dd");//存在线程安全问题
 LocalDateTime ldf=LocalDateTime.now();
 System.out.println(ldf);
 ```
@@ -614,7 +612,7 @@ System.out.println(instant);
 OffsetDateTime offsetDateTime = instant.atOffset(ZoneOffset.ofHours(8));
 System.out.println(offsetDateTime);
 try {
-    Thread.sleep(1000);
+  Thread.sleep(1000);
 }catch (Exception e){
 
 }
@@ -714,15 +712,15 @@ flatMap(Function mapper):与 map 类似，要求返回值必须是Optional
 Optional<Employee> optional = Optional.of(new Employee());
 Employee employee = optional.get();
 System.out.println(employee);
- Optional<Employee> optional = Optional.of(new Employee());
- if (optional.isPresent()) {
-   optional.get();
-   optional.orElse(new Employee());
- }
- Employee employee = optional.get();
- System.out.println(employee);
- Optional<Integer> integer = optional.map(Employee::getAge);
- System.out.println(integer.get());
+Optional<Employee> optional = Optional.of(new Employee());
+if (optional.isPresent()) {
+  optional.get();
+  optional.orElse(new Employee());
+}
+Employee employee = optional.get();
+System.out.println(employee);
+Optional<Integer> integer = optional.map(Employee::getAge);
+System.out.println(integer.get());
 ```
 
 ## 7-接口中的默认方法与静态方法
@@ -733,10 +731,10 @@ System.out.println(employee);
 
 ```java
 interface MyFunc<T> {
-	T func(int a);
-	default String getName(){
-		return "Hello Java8";
-	}
+  T func(int a);
+  default String getName(){
+    return "Hello Java8";
+  }
 }
 ```
 
@@ -749,37 +747,37 @@ interface MyFunc<T> {
 ⚫ 接口冲突。如果一个父接口提供一个默认方法，而另一个接口也提供了一个具有相同名称和参数列表的方法（不管方法是否是默认方法），那么**必须覆盖该方法来解决冲突**
 
 ```java
-接口默认方法的“类优先”原则
+//接口默认方法的“类优先”原则
 interface MyFunc{
-	default String getName(){
-		return "Hello Java8";
-	}
+  default String getName(){
+    return "Hello Java8";
+  }
 }
 interface Named{
-	default String getName(){
-		return "Hello atguigu";
-	}
+  default String getName(){
+    return "Hello atguigu";
+  }
 }
 class MyClass implements MyFunc,Named{
-	default String getName(){
-		return Named.super.getName();
-	}
+  default String getName(){
+    return Named.super.getName();
+  }
 }
 ```
 
 ### **接口中的静态方法**
 
 ```java
-Java8中，接口中允许添加静态方法。
-例如：
+//Java8中，接口中允许添加静态方法。
+// 例如：
 interface Named{
-	public Integer myFun();
-	default String getName(){
-		return "Hello atguigu";
-	}
-	static void show(){
-		System.out.println("Hello lambda");
-	}
+  public Integer myFun();
+  default String getName(){
+    return "Hello atguigu";
+  }
+  static void show(){
+    System.out.println("Hello lambda");
+  }
 }
 ```
 
@@ -793,7 +791,7 @@ Java 8对注解处理提供了两点改进：可重复的注解及可用于类�
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD, ElementType.CONSTRUCTOR, ElementType.LOCAL_VARIABLE, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MyAnnations {
-    MyAnnation[] value();
+  MyAnnation[] value();
 }
 ```
 
@@ -802,22 +800,22 @@ public @interface MyAnnations {
 @Target({ElementType.TYPE,ElementType.METHOD,ElementType.FIELD,ElementType.CONSTRUCTOR,ElementType.LOCAL_VARIABLE,ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MyAnnation {
-    String value() default "atguigu";
+  String value() default "atguigu";
 }
 ```
 
 ```java
- @Test
- public void testAnnation() throws NoSuchMethodException {
-   Class<TestLamda> clazz = TestLamda.class;
-   Method show = clazz.getMethod("Show");
-   MyAnnation[] annotationsByType = show.getAnnotationsByType(MyAnnation.class);
-   Arrays.stream(annotationsByType).forEach(System.out::println);
- }
- @MyAnnation(value = "hello")
- @MyAnnation(value = "world")
- public void Show(@MyAnnation("abc") String id){
- 		System.out.println("show ...");
- }
+@Test
+public void testAnnation() throws NoSuchMethodException {
+  Class<TestLamda> clazz = TestLamda.class;
+  Method show = clazz.getMethod("Show");
+  MyAnnation[] annotationsByType = show.getAnnotationsByType(MyAnnation.class);
+  Arrays.stream(annotationsByType).forEach(System.out::println);
+}
+@MyAnnation(value = "hello")
+@MyAnnation(value = "world")
+public void Show(@MyAnnation("abc") String id){
+  System.out.println("show ...");
+}
 ```
 

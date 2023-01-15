@@ -86,7 +86,8 @@ System.err.println("filterList:"+filterList);
 ```java
 //计算 总金额
 BigDecimal totalMoney = appleList.stream().map(Apple::getMoney).reduce(BigDecimal.ZERO, BigDecimal::add);
-System.err.println("totalMoney:"+totalMoney);  //totalMoney:17.48
+System.err.println("totalMoney:"+totalMoney);  
+//totalMoney:17.48
 ```
 
 ### 5、查找流中最大 最小值
