@@ -558,8 +558,8 @@ public interface UserMapper {
 
     <!--
         insert: 配置insert语句
-            id: 对应的方法名
-            parameterType: 指定参数类型为pojo, 可以直接写属性名获得属性值, 优先调用getting方法, 如果没有getting方法则直接从属性中取值
+        id: 对应的方法名
+        parameterType: 指定参数类型为pojo, 可以直接写属性名获得属性值, 优先调用getting方法, 如果没有getting方法则直接从属性中取值
      -->
     <insert id="save" parameterType="org.hong.pojo.User">
         insert into user(name, pwd) values(#{name}, #{pwd})
@@ -658,10 +658,6 @@ public class CRUDTest {
 }
 ```
 
-
-
-
-
 ## save 回填主键值
 
 在上面 save 的基础上进行更改
@@ -731,8 +727,7 @@ User(id=4, name=SAVE ID, pwd=123)
 
 ```xml
 <insert id="addEmp">
-    <!-- 
-  selectKey: 配置查询主键的sql语句
+  <!-- selectKey: 配置查询主键的sql语句
             keyProperty:查出的主键值封装给javaBean的哪个属性
             order: 
                 BEFORE:当前sql在插入sql之前运行
@@ -756,8 +751,6 @@ User(id=4, name=SAVE ID, pwd=123)
     values(#{id},#{lastName},#{email}) 
 </insert>
 ```
-
-
 
 ## 参数处理
 

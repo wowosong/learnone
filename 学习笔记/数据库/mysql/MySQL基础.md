@@ -95,9 +95,9 @@ show tables;
 show tables from 库名;
 5.创建表
 create table 表名(
-	列名 列类型,
-	列名 列类型，
-	。。。
+    列名 列类型,
+    列名 列类型，
+    。。。
 );
 6.查看表结构
 desc 表名;
@@ -135,7 +135,7 @@ mysql --V
 
 ```sql
 show databases； 查看所有的数据库
-use 库名； 打开指定 的库
+use 库名； 打开指定的库
 show tables ; 显示库中的所有表
 show tables from 库名;显示指定库中的所有表
 create table 表名(
@@ -427,8 +427,7 @@ select 字段|常量|表达式|函数 【from 表】 【where 条件】
 ### 插入
 
 语法：
-	insert into 表名(字段名，...)
-	values(值1，...);
+	insert into 表名(字段名，...) values(值1，...);
 
 特点：
 
@@ -592,12 +591,12 @@ DROP TABLE [IF EXISTS] studentinfo;
 ```sql
 	1、开启事务
 	取消自动提交事务的功能
-	
+
 	2、编写事务的一组逻辑操作单元（多条sql语句）
 	insert
 	update
 	delete
-	
+
 	3、提交事务或回滚事务
 ```
 ### 使用到的关键字
@@ -650,11 +649,13 @@ select @@tx_isolation;
 含义：理解成一张虚拟的表
 
 视图和表的区别：
-		使用方式	占用物理空间
-	
-	视图	完全相同	不占用，仅仅保存的是sql逻辑
-	
-	表	完全相同	占用
+		
+
+| 使用方式 | 占用物理空间                            |
+| -------- | --------------------------------------- |
+| 视图     | 完全相同	不占用，仅仅保存的是sql逻辑 |
+| 表       | 完全相同	占用                        |
+
 
 视图的好处：
 
@@ -718,14 +719,14 @@ SELECT * FROM test_v7;
 ### 视图的删除
 
 ```sql
-	DROP VIEW test_v1,test_v2,test_v3;
+DROP VIEW test_v1,test_v2,test_v3;
 ```
 
 ### 视图结构的查看	
 
 ```sql
 DESC test_v7;
-	SHOW CREATE VIEW test_v7;
+SHOW CREATE VIEW test_v7;
 ```
 
 ## 存储过程
@@ -785,6 +786,21 @@ END $
 in:该参数只能作为输入 （该参数不能做返回值）
 out：该参数只能作为输出（该参数只能做返回值）
 inout：既能做输入又能做输出
+
+
+
+CREATE PROCEDURE multiData (in num INT) 
+BEGIN
+	DECLARE i INT;
+	SET i = 0;
+	WHILE i < num DO	
+		INSERT INTO single_table(key1,key2,key3,key_part1,key_part2,key_part3,common_field)
+		VALUES(CONCAT("java",i),i,CONCAT("java",i),CONCAT("java",i),CONCAT("java",i),CONCAT("java",i),CONCAT("java",i));
+		SET i = i + 1;
+END WHILE;
+END
+
+call multiData(10000)
 ```
 
 ### 调用存储过程
@@ -802,7 +818,6 @@ inout：既能做输入又能做输出
 CREATE FUNCTION 函数名(参数名 参数类型,...) RETURNS 返回类型
 BEGIN
 	函数体
-
 END
 ```
 
@@ -812,9 +827,10 @@ END
 
 ### 函数和存储过程的区别
 
-			关键字		调用语法	返回值			应用场景
-	函数		FUNCTION	SELECT 函数()	只能是一个		一般用于查询结果为一个值并返回时，当有返回值而且仅仅一个
-	存储过程	PROCEDURE	CALL 存储过程()	可以有0个或多个		一般用于更新
+|          | 关键字    | 调用语法        | 返回值          | 应用场景                                                 |
+| -------- | --------- | --------------- | --------------- | -------------------------------------------------------- |
+| 函数     | FUNCTION  | SELECT 函数()   | 只能是一个      | 一般用于查询结果为一个值并返回时，当有返回值而且仅仅一个 |
+| 存储过程 | PROCEDURE | CALL 存储过程() | 可以有0个或多个 | 一般用于更新                                             |
 
 ## 流程控制结构
 
@@ -904,7 +920,7 @@ SELECT 变量名:=值;
 
 
 ```sql
-方式二：一般用于赋表 中的字段值
+方式二：一般用于赋表中的字段值
 SELECT 字段名或表达式 INTO 变量
 FROM 表;
 ```
@@ -968,12 +984,13 @@ end if;
 特点：
 	只能用在begin end中！！！！！！！！！！！！！！！
 
-
 三者比较：
-			应用场合
-	if函数		简单双分支
-	case结构	等值判断 的多分支
-	if结构		区间判断 的多分支
+
+|          | 应用场合          |
+| -------- | ----------------- |
+| if函数   | 简单双分支        |
+| case结构 | 等值判断 的多分支 |
+| if结构   | 区间判断 的多分支 |
 
 ### 循环
 
@@ -1028,7 +1045,7 @@ END WHILE 【标签】;
 
 先看看mysql的官方文档是怎么描述explain的：
 
-![image-20211207201504041](./MySQL%E5%9F%BA%E7%A1%80.assets/20211207201504.png)
+![image-20211207201504041](https://gitee.com/wowosong/pic-md/raw/master/202301141646264.png)
 
 - EXPLAIN可以使用于 SELECT， DELETE， INSERT， REPLACE，和 UPDATE语句。
 

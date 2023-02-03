@@ -6,7 +6,7 @@
 
 - where 查询条件，如:`[b.课程号='0003' and b.成绩>80]`
 
-- group by 分组，如:`[每个学生的平均：按学号分组]`(**oracle,SQL server中出现在select 子句后的非分组函数，必须出现在group by子句后出现**),MySQL中可以不用
+- group by 分组，如:`[每个学生的平均：按学号分组]`(**oracle,SQL server中出现在select 子句后的非分组函数，必须出现在group by子句后出现**)，MySQL中可以不用
 
 - having 对分组结果指定条件，如:`[大于60分]`
 

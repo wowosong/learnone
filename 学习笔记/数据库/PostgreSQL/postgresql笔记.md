@@ -12,10 +12,10 @@ PostgreSQL为它收到的每个查询设计一个**查询计划**。选择正确
 
 这是一个简单的例子，只是为了显示输出的样子：
 
-```
+```sql
 EXPLAIN SELECT * FROM tenk1;
 
-                         QUERY PLAN
+QUERY PLAN
 -------------------------------------------------------------
  Seq Scan on tenk1  (cost=0.00..458.00 rows=10000 width=244)
 ```
