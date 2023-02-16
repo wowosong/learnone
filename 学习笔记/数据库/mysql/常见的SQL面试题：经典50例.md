@@ -49,7 +49,7 @@ oracle(SQL server)数据库
 
 - minus(except) 相减(差集)
 
-  ![image-20211210055812586](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210055812.png)
+  ![image-20211210055812586](https://gitee.com/wowosong/pic-md/raw/master/202302080920745.png)
 
 ​																																	oracle
 
@@ -188,7 +188,7 @@ delete from ... where ...
 
 DCL : 数据控制语言 commit : 提交 / rollback : 回滚 / 授权grant...to... /revoke
 
-![image-20211210060234838](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210060234.png)
+![image-20211210060234838](https://gitee.com/wowosong/pic-md/raw/master/202302080921556.png)
 
 索引
 
@@ -246,7 +246,7 @@ for select * from B where B.id=A.id
 7. 查询中排序的字段，排序字段若通过索引去访问将大大提高排序速度
 8. 查询中统计和分组的字段
 
-![图片](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20210812205839.png)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202302080921771.png)
 
 | MyISAM和InnoDB |                                                          |                                                              |
 | -------------- | -------------------------------------------------------- | ------------------------------------------------------------ |
@@ -507,7 +507,7 @@ rollback;
 
 > ps：这些题考察SQL的编写能力，对于这类型的题目，需要你先把4张表之间的关联关系搞清楚了，最好的办法是自己在草稿纸上画出关联图，然后再编写对应的SQL语句就比较容易了。下图是我画的这4张表的关系图，可以看出它们之间是通过哪些外键关联起来的：
 
-![image-20211210055957222](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210055957.png)
+![image-20211210055957222](https://gitee.com/wowosong/pic-md/raw/master/202302080921395.png)
 
 ### 一、创建数据库和表
 
@@ -515,7 +515,7 @@ rollback;
 
 如何你还不懂什么是数据库，什么是客户端navicat，可以先学习这个：
 
-![image-20211210060447840](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210060447.png)
+![image-20211210060447840](https://gitee.com/wowosong/pic-md/raw/master/202302080922362.png)
 
 #### 1.创建表
 
@@ -523,15 +523,15 @@ rollback;
 
 按下图在客户端navicat里创建学生表。
 
-![image-20211210060510323](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210060510.png)
+![image-20211210060510323](https://gitee.com/wowosong/pic-md/raw/master/202302080922159.png)
 
 学生表的“学号”列设置为主键约束，下图是每一列设置的数据类型和约束
 
-![image-20211210060533773](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210060533.png)
+![image-20211210060533773](https://gitee.com/wowosong/pic-md/raw/master/202302080924845.png)
 
 创建完表，点击“保存”
 
-![image-20211210060556253](./%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E7%BB%8F%E5%85%B850%E4%BE%8B.assets/20211210060556.png)
+![image-20211210060556253](https://gitee.com/wowosong/pic-md/raw/master/202302080924451.png)
 
 ##### 2）创建成绩表（score）
 

@@ -1,6 +1,6 @@
 大家好，我是苏三
 
-![image-20211209210209181](./Mysql%E8%BF%9E%E7%8E%AF20%E9%97%AE.assets/20211209210209.png)
+![image-20211209210209181](https://gitee.com/wowosong/pic-md/raw/master/202302081236324.png)
 
 ## 一、说下 MySQL 的 redo log 和 binlog？
 
@@ -114,7 +114,7 @@ MySQL目前提供了以下几种索引。
 
 比如建立了 (a、b、c) 联合索引，那么有以下几种情况可以用到索引：
 
-![image-20211209210143753](./Mysql%E8%BF%9E%E7%8E%AF20%E9%97%AE.assets/20211209210143.png)
+![image-20211209210143753](https://gitee.com/wowosong/pic-md/raw/master/202302081236669.png)
 
 （对勾✔表示索引全命中）
 
@@ -156,7 +156,9 @@ MySQL目前提供了以下几种索引。
 
 最左匹配原则的原理：我们都知道索引的底层是一颗 B+ 树，那么联合索引当然还是一颗 B+ 树，只不过联合索引的健值数量不是一个，而是多个。构建一颗B+树只能根据一个值来构建，因此数据库依据联合索引最左的字段来构建B+树。例子：假如创建一个（a,b)的联合索引，那么它的索引树是这样的，如下图所示：
 
-![图片](./Mysql%E8%BF%9E%E7%8E%AF20%E9%97%AE.assets/20211207203046)可以看到 a 的值是有顺序的，1，1，2，2，3，3，3，3。b 的值是没有顺序的1，2，2，5，1，2，3，5。
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202302081238103)
+
+可以看到 a 的值是有顺序的，1，1，2，2，3，3，3，3。b 的值是没有顺序的1，2，2，5，1，2，3，5。
 
 所以 b = 2 这种查询条件没有办法利用索引，因为联合索引首先是按a排序的，b是无序的。
 
@@ -204,7 +206,7 @@ Using index condition 可以理解为 ICP 的必要不充分条件；即执行�
 
 表结构：person 表中有四个字段，id，name，age，gender，其中 id为主键，name，age 关联索引；
 
-![image-20211209211752790](./Mysql%E8%BF%9E%E7%8E%AF20%E9%97%AE.assets/20211209211752.png)
+![image-20211209211752790](https://gitee.com/wowosong/pic-md/raw/master/202302081238390.png)
 
 举个索引下推的简单例子：
 
@@ -247,7 +249,7 @@ Buffer Pool 有三大双端链表：free、flush、lru 链表。
 
 表级锁：意向共享锁（IS Lock），事务想要获得一张表中某几行的共享锁。意向排他锁（IX Lock），事务想要获得一张表中某几行的排他锁。
 
-![image-20211209211809941](./Mysql%E8%BF%9E%E7%8E%AF20%E9%97%AE.assets/20211209211810.png)
+![image-20211209211809941](https://gitee.com/wowosong/pic-md/raw/master/202302081239069.png)
 
 **补充**：
 
@@ -289,7 +291,9 @@ MySQL 中有四种隔离级别，Read Repeatable （RR）级别可以防止脏�
 
 在 MySQL 就是利用 undo log 日志将这些串起来的。
 
-如下图所示，undolog 的版本串起来长这样：![image-20211209211851085](./Mysql%E8%BF%9E%E7%8E%AF20%E9%97%AE.assets/20211209211851.png)
+如下图所示，undolog 的版本串起来长这样：
+
+![image-20211209211851085](https://gitee.com/wowosong/pic-md/raw/master/202302081239765.png)
 
 ### 控制
 
@@ -311,7 +315,7 @@ m_ids 事务列表：有哪些事务在MySQL里执行还没提交的；min_trx_i
 
 比如说事务 A 用来查询，事务 B 用来更新，它俩都开启了事务，也都还没有提交，对应的事务 id 分别为 51 和 59，那么 ReadView 就长这样：
 
-![image-20211209211915351](./Mysql%E8%BF%9E%E7%8E%AF20%E9%97%AE.assets/20211209211915.png)
+![image-20211209211915351](https://gitee.com/wowosong/pic-md/raw/master/202302081239573.png)
 
 活跃事务列表就是 [51，59]。最小事务 id = 51。最大事务 id = 59+1 = 60。当前事务 id = 51。
 
@@ -404,11 +408,11 @@ m_ids 事务列表：有哪些事务在MySQL里执行还没提交的；min_trx_i
 
 下面几张图说明了具体出现的场景：
 
-![image-20211209212005387](./Mysql%E8%BF%9E%E7%8E%AF20%E9%97%AE.assets/20211209212005.png)
+![image-20211209212005387](https://gitee.com/wowosong/pic-md/raw/master/202302081239699.png)
 
 ![image-20211209212029787](./Mysql%E8%BF%9E%E7%8E%AF20%E9%97%AE.assets/20211209212029.png)
 
-![image-20211209212049869](./Mysql%E8%BF%9E%E7%8E%AF20%E9%97%AE.assets/20211209212049.png)
+![image-20211209212049869](https://gitee.com/wowosong/pic-md/raw/master/202302081239830.png)
 
 ## 十六、说下主从复制原理？
 
@@ -417,7 +421,7 @@ m_ids 事务列表：有哪些事务在MySQL里执行还没提交的；min_trx_i
 1. master服务器将数据的改变记录到binlog中；
 2. slave服务器会在一定时间间隔内对master 的binlog进行检查，如果发生改变，则开始一个I/OThread请求读取master中binlog；
 3. 同时主节点为每个I/O线程启动一个dump线程，用于向其发送二进制事件，并保存至从节点本地的中继日志中，从节点将启动SQL线程从中继日志中读取二进制日志，在本地重放，使得其数据和主节点的保持一致，最后I/OThread和SQLThread将进入睡眠状态，等待下一次被唤醒；
-3. ![image-20211209212109858](./Mysql%E8%BF%9E%E7%8E%AF20%E9%97%AE.assets/20211209212109.png)
+3. ![image-20211209212109858](https://gitee.com/wowosong/pic-md/raw/master/202302081239650.png)
 
 **大白话解释**：
 
@@ -471,7 +475,7 @@ MySQL 的高可用由互为主从的MySQL构成，平时只有主库提供服务
 
 6. slave记录自己的binglog。
 
-   ![image-20211209212131266](./Mysql%E8%BF%9E%E7%8E%AF20%E9%97%AE.assets/20211209212131.png)
+   ![image-20211209212131266](https://gitee.com/wowosong/pic-md/raw/master/202302081239550.png)
 
 由于mysql默认的复制方式是异步的，主库把日志发送给从库后不关心从库是否已经处理，这样会产生一个问题就是假设主库挂了，从库处理失败了，这时候从库升为主库后，日志就丢失了。由此产生两个概念。
 
@@ -493,13 +497,13 @@ MySQL 的高可用由互为主从的MySQL构成，平时只有主库提供服务
 
 串行化（serializable ），顾名思义是对于同一行记录，“写”会加“写锁”，“读”会加“读锁”。当出现读写锁冲突的时候，后访问的事务必须等前一个事务执行完成，才能继续执行。
 
-![image-20211209212154551](./Mysql%E8%BF%9E%E7%8E%AF20%E9%97%AE.assets/20211209212154.png)
+![image-20211209212154551](https://gitee.com/wowosong/pic-md/raw/master/202302081239453.png)
 
 ## 十八、说说生成唯一 ID 的雪花算法是怎么样的？
 
 `snowflake`（雪花算法）：Twitter 开源的分布式 id 生成算法，64 位的 long 型的 id，分为 4 部分：
 
-![image-20211209212216884](./Mysql%E8%BF%9E%E7%8E%AF20%E9%97%AE.assets/20211209212216.png)
+![image-20211209212216884](https://gitee.com/wowosong/pic-md/raw/master/202302081240688.png)
 
 snowflake 算法
 
@@ -556,4 +560,4 @@ MySQL支持 XASTART/END/PREPARE/COMMIT 这些SQL语句，通过使用这些命�
 
 内部XA事务用于同一实例下跨多引擎事务，而外部XA事务用于跨多 MySQL 实例的分布式事务，需要应用层作为协调者。应用层负责决定提交还是回滚。
 
-![image-20211209212238949](./Mysql%E8%BF%9E%E7%8E%AF20%E9%97%AE.assets/20211209212239.png)
+![image-20211209212238949](https://gitee.com/wowosong/pic-md/raw/master/202302081240715.png)
