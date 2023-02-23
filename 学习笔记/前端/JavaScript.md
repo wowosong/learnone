@@ -1696,7 +1696,7 @@ Person.prototype.sayName = function(){
 
 • JS是一门面向对象的语言，而且它还是一个基于原型的面向对象的语言。
 
-• 所谓的原型实际上指的是，在构造函数中存在着一个名为原型的(prototype)对象，这个对象中保存着一些属性，凡是通过该构造函数创建的对象都可以访问存在于原型中的属性。
+• 所谓的原型实际上指的是，**在构造函数中存在着一个名为原型的(prototype)对象，这个对象中保存着一些属性，凡是通过该构造函数创建的对象都可以访问存在于原型中的属性。**
 
 • 最典型的原型中的属性就是toString()函数，实际上我们的对象中并没有定义这个函数，但是却可以调用，那是因为这个函数存在于Object对应的原型中。
 
@@ -1764,23 +1764,23 @@ Person.prototype.sayName = function(){
 • 需要注意的是，我们可以获取到Object的原型对象，也可以对它的属性进行操作，但是我们不能修改Object原型对象的引用。
 
 ```javascript
-			//使用in检查对象中是否含有某个属性时，如果对象中没有但是原型中有，也会返回true
-			//console.log("name" in mc);
+//使用in检查对象中是否含有某个属性时，如果对象中没有但是原型中有，也会返回true
+//console.log("name" in mc);
 			
-			//可以使用对象的hasOwnProperty()来检查对象自身中是否含有该属性
-			//使用该方法只有当对象自身中含有属性时，才会返回true
-			//console.log(mc.hasOwnProperty("age"));
+//可以使用对象的hasOwnProperty()来检查对象自身中是否含有该属性
+//使用该方法只有当对象自身中含有属性时，才会返回true
+//console.log(mc.hasOwnProperty("age"));
 			
-			//console.log(mc.hasOwnProperty("hasOwnProperty"));
+//console.log(mc.hasOwnProperty("hasOwnProperty"));
 			
-			/*
-			 * 原型对象也是对象，所以它也有原型，
-			 * 	当我们使用一个对象的属性或方法时，会现在自身中寻找，
-			 * 		自身中如果有，则直接使用，
-			 * 		如果没有则去原型对象中寻找，如果原型对象中有，则使用，
-			 * 		如果没有则去原型的原型中寻找,直到找到Object对象的原型，
-			 * 		Object对象的原型没有原型，如果在Object原型中依然没有找到，则返回undefined
-			 */
+/*
+* 原型对象也是对象，所以它也有原型，
+* 	当我们使用一个对象的属性或方法时，会现在自身中寻找，
+* 		自身中如果有，则直接使用，
+* 		如果没有则去原型对象中寻找，如果原型对象中有，则使用，
+* 		如果没有则去原型的原型中寻找,直到找到Object对象的原型，
+* 		Object对象的原型没有原型，如果在Object原型中依然没有找到，则返回undefined
+*/
 ```
 
 
