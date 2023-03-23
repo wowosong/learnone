@@ -1133,7 +1133,7 @@ var person = {
 
 • JS中的变量可能包含两种不同数据类型的值：基本数据类型和引用数据类型。
 
-• JS中一共有5种基本数据类型：String、Number、Boolean、Undefined、Null。 
+• JS中一共有5种基本数据类型：**String、Number、Boolean、Undefined、Null。** 
 
 • 基本数据类型的值是无法修改的，是不可变的。
 
