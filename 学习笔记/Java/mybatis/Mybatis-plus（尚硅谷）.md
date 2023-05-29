@@ -221,9 +221,9 @@ jdbc.password=1234
     <tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
 
     <!--  配置SqlSessionFactoryBean 
-  Mybatis提供的: org.mybatis.spring.SqlSessionFactoryBean
-  MP提供的:com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean
-  -->
+    Mybatis提供的: org.mybatis.spring.SqlSessionFactoryBean
+    MP提供的:com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean
+    -->
     <!--	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">-->
 
     <bean id="sqlSessionFactoryBean" class="com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean">
@@ -251,8 +251,8 @@ jdbc.password=1234
     </bean>
 
     <!-- 
-  配置mybatis 扫描mapper接口的路径
-  -->
+    配置mybatis 扫描mapper接口的路径
+    -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="mapper"></property>
     </bean>	
@@ -673,7 +673,7 @@ B． MapperProxy 中 sqlSession –>SqlSessionFactory
 
 ![](https://gitee.com/wowosong/pic-md/raw/master/20210615222437.png)
 
-C． SqlSessionFacotry 中 → Configuration→ MappedStatements每一个 mappedStatement 都表示 Mapper 接口中的一个方法与 Mapper 映射文件中的一个 SQL。
+C． SqlSessionFacotry 中 → Configuration→ MappedStatements每一个 mappedStatement 都表示 **Mapper 接口中的一个方法与 Mapper 映射文件中的一个 SQL**。
 
 MP 在启动就会挨个分析 xxxMapper 中的方法，并且将对应的 SQL 语句处理好，保存到 configuration 对象中的mappedStatements 中. 
 
@@ -701,7 +701,7 @@ TableInfo：数据库表反射信息 ，可以获取到数据库表相关的信�
 
 SqlSource: SQL 语句处理对象
 
-MapperBuilderAssistant： 用于缓存、SQL 参数、查询方剂结果集处理等。通过 MapperBuilderAssistant 将每一个 mappedStatement添加到 configuration 中的 mappedstatements 中
+MapperBuilderAssistant： 用于缓存、SQL 参数、查询结果集处理等。通过 MapperBuilderAssistant 将每一个 mappedStatement添加到 configuration 中的 mappedstatements 中
 
 ![image-20210615225843047](https://gitee.com/wowosong/pic-md/raw/master/20210615225843.png)
 
@@ -742,9 +742,9 @@ MP: 依旧不用编写 SQL 语句, MP 提供了功能强大的条件构造器 En
      */
 @Test
 public void  testWrapper(){
-    List<Employee> employees = employeeMapper.selectPage(new Page<Employee>(1, 2),
-                                                         new EntityWrapper<Employee>().between("age", 15, 18).eq("gender", 1).eq("last_name", "wowosong"));
-    System.out.println(employees);
+  List<Employee> employees = employeeMapper.selectPage(new Page<Employee>(1, 2),
+                                                       new EntityWrapper<Employee>().between("age", 15, 18).eq("gender", 1).eq("last_name", "wowosong"));
+  System.out.println(employees);
 }
 
 ```
