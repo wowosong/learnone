@@ -1,20 +1,3 @@
-
-📂[JVM从入门到精通](https://www.cnblogs.com/vectorx/category/1971162.html)
-
-🔖[JVM](https://www.cnblogs.com/vectorx/tag/JVM/)[Java](https://www.cnblogs.com/vectorx/tag/Java/)
-
-2021-05-10 23:26阅读: 383评论: 0推荐: 0
-
-# [<JVM上篇：内存与垃圾回收篇>08-对象实例化及直接内存](https://www.cnblogs.com/vectorx/p/14753436.html)
-
-> 笔记来源：[尚硅谷 JVM 全套教程，百万播放，全网巅峰（宋红康详解 java 虚拟机）](https://www.bilibili.com/video/BV1PJ411n7xZ "尚硅谷JVM全套教程，百万播放，全网巅峰（宋红康详解java虚拟机）")
-> 
-> 同步更新：[https://gitee.com/vectorx/NOTE\_JVM](https://gitee.com/vectorx/NOTE_JVM)
-> 
-> [https://codechina.csdn.net/qq\_35925558/NOTE\_JVM](https://codechina.csdn.net/qq_35925558/NOTE_JVM)
-> 
-> [https://github.com/uxiahnan/NOTE\_JVM](https://github.com/uxiahnan/NOTE_JVM)
-
 目录
 
 *   [8\. 对象实例化及直接内存](#8-%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%8F%8A%E7%9B%B4%E6%8E%A5%E5%86%85%E5%AD%98)

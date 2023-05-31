@@ -1,20 +1,3 @@
-
-📂[JVM从入门到精通](https://www.cnblogs.com/vectorx/category/1971162.html)
-
-🔖[JVM](https://www.cnblogs.com/vectorx/tag/JVM/)[Java](https://www.cnblogs.com/vectorx/tag/Java/)
-
-2021-05-07 22:38阅读: 569评论: 0推荐: 0
-
-# [<JVM上篇：内存与垃圾回收篇>02-类加载子系统](https://www.cnblogs.com/vectorx/p/14742998.html)
-
-> 笔记来源：[尚硅谷 JVM 全套教程，百万播放，全网巅峰（宋红康详解 java 虚拟机）](https://www.bilibili.com/video/BV1PJ411n7xZ "尚硅谷JVM全套教程，百万播放，全网巅峰（宋红康详解java虚拟机）")
-> 
-> 同步更新：[https://gitee.com/vectorx/NOTE\_JVM](https://gitee.com/vectorx/NOTE_JVM)
-> 
-> [https://codechina.csdn.net/qq\_35925558/NOTE\_JVM](https://codechina.csdn.net/qq_35925558/NOTE_JVM)
-> 
-> [https://github.com/uxiahnan/NOTE\_JVM](https://github.com/uxiahnan/NOTE_JVM)
-
 目录
 
 *   [2\. 类加载子系统](#2-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%AD%90%E7%B3%BB%E7%BB%9F)

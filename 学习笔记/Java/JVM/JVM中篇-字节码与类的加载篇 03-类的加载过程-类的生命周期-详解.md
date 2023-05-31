@@ -1,20 +1,3 @@
-
-📂[JVM从入门到精通](https://www.cnblogs.com/vectorx/category/1971162.html)
-
-🔖[JVM](https://www.cnblogs.com/vectorx/tag/JVM/)[Java](https://www.cnblogs.com/vectorx/tag/Java/)
-
-2021-05-02 11:21阅读: 403评论: 0推荐: 0
-
-# [＜JVM中篇：字节码与类的加载篇＞03-类的加载过程（类的生命周期）详解](https://www.cnblogs.com/vectorx/p/14725419.html)
-
-> 笔记来源：[尚硅谷 JVM 全套教程，百万播放，全网巅峰（宋红康详解 java 虚拟机）](https://www.bilibili.com/video/BV1PJ411n7xZ "尚硅谷JVM全套教程，百万播放，全网巅峰（宋红康详解java虚拟机）")
-> 
-> 同步更新：[https://gitee.com/vectorx/NOTE\_JVM](https://gitee.com/vectorx/NOTE_JVM)
-> 
-> [https://codechina.csdn.net/qq\_35925558/NOTE\_JVM](https://codechina.csdn.net/qq_35925558/NOTE_JVM)
-> 
-> [https://github.com/uxiahnan/NOTE\_JVM](https://github.com/uxiahnan/NOTE_JVM)
-
 目录
 
 *   [1\. 概述](#1-%E6%A6%82%E8%BF%B0)

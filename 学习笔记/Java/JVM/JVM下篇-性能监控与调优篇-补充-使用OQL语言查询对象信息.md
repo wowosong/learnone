@@ -1,20 +1,3 @@
-
-📂[JVM从入门到精通](https://www.cnblogs.com/vectorx/category/1971162.html)
-
-🔖[JVM](https://www.cnblogs.com/vectorx/tag/JVM/)[Java](https://www.cnblogs.com/vectorx/tag/Java/)
-
-2021-05-05 19:46阅读: 190评论: 0推荐: 0
-
-# [<JVM下篇：性能监控与调优篇>补充：使用OQL语言查询对象信息](https://www.cnblogs.com/vectorx/p/14732555.html)
-
-> 笔记来源：[尚硅谷 JVM 全套教程，百万播放，全网巅峰（宋红康详解 java 虚拟机）](https://www.bilibili.com/video/BV1PJ411n7xZ "尚硅谷JVM全套教程，百万播放，全网巅峰（宋红康详解java虚拟机）")
-> 
-> 同步更新：[https://gitee.com/vectorx/NOTE\_JVM](https://gitee.com/vectorx/NOTE_JVM)
-> 
-> [https://codechina.csdn.net/qq\_35925558/NOTE\_JVM](https://codechina.csdn.net/qq_35925558/NOTE_JVM)
-> 
-> [https://github.com/uxiahnan/NOTE\_JVM](https://github.com/uxiahnan/NOTE_JVM)
-
 目录
 
 *   [补充：使用 OQL 语言查询对象信息](#%E8%A1%A5%E5%85%85%E4%BD%BF%E7%94%A8-oql-%E8%AF%AD%E8%A8%80%E6%9F%A5%E8%AF%A2%E5%AF%B9%E8%B1%A1%E4%BF%A1%E6%81%AF)

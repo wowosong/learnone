@@ -1,20 +1,3 @@
-
-📂[JVM从入门到精通](https://www.cnblogs.com/vectorx/category/1971162.html)
-
-🔖[JVM](https://www.cnblogs.com/vectorx/tag/JVM/)[Java](https://www.cnblogs.com/vectorx/tag/Java/)
-
-2021-05-05 19:35阅读: 323评论: 0推荐: 0
-
-# [<JVM下篇：性能监控与调优篇>03-JVM监控及诊断工具-GUI篇](https://www.cnblogs.com/vectorx/p/14732510.html)
-
-> 笔记来源：[尚硅谷 JVM 全套教程，百万播放，全网巅峰（宋红康详解 java 虚拟机）](https://www.bilibili.com/video/BV1PJ411n7xZ "尚硅谷JVM全套教程，百万播放，全网巅峰（宋红康详解java虚拟机）")
-> 
-> 同步更新：[https://gitee.com/vectorx/NOTE\_JVM](https://gitee.com/vectorx/NOTE_JVM)
-> 
-> [https://codechina.csdn.net/qq\_35925558/NOTE\_JVM](https://codechina.csdn.net/qq_35925558/NOTE_JVM)
-> 
-> [https://github.com/uxiahnan/NOTE\_JVM](https://github.com/uxiahnan/NOTE_JVM)
-
 目录
 
 *   [3\. JVM 监控及诊断工具-GUI 篇](#3-jvm-%E7%9B%91%E6%8E%A7%E5%8F%8A%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7-gui-%E7%AF%87)
@@ -61,15 +44,15 @@ jconsole：从 Java5 开始，在 JDK 中自带的 java 监控和管理控制台
 
 官方地址：[https://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html](https://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html)
 
-![image-20210505141631635](assets/1685464082-e76afe85022fa47fe3b37171fbb4683a.png)
+![image-20210505141631635](https://gitee.com/wowosong/pic-md/raw/master/202305311258046.png)
 
-![image-20210505141726143](assets/1685464082-02f2cf5bfeee189e836d6136045f77b4.png)
+![image-20210505141726143](https://gitee.com/wowosong/pic-md/raw/master/202305311258423.png)
 
-![image-20210505141924211](assets/1685464082-c270b04c684c64ca32213e61e7ed7392.png)
+![image-20210505141924211](https://gitee.com/wowosong/pic-md/raw/master/202305311258615.png)
 
-![image-20210505141950000](assets/1685464082-552889cdc70d76c4dd172de878f34b09.png)
+![image-20210505141950000](https://gitee.com/wowosong/pic-md/raw/master/202305311258701.png)
 
-![image-20210505142050157](assets/1685464082-a05ac3948f7166f424229816f3dd98c6.png)
+![image-20210505142050157](https://gitee.com/wowosong/pic-md/raw/master/202305311258947.png)
 
 ## 3.3. Visual VM
 
@@ -85,11 +68,11 @@ Visual VM 是一个功能强大的多合一故障诊断和性能监控的可视�
 
 官方地址：[https://visualvm.github.io/index.html](https://visualvm.github.io/index.html)
 
-![image-20210505143844282](assets/1685464082-5112fb3f9f9005bdb97ae7c78c124123.png)
+![image-20210505143844282](https://gitee.com/wowosong/pic-md/raw/master/202305311258126.png)
 
-![image-20210505144716064](assets/1685464082-52321af804866f91ff406721b92f5efd.png)
+![image-20210505144716064](https://gitee.com/wowosong/pic-md/raw/master/202305311259109.png)
 
-![image-20210505144805307](assets/1685464082-3db540f9aab95572b09a7e9161bad23a.png)
+![image-20210505144805307](https://gitee.com/wowosong/pic-md/raw/master/202305311259640.png)
 
 ## 3.4. Eclipse MAT
 
@@ -108,13 +91,13 @@ MAT 不是一个万能工具，它并不能处理所有类型的堆存储文件�
 
 官方地址： [https://www.eclipse.org/mat/downloads.php](https://www.eclipse.org/mat/downloads.php)
 
-![image-20210505145708567](assets/1685464082-75da5481646e4736335fe01483058389.png)
+![image-20210505145708567](https://gitee.com/wowosong/pic-md/raw/master/202305311259113.png)
 
-![image-20210505145826442](assets/1685464082-3885d381677365a66db79fd4292bc56d.png)
+![image-20210505145826442](https://gitee.com/wowosong/pic-md/raw/master/202305311259624.png)
 
-![image-20210505145945951](assets/1685464082-a250e1a51e68607f1bfa090a60f5d97c.png)
+![image-20210505145945951](https://gitee.com/wowosong/pic-md/raw/master/202305311259489.png)
 
-![image-20210505150039376](assets/1685464082-855f76620dbf56ff7554b8ca033087d5.png)
+![image-20210505150039376](https://gitee.com/wowosong/pic-md/raw/master/202305311259711.png)
 
 ## 3.5. JProfiler
 
@@ -157,19 +140,19 @@ JProfier 数据采集方式分为两种：Sampling（样本采集）和 Instrume
 
 **遥感监测 Telemetries**
 
-![image-20210505164521410](assets/1685464082-2810e4401495e1f86b6d3ee669edf0aa.png)
+![image-20210505164521410](https://gitee.com/wowosong/pic-md/raw/master/202305311259430.png)
 
-![image-20210505164907312](assets/1685464082-14023ab408ce7b8ff1a36031702b1573.png)
+![image-20210505164907312](https://gitee.com/wowosong/pic-md/raw/master/202305311259252.png)
 
-![image-20210505164815324](assets/1685464082-14a9fa943b1598b1cb5f7892bfff344e.png)
+![image-20210505164815324](https://gitee.com/wowosong/pic-md/raw/master/202305311259818.png)
 
-![image-20210505164945192](assets/1685464082-36f6de03174ae4bfee894dda39cc11b8.png)
+![image-20210505164945192](https://gitee.com/wowosong/pic-md/raw/master/202305311300325.png)
 
-![image-20210505165010529](assets/1685464082-0961bfa1cb0bce31d72528c82a45cdaa.png)
+![image-20210505165010529](https://gitee.com/wowosong/pic-md/raw/master/202305311300723.png)
 
-![image-20210505165128212](assets/1685464082-7f2aac9ecaab456c8bb04ac14fa78d4a.png)
+![image-20210505165128212](https://gitee.com/wowosong/pic-md/raw/master/202305311300877.png)
 
-![image-20210505165249919](assets/1685464082-bfd4aaa2d5190efb954be0274743233e.png)
+![image-20210505165249919](https://gitee.com/wowosong/pic-md/raw/master/202305311300622.png)
 
 **内存视图 Live Memory**
 
@@ -181,15 +164,15 @@ Live memory 内存剖析：class／class instance 的相关信息。例如对象
 *   **分配热点 Allocation Hot Spots**：显示一个列表，包括方法、类、包或分配已选类的 J2EE 组件。你可以标注当前值并且显示差异值。对于每个热点都可以显示它的跟踪记录树。
 *   **类追踪器 Class Tracker**：类跟踪视图可以包含任意数量的图表，显示选定的类和包的实例与时间。
 
-![image-20210505164554298](assets/1685464082-9ed9704d4049749122917469aa26fd36.png)
+![image-20210505164554298](https://gitee.com/wowosong/pic-md/raw/master/202305311300752.png)
 
-![image-20210505165519790](assets/1685464082-8114ef7a8ddcc6c5230c2686343eefc0.png)
+![image-20210505165519790](https://gitee.com/wowosong/pic-md/raw/master/202305311300384.png)
 
 **堆遍历 heap walker**
 
-![image-20210505165710620](assets/1685464082-0023df4c96f0681386c482c911425c74.png)
+![image-20210505165710620](https://gitee.com/wowosong/pic-md/raw/master/202305311300200.png)
 
-![image-20210505165823201](assets/1685464082-86ece216365a297b98f712d11886887c.png)
+![image-20210505165823201](https://gitee.com/wowosong/pic-md/raw/master/202305311300291.png)
 
 **cpu 视图 cpu views**
 
@@ -200,9 +183,9 @@ JProfiler 提供不同的方法来记录访问树以优化性能和细节。线�
 *   **访问图 Call Graph**：显示一个从已选方法、类、包或 J2EE 组件开始的访问队列的图。
 *   **方法统计 Method Statistis**：显示一段时间内记录的方法的调用时间细节。
 
-![image-20210505170055722](assets/1685464082-b88a6ecbda034d7ad5f25166c2577e74.png)
+![image-20210505170055722](https://gitee.com/wowosong/pic-md/raw/master/202305311301986.png)
 
-![image-20210505170141278](assets/1685464082-dc3e9f29c83fbb5bc2ce4be21b53bf16.png)
+![image-20210505170141278](https://gitee.com/wowosong/pic-md/raw/master/202305311301011.png)
 
 **线程视图 threads**
 
@@ -218,7 +201,7 @@ JProfiler 通过对线程历史的监控判断其运行状态，并监控是否�
 *   2．线程阻塞
 *   3．线程死锁
 
-![image-20210505170739972](assets/1685464082-a5ebf94e57c404897b0006eb2fc210e8.png)
+![image-20210505170739972](https://gitee.com/wowosong/pic-md/raw/master/202305311301037.png)
 
 **监控和锁 Monitors ＆Locks**
 
@@ -366,7 +349,7 @@ JMC 的另一个优点就是：采用取样，而不是传统的代码植入技�
 
 官方地址：[https://github.com/JDKMissionControl/jmc](https://github.com/JDKMissionControl/jmc)
 
-![image-20210505184358041](assets/1685464082-ba3830bcdfe701c1fb9995780497e013.png)
+![image-20210505184358041](https://gitee.com/wowosong/pic-md/raw/master/202305311301360.png)
 
 **Java Flight Recorder**
 
@@ -387,19 +370,19 @@ Java Flight Recorder 和 JDK Mission Control 共同创建了一个完整的工�
 
 取样事件的其中一个常见例子便是方法抽样（Method Sampling），即每隔一段时问统计各个线程的栈轨迹。如果在这些抽样取得的栈轨迹中存在一个反复出现的方法，那么我们可以推测该方法是热点方法
 
-![image-20210505185941373](assets/1685464082-246babf2e9c660b39d60cba38c907f85.png)
+![image-20210505185941373](https://gitee.com/wowosong/pic-md/raw/master/202305311301205.png)
 
-![image-20210505185954567](assets/1685464082-1fceea8757312c20aef9a95323e52138.png)
+![image-20210505185954567](https://gitee.com/wowosong/pic-md/raw/master/202305311301975.png)
 
-![image-20210505190009274](assets/1685464082-42051468df03b9d9dd00bb1a69228017.png)
+![image-20210505190009274](https://gitee.com/wowosong/pic-md/raw/master/202305311301251.png)
 
-![image-20210505190023099](assets/1685464082-e5feee4d3fe19afd10f42ff49da115e3.png)
+![image-20210505190023099](https://gitee.com/wowosong/pic-md/raw/master/202305311301683.png)
 
-![image-20210505190037354](assets/1685464082-cd2b5d27a2646f1f2e6b83bb4f94f761.png)
+![image-20210505190037354](https://gitee.com/wowosong/pic-md/raw/master/202305311302525.png)
 
-![image-20210505190052561](assets/1685464082-a56c441f97602ab592a6c15c73f4fd80.png)
+![image-20210505190052561](https://gitee.com/wowosong/pic-md/raw/master/202305311301790.png)
 
-![image-20210505190106004](assets/1685464082-720e803df816684e6d52261b7ec60ebf.png)
+![image-20210505190106004](https://gitee.com/wowosong/pic-md/raw/master/202305311302820.png)
 
 ## 3.8. 其他工具
 
@@ -409,7 +392,7 @@ Java Flight Recorder 和 JDK Mission Control 共同创建了一个完整的工�
 
 网上的关于 Java 火焰图的讲解大部分来自于 Brenden Gregg 的博客 [http://new.brendangregg.com/flamegraphs.html](http://new.brendangregg.com/flamegraphs.html)
 
-![image-20210505190823214](assets/1685464082-4af0d8fb7ad6f48d2f1c3c8746fd8aca.png)
+![image-20210505190823214](https://gitee.com/wowosong/pic-md/raw/master/202305311302326.png)
 
 火焰图，简单通过 x 轴横条宽度来度量时间指标，y 轴代表线程栈的层次。
 
@@ -432,7 +415,7 @@ Java Flight Recorder 和 JDK Mission Control 共同创建了一个完整的工�
 
 BTrace 是 SUN Kenai 云计算开发平台下的一个开源项目，旨在为 java 提供安全可靠的动态跟踪分析工具。先看一卜日 Trace 的官方定义：
 
-![image-20210505192042974](assets/1685464082-1cc9e9dc56de33d11d36da2087e784c7.png)
+![image-20210505192042974](https://gitee.com/wowosong/pic-md/raw/master/202305311302643.png)
 
 大概意思是一个 Java 平台的安全的动态追踪工具，可以用来动态地追踪一个运行的 Java 程序。BTrace 动态调整目标应用程序的类以注入跟踪代码（“字节码跟踪“）。
 
@@ -442,32 +425,3 @@ BTrace 是 SUN Kenai 云计算开发平台下的一个开源项目，旨在为 j
 
 **Spring Insight**
 
-* * *
-
-[上一篇<JVM下篇：性能监控与调优篇>01-概述篇-02-JVM监控及诊断工具-命令行篇
-
-](https://www.cnblogs.com/vectorx/p/14730392.html)
-
-[下一篇<JVM下篇：性能监控与调优篇>补充：浅堆深堆与内存泄露
-
-](https://www.cnblogs.com/vectorx/p/14732550.html)
-
-本文作者：VectorX
-
-本文链接：https://www.cnblogs.com/vectorx/p/14732510.html
-
-版权声明：本作品采用知识共享署名-非商业性使用-禁止演绎 2.5 中国大陆许可协议进行许可。
-
-[关注我](javascript:) [收藏该文](javascript:)
-
-0
-
-0
-
-posted @ 2021-05-05 19:35  [VectorX](https://www.cnblogs.com/vectorx/)  阅读(323)  评论(0)  [编辑](https://i.cnblogs.com/EditPosts.aspx?postid=14732510)  [收藏](javascript:)  [举报](javascript:)
-
-登录后才能查看或发表评论，立即 [登录](javascript:) 或者 [逛逛](https://www.cnblogs.com/) 博客园首页
-
-[【推荐】园子的商业化努力-AI人才服务：招募AI导师，一起探索AI领域的机会](https://www.cnblogs.com/cmt/p/17402955.html)  
-[【推荐】中国云计算领导者：阿里云轻量应用服务器2核2G低至108元/年](https://click.aliyun.com/m/1000370062/)  
-[【推荐】第五届金蝶云苍穹低代码开发大赛正式启动，百万奖金等你拿！](https://datayi.cn/w/1P64E1x9)

@@ -1,20 +1,3 @@
-
-📂[JVM从入门到精通](https://www.cnblogs.com/vectorx/category/1971162.html)
-
-🔖[Java](https://www.cnblogs.com/vectorx/tag/Java/)[JVM](https://www.cnblogs.com/vectorx/tag/JVM/)
-
-2021-05-02 11:18阅读: 435评论: 0推荐: 0
-
-# [＜JVM中篇：字节码与类的加载篇＞01-Class字节码文件结构](https://www.cnblogs.com/vectorx/p/14725403.html)
-
-> 笔记来源：[尚硅谷JVM全套教程，百万播放，全网巅峰（宋红康详解java虚拟机）](https://www.bilibili.com/video/BV1PJ411n7xZ "尚硅谷JVM全套教程，百万播放，全网巅峰（宋红康详解java虚拟机）")
-> 
-> 同步更新：[https://gitee.com/vectorx/NOTE\_JVM](https://gitee.com/vectorx/NOTE_JVM)
-> 
-> [https://codechina.csdn.net/qq\_35925558/NOTE\_JVM](https://codechina.csdn.net/qq_35925558/NOTE_JVM)
-> 
-> [https://github.com/uxiahnan/NOTE\_JVM](https://github.com/uxiahnan/NOTE_JVM)
-
 目录
 
 *   [1\. Class文件结构](#1-class%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84)

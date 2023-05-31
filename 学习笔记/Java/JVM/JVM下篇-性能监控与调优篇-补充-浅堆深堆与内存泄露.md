@@ -1,20 +1,3 @@
-
-📂[JVM从入门到精通](https://www.cnblogs.com/vectorx/category/1971162.html)
-
-🔖[JVM](https://www.cnblogs.com/vectorx/tag/JVM/)[Java](https://www.cnblogs.com/vectorx/tag/Java/)
-
-2021-05-05 19:45阅读: 266评论: 0推荐: 0
-
-# [<JVM下篇：性能监控与调优篇>补充：浅堆深堆与内存泄露](https://www.cnblogs.com/vectorx/p/14732550.html)
-
-> 笔记来源：[尚硅谷 JVM 全套教程，百万播放，全网巅峰（宋红康详解 java 虚拟机）](https://www.bilibili.com/video/BV1PJ411n7xZ "尚硅谷JVM全套教程，百万播放，全网巅峰（宋红康详解java虚拟机）")
-> 
-> 同步更新：[https://gitee.com/vectorx/NOTE\_JVM](https://gitee.com/vectorx/NOTE_JVM)
-> 
-> [https://codechina.csdn.net/qq\_35925558/NOTE\_JVM](https://codechina.csdn.net/qq_35925558/NOTE_JVM)
-> 
-> [https://github.com/uxiahnan/NOTE\_JVM](https://github.com/uxiahnan/NOTE_JVM)
-
 目录
 
 *   [补充：浅堆深堆与内存泄露](#%E8%A1%A5%E5%85%85%E6%B5%85%E5%A0%86%E6%B7%B1%E5%A0%86%E4%B8%8E%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2)
