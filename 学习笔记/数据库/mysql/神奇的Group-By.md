@@ -9,11 +9,11 @@
 ```sql
 DROP TABLE IF EXISTS tbl_student_class;
 CREATE TABLE tbl_student_class (
-  id int(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
-  sno varchar(12) NOT NULL COMMENT '学号',
-  cno varchar(5) NOT NULL COMMENT '班级号',
-  cname varchar(20) NOT NULL COMMENT '班级名',
-  PRIMARY KEY (id)
+    id int(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+    sno varchar(12) NOT NULL COMMENT '学号',
+    cno varchar(5) NOT NULL COMMENT '班级号',
+    cname varchar(20) NOT NULL COMMENT '班级名',
+    PRIMARY KEY (id)
 ) COMMENT='学生班级表';
 
 -- ----------------------------
@@ -123,7 +123,7 @@ SELECT VERSION();
 SELECT @@sql_mode;
 ```
 
-![图片](./%E7%A5%9E%E5%A5%87%E7%9A%84Group-By.assets/20210602222757.gif)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202305050914849.gif)
 
 我们可以看到，5.7.21 的默认模式包含：
 
@@ -133,7 +133,7 @@ ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DI
 
 而第一个：**ONLY_FULL_GROUP_BY 就会约束：当我们进行聚合查询的时候，SELECT 的列不能直接包含非 GROUP BY 子句中的列。**那如果我们去掉该模式（从“严格模式”到“宽松模式”）呢 ？
 
-![图片](./%E7%A5%9E%E5%A5%87%E7%9A%84Group-By.assets/20210602222710.gif)
+![图片](https://gitee.com/wowosong/pic-md/raw/master/202305050914824.gif)
 
 我们发现，上述报错的 SQL
 
@@ -156,7 +156,7 @@ GROUP BY cno;
 
 ![图片](data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==)
 
-![image-20210602220945652](./%E7%A5%9E%E5%A5%87%E7%9A%84Group-By.assets/20210602222705.png)
+![image-20210602220945652](https://gitee.com/wowosong/pic-md/raw/master/202305050915409.png)
 
 谈到了阶，就不得不谈下集合论；集合论是 SQL 语言的根基，因为它的这个特性，SQL 也被称为面向集合语言。只有从集合的角度来思考，才能明白 SQL 的强大威力。通过上图，相信大家也都能看到，这里不做更深入的讲解了，有兴趣的可以去查相关资料。
 
@@ -166,7 +166,7 @@ GROUP BY cno;
 
 但需要注意的是，这里的 cname 只是每个学生的属性，并不是小组的属性，而 GROUP BY 又是聚合操作，操作的对象就是由多个学生组成的小组，因此，小组的属性只能是平均或者总和等统计性质的属性，如下图
 
-![image-20210602221100496](./%E7%A5%9E%E5%A5%87%E7%9A%84Group-By.assets/20210602222603.png)
+![image-20210602221100496](https://gitee.com/wowosong/pic-md/raw/master/202305050915380.png)
 
 询问每个学生的 cname 是可以的，但是询问由多个学生组成的小组的 cname 就没有意义了。对于小组来说，只有"一共多少学生"或者"最大学号是多少？"这样的问法才是有意义的。
 

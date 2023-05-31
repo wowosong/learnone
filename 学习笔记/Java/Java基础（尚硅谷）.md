@@ -7136,7 +7136,7 @@ public static void main(String[] args) {
 
 1.本章的主要内容
 
-![image-20220104131902383](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041319634.png)
+![image-20220104131902383](https://gitee.com/wowosong/pic-md/raw/master/202304231544361.png)
 
 2.关于反射的理解
 
@@ -7190,10 +7190,10 @@ public Object getInstance(String classPath) throws Exception {
 
 1. 在运行时判断任意一个对象所属的类
 2. 在运行时构造任意一个类的对象
-3. 在运行时判断任意一个类所具有的成员变量和方法
+3. 在运行时判断任意一个类**所具有的成员变量和方法**
 4. 在运行时获取泛型信息
-5. 在运行时调用任意一个对象的成员变量和方法
-6. 在运行时处理注解
+5. 在运行时调用**任意一个对象的成员变量和方法**
+6. 在运行时**处理注解**
 7. 生成动态代理
 
 5.相关API
@@ -7248,13 +7248,13 @@ java.lang.reflect.Constructor
 
 4.Class实例可以是哪些结构的说明
 
-![image-20220104132008331](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041320538.png)
+![image-20220104132008331](https://gitee.com/wowosong/pic-md/raw/master/202304231545768.png)
 
 ### 了解ClassLoader
 
 1.类的加载过程----了解
 
-![image-20220104132255267](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041322463.png)
+![image-20220104132255267](https://gitee.com/wowosong/pic-md/raw/master/202304231545878.png)
 
 2.类的加载器的作用
 
@@ -7263,11 +7263,11 @@ java.lang.reflect.Constructor
 
 3.类的加载器的分类
 
-![image-20220104132310319](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041323532.png)
+![image-20220104132310319](https://gitee.com/wowosong/pic-md/raw/master/202304231545751.png)
 
 4.Java类编译、运行的执行的流程
 
-![image-20220104132317681](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041323899.png)
+![image-20220104132317681](https://gitee.com/wowosong/pic-md/raw/master/202304231545392.png)
 
 5.使用Classloader加载src目录下的配置文件
 

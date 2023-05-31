@@ -21,12 +21,12 @@ FROM
 WHERE
         NAME IN ( SELECT DISTINCT NAME FROM population WHERE country = "Canada" AND city = "Toronto" )
   AND salary >= (
-    SELECT
-        AVG( salary )
-    FROM
-        salaries
-    WHERE
-        gender = "Female")
+      SELECT
+      AVG( salary )
+      FROM
+      salaries
+      WHERE
+      gender = "Female")
 ```
 
 这似乎似乎难以理解，但如果在查询中有许多子查询，那么怎么样？这就是CTEs发挥作用的地方。
@@ -36,13 +36,13 @@ with toronto_ppl as (
     SELECT DISTINCT name
     FROM population
     WHERE country = "Canada"
-      AND city = "Toronto"
+    AND city = "Toronto"
 )
 , avg_female_salary as (
-        SELECT AVG(salary) as avgSalary
-        FROM salaries
-        WHERE gender = "Female"
-    )
+    SELECT AVG(salary) as avgSalary
+    FROM salaries
+    WHERE gender = "Female"
+)
 SELECT name
      , salary
 FROM People
@@ -69,15 +69,15 @@ WHERE name in (SELECT DISTINCT FROM toronto_ppl)
 ```sql
 with org_structure as (
     SELECT id
-         , manager_id
+    , manager_id
     FROM staff_members
     WHERE manager_id IS NULL
     UNION ALL
     SELECT sm.id
-         , sm.manager_id
+    , sm.manager_id
     FROM staff_members sm
-             INNER JOIN org_structure os
-                        ON os.id = sm.manager_id
+    INNER JOIN org_structure os
+    ON os.id = sm.manager_id)
 ```
 
 # 3.临时函数
@@ -91,8 +91,7 @@ with org_structure as (
 考虑以下示例：
 
 ```sql
-SELECT name
-     , CASE WHEN tenure < 1 THEN "analyst"
+SELECT name, CASE WHEN tenure < 1 THEN "analyst"
             WHEN tenure BETWEEN 1 and 3 THEN "associate"
             WHEN tenure BETWEEN 3 and 5 THEN "senior"
             WHEN tenure > 5 THEN "vp"
@@ -105,12 +104,12 @@ FROM employees
 
 ```sql
 CREATE TEMPORARY FUNCTION get_seniority(tenure INT64) AS (
-   CASE WHEN tenure < 1 THEN "analyst"
-        WHEN tenure BETWEEN 1 and 3 THEN "associate"
-        WHEN tenure BETWEEN 3 and 5 THEN "senior"
-        WHEN tenure > 5 THEN "vp"
-        ELSE "n/a"
-   END
+    CASE WHEN tenure < 1 THEN "analyst"
+    WHEN tenure BETWEEN 1 and 3 THEN "associate"
+    WHEN tenure BETWEEN 3 and 5 THEN "senior"
+    WHEN tenure > 5 THEN "vp"
+    ELSE "n/a"
+    END
 );
 SELECT name
      , get_seniority(tenure) as seniority
@@ -203,7 +202,7 @@ FROM student_grades
 
 ```
 
-![image-20210611224452019](./%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E9%A1%BB%E6%B8%85%E6%A5%9A%E7%9A%8410%E4%B8%AA%E9%AB%98%E7%BA%A7SQL%E6%A6%82%E5%BF%B5.assets/20210611224452.png)
+![image-20210611224452019](https://gitee.com/wowosong/pic-md/raw/master/202305050913951.png)
 
 ROW_NUMBER（）返回每行开始的唯一编号。当存在关系时（例如，BOB vs Carrie），ROW_NUMBER（)如果未定义第二条标准，则任意分配数字。
 
@@ -245,7 +244,7 @@ SELECT Month
 FROM monthly_revenue
 ```
 
-![image-20210611224526419](./%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E9%A1%BB%E6%B8%85%E6%A5%9A%E7%9A%8410%E4%B8%AA%E9%AB%98%E7%BA%A7SQL%E6%A6%82%E5%BF%B5.assets/20210611224526.png)
+![image-20210611224526419](https://gitee.com/wowosong/pic-md/raw/master/202305050913718.png)
 
 # 10.日期时间操纵
 

@@ -41,7 +41,6 @@ select * from table limit 2 offset 1;
 > - union 并集
 > - union all(有重复)
 >
-> 
 
 oracle(SQL server)数据库
 

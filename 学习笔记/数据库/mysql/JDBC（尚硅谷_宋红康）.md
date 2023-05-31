@@ -1,6 +1,6 @@
 
 
-![image-20211028111741320](./JDBC%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7_%E5%AE%8B%E7%BA%A2%E5%BA%B7%EF%BC%89.assets/20211028111741.png)
+![image-20211028111741320](https://gitee.com/wowosong/pic-md/raw/master/202305050916102.png)
 
 # JDBC核心技术
 

@@ -63,8 +63,6 @@ SELECT  column1, column2....columnN  FROM    table_name WHERE  column_name LIKE 
 ```
 
 
-
-
 ### SELECT  COUNT(计数)子句
 
 　句法：
@@ -180,7 +178,6 @@ SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate FROM Orders INNE
 
 ## SQL 处理重复数据
 
-
 　有时候，数据表中会存在相同的记录。在获取表中记录时，相较于取得重复记录来说，取得唯一的记录显然更有意义。
 　我们之前讨论过的 SQL DISTINCT 关键字，与 SELECT 语句一起使用可以时，可以达到消除所有重复记录，只返回唯一记录的目的。
 
@@ -199,12 +196,12 @@ SELECT DISTINCT  column1, column2,.....columnN  FROM  table_name  WHERE  [condit
 　绝对不要相信用户提供的数据，处理这些数据之前必须进行验证；通常，验证工作由模式匹配来完成。
 　下面的例子中，name 仅限由字母、数字和下划线组成，并且长度在 8 到 20 之间（你可以根据需要修改这些规则）。
 
-```
+```sql
 if (preg_match("/^\w{8,20}$/", $_GET['username'], $matches)){   
-		$result = mysql_query("SELECT * FROM CUSTOMERS  WHERE name=$matches[0]");
-	}else { 
-    	echo "user name not accepted";
-    }
+$result = mysql_query("SELECT * FROM CUSTOMERS  WHERE name=$matches[0]");
+}else { 
+echo "user name not accepted";
+}
 ```
 
 　为了展示问题所在，请考虑下面这段代码：

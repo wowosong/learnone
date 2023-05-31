@@ -59,7 +59,7 @@ SQL `WHERE` geoserver使用上下文过滤器（例如WMS查询的边界框过�
 
 此功能的典型用例是在过滤结果的基础上执行分析函数：
 
-```
+```sql
 SELECT STATION_NAME,
        MEASUREMENT,
        MEASUREMENT_TYPE,
