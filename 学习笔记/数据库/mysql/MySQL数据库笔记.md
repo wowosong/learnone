@@ -5340,7 +5340,7 @@ mysql> CREATE TABLE index_demo(
 
 这个新建的`index_demo`表中有2个INT类型的列，1个CHAR(1)类型的列，而且我们规定了c1列为主键，这个表使用`Compact`行格式来实际存储记录的。这里我们简化了index_demo表的行格式示意图：
 
-![image-20220330095642965](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203300956080.png)
+![image-20230601232107595](./assets/image-20230601232107595-5632870.png)
 
 - `record_type`：记录头信息的一项属性，表示记录的类型，`0`表示普通记录、`1`表示目录项记录、`2`表示最小记录、`3`表示最大记录。
 - `next_record`：记录头信息的一项属性，表示下一条地址相对于本条记录的地址偏移量，我们用箭头来表明下一条记录是谁。
@@ -5349,11 +5349,11 @@ mysql> CREATE TABLE index_demo(
 
 将记录格式示意图的其他信息项暂时去掉并把它竖起来的效果就是这样：
 
-![image-20220330100053271](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301000365.png)
+![image-20230601232153166](./assets/image-20230601232153166.png)
 
 把一些记录放到页里的示意图就是：
 
-![image-20220330100150297](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301001377.png)
+![image-20230601232224942](./assets/image-20230601232224942.png)
 
 **1.** **一个简单的索引设计方案**
 
@@ -5362,7 +5362,7 @@ mysql> CREATE TABLE index_demo(
 - **下一个数据页中用户记录的主键值必须大于上一个页中用户记录的主键值。**
 - **给所有的页建立一个目录项。**
 
-![image-20220330100409306](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301004386.png)
+![image-20230601232254594](./assets/image-20230601232254594.png)
 
 以`页28`为例，它对应`目录项2`，这个目录项中包含着该页的页号`28`以及该页中用户记录的最小主键值`5`。我们只需要把几个目录项在物理存储器上连续存储（比如：数组），就可以实现根据主键值快速查找某条记录的功能了。比如：查找主键值为`20`的记录，具体查找过程分两步：
 
@@ -5378,7 +5378,7 @@ mysql> CREATE TABLE index_demo(
 
 我们把前边使用到的目录项放到数据页中的样子就是这样：
 
-![image-20220330102834658](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301028743.png)
+![image-20230601232323555](./assets/image-20230601232323555.png)
 
 从图中可以看出来，我们新分配了一个编号为30的页来专门存储目录项记录。这里再次强调`目录项记录`和普通的`用户记录`的**不同点**：
 
@@ -5396,7 +5396,7 @@ mysql> CREATE TABLE index_demo(
 
 **② 迭代2次：多个目录项纪录的页**
 
-![image-20220330103442914](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301034997.png)
+![image-20230601232401409](./assets/image-20230601232401409-5633043.png)
 
 从图中可以看出，我们插入了一条主键值为320的用户记录之后需要两个新的数据页：
 
@@ -5413,13 +5413,13 @@ mysql> CREATE TABLE index_demo(
 
 **③ 迭代3次：目录项记录页的目录页**
 
-![image-20220330103847284](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301038376.png)
+![image-20230601232433526](./assets/image-20230601232433526.png)
 
 如图，我们生成了一个存储更高级目录项的`页33`，这个页中的两条记录分别代表页30和页32，如果用户记录的主键值在`[1, 320)`之间，则到页30中查找更详细的目录项记录，如果主键值`不小于320`的话，就到页32中查找更详细的目录项记录。
 
 我们可以用下边这个图来描述它：
 
-![image-20220330104012108](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301040190.png)
+![image-20230601232458936](./assets/image-20230601232458936.png)
 
 这个数据结构，它的名称是`B+树`。 
 
@@ -5465,9 +5465,13 @@ mysql> CREATE TABLE index_demo(
 
 **2.** **二级索引（辅助索引、非聚簇索引）**
 
-![image-20220330105018965](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301050055.png)
+![image-20230601232537329](./assets/image-20230601232537329.png)
 
 **概念：回表** 我们根据这个以c2列大小排序的B+树只能确定我们要查找记录的主键值，所以如果我们想根据c2列的值查找到完整的用户记录的话，仍然需要到`聚簇索引`中再查一遍，这个过程称为`回表`。也就是根据c2列的值查询一条完整的用户记录需要使用到`2`棵B+树！
+
+问题：为什么我们还需要一次 回表 操作呢？直接把完整的用户记录放到叶子节点不OK吗？
+
+![image-20230601232643625](./assets/image-20230601232643625.png)
 
 **3.** **联合索引**
 
@@ -5542,7 +5546,7 @@ MyISAM引擎使用`B+Tree`作为索引结构，叶子节点的data域存放的�
 
 ##### **3.1 MyISAM索引的原理**
 
-![image-20220330113307813](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301133907.png)
+![image-20230601233023800](./assets/image-20230601233023800.png)
 
 ##### **3.2 MyISAM** **与** **InnoDB对比**
 
@@ -5559,6 +5563,8 @@ MyISAM引擎使用`B+Tree`作为索引结构，叶子节点的data域存放的�
 ④ MyISAM的回表操作是十分`快速`的，因为是拿着地址偏移量直接到文件中取数据的，反观InnoDB是通过获取主键之后再去聚簇索引里找记录，虽然说也不慢，但还是比不上直接用地址去访问。
 
 ⑤ InnoDB要求表`必须有主键`（`MyISAM可以没有`）。如果没有显式指定，则MySQL系统会自动选择一个可以非空且唯一标识数据记录的列作为主键。如果不存在这种列，则MySQL自动为InnoDB表生成一个隐含字段作为主键，这个字段长度为6个字节，类型为长整型。
+
+![image-20230601233159016](./assets/image-20230601233159016.png)
 
 #### **4.** **索引的代价**
 
@@ -5586,11 +5592,17 @@ Hash本身是一个函数，又被称为散列函数，可以帮助我们大幅�
 
 Hash算法是通过某种确定性的算法（比如MD5/SHA1/SHA2）将输入转变为输出。相同的输入永远可以得到相同的输出，假设输入内容有微小偏差，在输出通常会有不同的结果。
 
+![image-20230601233300616](./assets/image-20230601233300616.png)
+
+![](./assets/image-20230601233337031.png)
+
+![image-20230601233525117](./assets/image-20230601233525117.png)
+
 ##### **5.1** **二叉搜索树**
 
 如果我们利用二叉树作为索引结构，那么磁盘的IO次数和索引树的高度是相关的。
 
-![image-20220330163602743](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301636830.png)
+![image-20230601233628618](./assets/image-20230601233628618.png)
 
 为了提高查询效率，就需要`减少磁盘IO数`。为了减少磁盘IO的次数，就需要尽量`降低树的高度`，需要把原来“瘦高”的树结构变的“矮胖”，树的每层的分叉越多越好。
 
@@ -5598,17 +5610,17 @@ Hash算法是通过某种确定性的算法（比如MD5/SHA1/SHA2）将输入转
 
 如果我们利用二叉树作为索引结构，那么磁盘的IO次数和索引树的高度是相关的。
 
-![image-20220330163506536](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301635653.png)
+![image-20230601233704403](./assets/image-20230601233704403.png)
 
 针对同样的数据，如果我们把二叉树改成`M 叉树`（M>2）呢？当 M=3 时，同样的 31 个节点可以由下面的三叉树来进行存储：
 
-![image-20220330163709022](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301637104.png)
+![image-20230601233730301](./assets/image-20230601233730301.png)
 
 ##### **5.3 B-Tree** 
 
 B 树的结构如下图所示：
 
-![image-20220330163803905](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301638995.png)
+![image-20230601233754363](./assets/image-20230601233754363.png)
 
 一个 M 阶的 B 树（M>2）有以下的特性：
 
@@ -5636,7 +5648,7 @@ B 树的结构如下图所示：
 
 **再举例1：**
 
-![image-20220330164411665](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301644761.png)
+![image-20230601233826858](./assets/image-20230601233826858.png)
 
 ##### **5.4 B+Tree** 
 
@@ -6612,7 +6624,7 @@ MySQL中`提高性能`的一个最有效的方式是对数据表`设计合理的
 
 Index Nested-Loop Join其优化的思路主要是为了`减少内层表数据的匹配次数`，所以要求被驱动表上必须`有索引`才行。
 
-![image-20220401182649509](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204011826671.png)
+![image-20230601234438652](./assets/image-20230601234438652.png)
 
 ##### 2.2 Block Nested-Loop Join（块嵌套循环连接）
 
@@ -6620,17 +6632,24 @@ Index Nested-Loop Join其优化的思路主要是为了`减少内层表数据的
 
 不再是逐条获取驱动表的数据，而是一块一块的获取，引入了`join buffer缓冲区`，将驱动表join相关的部分数据列（大小受join buffer的限制）缓存到join buffer中，然后全表扫描被驱动表，被驱动表的每一条记录一次性和join buffer中的所有驱动表记录进行匹配（内存中操作），将简单嵌套循环中的多次比较合并成一次，降低了被驱动表的访问频率。
 
-![image-20220401183344880](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204011833000.png)
+![image-20230601234653949](./assets/image-20230601234653949.png)
+
+![image-20230601234734253](./assets/image-20230601234734253.png)
 
 ##### 2.3 Hash Join
 
 **从MySQL的8.0.20版本开始将废弃BNLJ，因为从MySQL8.0.18版本开始就加入了hash join默认都会使用hash join**
 
 - Nested Loop：对于被连接的数据子集较小的情况下，Nested Loop是个较好的选择。
+
 - Hash Join是做`大数据集连接`时的常用方式，优化器使用两个表中较小（相对较小）的表利用Join Key在内存中建立`散列值`，然后扫描较大的表并探测散列值，找出与Hash表匹配的行。
   - 这种方式适用于较小的表完全可以放入内存中的情况，这样总成本就是访问两个表的成本之和。
+  
   - 在表很大的情况下并不能完全放入内存，这时优化器会将它分割成`若干不同的分区`，不能放入内存的部分就把该分区写入磁盘的临时段，此时要求有较大的临时段从而尽量提高I/O的性能。
+  
   - 它能够很好的工作于没有索引的大表和并行查询的环境中，并提供最好的性能。Hash Join只能应用于等值连接，这是由Hash的特点决定的。
+  
+    ![image-20230601234905105](./assets/image-20230601234905105.png)
 
 #### **3.** **子查询优化**
 
@@ -6714,11 +6733,19 @@ storage层：只将满足index key条件的索引记录对应的整行记录取�
 
 server 层：对返回的数据，使用后面的where条件过滤，直至返回最后一行。
 
+![image-20230601235511522](./assets/image-20230601235511522.png)
+
+![image-20230601235558933](./assets/image-20230601235558933.png)
+
 **使用ICP扫描的过程：**
 
 storage层：首先将index key条件满足的索引记录区间确定，然后在索引上使用index filter进行过滤。将满足的index filter条件的索引记录才去回表取出整行记录返回server层。不满足index filter条件的索引记录丢弃，不回表、也不会返回server层。
 
+![image-20230601235621297](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/assets/image-20230601235621297.png)
+
 server 层：对返回的数据，使用table filter条件做最后的过滤。
+
+![image-20230601235644428](./assets/image-20230601235644428.png)
 
 #### **9.** **其它查询优化策略**
 
@@ -6778,7 +6805,7 @@ COMMIT 所释放的资源：
 
 目前关系型数据库有六种常见范式，按照范式级别，从低到高分别是：**第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF，又称完美范式）**。
 
-![image-20220403092826169](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204030928295.png)
+![image-20230601235827858](./assets/image-20230601235827858.png)
 
 ##### **1.3** **键和相关属性的概念**
 
@@ -7065,11 +7092,11 @@ CREATE TABLE user_info (
 
 **1、读写分离**
 
-![image-20220403102536170](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204031025279.png)
+![image-20230601235919616](./assets/image-20230601235919616.png)
 
 **2、数据分片**
 
-![image-20220403102618627](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204031026743.png)
+![image-20230601235952135](./assets/image-20230601235952135.png)
 
 #### **2.** **优化MySQL服务器**
 
@@ -7246,7 +7273,7 @@ OPTIMIZE TABLE 语句对InnoDB和MyISAM类型的表都有效。该语句在执�
 
 当一个处在`部分提交的`状态的事务将修改过的数据都`同步到磁盘`上之后，我们就可以说该事务处在了`提交的`状态。
 
-![image-20220403110448951](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204031104063.png)
+![image-20230602000132325](./assets/image-20230602000132325.png)
 
 #### **2.** **如何使用事务**
 
@@ -7357,7 +7384,7 @@ RELEASE SAVEPOINT 保存点名称;
 - `REPEATABLE READ`：可重复读，事务A在读到一条数据之后，此时事务B对该数据进行了修改并提交，那么事务A再读该数据，读到的还是原来的内容。可以避免脏读、不可重复读，但幻读问题仍然存在。`这是MySQL的默认隔离级别`。
 - `SERIALIZABLE`：可串行化，确保事务可以从一个表中读取相同的行。在这个事务持续期间，禁止其他事务对该表执行插入、更新和删除操作。所有的并发问题都可以避免，但性能十分低下。能避免脏读、不可重复读和幻读。
 
-![image-20220403112740425](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204031127542.png)
+![image-20230602000307395](./assets/image-20230602000307395.png)
 
 ##### **3.3** **如何设置事务的隔离级别**
 
@@ -7657,7 +7684,9 @@ redo log是物理日志，记录的是数据页的物理变化，undo log不是r
 
 #### **3.** **锁的不同角度分类**
 
-![image-20220405093322184](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204050933339.png)
+![image-20230601223544417](./assets/image-20230601223544417.png)
+
+
 
 ##### **3.1** **从数据操作的类型划分：读锁、写锁**
 

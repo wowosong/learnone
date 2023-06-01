@@ -57,8 +57,8 @@
 ![image-20200705081913538](https://img-blog.csdnimg.cn/img_convert/e8172076eaa7a152408633a353f06b2c.png)
 
 *   class file 存在于本地硬盘上，可以理解为设计师画在纸上的模板，而最终这个模板在执行的时候是要加载到 JVM 当中来根据这个文件实例化出 n 个一模一样的实例。
-*   class file 加载到 JVM 中，被称为 DNA 元数据模板，放在方法区。
-*   在.class 文件->JVM->最终成为元数据模板，此过程就要一个运输工具（类装载器 Class Loader），扮演一个快递员的角色。
+*   class file 加载到 JVM 中，被称为 **DNA 元数据模板，放在方法区**。
+*   在.class 文件->JVM->最终成为元数据模板，**此过程就要一个运输工具（类装载器 Class Loader）**，扮演一个快递员的角色。
 
 **类的加载过程**
 
@@ -82,15 +82,15 @@ public class HelloLoader {
 ![image-20200705082601441](https://img-blog.csdnimg.cn/img_convert/a9497a1eeb7fae3022846b509186fdcd.png)
 
 *   1.  通过一个类的全限定名获取定义此类的二进制字节流
-*   2.  将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构
-*   3.  在内存中生成一个代表这个类的 java.lang.Class 对象，作为方法区这个类的各种数据的访问入口
+*   2.  将这个字节流所代表的**静态存储结构转化为方法区的运行时数据结构**
+*   3.  **在内存中生成一个代表这个类的 java.lang.Class 对象，作为方法区这个类的各种数据的访问入口**
 
 **补充：加载 class 文件的方式**
 
 *   从本地系统中直接加载
 *   通过网络获取，典型场景：Web Applet
 *   从 zip压缩包中读取，成为日后 jar、war 格式的基础
-*   运行时计算生成，使用最多的是：动态代理技术
+*   **运行时计算生成，使用最多的是：动态代理技术**
 *   由其他文件生成，典型场景：JSP 应用
 *   从专有数据库中提取.class 文件，比较少见
 *   从加密文件中获取，典型的防 Class 文件被反编译的保护措施
@@ -108,7 +108,7 @@ public class HelloLoader {
     *   将常量池内的符号引用转换为直接引用的过程。
     *   事实上，解析操作往往会伴随着 JVM 在执行完初始化之后再执行。
     *   符号引用就是一组符号来描述所引用的目标。符号引用的字面量形式明确定义在《java 虚拟机规范》的 Class 文件格式中。直接引用就是直接指向目标的指针、相对偏移量或一个间接定位到目标的句柄。
-    *   解析动作主要针对类或接口、字段、类方法、接口方法、方法类型等。对应常量池中的 CONSTANT\_Class\_info，CONSTANT\_Fieldref\_info、CONSTANT\_Methodref\_info 等。
+    *   解析动作主要针对类或接口、字段、类方法、接口方法、方法类型等。**对应常量池中的 CONSTANT\_Class\_info，CONSTANT\_Fieldref\_info、CONSTANT\_Methodref\_info 等。**
 
 ### 初始化阶段
 
@@ -121,7 +121,7 @@ public class HelloLoader {
 
 ## 2.3. 类加载器分类
 
-JVM 支持两种类型的类加载器 。分别为引导类加载器（Bootstrap ClassLoader）和自定义类加载器（User-Defined ClassLoader）。
+JVM 支持两种类型的类加载器 。分别为**引导类加载器（Bootstrap ClassLoader）和自定义类加载器（User-Defined ClassLoader**）。
 
 从概念上来讲，自定义类加载器一般指的是程序中由开发人员自定义的一类类加载器，但是 Java 虚拟机规范却没有这么定义，而是将所有派生于抽象类 ClassLoader 的类加载器都划分为自定义类加载器。
 
@@ -129,7 +129,7 @@ JVM 支持两种类型的类加载器 。分别为引导类加载器（Bootstrap
 
 ![image-20200705094149223](https://img-blog.csdnimg.cn/img_convert/1e553c6d5254f827d2dfab537bea3ab9.png)
 
-这里的四者之间的关系是包含关系。不是上层下层，也不是子父类的继承关系。
+这里的四者之间的关系是包含关系。**不是上层下层，也不是子父类的继承关系**。
 
 ### 2.3.1. 虚拟机自带的加载器
 
@@ -137,7 +137,7 @@ JVM 支持两种类型的类加载器 。分别为引导类加载器（Bootstrap
 
 *   这个类加载使用 C/C++语言实现的，嵌套在 JVM 内部。
 *   它用来加载 Java 的核心库（JAVA\_HOME/jre/lib/rt.jar、resources.jar 或 sun.boot.class.path 路径下的内容），用于提供 JVM 自身需要的类
-*   并不继承自 ava.lang.ClassLoader，没有父加载器。
+*   并不继承自 java.lang.ClassLoader，没有父加载器。
 *   加载扩展类和应用程序类加载器，并指定为他们的父类加载器。
 *   出于安全考虑，Bootstrap 启动类加载器只加载包名为 java、javax、sun 等开头的类
 
