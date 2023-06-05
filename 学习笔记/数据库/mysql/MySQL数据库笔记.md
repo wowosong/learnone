@@ -7429,6 +7429,8 @@ SET [GLOBAL|SESSION] TRANSACTION_ISOLATION = '隔离级别'
 
 `另一个解决的思路`：我们只是想让已经提交了的事务对数据库中数据所做的修改永久生效，即使后来系统崩溃，在重启后也能把这种修改恢复出来。所以我们其实没有必要在每次事务提交时就把该事务在内存中修改过的全部页面刷新到磁盘，只需要把`修改`了哪些东西`记录一下`就好。比如，某个事务将系统表空间中`第10号`页面中偏移量为`100`处的那个字节的值`1`改成`2`。我们只需要记录一下：将第0号表空间的10号页面的偏移量为100处的值更新为 2 。
 
+![image-20230602232159571](./assets/image-20230602232159571.png)
+
 ##### **1.2 REDO日志的好处、特点**
 
 **1.** **好处**
@@ -7455,7 +7457,7 @@ redo log buffer 大小，默认`16M`，最大值是4096M，最小值为1M。
 
 ##### **1.4 redo的整体流程**
 
-![image-20220403114709581](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204031147714.png)
+![image-20230602232120562](./assets/image-20230602232120562-5719282.png)
 
 第1步：先将原始数据从磁盘中读入内存中来，修改数据的内存拷贝 
 
@@ -7469,6 +7471,11 @@ redo log buffer 大小，默认`16M`，最大值是4096M，最小值为1M。
 
 ##### **1.5 redo log的刷盘策略**
 
+edo log的写入并不是直接写入磁盘的，InnoDB引擎会在写redo log的时候先写redo log buffer，之后以 一
+定的频率 刷入到真正的redo log file 中。这里的一定频率怎么看待呢？这就是我们要说的刷盘策略。
+
+![image-20230602232330440](./assets/image-20230602232330440.png)
+
 redo log buffer刷盘到redo log file的过程并不是真正的刷到磁盘中去，只是刷入到`文件系统缓存`（page cache）中去（这是现代操作系统为了提高文件写入效率做的一个优化），真正的写入会交给系统自己来决定（比如page cache足够大了）。那么对于InnoDB来说就存在一个问题，如果交给系统来同步，同样如果系统宕机，那么数据也丢失了（虽然整个系统宕机的概率还是比较小的）。
 
 针对这种情况，InnoDB给出`innodb_flush_log_at_trx_commit`参数，该参数控制 commit提交事务时，如何将 redo log buffer 中的日志刷新到 redo log file 中。它支持三种策略：
@@ -7481,11 +7488,11 @@ redo log buffer刷盘到redo log file的过程并不是真正的刷到磁盘中�
 
 **1.** **流程图**
 
-![image-20220403115232833](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204031152952.png)
+![image-20230602232417041](./assets/image-20230602232417041.png)
 
-![image-20220403115249492](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204031152607.png)
+![image-20230602232441059](./assets/image-20230602232441059.png)
 
-![image-20220403115300809](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204031153931.png)
+![image-20230602232503646](./assets/image-20230602232503646.png)
 
 ##### **1.7** **写入redo log buffer过程**
 
@@ -7493,13 +7500,17 @@ redo log buffer刷盘到redo log file的过程并不是真正的刷到磁盘中�
 
 一个事务可以包含若干条语句，每一条语句其实是由若干个`mtr`组成，每一个`mtr`又可以包含若干条redo日志
 
-![image-20220404091224993](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204040912119.png)
+![image-20230602232533976](./assets/image-20230602232533976.png)
 
 **2. redo** **日志写入log buffer**
 
 不同的事务可能是`并发`执行的，所以`事务T1`、`事务T2`之间的`mtr`可能是`交替执行`的。
 
-![image-20220404091511602](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204040915708.png)
+![image-20230602232616537](./assets/image-20230602232616537.png)
+
+![image-20230602232643730](./assets/image-20230602232643730.png)
+
+![image-20230602232739574](./assets/image-20230602232739574.png)
 
 ##### **1.8 redo log file**
 
@@ -7513,11 +7524,11 @@ redo log buffer刷盘到redo log file的过程并不是真正的刷到磁盘中�
 
 **2.** **日志文件组**
 
-![image-20220404092038421](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204040920532.png)
+![image-20230602232817177](./assets/image-20230602232817177.png)
 
 **3. checkpoint**
 
-![image-20220404092106617](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204040921715.png)
+![image-20230602232847113](./assets/image-20230602232847113.png)
 
 如果 write pos 追上 checkpoint ，表示**日志文件组**满了，这时候不能再写入新的 redo log记录，MySQL 得停下来，清空一些记录，把 checkpoint 推进一下。
 
@@ -7580,15 +7591,15 @@ InnoDB对undo log的管理采用段的方式，也就是`回滚段（rollback se
 
 **只有Buffer Pool的流程：**
 
-![image-20220404093706650](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204040937761.png)
+![image-20230602232930120](./assets/image-20230602232930120.png)
 
 **有了Redo Log和Undo Log之后：**
 
-![image-20220404093832512](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204040938657.png)
+![image-20230602232950812](./assets/image-20230602232950812.png)
 
 **2.** **详细生成过程**
 
-![image-20220404093950136](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204040939231.png)
+![image-20230602233016032](./assets/image-20230602233016032.png)
 
 **当我们执行INSERT时：**
 
@@ -7597,17 +7608,17 @@ begin;
 INSERT INTO user (name) VALUES ("tom");
 ```
 
-![image-20220404094033441](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204040940543.png)
+![image-20230602233036716](./assets/image-20230602233036716.png)
 
 **当我们执行UPDATE时：**
 
-![image-20220404094105525](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204040941624.png)
+![image-20230602233104078](./assets/image-20230602233104078.png)
 
 ```mysql
 UPDATE user SET id=2 WHERE id=1;
 ```
 
-![image-20220404094142337](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204040941449.png)
+![image-20230602233125455](./assets/image-20230602233125455.png)
 
 **3. undo log是如何回滚的**
 
@@ -7633,7 +7644,7 @@ UPDATE user SET id=2 WHERE id=1;
 
 ##### **2.6** **小结** 
 
-![image-20220404094436830](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204040944948.png)
+![image-20230602233150640](./assets/image-20230602233150640.png)
 
 undo log是逻辑日志，对事务回滚时，只是将数据库逻辑地恢复到原来的样子。
 
@@ -7950,7 +7961,7 @@ Flush tables with read lock
 
 #### **4.** **锁的内存结构**
 
-![image-20220405151409557](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051514736.png)
+![image-20230602233307192](./assets/image-20230602233307192.png)
 
 结构解析：
 
@@ -7980,7 +7991,7 @@ Flush tables with read lock
 
 这是一个32位的数，被分成了`lock_mode`、`lock_type`和`rec_lock_type`三个部分，如图所示：
 
-![image-20220405151829547](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051518659.png)
+![image-20230602233334903](./assets/image-20230602233334903.png)
 
 - 锁的模式（`lock_mode`），占用低4位，可选的值如下：
   - `LOCK_IS`（十进制的`0`）：表示共享意向锁，也就是`IS锁`。 
@@ -8062,18 +8073,21 @@ MVCC在MySQL InnoDB中的实现主要是为了提高数据库并发性能，用�
 
 我们知道事务有 4 个隔离级别，可能存在三种并发问题：
 
-![image-20220405153617536](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051536648.png)
+![image-20230602233419763](./assets/image-20230602233419763.png)
 
 另图：
 
-![image-20220405153632021](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051536125.png)
+![image-20230602233440425](./assets/image-20230602233440425.png)
 
 ##### **3.2** **隐藏字段、Undo Log版本链**
 
 回顾一下undo日志的版本链，对于使用`InnoDB`存储引擎的表来说，它的聚簇索引记录中都包含两个必要的隐藏列。
 
 - `trx_id`：每次一个事务对某条聚簇索引记录进行改动时，都会把该事务的`事务id`赋值给trx_id 隐藏列。
+
 - `roll_pointer`：每次对某条聚簇索引记录进行改动时，都会把旧的版本写入到 undo日志 中，然后这个隐藏列就相当于一个指针，可以通过它来找到该记录修改前的信息。
+
+  ![image-20230602233512103](./assets/image-20230602233512103.png)
 
 #### **4. MVCC实现原理之ReadView** 
 
@@ -8134,13 +8148,13 @@ ReadView就是事务在使用MVCC机制进行快照读操作时产生的读视�
 
 如表所示：
 
-![image-20220405154948505](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051549618.png)
+![image-20230602233701605](./assets/image-20230602233701605.png)
 
 > 注意，此时同样的查询语句都会重新获取一次 Read View，这时如果 Read View 不同，就可能产生不可重复读或者幻读的情况。
 
 当隔离级别为可重复读的时候，就避免了不可重复读，这是因为一个事务只在第一次 SELECT 的时候会获取一次 Read View，而后面所有的 SELECT 都会复用这个 Read View，如下表所示：
 
-![image-20220405155041964](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051550072.png)
+![image-20230602233610766](./assets/image-20230602233610766.png)
 
 #### **5.** **举例说明**
 
@@ -8156,7 +8170,7 @@ ReadView就是事务在使用MVCC机制进行快照读操作时产生的读视�
 
 假设现在表 student 中只有一条数据，数据内容中，主键 id=1，隐藏的 trx_id=10，它的 undo log 如下图所示。
 
-![image-20220405155640520](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051556631.png)
+![image-20230602233755992](./assets/image-20230602233755992.png)
 
 假设现在有事务 A 和事务 B 并发执行，`事务 A`的事务 id 为`20`，`事务 B`的事务 id 为`30`。
 
@@ -8181,7 +8195,7 @@ insert into student(id,name) values(3,'王五');
 
 此时表student 中就有三条数据了，对应的 undo 如下图所示：
 
-![image-20220405155909223](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051559345.png)
+![image-20230602233825956](./assets/image-20230602233825956.png)
 
 步骤3：接着事务 A 开启第二次查询，根据可重复读隔离级别的规则，此时事务 A 并不会再重新生成ReadView。此时表 student 中的 3 条数据都满足 where id>=1 的条件，因此会先查出来。然后根据ReadView 机制，判断每条数据是不是都可以被事务 A 看到。
 
@@ -8191,7 +8205,7 @@ insert into student(id,name) values(3,'王五');
 
 3）同理，id=3 的这条数据，trx_id 也为 30，因此也不能被事务 A 看见。
 
-![image-20220405155941753](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051559867.png)
+![image-20230602233854400](./assets/image-20230602233854400.png)
 
 结论：最终事务 A 的第二次查询，只能查询出 id=1 的这条数据。这和事务 A 的第一次查询的结果是一样的，因此没有出现幻读现象，所以说在 MySQL 的可重复读隔离级别下，不存在幻读问题。
 
@@ -8301,7 +8315,17 @@ install -omysql -gmysql -m0644 /dev/null /var/log/mysqld.log
 mysqladmin -uroot -p flush-logs
 ```
 
-#### **4.** **二进制日志(bin log)** 
+#### **4.** **二进制日志(bin log)**
+
+binlog可以说是MySQL中比较 重要 的日志了，在日常开发及运维过程中，经常会遇到。
+binlog即binary log，二进制日志文件，也叫作变更日志（update log）。它记录了数据库所有执行的DDL 和 DML 等数据库更新事件的语句，但是不包含没有修改任何数据的语句（如数据查询语句select、show等）。
+binlog主要应用场景：
+
+- 一是用于 数据恢复
+
+- 二是用于 数据复制
+
+  ![image-20230602234118904](./assets/image-20230602234118904.png)
 
 ##### **4.1** **查看默认情况**
 
@@ -8409,15 +8433,15 @@ PURGE {MASTER | BINARY} LOGS BEFORE ‘指定日期’
 
 binlog的写入时机也非常简单，事务执行过程中，先把日志写到`binlog cache`，事务提交的时候，再把binlog cache写到binlog文件中。因为一个事务的binlog不能被拆开，无论这个事务多大，也要确保一次性写入，所以系统会给每个线程分配一个块内存作为binlog cache。
 
-![image-20220405163025361](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051630535.png)
+![image-20230602234214417](./assets/image-20230602234214417.png)
 
 write和fsync的时机，可以由参数`sync_binlog`控制，默认是 `0`。为0的时候，表示每次提交事务都只write，由系统自行判断什么时候执行fsync。虽然性能得到提升，但是机器宕机，page cache里面的binglog 会丢失。如下图：
 
-![image-20220405163125180](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051631346.png)
+![image-20230602234243508](./assets/image-20230602234243508.png)
 
 为了安全起见，可以设置为`1`，表示每次提交事务都会执行fsync，就如同**redo log** **刷盘流程**一样。最后还有一种折中方式，可以设置为N(N>1)，表示每次提交事务都write，但累积N个事务后才fsync。
 
-![image-20220405163205364](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051632526.png)
+![image-20230602234310393](./assets/image-20230602234310393.png)
 
 在出现IO瓶颈的场景里，将sync_binlog设置成一个比较大的值，可以提升性能。同样的，如果机器宕机，会丢失最近N个事务的binlog日志。
 
@@ -8433,17 +8457,19 @@ write和fsync的时机，可以由参数`sync_binlog`控制，默认是 `0`。�
 
 在执行更新语句过程，会记录redo log与binlog两块日志，以基本的事务为单位，redo log在事务执行过程中可以不断写入，而binlog只有在提交事务时才写入，所以redo log与binlog的`写入时机`不一样。
 
+![image-20230602234624532](./assets/image-20230602234624532.png)
+
 为了解决两份日志之间的逻辑一致问题，InnoDB存储引擎使用**两阶段提交**方案。
 
-![image-20220405163716222](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051637390.png)
+![image-20230602234530227](./assets/image-20230602234530227.png)
 
 使用**两阶段提交**后，写入binlog时发生异常也不会有影响
 
-![image-20220405163902977](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051639192.png)
+![image-20230602234453537](./assets/image-20230602234453537.png)
 
 另一个场景，redo log设置commit阶段发生异常，那会不会回滚事务呢？
 
-![image-20220405163927129](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051639403.png)
+![image-20230602234425656](./assets/image-20230602234425656.png)
 
 并不会回滚事务，它会执行上图框住的逻辑，虽然redo log是处于prepare阶段，但是能通过事务id找到对应的binlog日志，所以MySQL认为是完整的，就会提交事务恢复数据。
 
@@ -8465,6 +8491,8 @@ write和fsync的时机，可以由参数`sync_binlog`控制，默认是 `0`。�
 
 ##### **1.1** **如何提升数据库并发能力**
 
+![image-20230602234738225](./assets/image-20230602234738225.png)
+
 一般应用对数据库而言都是“`读多写少`”，也就说对数据库读取数据的压力比较大，有一个思路就是采用数据库集群的方案，做`主从架构`、进行`读写分离`，这样同样可以提升数据库的并发处理能力。但并不是所有的应用都需要对数据库进行主从架构的设置，毕竟设置架构本身是有成本的。
 
 如果我们的目的在于提升数据库高并发访问的效率，那么首先考虑的是如何`优化SQL和索引`，这种方式简单有效；其次才是采用`缓存的策略`，比如使用 Redis将热点数据保存在内存数据库中，提升读取的效率；最后才是对数据库采用`主从架构`，进行读写分离。
@@ -8472,6 +8500,8 @@ write和fsync的时机，可以由参数`sync_binlog`控制，默认是 `0`。�
 ##### **1.2** **主从复制的作用**
 
 **第1个作用：读写分离。**
+
+![image-20230602234811019](./assets/image-20230602234811019.png)
 
 **第2个作用就是数据备份。**
 
@@ -8485,7 +8515,7 @@ write和fsync的时机，可以由参数`sync_binlog`控制，默认是 `0`。�
 
 实际上主从同步的原理就是基于 binlog 进行数据同步的。在主从复制过程中，会基于`3 个线程`来操作，一个主库线程，两个从库线程。
 
-![image-20220405164559961](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051646097.png)
+![image-20230602234832690](./assets/image-20230602234832690.png)
 
 `二进制日志转储线程`（Binlog dump thread）是一个主库线程。当从库线程连接的时候， 主库可以将二进制日志发送给从库，当主库读取事件（Event）的时候，会在 Binlog 上`加锁`，读取完成之后，再将锁释放掉。
 
@@ -8493,7 +8523,7 @@ write和fsync的时机，可以由参数`sync_binlog`控制，默认是 `0`。�
 
 `从库 SQL 线程`会读取从库中的中继日志，并且执行日志中的事件，将从库中的数据与主库保持同步。
 
-![image-20220405164718627](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051647759.png)
+![image-20230602234857241](./assets/image-20230602234857241.png)
 
 **复制三步骤**
 
@@ -8557,21 +8587,32 @@ write和fsync的时机，可以由参数`sync_binlog`控制，默认是 `0`。�
 
 ##### **3.4** **如何解决一致性问题**
 
+![image-20230602235123803](./assets/image-20230602235123803.png)
+
 读写分离情况下，解决主从同步中数据不一致的问题， 就是解决主从之间 数据复制方式 的问题，如果按照数据一致性 从弱到强 来进行划分，有以下 3 种复制方式。
 
 **方法** **1：异步复制**
 
-![image-20220405165455998](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051654133.png)
+![image-20230602235146889](./assets/image-20230602235146889.png)
 
 **方法** **2：半同步复制**
 
-![image-20220405165513025](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051655175.png)
+![image-20230602235206118](./assets/image-20230602235206118.png)
 
 **方法** **3：组复制**
 
+异步复制和半同步复制都无法最终保证数据的一致性问题，半同步复制是通过判断从库响应的个数来决定是否返回给客户端，虽然数据一致性相比于异步复制有提升，但仍然无法满足对数据一致性要求高的场景，比如金融领域。MGR 很好地弥补了这两种复制模式的不足。
+组复制技术，简称 MGR（MySQL Group Replication）。是 MySQL 在 5.7.17 版本中推出的一种新的数据复制技术，这种复制技术是基于 Paxos 协议的状态机复制。
+
+**MGR 是如何工作的**
+
 首先我们将多个节点共同组成一个复制组，在`执行读写（RW）事务`的时候，需要通过一致性协议层（Consensus 层）的同意，也就是读写事务想要进行提交，必须要经过组里“大多数人”（对应 Node 节点）的同意，大多数指的是同意的节点数量需要大于 （N/2+1），这样才可以进行提交，而不是原发起方一个说了算。而针对`只读（RO）事务`则不需要经过组内同意，直接 COMMIT 即可。
 
-![image-20220405165650425](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204051656560.png)
+在一个复制组内有多个节点组成，它们各自维护了自己的数据副本，并且在一致性协议层实现了原子消息和全局有序消息，从而保证组内数据的一致性。
+
+![image-20230602235430529](./assets/image-20230602235430529.png)
+
+MGR 将 MySQL 带入了数据强一致性的时代，是一个划时代的创新，其中一个重要的原因就是MGR 是基于 Paxos 协议的。Paxos 算法是由 2013 年的图灵奖获得者 Leslie Lamport 于 1990 年提出的，有关这个算法的决策机制可以搜一下。事实上，Paxos 算法提出来之后就作为 分布式一致性算法 被广泛应用，比如Apache 的 ZooKeeper 也是基于 Paxos 实现的。
 
 ### 第19章 数据库备份与恢复
 
