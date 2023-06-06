@@ -29,11 +29,11 @@
 *   本地方法接口
 *   本地方法库
 
-![image-20200705080719531](https://img-blog.csdnimg.cn/img_convert/e4bc9ed374db7f35e68f23f4813205bd.png)
+![image-20200705080719531](https://gitee.com/wowosong/pic-md/raw/master/202306061249299.png)
 
 
 
-![image-20200705080911284](https://img-blog.csdnimg.cn/img_convert/5f06cd7e27506a91940c7b87e01d0b46.png)
+![image-20200705080911284](https://gitee.com/wowosong/pic-md/raw/master/202306061250169.png)
 
 如果自己想手写一个 Java 虚拟机的话，主要考虑哪些结构呢？
 
@@ -44,7 +44,7 @@
 
 **类加载器子系统作用**
 
-![image-20200705081813409](https://img-blog.csdnimg.cn/img_convert/3569bfb903e80b66ee7e972a6b4a5036.png)
+![image-20200705081813409](https://gitee.com/wowosong/pic-md/raw/master/202306061250924.png)
 
  
 
@@ -54,7 +54,7 @@
 
 **类加载器 ClasLoader 角色**
 
-![image-20200705081913538](https://img-blog.csdnimg.cn/img_convert/e8172076eaa7a152408633a353f06b2c.png)
+![image-20200705081913538](https://gitee.com/wowosong/pic-md/raw/master/202306061251032.png)
 
 *   class file 存在于本地硬盘上，可以理解为设计师画在纸上的模板，而最终这个模板在执行的时候是要加载到 JVM 当中来根据这个文件实例化出 n 个一模一样的实例。
 *   class file 加载到 JVM 中，被称为 **DNA 元数据模板，放在方法区**。
@@ -75,11 +75,11 @@ public class HelloLoader {
 
 用流程图表示上述示例代码：
 
-![image-20200705082255746](https://img-blog.csdnimg.cn/img_convert/8cc54647114c456695ac352336c74600.png)
+![image-20200705082255746](https://gitee.com/wowosong/pic-md/raw/master/202306061251777.png)
 
 ### 加载阶段
 
-![image-20200705082601441](https://img-blog.csdnimg.cn/img_convert/a9497a1eeb7fae3022846b509186fdcd.png)
+![image-20200705082601441](https://gitee.com/wowosong/pic-md/raw/master/202306061251702.png)
 
 *   1.  通过一个类的全限定名获取定义此类的二进制字节流
 *   2.  将这个字节流所代表的**静态存储结构转化为方法区的运行时数据结构**
@@ -101,8 +101,8 @@ public class HelloLoader {
     *   目的在子确保 Class 文件的字节流中包含信息符合当前虚拟机要求，保证被加载类的正确性，不会危害虚拟机自身安全。
     *   主要包括四种验证，文件格式验证，元数据验证，字节码验证，符号引用验证。
 *   **准备（Prepare）**：
-    *   为类变量分配内存并且设置该类变量的默认初始值，即零值。
-    *   这里不包含用 final 修饰的 static，因为 final 在编译的时候就会分配了，准备阶段会显式初始化；
+    *   为**类变量分配内存并且设置该类变量的默认初始值，即零值**。
+    *   这里**不包含用 final 修饰的 static，因为 final 在编译的时候就会分配了，准备阶段会显式初始化**；
     *   这里不会为实例变量分配初始化，类变量会分配在方法区中，而实例变量是会随着对象一起分配到 Java 堆中。
 *   **解析（Resolve）**：
     *   将常量池内的符号引用转换为直接引用的过程。

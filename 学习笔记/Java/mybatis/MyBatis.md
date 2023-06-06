@@ -2951,10 +2951,10 @@ public interface EmployeeMapper {
     <resultMap id="dept3" type="org.hong.pojo.Dept" extends="deptBase">
         <!-- 方式二 -->
         <!-- 
-   collection: 表示查询的多条数据
-    ofType: 指定集合中属性对象的类型[不能省略];
-      需要注意的是, collection使用ofType来指定集合中对象的类型, 而不是javaType
-   -->
+           collection: 表示查询的多条数据
+            ofType: 指定集合中属性对象的类型[不能省略];
+              需要注意的是, collection使用ofType来指定集合中对象的类型, 而不是javaType
+           -->
         <collection property="employees"
                     ofType="org.hong.pojo.Employee" 
                     resultMap="org.hong.mapper.EmployeeMapper.employeeBase">

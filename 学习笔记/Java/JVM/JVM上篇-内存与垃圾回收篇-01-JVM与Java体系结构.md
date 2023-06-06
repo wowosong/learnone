@@ -37,7 +37,7 @@
 *   新项目上线，对各种 JVM 参数设置一脸茫然，直接默认吧然后就 JJ 了
 *   每次面试之前都要重新背一遍 JVM 的一些原理概念性的东西，然而面试官却经常问你在实际项目中如何调优 JVM 参数，如何解决 GC、OOM 等问题，一脸懵逼
 
-![image-20200704111417472](https://img-blog.csdnimg.cn/img_convert/4f09fe3576573558bdc61985a8ad6a42.png)
+![image-20200704111417472](https://gitee.com/wowosong/pic-md/raw/master/202306050907930.png)
 
 大部分 Java 开发人员，除会在项目中使用到与 Java 平台相关的各种高精尖技术，对于 Java 技术的核心 Java 虚拟机了解甚少。
 
@@ -47,7 +47,7 @@
 
 如果我们把核心类库的 API 比做数学公式的话，那么 Java 虚拟机的知识就好比公式的推导过程。
 
-![image-20200704112119729](https://img-blog.csdnimg.cn/img_convert/b8b64926837d355213a8ce16c119da6b.png)
+![image-20200704112119729](https://gitee.com/wowosong/pic-md/raw/master/202306050907763.png)
 
 计算机系统体系对我们来说越来越远，在不了解底层实现方式的前提下，通过高级语言很容易编写程序代码。但事实上计算机并不认识高级语言
 
@@ -61,17 +61,17 @@
 
 **Java vs C++**
 
-![image-20200704112700211](https://img-blog.csdnimg.cn/img_convert/8fd76611be7ea81ebcfe7c4065dd3294.png)
+![image-20200704112700211](https://gitee.com/wowosong/pic-md/raw/master/202306050907482.png)
 
 垃圾收集机制为我们打理了很多繁琐的工作，大大提高了开发的效率，但是，垃圾收集也不是万能的，懂得 JVM 内部的内存结构、工作机制，是设计高扩展性应用和诊断运行时问题的基础，也是 Java 工程师进阶的必备能力。
 
 ## 1.2. 面向人群及参考书目
 
-![image-20210507095948516](https://img-blog.csdnimg.cn/img_convert/555790a8a0b57075bdc8b6116545e461.png)
+![image-20210507095948516](https://gitee.com/wowosong/pic-md/raw/master/202306050907161.png)
 
 
 
-![image-20200704145340513](https://img-blog.csdnimg.cn/img_convert/33c00a1933a8fbdf47db211178125621.png)
+![image-20200704145340513](https://gitee.com/wowosong/pic-md/raw/master/202306050907572.png)
 
 ![image-20210507100021400](https://img-blog.csdnimg.cn/img_convert/f4cd25ee025347ae9481e26b89331041.png)
 
