@@ -71,11 +71,11 @@
 
 
 
-![image-20200704145340513](https://gitee.com/wowosong/pic-md/raw/master/202306050907572.png)
+![image-20200704145340513](https://gitee.com/wowosong/pic-md/raw/master/202306070848172.png)
 
-![image-20210507100021400](https://img-blog.csdnimg.cn/img_convert/f4cd25ee025347ae9481e26b89331041.png)
+![image-20210507100021400](https://gitee.com/wowosong/pic-md/raw/master/202306070848102.png)
 
-![image-20210507100104455](https://img-blog.csdnimg.cn/img_convert/c56a02961383aca01f642eb9a1b81ab1.png)
+![image-20210507100104455](https://gitee.com/wowosong/pic-md/raw/master/202306070847789.png)
 
 ## 1.3. Java 及 JVM 简介
 
@@ -110,11 +110,11 @@ Java 是目前应用最为广泛的软件开发平台之一。随着 Java 以及
     *   就连 JDK 和 JVM 自身也有不少开源的实现，如 openJDK、Harmony。
 *   作为一个社区，Java 拥有全世界最多的技术拥护者和开源社区支持，有数不清的论坛和资料。从桌面应用软件、嵌入式开发到企业级应用、后台服务器、中间件，都可以看到 Java 的身影。其应用形式之复杂、参与人数之众多也令人咋舌。
 
-![image-20200704151731216](https://img-blog.csdnimg.cn/img_convert/69fa9f3a1421d7dffc8b193084c8ae04.png)
+![image-20200704151731216](https://gitee.com/wowosong/pic-md/raw/master/202306070847353.png)
 
 每个语言都需要转换成字节码文件，最后转换的字节码文件都能通过 Java 虚拟机进行运行和处理
 
-![image-20200704152052489](https://img-blog.csdnimg.cn/img_convert/a9546b59e32abb4cc36b02b2f72bddad.png)
+![image-20200704152052489](https://gitee.com/wowosong/pic-md/raw/master/202306070847077.png)
 
 *   随着 Java7 的正式发布，Java 虚拟机的设计者们通过 JSR-292 规范基本实现在Java 虚拟机平台上运行非 Java 语言编写的程序。
 *   Java 虚拟机根本不关心运行在其内部的程序到底是使用何种编程语言编写的，它只关心“字节码”文件。也就是说 Java 虚拟机拥有语言无关性，并不会单纯地与 Java 语言“终身绑定”，只要其他编程语言的编译结果满足并包含 Java 虚拟机的内部指令集、符号表以及其他的辅助信息，它就是一个有效的字节码文件，就能够被虚拟机所识别并装载运行。
@@ -141,7 +141,7 @@ Java 虚拟机非常复杂，要想真正理解它的工作原理，最好的方
 
 为之，则难者亦易矣；不为，则易者亦难矣
 
-![image-20210507102334642](https://img-blog.csdnimg.cn/img_convert/b97b2bf5eafd843f7b149e98ff4d615f.png)
+![image-20210507102334642](https://gitee.com/wowosong/pic-md/raw/master/202306070847852.png)
 
  
 
@@ -168,15 +168,13 @@ Java 虚拟机非常复杂，要想真正理解它的工作原理，最好的方
 *   同年，JDK11 发布，LTS 版本的 JDK，发布革命性的 ZGC，调整 JDK 授权许可
 *   2019 年，JDK12 发布，加入 RedHat 领导开发的shenandoah GC
 
-
-
-![image-20200704182035810](https://img-blog.csdnimg.cn/img_convert/577ba2f5110b972116602fb2ce3291e8.png)
+![image-20200704182035810](https://gitee.com/wowosong/pic-md/raw/master/202306070847826.png)
 
 在 JDK11 之前，OracleJDK 中还会存在一些 OpenJDK 中没有的、闭源的功能。但在 JDK11 中，我们可以认为 OpenJDK 和 OracleJDK 代码实质上已经完全一致的程度。
 
 不过，主流的 JDK 8 在 2019 年 01 月之后就被宣布停止更新了。另外， JDK 11 及以后的版本也不再提供免费的长期支持（LTS），而且 JDK 15 和 JDK 16 也不是一个长期支持的版本，最新的 JDK 15 只支持 6 个月时间，到 2021 年 3 月，所以千万不要把 JDK 15 等非长期支持版本用在生产。
 
-![img](https://img-blog.csdnimg.cn/img_convert/8a37d7f7b848e7453e622270217ce7dc.png)
+![img](https://gitee.com/wowosong/pic-md/raw/master/202306070847864.png)
 
 ## 1.5. 虚拟机与 Java 虚拟机
 
