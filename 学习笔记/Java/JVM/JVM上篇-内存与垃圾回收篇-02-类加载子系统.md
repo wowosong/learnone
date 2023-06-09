@@ -105,7 +105,7 @@ public class HelloLoader {
     *   这里**不包含用 final 修饰的 static，因为 final 在编译的时候就会分配了，准备阶段会显式初始化**；
     *   这里不会为实例变量分配初始化，类变量会分配在方法区中，而实例变量是会随着对象一起分配到 Java 堆中。
 *   **解析（Resolve）**：
-    *   将常量池内的符号引用转换为直接引用的过程。
+    *   将常量池内的**符号引用转换为直接引用**的过程。
     *   事实上，解析操作往往会伴随着 JVM 在执行完初始化之后再执行。
     *   符号引用就是一组符号来描述所引用的目标。符号引用的字面量形式明确定义在《java 虚拟机规范》的 Class 文件格式中。直接引用就是直接指向目标的指针、相对偏移量或一个间接定位到目标的句柄。
     *   解析动作主要针对类或接口、字段、类方法、接口方法、方法类型等。**对应常量池中的 CONSTANT\_Class\_info，CONSTANT\_Fieldref\_info、CONSTANT\_Methodref\_info 等。**
@@ -127,7 +127,7 @@ JVM 支持两种类型的类加载器 。分别为**引导类加载器（Bootstr
 
 无论类加载器的类型如何划分，在程序中我们最常见的类加载器始终只有 3 个，如下所示：
 
-![image-20200705094149223](https://img-blog.csdnimg.cn/img_convert/1e553c6d5254f827d2dfab537bea3ab9.png)
+![image-20200705094149223](https://gitee.com/wowosong/pic-md/raw/master/202306081745615.png)
 
 这里的四者之间的关系是包含关系。**不是上层下层，也不是子父类的继承关系**。
 
@@ -168,19 +168,26 @@ JVM 支持两种类型的类加载器 。分别为**引导类加载器（Bootstr
 
 用户自定义类加载器实现步骤：
 
-1.  开发人员可以通过继承抽象类 ava.lang.ClassLoader 类的方式，实现自己的类加载器，以满足一些特殊的需求
-2.  在 JDK1.2 之前，在自定义类加载器时，总会去继承 ClassLoader 类并重写 loadClass() 方法，从而实现自定义的类加载类，但是在 JDK1.2 之后已不再建议用户去覆盖 loadclass() 方法，而是建议把自定义的类加载逻辑写在 findClass()方法中
+1.  开发人员可以通过继承抽象类 java.lang.ClassLoader 类的方式，实现自己的类加载器，以满足一些特殊的需求
+2.  在 JDK1.2 之前，在自定义类加载器时，总会去继承 ClassLoader 类并**重写 loadClass() 方法**，从而实现自定义的类加载类，但是在 JDK1.2 之后已不再建议用户去覆盖 loadclass() 方法，而是建议把自定义的类加载逻辑写在 findClass()方法中
 3.  在编写自定义类加载器时，如果没有太过于复杂的需求，可以直接继承 URLClassLoader 类，这样就可以避免自己去编写 findClass() 方法及其获取字节码流的方式，使自定义类加载器编写更加简洁。
 
 ## 2.4. ClassLoader 的使用说明
 
 ClassLoader 类是一个抽象类，其后所有的类加载器都继承自 ClassLoader（不包括启动类加载器）
 
-![image-20200705103516138](https://img-blog.csdnimg.cn/img_convert/876534b3c2f447d3fc33e6f1db218068.png)
+| 方法名称                                           | 描述                                                         |
+| -------------------------------------------------- | ------------------------------------------------------------ |
+| getParent()                                        | 返回该类加载器的超类加载器                                   |
+| loadClass(String name)                             | 加载名称为name的类，返回结果为java.lang.Class类的实例        |
+| findClass(String name)                             | 查找名称为name的类，返回结果为java.lang.Class类的实例        |
+| findLoadedClass(String name)                       | 查找名称为name的已经被加载过的类，返回结果为java.lang.Class类的实例 |
+| defineClass(String name,byte[] b,int off ,int len) | 把字节数组b中的内容转换为一个Java类，返回结果为java.lang.Class类的实例 |
+| resolveClass(Class<?> c)                           | 连接指定的一个Java类                                         |
 
 sun.misc.Launcher 它是一个 java 虚拟机的入口应用
 
-![image-20200705103636003](https://img-blog.csdnimg.cn/img_convert/a22114b608dffe484041b591d486a7fd.png)
+![image-20200705103636003](https://gitee.com/wowosong/pic-md/raw/master/202306081746606.png)
 
 **获取 ClassLoader 的途径**
 
@@ -211,21 +218,21 @@ sun.misc.Launcher 它是一个 java 虚拟机的入口应用
 
 ## 2.5. 双亲委派机制
 
-Java 虚拟机对 class 文件采用的是按需加载的方式，也就是说当需要使用该类时才会将它的 class 文件加载到内存生成 class 对象。而且加载某个类的 class 文件时，Java 虚拟机采用的是双亲委派模式，即把请求交由父类处理，它是一种任务委派模式。
+Java 虚拟机对 class 文件采用的是**按需加载的方式**，也就是说当需要使用该类时才会将它的 class 文件加载到内存生成 class 对象。**而且加载某个类的 class 文件时，Java 虚拟机采用的是双亲委派模式，即把请求交由父类处理，它是一种任务委派模式**。
 
 **工作原理**
 
-*   1）如果一个类加载器收到了类加载请求，它并不会自己先去加载，而是把这个请求委托给父类的加载器去执行；
-*   2）如果父类加载器还存在其父类加载器，则进一步向上委托，依次递归，请求最终将到达顶层的启动类加载器；
-*   3）如果父类加载器可以完成类加载任务，就成功返回，倘若父类加载器无法完成此加载任务，子加载器才会尝试自己去加载，这就是双亲委派模式。
+*   1）如果一个类加载器收到了类加载请求，它并不会自己先去加载，而是把这个请求委托给**父类的加载器**去执行；
+*   2）如果父类加载器还存在其父类加载器，则进一步向上委托，依次递归，请求最终将到达顶层的**启动类加载器**；
+*   3）如果父类加载器可以完成类加载任务，就成功返回，**倘若父类加载器无法完成此加载任务，子加载器才会尝试自己去加载，这就是双亲委派模式。**
 
-![image-20200705105151258](https://img-blog.csdnimg.cn/img_convert/05fa27fcc38eeaaa5babff55a00882a3.png)
+![image-20200705105151258](https://gitee.com/wowosong/pic-md/raw/master/202306081751469.png)
 
 **举例**
 
-当我们加载 jdbc.jar 用于实现数据库连接的时候，首先我们需要知道的是 jdbc.jar 是基于 SPI 接口进行实现的，所以在加载的时候，会进行双亲委派，最终从根加载器中加载 SPI 核心类，然后在加载 SPI 接口类，接着在进行反向委派，通过线程上下文类加载器进行实现类 jdbc.jar 的加载。
+当我们加载 jdbc.jar 用于实现数据库连接的时候，首先我们需要知道的是 **jdbc.jar 是基于 SPI 接口进行实现的**，所以在加载的时候，会进行双亲委派，**最终从根加载器中加载 SPI 核心类，然后在加载 SPI 接口类，接着在进行反向委派，通过线程上下文类加载器进行实现类 jdbc.jar 的加载。**
 
-![image-20200705105810107](https://img-blog.csdnimg.cn/img_convert/bed320014f52bb27c8f3d795b3dc3b4a.png)
+![image-20200705105810107](https://gitee.com/wowosong/pic-md/raw/master/202306081755295.png)
 
 **优势**
 
@@ -236,7 +243,7 @@ Java 虚拟机对 class 文件采用的是按需加载的方式，也就是说�
 
 **沙箱安全机制**
 
-自定义 String 类，但是在加载自定义 String 类的时候会率先使用引导类加载器加载，而引导类加载器在加载的过程中会先加载 jdk 自带的文件（rt.jar 包中 java\\lang\\String.class），报错信息说没有 main 方法，就是因为加载的是 rt.jar 包中的 string 类。这样可以保证对 java 核心源代码的保护，这就是沙箱安全机制。
+自定义 String 类，但是在加载自定义 String 类的时候会率先使用引导类加载器加载，而引导类加载器在加载的过程中会先加载 jdk 自带的文件（rt.jar 包中 java\\lang\\String.class），报错信息说没有 main 方法，就是因为加载的是 rt.jar 包中的 string 类。这样可以保证对 java 核心源代码的保护，这就是**沙箱安全机制**。
 
 ## 2.6. 其他
 
@@ -247,7 +254,7 @@ Java 虚拟机对 class 文件采用的是按需加载的方式，也就是说�
 *   类的完整类名必须一致，包括包名。
 *   加载这个类的 ClassLoader（指 ClassLoader 实例对象）必须相同。
 
-换句话说，在 JVM 中，即使这两个类对象（class 对象）来源同一个 Class 文件，被同一个虚拟机所加载，但只要加载它们的 ClassLoader 实例对象不同，那么这两个类对象也是不相等的。
+换句话说，在 JVM 中，即使这两个类对象（class 对象）来源同一个 Class 文件，被同一个虚拟机所加载，**但只要加载它们的 ClassLoader 实例对象不同，那么这两个类对象也是不相等的**。
 
 **对类加载器的引用**
 
