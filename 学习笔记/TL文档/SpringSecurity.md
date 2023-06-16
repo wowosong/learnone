@@ -34,7 +34,7 @@
 
 **如何设计一个权限系统？**
 
-![](./SpringSecurity.assets/20220109131552.png)
+![](https://gitee.com/wowosong/pic-md/raw/master/202306151546568.png)
 
 ## 二、一个自己实现的权限模型 BasicAuth： 
 
@@ -194,7 +194,7 @@ public class BasicApplication {
 
 以及springboot的配置文件 application.properties，我们只简单定义下接口
 
-```
+```properties
 server.port=8080
 ```
 
@@ -224,11 +224,11 @@ public class UserBean {
         this.userName = userName;
         this.userPass = userPass;
     }
-   ...getter and setter...
-    public boolean havaPermission(String resource) {
+    ...getter and setter...
+        public boolean havaPermission(String resource) {
         return this.resourceBeans.stream()
-                .filter(resourceBean -> resourceBean.getResourceName().equals(resource))
-                .count()>0;
+            .filter(resourceBean -> resourceBean.getResourceName().equals(resource))
+            .count()>0;
     }
 }
 
@@ -543,7 +543,7 @@ public class MyWebAppConfigurer implements WebMvcConfigurer {
 }
 ```
 
-其中这个AuthInterceptor，就是以拦截器的形式来实现权限管控。
+其中这个AuthInterceptor，就是以**拦截器的形式来实现权限管控**。
 
 ```java
 package com.tuling.basicAuth.config;
@@ -803,7 +803,7 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //链式配置拦截策略
-        http.csrf().disable()//关闭csrg跨域检查
+        http.csrf().disable()//关闭csrf跨域检查
                 .authorizeRequests()
                 .antMatchers("/mobile/**").hasAuthority("mobile") //配置资源权限
                 .antMatchers("/salary/**").hasAuthority("salary")
@@ -870,7 +870,7 @@ public class LoginController {
 
 另外，关于用户数据来源，**可以通过覆盖WebSecurityConfigurerAdapter中的configure(AuthenticationManagerBuilder auth)方法，并注入authenticationManagerBean()的方式进行干预。**
 
-3、目前示例中的权限规则都是从内存直接写死的，实际项目中显然都是要从数据库进行加载。而且，目前我们的规则都是基于web请求路径来定制的，而Spring Security实际上还提供了基于注解的方法级别规则配置。
+3、目前示例中的权限规则都是从内存直接写死的，实际项目中显然都是要从数据库进行加载。而且，目前**我们的规则都是基于web请求路径来定制的，而Spring Security实际上还提供了基于注解的方法级别规则配置**。
 
 ### 3、项目测试
 
@@ -892,15 +892,15 @@ public class LoginController {
 
 ​	SpringSecurity通过引用Spring容器中的UserDetailsService对象来管理主体数据。默认情况下，会注入一个包含user用户的默认主体管理服务。我们演示中就通过注入一个InMemoryUserDetailsManager对象覆盖了默认的主体管理器。
 
-​	实际项目中的用户信息大都会来自于数据库。在SpringSecurity中，也提供了JdbcUserDetailsManager来实现对数据库的用户信息进行管理。而如果这些不满足实际需求，可以通过自己实现一个UserDetailsService对象并注入到Spring容器中，来实现自定义的主体数据管理。
+​	实际项目中的用户信息大都会来自于数据库。在SpringSecurity中，也提供了JdbcUserDetailsManager来实现对数据库的用户信息进行管理。而如果这些不满足实际需求，**可以通过自己实现一个UserDetailsService对象并注入到Spring容器中，来实现自定义的主体数据管理。**
 
 2、密码解析器
 
-​	Spring Security提供了很多密码解析器，包括CryptPassEncoder、Argon2PasswordEncoder、Pbkdf2PasswordEncoder等，具体可以参看PassEncoder接口的实现类。其中最常用的一般就是BCryptPasswordEncoder。其中要注意的是，我们在选择不同的密码解析器后，后台存储用户密码时要存储对应的密文。
+​	Spring Security提供了很多密码解析器，包括CryptPassEncoder、Argon2PasswordEncoder、Pbkdf2PasswordEncoder等，具体可以参看PassEncoder接口的实现类。其中最常用的一般就是BCryptPasswordEncoder。其中要注意的是，**我们在选择不同的密码解析器后，后台存储用户密码时要存储对应的密文**。
 
 3、自定义授权及安全拦截策略
 
-​	最常规的方式是通过覆盖WebSecurityConfigurerAdapter中的protected void configure(HttpSecurity http)方法。通过http来配置自定义的拦截规则。包含访问控制、登录页面及逻辑、退出页面及逻辑等。
+​	最常规的方式是通过覆盖WebSecurityConfigurerAdapter中的protected void **configure(HttpSecurity http)**方法。通过http来配置自定义的拦截规则。包含访问控制、登录页面及逻辑、退出页面及逻辑等。
 
 ​	**自定义登录**：http.loginPage()方法配置登录页，http.loginProcessingUrl()方法定制登录逻辑。要注意的是，SpringSecurity的登录页和登录逻辑是同一个地址/login，如果使用自定义的页面，需要将登录逻辑地址也分开。例如： http.loginPage("/index.html").loginProcessingUrl("/login")。 
 
@@ -914,7 +914,7 @@ public class LoginController {
 
 ​	hasAuthority、hasRole这些是配置需要有对应的权限或者角色才能访问。 其中，角色就是对应一个ROLE_角色名 这样的一个资源。
 
-另外的两个配置对象中，AuthenticationManagerBuilder配置认证策略，WebSecurity配置补充的Web请求策略。
+另外的两个配置对象中，**AuthenticationManagerBuilder配置认证策略，WebSecurity配置补充的Web请求策略**。
 
 4、关于csrf
 
@@ -946,7 +946,7 @@ csrf全称是Cross—Site Request Forgery 跨站点请求伪造。这是一种�
 
 ![](./SpringSecurity.assets/20220109131943.png)
 
-Spring Security的功能实现主要就是由一系列过滤器链相互配合完成的。在启动过程中可以看到有info日志。
+Spring Security的功能实现主要就是由一系列**过滤器链**相互配合完成的。在启动过程中可以看到有info日志。
 
 ![](./SpringSecurity.assets/20220109131950.png)
 
@@ -1068,7 +1068,7 @@ public interface UserDetails extends Serializable {
 public interface PasswordEncoder {、
     //加密
     String encode(CharSequence var1);
-	  //比较密码
+	//比较密码
     boolean matches(CharSequence var1, String var2);
 	
     default boolean upgradeEncoding(String encodedPassword) {
@@ -1104,7 +1104,7 @@ public interface PasswordEncoder {、
 **SecurityMetadataSource其实就是读取访问策略的抽象**，而读取的内容，其实就是我们配置的访问规则，读取访问策略如：
 
 ```java
-http.csrf().disable()//关闭csrg跨域检查
+http.csrf().disable()//关闭csrf跨域检查
         //这里注意matchers是有顺序的。
         .authorizeRequests()
         .antMatchers("/mobile/**").hasAuthority("mobile")
@@ -1276,8 +1276,8 @@ hasIpAddress(String ipaddressExpression) 限制IP地址或子网
 
 ```java
 @EnableGlobalMethodSecurity(securedEnabled=true) 开启@Secured 注解过滤权限
-	打开后@Secured({"ROLE_manager","ROLE_admin"}) 表示方法需要有manager和admin两个角色才能访问
-	另外@Secured注解有些关键字，比如IS_AUTHENTICATED_ANONYMOUSLY 表示可以匿名登录。
+//打开后@Secured({"ROLE_manager","ROLE_admin"}) 表示方法需要有manager和admin两个角色才能访问
+//另外@Secured注解有些关键字，比如IS_AUTHENTICATED_ANONYMOUSLY 表示可以匿名登录。
 @EnableGlobalMethodSecurity(jsr250Enabled=true)	开启@RolesAllowed 注解过滤权限 
 @EnableGlobalMethodSecurity(prePostEnabled=true) 使用表达式时间方法级别的安全性，打开后可以使用一下几个注解。
 @PreAuthorize 在方法调用之前,基于表达式的计算结果来限制对方法的访问。例如@PreAuthorize("hasRole('normal') AND hasRole('admin')")
@@ -1290,11 +1290,7 @@ hasIpAddress(String ipaddressExpression) 限制IP地址或子网
 
 #### 	5.1 获取当前用户信息
 
-用户认证通过后，为了避免用户的每次操作都进行认证可将用户的信息保存在会话中。spring security提供**会话管**
-
-**理，认证通过后将身份信息放入SecurityContextHolder上下文，SecurityContext与当前线程进行绑定，方便获取**
-
-**用户身份。**
+用户认证通过后，为了避免用户的每次操作都进行认证可将用户的信息保存在会话中。spring security提供**会话管理，认证通过后将身份信息放入SecurityContextHolder上下文，SecurityContext与当前线程进行绑定，方便获取用户身份。**
 
 可以通过为**SecurityContextHolder.getContext().getAuthentication()获取当前登录用户信息**。
 
@@ -1388,12 +1384,12 @@ server.servlet.session.cookie.secure=true
 
 ```java
 http
-.and()
-.logout() //提供系统退出支持，使用 WebSecurityConfigurerAdapter 会自动被应用
-.logoutUrl("/logout") //默认退出地址
-.logoutSuccessUrl("/login‐view?logout") //退出后的跳转地址
-.addLogoutHandler(logoutHandler) //添加一个LogoutHandler，用于实现用户退出时的清理工作.默认 SecurityContextLogoutHandler 会被添加为最后一个 LogoutHandler 。
-.invalidateHttpSession(true);  //指定是否在退出时让HttpSession失效，默认是true
+    .and()
+    .logout() //提供系统退出支持，使用 WebSecurityConfigurerAdapter 会自动被应用
+    .logoutUrl("/logout") //默认退出地址
+    .logoutSuccessUrl("/login‐view?logout") //退出后的跳转地址
+    .addLogoutHandler(logoutHandler) //添加一个LogoutHandler，用于实现用户退出时的清理工作.默认 SecurityContextLogoutHandler 会被添加为最后一个 LogoutHandler 。
+    .invalidateHttpSession(true);  //指定是否在退出时让HttpSession失效，默认是true
 ```
 
 在退出操作时，会做以下几件事情：

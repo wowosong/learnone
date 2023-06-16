@@ -263,9 +263,9 @@ public class PaymentMain8001 {
 #### 1.sql
 
 ```sql
-create table ``(
-  `id` bigint(20) not null auto_increment comment 'id',
-  `serial` varchar(200) default '',
+create table (
+  id bigint(20) not null auto_increment comment 'id',
+  serial varchar(200) default '',
   primary key(`id`)
 )engine=InnoDB AUTO_INCREMENT=1 default charset=utf8
 ```
