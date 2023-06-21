@@ -211,11 +211,11 @@ Java 虚拟机非常复杂，要想真正理解它的工作原理，最好的方
 
 JVM 是运行在操作系统之上的，它与硬件没有直接的交互  
 
-![image-20210507104030823](https://img-blog.csdnimg.cn/img_convert/cd8b795cf080b8ba40f6915b6242c8af.png) 
+![image-20210507104030823](https://gitee.com/wowosong/pic-md/raw/master/202306201644225.png) 
 
 ## 1.6. JVM 的整体结构
 
-![image-20200704183436495](https://img-blog.csdnimg.cn/img_convert/1bf0b96d082d684a818bc36a8f864a89.png)
+![image-20200704183436495](https://gitee.com/wowosong/pic-md/raw/master/202306201644127.png)
 
  
 
@@ -225,7 +225,7 @@ JVM 是运行在操作系统之上的，它与硬件没有直接的交互
 
 ## 1.7. Java 代码执行流程
 
-![image-20200704210429535](https://img-blog.csdnimg.cn/img_convert/4ce09e21efc2533d2b80f45f97b35a48.png)
+![image-20200704210429535](https://gitee.com/wowosong/pic-md/raw/master/202306201644629.png)
 
 ## 1.8. JVM 的架构模型
 

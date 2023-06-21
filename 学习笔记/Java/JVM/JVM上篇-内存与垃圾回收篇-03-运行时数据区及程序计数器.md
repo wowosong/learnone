@@ -15,36 +15,36 @@
 
 本节主要讲的是运行时数据区，也就是下图这部分，它是在类加载完成后的阶段
 
-![image-20200705111640511](https://img-blog.csdnimg.cn/img_convert/b5d91ce04cfef9a681bbed216732511a.png)
+![image-20200705111640511](https://gitee.com/wowosong/pic-md/raw/master/202306201252277.png)
 
 当我们通过前面的：类的加载-> 验证 -> 准备 -> 解析 -> 初始化 这几个阶段完成后，就会用到执行引擎对我们的类进行使用，同时执行引擎将会使用到我们运行时数据区
 
-![image-20200705111843003](https://img-blog.csdnimg.cn/img_convert/b3cd82be688254afd263db9094e004a7.png)
+![image-20200705111843003](https://gitee.com/wowosong/pic-md/raw/master/202306201357026.png)
 
-内存是非常重要的系统资源，是硬盘和 CPU 的中间仓库及桥梁，承载着操作系统和应用程序的实时运行 JVM 内存布局规定了 Java 在运行过程中内存申请、分配、管理的策略，保证了 JVM 的高效稳定运行。不同的 JVM 对于内存的划分方式和管理机制存在着部分差异。结合 JVM 虚拟机规范，来探讨一下经典的 JVM 内存布局。
+内存是非常重要的系统资源，是硬盘和 CPU 的中间仓库及桥梁，承载着操作系统和应用程序的实时运行。JVM 内存布局规定了 Java 在运行过程中内存申请、分配、管理的策略，保证了 JVM 的高效稳定运行。不同的 JVM 对于内存的划分方式和管理机制存在着部分差异。结合 JVM 虚拟机规范，来探讨一下经典的 JVM 内存布局。
 
-![image-20210509174724223](https://img-blog.csdnimg.cn/img_convert/d6f0aac226ebab0c435b8fe79995eddc.png)
+![image-20210509174724223](https://gitee.com/wowosong/pic-md/raw/master/202306201529952.png)
 
 我们把大厨后面的东西（切好的菜，刀，调料），比作是运行时数据区。而厨师可以类比于执行引擎，将通过准备的东西进行制作成精美的菜品
 
-![image-20210509174543026](https://img-blog.csdnimg.cn/img_convert/bbf59f2544890b06cdb69b2d7719c060.png)
+![image-20210509174543026](https://gitee.com/wowosong/pic-md/raw/master/202306201529095.png)
 
-我们通过磁盘或者网络 IO 得到的数据，都需要先加载到内存中，然后 CPU 从内存中获取数据进行读取，也就是说内存充当了 CPU 和磁盘之间的桥梁
+我们通过磁盘或者网络 IO 得到的数据，都需要先**加载到内存**中，然后 CPU 从内存中获取数据进行读取，也就是说内存充当了 CPU 和磁盘之间的桥梁
 
-![image-20200705112416101](https://img-blog.csdnimg.cn/img_convert/d9139f792f2d10eb03fb827da25b3b28.png)
+![image-20200705112416101](https://gitee.com/wowosong/pic-md/raw/master/202306201557537.png)
 
 Java 虚拟机定义了若干种程序运行期间会使用到的运行时数据区，其中有一些会随着虚拟机启动而创建，随着虚拟机退出而销毁。另外一些则是与线程一一对应的，这些与线程对应的数据区域会随着线程开始和结束而创建和销毁。
 
-灰色的为单独线程私有的，红色的为多个线程共享的。即：
+**灰色的为单独线程私有的，红色的为多个线程共享的**。即：
 
 *   每个线程：独立包括程序计数器、栈、本地栈。
 *   线程间共享：堆、堆外内存（永久代或元空间、代码缓存）
 
-![image-20200705112601211](https://img-blog.csdnimg.cn/img_convert/0f0cce71a35c12ef13e6482d0663dc21.png)
+![image-20200705112601211](https://gitee.com/wowosong/pic-md/raw/master/202306201557865.png)
 
 每个 JVM 只有一个 Runtime 实例。即为运行时环境，相当于内存结构的中间的那个框框：运行时环境。
 
-![image-20210509173410373](https://img-blog.csdnimg.cn/img_convert/efc4643bdd550c6ecacb9d764e71890e.png)
+![image-20210509173410373](https://gitee.com/wowosong/pic-md/raw/master/202306201558874.png)
 
 ### 3.1.2. 线程
 
@@ -68,23 +68,23 @@ Java 虚拟机定义了若干种程序运行期间会使用到的运行时数据
 
 ## 3.2. 程序计数器(PC 寄存器)
 
-JVM 中的程序计数寄存器（Program Counter Register）中，Register 的命名源于 CPU 的寄存器，寄存器存储指令相关的现场信息。CPU 只有把数据装载到寄存器才能够运行。这里，并非是广义上所指的物理寄存器，或许将其翻译为 PC 计数器（或指令计数器）会更加贴切（也称为程序钩子），并且也不容易引起一些不必要的误会。JVM 中的 PC 寄存器是对物理 PC 寄存器的一种抽象模拟。
+JVM 中的程序计数寄存器（Program Counter Register）中，Register 的命名源于 CPU 的寄存器，**寄存器存储指令相关的现场信息**。**CPU 只有把数据装载到寄存器才能够运行**。这里，并非是广义上所指的物理寄存器，或许将其翻译为 PC 计数器（或指令计数器）会更加贴切（也称为程序钩子），并且也不容易引起一些不必要的误会。JVM 中的 PC 寄存器是对物理 PC 寄存器的一种抽象模拟。
 
-![image-20200705155551919](https://img-blog.csdnimg.cn/img_convert/e6785d89d74d694f7cfe22ba74a164d9.png)
+![image-20200705155551919](https://gitee.com/wowosong/pic-md/raw/master/202306201558787.png)
 
 **作用**
 
 PC 寄存器用来存储指向下一条指令的地址，也即将要执行的指令代码。由执行引擎读取下一条指令。
 
-![image-20200705155728557](https://img-blog.csdnimg.cn/img_convert/998d864c026e5d6b565d1cfaecda2bb0.png)
+![image-20200705155728557](https://gitee.com/wowosong/pic-md/raw/master/202306201558754.png)
 
 它是一块很小的内存空间，几乎可以忽略不记。也是运行速度最快的存储区域。
 
-在 JVM 规范中，每个线程都有它自己的程序计数器，是线程私有的，生命周期与线程的生命周期保持一致。
+在 JVM 规范中，**每个线程都有它自己的程序计数器，是线程私有的，生命周期与线程的生命周期保持一致。**
 
 任何时间一个线程都只有一个方法在执行，也就是所谓的当前方法。程序计数器会存储当前线程正在执行的 Java 方法的 JVM 指令地址；或者，如果是在执行 native 方法，则是未指定值（undefined）。
 
-它是程序控制流的指示器，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。
+**它是程序控制流的指示器，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成**。
 
 字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令。
 
@@ -119,7 +119,7 @@ public int minus(){
 
 JVM 的字节码解释器就需要通过改变 PC 寄存器的值来明确下一条应该执行什么样的字节码指令。
 
-![image-20200705161409533](https://img-blog.csdnimg.cn/img_convert/68aa12d47725e4559e6b71489d91122e.png)
+![image-20200705161409533](https://gitee.com/wowosong/pic-md/raw/master/202306201558592.png)
 
 **PC 寄存器为什么被设定为私有的？**
 
@@ -137,8 +137,5 @@ CPU 时间片即 CPU 分配给各个程序的时间，每个线程被分配一�
 
 但在微观上：由于只有一个 CPU，一次只能处理程序要求的一部分，如何处理公平，一种方法就是引入时间片，每个程序轮流执行。
 
-![image-20200705161849557](https://img-blog.csdnimg.cn/img_convert/bbab7cdab74c493af70b423f06e6ff86.png)
+![image-20200705161849557](https://gitee.com/wowosong/pic-md/raw/master/202306201558261.png)
 
-
-
-javascript:)
