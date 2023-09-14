@@ -742,7 +742,8 @@ environments 元素定义了如何配置环境。
 
 ```java
 public interface TransactionFactory {
-    default void setProperties(Properties props) { // 从 3.5.2 开始，该方法为默认方法
+    default void setProperties(Properties props) {
+        // 从 3.5.2 开始，该方法为默认方法
         // 空实现
     }
     Transaction newTransaction(Connection conn);
