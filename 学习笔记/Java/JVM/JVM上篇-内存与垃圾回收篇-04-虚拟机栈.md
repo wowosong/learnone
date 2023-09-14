@@ -185,7 +185,7 @@ public class CurrentFrameTest{
 
 ![image-20200705204836977](https://img-blog.csdnimg.cn/img_convert/0ed2029b435d547547f32540077bb082.png)
 
-并行每个线程下的栈都是私有的，因此每个线程都有自己各自的栈，并且每个栈里面都有很多栈帧，栈帧的大小主要由局部变量表 和 操作数栈决定的
+并行每个线程下的栈都是私有的，因此每个线程都有自己各自的栈，并且每个栈里面都有很多栈帧，栈帧的大小主要由局部变量表 和 操作数栈决定的。
 
 ![image-20200705205443993](https://img-blog.csdnimg.cn/img_convert/2451fa6f061c426179e3674bb6813e46.png)
 

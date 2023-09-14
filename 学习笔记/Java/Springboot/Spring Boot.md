@@ -228,9 +228,9 @@ public @interface SpringBootApplication {
 
 ​		标注在某个类上，表示这是一个Spring Boot的配置类；
 
-​		@**Configuration**:配置类上来标注这个注解；
+@**Configuration**:配置类上来标注这个注解；
 
-​			配置类 -----  配置文件；配置类也是容器中的一个组件；@Component
+​		配置类 -----  配置文件；配置类也是容器中的一个组件；@Component
 
 @**EnableAutoConfiguration**：开启自动配置功能；
 
@@ -242,9 +242,9 @@ public @interface SpringBootApplication {
 public @interface EnableAutoConfiguration {
 ```
 
-​      	@**AutoConfigurationPackage**：自动配置包
+​    @**AutoConfigurationPackage**：自动配置包
 
-​		@**Import**(AutoConfigurationPackages.Registrar.class)：
+​	@**Import**(AutoConfigurationPackages.Registrar.class)：
 
 ​		Spring的底层注解@Import，给容器中导入一个组件；导入的组件由AutoConfigurationPackages.Registrar.class；
 
@@ -896,18 +896,18 @@ public class HttpEncodingAutoConfiguration {
   
    //只有一个有参构造器的情况下，参数的值就会从容器中拿
   	public HttpEncodingAutoConfiguration(HttpEncodingProperties properties) {
-		this.properties = properties;
-	}
-  
+      this.properties = properties;
+    }
+
     @Bean   //给容器中添加一个组件，这个组件的某些值需要从properties中获取
-	@ConditionalOnMissingBean(CharacterEncodingFilter.class) //判断容器没有这个组件？
-	public CharacterEncodingFilter characterEncodingFilter() {
-		CharacterEncodingFilter filter = new OrderedCharacterEncodingFilter();
-		filter.setEncoding(this.properties.getCharset().name());
-		filter.setForceRequestEncoding(this.properties.shouldForce(Type.REQUEST));
-		filter.setForceResponseEncoding(this.properties.shouldForce(Type.RESPONSE));
-		return filter;
-	}
+    @ConditionalOnMissingBean(CharacterEncodingFilter.class) //判断容器没有这个组件？
+    public CharacterEncodingFilter characterEncodingFilter() {
+      CharacterEncodingFilter filter = new OrderedCharacterEncodingFilter();
+      filter.setEncoding(this.properties.getCharset().name());
+      filter.setForceRequestEncoding(this.properties.shouldForce(Type.REQUEST));
+      filter.setForceResponseEncoding(this.properties.shouldForce(Type.RESPONSE));
+      return filter;
+    }
 ```
 
 根据当前不同的条件判断，决定这个配置类是否生效？
@@ -1721,11 +1721,11 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 ​	2）、在做其他自动配置时会导入；@Import(**EnableWebMvcConfiguration**.class)
 
 ```java
-    @Configuration
+  @Configuration
 	public static class EnableWebMvcConfiguration extends DelegatingWebMvcConfiguration {
       private final WebMvcConfigurerComposite configurers = new WebMvcConfigurerComposite();
 
-	 //从容器中获取所有的WebMvcConfigurer
+      //从容器中获取所有的WebMvcConfigurer
       @Autowired(required = false)
       public void setConfigurers(List<WebMvcConfigurer> configurers) {
           if (!CollectionUtils.isEmpty(configurers)) {
@@ -2763,7 +2763,7 @@ EmbeddedServletContainerAutoConfiguration：嵌入式的Servlet容器自动配�
 //后置处理器：bean初始化前后（创建完对象，还没赋值赋值）执行初始化工作
 public class EmbeddedServletContainerAutoConfiguration {
     
-    @Configuration
+  @Configuration
 	@ConditionalOnClass({ Servlet.class, Tomcat.class })//判断当前是否引入了Tomcat依赖；
 	@ConditionalOnMissingBean(value = EmbeddedServletContainerFactory.class, search = SearchStrategy.CURRENT)//判断当前容器没有用户自己定义EmbeddedServletContainerFactory：嵌入式的Servlet容器工厂；作用：创建嵌入式的Servlet容器
 	public static class EmbeddedTomcat {
@@ -2851,7 +2851,7 @@ public EmbeddedServletContainer getEmbeddedServletContainer(
    }
    prepareContext(tomcat.getHost(), initializers);
     
-    //将配置好的Tomcat传入进去，返回一个EmbeddedServletContainer；并且启动Tomcat服务器
+   //将配置好的Tomcat传入进去，返回一个EmbeddedServletContainer；并且启动Tomcat服务器
    return getTomcatEmbeddedServletContainer(tomcat);
 }
 ```
@@ -2883,8 +2883,7 @@ public Object postProcessBeforeInitialization(Object bean, String beanName)
    return bean;
 }
 
-private void postProcessBeforeInitialization(
-			ConfigurableEmbeddedServletContainer bean) {
+private void postProcessBeforeInitialization(ConfigurableEmbeddedServletContainer bean) {
     //获取所有的定制器，调用每一个定制器的customize方法来给Servlet容器进行属性赋值；
     for (EmbeddedServletContainerCustomizer customizer : getCustomizers()) {
         customizer.customize(bean);
@@ -2896,10 +2895,9 @@ private Collection<EmbeddedServletContainerCustomizer> getCustomizers() {
         // Look up does not include the parent context
         this.customizers = new ArrayList<EmbeddedServletContainerCustomizer>(
             this.beanFactory
-            //从容器中获取所有这葛类型的组件：EmbeddedServletContainerCustomizer
+            //从容器中获取所有这个类型的组件：EmbeddedServletContainerCustomizer
             //定制Servlet容器，给容器中可以添加一个EmbeddedServletContainerCustomizer类型的组件
-            .getBeansOfType(EmbeddedServletContainerCustomizer.class,
-                            false, false)
+            .getBeansOfType(EmbeddedServletContainerCustomizer.class,false, false)
             .values());
         Collections.sort(this.customizers, AnnotationAwareOrderComparator.INSTANCE);
         this.customizers = Collections.unmodifiableList(this.customizers);
