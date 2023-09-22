@@ -90,6 +90,7 @@ promise.then(
 )
 ```
 3) 使用 3: 使用 promise 封装 ajax 异步请求
+
 ```javascript
 /*
   可复用的发 ajax 请求的函数: xhr + promise
@@ -240,38 +241,38 @@ promiseAjax('https://api.apiopen.top2/getJoke?page=1&count=2&type=video').then(
 
 ```javascript 
 /* 1. Promise 构造函数: Promise (excutor) {} 
-  excutor 函数: 同步执行 (resolve, reject) => {}
-  resolve 函数: 内部定义成功时我们调用的函数 value => {} 
-  reject 函数: 内部定义失败时我们调用的函数 reason => {} 
-  说明: excutor 会在 Promise 内部立即同步回调,异步操作在执行器中执行 
-  2. Promise.prototype.then 方法: (onResolved, onRejected) => {}
-  onResolved 函数: 成功的回调函数 (value) => {}
-  onRejected 函数: 失败的回调函数 (reason) => {} 
-  说明: 指定用于得到成功 value 的成功回调和用于得到失败 reason 的失败回调 返回一个新的 promise 对象 
-  3. Promise.prototype.catch 方法: (onRejected) => {} 
-  onRejected 函数: 失败的回调函数 (reason) => {} 
-  说明: then()的语法糖, 相当于: then(undefined, onRejected) 
-  4. Promise.resolve 方法: (value) => {} 
-  value: 成功的数据或 promise 对象 说明: 返回一个成功/失败的 promise 对象 
-  5. Promise.reject 方法: (reason) => {} 
-  reason: 失败的原因 说明: 返回一个失败的 promise 对象 
-  6. Promise.all 方法: (promises) => {} 
-  promises: 包含 n 个 promise 的数组 说明: 返回一个新的 promise, 只有所有的 promise 都成功才成功, 只要有一 个失败了就直接失败 
-  7. Promise.race 方法: (promises) => {} 
-  promises: 包含 n 个 promise 的数组 
-  说明: 返回一个新的 promise, 第一个完成的 promise 的结果状态就是最终的 结果状态 */
+excutor 函数: 同步执行 (resolve, reject) => {}
+resolve 函数: 内部定义成功时我们调用的函数 value => {} 
+reject 函数: 内部定义失败时我们调用的函数 reason => {} 
+说明: excutor 会在 Promise 内部立即同步回调,异步操作在执行器中执行 
+2. Promise.prototype.then 方法: (onResolved, onRejected) => {}
+onResolved 函数: 成功的回调函数 (value) => {}
+onRejected 函数: 失败的回调函数 (reason) => {} 
+说明: 指定用于得到成功 value 的成功回调和用于得到失败 reason 的失败回调 返回一个新的 promise 对象 
+3. Promise.prototype.catch 方法: (onRejected) => {} 
+onRejected 函数: 失败的回调函数 (reason) => {} 
+说明: then()的语法糖, 相当于: then(undefined, onRejected) 
+4. Promise.resolve 方法: (value) => {} 
+value: 成功的数据或 promise 对象 说明: 返回一个成功/失败的 promise 对象 
+5. Promise.reject 方法: (reason) => {} 
+reason: 失败的原因 说明: 返回一个失败的 promise 对象 
+6. Promise.all 方法: (promises) => {} 
+promises: 包含 n 个 promise 的数组 说明: 返回一个新的 promise, 只有所有的 promise 都成功才成功, 只要有一 个失败了就直接失败 
+7. Promise.race 方法: (promises) => {} 
+promises: 包含 n 个 promise 的数组 
+说明: 返回一个新的 promise, 第一个完成的 promise 的结果状态就是最终的 结果状态 */
 /* new Promise((resolve, reject) => {
-    if (Date.now()%2===0) {
-    	resolve(1) 
-    } else {
-    	reject(2)
-    } 
-    }).then(value => {
-    	console.log('onResolved1()',
-    value) 
-    }).catch(reason => {
-			console.log('onRejected1()', reason) 
-	}) */ 
+if (Date.now()%2===0) {
+resolve(1) 
+} else {
+reject(2)
+} 
+}).then(value => {
+console.log('onResolved1()',
+value) 
+}).catch(reason => {
+console.log('onRejected1()', reason) 
+}) */ 
 const p1 = Promise.resolve(1) 
 const p2 = Promise.resolve(Promise.resolve(3)) 
 const p3 = Promise.resolve(Promise.reject(5)) 
@@ -297,7 +298,7 @@ const pRace = Promise.race([p5, p1, p4])
 pRace.then( value => {
     console.log('race 成功了', value)
 }, 
-           reason => {console.log('race 失败了', reason)
+           reason => {console.log('race 失败了', reason);
                      } )
 ```
 ### 1.3.2. promise 的几个关键问题

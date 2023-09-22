@@ -52,6 +52,7 @@ name = "孙悟空" ; age = 18 ; gender = "男" ;
 
 1.4.1 核心对象
   XMLHttpRequest，AJAX 的所有操作都是通过该对象进行的。
+
 1.4.2 使用步骤
 
 1）创建 XMLHttpRequest 对象
