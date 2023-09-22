@@ -6,6 +6,10 @@
       - [Vue](/学习笔记/前端/Vue.md)
       - [Vue3](/学习笔记/前端/Vue3/Vue3.md)
       - [Axois](/学习笔记/前端/Axois.md)
+      - [ES6](/学习笔记/前端/ES6.md)
+      - [Vue-Family](/学习笔记/前端/Vue-family.md)
+      - [Axois](/学习笔记/前端/Axois.md)
+      - [Promise](/学习笔记/前端/Promise.md)
       - [Ajax](/学习笔记/前端/Ajax.md)
       - [JavaScript](/学习笔记/前端/JavaScript.md)
       
