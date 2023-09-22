@@ -1422,8 +1422,10 @@ component: home,
   ```vue
   <router-link :to="'/home/message/mdetail/'+m.id">{{m.title}}</router-link>
   ```
-3) 路由组件中读取请求参数
-this.$route.params.id
+3. 路由组件中读取请求参数
+    this.$route.params.id
+
+
 ### 5.4.3. 方式 2: \<router-view>属性携带数据
 ```vue
 <router-view :msg="msg"></router-view>
@@ -1433,7 +1435,11 @@ this.$route.params.id
 ### 5.5.1. 理解
 1) 默认情况下, 被切换的路由组件对象会死亡释放, 再次回来时是重新创建的
 2) 如果可以缓存路由组件对象, 可以提高用户体验
+
+
+
 ### 5.5.2. 编码实现
+
 ```vue
 <keep-alive>
     <router-view></router-view>
@@ -1449,17 +1455,23 @@ this.$route.params.id
 3) this.$router.back(): 请求(返回)上一个记录路由
 4) this.$router.go(-1): 请求(返回)上一个记录路由
 5) this.$router.go(1): 请求下一个记录路由
+
+
+
 # 第 6 章： vuex
+
 ## 6.1. vuex 理解
 ### 6.1.1. vuex 是什么
 1) github 站点: https://github.com/vuejs/vuex
 2) 在线文档: https://vuex.vuejs.org/zh-cn/
-3) 简单来说: 对 vue 应用中多个组件的共享状态进行集中式的管理(读/写)
-6.1.2. 状态自管理应用
+3. 简单来说: 对 vue 应用中多个组件的共享状态进行集中式的管理(读/写)
+
+### 6.1.2. 状态自管理应用
 1) state: 驱动应用的数据源 
 2) view: 以声明方式将 state 映射到视图
-3) actions: 响应在 view 上的用户输入导致的状态变化(包含 n 个更新状态的方法)
-6.1.3. 多组件共享状态的问题
+6. actions: 响应在 view 上的用户输入导致的状态变化(包含 n 个更新状态的方法)
+
+### 6.1.3. 多组件共享状态的问题
 1) 多个视图依赖于同一状态
 2) 来自不同视图的行为需要变更同一状态
 3) 以前的解决办法
@@ -1486,7 +1498,7 @@ yyy (state, {data1}) {
 1) 包含多个事件回调函数的对象
 2) 通过执行: commit()来触发 mutation 的调用, 间接更新 state
 3) 谁来触发: 组件中: $store.dispatch('action 名称', data1) // 'zzz'
-4. 可以包含异步代码(定时器, ajax)
+4) 可以包含异步代码(定时器, ajax)
 
   ```javascript
   const actions = {
@@ -1514,6 +1526,7 @@ yyy (state, {data1}) {
 1) 包含多个 module
 2) 一个 module 是一个 store 的配置对象
 3) 与一个组件(包含有共享数据)对应
+
 ### 6.2.6. 向外暴露 store 对象
 ```javascript
 export default new Vuex.Store({
