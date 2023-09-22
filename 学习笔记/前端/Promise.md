@@ -662,43 +662,43 @@ Promise.rejectDelay = function (reason, time) {
   2. 如果 await 的 promise 失败了, 就会抛出异常, 需要通过 try...catch 捕获处理
 ```javascript 
 function fn1() {
-    return Promise.resolve(1)
+	return Promise.resolve(1)
 }
 function fn2() {
-    return 2
+	return 2
 }
 function fn3() {
-    return Promise.reject(3)
-    // return fn3.test() // 程序运行会抛出异常
+	return Promise.reject(3)
+	// return fn3.test() // 程序运行会抛出异常
 }
 function fn4() {
-    return fn3.test() // 程序运行会抛出异常
+	return fn3.test() // 程序运行会抛出异常
 }
 // 没有使用 await 的 async 函数
 async function fn5() {
-    return 4
+	return 4
 }
 async function fn() {
-    // await 右侧是一个成功的 promise
-    const result = await fn1()
-    // await 右侧是一个非 promise 的数据
-    // const result = await fn2()
-    // await 右侧是一个失败的 promise
-    // const result = await fn3()
-    // await 右侧抛出异常
-    // const result = await fn4()
-    console.log('result: ', result)
-    return result+10
+	// await 右侧是一个成功的 promise
+	const result = await fn1()
+	// await 右侧是一个非 promise 的数据
+	// const result = await fn2()
+	// await 右侧是一个失败的 promise
+	// const result = await fn3()
+	// await 右侧抛出异常
+	// const result = await fn4()
+	console.log('result: ', result)
+	return result+10
 }
 async function test() {
-    try {
-        const result2 = await fn()
-        console.log('result2', result2)
-    } catch (error) {
-        console.log('error', error)
-    }
-    const result3 = await fn4()
-    console.log('result4', result3)
+	try {
+		const result2 = await fn()
+		console.log('result2', result2)
+	} catch (error) {
+		console.log('error', error)
+	}
+	const result3 = await fn4()
+ 	console.log('result4', result3)
 }
 // test()
 ```
