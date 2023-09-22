@@ -11,14 +11,26 @@
 1) 渐进式 JavaScript 框架
 2) 作者: 尤雨溪(一位华裔前 Google 工程师)
 3) 作用: 动态构建用户界面
+
+
+
 ### 1.1.3. Vue 的特点
+
 1) 遵循 MVVM 模式
 2) 编码简洁, 体积小, 运行效率高, 适合移动/PC 端开发
 3) 它本身只关注 UI, 可以轻松引入 vue 插件或其它第三库开发项目
+
+
+
 ### 1.1.4. 与其它前端 JS 框架的关联
+
 1) 借鉴 angular 的模板和数据绑定技术
 2) 借鉴 react 的组件化和虚拟 DOM 技术
+
+
+
 ### 1.1.5. Vue 扩展插件
+
 1) vue-cli: vue 脚手架
 2) vue-resource(axios): ajax 请求
 3) vue-router: 路由
@@ -27,10 +39,21 @@
 6) vue-scroller: 页面滑动相关
 7) mint-ui: 基于 vue 的 UI 组件库(移动端)
 8) element-ui: 基于 vue 的 UI 组件库(PC 端)
+
+
+
 ## 1.2. Vue 的基本使用
+
+
+
 ### 1.2.1. 效果 (01_HelloWorld/test.html)
+
 01_helloworld.gif
+
+
+
 ### 1.2.2. 编码
+
 ```vue
 <div id="app">
   <input type="text" v-model="username">
@@ -46,23 +69,48 @@ new Vue({
 })
 </script>
 ```
+
+
 ### 1.2.3. 使用 vue 开发者工具调试
+
 Vue.js
 devtools_3.1.2_0.crx
+
+
+
 ### 1.2.4. 理解 Vue 的 MVVM
+
+
+
 ## 1.3. 模板语法
+
+
+
 ### 1.3.1. 效果 (02_模板语法/test.html)
+
 02_模板语法.gif
+
+
+
 ### 1.3.2. 模板的理解
+
 1) 动态的 html 页面
 2) 包含了一些 JS 语法代码
 a. 双大括号表达式
 b. 指令(以 v-开头的自定义标签属性)
+
+
+
 ### 1.3.3. 双大括号表达式
+
 1) 语法: {{exp}}
 2) 功能: 向页面输出数据
 3) 可以调用对象的方法
+
+
+
 ### 1.3.4. 指令一: 强制数据绑定
+
 1) 功能: 指定变化的属性值
 2) 完整写法: v-bind:xxx='yyy' //yyy 会作为表达式解析执行
 3) 简洁写法: :xxx='yyy'
@@ -946,6 +994,7 @@ npm run build
 修改 dist 文件夹为项目名称: xxx
 将 xxx 拷贝到运行的 tomcat 的 webapps 目录下
 访问: http://localhost:8080/xxx 
+
 ## 2.3. eslint
 ### 2.3.1. 说明
 1) ESLint 是一个代码规范检查工具
