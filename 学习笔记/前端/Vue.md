@@ -435,7 +435,7 @@ gif
 3) radio
 4) select
 ### 1.9.3. 编码
-```javascript
+```html
 <form @submit.prevent="handleSubmit">
     <span>用户名: </span> <input type="text" v-model="user.username"><br>
     <span>密码: </span> <input type="password" v-model="user.pwd"><br>
@@ -504,7 +504,7 @@ gif
 1) created()/mounted(): 发送 ajax 请求, 启动定时器等异步任务
 2) beforeDestory(): 做收尾工作, 如: 清除定时器
 ### 1.10.5. 编码
-```javascript
+```html
 <div id="div">
     <button @click="destoryVue">destory vue</button>
 	<p v-show="isShowing">{{msg}}</p>
@@ -1153,6 +1153,7 @@ b. 说明: 饿了么开源的基于 vue 的移动端 UI 组件库
 2) Elment
 a. 主页: http://element-cn.eleme.io/#/zh-CN
 b. 说明: 饿了么开源的基于 vue 的 PC 端 UI 组件库
+
 ## 4.2. 使用 Mint UI
 ### 4.2.1. 下载:
 npm install --save mint-ui 
@@ -1171,7 +1172,7 @@ npm install --save-dev babel-plugin-component
 2) 非标签组件
 ### 4.2.4. 使用 mint-ui 的组件
 1) index.html
-```javascript
+```html
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimum-scale=1, user-scalable=no" />
     <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
 <script>
@@ -1188,7 +1189,7 @@ if(!window.Promise) {
 ```
 2. main.js
 
-  ```
+  ```javascript
   import {Button} from 'mint-ui'
   Vue.component(Button.name, Button)
   ```
