@@ -133,15 +133,15 @@ promiseAjax('https://api.apiopen.top2/getJoke?page=1&count=2&type=video').then(
 回调函数嵌套调用, 外部回调函数异步执行的结果是嵌套的回调执行的条件
 
   2. 回调地狱的缺点?
-		不便于阅读
-	不便于异常处理
+	 不便于阅读 不便于异常处理
   3. 解决方案?
 
-​		promise 链式调用
+	promise 链式调用
 
   4. 终极解决方案?
 
   async/await
+  
   ```javascript
   /*
   1. 指定回调函数的方式更加灵活:
