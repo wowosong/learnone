@@ -975,7 +975,8 @@ new Vue({
 ### 1.14.3. 编码
 3) 插件 JS
     ```javascript
-    /**自定义 Vue 插件
+    /**
+    自定义 Vue 插件
     */
     function () {
         const MyPlugin = {}
@@ -983,20 +984,20 @@ new Vue({
             // 1. 添加全局方法或属性
             Vue.myGlobalMethod = function () {
                 alert('Vue 函数对象方法执行')
-            } //
+            } 
         }
     }
     ```
 
 2. 添加全局资源
-  ```vue
-  Vue.directive('my-directive', function (el, binding) {
-  	el.innerHTML = "MyPlugin my-directive " + binding.value
-  })
-  ```
+      ```javascript
+      Vue.directive('my-directive', function (el, binding) {
+        el.innerHTML = "MyPlugin my-directive " + binding.value
+      })
+      ```
 
 3. 添加实例方法
-     ```vue
+     ```javascript
      Vue.prototype.$myMethod = function () {
          alert('vue 实例对象方法执行')
          }
