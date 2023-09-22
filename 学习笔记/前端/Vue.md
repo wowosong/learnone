@@ -1159,15 +1159,15 @@ b. 说明: 饿了么开源的基于 vue 的 PC 端 UI 组件库
 npm install --save mint-ui 
 ### 4.2.2. 实现按需打包
 1. 下载
-  npm install --save-dev babel-plugin-component
+    npm install --save-dev babel-plugin-component
 
 2. 修改 babel 配置
-  "plugins": ["transform-runtime",["component", [
-  {
-  "libraryName": "mint-ui",
-  "style": true
-  }
-  ]]]
+    "plugins": ["transform-runtime",["component", [
+    {
+    "libraryName": "mint-ui",
+    "style": true
+    }
+    ]]]
 
 
 ### 4.2.3. mint-ui 组件分类
@@ -1261,6 +1261,8 @@ new VueRouter({
 Home.vue
 About.vue
 ### 5.2.3. 应用组件: App.vue
+
+```html
 <div>
 <!--路由链接-->
 <router-link to="/about">About</router-link>
@@ -1268,6 +1270,8 @@ About.vue
 <!--用于渲染当前路由组件-->
 <router-view></router-view>
 </div>
+```
+
 ### 5.2.4. 路由器模块: src/router/index.js
 
 ```javascript
