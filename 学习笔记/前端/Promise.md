@@ -152,33 +152,30 @@ promiseAjax('https://api.apiopen.top2/getJoke?page=1&count=2&type=video').then(
   //回调地狱的缺点? 不便于阅读 不便于异常处理
   //解决方案? promise 链式调用
   //终极解决方案? async/await
-  /*成功的回调函数 */
+  //成功的回调函数 
   function successCallback(result) {
       console.log("声音文件创建成功: " + result);
   }
-  /*失败的回调函数 */
+  //失败的回调函数 
   function failureCallback(error) {
       console.log("声音文件创建失败: " + error);
   }
-  /* 1.1 使用纯回调函数 */
+  //1.1 使用纯回调函数 
   createAudioFileAsync(audioSettings, successCallback, failureCallback)
-  /* 1.2. 使用 Promise */
+  // 1.2. 使用 Promise 
   const promise = createAudioFileAsync(audioSettings); // 2
   setTimeout(() => {
       promise.then(successCallback, failureCallback);
   }, 3000);
-  /*
-   2.1. 回调地狱
-   */
+  //2.1. 回调地狱
+  
   doSomething(function(result) {
       doSomethingElse(result, function(newResult) {
           doThirdThing(newResult, function(finalResult) {
               console.log('Got the final result: ' + finalResult)}, failureCallback)
       }, failureCallback)
   }, failureCallback)
-  /*
-  2.2. 使用 promise 的链式调用解决回调地狱
-  */
+  //2.2. 使用 promise 的链式调用解决回调地狱
   doSomething().then(function(result) {
       return doSomethingElse(result)
   })
@@ -189,9 +186,8 @@ promiseAjax('https://api.apiopen.top2/getJoke?page=1&count=2&type=video').then(
       console.log('Got the final result: ' + finalResult)
   })
       .catch(failureCallback)
-  /*
-  2.3. async/await: 回调地狱的终极解决方案
-  */
+  
+  //2.3. async/await: 回调地狱的终极解决方案
   async function request() {
       try {
           const result = await doSomething()
