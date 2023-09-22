@@ -143,7 +143,7 @@ promiseAjax('https://api.apiopen.top2/getJoke?page=1&count=2&type=video').then(
   async/await
 
   ```javascript
-  /**
+  /*
   1. 指定回调函数的方式更加灵活:
   旧的: 必须在启动异步任务前指定
   promise: 启动异步任务 => 返回 promie 对象 => 给 promise 对象绑定回调函数
