@@ -143,17 +143,15 @@ promiseAjax('https://api.apiopen.top2/getJoke?page=1&count=2&type=video').then(
   async/await
 
   ```javascript
-  /*
-  1. 指定回调函数的方式更加灵活:
-  旧的: 必须在启动异步任务前指定
-  promise: 启动异步任务 => 返回 promie 对象 => 给 promise 对象绑定回调函数
-  (甚至可以在异步任务结束后指定)
-  2. 支持链式调用, 可以解决回调地狱问题
-  什么是回调地狱? 回调函数嵌套调用, 外部回调函数异步执行的结果是嵌套的回调函数执行的条件
-  回调地狱的缺点? 不便于阅读 不便于异常处理
-  解决方案? promise 链式调用
-  终极解决方案? async/await
-  */
+  //1. 指定回调函数的方式更加灵活:
+  //旧的: 必须在启动异步任务前指定
+  //promise: 启动异步任务 => 返回 promie 对象 => 给 promise 对象绑定回调函数
+  //(甚至可以在异步任务结束后指定)
+  //2. 支持链式调用, 可以解决回调地狱问题
+  //什么是回调地狱? 回调函数嵌套调用, 外部回调函数异步执行的结果是嵌套的回调函数执行的条件
+  //回调地狱的缺点? 不便于阅读 不便于异常处理
+  //解决方案? promise 链式调用
+  //终极解决方案? async/await
   /*成功的回调函数 */
   function successCallback(result) {
       console.log("声音文件创建成功: " + result);
