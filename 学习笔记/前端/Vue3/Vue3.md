@@ -859,10 +859,9 @@ watch(person.value,(newValue,oldValue)=>{
 
 ```javascript
 watch(person,(newValue,oldValue)=>{
-        console.log('person变化了',newValue,oldValue)
-      },
-      {deep: true}
-     ) 
+    console.log('person变化了',newValue,oldValue)
+},{deep: true}
+) 
 ```
 
 情况二：监视多个ref定义的响应式数据
@@ -901,7 +900,6 @@ watch(()=>person.job,(newValue,oldValue)=>{
 watch([()=>person.job,()=>person.name],(newValue,oldValue)=>{
 	console.log('person的job变化了',newValue,oldValue)
 },{immediate:true,deep:true})
-
 ```
 
 特殊情况
@@ -910,7 +908,8 @@ watch([()=>person.job,()=>person.name],(newValue,oldValue)=>{
 //特殊情况
 watch(()=>person.job,(newValue,oldValue)=>{
     console.log('person的job变化了',newValue,oldValue)
-},{deep:true}) //此处由于监视的是reactive素定义的对象中的某个属性，所以deep配置有效
+},{deep:true}) 
+//此处由于监视的是reactive素定义的对象中的某个属性，所以deep配置有效
 ```
 
 #### `watchEffect`函数

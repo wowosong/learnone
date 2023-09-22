@@ -76,7 +76,7 @@ v-on:keyup.enter='xxx'
 @keyup='xxx'
 @keyup.enter='xxx'
 ### 1.3.6. 编码
-```<div id="app">
+```javascript
 <h2>1. 双大括号表达式</h2>
 <p>{{msg}}</p>
 <p>{{msg.toUpperCase()}}</p>
@@ -90,17 +90,17 @@ v-on:keyup.enter='xxx'
 </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-new Vue({
-el: '#app',
-data: {// data 的所有属性都会成功 vm 对象的属性, 而模板页面中可以直接访问
-msg: 'NBA I Love This Game!',
-url: 'http://www.baidu.com'
-},
-methods: {
-handleClick () {
-alert('处理点击')
-}
-}
+    new Vue({
+    el: '#app',
+    data: {// data 的所有属性都会成功 vm 对象的属性, 而模板页面中可以直接访问
+        msg: 'NBA I Love This Game!',
+        url: 'http://www.baidu.com'
+    },
+    methods: {
+        handleClick () {
+            alert('处理点击')
+        }
+    }
 })
 </script>
 ```
@@ -117,45 +117,45 @@ alert('处理点击')
 1) 通过 getter/setter 实现对属性数据的显示和监视
 2) 计算属性存在缓存, 多次读取只执行一次 getter 计算
 ### 1.4.5. 编码
-```
+```javascript
 姓: <input type="text" placeholder="First Name" v-model="firstName"><br>
-名: <input type="text" placeholder="Last Name" v-model="lastName"><br>
-姓名 1(单向): <input type="text" placeholder="Full Name" v-model="fullName1"><br>
-姓名 2(单向): <input type="text" placeholder="Full Name" v-model="fullName2"><br>
-姓名 3(双向): <input type="text" placeholder="Full Name2" v-model="fullName3"><br>
-</div>
+    名: <input type="text" placeholder="Last Name" v-model="lastName"><br>
+        姓名 1(单向): <input type="text" placeholder="Full Name" v-model="fullName1"><br>
+            姓名 2(单向): <input type="text" placeholder="Full Name" v-model="fullName2"><br>
+                姓名 3(双向): <input type="text" placeholder="Full Name2" v-model="fullName3"><br>
+                    </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-var vm = new Vue({
-el: '#demo',
-data: {
-firstName: 'Kobe',
-lastName: 'bryant',
-fullName2: 'Kobe bryant'
-},
-computed: {
-fullName: function () {
-return this.firstName + " " + this.lastName
-},
-fullName3: {
-get: function () {
-return this.firstName + " " + this.lastName
-},
-set: function (value) {
-var names = value.split(' ')
-this.firstName = names[0]
-this.lastName = names[1]
-}
-}
-},
-watch: {
-lastName: function (newVal, oldVal) {
-this.fullName2 = this.firstName + ' ' + newVal
-}
-}
-})
+    var vm = new Vue({
+        el: '#demo',
+        data: {
+            firstName: 'Kobe',
+            lastName: 'bryant',
+            fullName2: 'Kobe bryant'
+        },
+        computed: {
+            fullName: function () {
+                return this.firstName + " " + this.lastName
+            },
+            fullName3: {
+                get: function () {
+                    return this.firstName + " " + this.lastName
+                },
+                set: function (value) {
+                    var names = value.split(' ')
+                    this.firstName = names[0]
+                    this.lastName = names[1]
+                }
+            }
+        },
+        watch: {
+            lastName: function (newVal, oldVal) {
+                this.fullName2 = this.firstName + ' ' + newVal
+            }
+        }
+    })
 vm.$watch('firstName', function (val) {
-this.fullName2 = val + ' ' + this.lastName
+    this.fullName2 = val + ' ' + this.lastName
 })
 ```
 
@@ -174,20 +174,20 @@ this.fullName2 = val + ' ' + this.lastName
 1) :style="{ color: activeColor, fontSize: fontSize + 'px' }"
 2) 其中 activeColor/fontSize 是 data 属性
 1.5.5. 编码
-```
+```javascript
 <style>
-.classA {
-color: red;
-} .
-classB {
-background: blue;
-} .
-classC {
-font-size: 20px;
-}
+    .classA {
+        color: red;
+    } .
+    classB {
+        background: blue;
+    } .
+    classC {
+        font-size: 20px;
+    }
 </style>
 <div id="demo">
-<h2>1. class 绑定: :class='xxx'</h2>
+    <h2>1. class 绑定: :class='xxx'</h2>
 <p class="classB" :class="a">表达式是字符串: 'classA'</p>
 <p :class="{classA: isA, classB: isB}">表达式是对象: {classA:isA, classB: isB}</p>
 <p :class="['classA', 'classC']"> 表达式是数组: ['classA', 'classB']</p>
@@ -198,24 +198,24 @@ font-size: 20px;
 </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-new Vue({
-el : '#demo',
-data : {
-a: 'classA',
-isA: true,
-isB: false,
-color: 'red',
-fontSize: '20px'
-},
-methods : {
-update () {
-this.a = 'classC'
-this.isA = false
-this.isB = true
-this.color = 'blue'
-this.fontSize = '30px'
-}
-}
+    new Vue({
+    el : '#demo',
+    data : {
+        a: 'classA',
+        isA: true,
+        isB: false,
+        color: 'red',
+        fontSize: '20px'
+    },
+    methods : {
+        update () {
+            this.a = 'classC'
+            this.isA = false
+            this.isB = true
+            this.color = 'blue'
+            this.fontSize = '30px'
+        }
+    }
 })
 </script>
 ```
@@ -229,22 +229,22 @@ this.fontSize = '30px'
 3) 如果需要频繁切换 v-show 较好
 4) 当条件不成立时, v-if 的所有子节点不会解析(项目中使用)
 ### 1.6.4. 编码
-```<div id="demo">
+```javascript
 <h2 v-if="ok">表白成功</h2>
 <h2 v-else>表白失败</h2>
 <h2 v-show="ok">求婚成功</h2>
 <h2 v-show="!ok">求婚失败</h2>
 <br>
-<button @click="ok=!ok">切换</button>
+    <button @click="ok=!ok">切换</button>
 </div> 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-var vm = new Vue({
-el: '#demo',
-data: {
-ok: false
-}
-})
+    var vm = new Vue({
+        el: '#demo',
+        data: {
+            ok: false
+        }
+    })
 </script>
 ```
 ##  1.7. 列表渲染
@@ -261,55 +261,55 @@ ok: false
 列表过滤
 列表排序
 ### 1.7.2. 编码 1
-``` <div id="demo">
+``` javascript
 <h2>测试: v-for 遍历数组</h2>
 <ul> 
-<li v-for="(p, index) in persons" :key="index">
-{{index}}--{{p.name}}--{{p.age}}
---
-<button @click="deleteItem(index)">删除</button>
---
+    <li v-for="(p, index) in persons" :key="index">
+        {{index}}--{{p.name}}--{{p.age}}
+            --
+                <button @click="deleteItem(index)">删除</button>
+                --
 <button @click="updateItem(index, {name:'Jok',age:15})">更新</button>
 </li>
 </ul>
 <h2>测试: v-for 遍历对象</h2>
 <ul>
-<li v-for="(value, key) in persons[0]">
-{{ key }} : {{ value }}
+    <li v-for="(value, key) in persons[0]">
+        {{ key }} : {{ value }}
 </li>
 </ul>
 </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-new Vue({
-el: '#demo',
-data: {
-persons: [
-{id: 1, name: 'Tom', age: 13},
-{id: 2, name: 'Jack', age: 12},
-{id: 3, name: 'Bob', age: 14}
-]
-},
-methods: {
-deleteItem(index) {
-this.persons.splice(index, 1)
-},
-updateItem(index, p) {
-// this.persons[index] = p // 页面不会更新
-this.persons.splice(index, 1, p)
-}
-}
+    new Vue({
+    el: '#demo',
+    data: {
+        persons: [
+            {id: 1, name: 'Tom', age: 13},
+            {id: 2, name: 'Jack', age: 12},
+            {id: 3, name: 'Bob', age: 14}
+        ]
+    },
+    methods: {
+        deleteItem(index) {
+            this.persons.splice(index, 1)
+        },
+        updateItem(index, p) {
+            // this.persons[index] = p // 页面不会更新
+            this.persons.splice(index, 1, p)
+        }
+    }
 })
 </script> 
 ```
 ### 1.7.3. 编码 2
-```<div id="demo">
+```javascript
 <input type="text" name="searchName" placeholder="搜索指定用户名"
 v-model="searchName">
-<ul>
-<li v-for="(p, index) in filterPerson" :key="index">
-{{index}}--{{p.name}}--{{p.age}}
-</li>
+    <ul>
+    <li v-for="(p, index) in filterPerson" :key="index">
+        {{index}}--{{p.name}}--{{p.age}}
+            </li>
 </ul>
 <button @click="setOrderType(1)">年龄升序</button>
 <button @click="setOrderType(2)">年龄降序</button>
@@ -317,42 +317,42 @@ v-model="searchName">
 </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-new Vue({
-el: '#demo',
-data: {
-orderType: 0, //0 代表不排序, 1 为升序, 2 为降序
-searchName: '',
-persons: [
-{id: 1, name: 'Tom', age: 13},
-{id: 2, name: 'Jack', age: 12},
-{id: 3, name: 'Bob', age: 17},
-{id: 4, name: 'Cat', age: 14},
-{id: 4, name: 'Mike', age: 14},
-{id: 4, name: 'Monica', age: 16}
-]
-},
-methods: {
-setOrderType (orderType) {
-this.orderType = orderType
-}
-},
-computed: {
-filterPerson() {
-let {orderType, searchName, persons} = this
-// 过滤
-persons = persons.filter(p => p.name.indexOf(searchName)!=-1) 
-// 排序
-if(orderType!==0) {
-persons = persons.sort(function (p1, p2) {
-if(orderType===1) {
-return p1.age-p2.age
-} else {
-return p2.age-p1.age
-}
-})
-} return persons
-}
-}
+    new Vue({
+    el: '#demo',
+    data: {
+        orderType: 0, //0 代表不排序, 1 为升序, 2 为降序
+        searchName: '',
+        persons: [
+            {id: 1, name: 'Tom', age: 13},
+            {id: 2, name: 'Jack', age: 12},
+            {id: 3, name: 'Bob', age: 17},
+            {id: 4, name: 'Cat', age: 14},
+            {id: 4, name: 'Mike', age: 14},
+            {id: 4, name: 'Monica', age: 16}
+        ]
+    },
+    methods: {
+        setOrderType (orderType) {
+            this.orderType = orderType
+        }
+    },
+    computed: {
+        filterPerson() {
+            let {orderType, searchName, persons} = this
+            // 过滤
+            persons = persons.filter(p => p.name.indexOf(searchName)!=-1) 
+            // 排序
+            if(orderType!==0) {
+                persons = persons.sort(function (p1, p2) {
+                    if(orderType===1) {
+                        return p1.age-p2.age
+                    } else {
+                        return p2.age-p1.age
+                    }
+                })
+            } return persons
+        }
+    }
 })
 </script>
 ```
@@ -373,7 +373,7 @@ return p2.age-p1.age
 1) .keycode : 操作的是某个 keycode 值的键
 2) .keyName : 操作的某个按键名的键(少部分)
 ### 1.8.5. 编码
-```<div id="example">
+```javascript
 <h2>1. 绑定监听</h2>
 <button v-on:click="test1">Greet</button>
 <button @click="test1">Greet2</button>
@@ -382,46 +382,46 @@ return p2.age-p1.age
 <!-- 阻止事件默认行为 -->
 <a href="http://www.baidu.com" @click.prevent="test3">百度一下</a>
 <br/>
-<br/>
-<!-- 停止事件冒泡 -->
-<div style="width: 200px;height: 200px;background: red" @click="test4">
-<div style="width: 100px;height: 100px;background: green"
+    <br/>
+    <!-- 停止事件冒泡 -->
+    <div style="width: 200px;height: 200px;background: red" @click="test4">
+        <div style="width: 100px;height: 100px;background: green"
 @click.stop="test5"></div>
 </div>
 <h2>3. 按键修饰符</h2>
 <input @keyup.8="test6">
-<input @keyup.enter="test6">
-</div>
+    <input @keyup.enter="test6">
+    </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-new Vue({
-el: '#example',
-data: {
-name: 'Vue.js'
-},
-methods: {
-test1 (event) {
-// 方法内 `this` 指向 vm
-// alert('Hello ' + this.name + '!')
-// `event` 是原生 DOM 事件
-alert(event.target.innerHTML)
-},
-test2 (event, msg) {
-alert(event.target.innerHTML + '---' + msg)
-},
-test3() {
-alert('阻止事件的默认行为')
-},
-test4() {
-alert('out')
-},
-test5() {
-alert('inner')
-},
-test6(event) {
-alert(event.keyCode + '---' + event.target.value)
-}
-}
+    new Vue({
+    el: '#example',
+    data: {
+        name: 'Vue.js'
+    },
+    methods: {
+        test1 (event) {
+            // 方法内 `this` 指向 vm
+            // alert('Hello ' + this.name + '!')
+            // `event` 是原生 DOM 事件
+            alert(event.target.innerHTML)
+        },
+        test2 (event, msg) {
+            alert(event.target.innerHTML + '---' + msg)
+        },
+        test3() {
+            alert('阻止事件的默认行为')
+        },
+        test4() {
+            alert('out')
+        },
+        test5() {
+            alert('inner')
+        },
+        test6(event) {
+            alert(event.keyCode + '---' + event.target.value)
+        }
+    }
 })
 </script>
 ```
@@ -435,61 +435,52 @@ gif
 3) radio
 4) select
 ### 1.9.3. 编码
-```<div id="demo">
+```javascript
 <form @submit.prevent="handleSubmit">
-<span>用户名: </span>
-<input type="text" v-model="user.username"><br>
-<span>密码: </span>
-<input type="password" v-model="user.pwd"><br>
-<span>性别: </span>
-<input type="radio" id="female" value="female" v-model="user.sex">
-<label for="female">女</label>
-<input type="radio" id="male" value="male" v-model="user.sex">
-<label for="male">男</label><br>
-<span>爱好: </span>
-<input type="checkbox" id="basket" value="basketball"
-v-model="user.likes"> 
-<label for="basket">篮球</label>
-<input type="checkbox" id="foot" value="football"
-v-model="user.likes">
-<label for="foot">足球</label>
-<input type="checkbox" id="pingpang" value="pingpang"
-v-model="user.likes">
-<label for="pingpang">乒乓</label><br>
-<span>城市: </span>
-<select v-model="user.cityId">
-<option value="">未选择</option>
-<option v-for="city in allCitys" :value="city.id">
-{{ city.name }}
-</option>
-</select><br>
-<span>介绍: </span>
-<textarea v-model="user.desc" rows="10"></textarea><br><br>
-<input type="submit" value="注册">
-</form>
+    <span>用户名: </span> <input type="text" v-model="user.username"><br>
+    <span>密码: </span> <input type="password" v-model="user.pwd"><br>
+    <span>性别: </span> <input type="radio" id="female" value="female" v-model="user.sex">
+    <label for="female">女</label> <input type="radio" id="male" value="male" v-model="user.sex">
+    <label for="male">男</label><br>
+	<span>爱好: </span> <input type="checkbox" id="basket" value="basketball" v-model="user.likes"> 
+    <label for="basket">篮球</label>
+    <input type="checkbox" id="foot" value="football" v-model="user.likes">
+    <label for="foot">足球</label>
+    <input type="checkbox" id="pingpang" value="pingpang"  v-model="user.likes">
+    <label for="pingpang">乒乓</label><br>
+    <span>城市: </span>
+    <select v-model="user.cityId">
+        <option value="">未选择</option>
+        <option v-for="city in allCitys" :value="city.id">{{ city.name }} </option>
+    </select>
+    <br>
+    <span>介绍: </span>
+    <textarea v-model="user.desc" rows="10"></textarea>
+    <br><br>
+    <input type="submit" value="注册">
+    </form>
 </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-var vm = new Vue({
-el: '#demo',
-data: {
-user: {
-username: '',
-pwd: '',
-sex: 'female',
-likes: [],
-cityId: '',
-desc: '',
-},
-allCitys: [{id: 1, name: 'BJ'}, {id: 2, name: 'SZ'},{id: 4, name:
-'SH'}],
-},
-methods: {
-handleSubmit (event) {
-alert(JSON.stringify(this.user)) 
-}
-}
-})
+    var vm = new Vue({
+        el: '#demo',
+        data: {
+            user: {
+                username: '',
+                pwd: '',
+                sex: 'female',
+                likes: [],
+                cityId: '',
+                desc: '',
+            },
+            allCitys: [{id: 1, name: 'BJ'}, {id: 2, name: 'SZ'},{id: 4, name: 'SH'}],
+        },
+        methods: {
+            handleSubmit (event) {
+                alert(JSON.stringify(this.user)) 
+            }
+        }
+    })
 </script>
 ```
 ## 1.10. Vue 实例生命周期
@@ -513,54 +504,55 @@ alert(JSON.stringify(this.user))
 1) created()/mounted(): 发送 ajax 请求, 启动定时器等异步任务
 2) beforeDestory(): 做收尾工作, 如: 清除定时器
 ### 1.10.5. 编码
-```<div>
-<button @click="destoryVue">destory vue</button>
-<p v-show="isShowing">{{msg}}</p>
+```javascript
+<div id="div">
+    <button @click="destoryVue">destory vue</button>
+	<p v-show="isShowing">{{msg}}</p>
 </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-var vue = new Vue({
-el: 'div',
-data: {
-msg: '尚硅谷 IT 教育',
-isShowing: true,
-persons: []
-},
-beforeCreate () {
-console.log('beforeCreate() msg=' + this.msg) 
-},
-created () {
-console.log('created() msg='+this.msg)
-this.intervalId = setInterval(() => {
-console.log('-----')
-this.isShowing = !this.isShowing
-}, 1000)
-},
-beforeMount () {
-console.log('beforeMount() msg='+this.msg)
-},
-mounted () {
-console.log('mounted() msg='+this.msg)
-},
-beforeUpdate() {
-console.log('beforeUpdate isShowing='+this.isShowing)
-},
-updated () {
-console.log('updated isShowing='+this.isShowing)
-},
-beforeDestroy () {
-console.log('beforeDestroy() msg='+this.msg)
-clearInterval(this.intervalId)
-},
-destroyed () {
-console.log('destroyed() msg='+this.msg)
-},
-methods: {
-destoryVue () {
-vue.$destroy()
-}
-}
-})
+    var vue = new Vue({
+        el: 'div',
+        data: {
+            msg: '尚硅谷 IT 教育',
+            isShowing: true,
+            persons: []
+        },
+        beforeCreate () {
+            console.log('beforeCreate() msg=' + this.msg) 
+        },
+        created () {
+            console.log('created() msg='+this.msg)
+            this.intervalId = setInterval(() => {
+                console.log('-----')
+                this.isShowing = !this.isShowing
+            }, 1000)
+        },
+        beforeMount () {
+            console.log('beforeMount() msg='+this.msg)
+        },
+        mounted () {
+            console.log('mounted() msg='+this.msg)
+        },
+        beforeUpdate() {
+            console.log('beforeUpdate isShowing='+this.isShowing)
+        },
+        updated () {
+            console.log('updated isShowing='+this.isShowing)
+        },
+        beforeDestroy () {
+            console.log('beforeDestroy() msg='+this.msg)
+            clearInterval(this.intervalId)
+        },
+        destroyed () {
+            console.log('destroyed() msg='+this.msg)
+        },
+        methods: {
+            destoryVue () {
+                vue.$destroy()
+            }
+        }
+    })
 </script>
 ```
 ## 1.11. 过渡&动画
@@ -569,6 +561,7 @@ vue.$destroy()
 if
 10_过渡&动画2.g
 if
+
 ### 1.11.2. vue 动画的理解
 1) 操作 css 的 trasition 或 animation
 2) vue 会给目标元素添加/移除特定的 class
@@ -584,89 +577,89 @@ xxx-enter/xxx-leave-to: 指定隐藏时的样式
 ### 1.11.4. 编码 1
 ```javascript
 .fade-enter-active, .fade-leave-active {
-transition: opacity .5s
+    transition: opacity .5s
 } .
 fade-enter, .fade-leave-to {
-opacity: 0
+    opacity: 0
 } /
-* 可以设置不同的进入和离开动画 */
-.slide-fade-enter-active {
-transition: all .3s ease;
-} .
-slide-fade-leave-active {
-transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-} .
-slide-fade-enter, .slide-fade-leave-to {
-transform: translateX(10px);
-opacity: 0;
-}
+    * 可以设置不同的进入和离开动画 */
+    .slide-fade-enter-active {
+        transition: all .3s ease;
+    } .
+    slide-fade-leave-active {
+        transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    } .
+    slide-fade-enter, .slide-fade-leave-to {
+        transform: translateX(10px);
+        opacity: 0;
+    }
 </style>
 <div id="demo1">
-<button @click="show = !show">
-Toggle1
+    <button @click="show = !show">
+    Toggle1
 </button>
 <transition name="fade">
-<p v-if="show">hello</p>
+    <p v-if="show">hello</p>
 </transition> 
 </div>
 <div id="demo2">
-<button @click="show = !show">
-Toggle2
+    <button @click="show = !show">
+    Toggle2
 </button>
 <transition name="slide-fade">
-<p v-if="show">hello</p>
+    <p v-if="show">hello</p>
 </transition>
 </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-new Vue({
-el: '#demo1',
-data: {
-show: true
-}
+    new Vue({
+    el: '#demo1',
+    data: {
+        show: true
+    }
 })
 new Vue({
-el: '#demo2',
-data: {
-show: true
-}
+    el: '#demo2',
+    data: {
+        show: true
+    }
 })
 </script>
 ```
 ### 1.11.5. 编码 2
 ```javascript
-.bounce-enter-active {
-animation: bounce-in .5s;
-} .
-bounce-leave-active {
-animation: bounce-in .5s reverse;
-} @
+<style>
+    .bounce-enter-active {
+        animation: bounce-in .5s;
+    } .
+    bounce-leave-active {
+        animation: bounce-in .5s reverse;
+    } @
 keyframes bounce-in {
-0% { 
-transform: scale(0);
+    0% { 
+    transform: scale(0);
 } 5
 0% {
-transform: scale(1.5);
+    transform: scale(1.5);
 } 1
 00% {
-transform: scale(1);
+    transform: scale(1);
 }
 }
-</style>
+    </style>
 <div id="test2">
-<button @click="show = !show">Toggle show</button>
-<br>
-<transition name="bounce">
-<p v-if="show" style="display: inline-block">Look at me!</p>
-</transition>
+    <button @click="show = !show">Toggle show</button>
+	<br>
+    <transition name="bounce"> <p v-if="show" style="display: inline-block">Look at me!</p>
+	</transition>
 </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script>
-new Vue({
-el: '#test2',
-data: {
-show: true
-}
+    new Vue({
+    el: '#test2',
+    data: {
+        show: true
+    }
 })
 </script>
 ```
@@ -745,37 +738,37 @@ el.innerHTML = binding.value.toupperCase()
 3) 使用指令
 v-my-directive='xxx'
 ### 1.13.4. 编码 1(内置指令)
-```
+```javascript
 <style>
-[v-cloak] {
-display: none
-}
+    [v-cloak] {
+        display: none
+    }
 </style>
 <div id="example">
-<p v-text="url"></p>
-<p v-html="url"></p>
-<img :id="myid" :src="imageSrc">
-<p>
-<span ref="message">atguigu.com</span>
-<button @click="showMsg">显示左侧文本</button>
-</p>
-<p v-cloak>{{url}}</p>
+    <p v-text="url"></p>
+    <p v-html="url"></p>
+    <img :id="myid" :src="imageSrc">
+    <p>
+        <span ref="message">atguigu.com</span>
+        <button @click="showMsg">显示左侧文本</button>
+    </p>
+	<p v-cloak>{{url}}</p>
 </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-alert('模拟加载慢')
+    alert('模拟加载慢')
 new Vue({
-el: '#example',
-data: {
-url: '<a href="http://www.atguigu.com">尚硅谷</a>',
-myid: 'abc123',
-imageSrc: 'http://cn.vuejs.org/images/logo.png'
-},
-methods: {
-showMsg: function () {
-alert(this.$refs.message.textContent)
-}
-}
+    el: '#example',
+    data: {
+        url: '<a href="http://www.atguigu.com">尚硅谷</a>',
+        myid: 'abc123',
+        imageSrc: 'http://cn.vuejs.org/images/logo.png'
+    },
+    methods: {
+        showMsg: function () {
+            alert(this.$refs.message.textContent)
+        }
+    }
 })
 </script>
 ```
@@ -853,19 +846,19 @@ window.MyPlugin = MyPlugin
 2) 页面使用插件
 ```javascript
 <div id="demo">
-<!--使用自定义指令-->
-<p v-my-directive="msg"></p>
+    <!--使用自定义指令-->
+    <p v-my-directive="msg"></p>
 </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript" src="vue-myPlugin.js"></script>
 <script type="text/javascript">
-//使用自定义插件
+    //使用自定义插件
 Vue.use(MyPlugin)
 var vm = new Vue({
-el: '#demo',
-data: {
-msg: 'atguigu'
-}
+    el: '#demo',
+    data: {
+        msg: 'atguigu'
+    }
 })
 //调用自定义的静态方法
 Vue.myGlobalMethod()
@@ -970,7 +963,9 @@ components: { App }
 ```javascript
 <script>
 export default {
-data() {return {}},
+data() {
+    return {}
+},
 methods: {},
 computed: {},
 components: {}
@@ -989,15 +984,15 @@ components: {}
 3) 使用组件标签
 ```javascript
 <tempalte>
-  <HelloWorld></HelloWorld>
+    <HelloWorld></HelloWorld>
 	<hello-world></hello-world>
 </template>
 <script>
 import HelloWorld from './components/HelloWorld'
 export default {
-components: {
-HelloWorld
-}
+    components: {
+        HelloWorld
+    }
 }
 </script>
 ```
@@ -1073,8 +1068,8 @@ DOM 事件: 用户在浏览器上对应的界面上做对应的操作
 ### 2.9.2. 子组件: Child.vue
 ```javascript
 <template>
-<div> 
-<slot name="xxx">不确定的标签结构 1</slot>
+    <div> 
+    <slot name="xxx">不确定的标签结构 1</slot>
 <div>组件确定的标签结构</div>
 <slot name="yyy">不确定的标签结构 2</slot>
 </div>
@@ -1113,11 +1108,11 @@ import VueResource from 'vue-resource'
 Vue.use(VueResource)
 // 通过 vue/组件对象发送 ajax 请求
 this.$http.get('/someUrl').then((response) => {
-// success callback
-console.log(response.data) //返回结果数据
+    // success callback
+    console.log(response.data) //返回结果数据
 }, (response) => {
-// error callback 
-console.log(response.statusText) //错误信息
+    // error callback 
+    console.log(response.statusText) //错误信息
 })
 ```
 
@@ -1135,11 +1130,11 @@ npm install axios --save
 import axios from 'axios'
 // 发送 ajax 请求
 axios.get(url)
-.then(response => {
-console.log(response.data) // 得到返回结果数据
+    .then(response => {
+    console.log(response.data) // 得到返回结果数据
 })
-.catch(error => {
-console.log(error.message)
+    .catch(error => {
+    console.log(error.message)
 }) 
 ```
 
@@ -1178,17 +1173,17 @@ npm install --save-dev babel-plugin-component
 1) index.html
 ```javascript
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimum-scale=1, user-scalable=no" />
-<script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
+    <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
 <script>
-  if ('addEventListener' in document) {
-  document.addEventListener('DOMContentLoaded', function() {
-    FastClick.attach(document.body);
-    }, false);
-  } 
-  if(!window.Promise) {
-  document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"
-  '+'>'+'<'+'/'+'script>');
-  }
+        if ('addEventListener' in document) {
+            document.addEventListener('DOMContentLoaded', function() {
+                FastClick.attach(document.body);
+            }, false);
+        } 
+if(!window.Promise) {
+    document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"
+                     '+'>'+'<'+'/'+'script>');
+                     }
 </script> 
 ```
 2. main.js
@@ -1200,16 +1195,16 @@ npm install --save-dev babel-plugin-component
 3) App.vue
 ```javascript
 <template>
-<mt-button @click="handleClick" type="primary" style="width: 100%">Test</mt-button>
+    <mt-button @click="handleClick" type="primary" style="width: 100%">Test</mt-button>
 </template>
 <script>
-import {Toast} from 'mint-ui'
+        import {Toast} from 'mint-ui'
 export default {
-methods: {
-handleClick () {
-Toast('点击了测试');
-}
-}
+    methods: {
+        handleClick () {
+            Toast('点击了测试');
+        }
+    }
 }
 </script>
 ```
@@ -1229,14 +1224,14 @@ new VueRouter({
 
   ```javascript
   routes: [
-  { // 一般路由
-  path: '/about',
-  component: About
-  },
-  { // 自动跳转路由
-  path: '/',
-  redirect: '/about'
-  }
+      { // 一般路由
+          path: '/about',
+          component: About
+      },
+      { // 自动跳转路由
+          path: '/',
+          redirect: '/about'
+      }
   ]
   ```
 
@@ -1246,7 +1241,7 @@ new VueRouter({
   ```javascript
   import router from './router'
   new Vue({
-  router
+      router
   })
   ```
 4) 使用路由组件标签
@@ -1271,20 +1266,20 @@ About.vue
 ### 5.2.4. 路由器模块: src/router/index.js
 ```javascript
 export default new VueRouter({
-routes: [
-{
-path: '/',
-redirect: '/about'
-},
-{
-path: '/about',
-component: About
-},
-{
-path: '/home',
-component: Home
-}
-]
+    routes: [
+        {
+            path: '/',
+            redirect: '/about'
+        },
+        {
+            path: '/about',
+            component: About
+        },
+        {
+            path: '/home',
+            component: Home
+        }
+    ]
 }) 
 ```
 
@@ -1295,9 +1290,9 @@ import Vue from 'vue'
 import router from './router'
 // 创建 vue 配置路由器
 new Vue({
-el: '#app',
-router,
-render: h => h(app)
+    el: '#app',
+    router,
+    render: h => h(app)
 })
 ```
 
@@ -1319,17 +1314,17 @@ Message.vue
 ### 5.3.3. 配置嵌套路由: router.js
 ```javascript
 path: '/home',
-component: home,
-children: [
-{
-path: 'news',
-component: News
-},
-{
-path: 'message',
-component: Message
-}
-]
+    component: home,
+        children: [
+            {
+                path: 'news',
+                component: News
+            },
+            {
+                path: 'message',
+                component: Message
+            }
+        ]
 ```
 
 
@@ -1345,10 +1340,10 @@ component: Message
 
   ```javascript
   children: [
-  {
-  path: 'mdetail/:id',
-  component: MessageDetail
-  }
+      {
+          path: 'mdetail/:id',
+          component: MessageDetail
+      }
   ]
   ```
 2) 路由路径
@@ -1416,9 +1411,9 @@ yyy (state, {data1}) {
 
   ```javascript
   const actions = {
-  zzz ({commit, state}, data1) {
-  commit('yyy', {data1})
-  }
+      zzz({commit, state}, data1) {
+          commit('yyy', {data1})
+      }
   }
   ```
 
@@ -1429,10 +1424,10 @@ yyy (state, {data1}) {
 
   ```javascript
   const getters = {
-  mmm (state) {
-  return ... 
-  }
-  }
+      mmm (state) {
+          return ... 
+      }
+      }
   ```
 
 
@@ -1443,10 +1438,10 @@ yyy (state, {data1}) {
 ### 6.2.6. 向外暴露 store 对象
 ```javascript
 export default new Vuex.Store({
-state,
-mutations,
-actions,
-getters
+    state,
+    mutations,
+    actions,
+    getters
 })
 ```
 
@@ -1455,13 +1450,13 @@ getters
 ```javascript
 import {mapState, mapGetters, mapActions} from 'vuex'
 export default {
-computed: {
-...mapState(['xxx']),
-...mapGetters(['mmm']),
-} m
-ethods: mapActions(['zzz'])
+    computed: {
+        ...mapState(['xxx']),
+        ...mapGetters(['mmm']),
+    } m
+    ethods: mapActions(['zzz'])
 } {
-{xxx}} {{mmm}} @click="zzz(data)"
+    {xxx}} {{mmm}} @click="zzz(data)"
 ```
 
 
@@ -1469,7 +1464,7 @@ ethods: mapActions(['zzz'])
 ```javascript
 import store from './store'
 new Vue({
-store
+    store
 }) 
 ```
 
@@ -1490,77 +1485,77 @@ counter.gif
 
 ```javascript
 /**
-  
+
   * vuex 的 store 对象模块
   */
-  import Vue from 'vue'
-  import Vuex from 'vuex'
-  Vue.use(Vuex)
-  /*
+import Vue from 'vue'
+import Vuex from 'vuex'
+Vue.use(Vuex)
+/*
   state 对象
   类似于 data
   */
-  const state = {
-  count: 0 // 初始化状态数据
-  } 
-  /* mutations 对象 
+const state = {
+    count: 0 // 初始化状态数据
+} 
+/* mutations 对象 
   包含个方法: 能直接更新 state
   一个方法就是一个 mutation
   mutation 只能包含更新 state 的同步代码, 也不会有逻辑
   mutation 由 action 触发调用: commit('mutationName')
   */
-  const mutations = {
-  INCREMENT(state) {
-  state.count++
-  },
-  DECREMENT (state) { // ctrl + shift + x
-  state.count--
-  }
-  } 
-  /*
+const mutations = {
+    INCREMENT(state) {
+        state.count++
+    },
+    DECREMENT (state) { // ctrl + shift + x
+        state.count--
+    }
+} 
+/*
   actions 对象
   包含个方法: 触发 mutation 调用, 间接更新 state
   一个方法就是一个 action
   action 中可以有逻辑代码和异步代码
   action 由组件来触发调用: this.$store.dispatch('actionName')
   */
-  const actions = {
-  increment ({commit}) {
-  commit('INCREMENT')
-  },
-  decrement ({commit}) {
-  commit('DECREMENT')
-  },
-  incrementIfOdd ({commit, state}) {
-  if(state.count%2===1) {
-  commit('INCREMENT')
-  }
-  },
-  incrementAsync ({commit}) {
-  setTimeout(() => {
-  commit('INCREMENT')
-  }, 1000)
-  }
-  }
-  /*
+const actions = {
+    increment ({commit}) {
+        commit('INCREMENT')
+    },
+    decrement ({commit}) {
+        commit('DECREMENT')
+    },
+    incrementIfOdd ({commit, state}) {
+        if(state.count%2===1) {
+            commit('INCREMENT')
+        }
+    },
+    incrementAsync ({commit}) {
+        setTimeout(() => {
+            commit('INCREMENT')
+        }, 1000)
+    }
+}
+/*
   getters 对象
   包含多个 get 计算计算属性方法
   */
-  const getters = {
-  oddOrEven (state) {
-  return state.count%2===0 ? '偶数' : '奇数'
-  },
-  count (state) {
-  return state.count
-  }
-  }
-  // 向外暴露 store 实例对象
-  export default new Vuex.Store({
-  state,
-  mutations,
-  actions,
-  getters
-  })
+const getters = {
+    oddOrEven (state) {
+        return state.count%2===0 ? '偶数' : '奇数'
+    },
+    count (state) {
+        return state.count
+    }
+}
+// 向外暴露 store 实例对象
+export default new Vuex.Store({
+    state,
+    mutations,
+    actions,
+    getters
+})
 ```
 
 
@@ -1571,9 +1566,9 @@ import app from './app1.vue'
 // import app from './app.vue'
 import store from './store'
 new Vue({
-el: '#app',
-render: h => h(app),
-store // 所有组件都多个一个属性: $store
+    el: '#app',
+    render: h => h(app),
+    store // 所有组件都多个一个属性: $store
 })
 ```
 
@@ -1581,8 +1576,8 @@ store // 所有组件都多个一个属性: $store
 ### 6.3.3. app.vue(未优化前)
 ```javascript 
 <template>
-<div>
-<p>clicked: {{$store.state.count}} times, count is {{oddOrEven}}</p>
+    <div>
+    <p>clicked: {{$store.state.count}} times, count is {{oddOrEven}}</p>
 <button @click="increment">+</button>
 <button @click="decrement">-</button>
 <button @click="incrementIfOdd">increment if odd</button>
@@ -1590,36 +1585,35 @@ store // 所有组件都多个一个属性: $store
 </div>
 </template>
 <script>
-export default {
+   export default {
 computed: {
-oddOrEven () {
-return this.$store.getters.oddOrEven
-}
+    oddOrEven () {
+        return this.$store.getters.oddOrEven
+    }
 },
-methods: {
-increment () {
-this.$store.dispatch('increment')
-},
-decrement () {
-this.$store.dispatch('decrement')
-},
-incrementIfOdd () {
-this.$store.dispatch('incrementIfOdd')
-},
-incrementAsync () {
-this.$store.dispatch('incrementAsync')
+    methods: {
+        increment () {
+            this.$store.dispatch('increment')
+        };
+        decrement () {
+            this.$store.dispatch('decrement')
+        };
+        incrementIfOdd () {
+            this.$store.dispatch('incrementIfOdd')
+        };
+        incrementAsync () {
+            this.$store.dispatch('incrementAsync')
+        }
+    }
 }
-}
-}
-</script>
-<style>
-</style>
+    </script>
+<style></style>
 ```
 ### 6.3.4. app2.vue(优化后)
 ```javascript
 <template>
-<div>
-<p>clicked: {{count}} times, count is {{oddOrEven2}}</p>
+    <div>
+    <p>clicked: {{count}} times, count is {{oddOrEven2}}</p>
 <button @click="increment">+</button>
 <button @click="decrement">-</button>
 <button @click="incrementIfOdd">increment if odd</button>
@@ -1627,18 +1621,17 @@ this.$store.dispatch('incrementAsync')
 </div>
 </template>
 <script>
-import {mapGetters, mapActions} from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
 export default {
-computed: mapGetters({ // 名称不一样
-oddOrEven2: 'oddOrEven',
-count: 'count'
-}),
-methods: mapActions(['increment', 'decrement', 'incrementIfOdd',
-'incrementAsync']) // 名称一样
+    computed: mapGetters({ // 名称不一样
+        oddOrEven2: 'oddOrEven',
+        count: 'count'
+    }),
+    methods: mapActions(['increment', 'decrement', 'incrementIfOdd',
+                         'incrementAsync']) // 名称一样
 }
 </script>
-<style>
-</style>
+<style> </style>
 ```
 ## 6.4. demo2: todo list
 todo list.gif
@@ -1658,21 +1651,21 @@ export const UPDATE_ALL_TODOS = 'update_all_todos'
 import {RECEIVE_TODOS, ADD_TODO, REMOVE_TODO, DELETE_DONE, UPDATE_ALL_TODOS} from
 './types'
 export default {
-[RECEIVE_TODOS] (state, {todos}) {
-state.todos = todos
-},
-[ADD_TODO] (state, {todo}) {
-state.todos.unshift(todo)
-},
-[REMOVE_TODO] (state, {index}) {
-state.todos.splice(index, 1)
-},
-[DELETE_DONE] (state) {
-state.todos = state.todos.filter(todo => !todo.complete)
-},
-[UPDATE_ALL_TODOS] (state, {isCheck}) {
-state.todos.forEach(todo => todo.complete = isCheck)
-}
+    [RECEIVE_TODOS] (state, {todos}) {
+        state.todos = todos
+    },
+    [ADD_TODO] (state, {todo}) {
+        state.todos.unshift(todo)
+    },
+    [REMOVE_TODO] (state, {index}) {
+        state.todos.splice(index, 1)
+    },
+    [DELETE_DONE] (state) {
+        state.todos = state.todos.filter(todo => !todo.complete)
+    },
+    [UPDATE_ALL_TODOS] (state, {isCheck}) {
+        state.todos.forEach(todo => todo.complete = isCheck)
+    }
 }
 ```
 ### 6.3.3. store/actions.js
@@ -1681,25 +1674,25 @@ import storageUtil from '../util/storageUtil'
 import {RECEIVE_TODOS, ADD_TODO, REMOVE_TODO, DELETE_DONE, UPDATE_ALL_TODOS} from
 './types'
 export default {
-readTodo ({commit}) {
-setTimeout(() => {
-const todos = storageUtil.fetch()
-// 提交 commit 触发 mutation 调用
-commit(RECEIVE_TODOS, {todos})
-}, 1000)
-},
-addTodo ({commit}, todo) {
-commit(ADD_TODO, {todo})
-},
-removeTodo ({commit}, index) {
-commit(REMOVE_TODO, {index})
-},
-deleteDone ({commit}) {
-commit(DELETE_DONE)
-},
-updateAllTodos ({commit}, isCheck) {
-commit(UPDATE_ALL_TODOS, {isCheck})
-}
+    readTodo ({commit}) {
+        setTimeout(() => {
+            const todos = storageUtil.fetch()
+            // 提交 commit 触发 mutation 调用
+            commit(RECEIVE_TODOS, {todos})
+        }, 1000)
+    },
+    addTodo ({commit}, todo) {
+        commit(ADD_TODO, {todo})
+    },
+    removeTodo ({commit}, index) {
+        commit(REMOVE_TODO, {index})
+    },
+    deleteDone ({commit}) {
+        commit(DELETE_DONE)
+    },
+    updateAllTodos ({commit}, isCheck) {
+        commit(UPDATE_ALL_TODOS, {isCheck})
+    }
 } 
 ```
 
@@ -1707,20 +1700,20 @@ commit(UPDATE_ALL_TODOS, {isCheck})
 ### 6.3.4. store/getters.js
 ```javascript
 export default {
-todos (state) {
-return state.todos
-},
-totalSize (state) {
-return state.todos.length
-},
-completeSize (state) {
-return state.todos.reduce((preTotal, todo) => {
-return preTotal + (todo.complete ? 1 : 0)
-}, 0)
-},
-isAllComplete (state, getters) {
-return getters.totalSize===getters.completeSize && getters.totalSize>0
-}
+    todos (state) {
+        return state.todos
+    },
+    totalSize (state) {
+        return state.todos.length
+    },
+    completeSize (state) {
+        return state.todos.reduce((preTotal, todo) => {
+            return preTotal + (todo.complete ? 1 : 0)
+        }, 0)
+    },
+    isAllComplete (state, getters) {
+        return getters.totalSize===getters.completeSize && getters.totalSize>0
+    }
 }
 ```
 
@@ -1734,13 +1727,13 @@ import actions from './actions'
 import getters from './getters'
 Vue.use(Vuex)
 const state = {
-todos: []
+    todos: []
 } 
 export default new Vuex.Store({
-state,
-mutations,
-actions,
-getters
+    state,
+    mutations,
+    actions,
+    getters
 })
 ```
 
@@ -1748,13 +1741,13 @@ getters
 ### 6.3.6. components/app.vue
 ```javascript
 <template>
-<div class="todo-container">
-<div class="todo-wrap">
-<todo-header></todo-header>
-<todo-main></todo-main>
-<todo-footer></todo-footer>
-</div>
-</div>
+    <div class="todo-container">
+        <div class="todo-wrap">
+            <todo-header></todo-header>
+            <todo-main></todo-main>
+            <todo-footer></todo-footer>
+        </div>
+    </div>
 </template>
 <script>
 import todoHeader from './todoHeader.vue'
@@ -1762,221 +1755,219 @@ import todoMain from './todoMain.vue'
 import todoFooter from './todoFooter.vue'
 import storageUtil from '../util/storageUtil'
 export default {
-created () {
-// 模拟异步读取数据
-this.$store.dispatch('readTodo')
-},
-components: {
-todoHeader,
-todoMain,
-todoFooter
-}
+    created () {
+        // 模拟异步读取数据
+        this.$store.dispatch('readTodo')
+    },
+    components: {
+        todoHeader,
+        todoMain,
+        todoFooter
+    }
 }
 </script>
 <style>
-.todo-container {
-width: 600px;
-margin: 0 auto;
-} .
-todo-container .todo-wrap {
-padding: 10px;
-border: 1px solid #ddd;
-border-radius: 5px;
-}
+    .todo-container {
+        width: 600px;
+        margin: 0 auto;
+    } .
+    todo-container .todo-wrap {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
 </style>
 
 ```
 ### 6.3.7. components/todoHeader.vue
 ```javascript
 <template>
-<div class="todo-header">
-<input type="text" placeholder="请输入你的任务名称， 按回车键确认"
-v-model="title" @keyup.enter="addItem"/>
-</div>
+    <div class="todo-header">
+        <input type="text" placeholder="请输入你的任务名称， 按回车键确认" v-model="title" @keyup.enter="addItem"/>
+            </div>
 </template>
 <script type="text/ecmascript-6">
-export default {
+    export default {
 data () {
-return {
-title: null
-}
-},
+    return {
+        title: null
+    }
+};
 methods: {
-addItem () {
-const title = this.title && this.title.trim()
-if (title) {
-const todo = {
-title,
-complete: false
-} this.$store.dispatch('addTodo', todo)
-this.title = null
+    addItem () {
+        const title = this.title && this.title.trim()
+        if (title) {
+            const todo = {
+                title,
+                complete: false
+            } this.$store.dispatch('addTodo', todo)
+            this.title = null
+        }
+    }
 }
 }
-}
-}
-</script>
+    </script>
 <style>
-.todo-header input {
-width: 560px;
-height: 28px;
-font-size: 14px;
-border: 1px solid #ccc;
-border-radius: 4px;
-padding: 4px 7px;
-} .
-todo-header input:focus {
-outline: none;
-border-color: rgba(82, 168, 236, 0.8);
-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-}
+        .todo-header input {
+            width: 560px;
+            height: 28px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 4px 7px;
+        } .
+        todo-header input:focus {
+            outline: none;
+            border-color: rgba(82, 168, 236, 0.8);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+        }
 </style>
 ````
 ### 6.3.8. components/todoMain.vue
-```vue
+```javascript
 <template>
-<ul class="todo-main">
-<todo-item v-for="(todo, index) in
-todos" :todo="todo" :key="index" :index="index"></todo-item>
+    <ul class="todo-main">
+        <todo-item v-for="(todo, index) in  todos" :todo="todo" :key="index" :index="index"></todo-item>
 </ul>
 </template>
 <script type="text/ecmascript-6">
-import todoItem from './todoItem'
+    import todoItem from './todoItem'
 import storageUtil from '../util/storageUtil'
 export default {
-components: {
-todoItem
-},
-computed: {
-todos () {
-return this.$store.getters.todos
-}
-},
-watch: {
-todos: {// 深度监视 todos, 一旦有变化立即保存
-handler: storageUtil.save,
-deep: true
-}
-},
+    components: {
+        todoItem
+    },
+    computed: {
+        todos () {
+            return this.$store.getters.todos
+        }
+    },
+    watch: {
+        todos: {// 深度监视 todos, 一旦有变化立即保存
+            handler: storageUtil.save,
+            deep: true
+        }
+    },
 }
 </script>
 <style>
-.todo-main {
-margin-left: 0px;
-border: 1px solid #ddd;
-border-radius: 2px;
-padding: 0px;
-} .
-todo-empty {
-height: 40px;
-line-height: 40px;
-border: 1px solid #ddd;
-border-radius: 2px;
-padding-left: 5px;
-margin-top: 10px;
-}
+    .todo-main {
+        margin-left: 0px;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        padding: 0px;
+    } .
+    todo-empty {
+        height: 40px;
+        line-height: 40px;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        padding-left: 5px;
+        margin-top: 10px;
+    }
 </style>
 ```
 ### 6.3.9. components/todoItem.vue
 ```javascript
 <template>
-<li :style="{background: libg}"
+    <li :style="{background: libg}"
 @mouseenter="handleStyle(true)" @mouseleave="handleStyle(false)">
-<label>
-<input type="checkbox" v-model="todo.complete"/>
-<span>{{todo.title}}</span>
+        <label>
+        <input type="checkbox" v-model="todo.complete"/>
+            <span>{{todo.title}}</span>
 </label>
 <button class="btn btn-danger" v-show="isShown" @click="deleteItem">删除</button>
 </li>
 </template>
 <script type="text/ecmascript-6">
-export default {
+    export default {
 props: ['todo', 'index'],
-data () {
-return {
-isShown: false,
-libg: '#fff'
-}
+    data () {
+    return {
+        isShown: false,
+        libg: '#fff'
+    }
 },
-methods: {
-handleStyle (isEnter) {
-if (isEnter) {
-this.isShown = true
-this.libg = '#ddd'
-} else {
-this.isShown = false
-this.libg = '#fff'
+    methods: {
+        handleStyle (isEnter) {
+            if (isEnter) {
+                this.isShown = true
+                this.libg = '#ddd'
+            } else {
+                this.isShown = false
+                this.libg = '#fff'
+            }
+        },
+            deleteItem () {
+                const {todo, deleteTodo, index} = this
+                if (window.confirm(`确定删除${todo.title}的评论吗?`)) {
+                    // deleteTodo(index)
+                    this.$store.dispatch('removeTodo', index)
+                }
+            }
+    }
 }
-},
-deleteItem () {
-const {todo, deleteTodo, index} = this
-if (window.confirm(`确定删除${todo.title}的评论吗?`)) {
-// deleteTodo(index)
-this.$store.dispatch('removeTodo', index)
-}
-}
-}
-}
-</script>
+    </script>
 <style>
-li {
-list-style: none;
-height: 36px;
-line-height: 36px;
-padding: 0 5px;
-border-bottom: 1px solid #ddd;
-} 
+        li {
+            list-style: none;
+            height: 36px;
+            line-height: 36px;
+            padding: 0 5px;
+            border-bottom: 1px solid #ddd;
+        } 
 li label {
-float: left;
-cursor: pointer;
+    float: left;
+    cursor: pointer;
 }
 li label li input {
-vertical-align: middle;
-margin-right: 6px;
-position: relative;
-top: -1px;
+    vertical-align: middle;
+    margin-right: 6px;
+    position: relative;
+    top: -1px;
 }
 li button {
-float: right;
-display: none;
-margin-top: 3px;
+    float: right;
+    display: none;
+    margin-top: 3px;
 }
 li:before {
-content: initial;
+    content: initial;
 }
 li:last-child {
-border-bottom: none;
+    border-bottom: none;
 }
 </style>
 ```
 ### 6.3.10. components/todoFooter.vue
 ```javascript
 <template>
-<div class="todo-footer">
-<label>
-<input type="checkbox" v-model="isAllDone"/>
-</label>
+    <div class="todo-footer">
+        <label>
+        <input type="checkbox" v-model="isAllDone"/>
+            </label>
 <span>
-<span>已完成{{completeSize}}</span> / 全部{{totalSize}}
+            <span>已完成{{completeSize}}</span> / 全部{{totalSize}}
 </span>
 <button class="btn btn-danger" @click="deleteDone" v-show="completeSize>0">清除已完成任务</button>
 </div>
 </template>
 <script>
-import {mapGetters, mapActions} from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
 export default {
-methods: mapActions(['deleteDone']),
-computed: {
-isAllDone: {
-get () {
-return this.$store.getters.isAllComplete
-},
-set (value) {
-//this.$emit('updateTodos', value)
-this.$store.dispatch('updateAllTodos', value)
-}
-},
-...mapGetters(['completeSize', 'totalSize'])
-}
+    methods: mapActions(['deleteDone']),
+    computed: {
+        isAllDone: {
+            get () {
+                return this.$store.getters.isAllComplete
+            },
+            set (value) {
+                //this.$emit('updateTodos', value)
+                this.$store.dispatch('updateAllTodos', value)
+            }
+        },
+        ...mapGetters(['completeSize', 'totalSize'])
+    }
 }
 /*
 const arr1 = [1, 3, 5]
@@ -1992,39 +1983,39 @@ c: 3,
 }*/
 </script>
 <style>
-.todo-footer {
-height: 40px;
-line-height: 40px;
-padding-left: 6px;
-margin-top: 5px;
-} .
-todo-footer label {
-display: inline-block;
-margin-right: 20px;
-cursor: pointer;
-} .
-todo-footer label input {
-position: relative;
-top: -1px;
-vertical-align: middle;
-margin-right: 5px;
-} .
-todo-footer button {
-float: right;
-margin-top: 5px;
-}
+    .todo-footer {
+        height: 40px;
+        line-height: 40px;
+        padding-left: 6px;
+        margin-top: 5px;
+    } .
+    todo-footer label {
+        display: inline-block;
+        margin-right: 20px;
+        cursor: pointer;
+    } .
+    todo-footer label input {
+        position: relative;
+        top: -1px;
+        vertical-align: middle;
+        margin-right: 5px;
+    } .
+    todo-footer button {
+        float: right;
+        margin-top: 5px;
+    }
 </style>
 ```
 ### 6.3.11. util/storageUtil.js
 ```javascript
 var STORAGE_KEY = 'todos'
 export default {
-fetch () {
-return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
-},
-save (todos) {
-localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
-}
+    fetch () {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+    },
+    save (todos) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+    }
 } 
 ```
 
@@ -2032,31 +2023,31 @@ localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
 ### 6.3.12. base.css
 ```css
 body {
-background: #fff;
+    background: #fff;
 } .
 btn {
-display: inline-block;
-padding: 4px 12px;
-margin-bottom: 0;
-font-size: 14px;
-line-height: 20px;
-text-align: center;
-vertical-align: middle;
-cursor: pointer;
-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-border-radius: 4px;
+    display: inline-block;
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
 } .
 btn-danger {
-color: #fff;
-background-color: #da4f49;
-border: 1px solid #bd362f;
+    color: #fff;
+    background-color: #da4f49;
+    border: 1px solid #bd362f;
 } .
 btn-danger:hover {
-color: #fff;
-background-color: #bd362f;
+    color: #fff;
+    background-color: #bd362f;
 } .
 btn:focus {
-outline: none;
+    outline: none;
 } 
 ```
 
@@ -2069,9 +2060,9 @@ import store from './store'
 import './base.css'
 /* eslint-disable no-new */
 new Vue({
-el: '#app',
-render: h => h(App),
-store
+    el: '#app',
+    render: h => h(App),
+    store
 })
 ```
 
