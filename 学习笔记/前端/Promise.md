@@ -154,11 +154,11 @@ promiseAjax('https://api.apiopen.top2/getJoke?page=1&count=2&type=video').then(
   解决方案? promise 链式调用
   终极解决方案? async/await
   */
-  // 成功的回调函数
+  /*成功的回调函数 */
   function successCallback(result) {
       console.log("声音文件创建成功: " + result);
   }
-  // 失败的回调函数
+  /*失败的回调函数 */
   function failureCallback(error) {
       console.log("声音文件创建失败: " + error);
   }
@@ -170,8 +170,8 @@ promiseAjax('https://api.apiopen.top2/getJoke?page=1&count=2&type=video').then(
       promise.then(successCallback, failureCallback);
   }, 3000);
   /*
-    2.1. 回调地狱
-    */
+   2.1. 回调地狱
+   */
   doSomething(function(result) {
       doSomethingElse(result, function(newResult) {
           doThirdThing(newResult, function(finalResult) {
@@ -212,10 +212,10 @@ promiseAjax('https://api.apiopen.top2/getJoke?page=1&count=2&type=video').then(
 
   1. Promise 构造函数: Promise (excutor) {}
 
-​			(1) executor 函数: 执行器 (resolve, reject) => {}
-​			(2) resolve 函数: 内部定义成功时我们调用的函数 value => {}
-​			(3) reject 函数: 内部定义失败时我们调用的函数 reason => {}
-​			说明: executor 会在 Promise 内部立即同步调用,异步操作在执行器中执行
+​	(1) executor 函数: 执行器 (resolve, reject) => {}
+​	(2) resolve 函数: 内部定义成功时我们调用的函数 value => {}
+​	(3) reject 函数: 内部定义失败时我们调用的函数 reason => {}
+ 	  说明: executor 会在 Promise 内部立即同步调用,异步操作在执行器中执行
 
   2. Promise.prototype.then 方法: (onResolved, onRejected) => {}
 (1) onResolved 函数: 成功的回调函数 (value) => {}
