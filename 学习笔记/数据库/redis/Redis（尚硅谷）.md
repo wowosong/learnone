@@ -128,7 +128,7 @@ HBase的目标就是处理数据量**非常庞大**的表，可以用**普通的
 
 #### 准备工作：下载安装最新版的gcc编译器
 
-```
+```shell
 安装C 语言的编译环境
 yum install centos-release-scl scl-utils-build
 yum install -y devtoolset-8-toolchain
