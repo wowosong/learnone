@@ -1,4 +1,4 @@
-![vue](https://gitee.com/wowosong/pic-md/raw/master/202309211049533.webp)
+![vue](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020854003.webp)
 
 **前言**
 
@@ -12,11 +12,11 @@
 
 先来张 Vue 全家桶 总图：
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211049757.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020854629.webp)
 
 ## 1. 项目目录 
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211049415.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020854570.webp)
 
 scripts: 构建相关的文件，一般情况下我们不需要动。
 
@@ -83,7 +83,7 @@ yarn.lock ：yarn 锁定文件
 
 ## 2. 源码构建，基于 Rollup 
 
-![](https://upload-images.jianshu.io/upload_images/12890819-dfc52768e1942719.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020854215.webp)
 
 **1. 根据 format 构建格式可分为三个版（再根据有无 compiler ，每个版本中又可以再分出二个版本）**
 
@@ -109,7 +109,7 @@ Runtime + Compiler：我们如果没有对代码做预编译，但又使用了 V
 
 ## 3. vue 本质：构造函数
 
-![](https://upload-images.jianshu.io/upload_images/12890819-712e7ffb25339677.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020854882.webp)
 
 ```javascript
 function Vue (options) {
@@ -127,7 +127,7 @@ this._init(options)
 
 ## 4. 数据驱动
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211046253.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020854540.webp)
 
 **1.  new Vue**
 
@@ -224,7 +224,7 @@ var app = new Vue({
 
 ## 5. 组件化
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211102804.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020854323.webp)
 
 **1. introduction**
 
@@ -285,7 +285,7 @@ const Sub = function VueComponent (options) {
 
 > 注意：activated 和 deactivated 钩子函数是专门为 keep-alive 组件定制的钩子。
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211105529.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020855428.webp)
 
 
 **6. 组件注册**
@@ -349,7 +349,7 @@ Vue.component('async-example', AsyncComp)
 
 ## 6. 深入响应式原理
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211120338.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020855392.webp)
 
 **1. 响应式对象：Vue.js 实现响应式的核心是利用了 ES5 的 Object.defineProperty。**
 
@@ -544,7 +544,7 @@ set 方法是在对象上设置属性。添加新属性和如果属性不存在�
 
 ## 7. 编译
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211309443.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020855300.webp)
 
 **1. introduction**
 
@@ -669,7 +669,7 @@ with(this){
 
 ## 8. 扩展
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211308381.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020855360.webp)
 
 
 **1. event**
@@ -893,17 +893,17 @@ let vm = new Vue({
 
 ## 9. Vue-Router
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211306071.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020855228.webp)
 
 **1. introduction**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211306079.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020856616.webp)
 
 - Vue-Router 的能力十分强大，它支持 hash、history、abstract 3 种路由方式，提供了 <router-link> 和 <router-view> 2 种组件，还提供了简单的路由配置和一系列好用的 API。注意：本思维导图主要讲的是 hash 模式下的。
 
 **2. 路由注册**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211306821.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020856631.webp)
 
 
 - 1. Vue.use
@@ -918,7 +918,7 @@ let vm = new Vue({
 
 **3. VueRouter 对象**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211306342.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020856572.webp)
 
 - 1. VueRouter 的实现是一个类，定义了一些属性和方法。
 - 2. 当我们执行 new VueRouter 的时候
@@ -931,7 +931,7 @@ let vm = new Vue({
 
 **4. matcher**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211306689.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020856676.webp)
 
 - 1. createMatcher
 
@@ -955,7 +955,7 @@ let vm = new Vue({
 
 **5. 路径切换**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211306478.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020856812.webp)
 
 - 1.  history.transitionTo
 
@@ -1058,12 +1058,12 @@ Vue-Router 还内置了另一个组件 <router-link>，它支持用户在具有�
 
 ## 10. Vuex
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211305340.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020856275.webp)
 
 
 **1. introduction**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211305853.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020857593.webp)
 
 
 - Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。
@@ -1082,7 +1082,7 @@ Vue-Router 还内置了另一个组件 <router-link>，它支持用户在具有�
 
 **2. Vuex 初始化**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211305411.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020858102.webp)
 
 
 - 1. 安装
@@ -1244,7 +1244,7 @@ function enableStrictMode (store) {
 
 **3. API**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211302111.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020858791.webp)
 
 - 1. 数据获取
 
@@ -1370,7 +1370,7 @@ registerModule 支持传入一个 path 模块路径 和 rawModule 模块定义�
 
 **4. 插件**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202309211301713.webp)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020858355.webp)
 
 Vuex 除了提供的存取能力，还提供了一种插件能力，让我们可以监控 store 的变化过程来做一些事情。
 

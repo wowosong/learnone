@@ -23,7 +23,7 @@
    **成功的结果数据一般称为 value, 失败的结果数据一般称为 reason**
 ### 1.1.3. promise 的基本流程
 
-![image-20220421102019564](https://gitee.com/wowosong/pic-md/raw/master/202212151342320.png)
+![image-20220421102019564](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020858051.png)
 
 ### 1.1.4. promise 的基本使用
 
@@ -337,7 +337,7 @@ pRace.then( value => {
 * promise 异常传透?
 
  	(1) 当使用 promise 的 then 链式调用时, 可以在最后指定失败的回调,
-	 (2) 前面任何操作出了异常, 都会传到最后失败的回调中处理
+ 	 (2) 前面任何操作出了异常, 都会传到最后失败的回调中处理
 
 * 中断 promise 链?
 

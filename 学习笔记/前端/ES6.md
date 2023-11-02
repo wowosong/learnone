@@ -46,7 +46,7 @@ TC39（Technical Committee 39） 是推进 ECMAScript 发展的委员会。其�
 ## 1.7. ES6 兼容性
 
 http://kangax.github.io/compat-table/es6/ 可查看兼容性4
-![image-20220418202257606](https://gitee.com/wowosong/pic-md/raw/master/202212281759637.png)
+![image-20220418202257606](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020902675.png)
 
 # 第 2 章 ECMASript 6 新特性
 
