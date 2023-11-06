@@ -12,7 +12,7 @@
 
 如果我们想要提高其查询效率，可以考虑在链表上构建索引的方式，每两个节点提取一个节点到上级，我们把抽出来的那一级就叫做索引。
 
-![一层跳跃表](https://gitee.com/wowosong/pic-md/raw/master/202212151022343.png)
+![一层跳跃表](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062225553.png)
 
 
 
@@ -20,11 +20,11 @@
 
 从上个例子中，我们可以看出，加来一层索引后，查找一个节点需要遍历的节点个数减少了，也就是说查询效率得到了提升，同理我们在一级索引的基础上，在加二级索引。
 
-![二层跳跃表](https://gitee.com/wowosong/pic-md/raw/master/202212151023741.png)
+![二层跳跃表](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062225544.png)
 
 从图中我们可以看出，查找效率又有了提升，因为在这里例子中我们的数据量很少，当有大量的数据时，我们可以增加多级索引，在查询时，效率可以得到明显的提升。
 
-![跳跃表](https://gitee.com/wowosong/pic-md/raw/master/202212151023380.png)
+![跳跃表](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062225713.png)
 
 像这种链表增加多种索引的结构，就是跳跃表。
 
@@ -49,7 +49,7 @@ Redis中使用跳跃表作为有序集合键的底层实现之一，以下几种
 
 Redis的跳跃表由zSkipListNode和skipList两个结构定义，其中zSkipListNode结构用于表示跳跃表节点，而zSkipList结构则用于保存跳跃表节点的相关信息，比如节点的数量，以及指向表头节点和表尾节点的指针等等。
 
-![Redis跳跃表](https://gitee.com/wowosong/pic-md/raw/master/202212151024425.png)
+![Redis跳跃表](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062225544.png)
 
 上图展示了一个跳跃表的实例，其中最左边的是skipList结构，该结构包含以下属性
 
@@ -80,7 +80,7 @@ Redis的跳跃表由zSkipListNode和skipList两个结构定义，其中zSkipList
 
 各个节点中的o1、o2和o3是节点所保存的成员对象。在同一个跳跃表中,各个节点保存的成员对象必须是唯一的,但是多个节点保存的分值却可以是相同的:分值相同的节点将按照成员对象在字典序中的大小来进行排序,成员对象较小的节点会排在前面(靠近表头的方向),而成员对象较大的节点则会排在后面(靠近表尾的方向)。
 
-![zskiplistNode](https://gitee.com/wowosong/pic-md/raw/master/202212151024057.png)
+![zskiplistNode](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062225465.png)
 
 ## 本文重点
 

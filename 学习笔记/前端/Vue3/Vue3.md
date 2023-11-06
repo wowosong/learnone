@@ -75,7 +75,7 @@ cd vue_test
 npm run serve
 ```
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151148274.webp" alt="在这里插入图片描述" style="zoom:50%;" /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062207462.webp)
 
 当然也可以用可视化面板创建
 
@@ -86,8 +86,8 @@ vue ui
 ```
 
 创建项目的时候预设选择Vue3即可 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151157863.png" alt="img.png" style="zoom: 33%;" />
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151148040.png" alt="img_1.png" style="zoom: 50%;" />
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062207300.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062207003.png)
 
 ## 2\. 使用 vite 创建
 
@@ -102,9 +102,9 @@ vite官网：[vitejs.cn](https://link.juejin.cn/?target=https%3A%2F%2Fvitejs.cn 
     *   轻量快速的热重载（HMR）。
     *   真正的按需编译，不再等待整个应用编译完成。
 * 传统构建 与 vite构建对比图
- <img src="https://gitee.com/wowosong/pic-md/raw/master/202212151148848.png" alt="img_2.png" style="zoom: 33%;" /> 
+ ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208933.png) 
   **传统构建模式，是将所有资源都打包好，再上线**
-  <img src="https://gitee.com/wowosong/pic-md/raw/master/202212151148360.png" alt="img_3.png" style="zoom:33%;" />
+  ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208237.png)
 
  而Vite有点按需加载的意思在那里了~
 
@@ -122,9 +122,9 @@ npm run dev
 
 ```
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151148384.png" alt="img_4.png" style="zoom: 50%;" />
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208403.png)
 构建速度明显vite快 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151149593.png" alt="img_5.png" style="zoom: 50%;" />
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208811.png)
 
 > 项目构建完了，我们就来看看Vue3与Vue2在直观上，有哪些区别吧~
 
@@ -158,7 +158,7 @@ console.log(vm)
 vm.$mount('#app')
 
 ```
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151149369.png" alt="img_6.png" style="zoom: 50%;" /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208726.png) 
 
 我们再来看看Vue3项目中的main.js
 
@@ -187,7 +187,7 @@ app.mount('#app')
 ```
 
 这里的app到底是啥，我们输出到控制台看看
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151149776.png" alt="img_7.png" style="zoom: 50%;" />
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208153.png)
 
 ## App.vue
 
@@ -219,17 +219,17 @@ app.mount('#app')
 
 使用传统Options API（配置式API）中，新增或者修改一个需求，就需要分别在data，methods，computed里修改 。
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151146848.webp" alt="3" style="zoom: 67%;" /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208785.webp)
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151147294.webp" alt="4"  /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208432.webp)
 
 ## 2.Composition API 的优势
 
 我们可以更加优雅的组织我们的代码，函数。让相关功能的代码更加有序的组织在一起。
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151147394.webp" alt="在这里插入图片描述" style="zoom: 50%;" /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208739.webp) 
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151149618.webp" alt="在这里插入图片描述" style="zoom: 50%;" /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208977.webp)
 
 > 看不明白不要慌，学完下面的内容，再回来看你就懂了~
 
@@ -278,11 +278,13 @@ export default {
 
 ```
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151147657.webp" alt="在这里插入图片描述" style="zoom:50%;" /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062209866.webp)
 
 如果返回的是渲染函数
 
-那你在`template`里写的模板都不奏效了，页面渲染的就是你写的h函数中的内容 <img src="https://gitee.com/wowosong/pic-md/raw/master/202212151149274.webp" alt="在这里插入图片描述" style="zoom: 67%;" />
+那你在`template`里写的模板都不奏效了，页面渲染的就是你写的h函数中的内容 
+
+![img1](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062209851.webp)
 
 5.  注意点：
     1.  尽量**不要**与Vue2.x配置混用
@@ -350,7 +352,7 @@ export default {
 </script>
 ```
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151150317.webp" alt="在这里插入图片描述" style="zoom:50%;" /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062210296.webp)
 
 通过看源码可以知道调用ref会返回一个RefImpl的实例对象，RefImpl类中有getter和setter可以检测到数据的变化
 
@@ -574,7 +576,7 @@ export default {
 
 ```
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151150621.webp" alt="GIF 2021-9-8 18-22-52.gif" style="zoom:50%;" /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062211599.webp) 
 
 *   实现原理
     *   通过 `Proxy`（代理）: **拦截对象中任意属性的变化, 包括：属性值的读写、属性的添加、属性的删除等**。
@@ -637,7 +639,7 @@ const p = new Proxy(person,{
     *   **`ref`定义的数据：操作数据需要`.value`，读取数据时模板中直接读取不需要`.value`。**
     *   **reactive定义的数据：操作数据与读取数据：均不需要`.value`。**
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151150138.png" alt="img_13.png" style="zoom:50%;" /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062211758.png)
 
 ### ⑥ `setup`的两个注意点
 
@@ -647,7 +649,7 @@ const p = new Proxy(person,{
 *   `setup`的参数
 
 **将`setup`接收的两个参数`(props, context)`打印在控制台，如下**
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151150938.png" alt="img_14.png" style="zoom:50%;" />
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062211814.png)
 
 *   `props`：值为对象，包含：**组件外部传递过来，且组件内部声明接收了的属性**。
 *   `context`：上下文对象
@@ -702,7 +704,7 @@ export default {
 </script>
 
 ```
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151150059.png" alt="img_15.png" style="zoom:50%;" /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062217907.png)
 
 ##### 自定义事件
 
@@ -752,8 +754,8 @@ export default {
 </script>
 
 ```
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151151459.png" alt="img_16.png" style="zoom:50%;" />
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151151723.png" alt="img_17.png" style="zoom:50%;" />
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062216568.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062216766.png)
 
 ##### 插槽
 
@@ -774,7 +776,7 @@ export default {
   <slot></slot>
 </template>
 ```
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151151149.png" alt="img_18.png" style="zoom:50%;" /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062216913.png)
 
 具名插槽
 
@@ -795,7 +797,7 @@ export default {
   <slot name="ykMsg"></slot>
 </template>
 ```
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151151735.png" alt="img_19.png" style="zoom:50%;" /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062213577.png)
 
 ### ⑦计算属性与监视
 
@@ -934,7 +936,7 @@ watchEffect(()=>{
 
 ### ⑧ 生命周期
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151151769.png" alt="img_20.png" style="zoom:50%;" />
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062213259.png)
 
 *   Vue3.0中可以继续使用Vue2.x中的生命周期钩子，但有有两个被更名：
     *   `beforeDestroy`改名为 `beforeUnmount`
@@ -1014,7 +1016,7 @@ export default function() {
 </script>
 ```
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151151797.webp" alt="在这里插入图片描述" style="zoom:50%;" /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062214627.webp)
 
 ### ⑩ `toRef`
 
@@ -1158,7 +1160,7 @@ export default {
 ```
 
 ## 5\. `provide` 与 `inject`
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151152407.png" alt="img_21.png" style="zoom:50%;" /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062214124.png)
 
 *   作用：实现**祖与后代组件间**通信
     
@@ -1367,8 +1369,8 @@ export default {
 ```
 
 我故意给最里面的盒子加了定位，因为相对定位会找他外层最近的定位盒子进行定位，所以效果就是这样了，我们希望这个弹窗是在body下呈现的
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151152148.png" alt="img_22.png" style="zoom:50%;" />
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151152578.png" alt="img_23.png" style="zoom:50%;" />
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062214192.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062215276.png)
 
 我们在Dialog组件中加一个`teleport`标签
 
@@ -1393,8 +1395,8 @@ export default {
 ```
 
 这样就好了
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151152491.png" alt="img_24.png" style="zoom: 33%;" />
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151152284.png" alt="img_25.png" style="zoom: 50%;" />
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062215920.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062215629.png)
 
 ## 3\. `Suspense`
 

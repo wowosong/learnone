@@ -213,7 +213,7 @@ myChart.on('click', function(event) {
 
 ![image-20231026135451503](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202310261354862.png)
 
-![image-20231026135653244](D:\huangjiusong\learnone\学习笔记\前端\echarts.assets\image-20231026135653244.png)
+![image-20231026135653244](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062222452.png)
 
 # 散点图
 
@@ -249,7 +249,7 @@ myChart.on('click', function(event) {
 
 # 仪表盘
 
-![image-20231026163506689](D:\huangjiusong\learnone\学习笔记\前端\echarts.assets\image-20231026163506689.png)
+![image-20231026163506689](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062223243.png)
 
 ![image-20231026164038153](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202310261640027.png)
 
