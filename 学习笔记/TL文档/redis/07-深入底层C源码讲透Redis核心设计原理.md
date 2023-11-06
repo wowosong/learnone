@@ -23,7 +23,7 @@
 
 ![image-20220314092648166](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061739027.png)
 
-![image-20220314092706597](./07-%E6%B7%B1%E5%85%A5%E5%BA%95%E5%B1%82C%E6%BA%90%E7%A0%81%E8%AE%B2%E9%80%8FRedis%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86.assets/202203140927664.png)
+![image-20220314092706597](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062228523.png)
 
 **Redis应用场景**
 
