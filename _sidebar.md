@@ -22,6 +22,8 @@
       
       - [JavaScript](/学习笔记/前端/JavaScript.md)
       
+      - [Echart](/学习笔记/前端/echarts.md)
+      
     - WebGIS
     	- [Openlayer](https://openlayers.org/)
     	-  [Leaflet](https://leafletjs.com/reference.html)
