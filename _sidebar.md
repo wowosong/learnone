@@ -29,7 +29,7 @@
     	-  [Leaflet](https://leafletjs.com/reference.html)
       
     - Mysql
-      - [Mysql高级](/学习笔记/数据库/mysql/Mysql语法.md)
+      - [Mysql高级](/学习笔记/数据库/mysql/MySQL数据库笔记.md)
       - [Mysql语法](/学习笔记/数据库/mysql/Mysql语法.md)
       - [SQL速成](/学习笔记/数据库/mysql/SQL速成.md)
       - [MySQL基础](/学习笔记/数据库/mysql/MySQL数据库笔记.md)
