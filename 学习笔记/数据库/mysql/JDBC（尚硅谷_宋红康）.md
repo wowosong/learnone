@@ -1,6 +1,6 @@
 
 
-![image-20211028111741320](https://gitee.com/wowosong/pic-md/raw/master/202305050916102.png)
+![image-20211028111741320](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061259247.png)
 
 # JDBC核心技术
 
