@@ -2,7 +2,7 @@
 
 ## MySQL的内部组件结构
 
-![image-20211211152020218](./3%E3%80%81SQL%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.assets/20211211152021.png)
+![image-20211211152020218](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061749704.png)
 
 大体来说，MySQL 可以分为 **Server 层和存储引擎层**两部分。 
 
@@ -45,7 +45,7 @@
 
 这就意味着，一个用户成功建立连接后，即使你用管理员账号对这个用户的权限做了修改，也不会影响已经存在连接的权限。**修改完成后，只有再新建的连接才会使用新的权限设置**。用户的权限表在系统表空间的mysql的user表中。 
 
-![image-20211211153004648](./3%E3%80%81SQL%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.assets/20211211153004.png)
+![image-20211211153004648](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061749963.png)
 
 修改user密码 
 
@@ -59,7 +59,7 @@
 
 连接完成后，如果你没有后续的动作，这个连接就处于空闲状态，你可以在 show processlist 命令中看到它。文本中这个图是 show processlist 的结果，其中的 Command 列显示为“Sleep”的这一行，就表示现在系统里面有一个空闲连接。 
 
-![image-20211211154711388](./3%E3%80%81SQL%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.assets/20211211154711.png)
+![image-20211211154711388](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061749507.png)
 
 客户端如果长时间不发送command到Server端，连接器就会自动将它断开。这个时间是由参数 wait_timeout 控制的，**默认值是 8 小时**。 
 
@@ -70,7 +70,7 @@
 2 mysql>set global wait_timeout=28800; #设置全局服务器关闭非交互连接之前等待活动的秒数 
 ```
 
-![image-20211211154844179](./3%E3%80%81SQL%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.assets/20211211154844.png)
+![image-20211211154844179](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061749223.png)
 
 如果在连接被断开之后，客户端再次发送请求的话，就会收到一个错误提醒： Lost connection to MySQL server during query。这时候如果你要继续，就需要重连，然后再执行请求了。
 
@@ -134,7 +134,7 @@ mysql> show global variables like "%query_cache_type%";
  mysql> show status like'%Qcache%'; //查看运行的缓存信息
 ```
 
-![image-20211211213014673](./3%E3%80%81SQL%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.assets/20211211213014.png)
+![image-20211211213014673](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061750075.png)
 
 - Qcache_free_blocks:表示查询缓存中目前还有多少剩余的blocks，如果该值显示较大，则说明查询缓存中的内存碎片过多了，可能在一定的时间进行整理。 
 - Qcache_free_memory:查询缓存的内存大小，通过这个参数可以很清晰的知道当前系统的查询内存是否够用，是多了，还是不够用，DBA可以根据实际情况做出调整。 
@@ -178,13 +178,13 @@ MySQL 从你输入的"select"这个关键字识别出来，这是一个查询语
 6、计划的执行 
 ```
 
-下图是SQL词法分析的过程步骤：![image-20211211164739121](./3%E3%80%81SQL%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.assets/20211211164739.png)
+下图是SQL词法分析的过程步骤：![image-20211211164739121](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061750890.png)
 
 SQL语句的分析分为词法分析与语法分析，mysql的词法分析由MySQLLex[MySQL自己实现的]完成，语法分析由Bison生成。关于语法树大家如果想要深入研究可以参考这篇wiki文章：https://en.wikipedia.org/wiki/LR_parser。那么除了Bison 外，Java当中也有开源的词法结构分析工具例如Antlr4，ANTLR从语法生成一个解析器，可以构建和遍历解析树，可以在IDEA 工具当中安装插件：**antlr v4 grammar plugin。插件使用详见课程** 
 
 经过bison语法分析之后，会生成一个这样的语法树 
 
-![image-20211211164817172](./3%E3%80%81SQL%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.assets/20211211164817.png)
+![image-20211211164817172](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061750841.png)
 
 至此我们分析器的工作任务也基本圆满了。接下来进入到优化器 
 
@@ -267,7 +267,7 @@ mysql> /usr/local/mysql/bin/mysqlbinlog ‐‐no‐defaults/usr/local/mysql/data
 
 binlog里的内容不具备可读性，所以需要我们自己去判断**恢复的逻辑点位，**怎么观察呢？看重点信息，比如begin，commit这种关键词信息，只要在binlog当中看到了，你就可以理解为begin-commit之间的信息是一个完整的事务逻辑,然后再根据位置position判断恢复即可。binlog内容如下： 
 
-![image-20211211211504612](./3%E3%80%81SQL%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.assets/20220115181603.png)
+![image-20211211211504612](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061750639.png)
 
 **数据归档操作** 
 

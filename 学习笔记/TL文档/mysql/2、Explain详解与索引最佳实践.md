@@ -50,7 +50,7 @@ INSERT INTO `film_actor` (`id`, `film_id`, `actor_id`) VALUES (1,1,1),(2,1,2),(3
 mysql> explain select * from actor;
 ```
 
-![image-20211211113729938](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211113730.png)
+![image-20211211113729938](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061745683.png)
 
 在查询中的每个表会输出一行，如果有两个表通过 join 连接查询，那么会输出两行 
 
@@ -62,13 +62,13 @@ mysql> explain select * from actor;
  mysql> explain extended select * from film where id = 1; 
 ```
 
-![image-20211211113857847](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211113857.png)
+![image-20211211113857847](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061746555.png)
 
 ```
  mysql> show warnings; 
 ```
 
-![image-20211211113943174](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211113943.png)
+![image-20211211113943174](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061746898.png)
 
 2）**explain partitions**：相比 explain 多了个 partitions 字段，如果查询是基于分区表的话，会显示查询将访问的分区。
 
@@ -92,7 +92,7 @@ select_type 表示对应行是简单还是复杂的查询。
 mysql> explain select * from film where id = 2; 
 ```
 
-![image-20211211114046872](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211114046.png)
+![image-20211211114046872](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061746385.png)
 
 2）primary：复杂查询中最外层的 select 
 
@@ -107,7 +107,7 @@ set session optimizer_switch='derived_merge=off'; #关闭mysql5.7新特性对衍
 explain select (select 1 from actor where id = 1) from (select * from film where id = 1) der;
 ```
 
-![image-20211211114417281](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211114417.png)
+![image-20211211114417281](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061746391.png)
 
 ```sql
 set session optimizer_switch='derived_merge=on'; #还原默认配置 
@@ -119,7 +119,7 @@ set session optimizer_switch='derived_merge=on'; #还原默认配置
  mysql> explain select 1 union all select 1;
 ```
 
-![image-20211211114735080](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211114735.png)
+![image-20211211114735080](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061746824.png)
 
 **3. table列** 
 
@@ -143,7 +143,7 @@ set session optimizer_switch='derived_merge=on'; #还原默认配置
 mysql> explain select min(id) from film; 
 ```
 
-![image-20211211114937081](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211114937.png)
+![image-20211211114937081](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061746138.png)
 
 **const, system**：mysql能对查询的某部分进行优化并将其转化成一个常量（可以看show warnings 的结果）。用于 **primary key 或 unique key(主键或唯一索引) 的所有列与常数比较时**，所以表最多有一个匹配行，读取1次，速度比较快。**system是const的特例**，表里只有一条元组匹配时为system 
 
@@ -151,13 +151,13 @@ mysql> explain select min(id) from film;
  mysql> explain extended select * from (select * from film where id = 1) tmp; 
 ```
 
-![image-20211211115200895](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211115201.png)
+![image-20211211115200895](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061746584.png)
 
 ```sql
 mysql> show warnings; 
 ```
 
-![image-20211211115302377](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211115302.png)
+![image-20211211115302377](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061746496.png)
 
 **eq_ref**：**primary key 或 unique key 索引的索引列**被连接使用 ，**最多只会返回一条符合条件的记录**。这可能是在 const 之外最好的联接类型了，简单的 select 查询不会出现这种 type。 
 
@@ -165,7 +165,7 @@ mysql> show warnings;
 mysql> explain select * from film_actor left join film on film_actor.film_id = film.id; 
 ```
 
-![image-20211211120035384](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211120035.png)
+![image-20211211120035384](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061746103.png)
 
 **ref**：相比 eq_ref，不使用唯一索引，而是**使用普通索引或者唯一性索引的部分前缀**，索引要和某个值相比较，可能会找到**多个符合条件**的行。 
 
@@ -175,7 +175,7 @@ mysql> explain select * from film_actor left join film on film_actor.film_id = f
  explain select * from film where name = 'film1'; 
 ```
 
-![image-20211211120147343](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211120147.png)
+![image-20211211120147343](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061746977.png)
 
 2.关联表查询，**idx_film_actor_id是film_id和actor_id的联合索引，这里使用到了film_actor的左边前缀film_id部分**。 **使用film的id去 过滤 film_actor，film_id是联合索引的前缀列，**
 
@@ -183,7 +183,7 @@ mysql> explain select * from film_actor left join film on film_actor.film_id = f
 explain select film_id from film left join film_actor on film.id=film_actor.film_id; 
 ```
 
-![image-20211211120307101](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211120307.png)
+![image-20211211120307101](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061746023.png)
 
 **range**：范围扫描通常出现在 in(), between ,> ,<, >= 等操作中。**使用一个索引来检索给定范围的行**。 
 
@@ -191,7 +191,7 @@ explain select film_id from film left join film_actor on film.id=film_actor.film
  mysql> explain select * from actor where id > 1;
 ```
 
-![image-20211211120510868](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211120511.png)
+![image-20211211120510868](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061746915.png)
 
 **index**：扫描**全索引**就能拿到结果，一般是扫描某个**二级索引**，这种扫描不会从**索引树根节点**开始快速查找，而是直接对**二级索引的叶子节点遍历和扫描**，**速度还是比较慢的**，**这种查询一般为使用覆盖索引**，**二级索引一般比较小，所以这种通常比ALL快一些。** （film表有name二级索引，包含全部的记录信息（使用覆盖索引的查询），直接使用二级索引更快）
 
@@ -199,7 +199,7 @@ explain select film_id from film left join film_actor on film.id=film_actor.film
 mysql> explain select * from film; 
 ```
 
-![image-20211211120805866](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211120806.png)
+![image-20211211120805866](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061747429.png)
 
 **ALL**：即全表扫描，**扫描你的聚簇索引的所有叶子节点**。通常情况下这需要增加索引来进行优化了。 
 
@@ -207,7 +207,7 @@ mysql> explain select * from film;
 mysql> explain select * from actor; 
 ```
 
-![image-20211211121154767](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211121154.png)
+![image-20211211121154767](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061747122.png)
 
 **5. possible_keys列**
 
@@ -233,7 +233,7 @@ explain 时可能出现 possible_keys 有列，而 key 显示 NULL 的情况，�
  mysql> explain select * from film_actor where film_id = 2; 
 ```
 
-![image-20211211121322169](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211121322.png)
+![image-20211211121322169](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061747679.png)
 
 key_len计算规则如下： 
 
@@ -287,7 +287,7 @@ key_len计算规则如下：
 1 mysql> explain select film_id from film_actor where film_id = 1; 
 ```
 
-![image-20211211121702817](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211121702.png)
+![image-20211211121702817](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061747056.png)
 
 2）**Using where**：**使用 where 语句来处理结果，并且查询的列未被索引覆盖** 
 
@@ -295,7 +295,7 @@ key_len计算规则如下：
 l1 mysql> explain select * from actor where name = 'a'; 
 ```
 
-![image-20211211121735812](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211121735.png)
+![image-20211211121735812](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061747094.png)
 
 3）**Using index condition**：**查询的列不完全被索引覆盖，where条件中是一个前导列的范围**； 
 
@@ -303,7 +303,7 @@ l1 mysql> explain select * from actor where name = 'a';
 1 mysql> explain select * from film_actor where film_id > 1;
 ```
 
-![image-20211211121813656](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211121813.png)
+![image-20211211121813656](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061747713.png)
 
 4）**Using temporary**：mysql需要创建一张临时表来处理查询。出现这种情况一般是要进行优化的，首先是想到用索引来优化。 
 
@@ -313,7 +313,7 @@ l1 mysql> explain select * from actor where name = 'a';
 1 mysql> explain select distinct name from actor; 
 ```
 
-![image-20211211121856879](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211121857.png)
+![image-20211211121856879](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061747102.png)
 
 2. film.name建立了idx_name索引，此时查询时extra是using index，没有用临时表 
 
@@ -321,7 +321,7 @@ l1 mysql> explain select * from actor where name = 'a';
 mysql> explain select distinct name from film; 
 ```
 
-![image-20211211121933066](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211121933.png)
+![image-20211211121933066](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061747471.png)
 
 5）**Using filesort**：**将用外部排序而不是索引排序，数据较小时从内存排序，否则需要在磁盘完成排序**。这种情况下一般也是要考虑使用索引来优化的。 
 
@@ -331,7 +331,7 @@ mysql> explain select distinct name from film;
 mysql> explain select * from actor order by name;
 ```
 
-![image-20211211122508113](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211122508.png)
+![image-20211211122508113](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061747930.png)
 
 ​	2. film.name建立了idx_name索引，此时查询时extra是using index 
 
@@ -339,7 +339,7 @@ mysql> explain select * from actor order by name;
 mysql> explain select * from film order by name; 
 ```
 
-![image-20211211122903952](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211122904.png)
+![image-20211211122903952](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061747137.png)
 
 6）**Select tables optimized away**：使用某些聚合函数（比如 max、min）来访问存在索引的某个字段时 
 
@@ -347,7 +347,7 @@ mysql> explain select * from film order by name;
 mysql> explain select min(id) from film; 
 ```
 
-![image-20211211123005292](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211123005.png)
+![image-20211211123005292](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061747896.png)
 
 ### **索引最佳实践**
 
@@ -375,19 +375,19 @@ KEY `idx_name_age_position` (`name`,`age`,`position`) USING BTREE
  EXPLAIN SELECT * FROM employees WHERE name= 'LiLei'; 
 ```
 
-![image-20211211124753838](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211124753.png)
+![image-20211211124753838](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061747939.png)
 
 ```sql
  EXPLAIN SELECT * FROM employees WHERE name= 'LiLei' AND age = 22; 
 ```
 
-![image-20211211124821796](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211124821.png)
+![image-20211211124821796](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061747778.png)
 
 ```sql
  EXPLAIN SELECT * FROM employees WHERE name= 'LiLei' AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211211124846168](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211124846.png)
+![image-20211211124846168](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061747296.png)
 
 **2.最左前缀法则** 
 
@@ -397,19 +397,19 @@ KEY `idx_name_age_position` (`name`,`age`,`position`) USING BTREE
 1 EXPLAIN SELECT * FROM employees WHERE name = 'Bill' and age = 31; 
 ```
 
-![image-20211211125957740](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211125957.png)
+![image-20211211125957740](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061747732.png)
 
 ```sql
 2 EXPLAIN SELECT * FROM employees WHERE age = 30 AND position = 'dev'; 
 ```
 
-![image-20211211130028522](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211130028.png)
+![image-20211211130028522](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061747390.png)
 
 ```sql
 3 EXPLAIN SELECT * FROM employees WHERE position = 'manager';
 ```
 
-![image-20211211130106388](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211130106.png)
+![image-20211211130106388](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061748482.png)
 
 **3.不在索引列上做任何操作（计算、函数、（自动or手动）类型转换），会导致索引失效而转向全表扫描** 
 
@@ -417,13 +417,13 @@ KEY `idx_name_age_position` (`name`,`age`,`position`) USING BTREE
 1 EXPLAIN SELECT * FROM employees WHERE name = 'LiLei'; 
 ```
 
-![image-20211211130146058](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211130146.png)
+![image-20211211130146058](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061748227.png)
 
 ```sql
 2 EXPLAIN SELECT * FROM employees WHERE left(name,3) = 'LiLei'; 
 ```
 
-![image-20211211130208452](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211130208.png)
+![image-20211211130208452](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061748286.png)
 
 给hire_time增加一个普通索引： 
 
@@ -433,7 +433,7 @@ ALTER TABLE `employees` ADD INDEX `idx_hire_time` (`hire_time`) USING BTREE ;
 EXPLAIN select * from employees where date(hire_time) ='2018‐09‐30'; 
 ```
 
-![image-20211211130253517](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211130253.png)
+![image-20211211130253517](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061748696.png)
 
 转化为日期范围查询，有可能会走索引： 
 
@@ -444,11 +444,11 @@ EXPLAIN select * from employees where hire_time >='2018‐09‐30 00:00:00' and 
 
 添加索引之前
 
-![image-20211211130515906](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211130516.png)
+![image-20211211130515906](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061748735.png)
 
 添加索引之后
 
-![image-20211211130603823](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211130603.png)
+![image-20211211130603823](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061748582.png)
 
 还原最初索引状态 
 
@@ -463,7 +463,7 @@ EXPLAIN select * from employees where hire_time >='2018‐09‐30 00:00:00' and 
  EXPLAIN SELECT * FROM employees WHERE name= 'LiLei' AND age > 22 AND position ='manager'; 
 ```
 
-![image-20211211130758360](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211130758.png)
+![image-20211211130758360](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061748843.png)
 
 **5.尽量使用覆盖索引（只访问索引的查询（索引列包含查询列）），减少 select \* 语句** 
 
@@ -471,13 +471,13 @@ EXPLAIN select * from employees where hire_time >='2018‐09‐30 00:00:00' and 
 EXPLAIN SELECT name,age FROM employees WHERE name= 'LiLei' AND age = 23 AND position ='manager'; 
 ```
 
-![image-20211211130859573](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211130859.png)
+![image-20211211130859573](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061748995.png)
 
 ```sql
 EXPLAIN SELECT * FROM employees WHERE name= 'LiLei' AND age = 23 AND position ='manager'; 
 ```
 
-![image-20211211131001108](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211131001.png)
+![image-20211211131001108](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061748161.png)
 
 **6.mysql在使用不等于（！=或者<>），not in ，not exists的时候无法使用索引会导致全表扫描**；**<** **小于、** **>** **大于、** **<=**、**>=** **这些，mysql内部优化器会根据检索比例、表大小等多个因素整体评估是否使用索引** 
 
@@ -485,7 +485,7 @@ EXPLAIN SELECT * FROM employees WHERE name= 'LiLei' AND age = 23 AND position ='
 EXPLAIN SELECT * FROM employees WHERE name != 'LiLei'; 
 ```
 
-![image-20211211131144953](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211131145.png)
+![image-20211211131144953](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061748133.png)
 
 **7.is null,is not null 一般情况下也无法使用索引** 
 
@@ -493,7 +493,7 @@ EXPLAIN SELECT * FROM employees WHERE name != 'LiLei';
  EXPLAIN SELECT * FROM employees WHERE name is null 
 ```
 
-![image-20211211131221307](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211131221.png)
+![image-20211211131221307](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061748556.png)
 
 **8.like以通配符开头（'$abc...'）mysql索引失效会变成全表扫描操作** 
 
@@ -501,13 +501,13 @@ EXPLAIN SELECT * FROM employees WHERE name != 'LiLei';
 EXPLAIN SELECT * FROM employees WHERE name like '%Lei'
 ```
 
-![image-20211211131412055](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211131412.png)
+![image-20211211131412055](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061748582.png)
 
 ```sql
 EXPLAIN SELECT * FROM employees WHERE name like 'Lei%' 
 ```
 
-![image-20211211131447289](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211131447.png)
+![image-20211211131447289](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061748833.png)
 
 问题：解决like'%字符串%'索引不被使用的方法？ 
 
@@ -517,7 +517,7 @@ a）**使用覆盖索引，查询字段必须是建立覆盖索引字段**
 EXPLAIN SELECT name,age,position FROM employees WHERE name like '%Lei%'; 
 ```
 
-![image-20211211131534613](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211131534.png)
+![image-20211211131534613](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061748165.png)
 
 b）如果不能使用覆盖索引则可能需要借助搜索引擎 
 
@@ -527,13 +527,13 @@ b）如果不能使用覆盖索引则可能需要借助搜索引擎
  EXPLAIN SELECT * FROM employees WHERE name = '1000'; 
 ```
 
-![image-20211211131649853](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211131650.png)
+![image-20211211131649853](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061748778.png)
 
 ```sql
  EXPLAIN SELECT * FROM employees WHERE name = 1000; 
 ```
 
-![image-20211211131719171](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211131719.png)
+![image-20211211131719171](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061748145.png)
 
 **10.少用or或in，用它查询时，mysql不一定使用索引，mysql内部优化器会根据检索比例、表大小等多个因素整体估是否使用索引，详见范围查询优化** 
 
@@ -541,7 +541,7 @@ b）如果不能使用覆盖索引则可能需要借助搜索引擎
 EXPLAIN SELECT * FROM employees WHERE name = 'LiLei' or name = 'HanMeimei'; 
 ```
 
-![image-20211211131816835](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211131817.png)
+![image-20211211131816835](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061749462.png)
 
 **11.范围查询优化** 
 
@@ -552,7 +552,7 @@ ALTER TABLE `employees` ADD INDEX `idx_age` (`age`) USING BTREE ;
 explain select * from employees where age >=1 and age <=2000; 
 ```
 
-![image-20211211131857063](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20211211131857.png)
+![image-20211211131857063](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061749084.png)
 
 没走索引原因：mysql内部优化器会根据检索比例、表大小等多个因素整体评估是否使用索引。比如这个例子，可能是由于单次数据量查询过大导致优化器最终选择不走索引 
 
@@ -563,7 +563,7 @@ explain select * from employees where age >=1 and age <=2000;
  explain select * from employees where age >=1001 and age <=2000; 
 ```
 
-![image-20211211132104393](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20220115181440.png)
+![image-20211211132104393](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061749368.png)
 
 还原最初索引状态
 
@@ -573,7 +573,7 @@ explain select * from employees where age >=1 and age <=2000;
 
 **索引使用总结：like KK%相当于=常量，%KK和%KK% 相当于范围** 
 
-![image-20211211132335150](./2%E3%80%81Explain%E8%AF%A6%E8%A7%A3%E4%B8%8E%E7%B4%A2%E5%BC%95%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/20220115181441.png)
+![image-20211211132335150](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061749567.png)
 
 ```sql
 # mysql5.7关闭ONLY_FULL_GROUP_BY报错 

@@ -68,7 +68,7 @@ InnoDB存储引擎是以页为单位来管理存储空间的，我们进行的�
 
 通过上边的内容我们知道，redo日志本质上只是记录了一下**事务对数据库做了哪些修改**。 InnoDB们针对事务对数据库的不同修改场景定义了多种类型的redo日志，但是绝大部分类型的redo日志都有下边这种通用的结构：
 
-![img](./14%E3%80%81InnoDB%E5%BC%95%E6%93%8E%E5%BA%95%E5%B1%82%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%8E%9F%E7%90%86.assets/20220115185142.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061803884.png)
 
 各个部分的详细释义如下：
 
@@ -104,7 +104,7 @@ MLOG\_WRITE\_STRING（type字段对应的十进制数字为30）：表示在页�
 
 我们上边提到的Max Row ID属性实际占用8个字节的存储空间，所以在修改页面中的该属性时，会记录一条类型为MLOG\_8BYTE的redo日志，MLOG\_8BYTE的redo日志结构如下所示：
 
-![img](./14%E3%80%81InnoDB%E5%BC%95%E6%93%8E%E5%BA%95%E5%B1%82%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%8E%9F%E7%90%86.assets/20220115185154.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061803725.png)
 
 offset代表在页面中的偏移量。
 
@@ -126,7 +126,7 @@ offset代表在页面中的偏移量。
 
 画一个简易的示意图就像是这样：
 
-![img](./14%E3%80%81InnoDB%E5%BC%95%E6%93%8E%E5%BA%95%E5%B1%82%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%8E%9F%E7%90%86.assets/20220115185243.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061803349.png)
 
 其实说到底，把一条记录插入到一个页面时需要更改的地方非常多。这时我们如果使用上边介绍的简单的**物理redo日志**来记录这些修改时，可以有两种解决方案：
 
@@ -236,7 +236,7 @@ Tips：**应用程序向磁盘写入文件时其实是先写到操作系统的�
 SHOW ENGINE INNODB STATUS\G
 ```
 
- ![img](./14%E3%80%81InnoDB%E5%BC%95%E6%93%8E%E5%BA%95%E5%B1%82%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%8E%9F%E7%90%86.assets/20220115185319.png)
+ ![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061803139.png)
 
 其中：
 
@@ -257,7 +257,7 @@ Last checkpoint at：当前系统的checkpoint\_lsn值。
 这样很明显会加快请求处理速度，但是如果事务提交后服务器挂了，后台线程没有及时将redo日志刷新到磁盘，那么该事务对页面的修改会丢失。
 
 1：当该系统变量值为1时，表示在事务提交时需要将redo日志同步到磁盘，可以保证事务的持久性。1也是innodb\_flush\_log\_at\_trx\_commit的默认值。
-![img](./14%E3%80%81InnoDB%E5%BC%95%E6%93%8E%E5%BA%95%E5%B1%82%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%8E%9F%E7%90%86.assets/20220115185325.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061804047.png)
 
 2：当该系统变量值为2时，表示在事务提交时需要将redo日志写到操作系统的缓冲区中，但并不需要保证将日志真正的刷新到磁盘。
 
@@ -329,7 +329,7 @@ Last checkpoint at：当前系统的checkpoint\_lsn值。
 
 我们在学习InnoDB记录行格式的时候重点强调过：聚簇索引的记录除了会保存完整的用户数据以外，而且还会自动添加名为trx\_id、roll\_pointer的隐藏列，如果用户没有在表中定义主键以及UNIQUE键，还会自动添加一个名为**row\_id**的隐藏列。
 
-![img](./14%E3%80%81InnoDB%E5%BC%95%E6%93%8E%E5%BA%95%E5%B1%82%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%8E%9F%E7%90%86.assets/20220115185406.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061804285.png)
 
 其中的trx\_id列就是**某个对这个聚簇索引记录做改动的语句所在的事务对应的事务id而已（此处的改动可以是INSERT、DELETE、UPDATE操作）**。至于roll\_pointer隐藏列我们后边分析。
 
@@ -359,7 +359,7 @@ roll\_pointer本质上就是一个指向记录对应的undo日志的一个指针
 
 假设此刻某个页面中的记录分布情况是这样的
 
- ![img](./14%E3%80%81InnoDB%E5%BC%95%E6%93%8E%E5%BA%95%E5%B1%82%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%8E%9F%E7%90%86.assets/20220115185428.png)
+ ![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061804973.png)
 
 我们只把记录的delete\_mask标志位展示了出来。从图中可以看出，正常记录链表中包含了3条正常记录，垃圾链表里包含了2条已删除记录。页面的Page Header部分的PAGE\_FREE属性的值代表指向垃圾链表头节点的指针。
 
@@ -367,7 +367,7 @@ roll\_pointer本质上就是一个指向记录对应的undo日志的一个指针
 
 阶段一：将记录的delete\_mask标识位设置为1，这个阶段称之为delete mark。
 
- ![img](./14%E3%80%81InnoDB%E5%BC%95%E6%93%8E%E5%BA%95%E5%B1%82%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%8E%9F%E7%90%86.assets/20220115185436.png)
+ ![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061804732.png)
 
 可以看到，正常记录链表中的最后一条记录的delete\_mask值被设置为1，但是并没有被加入到垃圾链表。也就是此时记录处于一个中间状态。在删除语句所在的事务提交之前，被删除的记录一直都处于这种所谓的中间状态。
 
@@ -377,7 +377,7 @@ roll\_pointer本质上就是一个指向记录对应的undo日志的一个指针
 
 把阶段二执行完了，这条记录就算是真正的被删除掉了。这条已删除记录占用的存储空间也可以被重新利用了。
 
- ![img](./14%E3%80%81InnoDB%E5%BC%95%E6%93%8E%E5%BA%95%E5%B1%82%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%8E%9F%E7%90%86.assets/20220115185441.png)
+ ![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061804682.png)
 
 从上边的描述中我们也可以看出来，在删除语句所在的事务提交之前，只会经历阶段一，也就是delete mark阶段（提交之后我们就不用回滚了，所以只需考虑对删除操作的阶段一做的影响进行回滚）。InnoDB中就会产生一种称之为TRX\_UNDO\_DEL\_MARK\_REC类型的undo日志。
 
@@ -385,7 +385,7 @@ roll\_pointer本质上就是一个指向记录对应的undo日志的一个指针
 
 同时，在对一条记录进行delete mark操作前，需要把该记录的旧的trx\_id和roll\_pointer隐藏列的值都给记到对应的undo日志中来，就是我们图中显示的old trx\_id和old roll\_pointer属性。这样有一个好处，那就是可以通过undo日志的old roll\_pointer找到记录在修改之前对应的undo日志。比方说在一个事务中，我们先插入了一条记录，然后又执行对该记录的删除操作，这个过程的示意图就是这样：
 
-![img](./14%E3%80%81InnoDB%E5%BC%95%E6%93%8E%E5%BA%95%E5%B1%82%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%8E%9F%E7%90%86.assets/20220115185448.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061804598.png)
 
 从图中可以看出来，执行完delete mark操作后，它对应的undo日志和INSERT操作对应的undo日志就串成了一个链表。这个链表就称之为**版本链**。版本链在事务的隔离性中有很重要的作用，具体请参考第四期MySQL《07-VIP-深入理解MVCC与BufferPool缓存机制》
 
@@ -439,7 +439,7 @@ roll\_pointer本质上就是一个指向记录对应的undo日志的一个指针
 
 MySQL事务执行流程如下图
 
-![img](./14%E3%80%81InnoDB%E5%BC%95%E6%93%8E%E5%BA%95%E5%B1%82%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%8E%9F%E7%90%86.assets/20220115185502.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061804148.png)
 
 可以看出，MySQL在事务执行的过程中，会记录相应SQL语句的UndoLog 和 Redo Log，然后在内存中更新数据并形成数据脏页。接下来RedoLog会根据一定规则触发刷盘操作，Undo Log 和数据脏页则通过刷盘机制刷盘。事务提交时，会将当前事务相关的所有Redo Log刷盘，只有当前事务相关的所有Redo Log 刷盘成功，事务才算提交成功。
 
@@ -451,7 +451,7 @@ MySQL事务执行流程如下图
 
 **如果在执行第8步之后MySQL崩溃或者宕机，此时会使用Redo Log恢复数据**，大体流程如下图所示。
 
-![img](./14%E3%80%81InnoDB%E5%BC%95%E6%93%8E%E5%BA%95%E5%B1%82%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%8E%9F%E7%90%86.assets/20220115185512.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061804367.png)
 
 很明显，MySQL崩溃恢复后，首先会获取**日志检查点**信息，随后根据日志检查点信息使用Redo Log进行恢复。MySQL崩溃或者宕机时事务未提交，则接下来使用Undo Log回滚数据。如果在MySQL崩溃或者宕机时事务已经提交，则用Redo Log恢复数据即可。
 

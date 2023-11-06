@@ -110,7 +110,7 @@ unlock tables;
 
 **案例分析(加读锁）**
 
-![image-20211213203856450](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213203856.png)
+![image-20211213203856450](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061753231.png)
 
 当前session和其他session都可以读该表
 
@@ -118,7 +118,7 @@ unlock tables;
 
 **案例分析(加写锁）**
 
-![image-20211213211033340](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213211033.png)
+![image-20211213211033340](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061753580.png)
 
 当前session对该表的增删改查都没有问题，其他session对该表的所有操作被阻塞
 
@@ -173,39 +173,39 @@ mysql> set tx_isolation="read-uncommitted";
 Query OK, 0 rows affected, 1 warning (0.05 sec)
 ```
 
-（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account： ![image-20211213214052474](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213214052.png)
+（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account： ![image-20211213214052474](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061753371.png)
 
-（3）这时，虽然客户端B的事务还没提交，但是客户端A就可以查询到B已经更新的数据： ![image-20211213214118039](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213214118.png)
+（3）这时，虽然客户端B的事务还没提交，但是客户端A就可以查询到B已经更新的数据： ![image-20211213214118039](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061753755.png)
 
 （4）一旦客户端B的事务因为某种原因回滚，所有的操作都将会被撤销，那客户端A查询到的数据其实就是**脏数据**： 
 
-![image-20211213214700599](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213214700.png)　　　
+![image-20211213214700599](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061753809.png)　　　
 
 （5）在客户端A执行更新语句update account set balance = balance - 50 where id =1，lilei的balance没有变成350，居然是400，是不是很奇怪，数据不一致啊，如果你这么想就太天真 了，在应用程序中，我们会用400-50=350，并不知道其他会话回滚了，要想解决这个问题可以采用读已提交的隔离级别
 
-![image-20211213214727974](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213214728.png)
+![image-20211213214727974](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061753873.png)
 
 **3、读已提交**
 
 （1）打开一个客户端A，并设置当前事务模式为read committed（已提交读），查询表account的所有记录：
 
-**set tx_isolation='**read-committed**';**    ![image-20211213215412087](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213215412.png)　　　　
+**set tx_isolation='**read-committed**';**    ![image-20211213215412087](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061753378.png)　　　　
 
 （2）在客户端A的事务提交之前，打开另一个客户端B，更新表account： 
 
-![image-20211213215607054](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213215607.png)　　　　
+![image-20211213215607054](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061754688.png)　　　　
 
 （3）这时，客户端B的事务还没提交，客户端A不能查询到B已经更新的数据，解决了脏读问题： 
 
-![image-20211213215729596](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213215729.png)　　　　
+![image-20211213215729596](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061754168.png)　　　　
 
 （4）客户端B的事务提交
 
-![image-20211213215801437](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213215801.png)
+![image-20211213215801437](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061754160.png)
 
 　　　　
 
-（5）客户端A执行与上一步相同的查询，结果 与上一步不一致，即产生了不可重复读的问题   ![image-20211213215816260](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213215816.png)
+（5）客户端A执行与上一步相同的查询，结果 与上一步不一致，即产生了不可重复读的问题   ![image-20211213215816260](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061754412.png)
 
 **4、可重复读**
 
@@ -213,27 +213,29 @@ Query OK, 0 rows affected, 1 warning (0.05 sec)
 
 **set tx_isolation='**repeatable-read**';**
 
-![image-20211213220302209](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213220302.png)　　　　
+![image-20211213220302209](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061754114.png)　　　　
 
-（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account并提交   ![image-20211213220318688](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213220318.png)　
+（2）在客户端A的事务提交之前，打开另一个客户端B，更新表account并提交   ![image-20211213220318688](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061754378.png)　
 
-（3）在客户端A查询表account的所有记录，与步骤（1）查询结果一致，没有出现不可重复读的问题![image-20211213220333490](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213220333.png)　
+（3）在客户端A查询表account的所有记录，与步骤（1）查询结果一致，没有出现不可重复读的问题![image-20211213220333490](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061754576.png)　
 
 （4）在客户端A，接着执行update account set balance = balance - 50 where id = 1，balance没有变成400-50=350，lilei的balance值用的是步骤2中的350来算的，所以是300，数据的一致性倒是没有被破坏。可重复读的隔离级别下使用了MVCC(multi-version concurrency control)机制，select操作不会更新版本号，是快照读（历史版本）；insert、update和delete会更新版本号，是当前读（当前版本）。
 
- ![image-20211213220404449](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213220404.png)
+ ![image-20211213220404449](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061754843.png)
 
-（5）重新打开客户端B，插入一条新数据后提交 ![image-20211213220420588](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213220420.png)
+（5）重新打开客户端B，插入一条新数据后提交
+
+ ![image-20211213220420588](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061754699.png)
 
 （6）在客户端A查询表account的所有记录，没有查出新增数据，所以没有出现幻读
 
-​	![image-20211213220434685](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213220434.png)
+​	![image-20211213220434685](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061754171.png)
 
 （7)验证幻读
 
 在客户端A执行update account set balance=888 where id = 4;能更新成功，再次查询能查到客户端B新增的数据
 
-  ![image-20211213220453987](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213220454.png)
+  ![image-20211213220453987](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061754064.png)
 
 **5、串行化**
 
@@ -241,13 +243,13 @@ Query OK, 0 rows affected, 1 warning (0.05 sec)
 
 **set tx_isolation='**serializable**';**
 
-​	![image-20211213220759096](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213220759.png)
+​	![image-20211213220759096](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061754308.png)
 
 （2）打开一个客户端B，并设置当前事务模式为serializable，更新相同的id为1的记录会被阻塞等待，更新id为2的记录可以成功，说明在串行模式下innodb的查询也会被加上行锁。
 
 如果客户端A执行的是一个范围查询，那么该**范围内的所有行包括每行记录所在的间隙区间范围**(就算该行数据还未被插入也会加锁，这种是间隙锁)**都会被加锁**。此时如果客户端B在该范围内插入数据都会被阻塞，所以就避免了幻读。
 
-这种隔离级别并发性极低，开发中很少会用到。    ![image-20211213220813823](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20211213220814.png)
+这种隔离级别并发性极低，开发中很少会用到。    ![image-20211213220813823](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061754745.png)
 
 ### **间隙锁(Gap Lock)**
 
@@ -255,7 +257,7 @@ Query OK, 0 rows affected, 1 warning (0.05 sec)
 
 假设account表里数据如下：
 
-​	![image-20211213220906580](./6%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E6%9C%BA%E5%88%B6.assets/20220115182508.png)
+​	![image-20211213220906580](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061754824.png)
 
 那么间隙就有 id 为 (3,10)，(10,20)，(20,正无穷) 这三个区间，
 

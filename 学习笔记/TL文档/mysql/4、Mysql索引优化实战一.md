@@ -40,9 +40,9 @@ CALL insert_emp ();
 EXPLAIN SELECT * FROM employees WHERE name > 'LiLei' AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212110310973](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212110311.png)
+![image-20211212110310973](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061750290.png)
 
-![image-20211212110728092](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212110728.png)
+![image-20211212110728092](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061750277.png)
 
 结论：联合索引第一个字段就用范围查找不会走索引，mysql内部可能觉得**第一个字段就用范围，结果集应该很大，回表效率不高，还不如就全表扫描**
 
@@ -52,7 +52,7 @@ EXPLAIN SELECT * FROM employees WHERE name > 'LiLei' AND age = 22 AND position =
 EXPLAIN SELECT * FROM employees force index(idx_name_age_position) WHERE name > 'LiLei' AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212111138725](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212111139.png)
+![image-20211212111138725](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061750534.png)
 
 结论：虽然使用了强制走索引让联合索引第一个字段范围查找也走索引，扫描的行rows看上去也少了点，但是最终查找效率不一定比全表扫描高，因为回表效率不高 
 
@@ -82,7 +82,7 @@ SELECT * FROM employees force index(idx_name_age_position) WHERE name > 'LiLei';
 EXPLAIN SELECT name,age,position FROM employees WHERE name > 'LiLei' AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212111927665](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212111927.png)
+![image-20211212111927665](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061750000.png)
 
 **4、in和or在表数据量比较大的情况会走索引，在表记录不多的情况下会选择全表扫描** 
 
@@ -90,13 +90,13 @@ EXPLAIN SELECT name,age,position FROM employees WHERE name > 'LiLei' AND age = 2
 EXPLAIN SELECT * FROM employees WHERE name in ('LiLei','HanMeimei','Lucy') AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212112342620](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212112342.png)
+![image-20211212112342620](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061751852.png)
 
 ```sql
 EXPLAIN SELECT * FROM employees WHERE (name = 'LiLei' or name = 'HanMeimei') AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212112419441](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212112419.png)
+![image-20211212112419441](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061751696.png)
 
 做一个小实验，将employees 表复制一张employees_copy的表，里面保留两三条记录 
 
@@ -104,13 +104,13 @@ EXPLAIN SELECT * FROM employees WHERE (name = 'LiLei' or name = 'HanMeimei') AND
 EXPLAIN SELECT * FROM employees_copy WHERE name in ('LiLei','HanMeimei','Lucy') AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212112533716](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212112607.png)
+![image-20211212112533716](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061751147.png)
 
 ```sql
 EXPLAIN SELECT * FROM employees_copy WHERE (name = 'LiLei' or name = 'HanMeimei') AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212112640290](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212112640.png)
+![image-20211212112640290](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061751371.png)
 
 **5、like KK% 一般情况都会走索引** 
 
@@ -118,13 +118,13 @@ EXPLAIN SELECT * FROM employees_copy WHERE (name = 'LiLei' or name = 'HanMeimei'
 EXPLAIN SELECT * FROM employees WHERE name like 'LiLei%' AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212125045577](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212125046.png)
+![image-20211212125045577](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061751182.png)
 
 ```sql
 EXPLAIN SELECT * FROM employees_copy WHERE name like 'LiLei%' AND age = 22 AND position ='manager'; 
 ```
 
-![image-20211212125440632](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212125440.png)
+![image-20211212125440632](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061751747.png)
 
 这里给大家补充一个概念，**索引下推（Index Condition Pushdown，ICP）**, like KK%其实就是用到了索引下推优化 
 
@@ -148,7 +148,7 @@ MySQL 5.6引入了索引下推优化，**可以在索引遍历过程中，对索
  mysql> EXPLAIN select * from employees where name > 'a';
 ```
 
-![image-20211212130134236](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212130134.png)
+![image-20211212130134236](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061751993.png)
 
 如果用name索引需要遍历name字段联合索引树，然后还需要根据遍历出来的主键值（回表）去主键索引树里再去查出最终数据，成本比全表扫描还高，可以**用覆盖索引优化**，这样只需要遍历name字段的联合索引树就能拿到所有结果，如下： 
 
@@ -156,13 +156,13 @@ MySQL 5.6引入了索引下推优化，**可以在索引遍历过程中，对索
  mysql> EXPLAIN select name,age,position from employees where name > 'a' ; 
 ```
 
-![image-20211212130237719](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212130237.png)
+![image-20211212130237719](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061751670.png)
 
 ```sql
  mysql> EXPLAIN select * from employees where name > 'zzz' ; 
 ```
 
-![image-20211212130159114](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212130159.png)
+![image-20211212130159114](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061751975.png)
 
 对于上面这两种 name>'a' 和 name>'zzz' 的执行结果，mysql最终是否选择走索引或者一张表涉及多个索引，mysql最终如何选择索引，我们可以用**trace工具**来一查究竟，开启trace工具会影响mysql性能，所以只能临时分析sql使用，用完之后立即关闭 
 
@@ -414,7 +414,7 @@ Case1：
 explain select * from employees where name='LiLei' and position='dev' ORDER BY age;
 ```
 
-![image-20211212150117249](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212150117.png)
+![image-20211212150117249](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061751250.png)
 
 分析： 
 
@@ -426,7 +426,7 @@ Case 2：
 	explain select * from employees where name='LiLei'  ORDER BY position;
 ```
 
-![image-20211212150823836](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212150824.png)
+![image-20211212150823836](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061751198.png)
 
 分析： 
 
@@ -438,7 +438,7 @@ Case 3：分析：
 	explain select * from employees where name='LiLei'  ORDER BY age,position;
 ```
 
-![image-20211212150320225](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212150320.png)
+![image-20211212150320225](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061751111.png)
 
 查找只用到索引name，age和position用于排序，无Using filesort。因为name,age,position构成了索引列的结构，可以使用索引。 
 
@@ -450,7 +450,7 @@ Case 4：
 	explain select * from employees where name='LiLei'  ORDER BY position,age;
 ```
 
-![image-20211212150930645](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212150930.png) 
+![image-20211212150930645](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061751415.png) 
 
 和Case 3中explain的执行结果一样，但是出现了Using filesort，因为索引的创建顺序为name,age,position，但是排序的时候age和position颠倒位置了。 
 
@@ -462,7 +462,7 @@ Case 5：
 explain select * from employees where name='LiLei'  and age=18 ORDER BY position,age;
 ```
 
-![image-20211212151248488](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212151248.png)
+![image-20211212151248488](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061751134.png)
 
 与Case 4对比，在Extra中并未出现Using filesort，因为age为常量，在排序中被优化，所以索引未颠倒，不会出现Using filesort。 
 
@@ -474,7 +474,7 @@ Case 6：
 explain select * from employees where name='zhugu'  ORDER BY age ASC,position desc;
 ```
 
-![image-20211212151921847](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212151921.png)
+![image-20211212151921847](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061751863.png)
 
 虽然排序的字段列与索引顺序一样，且order by默认升序，这里position desc变成了降序，导致与索引的排序方式不同，从而产生Using filesort。Mysql8以上版本有降序索引可以支持该种查询方式。 
 
@@ -486,7 +486,7 @@ Case 7：
 explain select * from employees where name in ('LiLei','zhugu') ORDER BY age,position;
 ```
 
-![image-20211212152051825](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212152051.png)
+![image-20211212152051825](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061751711.png)
 
 对于排序来说，多个相等条件也是范围查询，age和position的值是无序的。
 
@@ -496,7 +496,7 @@ Case 8：
 explain select * from employees where name >'a' ORDER BY name;
 ```
 
-![image-20211212152232228](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212152232.png)
+![image-20211212152232228](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061752930.png)
 
 数据量太大，可能不走索引
 
@@ -506,7 +506,7 @@ explain select * from employees where name >'a' ORDER BY name;
 explain select name,age,position from employees where name >'a' ORDER BY name;
 ```
 
-![image-20211212152335206](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212152335.png)
+![image-20211212152335206](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061752099.png)
 
 ### **优化总结：** 
 
@@ -544,7 +544,7 @@ MySQL 通过比较系统变量 max_length_for_sort_data(**默认1024字节**，5
 	explain select * from employees where name='zhugu'  ORDER BY position;
 ```
 
-![image-20211212153345666](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212153345.png)
+![image-20211212153345666](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061752025.png)
 
 查看下这条sql对应trace结果如下(只展示排序部分)： 
 
@@ -720,7 +720,7 @@ mysql> set session optimizer_trace="enabled=off"; ‐‐关闭trace
 
 ## **索引设计实战** 
 
-![image-20211212160836331](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212160836.png)
+![image-20211212160836331](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061752212.png)
 
 ![image-20211212161624909](./4%E3%80%81Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E4%B8%80.assets/20211212161625.png)
 
