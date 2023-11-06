@@ -32,7 +32,7 @@ Spring Web MVC是基于Servlet API构建的原始Web框架，从一开始就已�
 
 ## 传统Servlet：
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212151042077.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061732230.png)
 
 弊端：
 
@@ -92,7 +92,7 @@ implements HttpRequestHandler
 
 Spring MVC 是围绕前端控制器模式设计的，其中：中央 Servlet DispatcherServlet 为请求处理流程提供统一调度，实际工作则交给可配置组件执行。这个模型是灵活的且开放的，我们可以通过自己去定制这些组件从而进行定制自己的工作流。
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151042696.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061732525.png)
 
 DispatcherServlet： 前端调度器 ， 负责将请求拦截下来**分发到各控制器**方法中
 
@@ -224,5 +224,5 @@ protected void doDispatch(HttpServletRequest request, HttpServletResponse respon
 
 ﻿[https://www.processon.com/view/link/615ea79e1efad4070b2d6707](https://www.processon.com/view/link/615ea79e1efad4070b2d6707)﻿
 
-![1642514121-9ee0a878b6d3c6cf168ff88d4142fabe](https://gitee.com/wowosong/pic-md/raw/master/202212151043351.png)
+![1642514121-9ee0a878b6d3c6cf168ff88d4142fabe](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061732145.png)
 

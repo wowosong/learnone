@@ -2,13 +2,13 @@
 
 *   ## 哨兵模式
 
-![img](./03-VIP-Redis%E7%BC%93%E5%AD%98%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(3).assets/20220306144337.bin)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061738536.bin)
 
 在redis3.0以前的版本要实现集群一般是借助哨兵sentinel工具来监控master节点的状态，如果master节点异常，则会做主从切换，将某一台slave作为master，哨兵的配置略微复杂，并且性能和高可用性等各方面表现一般，特别是在主从切换的瞬间存在**访问瞬断**的情况，而且哨兵模式只有一个主节点对外提供服务，没法支持很高的并发，且单个主节点内存也不宜设置得过大，否则会导致持久化文件过大，影响数据恢复或主从同步的效率
 
 *   ## 高可用集群模式
 
-![img](./03-VIP-Redis%E7%BC%93%E5%AD%98%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(3).assets/20220306144417.bin)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061738983.bin)
 
 redis集群是一个由多个主从节点群组成的分布式服务器群，它具有复制、高可用和分片特性。Redis集群不需要sentinel哨兵·也能完成节点移除和故障转移的功能。需要将每个节点设置成集群模式，这种集群模式没有中心节点，可水平扩展，据官方文档称可以线性扩展到上万个节点(官方推荐不超过1000个节点)。redis集群的性能和高可用性均优于之前版本的哨兵模式，且集群配置非常简单
 
@@ -211,7 +211,7 @@ HASH\_SLOT = CRC16(key) mod 16384
 
 当客户端向一个错误的节点发出了指令，该节点会发现指令的 key 所在的槽位并不归自己管理，这时它会向客户端发送一个特殊的跳转指令携带目标操作的节点地址，告诉客户端去连这个节点去获取数据。客户端收到指令后除了跳转到正确的节点上去操作，还会同步更新纠**正本地的槽位映射表缓存，后续所有 key 将使用新的槽位映射表**。
 
-![img](./03-VIP-Redis%E7%BC%93%E5%AD%98%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(3).assets/20220306144442.bin)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061738146.bin)
 
 ## Redis集群节点间的通信机制
 
@@ -225,7 +225,7 @@ redis cluster节点间采取gossip协议进行通信 
 
 **gossip：** 
 
-![https://note.youdao.com/yws/public/resource/218d9ba28237a441217d0e024d410769/xmlnote/362F42FC9DAE4AB8A59C5DC7242EE0F0/101611](./03-VIP-Redis%E7%BC%93%E5%AD%98%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(3).assets/1646548981-b6fba580de55ceb6b61bf9db9745cf65.bin)
+![https://note.youdao.com/yws/public/resource/218d9ba28237a441217d0e024d410769/xmlnote/362F42FC9DAE4AB8A59C5DC7242EE0F0/101611](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061738743.bin)
 
 gossip协议包含多种消息，包括ping，pong，meet，fail等等。 
 

@@ -146,7 +146,7 @@ System.out.println(beanFactory.getBean("user"));
 **DefaultListableBeanFactory是非常强大的，支持很多功能，可以通过查看DefaultListableBeanFactory的类继承实现结构来看**
 
 
-![image](https://gitee.com/wowosong/pic-md/raw/master/202212151028221.png)
+![image](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061729663.png)
 
 **这部分现在看不懂没关系，源码熟悉一点后回来再来看都可以。**
 
@@ -197,7 +197,7 @@ System.out.println(beanFactory.getBean("user"));
 
 
 ### AnnotationConfigApplicationContext
-![image (1)](https://gitee.com/wowosong/pic-md/raw/master/202212151029626.png)
+![image (1)](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061729868.png)
 
 **这部分现在看不懂没关系，源码熟悉一点后回来再来看都可以。**
 
@@ -210,7 +210,7 @@ System.out.println(beanFactory.getBean("user"));
 
 
 ### ClassPathXmlApplicationContext
-![ClassPathXmlApplicationContext](https://gitee.com/wowosong/pic-md/raw/master/202212151030963.png)
+![ClassPathXmlApplicationContext](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061729480.png)
 它也是继承了AbstractApplicationContext，但是相对于AnnotationConfigApplicationContext而言，功能没有AnnotationConfigApplicationContext强大，比如不能注册BeanDefinition
 
 

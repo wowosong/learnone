@@ -116,7 +116,7 @@ Executor分成两大类，一类是CacheExecutor，另一类是普通Executor。
 
 CacheExecutor其实是封装了普通的Executor，和普通的区别是在查询前先会查询缓存中是否存在结果，如果存在就使用缓存中的结果，如果不存在还是使用普通的Executor进行查询，再将查询出来的结果存入缓存。
 
-![https://note.youdao.com/yws/public/resource/aa06a61ba9eaa8a01e54e28ca18245cc/xmlnote/129764479BFD4B0F96AA2F97CBA61A23/1531](https://gitee.com/wowosong/pic-md/raw/master/202212151048902.png)
+![https://note.youdao.com/yws/public/resource/aa06a61ba9eaa8a01e54e28ca18245cc/xmlnote/129764479BFD4B0F96AA2F97CBA61A23/1531](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061735918.png)
 
 到此为止，我们已经获得了SqlSession，拿到SqlSession就可以执行各种CRUD方法了。
 
@@ -200,7 +200,7 @@ public class MapperProxyFactory<T> {
 
 获取Mapper的流程总结如下：
 
-![https://note.youdao.com/yws/public/resource/aa06a61ba9eaa8a01e54e28ca18245cc/xmlnote/DBAD171C12D14FF1A9FD56FB9A4748C8/1530](https://gitee.com/wowosong/pic-md/raw/master/202212151048323.png)
+![https://note.youdao.com/yws/public/resource/aa06a61ba9eaa8a01e54e28ca18245cc/xmlnote/DBAD171C12D14FF1A9FD56FB9A4748C8/1530](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061735178.png)
 
 Mapper方法的执行流程
 
@@ -337,7 +337,7 @@ public <E> List<E> query(Statement statement, ResultHandler resultHandler) throw
 
 到此，整个调用流程结束。
 
-![https://note.youdao.com/yws/public/resource/aa06a61ba9eaa8a01e54e28ca18245cc/xmlnote/308E270D01224571A881AEA42D57DA81/1532](https://gitee.com/wowosong/pic-md/raw/master/202212151048803.png)
+![https://note.youdao.com/yws/public/resource/aa06a61ba9eaa8a01e54e28ca18245cc/xmlnote/308E270D01224571A881AEA42D57DA81/1532](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061735457.png)
 
 简单总结
 

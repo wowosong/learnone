@@ -109,7 +109,7 @@
 
 在Serlvet3-1的规范手册中：就提供了一种更加易于扩展可用于共享库可插拔的一种方式，参见8.2.4：
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151043687.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061732103.png)
 
 也就是让你在应用META-INF/services 路径下 放一个 javax.servlet.ServletContainerInitailizer ——即SPI规范
 
@@ -131,7 +131,7 @@ SPI 我们叫他服务接口扩展,(Service Provider Interface) 直译服务提�
 
 一行一个实现类。
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151044333.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061732228.png)
 
 3.通过java.util.ServiceLoader提供的ServiceLoader就可以完成SPI的实现类加载
 
@@ -149,11 +149,11 @@ public class App {
 
 ok 那我们知道了SPI是什么，我们是不是可以在Web应用中，在Servlet的SPI放入对应的接口文件：
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151044070.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061733394.png)
 
 放入实现类：
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151044854.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061733987.png)
 
 通过ServletContext就可以动态注册三大组件：以Servlet注册为例：
 
@@ -184,7 +184,7 @@ ok 那我们知道了SPI是什么，我们是不是可以在Web应用中，在Se
 
 当然在SpringMVC中， 这个接口文件和实现类都把我们实现好了，甚至ContextLoaderListener和DispatcherServlet都帮我们注册好了，我们只要让他生效，来，看看他是怎么做的：
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151045733.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061733989.png)
 
 3、实现基于SPI规范的SpringMVC
 
@@ -326,7 +326,7 @@ SpringMVC 大致可以分为 启动 和请求 2大部分， 所以我们本文�
 
 流程图：
 
-![202202091656979](https://gitee.com/wowosong/pic-md/raw/master/202212151045770.png)
+![202202091656979](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061733328.png)
 
 源码流程
 
@@ -336,21 +336,21 @@ SpringMVC 大致可以分为 启动 和请求 2大部分， 所以我们本文�
 
 2.  调用SpringServletContainerInitializer.onStartUp()
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151045658.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061733484.png)
 
 1.  调用onStartUp()前会先找到@HandlesTypes(WebApplicationInitializer.class) 所有实现了WebApplicationInitializer的类，传入到OnStartup的webAppInitializerClasses参数中，并传入Servlet上下文对象。
 
 2.  重点关注这组类：他们组成了父子容器
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151045695.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061733355.png)
 
 3.  找到所有WebApplicationInitializer的实现类后， 不是接口、不是抽象则通过反射进行实例化（所以，你会发现内部实现类都是抽象的，你想让其起作用我们必须添加一个自定义实现类，在下文提供我的自定义实现类）
 
 4.  调用所有上一步实例化后的对象的onStartup方法
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151045288.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061733320.png)
 
-![202201190928727](https://gitee.com/wowosong/pic-md/raw/master/202212151046883.png)
+![202201190928727](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061733502.png)
 
 1\. 首先来到AbstractDispatcherServletInitializer#onStartup再执行super.onStartup(servletContext);
 
@@ -375,21 +375,21 @@ SpringMVC 大致可以分为 启动 和请求 2大部分， 所以我们本文�
 
 2.  创建父容器，注册配置类
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151046168.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061733980.png)
 
 2.  会创建ContextLoaderListener并通过ServletContext注册
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151046046.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061733390.png)
 
 看完大家是不是感觉跟我们XML的配置ContextLoaderListener对上了：
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151046960.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061734146.png)
 
 创建子容器——DispatcherServlet
 
 3.回到AbstractDispatcherServletInitializer#onStartup再执行registerDispatcherServlet(servletContext);
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151046032.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061734435.png)
 
 registerDispatcherServlet方法说明：
 
@@ -403,7 +403,7 @@ registerDispatcherServlet方法说明：
 
 3.  配置类除了可以通过ApplicationContext()构造函数的方式传入 ， 也可以通过这种方式动态添加，不知道了吧~
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151046688.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061734319.png)
 
 2.  调用createDispatcherServlet(servletAppContext);创建DispatcherServlet
 
@@ -413,11 +413,11 @@ registerDispatcherServlet方法说明：
 
 看完大家是不是感觉跟我们XML的配置DispatcherServlet对上了
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151046281.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061734212.png)
 
 4. 初始化ContextLoaderListener
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151046369.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061734503.png)
 
 ContextLoaderListener加载过程比较简单：
 
@@ -429,11 +429,11 @@ ContextLoaderListener加载过程比较简单：
 
 3.  将父容器存入到Servlet域中供子容器使用
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151046235.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061734911.png)
 
 5\. 初始化DispatcherServlet
 
-![202201190928855](https://gitee.com/wowosong/pic-md/raw/master/202212151047629.png)
+![202201190928855](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061734335.png)
 
 可以看到流程比ContextLoaderListener流程更多
 
@@ -445,7 +445,7 @@ ContextLoaderListener加载过程比较简单：
 
 3.  调用configureAndRefreshWebApplicationContext(cwac);
 
-![img](./17-SpringMVC%E6%BA%90%E7%A0%81%E2%80%94%E7%88%B6%E5%AD%90%E5%AE%B9%E5%99%A8%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90.assets/202201190929158.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061734372.png)
 
 1.  注册一个监听器（该监听会初始化springmvc所需信息）
 
@@ -453,7 +453,7 @@ ContextLoaderListener加载过程比较简单：
 
 2.  刷新容器
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151047072.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061734219.png)
 
 当执行refresh 即加载ioc容器 完了会调用finishRefresh():
 
@@ -489,11 +489,11 @@ ContextLoaderListener加载过程比较简单：
 
 基本都是从容器中拿到已经配置的Bean（RequestMappingHandlerMapping、RequestMappingHandlerAdapter、HandlerExceptionResolver ）放到dispatcherServlet中做准备:
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151047117.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061734723.png)
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151047815.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061734264.png)
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151047097.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061734469.png)
 
 ...
 
@@ -507,7 +507,7 @@ ContextLoaderListener加载过程比较简单：
 
 3.  而且我告诉你SpringBoot也是用的这种方式，
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151047404.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061734804.png)
 
 总结
 
@@ -583,7 +583,7 @@ Spring和SpringMVC为什么需要父子容器？不要不行吗？
 
 也就无法根据请求URI 获取到 HandlerMethod来进行匹配.
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151047104.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061735623.png)
 
 是否可以把我们所需的Bean都放入Spring-mvc子容器里面来管理（springmvc的spring-servlet.xml中配置全局扫描）?
 

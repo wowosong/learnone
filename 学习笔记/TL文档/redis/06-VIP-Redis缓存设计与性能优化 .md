@@ -1,6 +1,6 @@
 # 多级缓存架构
 
-![https://note.youdao.com/yws/public/resource/7b6df00d88f1554d79b2d688c23148a2/xmlnote/0E66B6FC979C49A9AE9F2AB4D54C9F64/80946](./06-VIP-Redis%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%20.assets/20220308211925.bin)
+![https://note.youdao.com/yws/public/resource/7b6df00d88f1554d79b2d688c23148a2/xmlnote/0E66B6FC979C49A9AE9F2AB4D54C9F64/80946](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061738667.bin)
 
 ## 缓存设计
 
@@ -46,7 +46,7 @@ String get(String key) {
 
 对于恶意攻击，向服务器请求大量不存在的数据造成的缓存穿透，还可以用布隆过滤器先做一次过滤，对于不存在的数据布隆过滤器一般都能够过滤掉，不让请求再往后端发送。**当布隆过滤器说某个值存在时，这个值可能不存在；当它说不存在时，那就肯定不存在。**
 
-![https://note.youdao.com/yws/public/resource/7b6df00d88f1554d79b2d688c23148a2/xmlnote/CB877F64DE984480871C578364D570B4/81509](./06-VIP-Redis%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%20.assets/20220308212022.bin)
+![https://note.youdao.com/yws/public/resource/7b6df00d88f1554d79b2d688c23148a2/xmlnote/CB877F64DE984480871C578364D570B4/81509](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061738219.bin)
 
 布隆过滤器就是**一个大型的位数组和几个不一样的无偏 hash 函数**。所谓无偏就是能够把元素的 hash 值算得比较均匀。
 
@@ -233,7 +233,7 @@ String get(String key) {
 
 1、双写不一致情况
 
-![https://note.youdao.com/yws/public/resource/7b6df00d88f1554d79b2d688c23148a2/xmlnote/945558B040344331BB8700A95196FA54/103029](./06-VIP-Redis%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%20.assets/20220308212536.bin)
+![https://note.youdao.com/yws/public/resource/7b6df00d88f1554d79b2d688c23148a2/xmlnote/945558B040344331BB8700A95196FA54/103029](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061738541.bin)
 
 2、读写并发不一致
 
@@ -249,7 +249,7 @@ String get(String key) {
 
 4、也可以用阿里开源的canal通过监听数据库的binlog日志及时的去修改缓存，但是引入了新的中间件，增加了系统的复杂度。
 
-![https://note.youdao.com/yws/public/resource/7b6df00d88f1554d79b2d688c23148a2/xmlnote/D15959DC028946E9867FD696EA6357C5/103108](./06-VIP-Redis%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%20.assets/20220308212544.bin)
+![https://note.youdao.com/yws/public/resource/7b6df00d88f1554d79b2d688c23148a2/xmlnote/D15959DC028946E9867FD696EA6357C5/103108](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061738256.bin)
 
 总结：
 

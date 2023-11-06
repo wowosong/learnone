@@ -10,7 +10,7 @@ Bean的生命周期就是指：**在Spring中，一个Bean是如何生成的，�
 
 Bean生命周期流程图：[https://www.processon.com/view/link/5f8588c87d9c0806f27358c1](https://www.processon.com/view/link/5f8588c87d9c0806f27358c1)
 
-![image-20220812110530940](https://gitee.com/wowosong/pic-md/raw/master/202212151030307.png)
+![image-20220812110530940](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061729573.png)
 
 附带资料JFR介绍：[https://zhuanlan.zhihu.com/p/122247741](https://zhuanlan.zhihu.com/p/122247741)
 
@@ -27,7 +27,7 @@ Spring启动的时候会进行扫描，会先调用（doScan）`org.springframew
 
 Spring扫描底层流程：[https://www.processon.com/view/link/61370ee60e3e7412ecd95d43](https://www.processon.com/view/link/61370ee60e3e7412ecd95d43)
 
-![Spring扫描底层流程](https://gitee.com/wowosong/pic-md/raw/master/202212151031741.png)
+![Spring扫描底层流程](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061729468.png)
 
 
 1. 首先，通过ResourcePatternResolver获得指定包路径下的所有`.class`文件（Spring源码中将此文件包装成了Resource对象）

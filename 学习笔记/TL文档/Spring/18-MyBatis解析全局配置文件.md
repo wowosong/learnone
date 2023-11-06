@@ -127,7 +127,7 @@ MyBaits基础应用：
 
 ## Mybaits整体体系图
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151047564.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061735147.png)
 
 ![image-20220904164541711](./18-MyBatis%E8%A7%A3%E6%9E%90%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.assets/image-20220904164541711-2281144.png)
 
@@ -360,7 +360,7 @@ reader = Resources.getResourceAsReader(resource);
         }
 ```
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151048248.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061735588.png)
 
 上面解析流程结束后会生成一个Configration对象，包含所有配置信息，然后会创建一个SqlSessionFactory对象，这个对象包含了Configration对象。
 
