@@ -92,7 +92,7 @@ Spring版本：5.3.1
 
 注：由于 Maven 的传递性，我们不必将所有需要的包全部配置依赖，而是配置最顶端的依赖，其他靠传递性导入。
 
-![images](https://gitee.com/wowosong/pic-md/raw/master/202212151631033.png)
+![images](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061725253.png)
 
 ### 3、配置web.xml
 
@@ -680,7 +680,7 @@ public String testHello(){
 }
 ```
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212151632367.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061725129.png)
 
 ### 2、转发视图
 
@@ -699,7 +699,7 @@ public String testForward(){
 }
 ```
 
-![image-20210706201316593](https://gitee.com/wowosong/pic-md/raw/master/202212151632929.png)
+![image-20210706201316593](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061725059.png)
 
 ### 3、重定向视图
 
@@ -716,7 +716,7 @@ public String testRedirect(){
 }
 ```
 
-![image-20210706201602267](https://gitee.com/wowosong/pic-md/raw/master/202212151632570.png)
+![image-20210706201602267](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061725430.png)
 
 > 注：
 >
@@ -1500,9 +1500,9 @@ b>若某个拦截器的preHandle()返回了false
 
 preHandle()返回false和它之前的拦截器的preHandle()都会执行，postHandle()都不执行，返回false的拦截器之前的拦截器的afterCompletion()会执行（**afterCompletion方法在preHandle中被调用**）
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212151632961.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061726154.png)
 
-![i](https://gitee.com/wowosong/pic-md/raw/master/202212151633055.png)
+![i](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061726298.png)
 
 过滤器`Filter`是在请求进入容器后，但在进入`servlet`之前进行预处理，请求结束是在`servlet`处理完以后。
 
@@ -1734,7 +1734,7 @@ public String index(){
 
 DispatcherServlet 本质上是一个 Servlet，所以天然的遵循 Servlet 的生命周期。所以宏观上是 Servlet 生命周期来进行调度。
 
-![images](https://gitee.com/wowosong/pic-md/raw/master/202212151633242.png)
+![images](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061726660.png)
 
 ##### a>初始化WebApplicationContext
 
@@ -2108,7 +2108,7 @@ private void processDispatchResult(HttpServletRequest request, HttpServletRespon
 
 ### 4、SpringMVC的执行流程
 
-![image-20220615101800284](https://gitee.com/wowosong/pic-md/raw/master/202212151633376.png)
+![image-20220615101800284](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061726217.png)
 
 1) 用户向服务器发送请求，请求被SpringMVC 前端控制器 DispatcherServlet捕获。
 
@@ -2120,11 +2120,11 @@ i. 再判断是否配置了mvc:default-servlet-handler
 
 ii. 如果没配置，则控制台报映射查找不到，客户端展示404错误
 
-![image-20210709214947432](https://gitee.com/wowosong/pic-md/raw/master/202212151633630.png)
+![image-20210709214947432](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061726448.png)
 
 iii. 如果有配置，则访问目标资源（一般为静态资源，如：JS,CSS,HTML），找不到客户端也会展示404错误
 
-![image-20210709215336097](https://gitee.com/wowosong/pic-md/raw/master/202212151633345.png)
+![image-20210709215336097](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061726945.png)
 
 b) 存在则执行下面的流程
 

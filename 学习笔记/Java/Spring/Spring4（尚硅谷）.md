@@ -16,7 +16,7 @@ Spring 是什么(1)
 框架: Spring 实现了使用简单的组件配置组合成一个复杂的应用. 在 Spring 中可以使用 XML 和 Java 注解组合这些对象
 一站式：在 IOC 和 AOP 的基础上可以整合各种企业应用的开源框架和优秀的第三方类库 （实际上 Spring 自身也提供了展现层的 SpringMVC 和 持久层的 Spring JDBC）
 
-![image-20210626114512017](https://gitee.com/wowosong/pic-md/raw/master/202212151054580.png)
+![image-20210626114512017](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061721999.png)
 
 #  搭建 Spring 开发环境
 
@@ -117,11 +117,11 @@ IOC(Inversion of Control)：其思想是反转资源获取的方向。传统的�
 
 DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些预先定义好的方式(例如: setter 方法)接受来自如容器的资源注入. 相对于 IOC 而言，这种表述更直接
 
-![image-20210626170713309](https://gitee.com/wowosong/pic-md/raw/master/202212151054003.png)
+![image-20210626170713309](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061721827.png)
 
-![image-20210626171045182](https://gitee.com/wowosong/pic-md/raw/master/202212151055604.png)
+![image-20210626171045182](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061721746.png)
 
-![image-20210626171127941](https://gitee.com/wowosong/pic-md/raw/master/202212151055944.png)
+![image-20210626171127941](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061722292.png)
 
 ## 配置 bean
 
@@ -170,7 +170,7 @@ DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些�
 
 1. 调用 ApplicationContext 的 getBean() 方法，在父接口ListableBeanFactory中
 
-![image-20211218103139137](https://gitee.com/wowosong/pic-md/raw/master/202212151055680.png)
+![image-20211218103139137](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061722916.png)
 
 ## 依赖注入的方式：
 
@@ -1150,7 +1150,7 @@ public class CarFactoryBean implements FactoryBean<Car> {
 
 **Spring 4.x 中可以为子类注入子类对应的泛型类型的成员变量的引用;创建两个带泛型的类,并配置两者的依赖关系，对于继承这两个类的子类,如果泛型相同,则会继承这种依赖关系**： 
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212151055057.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061722817.png)
 
 ```java
 public class BaseService<T> {
@@ -1203,7 +1203,7 @@ com.hbd.wowosong.generic.di.UserRepository@ba8d91c
 
 ## Spring AOP
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151055452.png" alt="image-20211219205555657" style="zoom:50%;" />
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061722467.png" alt="image-20211219205555657" style="zoom:50%;" />
 
 ```java
 package com.hbd.wowosong.aop;
@@ -1270,7 +1270,7 @@ public interface ArithmeticCaculator {
 
 代理设计模式的原理: **使用一个代理将对象包装起来, 然后用该代理对象取代原始对象.** 任何对原始对象的调用都要通过代理. 代理对象决定是否以及何时将方法调用转到原始对象上.实现**InvocationHandler**
 
-![image-20210812212835845](https://gitee.com/wowosong/pic-md/raw/master/202212151056372.png)
+![image-20210812212835845](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061723646.png)
 
 ```java
 public class ArithmeticCaculatorLogProxyHandler implements InvocationHandler {
@@ -1397,7 +1397,7 @@ System.out.println(add);
 3. AOP 的好处：
    每个事物逻辑位于一个位置，代码不分散，便于维护和升级业务模块更简洁, 只包含核心业务代码。
 
-![image-20210812214231774](https://gitee.com/wowosong/pic-md/raw/master/202212151056823.png)
+![image-20210812214231774](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061723650.png)
 
 **AOP 术语**
 
@@ -2090,7 +2090,7 @@ public <T> T get(String sql, Class<T> clazz) {
 
 ### 需求
 
-![image-20211220204212636](https://gitee.com/wowosong/pic-md/raw/master/202212151056841.png)
+![image-20211220204212636](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061723178.png)
 
 ### 用事务通知声明式地管理事务
 
@@ -2101,7 +2101,7 @@ public <T> T get(String sql, Class<T> clazz) {
 
 ### 用事务通知声明式地管理事务示例代码
 
-![image-20211221124555153](https://gitee.com/wowosong/pic-md/raw/master/202212151057736.png)
+![image-20211221124555153](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061723199.png)
 
 ### 用 @Transactional 注解声明式地管理事务
 
@@ -2162,7 +2162,7 @@ public void purcharse(String username, String isbn) {
 * 当 bookService 的 purchase() 方法被另一个事务方法 checkout() 调用时, 它默认会在现有的事务内运行. 这个默认的传播行为就是 REQUIRED. 因此在 checkout() 方法的开始和终止边界内只有一个事务. **这个事务只在 checkout() 方法结束的时候被提交, 结果用户一本书都买不了**
 * 事务传播属性可以在 @Transactional 注解的 propagation 属性中定义
 
-![image-20211221132204515](https://gitee.com/wowosong/pic-md/raw/master/202212151057841.png)
+![image-20211221132204515](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061723397.png)
 
 #### REQUIRES_NEW 传播行为
 
@@ -2362,12 +2362,12 @@ public void purcharse(String username, String isbn) {
 * 对于 Hibernate 而言, 必须从原生的 Hibernate API 中构建 SessionFactory. 此外, 应用程序也无法利用 Spring 提供的数据存储机制(例如: Spring 的事务管理机制)
 * Spring 提供了对应的工厂 Bean, 可以用单实例的形式在 IOC 容器中创建 SessionFactory 实例.
 
-![image-20211221144453970](D:\huangjiusong\learnone\学习笔记\Java\Spring\Spring4（尚硅谷）.assets\202212151057217.png)
+![image-20211221144453970](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061723260.png)
 
 * 可以利用 LocalSessionFactoryBean 工厂 Bean, 声明一个使用 XML 映射文件的 SessionFactory 实例.
 * 需要为该工厂 Bean 指定 configLocation 属性来加载 Hibernate 配置文件.
 
-![image-20211221144518752](https://gitee.com/wowosong/pic-md/raw/master/202212151057482.png)
+![image-20211221144518752](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061723469.png)
 
 * 如果在 Spring IOC 容器中配置数据源. 可以将该数据源注入到 LocalSessionFactoryBean 的 dataSource 属性中. 该属性可以指定的数据源会覆盖掉 Hibernate 配置文件里的数据库配置.
 

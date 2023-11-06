@@ -1,4 +1,4 @@
-![Spring注解驱动开发](https://gitee.com/wowosong/pic-md/raw/master/202212151103626.png)
+![Spring注解驱动开发](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061724723.png)
 
 # Spring注解驱动开发
 
