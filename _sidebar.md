@@ -29,9 +29,10 @@
     	-  [Leaflet](https://leafletjs.com/reference.html)
       
     - Mysql
+      - [Mysql高级](/学习笔记/数据库/mysql/Mysql语法.md)
       - [Mysql语法](/学习笔记/数据库/mysql/Mysql语法.md)
       - [SQL速成](/学习笔记/数据库/mysql/SQL速成.md)
-      - [MySQL基础](/学习笔记/数据库/mysql/MySQL基础.md)
+      - [MySQL基础](/学习笔记/数据库/mysql/MySQL数据库笔记.md)
       - [Mysql连环20问](/学习笔记/数据库/mysql/Mysql连环20问.md)
       - [Mysql索引](/学习笔记/数据库/mysql/Mysql索引.md)
       - [JDBC](/学习笔记/数据库/mysql/JDBC（尚硅谷_宋红康）.md)

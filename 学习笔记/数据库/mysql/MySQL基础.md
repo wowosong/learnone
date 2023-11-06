@@ -649,7 +649,6 @@ select @@tx_isolation;
 含义：理解成一张虚拟的表
 
 视图和表的区别：
-		
 
 | 使用方式 | 占用物理空间                            |
 | -------- | --------------------------------------- |
@@ -702,10 +701,10 @@ DELETE FROM my_v4;
 
 ```sql
 #方式一：
-        CREATE OR REPLACE VIEW test_v7
-        AS
-        SELECT last_name FROM employees
-        WHERE employee_id>100;
+CREATE OR REPLACE VIEW test_v7
+AS
+SELECT last_name FROM employees
+WHERE employee_id>100;
 ```
 
 ```sql
@@ -1045,7 +1044,7 @@ END WHILE 【标签】;
 
 先看看mysql的官方文档是怎么描述explain的：
 
-![image-20211207201504041](https://gitee.com/wowosong/pic-md/raw/master/202301141646264.png)
+![image-20211207201504041](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061340325.png)
 
 - EXPLAIN可以使用于 SELECT， DELETE， INSERT， REPLACE，和 UPDATE语句。
 
@@ -1096,11 +1095,11 @@ explain select * from test1;
 
 执行结果：
 
-![image-20211210070144544](/Users/jiusonghuang/pic-md/20211210070144.png)
+![image-20211210070144544](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061340799.png)
 
 从上图中看到执行结果中会显示12列信息，每列具体信息如下：
 
-![图片](./MySQL%E5%9F%BA%E7%A1%80.assets/20211207200852.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061340847.png)
 
 说白了，我们要搞懂这些列的具体含义才能正常判断索引的使用情况。
 
@@ -1128,7 +1127,7 @@ explain select * from test1 t1 inner join test1 t2 on t1.id=t2.id
 
 结果：
 
-![image-20211210070220385](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210070220.png)
+![image-20211210070220385](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061341025.png)
 
 我们看到执行结果中的两条数据id都是1，是相同的。
 
@@ -1150,7 +1149,7 @@ explain select * from test1 t1 where t1.id = (select id from  test1 t2 where  t2
 
 结果：
 
-![image-20211210070243364](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210070243.png)
+![image-20211210070243364](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061341947.png)
 
 我们看到执行结果中两条数据的id不同，第一条数据是1，第二条数据是2。
 
@@ -1171,7 +1170,7 @@ on t1.id=t2.mid
 
 结果：
 
-![image-20211210070300316](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210070300.png)
+![image-20211210070300316](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061341465.png)
 
 我们看到执行结果中三条数据，前面两条数据的的id相同，第三条数据的id跟前面的不同。
 
@@ -1191,7 +1190,7 @@ on t1.id=t2.mid
 
 该列表示select的类型。具体包含了如下11种类型：
 
-![image-20211210073420615](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210073420.png)
+![image-20211210073420615](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061341558.png)
 
 但是常用的其实就是下面几个：
 
@@ -1216,7 +1215,7 @@ explain select * from test1;
 
    结果：
    
-   ![image-20211210073441005](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210073441.png)
+   ![image-20211210073441005](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061341557.png)
 
    它只在简单SELECT查询中出现，不包含子查询和UNION，这种类型比较直观就不多说了。
 
@@ -1230,7 +1229,7 @@ explain select * from test1;
 
    结果：
 
-   ![image-20211210073539892](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210073539.png)
+   ![image-20211210073539892](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061341034.png)
 
    我们看到这条嵌套查询的sql中，最外层的t1表是PRIMARY类型，而最里面的子查询t2表是SUBQUERY类型。
 
@@ -1247,7 +1246,7 @@ explain
    
    结果：
 
-   ![image-20211210073559756](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210073559.png)
+   ![image-20211210073559756](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061341290.png)
 
    最后一条记录就是衍生表，它一般是FROM列表中包含的子查询，这里是sql中的分组子查询。
 
@@ -1264,7 +1263,7 @@ explain
 
    结果：
 
-   ![image-20211210073618457](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210073618.png)
+   ![image-20211210073618457](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061341972.png)
 
    test2表是UNION关键字之后的查询，所以被标记为UNION，test1是最主要的表，被标记为PRIMARY。而<union1,2>表示id=1和id=2的表union，其结果被标记为UNION RESULT。
 
@@ -1292,7 +1291,7 @@ UNION 和 UNION RESULT一般会成对出现。
 
 **该列的值表示连接类型，是查看索引执行情况的一个重要指标。包含如下类型：**
 
-![image-20211210073717052](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210073717.png)
+![image-20211210073717052](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061342230.png)
 
 **执行结果从最好到最坏的的顺序是从上到下。**
 
@@ -1308,7 +1307,7 @@ UNION 和 UNION RESULT一般会成对出现。
 
 并且code字段上面建了一个普通索引：
 
-![image-20211210073732024](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210073732.png)
+![image-20211210073732024](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061342977.png)
 
 下面逐一看看常见的几个连接类型是怎么出现的：
 
@@ -1326,7 +1325,7 @@ UNION 和 UNION RESULT一般会成对出现。
 
    结果：
 
-   ![image-20211210073745510](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210073745.png)
+   ![image-20211210073745510](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061342573.png)
 
 3. eq_ref
 
@@ -1338,7 +1337,7 @@ UNION 和 UNION RESULT一般会成对出现。
 
    结果：
 
-   ![image-20211210065933329](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065933.png)
+   ![image-20211210065933329](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061342073.png)
 
    此时，有人可能感到不解，const和eq_ref都是对主键或唯一索引的扫描，有什么区别？
 
@@ -1354,7 +1353,7 @@ UNION 和 UNION RESULT一般会成对出现。
 
    结果：
 
-   ![image-20211210065919442](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065919.png)
+   ![image-20211210065919442](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061342864.png)
 
 5. range
 
@@ -1366,7 +1365,7 @@ UNION 和 UNION RESULT一般会成对出现。
 
    结果：
 
-   ![image-20211210065901704](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065901.png)
+   ![image-20211210065901704](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061342124.png)
 
 6. index
 
@@ -1378,7 +1377,7 @@ UNION 和 UNION RESULT一般会成对出现。
 
    结果：
 
-   ![image-20211210065844450](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065844.png)
+   ![image-20211210065844450](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061342808.png)
 
 7. ALL
 
@@ -1390,7 +1389,7 @@ UNION 和 UNION RESULT一般会成对出现。
 
    结果：
 
-   ![image-20211210065827501](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065827.png)
+   ![image-20211210065827501](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061342784.png)
 
 ### possible_keys列
 
@@ -1398,7 +1397,7 @@ UNION 和 UNION RESULT一般会成对出现。
 
 请注意，此列完全独立于表的顺序，这就意味着possible_keys在实践中，某些键可能无法与生成的表顺序一起使用。
 
-![image-20211210065812567](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065812.png)
+![image-20211210065812567](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061342576.png)
 
 如果此列是NULL，则没有相关的索引。**在这种情况下，您可以通过检查该WHERE 子句以检查它是否引用了某些适合索引的列，从而提高查询性能。**
 
@@ -1410,7 +1409,7 @@ UNION 和 UNION RESULT一般会成对出现。
 
 演示之前，先看看test1表结构：
 
-![image-20211210065757587](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065757.png)
+![image-20211210065757587](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061342880.png)
 
 test1表中数据：
 
@@ -1421,7 +1420,7 @@ test1表中数据：
 
 使用的索引：
 
-![image-20211210065742962](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065743.png)
+![image-20211210065742962](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061343777.png)
 
 **code和name字段使用了联合索引。**
 
@@ -1433,7 +1432,7 @@ explain select code  from test1;
 
 结果：
 
-![image-20211210065726086](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065726.png)
+![image-20211210065726086](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061343988.png)
 
 这条sql预计没有使用索引，但是实际上使用了**全索引扫描方式**的索引。
 
@@ -1441,7 +1440,7 @@ explain select code  from test1;
 
 该列表示使用索引的长度。**上面的key列可以看出有没有使用索引，key_len列则可以更进一步看出索引使用是否充分。不出意外的话，它是最重要的列。**
 
-![image-20211210065710126](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065710.png)
+![image-20211210065710126](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061343724.png)
 
 **有个关键的问题浮出水面：key_len是如何计算的？**
 
@@ -1499,7 +1498,7 @@ mysql常用字段占用字节数：
 
  再把test1表的code字段类型改成char，并且改成允许为空：
 
-![image-20211210065651962](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065652.png)
+![image-20211210065651962](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061343323.png)
 
 执行sql如下：
 
@@ -1509,7 +1508,7 @@ explain select code  from test1;
 
 ##### 结果：
 
-![image-20211210065632710](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065632.png)
+![image-20211210065632710](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061343897.png)
 
 ##### 怎么算的？
 
@@ -1525,7 +1524,7 @@ explain select code  from test1 where code='001';
 
 ##### 结果：
 
-![image-20211210065614694](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065614.png)
+![image-20211210065614694](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061343896.png)
 
 上图中使用了联合索引：idx_code_name，**如果索引全匹配key_len应该是183，但实际上却是92，这就说明没有使用所有的索引，索引使用不充分。**
 
@@ -1541,7 +1540,7 @@ explain select *  from test1 t1 inner join test1 t2 on t1.id=t2.id where t1.code
 
 结果：
 
-![image-20211210065550136](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065550.png)
+![image-20211210065550136](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061343684.png)
 
 我们看到表t1命中的索引是const(常量)，而t2命中的索引是列sue库的t1表的id字段。
 
@@ -1549,7 +1548,7 @@ explain select *  from test1 t1 inner join test1 t2 on t1.id=t2.id where t1.code
 
 该列表示MySQL认为执行查询必须检查的行数。
 
-![image-20211210065533278](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065533.png)
+![image-20211210065533278](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061343990.png)
 
 对于InnoDB表，此数字是估计值，可能并不总是准确的。
 
@@ -1557,7 +1556,7 @@ explain select *  from test1 t1 inner join test1 t2 on t1.id=t2.id where t1.code
 
 该列表示按表条件过滤的表行的估计百分比。最大值为100，这表示未过滤行。**值从100减小表示过滤量增加**。
 
-![image-20211210065517222](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065517.png)
+![image-20211210065517222](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061344085.png)
 
 **rows显示了检查的估计行数，rows× filtered显示了与下表连接的行数。例如，如果 rows为1000且 filtered为50.00（50％），则与下表连接的行数为1000×50％= 500。**
 
@@ -1577,7 +1576,7 @@ explain select *  from test1 t1 inner join test1 t2 on t1.id=t2.id where t1.code
 
    结果：
 
-   ![image-20211210065459314](./mysql/MySQL%E5%9F%BA%E7%A1%80.assets/20211210065459.png)
+   ![image-20211210065459314](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061344749.png)
 
 2. **Using filesort**
 
@@ -1591,7 +1590,7 @@ explain select code  from test1 order by name desc;
    
    结果：
 
-   ![image-20211210065438315](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065438.png)
+   ![image-20211210065438315](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061344411.png)
 
    这里建立的是code和name的联合索引，**顺序是code在前，name在后，这里直接按name降序，跟之前联合索引的顺序不一样。**
 
@@ -1599,7 +1598,7 @@ explain select code  from test1 order by name desc;
 
    表示是否用了覆盖索引，说白了它表示是否所有获取的列都走了索引。
 
-   ![image-20211210065417704](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065417.png)
+   ![image-20211210065417704](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061345232.png)
 
    上面那个例子中其实就用到了：Using index，因为只返回一列code，它字段走了索引。
 
@@ -1615,7 +1614,7 @@ explain select code  from test1 order by name desc;
 
    结果：
 
-   ![image-20211210065354397](./MySQL%E5%9F%BA%E7%A1%80.assets/20211210065354.png)
+   ![image-20211210065354397](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061345810.png)
 
 5. **Using where**
 

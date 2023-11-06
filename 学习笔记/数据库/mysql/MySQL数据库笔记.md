@@ -29,9 +29,9 @@
 
 数据库管理系统/数据库和表的关系如图所示：
 
-![image-20220708211937265](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220708211937265.png)
+![image-20220708211937265](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061348403.png)
 
-![image-20220708212010791](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220708212010791.png)
+![image-20220708212010791](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061348856.png)
 
 #### 3. RDBMS与非RDBMS
 
@@ -4556,7 +4556,7 @@ show variables like 'character%';
 
 ##### **5.2** **请求到响应过程中字符集的变化**
 
-![image-20220710104620206](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220710104620206-7421181.png)
+![image-20220710104620206](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061351163.png)
 
 ```mermaid
 graph TB
@@ -4933,7 +4933,7 @@ SET GLOBAL mandatory_roles = 'role1,role2@localhost,r3@%.example.com'; #系统�
 
 #### **1.** **逻辑架构剖析**
 
-![image-20220712194622851](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712194622851-7626384.png)
+![image-20220712194622851](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061352303.png)
 
 ##### **1.1** **第1层：连接层**
 
@@ -4983,7 +4983,7 @@ SET GLOBAL mandatory_roles = 'role1,role2@localhost,r3@%.example.com'; #系统�
 
 ##### **1.4** **小结**
 
-![image-20220712200929155](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712200929155-7627771.png)
+![image-20220712200929155](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061352841.png)
 
 简化为三层结构：
 
@@ -4997,13 +4997,13 @@ SET GLOBAL mandatory_roles = 'role1,role2@localhost,r3@%.example.com'; #系统�
 
 ##### **2.1 MySQL** **中的** **SQL执行流程**
 
-![image-20220712201004482](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712201004482-7627807.png)
+![image-20220712201004482](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061352133.png)
 
 **MySQL的查询流程：**
 
 **1.** **查询缓存**：Server 如果在查询缓存中发现了这条 SQL 语句，就会直接将结果返回给客户端；如果没有，就进入到解析器阶段。需要说明的是，因为查询缓存往往效率不高，所以在 MySQL8.0 之后就抛弃了这个功能。
 
-![image-20220712201302799](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712201302799-7627984.png)
+![image-20220712201302799](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061353900.png)
 
 查询缓存是提前把查询结果缓存起来，这样下次不需要执行就可以直接拿到结果。需要说明的是，在MySQL 中的查询缓存，不是缓存查询计划，而是查询对应的结果。这就意味着查询匹配的`鲁棒性大大降低`，只有`相同的查询操作才会命中查询缓存`。两个查询请求在任何字符上的不同（例如：空格、注释、大小写），都会导致缓存不会命中。因此 MySQL 的 查询缓存命中率不高 。
 
@@ -5017,23 +5017,23 @@ SET GLOBAL mandatory_roles = 'role1,role2@localhost,r3@%.example.com'; #系统�
 
 接着，要做“`语法分析`”。根据词法分析的结果，语法分析器（比如：Bison）会根据语法规则，判断你输入的这个 SQL 语句是否`满足 MySQL 语法`。如果SQL语句正确，则会生成一个语法树。
 
-![image-20220712202435753](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712202435753-7628677.png)
+![image-20220712202435753](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061353269.png)
 
-![image-20220712202521628](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712202521628-7628723.png)
+![image-20220712202521628](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061354162.png)
 
 **3.** **优化器**：在优化器中会确定 SQL 语句的执行路径，比如是根据`全表检索`，还是根据`索引检索`等。在查询优化器中，可以分为`逻辑查询`优化阶段和`物理查询`优化阶段。
 
-![image-20220712202830395](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712202830395-7628912.png)
+![image-20220712202830395](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061354561.png)
 
 **4.** **执行器**：在执行之前需要判断该用户是否`具备权限`。如果没有，就会返回权限错误。如果具备权限，就执行 SQL查询并返回结果。在 MySQL8.0 以下的版本，如果设置了查询缓存，这时会将查询结果进行缓存。
 
-![image-20220712203142418](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712203142418-7629104.png)
+![image-20220712203142418](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061354595.png)
 
-![image-20220712203039521](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712203039521-7629041.png)
+![image-20220712203039521](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061354213.png)
 
 **SQL 语句在 MySQL 中的流程是： SQL语句→查询缓存→解析器→优化器→执行器 。**
 
-![image-20220712203334235](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712203334235-7629215.png)
+![image-20220712203334235](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061354656.png)
 
 #### **3.** **数据库缓 冲池(buffer pool)**
 
@@ -5045,7 +5045,7 @@ SET GLOBAL mandatory_roles = 'role1,role2@localhost,r3@%.example.com'; #系统�
 
 **1.** **缓冲池（Buffer Pool）*
 
-![image-20220712212012909](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712212012909-7632015.png)
+![image-20220712212012909](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061354973.png)
 
 从图中，你能看到 InnoDB 缓冲池包括了数据页、索引页、插入缓冲、锁信息、自适应 Hash 和数据字典信息等。
 
@@ -5065,9 +5065,9 @@ SET GLOBAL mandatory_roles = 'role1,role2@localhost,r3@%.example.com'; #系统�
 
 缓冲池管理器会尽量将经常使用的数据保存起来，在数据库进行页面读操作的时候，首先会判断该页面是否在缓冲池中，如果存在就直接读取，如果不存在，就会通过内存或磁盘将页面存放到缓冲池中再进行读取。
 
-![image-20220712212508132](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712212508132-7632310.png)
+![image-20220712212508132](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061354023.png)
 
-![image-20220712212540778](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712212540778-7632342.png)
+![image-20220712212540778](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061355254.png)
 
 ##### **3.3** **查看/设置缓冲池的大小**
 
@@ -5092,7 +5092,7 @@ innodb_buffer_pool_size = 268435456
 
 ##### **3.4** **多个Buffer Pool实例**
 
-![image-20220712212824814](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712212824814-7632506.png)
+![image-20220712212824814](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061355393.png)
 
 ```ini
 [server] 
@@ -5122,15 +5122,15 @@ mysql> show variables like 'innodb_buffer_pool_instances'
 1 row in set (0.00 sec)
 ```
 
-![image-20220712213008560](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712213008560-7632611.png)
+![image-20220712213008560](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061355774.png)
 
-![image-20220712213136960](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712213136960-7632698.png)
+![image-20220712213136960](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061355033.png)
 
 答案：Redo和Undo日志
 
 ### 第05章 存储引擎
 
-![image-20220712213628352](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712213628352-7632989.png)
+![image-20220712213628352](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061355388.png)
 
 #### **1.** **查看存储引擎**
 
@@ -5217,35 +5217,35 @@ ALTER TABLE 表名 ENGINE = 存储引擎名称;
 
 ##### **4.3 Archive** **引擎：用于数据存档**
 
-**![image-20220712223208455](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712223208455.png)**
+**![image-20220712223208455](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061356389.png)**
 
 
 
 ##### **4.4 Blackhole** **引擎：丢弃写操作，读操作会返回空内容**
 
-![image-20220712223505044](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712223505044-7636507.png)
+![image-20220712223505044](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061356923.png)
 
 ##### **4.5 CSV** **引擎：存储数据时，以逗号分隔各个数据项**
 
-![image-20220712223538118](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712223538118-7636539.png)
+![image-20220712223538118](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061356687.png)
 
 ##### **4.6 Memory** **引擎：置于内存的表**
 
-![image-20220712224116502](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712224116502-7636878.png)
+![image-20220712224116502](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061357256.png)
 
-![image-20220712224408456](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712224408456-7637050.png)
+![image-20220712224408456](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061357136.png)
 
-![image-20220712224431146](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712224431146-7637075.png)
+![image-20220712224431146](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061357995.png)
 
 ##### **4.7 Federated** **引擎：访问远程表**
 
-![image-20220712224603193](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712224603193-7637164.png)
+![image-20220712224603193](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061357589.png)
 
 ##### **4.8 Merge引擎：管理多个MyISAM表构成的表集合** 
 
 ##### **4.9 NDB引擎：MySQL集群专用存储引擎**
 
-![image-20220712224637867](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712224637867-7637199.png)
+![image-20220712224637867](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061357798.png)
 
 #### **5. MyISAM和InnoDB**
 
@@ -5262,13 +5262,13 @@ ALTER TABLE 表名 ENGINE = 存储引擎名称;
 
 ### 第06章 索引的数据结构
 
-![image-20220712225428407](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712225428407-7637671.png)
+![image-20220712225428407](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061357097.png)
 
-![image-20220712225615337](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712225615337-7637777.png)
+![image-20220712225615337](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061357540.png)
 
-![image-20220712225739120](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712225739120-7637861.png)
+![image-20220712225739120](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061357734.png)
 
-![image-20220712225958935](./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0.assets/image-20220712225958935-7638000.png)
+![image-20220712225958935](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061357730.png)
 
 #### **1.** **索引及其优缺点**
 
@@ -5340,7 +5340,7 @@ mysql> CREATE TABLE index_demo(
 
 这个新建的`index_demo`表中有2个INT类型的列，1个CHAR(1)类型的列，而且我们规定了c1列为主键，这个表使用`Compact`行格式来实际存储记录的。这里我们简化了index_demo表的行格式示意图：
 
-![image-20230601232107595](./assets/image-20230601232107595-5632870.png)
+![image-20230601232107595](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061357563.png)
 
 - `record_type`：记录头信息的一项属性，表示记录的类型，`0`表示普通记录、`1`表示目录项记录、`2`表示最小记录、`3`表示最大记录。
 - `next_record`：记录头信息的一项属性，表示下一条地址相对于本条记录的地址偏移量，我们用箭头来表明下一条记录是谁。
@@ -5349,11 +5349,11 @@ mysql> CREATE TABLE index_demo(
 
 将记录格式示意图的其他信息项暂时去掉并把它竖起来的效果就是这样：
 
-![image-20230601232153166](./assets/image-20230601232153166.png)
+![image-20230601232153166](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061358238.png)
 
 把一些记录放到页里的示意图就是：
 
-![image-20230601232224942](./assets/image-20230601232224942.png)
+![image-20230601232224942](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061358785.png)
 
 **1.** **一个简单的索引设计方案**
 
@@ -5362,7 +5362,7 @@ mysql> CREATE TABLE index_demo(
 - **下一个数据页中用户记录的主键值必须大于上一个页中用户记录的主键值。**
 - **给所有的页建立一个目录项。**
 
-![image-20230601232254594](./assets/image-20230601232254594.png)
+![image-20230601232254594](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061358367.png)
 
 以`页28`为例，它对应`目录项2`，这个目录项中包含着该页的页号`28`以及该页中用户记录的最小主键值`5`。我们只需要把几个目录项在物理存储器上连续存储（比如：数组），就可以实现根据主键值快速查找某条记录的功能了。比如：查找主键值为`20`的记录，具体查找过程分两步：
 
@@ -5378,7 +5378,7 @@ mysql> CREATE TABLE index_demo(
 
 我们把前边使用到的目录项放到数据页中的样子就是这样：
 
-![image-20230601232323555](./assets/image-20230601232323555.png)
+![image-20230601232323555](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061358558.png)
 
 从图中可以看出来，我们新分配了一个编号为30的页来专门存储目录项记录。这里再次强调`目录项记录`和普通的`用户记录`的**不同点**：
 
@@ -5396,7 +5396,7 @@ mysql> CREATE TABLE index_demo(
 
 **② 迭代2次：多个目录项纪录的页**
 
-![image-20230601232401409](./assets/image-20230601232401409-5633043.png)
+![image-20230601232401409](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061358417.png)
 
 从图中可以看出，我们插入了一条主键值为320的用户记录之后需要两个新的数据页：
 
@@ -5413,13 +5413,13 @@ mysql> CREATE TABLE index_demo(
 
 **③ 迭代3次：目录项记录页的目录页**
 
-![image-20230601232433526](./assets/image-20230601232433526.png)
+![image-20230601232433526](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061358990.png)
 
 如图，我们生成了一个存储更高级目录项的`页33`，这个页中的两条记录分别代表页30和页32，如果用户记录的主键值在`[1, 320)`之间，则到页30中查找更详细的目录项记录，如果主键值`不小于320`的话，就到页32中查找更详细的目录项记录。
 
 我们可以用下边这个图来描述它：
 
-![image-20230601232458936](./assets/image-20230601232458936.png)
+![image-20230601232458936](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061358192.png)
 
 这个数据结构，它的名称是`B+树`。 
 
@@ -5465,13 +5465,13 @@ mysql> CREATE TABLE index_demo(
 
 **2.** **二级索引（辅助索引、非聚簇索引）**
 
-![image-20230601232537329](./assets/image-20230601232537329.png)
+![image-20230601232537329](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061358412.png)
 
 **概念：回表** 我们根据这个以c2列大小排序的B+树只能确定我们要查找记录的主键值，所以如果我们想根据c2列的值查找到完整的用户记录的话，仍然需要到`聚簇索引`中再查一遍，这个过程称为`回表`。也就是根据c2列的值查询一条完整的用户记录需要使用到`2`棵B+树！
 
 问题：为什么我们还需要一次 回表 操作呢？直接把完整的用户记录放到叶子节点不OK吗？
 
-![image-20230601232643625](./assets/image-20230601232643625.png)
+![image-20230601232643625](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061358319.png)
 
 **3.** **联合索引**
 
@@ -5512,7 +5512,7 @@ mysql> CREATE TABLE index_demo(
 
 如果二级索引中目录项的内容只是`索引号+页号`的搭配的话，那么为`c2`列建立索引后的B+树应该长这样：
 
-![image-20220330111029120](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301110222.png)
+![image-20231106150620722](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061506492.png)
 
 如果我们想要新插入一行记录，其中`c1`、`c2`、`c3`的值分别是：`9`、`1`、`c`，那么在修改这个为c2列建立的二级索引对应的B+树时便碰到了个大问题：由于`页3`中存储的目录项记录是由`c2列+页号`的值构成的，`页3`中的两条目录项记录对应的c2列的值都是`1`，那么我们这条新插入的记录到底应该放在`页4`中，还是应该放在`页5`中啊？答案是：对不起，懵了。
 
@@ -5524,7 +5524,7 @@ mysql> CREATE TABLE index_demo(
 
 也就是我们把主键值也添加到二级索引内节点中的目录项记录了，这样就能保证B+树每一层节点中各条目录项记录除页号这个字段外是唯一的，所以我们为c2列建立二级索引后的示意图实际上应该是这样子的：
 
-![image-20220330112018199](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301120304.png)
+![image-20231106140040676](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061400462.png)
 
 这样我们再插入记录`(9, 1, 'c')`时，由于`页3`中存储的目录项记录是由`c2列+主键+页号`的值构成的，可以先把新记录的`c2`列的值和`页3`中各目录项记录的`c2`列的值作比较，如果`c2`列的值相同的话，可以接着比较主键值，因为B+树同一层中不同目录项记录的`c2列+主键`的值肯定是不一样的，所以最后肯定能定位唯一的一条目录项记录，在本例中最后确定新记录应该被插入到`页5`中。
 
@@ -5546,7 +5546,7 @@ MyISAM引擎使用`B+Tree`作为索引结构，叶子节点的data域存放的�
 
 ##### **3.1 MyISAM索引的原理**
 
-![image-20230601233023800](./assets/image-20230601233023800.png)
+![image-20230601233023800](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061400255.png)
 
 ##### **3.2 MyISAM** **与** **InnoDB对比**
 
@@ -5564,7 +5564,7 @@ MyISAM引擎使用`B+Tree`作为索引结构，叶子节点的data域存放的�
 
 ⑤ InnoDB要求表`必须有主键`（`MyISAM可以没有`）。如果没有显式指定，则MySQL系统会自动选择一个可以非空且唯一标识数据记录的列作为主键。如果不存在这种列，则MySQL自动为InnoDB表生成一个隐含字段作为主键，这个字段长度为6个字节，类型为长整型。
 
-![image-20230601233159016](./assets/image-20230601233159016.png)
+![image-20230601233159016](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061401170.png)
 
 #### **4.** **索引的代价**
 
@@ -5592,17 +5592,17 @@ Hash本身是一个函数，又被称为散列函数，可以帮助我们大幅�
 
 Hash算法是通过某种确定性的算法（比如MD5/SHA1/SHA2）将输入转变为输出。相同的输入永远可以得到相同的输出，假设输入内容有微小偏差，在输出通常会有不同的结果。
 
-![image-20230601233300616](./assets/image-20230601233300616.png)
+![image-20230601233300616](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061401648.png)
 
-![](./assets/image-20230601233337031.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061401713.png)
 
-![image-20230601233525117](./assets/image-20230601233525117.png)
+![image-20230601233525117](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061401242.png)
 
 ##### **5.1** **二叉搜索树**
 
 如果我们利用二叉树作为索引结构，那么磁盘的IO次数和索引树的高度是相关的。
 
-![image-20230601233628618](./assets/image-20230601233628618.png)
+![image-20230601233628618](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061401940.png)
 
 为了提高查询效率，就需要`减少磁盘IO数`。为了减少磁盘IO的次数，就需要尽量`降低树的高度`，需要把原来“瘦高”的树结构变的“矮胖”，树的每层的分叉越多越好。
 
@@ -5610,17 +5610,17 @@ Hash算法是通过某种确定性的算法（比如MD5/SHA1/SHA2）将输入转
 
 如果我们利用二叉树作为索引结构，那么磁盘的IO次数和索引树的高度是相关的。
 
-![image-20230601233704403](./assets/image-20230601233704403.png)
+![image-20230601233704403](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061401843.png)
 
 针对同样的数据，如果我们把二叉树改成`M 叉树`（M>2）呢？当 M=3 时，同样的 31 个节点可以由下面的三叉树来进行存储：
 
-![image-20230601233730301](./assets/image-20230601233730301.png)
+![image-20230601233730301](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061401081.png)
 
 ##### **5.3 B-Tree** 
 
 B 树的结构如下图所示：
 
-![image-20230601233754363](./assets/image-20230601233754363.png)
+![image-20230601233754363](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061401618.png)
 
 一个 M 阶的 B 树（M>2）有以下的特性：
 
@@ -5648,7 +5648,7 @@ B 树的结构如下图所示：
 
 **再举例1：**
 
-![image-20230601233826858](./assets/image-20230601233826858.png)
+![image-20230601233826858](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061402368.png)
 
 ##### **5.4 B+Tree** 
 
@@ -5714,13 +5714,15 @@ InnoDB将数据划分为若干个页，InnoDB中页的大小默认为`16KB`。
 
 > 记录是按照行来存储的，但是数据库的读取并不以行为单位，否则一次读取（也就是一次I/O操作）只能处理一行数据，效率会非常低。
 
+![image-20231106150811497](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061508636.png)
+
 ##### 1.2 页结构概述
 
 页a、页b、页c...页n这些页可以`不在物理结构上相连`，只要通过`双向链表`相关联即可。每个数据页中的记录会按照主键值从小到大的顺序组成一个`单向链表`，每个数据页都会为存储在它里边的记录生成一个`页目录`，在通过主键查找某条记录的时候可以在页目录中`使用二分法`快速定位到对应的槽，然后再遍历该槽对应的分组中的记录即可快速找到指定的记录。
 
 ##### 1.3 页的上层结构
 
-![image-20220330183814954](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301838071.png)
+![image-20231106150940208](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061509567.png)
 
 区（Extent）是比页大一级的存储结构，在InnoDB存储引擎中，一个区会分配`64个连续的页`。因为InnoDB中的页大小默认是16KB，所以一个区的大小是64*16KB=`1MB`。
 
@@ -5800,11 +5802,11 @@ User Records中的这些记录按照`指定的行格式`一条一条摆在User R
 
 InnoDB规定的最小记录与最大记录这两条记录的构造十分简单，都是由5字节大小的记录头信息和8字节大小的一个固定的部分组成的。
 
-![image-20220330191335574](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301913664.png)
+![image-20231106152557740](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061526816.png)
 
 这两条记录`不是我们自己定义的记录`，所以它们并不存放在页的User Records部分，他们被单独放在一个称为Infimum + Supremum的部分
 
-![image-20220330191446070](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301914167.png)
+![image-20231106152742857](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061527768.png)
 
 ##### 2.3 第3部分：页目录和页面头部
 
@@ -5827,7 +5829,7 @@ InnoDB规定的最小记录与最大记录这两条记录的构造十分简单�
 
 现在的page_demo表中正常的记录共有6条，InnoDB会把它们分成两组，第一组中只有一个最小记录，第二组中是剩余的5条记录。如下图：
 
-![image-20220330192130497](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301921631.png)
+![image-20231106153955711](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061539501.png)
 
 从这个图中我们需要注意这么几点：
 
@@ -5838,7 +5840,7 @@ InnoDB规定的最小记录与最大记录这两条记录的构造十分简单�
 
 用箭头指向的方式替代数字，这样更易于我们理解，修改后如下
 
-![image-20220330192413776](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301924874.png)
+![image-20231106154028738](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061540069.png)
 
 **为什么最小记录的n_owned值为1，而最大记录的n_owned值为5呢？**
 
@@ -5887,7 +5889,7 @@ ALTER TABLE 表名 ROW_FORMAT=行格式名称
 
 在MySQL 5.1版本中，默认设置为Compact行格式。一条完整的记录其实可以被分为记录的额外信息和记录的真实数据两大部分。
 
-![image-20220330193949517](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301939611.png)
+![image-20231106151711001](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061517814.png)
 
 ###### 3.2.1 变长字段长度列表
 
@@ -5908,7 +5910,7 @@ Compact行格式会把可以为NULL的列统一管理起来，存在一个标记
 
 ###### 3.2.3 记录头信息（5字节）
 
-![image-20220330194534127](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301945235.png)
+![image-20231106151544029](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061515875.png)
 
 | 名称            | 大小（单位：bit） | 描述                                                         |
 | --------------- | ----------------- | ------------------------------------------------------------ |
@@ -6624,7 +6626,7 @@ MySQL中`提高性能`的一个最有效的方式是对数据表`设计合理的
 
 Index Nested-Loop Join其优化的思路主要是为了`减少内层表数据的匹配次数`，所以要求被驱动表上必须`有索引`才行。
 
-![image-20230601234438652](./assets/image-20230601234438652.png)
+![image-20230601234438652](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061422951.png)
 
 ##### 2.2 Block Nested-Loop Join（块嵌套循环连接）
 
@@ -6632,9 +6634,9 @@ Index Nested-Loop Join其优化的思路主要是为了`减少内层表数据的
 
 不再是逐条获取驱动表的数据，而是一块一块的获取，引入了`join buffer缓冲区`，将驱动表join相关的部分数据列（大小受join buffer的限制）缓存到join buffer中，然后全表扫描被驱动表，被驱动表的每一条记录一次性和join buffer中的所有驱动表记录进行匹配（内存中操作），将简单嵌套循环中的多次比较合并成一次，降低了被驱动表的访问频率。
 
-![image-20230601234653949](./assets/image-20230601234653949.png)
+![image-20230601234653949](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061422262.png)
 
-![image-20230601234734253](./assets/image-20230601234734253.png)
+![image-20230601234734253](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061422483.png)
 
 ##### 2.3 Hash Join
 
@@ -6649,7 +6651,7 @@ Index Nested-Loop Join其优化的思路主要是为了`减少内层表数据的
   
   - 它能够很好的工作于没有索引的大表和并行查询的环境中，并提供最好的性能。Hash Join只能应用于等值连接，这是由Hash的特点决定的。
   
-    ![image-20230601234905105](./assets/image-20230601234905105.png)
+    ![image-20230601234905105](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061422133.png)
 
 #### **3.** **子查询优化**
 
@@ -6733,19 +6735,19 @@ storage层：只将满足index key条件的索引记录对应的整行记录取�
 
 server 层：对返回的数据，使用后面的where条件过滤，直至返回最后一行。
 
-![image-20230601235511522](./assets/image-20230601235511522.png)
+![image-20230601235511522](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061431824.png)
 
-![image-20230601235558933](./assets/image-20230601235558933.png)
+![image-20230601235558933](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061431388.png)
 
 **使用ICP扫描的过程：**
 
 storage层：首先将index key条件满足的索引记录区间确定，然后在索引上使用index filter进行过滤。将满足的index filter条件的索引记录才去回表取出整行记录返回server层。不满足index filter条件的索引记录丢弃，不回表、也不会返回server层。
 
-![image-20230601235621297](/Users/jiusonghuang/Desktop/learn-new/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/assets/image-20230601235621297.png)
+![image-20230601235621297](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061432326.png)
 
 server 层：对返回的数据，使用table filter条件做最后的过滤。
 
-![image-20230601235644428](./assets/image-20230601235644428.png)
+![image-20230601235644428](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061432188.png)
 
 #### **9.** **其它查询优化策略**
 
@@ -6805,7 +6807,7 @@ COMMIT 所释放的资源：
 
 目前关系型数据库有六种常见范式，按照范式级别，从低到高分别是：**第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF，又称完美范式）**。
 
-![image-20230601235827858](./assets/image-20230601235827858.png)
+![image-20230601235827858](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061432967.png)
 
 ##### **1.3** **键和相关属性的概念**
 
@@ -7092,11 +7094,11 @@ CREATE TABLE user_info (
 
 **1、读写分离**
 
-![image-20230601235919616](./assets/image-20230601235919616.png)
+![image-20230601235919616](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061432467.png)
 
 **2、数据分片**
 
-![image-20230601235952135](./assets/image-20230601235952135.png)
+![image-20230601235952135](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061432029.png)
 
 #### **2.** **优化MySQL服务器**
 
@@ -7273,7 +7275,7 @@ OPTIMIZE TABLE 语句对InnoDB和MyISAM类型的表都有效。该语句在执�
 
 当一个处在`部分提交的`状态的事务将修改过的数据都`同步到磁盘`上之后，我们就可以说该事务处在了`提交的`状态。
 
-![image-20230602000132325](./assets/image-20230602000132325.png)
+![image-20230602000132325](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061433564.png)
 
 #### **2.** **如何使用事务**
 
@@ -7347,25 +7349,29 @@ RELEASE SAVEPOINT 保存点名称;
 
 对于两个事务 Session A、Session B，如果事务Session A`修改了`另一个`未提交`事务Session B`修改过`的数据，那就意味着发生了`脏写`
 
-![image-20220403112416944](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204031124086.png)
+ 
+
+![image-20231106155612796](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061556388.png)
+
+![image-20231106155626772](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061556010.png)
 
 **2.** **脏读（**`Dirty Read`**）**
 
 对于两个事务 Session A、Session B，Session A`读取`了已经被 Session B`更新`但还`没有被提交`的字段。之后若 Session B`回滚`，Session A`读取`的内容就是`临时且无效`的。
 
-![image-20220403112435995](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204031124136.png)
+![image-20231106155711648](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061557097.png)
 
 **3.** **不可重复读（**`Non-Repeatable Read`**）**
 
 对于两个事务Session A、Session B，Session A`读取`了一个字段，然后 Session B`更新`了该字段。 之后Session A`再次读取`同一个字段，`值就不同`了。那就意味着发生了不可重复读。
 
-![image-20220403112458183](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204031124331.png)
+![image-20231106155855621](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061559745.png)
 
 **4.** **幻读（**`Phantom`**）**
 
 对于两个事务Session A、Session B, Session A 从一个表中`读取`了一个字段, 然后 Session B 在该表中`插入`了一些新的行。 之后, 如果 Session A`再次读取`同一个表, 就会多出几行。那就意味着发生了幻读。
 
-![image-20220403112514712](https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202204031125847.png)
+![image-20231106160014488](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061600279.png)
 
 **注意1：**
 
@@ -7384,7 +7390,7 @@ RELEASE SAVEPOINT 保存点名称;
 - `REPEATABLE READ`：可重复读，事务A在读到一条数据之后，此时事务B对该数据进行了修改并提交，那么事务A再读该数据，读到的还是原来的内容。可以避免脏读、不可重复读，但幻读问题仍然存在。`这是MySQL的默认隔离级别`。
 - `SERIALIZABLE`：可串行化，确保事务可以从一个表中读取相同的行。在这个事务持续期间，禁止其他事务对该表执行插入、更新和删除操作。所有的并发问题都可以避免，但性能十分低下。能避免脏读、不可重复读和幻读。
 
-![image-20230602000307395](./assets/image-20230602000307395.png)
+![image-20230602000307395](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061433849.png)
 
 ##### **3.3** **如何设置事务的隔离级别**
 
@@ -7429,7 +7435,7 @@ SET [GLOBAL|SESSION] TRANSACTION_ISOLATION = '隔离级别'
 
 `另一个解决的思路`：我们只是想让已经提交了的事务对数据库中数据所做的修改永久生效，即使后来系统崩溃，在重启后也能把这种修改恢复出来。所以我们其实没有必要在每次事务提交时就把该事务在内存中修改过的全部页面刷新到磁盘，只需要把`修改`了哪些东西`记录一下`就好。比如，某个事务将系统表空间中`第10号`页面中偏移量为`100`处的那个字节的值`1`改成`2`。我们只需要记录一下：将第0号表空间的10号页面的偏移量为100处的值更新为 2 。
 
-![image-20230602232159571](./assets/image-20230602232159571.png)
+![image-20230602232159571](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061434153.png)
 
 ##### **1.2 REDO日志的好处、特点**
 
@@ -7457,7 +7463,7 @@ redo log buffer 大小，默认`16M`，最大值是4096M，最小值为1M。
 
 ##### **1.4 redo的整体流程**
 
-![image-20230602232120562](./assets/image-20230602232120562-5719282.png)
+![image-20230602232120562](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061434215.png)
 
 第1步：先将原始数据从磁盘中读入内存中来，修改数据的内存拷贝 
 
@@ -7474,7 +7480,7 @@ redo log buffer 大小，默认`16M`，最大值是4096M，最小值为1M。
 edo log的写入并不是直接写入磁盘的，InnoDB引擎会在写redo log的时候先写redo log buffer，之后以 一
 定的频率 刷入到真正的redo log file 中。这里的一定频率怎么看待呢？这就是我们要说的刷盘策略。
 
-![image-20230602232330440](./assets/image-20230602232330440.png)
+![image-20230602232330440](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061434044.png)
 
 redo log buffer刷盘到redo log file的过程并不是真正的刷到磁盘中去，只是刷入到`文件系统缓存`（page cache）中去（这是现代操作系统为了提高文件写入效率做的一个优化），真正的写入会交给系统自己来决定（比如page cache足够大了）。那么对于InnoDB来说就存在一个问题，如果交给系统来同步，同样如果系统宕机，那么数据也丢失了（虽然整个系统宕机的概率还是比较小的）。
 
@@ -7488,11 +7494,11 @@ redo log buffer刷盘到redo log file的过程并不是真正的刷到磁盘中�
 
 **1.** **流程图**
 
-![image-20230602232417041](./assets/image-20230602232417041.png)
+![image-20230602232417041](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061434415.png)
 
-![image-20230602232441059](./assets/image-20230602232441059.png)
+![image-20230602232441059](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061434614.png)
 
-![image-20230602232503646](./assets/image-20230602232503646.png)
+![image-20230602232503646](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061434861.png)
 
 ##### **1.7** **写入redo log buffer过程**
 
@@ -7500,17 +7506,17 @@ redo log buffer刷盘到redo log file的过程并不是真正的刷到磁盘中�
 
 一个事务可以包含若干条语句，每一条语句其实是由若干个`mtr`组成，每一个`mtr`又可以包含若干条redo日志
 
-![image-20230602232533976](./assets/image-20230602232533976.png)
+![image-20230602232533976](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061434292.png)
 
 **2. redo** **日志写入log buffer**
 
 不同的事务可能是`并发`执行的，所以`事务T1`、`事务T2`之间的`mtr`可能是`交替执行`的。
 
-![image-20230602232616537](./assets/image-20230602232616537.png)
+![image-20230602232616537](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061434889.png)
 
-![image-20230602232643730](./assets/image-20230602232643730.png)
+![image-20230602232643730](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061434263.png)
 
-![image-20230602232739574](./assets/image-20230602232739574.png)
+![image-20230602232739574](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061434393.png)
 
 ##### **1.8 redo log file**
 
@@ -7524,11 +7530,11 @@ redo log buffer刷盘到redo log file的过程并不是真正的刷到磁盘中�
 
 **2.** **日志文件组**
 
-![image-20230602232817177](./assets/image-20230602232817177.png)
+![image-20230602232817177](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061435197.png)
 
 **3. checkpoint**
 
-![image-20230602232847113](./assets/image-20230602232847113.png)
+![image-20230602232847113](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061435628.png)
 
 如果 write pos 追上 checkpoint ，表示**日志文件组**满了，这时候不能再写入新的 redo log记录，MySQL 得停下来，清空一些记录，把 checkpoint 推进一下。
 
@@ -7591,15 +7597,15 @@ InnoDB对undo log的管理采用段的方式，也就是`回滚段（rollback se
 
 **只有Buffer Pool的流程：**
 
-![image-20230602232930120](./assets/image-20230602232930120.png)
+![image-20230602232930120](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061435431.png)
 
 **有了Redo Log和Undo Log之后：**
 
-![image-20230602232950812](./assets/image-20230602232950812.png)
+![image-20230602232950812](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061436150.png)
 
 **2.** **详细生成过程**
 
-![image-20230602233016032](./assets/image-20230602233016032.png)
+![image-20230602233016032](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061437790.png)
 
 **当我们执行INSERT时：**
 
@@ -7608,17 +7614,17 @@ begin;
 INSERT INTO user (name) VALUES ("tom");
 ```
 
-![image-20230602233036716](./assets/image-20230602233036716.png)
+![image-20230602233036716](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061437613.png)
 
 **当我们执行UPDATE时：**
 
-![image-20230602233104078](./assets/image-20230602233104078.png)
+![image-20230602233104078](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061437880.png)
 
 ```mysql
 UPDATE user SET id=2 WHERE id=1;
 ```
 
-![image-20230602233125455](./assets/image-20230602233125455.png)
+![image-20230602233125455](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061438232.png)
 
 **3. undo log是如何回滚的**
 
@@ -7644,7 +7650,7 @@ UPDATE user SET id=2 WHERE id=1;
 
 ##### **2.6** **小结** 
 
-![image-20230602233150640](./assets/image-20230602233150640.png)
+![image-20230602233150640](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061438267.png)
 
 undo log是逻辑日志，对事务回滚时，只是将数据库逻辑地恢复到原来的样子。
 
@@ -7695,7 +7701,7 @@ redo log是物理日志，记录的是数据页的物理变化，undo log不是r
 
 #### **3.** **锁的不同角度分类**
 
-![image-20230601223544417](./assets/image-20230601223544417.png)
+![image-20230601223544417](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061438625.png)
 
 
 
@@ -7961,7 +7967,7 @@ Flush tables with read lock
 
 #### **4.** **锁的内存结构**
 
-![image-20230602233307192](./assets/image-20230602233307192.png)
+![image-20230602233307192](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061439084.png)
 
 结构解析：
 
@@ -7991,7 +7997,7 @@ Flush tables with read lock
 
 这是一个32位的数，被分成了`lock_mode`、`lock_type`和`rec_lock_type`三个部分，如图所示：
 
-![image-20230602233334903](./assets/image-20230602233334903.png)
+![image-20230602233334903](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061439974.png)
 
 - 锁的模式（`lock_mode`），占用低4位，可选的值如下：
   - `LOCK_IS`（十进制的`0`）：表示共享意向锁，也就是`IS锁`。 
@@ -8073,11 +8079,11 @@ MVCC在MySQL InnoDB中的实现主要是为了提高数据库并发性能，用�
 
 我们知道事务有 4 个隔离级别，可能存在三种并发问题：
 
-![image-20230602233419763](./assets/image-20230602233419763.png)
+![image-20230602233419763](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061439382.png)
 
 另图：
 
-![image-20230602233440425](./assets/image-20230602233440425.png)
+![image-20230602233440425](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061439831.png)
 
 ##### **3.2** **隐藏字段、Undo Log版本链**
 
@@ -8087,7 +8093,7 @@ MVCC在MySQL InnoDB中的实现主要是为了提高数据库并发性能，用�
 
 - `roll_pointer`：每次对某条聚簇索引记录进行改动时，都会把旧的版本写入到 undo日志 中，然后这个隐藏列就相当于一个指针，可以通过它来找到该记录修改前的信息。
 
-  ![image-20230602233512103](./assets/image-20230602233512103.png)
+  ![image-20230602233512103](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061440678.png)
 
 #### **4. MVCC实现原理之ReadView** 
 
@@ -8148,13 +8154,13 @@ ReadView就是事务在使用MVCC机制进行快照读操作时产生的读视�
 
 如表所示：
 
-![image-20230602233701605](./assets/image-20230602233701605.png)
+![image-20230602233701605](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061440637.png)
 
 > 注意，此时同样的查询语句都会重新获取一次 Read View，这时如果 Read View 不同，就可能产生不可重复读或者幻读的情况。
 
 当隔离级别为可重复读的时候，就避免了不可重复读，这是因为一个事务只在第一次 SELECT 的时候会获取一次 Read View，而后面所有的 SELECT 都会复用这个 Read View，如下表所示：
 
-![image-20230602233610766](./assets/image-20230602233610766.png)
+![image-20230602233610766](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061440389.png)
 
 #### **5.** **举例说明**
 
@@ -8170,7 +8176,7 @@ ReadView就是事务在使用MVCC机制进行快照读操作时产生的读视�
 
 假设现在表 student 中只有一条数据，数据内容中，主键 id=1，隐藏的 trx_id=10，它的 undo log 如下图所示。
 
-![image-20230602233755992](./assets/image-20230602233755992.png)
+![image-20230602233755992](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061440563.png)
 
 假设现在有事务 A 和事务 B 并发执行，`事务 A`的事务 id 为`20`，`事务 B`的事务 id 为`30`。
 
@@ -8195,7 +8201,7 @@ insert into student(id,name) values(3,'王五');
 
 此时表student 中就有三条数据了，对应的 undo 如下图所示：
 
-![image-20230602233825956](./assets/image-20230602233825956.png)
+![image-20230602233825956](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061440692.png)
 
 步骤3：接着事务 A 开启第二次查询，根据可重复读隔离级别的规则，此时事务 A 并不会再重新生成ReadView。此时表 student 中的 3 条数据都满足 where id>=1 的条件，因此会先查出来。然后根据ReadView 机制，判断每条数据是不是都可以被事务 A 看到。
 
@@ -8205,7 +8211,7 @@ insert into student(id,name) values(3,'王五');
 
 3）同理，id=3 的这条数据，trx_id 也为 30，因此也不能被事务 A 看见。
 
-![image-20230602233854400](./assets/image-20230602233854400.png)
+![image-20230602233854400](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061440446.png)
 
 结论：最终事务 A 的第二次查询，只能查询出 id=1 的这条数据。这和事务 A 的第一次查询的结果是一样的，因此没有出现幻读现象，所以说在 MySQL 的可重复读隔离级别下，不存在幻读问题。
 
@@ -8325,7 +8331,7 @@ binlog主要应用场景：
 
 - 二是用于 数据复制
 
-  ![image-20230602234118904](./assets/image-20230602234118904.png)
+  ![image-20230602234118904](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061441318.png)
 
 ##### **4.1** **查看默认情况**
 
@@ -8433,15 +8439,15 @@ PURGE {MASTER | BINARY} LOGS BEFORE ‘指定日期’
 
 binlog的写入时机也非常简单，事务执行过程中，先把日志写到`binlog cache`，事务提交的时候，再把binlog cache写到binlog文件中。因为一个事务的binlog不能被拆开，无论这个事务多大，也要确保一次性写入，所以系统会给每个线程分配一个块内存作为binlog cache。
 
-![image-20230602234214417](./assets/image-20230602234214417.png)
+![image-20230602234214417](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061442748.png)
 
 write和fsync的时机，可以由参数`sync_binlog`控制，默认是 `0`。为0的时候，表示每次提交事务都只write，由系统自行判断什么时候执行fsync。虽然性能得到提升，但是机器宕机，page cache里面的binglog 会丢失。如下图：
 
-![image-20230602234243508](./assets/image-20230602234243508.png)
+![image-20230602234243508](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061444732.png)
 
 为了安全起见，可以设置为`1`，表示每次提交事务都会执行fsync，就如同**redo log** **刷盘流程**一样。最后还有一种折中方式，可以设置为N(N>1)，表示每次提交事务都write，但累积N个事务后才fsync。
 
-![image-20230602234310393](./assets/image-20230602234310393.png)
+![image-20230602234310393](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061444259.png)
 
 在出现IO瓶颈的场景里，将sync_binlog设置成一个比较大的值，可以提升性能。同样的，如果机器宕机，会丢失最近N个事务的binlog日志。
 
@@ -8457,19 +8463,19 @@ write和fsync的时机，可以由参数`sync_binlog`控制，默认是 `0`。�
 
 在执行更新语句过程，会记录redo log与binlog两块日志，以基本的事务为单位，redo log在事务执行过程中可以不断写入，而binlog只有在提交事务时才写入，所以redo log与binlog的`写入时机`不一样。
 
-![image-20230602234624532](./assets/image-20230602234624532.png)
+![image-20230602234624532](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061445445.png)
 
 为了解决两份日志之间的逻辑一致问题，InnoDB存储引擎使用**两阶段提交**方案。
 
-![image-20230602234530227](./assets/image-20230602234530227.png)
+![image-20230602234530227](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061445399.png)
 
 使用**两阶段提交**后，写入binlog时发生异常也不会有影响
 
-![image-20230602234453537](./assets/image-20230602234453537.png)
+![image-20230602234453537](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061445432.png)
 
 另一个场景，redo log设置commit阶段发生异常，那会不会回滚事务呢？
 
-![image-20230602234425656](./assets/image-20230602234425656.png)
+![image-20230602234425656](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061445742.png)
 
 并不会回滚事务，它会执行上图框住的逻辑，虽然redo log是处于prepare阶段，但是能通过事务id找到对应的binlog日志，所以MySQL认为是完整的，就会提交事务恢复数据。
 
@@ -8491,7 +8497,7 @@ write和fsync的时机，可以由参数`sync_binlog`控制，默认是 `0`。�
 
 ##### **1.1** **如何提升数据库并发能力**
 
-![image-20230602234738225](./assets/image-20230602234738225.png)
+![image-20230602234738225](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061445917.png)
 
 一般应用对数据库而言都是“`读多写少`”，也就说对数据库读取数据的压力比较大，有一个思路就是采用数据库集群的方案，做`主从架构`、进行`读写分离`，这样同样可以提升数据库的并发处理能力。但并不是所有的应用都需要对数据库进行主从架构的设置，毕竟设置架构本身是有成本的。
 
@@ -8501,7 +8507,7 @@ write和fsync的时机，可以由参数`sync_binlog`控制，默认是 `0`。�
 
 **第1个作用：读写分离。**
 
-![image-20230602234811019](./assets/image-20230602234811019.png)
+![image-20230602234811019](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061445311.png)
 
 **第2个作用就是数据备份。**
 
@@ -8515,7 +8521,7 @@ write和fsync的时机，可以由参数`sync_binlog`控制，默认是 `0`。�
 
 实际上主从同步的原理就是基于 binlog 进行数据同步的。在主从复制过程中，会基于`3 个线程`来操作，一个主库线程，两个从库线程。
 
-![image-20230602234832690](./assets/image-20230602234832690.png)
+![image-20230602234832690](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061445016.png)
 
 `二进制日志转储线程`（Binlog dump thread）是一个主库线程。当从库线程连接的时候， 主库可以将二进制日志发送给从库，当主库读取事件（Event）的时候，会在 Binlog 上`加锁`，读取完成之后，再将锁释放掉。
 
@@ -8523,7 +8529,7 @@ write和fsync的时机，可以由参数`sync_binlog`控制，默认是 `0`。�
 
 `从库 SQL 线程`会读取从库中的中继日志，并且执行日志中的事件，将从库中的数据与主库保持同步。
 
-![image-20230602234857241](./assets/image-20230602234857241.png)
+![image-20230602234857241](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061446738.png)
 
 **复制三步骤**
 
@@ -8587,17 +8593,17 @@ write和fsync的时机，可以由参数`sync_binlog`控制，默认是 `0`。�
 
 ##### **3.4** **如何解决一致性问题**
 
-![image-20230602235123803](./assets/image-20230602235123803.png)
+![image-20230602235123803](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061446153.png)
 
 读写分离情况下，解决主从同步中数据不一致的问题， 就是解决主从之间 数据复制方式 的问题，如果按照数据一致性 从弱到强 来进行划分，有以下 3 种复制方式。
 
 **方法** **1：异步复制**
 
-![image-20230602235146889](./assets/image-20230602235146889.png)
+![image-20230602235146889](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061446322.png)
 
 **方法** **2：半同步复制**
 
-![image-20230602235206118](./assets/image-20230602235206118.png)
+![image-20230602235206118](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061446327.png)
 
 **方法** **3：组复制**
 
@@ -8610,7 +8616,7 @@ write和fsync的时机，可以由参数`sync_binlog`控制，默认是 `0`。�
 
 在一个复制组内有多个节点组成，它们各自维护了自己的数据副本，并且在一致性协议层实现了原子消息和全局有序消息，从而保证组内数据的一致性。
 
-![image-20230602235430529](./assets/image-20230602235430529.png)
+![image-20230602235430529](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061446239.png)
 
 MGR 将 MySQL 带入了数据强一致性的时代，是一个划时代的创新，其中一个重要的原因就是MGR 是基于 Paxos 协议的。Paxos 算法是由 2013 年的图灵奖获得者 Leslie Lamport 于 1990 年提出的，有关这个算法的决策机制可以搜一下。事实上，Paxos 算法提出来之后就作为 分布式一致性算法 被广泛应用，比如Apache 的 ZooKeeper 也是基于 Paxos 实现的。
 
