@@ -96,15 +96,18 @@ vue ui
 vite官网：[vitejs.cn](https://link.juejin.cn/?target=https%3A%2F%2Fvitejs.cn "https://vitejs.cn")
 
 * 什么是vite？—— 是Vue团队打造的新一代前端构建工具。
+
 * 优势如下：
   
     *   开发环境中，无需打包操作，可快速的冷启动。
     *   轻量快速的热重载（HMR）。
     *   真正的按需编译，不再等待整个应用编译完成。
+    
 * 传统构建 与 vite构建对比图
  <img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208933.png" style="zoom:33%;" /> 
-  **传统构建模式，是将所有资源都打包好，再上线**
-  <img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208237.png" style="zoom: 33%;" />
+  <br/>**传统构建模式，是将所有资源都打包好，再上线**
+  
+  <br/><img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208237.png" style="zoom: 33%;" /> 
 
  而Vite有点按需加载的意思在那里了~
 
