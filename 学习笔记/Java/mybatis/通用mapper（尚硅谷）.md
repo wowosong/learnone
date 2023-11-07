@@ -247,7 +247,7 @@ WHERE
 
 情况 2：使用@Id 主键明确标记和数据库表中主键字段对应的实体类字段。
 
-![image-20210620103419014](https://gitee.com/wowosong/pic-md/raw/master/202212152311602.png)
+![image-20210620103419014](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071127556.png)
 
 ## 3.4@GeneratedValue注解
 
@@ -255,11 +255,11 @@ WHERE
 
 自增主键用法： 
 
-![image-20210620103538668](https://gitee.com/wowosong/pic-md/raw/master/202212152311655.png)
+![image-20210620103538668](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071127106.png)
 
 序列主键用法：
 
-![image-20210620103757861](https://gitee.com/wowosong/pic-md/raw/master/202212152312681.png)
+![image-20210620103757861](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071127715.png)
 
 应用场景：购物车结账 
 
@@ -490,7 +490,7 @@ for (Employee employee : empList) {
 
 ## 6.1原生MyBatis逆向工程和通用Mapper逆向工程对比
 
-![image-20210620182006101](https://gitee.com/wowosong/pic-md/raw/master/202212152312524.png)
+![image-20210620182006101](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071127483.png)
 
 pom.xml配置信息
 
@@ -613,7 +613,7 @@ generatorConfig.xml
 
 在 pom.xml 这一级目录的命令行窗口执行 `mvn mybatis-generator:generate`即可（前提是配置了mvn）。
 
-![image-20210620185823833](https://gitee.com/wowosong/pic-md/raw/master/202212152312575.png)
+![image-20210620185823833](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071127828.png)
 
 ## 6.2参考文档地址
 
@@ -621,7 +621,7 @@ https://github.com/abel533/Mapper/wiki/4.1.mappergenerator
 
 # **7** 自定义Mapper<T>接口
 
-![image-20210620191515136](https://gitee.com/wowosong/pic-md/raw/master/202212152312182.png)
+![image-20210620191515136](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071127969.png)
 
 ## 7.1用途
 
@@ -701,7 +701,7 @@ UPDATE tabple_emp SET emp_name=?,emp_age=?,emp_salary=? where emp_id=? ;
 
 ## 8.3我们需要提供的接口和实现类
 
-![image-20210621220217397](https://gitee.com/wowosong/pic-md/raw/master/202212152313376.png)
+![image-20210621220217397](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071127395.png)
 
 ## 8.4参考代码
 
@@ -858,7 +858,7 @@ public interface EmployeeMapper extends MyMapper<Employee> {
 
 ### 10.2.1自定义类型转换器
 
-![image-20210621232259141](https://gitee.com/wowosong/pic-md/raw/master/202212152313418.png)
+![image-20210621232259141](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071128555.png)
 
 ### 10.2.2 TypeHandler接口
 
@@ -878,7 +878,7 @@ public interface TypeHandler<T> {
 
 ### 10.2.3继承树
 
-![image-20210621233111017](https://gitee.com/wowosong/pic-md/raw/master/202212152313057.png)
+![image-20210621233111017](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071128100.png)
 
 ### 10.2.4 BaseTypeHandler类中的抽象方法说明
 
@@ -983,13 +983,13 @@ public class AddressTypeHandler extends BaseTypeHandler<Address> {
 
 > 方法一 字段级别：@ColumnType 注解
 
-![image-20210621233546515](https://gitee.com/wowosong/pic-md/raw/master/202212152314546.png)
+![image-20210621233546515](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071128029.png)
 
 > 方法二 全局级别：在 MyBatis 配置文件中配置 typeHandlers
 
-![image-20210621233636499](https://gitee.com/wowosong/pic-md/raw/master/202212152314317.png)
+![image-20210621233636499](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071128045.png)
 
-![image-20210621233657972](https://gitee.com/wowosong/pic-md/raw/master/202212152314559.png)
+![image-20210621233657972](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071128228.png)
 
 ## 10.3枚举类型
 
@@ -999,7 +999,7 @@ public class AddressTypeHandler extends BaseTypeHandler<Address> {
 
 在 Spring 配置文件中找到 MapperScannerConfigurer
 
-![image-20210621234136053](https://gitee.com/wowosong/pic-md/raw/master/202212152314838.png)
+![image-20210621234136053](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071128233.png)
 
 > 本质
 
@@ -1007,7 +1007,7 @@ public class AddressTypeHandler extends BaseTypeHandler<Address> {
 
 ### 10.3.2办法二：为枚举类型配置对应的类型处理器
 
-![image-20210621234412998](https://gitee.com/wowosong/pic-md/raw/master/202212152314236.png)
+![image-20210621234412998](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071128230.png)
 
 > 类型处理器
 
@@ -1027,11 +1027,11 @@ public class AddressTypeHandler extends BaseTypeHandler<Address> {
 
 （1）**不能使用@ColumnType 注解**
 
-![image-20210622001956190](https://gitee.com/wowosong/pic-md/raw/master/202212152314139.png)
+![image-20210622001956190](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071128450.png)
 
 （2）**需要在 MyBatis 配置文件中配置专门的类型处理器并在字段上使用 @Column 注解**
 
-![image-20210622002204142](https://gitee.com/wowosong/pic-md/raw/master/202212152314486.png)
+![image-20210622002204142](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071128231.png)
 
 ※注意：加@Column 注解的作用是让通用 Mapper 不忽略枚举类型。
 

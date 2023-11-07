@@ -671,7 +671,7 @@ A． employeeMapper 的本质 org.apache.ibatis.binding.MapperProxy
 
 B． MapperProxy 中 sqlSession –>SqlSessionFactory
 
-![](https://gitee.com/wowosong/pic-md/raw/master/20210615222437.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071128424.png)
 
 C． SqlSessionFacotry 中 → Configuration→ MappedStatements每一个 mappedStatement 都表示 **Mapper 接口中的一个方法与 Mapper 映射文件中的一个 SQL**。
 
@@ -703,9 +703,9 @@ SqlSource: SQL 语句处理对象
 
 MapperBuilderAssistant： 用于缓存、SQL 参数、查询结果集处理等。通过 MapperBuilderAssistant 将每一个 mappedStatement添加到 configuration 中的 mappedstatements 中
 
-![image-20210615225843047](https://gitee.com/wowosong/pic-md/raw/master/20210615225843.png)
+![image-20210615225843047](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071129508.png)
 
-![image-20210615225919151](https://gitee.com/wowosong/pic-md/raw/master/20210615225919.png)
+![image-20210615225919151](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071129655.png)
 
 ## **3.7** **通用** **CRUD** **小结**
 
@@ -731,7 +731,7 @@ MP: 依旧不用编写 SQL 语句, MP 提供了功能强大的条件构造器 En
 
 4) 条件参数说明:
 
-![image-20210616204149905](https://gitee.com/wowosong/pic-md/raw/master/20210616204150.png)
+![image-20210616204149905](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071129108.png)
 
 ## **4.2** **使用** **EntityWrapper**的方式打开如上需求
 

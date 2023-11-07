@@ -21,7 +21,7 @@ Nginx 的最重要的几个使用场景：
 
 用一张图表示：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151423340.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071142523.webp)
 
 **Nginx 安装**
 
@@ -180,7 +180,7 @@ http {
 
 用一张图清晰的展示它的层级结构：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151423287.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071142472.webp)
 
 ## 配置文件 main 段核心参数
 
@@ -236,7 +236,7 @@ worker_processes auto; # 与当前cpu物理核心数一致
 worker_cpu_affinity 0001 0010 0100 1000; # 4个物理核心，4个worker子进程
 ```
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151423825.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071142055.webp)
 
 
 
@@ -631,7 +631,7 @@ server {
 
 当访问 `fe.lion.com/download/` 时，会把服务器 `/opt/source/download/` 路径下的文件展示出来，如下图所示：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151423368.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071142758.webp)
 
 **变量**
 
@@ -639,7 +639,7 @@ server {
 
 下面列举些项目中常用的变量：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151424208)
+![image-20231107114345964](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071143276.png)
 
 实例演示 `var.conf` ：
 
@@ -716,7 +716,7 @@ document_root: /usr/share/nginx/html
 
 不管是正向代理还是反向代理，实现的都是上面的功能。
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151424488.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071144527.webp)
 
 **正向代理**
 
@@ -746,7 +746,7 @@ document_root: /usr/share/nginx/html
 
 动静分离是指在 `web` 服务器架构中，将静态页面与动态页面或者静态内容接口和动态内容接口分开不同系统访问的架构设计方法，进而提示整个服务的访问性和可维护性。
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151424350.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071144055.webp)
 
 
 一般来说，都需要将动态资源和静态资源分开，由于 `Nginx` 的高并发和静态资源缓存等特性，经常将静态资源部署在 `Nginx` 上。如果请求的是静态资源，直接到静态资源目录获取资源，如果是动态资源的请求，则利用反向代理的原理，把请求转发给对应后台应用去处理，从而实现动静分离。
@@ -765,7 +765,7 @@ document_root: /usr/share/nginx/html
 
 举个具体的例子，晚高峰乘坐地铁的时候，入站口经常会有地铁工作人员大喇叭“请走 `B` 口， `B`口人少车空....”，这个工作人员的作用就是负载均衡。
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151424858.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071144092.webp)
 
 `Nginx` 实现负载均衡的策略：
 
@@ -782,7 +782,7 @@ document_root: /usr/share/nginx/html
 
 用于定义上游服务器（指的就是后台提供的应用服务器）的相关信息。
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151424664.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071144338.webp)
 
 ```
 语法：upstream name {
@@ -995,7 +995,7 @@ server {
 121.5.180.193 proxy.lion.club
 ```
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151424743.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071144702.webp)
 
 分析：
 
@@ -1073,7 +1073,7 @@ server {
 
 在客户端机器执行 `curl http://balance.lion.club/balance/` 命令：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151424193.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071144586.webp)
 
 不难看出，负载均衡的配置已经生效了，每次给我们分发的上游服务器都不一样。就是通过简单的轮询策略进行上游服务器分发。
 
@@ -1433,12 +1433,12 @@ server {
 
 并不是每个浏览器都支持 `gzip` 的，如何知道客户端是否支持 `gzip` 呢，请求头中的 `Accept-Encoding` 来标识对压缩的支持。
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151424222.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071144906.webp)
 
 
 启用 `gzip` 同时需要客户端和服务端的支持，如果客户端支持 `gzip` 的解析，那么只要服务端能够返回 `gzip` 的文件就可以启用 `gzip` 了,我们可以通过 `Nginx` 的配置来让服务端支持 `gzip` 。下面的 `respone` 中 `content-encoding:gzip` ，指服务端开启了 `gzip` 的压缩方式。
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151424011.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071144811.webp)
 
 
 在 `/etc/nginx/conf.d/` 文件夹中新建配置文件 `gzip.conf` ：
@@ -1483,7 +1483,7 @@ gzip_http_version 1.1;
 
 多进程结构 `Nginx` 的进程模型图：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151425511.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071145369.webp)
 
 
 
@@ -1518,4 +1518,4 @@ gzip_http_version 1.1;
 
 `Nginx` 的内部结构是由核心部分和一系列的功能模块所组成。这样划分是为了使得每个模块的功能相对简单，便于开发，同时也便于对系统进行功能扩展。`Nginx` 的模块是互相独立的,低耦合高内聚。
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151425449.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071145827.webp)

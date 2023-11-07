@@ -6,7 +6,7 @@ Nginx 是一个高性能的 HTTP 和反向代理服务器，特点是占用内�
 
 Nginx 的知识网结构图如下：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151417210.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071137064.webp)
 
 ## 正向代理
 
@@ -20,7 +20,7 @@ Nginx 的知识网结构图如下：
 
 此时反向代理服务器和目标服务器对外就是一个服务器，暴露的是代理服务器地址，隐藏了真实服务器 IP 地址。
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151417189.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071137851.webp)
 
 ## **负载均衡**
 
@@ -30,7 +30,7 @@ Nginx 的知识网结构图如下：
 
 普通请求和响应过程如下图：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151417341.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071137007.webp)
 
 但是随着信息数量增长，访问量和数据量飞速增长，普通架构无法满足现在的需求。
 
@@ -40,7 +40,7 @@ Nginx 的知识网结构图如下：
 
 图解负载均衡：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151417790.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071137598.webp)
 
 假设有 15 个请求发送到代理服务器，那么由代理服务器根据服务器数量，平均分配，每个服务器处理 5 个请求，这个过程就叫做负载均衡。
 
@@ -50,11 +50,11 @@ Nginx 的知识网结构图如下：
 
 动静分离之前的状态：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151417985.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071137813.webp)
 
 动静分离之后：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151422908)
+![image-20231107113835566](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071138756.png)
 
 
 
@@ -105,7 +105,7 @@ Nginx 的配置文件
 
 并发处理服务的配置，值越大，可以支持的并发处理量越多，但是会受到硬件、软件等设备的制约。
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151418162.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071138484.webp)
 
 ### **②events 块**
 
@@ -113,7 +113,7 @@ Nginx 的配置文件
 
 支持的最大连接数：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151418594.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071138207.webp)
 
 
 
@@ -145,27 +145,27 @@ location 指令说明，该语法用来匹配 url，语法如上：
 
 先配置 Tomcat，因为比较简单，此处不再赘叙，并在 Windows 访问：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151418994.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071138423.webp)
 
 
 
 具体流程如下图：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151418252.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071138510.webp)
 
 修改之前：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151418238)
+![image-20231107113908359](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071139650.png)
 
 
 
 配置如下：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151418933.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071139992.webp)
 
 再次访问：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151422370.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071139583.webp)
 
 ### **③反向代理 2**
 
@@ -176,9 +176,9 @@ location 指令说明，该语法用来匹配 url，语法如上：
 
 **准备：**配置两个 Tomcat，端口分别为 8080 和 8081，都可以访问，端口修改配置文件即可。
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151418044.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071139401.webp)
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151418455.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071139293.webp)
 
 新建文件内容分别添加 8080！！！和 8081！！！
 
@@ -188,13 +188,13 @@ location 指令说明，该语法用来匹配 url，语法如上：
 
 响应如下图：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151419390.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071139244.webp)
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151419463.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071139804.webp)
 
 具体配置如下：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151419333)
+![image-20231107113940213](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071139168.png)
 
 重新加载 Nginx：
 
@@ -204,9 +204,9 @@ location 指令说明，该语法用来匹配 url，语法如上：
 
 访问：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151419133.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071139143.webp)
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151419112.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071139962.webp)
 
 实现了同一个端口代理，通过 edu 和 vod 路径的切换显示不同的页面。
 
@@ -228,9 +228,9 @@ location 指令说明，该语法用来匹配 url，语法如上：
 
 ①修改 nginx.conf，如下图：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151419936.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071139507.webp)
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151419067.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071139974.webp)
 
 ②重启 Nginx：
 
@@ -244,7 +244,7 @@ location 指令说明，该语法用来匹配 url，语法如上：
 
 ![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151419876)
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151419325.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071140368.webp)
 
 负载均衡方式如下：
 
@@ -253,11 +253,11 @@ location 指令说明，该语法用来匹配 url，语法如上：
 - fair，按后端服务器的响应时间来分配请求，相应时间短的优先分配。
 - ip_hash，每个请求按照访问 ip 的 hash 结果分配，这样每一个访客固定的访问一个后端服务器，可以解决 Session 的问题。
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151419918.webp) 
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071140956.webp) 
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151419170.webp) 
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071140051.webp) 
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151420736.webp)
+ ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071140023.png)
 
 ## 动静分离实战
 
@@ -270,29 +270,29 @@ location 指令说明，该语法用来匹配 url，语法如上：
 
 ### 动静分离图析：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151420304.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071141628.webp)
 
 
 
 实战准备，准备静态文件：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151420958.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071141985.webp)
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151420096.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071141875.webp)
 
 配置 Nginx，如下图：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151420585.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071141579.webp)
 
 ## Nginx 高可用
 
 如果 Nginx 出现问题：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151420715.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071141161.webp)
 
 解决办法：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151420067.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071141792.webp)
 
 前期准备：
 
@@ -367,27 +367,27 @@ vrrp_instance VI_1 {
 [root@192 sbin]# systemctl start keepalived.service
 ```
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151420709.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071141818.webp)
 
 
 
 访问虚拟 ip 成功：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151420027.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071141442.webp)
 
 关闭主机 147 的 Nginx 和 Keepalived，发现仍然可以访问。
 
 ## 原理解析
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151420489.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071141494.webp)
 
 如下图，就是启动了一个 master，一个 worker，master 是管理员，worker是具体工作的进程。
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151421046.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071141406.webp)
 
 worker 如何工作？如下图：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151421453.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071142718.webp)
 
 
 

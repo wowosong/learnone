@@ -183,13 +183,13 @@ public class SampleTest {
 
 项目目录如下：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152321207.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071130930.png)
 
 ​																		图片
 
 运行测试类
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152322248.png)																				图片
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071131756.png)																				图片
 
 可以看到，针对单表的基本CRUD操作，只需要创建好实体类，并创建一个继承自`BaseMapper`的接口即可，可谓非常简洁。并且，我们注意到，`User`类中的`managerId`，`createTime`属性，自动和数据库表中的`manager_id`，`create_time`对应了起来，这是因为mp自动做了数据库下划线命名，到Java类的驼峰命名之间的转化。
 
@@ -333,7 +333,7 @@ public void test3() {
 }
 ```
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152322083.webp)																					图片
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071131435.webp)																					图片
 
 ##### selectObjs
 
@@ -370,7 +370,7 @@ public void test3() {
 }
 ```
 
-![image-20210615130128913](https://gitee.com/wowosong/pic-md/raw/master/202212152322947.png)																							图片
+![image-20210615130128913](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071132768.png)																							图片
 
 #### Service CRUD 接口
 
@@ -436,7 +436,7 @@ public class ServiceTest {
 
 4.结果
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152322089.webp)																													图片
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071132898.webp)																													图片
 
 另，`IService`也支持链式调用，代码写起来非常简洁，查询示例如下
 
@@ -464,7 +464,7 @@ public void testChain() {
 }
 ```
 
-![image-20210615130600905](https://gitee.com/wowosong/pic-md/raw/master/202212152322776.png)
+![image-20210615130600905](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071132057.png)
 
 图片
 
@@ -479,7 +479,7 @@ public void testChain() {
 }
 ```
 
-![image-20210615130651332](https://gitee.com/wowosong/pic-md/raw/master/202212152322183.png)
+![image-20210615130651332](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071132696.png)
 
 图片
 
@@ -487,7 +487,7 @@ public void testChain() {
 
 mp让我觉得极其方便的一点在于其提供了强大的条件构造器`Wrapper`，可以非常方便的构造WHERE条件。条件构造器主要涉及到3个类，`AbstractWrapper`、`QueryWrapper`、`UpdateWrapper`，它们的类关系如下
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152322842.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071132146.png)
 
 ​																				图片
 
@@ -654,7 +654,7 @@ public void test3() {
 
 从下图得到的结果来看，对于实体对象中的`name`字段，采用了`like`进行拼接
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152323932.png)																								图片
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071132539.png)																								图片
 
 `@TableField`中配置的`condition`属性实则是一个字符串，`SqlCondition`类中预定义了一些字符串以供选择
 
@@ -708,7 +708,7 @@ public void test3() {
 
 从下图得到的结果，可以看出，`name`属性是用`like`拼接的，而`age`属性是用`>`拼接的
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152323332.png)																						图片
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071133246.png)																						图片
 
 #### allEq方法
 
@@ -727,7 +727,7 @@ public void test3() {
 }
 ```
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152323172.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071133667.png)
 
 ​																				图片
 
@@ -761,7 +761,7 @@ public void test3() {
 }
 ```
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152323087.webp)																						图片
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071133292.webp)																						图片
 
 若想要在执行allEq时，过滤掉Map中的某些元素，可以调用allEq的重载方法`allEq(BiPredicate<R, V> filter, Map<R, V> params)`
 
@@ -778,7 +778,7 @@ public void test3() {
 }
 ```
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152323343.webp)																							图片
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071133714.webp)																							图片
 
 #### lambda条件构造器
 
@@ -833,7 +833,7 @@ public class UpdateTest {
 }
 ```
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152324110.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071133315.png)
 
 ​																				图片
 
@@ -888,11 +888,11 @@ public class User {
 
 执行结果
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152324383.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071133097.png)
 
 ​																			图片
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152324275.png)图片
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071133601.png)图片
 
 再额外演示一下，链式lambda条件构造器的使用
 
@@ -922,7 +922,7 @@ public void testUpdate4() {
 }
 ```
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152324565.png)																									图片
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071133238.png)																									图片
 
 ### 删除操作
 
@@ -1021,7 +1021,7 @@ public void testCustomRawSql() {
 
 结果
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152325317.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071133561.png)
 
 ​																					图片
 
@@ -1127,7 +1127,7 @@ public void testPage() {
 
 3. 结果
 
-   ![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152326649.png)																						图片
+   ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071133198.png)																						图片
 
 4. 其他
 
@@ -1163,7 +1163,7 @@ public void testPage2() {
 ```
 
 3. 结果
-   ![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152327814.webp)
+   ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071133047.webp)
 
 ### AR模式
 
@@ -1215,7 +1215,7 @@ public void insertAr() {
 
 1. 结果
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152327879.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071133290.png)
 
 图片
 
@@ -1322,7 +1322,7 @@ public void testAuto() {
 }结果
 ```
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152327826.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071133934.png)
 
 图片
 
@@ -1458,7 +1458,7 @@ public void test3() {
 
 可以看到拼接出来的SQL，在表名前面添加了前缀
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152327360.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071133503.png)
 
 图片
 
@@ -1523,7 +1523,7 @@ public class GeneratorTest {
 
 运行后，可以看到生成了如下图所示的全套代码
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152327469.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071134358.png)
 
 图片
 
@@ -1635,7 +1635,7 @@ public class LogicDeleteTest {
 
 结果
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152328907.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071134564.png)
 
 图片
 
@@ -1650,7 +1650,7 @@ public void testSelect() {
 }
 ```
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152328731.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071134578.webp)
 
 图片
 
@@ -1665,7 +1665,7 @@ private Integer deleted;
 
 可以看到下图的执行结果中，SELECT中已经不包含deleted这一列了
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152328303.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071134239.png)
 
 图片
 
@@ -1780,7 +1780,7 @@ public void test() {
 }
 ```
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152328556.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071134048.png)
 
 图片
 
@@ -1797,7 +1797,7 @@ public void test() {
 }
 ```
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152328246.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071134253.png)
 
 图片
 
@@ -1882,13 +1882,13 @@ public void testOpLocker() {
 
 执行之前先看一下数据库的情况
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152329995.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071134207.png)
 
 图片
 
 根据下图执行结果，可以看到SQL语句中添加了version相关的操作
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152329966.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071134854.png)
 
 图片
 
@@ -1919,7 +1919,7 @@ public void testOpLocker() {
 }
 ```
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152329935.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071134002.png)
 
 图片
 
@@ -1988,7 +1988,7 @@ executionThreshold=10
 
 随便运行一个测试用例，可以看到该SQL的执行时长被记录了下来
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152329609.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071135427.png)
 
 图片
 
@@ -2083,7 +2083,7 @@ public void testTenant() {
 
 先在mysql中拷贝一下`user2`表
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152330557.png)图片
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071135420.png)图片
 
 配置动态表名拦截器
 
@@ -2129,7 +2129,7 @@ public void testDynamicTable() {
 }
 ```
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212152330455.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071135275.png)
 
 图片
 

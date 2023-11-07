@@ -55,7 +55,7 @@ Nginx支持热部署，它的自动特别容易，并且，几乎可以7天*24�
 
 # 三、Nginx、Apache、Lighttpd 对比
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151422913.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071142480.png)
 
 # 四、Nginx支持功能
 
@@ -81,7 +81,7 @@ Nginx就是性能非常好的反向代理服务器，用来做负载均衡。
 
 正向代理隐藏真实客户端，反向代理隐藏真实服务端
 
-![image-20220110221716590](https://gitee.com/wowosong/pic-md/raw/master/202212151422845.png)
+![image-20220110221716590](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071142869.png)
 
 ## 4. 透明代理
 
@@ -90,7 +90,7 @@ Nginx就是性能非常好的反向代理服务器，用来做负载均衡。
 
 透明代理实践的例子就是时下很多公司使用的行为管理软件。如下图所示
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151423659.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071142476.png)
 
 用户A和用户B并不知道行为管理设备充当透明代理行为，当用户A或用户B向服务器A或服务器B提交请求的时候，透明代理设备根据自身策略拦截并修改用户A或B的报文，并作为实际的请求方，向服务器A或B发送请求，当接收信息回传，透明代理再根据自身的设置把允许的报文发回至用户A或B，如上图，如果透明代理设置不允许访问服务器B，那么用户A或者用户B就不会得到服务器B的数据。
 

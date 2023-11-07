@@ -4,7 +4,7 @@
 
 https://www.cnblogs.com/yanjieli/p/10682064.html
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151414847.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071137206.png)
 
 说明：Keepalived机器同样是nginx负载均衡器。
 
@@ -15,7 +15,7 @@ https://www.cnblogs.com/yanjieli/p/10682064.html
 CentOS Linux release 7.4.1708 (Core)
 ```
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151414213.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071137378.png)
 
 在所有节点上面进行配置
 
@@ -321,7 +321,7 @@ https://www.cnblogs.com/yanjieli/p/10682064.html
 
 集群架构图：
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202212151416664.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071137467.png)
 
 说明：还是按照上面的环境继续做实验，只是修改LB节点上面的keepalived服务的配置文件即可。此时LB-01节点即为Keepalived的主节点也为备节点，LB-02节点同样即为Keepalived的主节点也为备节点。LB-01节点默认的主节点VIP（192.168.1.110），LB-02节点默认的主节点VIP（192.168.1.210）
 

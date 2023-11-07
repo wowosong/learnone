@@ -3958,7 +3958,7 @@ Blog(id=0005, title=Hello Linux, author=林纳斯, createTime=2001-04-21, views=
 
 ### 缓存原理图
 
-![image-20211218122751234](https://gitee.com/wowosong/pic-md/raw/master/202212152338915.png)
+![image-20211218122751234](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071136594.png)
 
 ### MyBatis整合ehcache
 
@@ -5028,7 +5028,7 @@ log4j.appender.A1.layout.ConversionPattern=[%t] [%c]-[%p] %m%n
 
 ### 项目结构
 
-![image-20211218122854798](https://gitee.com/wowosong/pic-md/raw/master/202212152340171.png)
+![image-20211218122854798](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071136187.png)
 
 ### 测试 SSM
 
