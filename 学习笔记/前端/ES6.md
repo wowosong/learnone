@@ -222,29 +222,28 @@ function minus(a,b,...args){
     console.log(a,b,args);
 }
 minus(100,1,2,3,4,5,19);
-```
-```javascript
-  //ES6 允许给函数参数赋值初始值
-  //1. 形参初始值 具有默认值的参数, 一般位置要靠后(潜规则)
-  function add(a,b,c=10) {
-      return a + b + c;
-  }
-  let result = add(1,2);
-  console.log(result);
-  
-  //2. 与解构赋值结合
-  function connect({host="127.0.0.1", username,password, port}){
-      console.log(host);
-      console.log(username);
-      console.log(password);
-      console.log(port);
-  }
-  connect({
-      host: 'atguigu.com',
-      username: 'root',
-      password: 'root',
-      port: 3306
-  });
+
+//ES6 允许给函数参数赋值初始值
+//1. 形参初始值 具有默认值的参数, 一般位置要靠后(潜规则)
+function add(a,b,c=10) {
+    return a + b + c;
+}
+let result = add(1,2);
+console.log(result);
+
+//2. 与解构赋值结合
+function connect({host="127.0.0.1", username,password, port}){
+    console.log(host);
+    console.log(username);
+    console.log(password);
+    console.log(port);
+}
+connect({
+    host: 'atguigu.com',
+    username: 'root',
+    password: 'root',
+    port: 3306
+});
 ```
   注意： **rest 参数非常适合不定个数参数函数的场景**
 
@@ -377,7 +376,7 @@ minus(100,1,2,3,4,5,19);
 
 4. next 方法可以传递实参，作为 yield 语句的返回值
 ## 2.12. Promise
-​		Promise 是 ES6 引入的异步编程的新解决方案。语法上 Promise 是一个构造函数，用来封装异步操作并可以获取其成功或失败的结果。
+Promise 是 ES6 引入的异步编程的新解决方案。语法上 Promise 是一个构造函数，用来封装异步操作并可以获取其成功或失败的结果。
 
 1. Promise 构造函数: Promise (excutor) {}
 
@@ -470,42 +469,42 @@ ES6 提供了更接近传统语言的写法，引入了 Class（类）这个概�
      ```javascript
      //父类
      class Phone {
-       //构造方法
-       constructor(brand, color, price) {
-       this.brand = brand;
-       this.color = color;
-       this.price = price;
-     }
-     //对象方法
-     call() {
-       console.log('我可以打电话!!!')
-       }
+         //构造方法
+         constructor(brand, color, price) {
+             this.brand = brand;
+             this.color = color;
+             this.price = price;
+         }
+         //对象方法
+         call() {
+             console.log('我可以打电话!!!')
+         }
      }
      //子类
      class SmartPhone extends Phone {
-       constructor(brand, color, price, screen, pixel) {
-         super(brand, color, price);
-         this.screen = screen;
-         this.pixel = pixel;
-       }
-       //子类方法
-       photo(){
-       	console.log('我可以拍照!!');
-       }
-       playGame(){
-       	console.log('我可以玩游戏!!');
-       }
-       //方法重写
-       call(){
-       	console.log('我可以进行视频通话!!');
-       }
-       //静态方法
-       static run(){
-       	console.log('我可以运行程序')
-       }
-     	static connect(){
-      	 	console.log('我可以建立连接')
-       }
+         constructor(brand, color, price, screen, pixel) {
+             super(brand, color, price);
+             this.screen = screen;
+             this.pixel = pixel;
+         }
+         //子类方法
+         photo(){
+             console.log('我可以拍照!!');
+         }
+         playGame(){
+             console.log('我可以玩游戏!!');
+         }
+         //方法重写
+         call(){
+             console.log('我可以进行视频通话!!');
+         }
+         //静态方法
+         static run(){
+             console.log('我可以运行程序')
+         }
+         static connect(){
+             console.log('我可以建立连接')
+         }
      }
      //实例化对象
      const Nokia = new Phone('诺基亚', '灰色', 230);
@@ -608,16 +607,16 @@ Rest 参数与 spread 扩展运算符在 ES6 中已经引入，不过 ES6 中只
 
 ```javascript
 function connect({host, port, ...user}) {
-  console.log(host);
-  console.log(port);
-  console.log(user);
+    console.log(host);
+    console.log(port);
+    console.log(user);
 }
 connect({
-  host: '127.0.0.1',
-  port: 3306,
-  username: 'root',
-  password: 'root',
-  type: 'master'
+    host: '127.0.0.1',
+    port: 3306,
+    username: 'root',
+    password: 'root',
+    type: 'master'
 });
 ```
 
@@ -671,7 +670,7 @@ const result = reg.exec(str);
 let result;
 let data = [];
 while(result = reg.exec(str)){
-data.push({title: result[1], time: result[2]});
+    data.push({title: result[1], time: result[2]});
 }
 //输出结果
 console.log(data);
