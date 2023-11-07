@@ -175,7 +175,7 @@ kubernetes-study
 | -- index.html        # 网页样式文件
 ```
 
-![image-20220504095232033](https://gitee.com/wowosong/pic-md/raw/master/202212151049386.png)
+![image-20220504095232033](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071156850.png)
 
 ## [前置内容](#/README?id=%e5%89%8d%e7%bd%ae%e5%86%85%e5%ae%b9)
 
@@ -247,19 +247,19 @@ Kubernetes，首字母 K，尾字母 s，中间 8 个字母，简称 K8s。
 
 图 1
 
-![](assets/1667720090-e90cd09fbd3e5e11b6fee9b4e02e3967.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071156847.png)
 
 * * *
 
 图 2
 
-![](assets/1667720090-d21dc8cbef92787eae0875d975caa861.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071156684.png)
 
 * * *
 
 图 3
 
-![](assets/1667720090-dfaa71e6c6d82b6a0da69c5124f9f945.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071156430.png)
 
 * * *
 
@@ -343,7 +343,7 @@ Kubernetes，首字母 K，尾字母 s，中间 8 个字母，简称 K8s。
 
 * * *
 
-![](assets/1667720090-d7982291be9a6d5a02c68e26843d1226.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071156616.png)
 
 ## [2 从零开始搭建 K8s 集群](#/README?id=_2-%e4%bb%8e%e9%9b%b6%e5%bc%80%e5%a7%8b%e6%90%ad%e5%bb%ba-k8s-%e9%9b%86%e7%be%a4)
 
@@ -2022,7 +2022,7 @@ kubectl create --help
 
 参考资料：[YAML 入门教程 | 菜鸟教程](https://www.runoob.com/w3cnote/yaml-intro.html)
 
-![09-yaml文件说明](.\index.assets\09-yaml文件说明-16707689006692.png)
+![09-yaml文件说明](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071156466.png)
 
 #### [3.2.1 YAML 概述](#/README?id=_321-yaml-%e6%a6%82%e8%bf%b0)
 
@@ -2121,7 +2121,7 @@ kubectl get deploy nginx -o=yaml --export > nginx.yaml
 
 ### [3.3 Pod](#/README?id=_33-pod)
 
-![11-Pod](.\index.assets\11-Pod.png)
+![11-Pod](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071156645.png)
 
 #### [3.3.1 Pod 概述](#/README?id=_331-pod-%e6%a6%82%e8%bf%b0)
 
@@ -2159,7 +2159,7 @@ kubectl get deploy nginx -o=yaml --export > nginx.yaml
 
 **1、共享网络**【容器通过 **namespace** 和 **cgroup** 进行隔离】
 
-![11-1-Pod实现机制-共享网络](.\index.assets\11-1-Pod实现机制-共享网络.png)
+![11-1-Pod实现机制-共享网络](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071157320.png)
 
 Pod 中容器通信过程：
 
@@ -2170,7 +2170,7 @@ Pod 中容器通信过程：
 
 **2、共享存储**【Pod 持久化数据，专门存储到某个地方中，使用 **Volumn 数据卷进行共享存储**】
 
-![11-2-Pod实现机制-共享存储](.\index.assets\11-2-Pod实现机制-共享存储.png)
+![11-2-Pod实现机制-共享存储](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071157547.png)
 
 #### [3.3.3 Pod 镜像拉取策略](#/README?id=_333-pod-%e9%95%9c%e5%83%8f%e6%8b%89%e5%8f%96%e7%ad%96%e7%95%a5)
 
@@ -2178,7 +2178,7 @@ Pod 中容器通信过程：
 
 拉取策略主要分为了以下几种：
 
-![12-Pod镜像拉取策略](.\index.assets\12-Pod镜像拉取策略.png)
+![12-Pod镜像拉取策略](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071157806.png)
 
 *   **`IfNotPresent`：默认值，镜像在宿主机上不存在才拉取**
 *   **`Always`：每次创建 Pod 都会重新拉取一次镜像**
@@ -2188,7 +2188,7 @@ Pod 中容器通信过程：
 
 > 也就是我们 Pod 在进行调度的时候，可以对调度的资源进行限制，例如我们限制 Pod 调度是使用的资源是 2C4G，那么在调度对应的 node 节点时，**只会占用对应的资源，对于不满足资源的节点，将不会进行调度**。
 
-![13-Pod资源限制](.\index.assets\13-Pod资源限制-167042003972125.png)
+![13-Pod资源限制](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071157976.png)
 
 这里分了两个部分：
 
@@ -2201,7 +2201,7 @@ Pod 中容器通信过程：
 
 重启策略主要分为以下三种：
 
-![14-Pod重启策略](.\index.assets\14-Pod重启策略-167042002626522.png)
+![14-Pod重启策略](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071157834.png)
 
 *   `Always`：当容器终止退出后，总是重启容器，默认策略 【nginx 等，需要不断提供服务】
 *   `OnFailure`：当容器异常退出（退出状态码非 0）时，才重启容器。
@@ -2227,7 +2227,7 @@ livenessProbe
 readinessProbe
 ```
 
-![15-Pod健康检查](.\index.assets\15-Pod健康检查-167041994433316.png)
+![15-Pod健康检查](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071157775.png)
 
 Probe 支持以下三种检查方式
 
@@ -2239,7 +2239,7 @@ Probe 支持以下三种检查方式
 
 创建 Pod 流程：
 
-![16-创建Pod流程](.\index.assets\16-创建Pod流程-167041997510719.png)
+![16-创建Pod流程](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071157807.png)
 
 * 首先创建一个 pod，然后创建一个 API Server 和 Etcd【**把创建出来的信息存储在 etcd 中**】
 
@@ -2247,19 +2247,19 @@ Probe 支持以下三种检查方式
 
 * **在 node 节点，会通过 `kubelet -- apiserver` 读取 etcd ，拿到分配在当前 node 节点上的 pod，然后通过 docker 创建容器**
 
-  ![image-20221207205130714](.\index.assets\image-20221207205130714-16704174921083.png)
+  ![image-20221207205130714](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071157876.png)
 
-  ![image-20221207205556053](.\index.assets\image-20221207205556053.png)
+  ![image-20221207205556053](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071157043.png)
 
-  ![17-1-Pod调度-节点亲和性](.\index.assets\17-1-Pod调度-节点亲和性-167041830180910.png)
+  ![17-1-Pod调度-节点亲和性](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071157099.png)
 
-  ![18-Pod调度-污点和污点容忍](.\index.assets\18-Pod调度-污点和污点容忍-16704182551907.png)
+  ![18-Pod调度-污点和污点容忍](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071157005.png)
 
 ### [3.2 Controller](#/README?id=_32-controller)
 
 #### [3.2.1 Controller 内容简介](#/README?id=_321-controller-%e5%86%85%e5%ae%b9%e7%ae%80%e4%bb%8b)
 
-![19-Controller控制器（deployment）](.\index.assets\19-Controller控制器（deployment）-167041988499513.png)
+![19-Controller控制器（deployment）](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071157767.png)
 
 *   什么是 Controler
 *   Pod 和 Controller 的关系
@@ -2379,7 +2379,7 @@ service/web1         NodePort    10.111.61.143   <none>        80:30344/TCP   6s
 
 然后我们访问对应的 url，即可看到 nginx 了 `http://192.168.44.133:30344/`
 
-![](assets/1667720090-733ade2ab96cfeac45d52474671db883.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071158962.png)
 
 #### 3.2.6 升级回滚和弹性收缩
 
@@ -2500,9 +2500,9 @@ web-bbcf684cb-vnk5w   0/1     ContainerCreating   0          4s
 
 ### Service的意义
 
-![20-Service](.\index.assets\20-Service-167042160454828.png)
+![20-Service](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071158527.png)
 
-![21-controller](.\index.assets\21-controller-167042302963331.png)
+![21-controller](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071158029.png)
 
 ### [3.3 Kubernetes 配置管理](#/README?id=_33-kubernetes-%e9%85%8d%e7%bd%ae%e7%ae%a1%e7%90%86)
 
@@ -2514,7 +2514,7 @@ web-bbcf684cb-vnk5w   0/1     ContainerCreating   0          4s
 
  对 用户名 和 密码 进行加密
 
-![22-配置管理-secret](.\index.assets\22-配置管理-secret-167042511589034.png)
+![22-配置管理-secret](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071158123.png)
 
 2、Secret 三种类型
 
@@ -2666,7 +2666,7 @@ SECRET_PASSWORD=1f1f1f1f1f
 
  配置文件
 
-![23-配置管理-configMap](.\index.assets\23-配置管理-configMap-167042534711837.png)
+![23-配置管理-configMap](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071158066.png)
 
 2、创建
 
@@ -2864,7 +2864,7 @@ root@cm-pod-test004:/usr/local/tomcat# ls /conf
 
 * 如果访问 pod 需要 serviceAccount
 
-  ![24-k8s集群安全机制](.\index.assets\24-k8s集群安全机制-16705613684962.png)
+  ![24-k8s集群安全机制](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071158510.png)
 
 
 
@@ -3024,7 +3024,7 @@ kubectl get role,rolebinding -n mytest
 
 **监控平台架构图**
 
-![](assets/1667720090-19b7c4e28c92e1e4b50cd8cce9821e2d.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071158535.png)
 
 ### [4.3 部署 Pormetheus](#/README?id=_43-%e9%83%a8%e7%bd%b2-pormetheus)
 
@@ -3385,7 +3385,7 @@ kubectl get pod,svc -n kube-system | grep prometheus
 # 浏览器访问：[ip:port] 192.168.44.133:30003
 ```
 
-![](assets/1667720090-c5327462e6e4438ea46cf6f4faaf8836.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071158507.png)
 
 ### [4.4 部署 Grafana](#/README?id=_44-%e9%83%a8%e7%bd%b2-grafana)
 
@@ -3516,15 +3516,15 @@ kubectl get pod,svc -n kube-system | grep grafana
 
 **登录**
 
-![](assets/1667720090-659917c094a20362a76c05082c21f7e9.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071158300.png)
 
 **添加数据源 Prometheus**
 
-![](assets/1667720090-3d86a54c435d27c91fbc813b26ba101f.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071159365.png)
 
 **展示**
 
-![](assets/1667720090-842372d5ee8a5f5ab15685a77b04aa12.png) ![](assets/1667720090-5041980cd37aa424fdc99cd156720720.png) ![](assets/1667720090-49fa15aeee5d90a1ddf8d3e9352bddac.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071159372.png) ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071159195.png) ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071159425.png)
 
 ## [5 从零搭建高可用 Kubernetes 集群](#/README?id=_5-%e4%bb%8e%e9%9b%b6%e6%90%ad%e5%bb%ba%e9%ab%98%e5%8f%af%e7%94%a8-kubernetes-%e9%9b%86%e7%be%a4)
 
@@ -3538,7 +3538,7 @@ kubectl get pod,svc -n kube-system | grep grafana
 *   对外需要一个统一的 VIP
     *   【作用 1】虚拟 ip 对外进行访问
 
-![](assets/1667720090-a2248ad590ed04d299072c522ca94f2d.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071159666.png)
 
 ### [5.2 高可用集群技术细节](#/README?id=_52-%e9%ab%98%e5%8f%af%e7%94%a8%e9%9b%86%e7%be%a4%e6%8a%80%e6%9c%af%e7%bb%86%e8%8a%82)
 
@@ -4213,7 +4213,7 @@ docker run -d -p 8111:8111 java-demo-01:latest -t
 
 访问：`ip:8111/user`
 
-![](assets/1667720090-0d010cc7b2d643d226d30061a6a51a7f.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071159479.png)
 
 上传到镜像仓库：（本地仓库）
 
@@ -4238,7 +4238,7 @@ docker start my_registry  # 主节点上执行（因为私人仓库在主节点�
 
 访问：`ip:5000/v2/_catalog`查看本地仓库镜像
 
-![](assets/1667720090-6a14650c7e9a5c605243c549ea95d63c.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071159638.png)
 
 测试本地私有仓库：
 
@@ -4249,7 +4249,7 @@ docker push 192.168.44.133:5000/test/java-demo-01:v1
 
 访问：`ip:5000/v2/_catalog`查看本地仓库镜像
 
-![](assets/1667720090-1d6c7e7e86123af72549305952659a3e.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071159489.png)
 
 在 node 节点上测试：
 
@@ -4274,7 +4274,7 @@ kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP          6d
 
 浏览器访问：`ip:31954`
 
-![](assets/1667720090-6cf880b8d8de73bd7131068cbfd49005.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071159552.png)
 
 其实不一定非要部署 jar 包
 

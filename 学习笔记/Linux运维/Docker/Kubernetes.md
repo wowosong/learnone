@@ -150,7 +150,9 @@ Kubernetes 校验节点可用依赖于 ID。在当前的版本中，有两个接
 
 下面这张图完整展示了 Kubernetes 的运行原理。
 
-![Kubernetes 架构](https://vuepress.mirror.docker-practice.com/assets/img/k8s_architecture.1cde0882.png)
+<img src="https://vuepress.mirror.docker-practice.com/assets/img/k8s_architecture.1cde0882.png" alt="Kubernetes 架构" />
+
+
 
 可见，Kubernetes 首先是一套分布式系统，由多个节点组成，节点分为两类：一类是属于管理平面的主节点/控制节点（Master Node）；一类是属于运行平面的工作节点（Worker Node）。
 
@@ -181,6 +183,6 @@ Kubernetes 校验节点可用依赖于 ID。在当前的版本中，有两个接
 - **kubelet 是工作节点执行操作的 agent，负责具体的容器生命周期管理，根据从数据库中获取的信息来管理容器，并上报 pod 运行状态等；**
 - kube-proxy 是一个简单的网络访问代理，同时也是一个 Load Balancer。它负责将访问到某个服务的请求具体分配给工作节点上的 Pod（同一类标签）。
 
-![Proxy 代理对服务的请求](https://vuepress.mirror.docker-practice.com/assets/img/kube-proxy.e356ec8f.png)
+![Proxy 代理对服务的请求](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071153323.png)
 
 # kubectl 使用
