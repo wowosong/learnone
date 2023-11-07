@@ -243,7 +243,8 @@ spring:
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
   type-aliases-package: com.atguigu.springcloud.entities
-  #它一般对应我们的实体类所在的包，这个时候会自动取对应包中不包括包名的简单类名作为包括包名的别名。多个package之间可以用逗号或者分号等来进行分隔（value的值一定要是包的全类名）
+  #它一般对应我们的实体类所在的包，这个时候会自动取对应包中不包括包名的简单类名作为包括包名的别名。
+  #多个package之间可以用逗号或者分号等来进行分隔（value的值一定要是包的全类名）
 ```
 
 ### 4.主启动类
@@ -264,9 +265,9 @@ public class PaymentMain8001 {
 
 ```sql
 create table (
-  id bigint(20) not null auto_increment comment 'id',
-  serial varchar(200) default '',
-  primary key(`id`)
+    id bigint(20) not null auto_increment comment 'id',
+    serial varchar(200) default '',
+    primary key(`id`)
 )engine=InnoDB AUTO_INCREMENT=1 default charset=utf8
 ```
 
@@ -308,7 +309,8 @@ public interface PaymentDao{
 
 ```xml
 <mapper namespace="com.atguigu.springcloud.dao.PaymentDao">
-    <insert id="create" parameterType="com.atguigu.springcloud.entities.Payment" useGeneratedKeys="true" keyProperty="id">
+    <insert id="create" parameterType="com.atguigu.springcloud.entities.Payment"
+            useGeneratedKeys="true" keyProperty="id">
         insert into payment(serial) values(#{serial})
     </insert>
     <select id="getPaymentById" resultMap="BaseResultMap" paramterType='Long'>
@@ -418,7 +420,7 @@ public class PaymentController {
 
 ### **2.yml配置文件**
 
-```yaml
+```yml
 server:
 	port: 80
 ```
@@ -454,7 +456,7 @@ public class ApplicationContextConfig{
 @Slf4j
 @RestController
 public class OrderController {
-//    单机版
+	//    单机版
     private  static final  String PAYMENT_URL="http://localhost:8001"; 
     @Resource
     private RestTemplate restTemplate;
@@ -471,8 +473,6 @@ public class OrderController {
     }
 }
 ```
-
-
 
 ## 5.重构
 
@@ -520,37 +520,26 @@ public class OrderController {
 
 当服务很多时，单靠代码手动管理是很麻烦的，需要一个公共组件，统一管理多服务，包括服务是否正常运行，等
 
-Eureka用于**<span style="color:red">服务注册</span>**，目前官网**<span style="color:red">已经停止更新</span>**
+Eureka用于<span style="color:red">服务注册</span>**，目前官网**<span style="color:red">已经停止更新</span>
 
 **什么是服务治理**
-
-```
 Spring Cloud封装了Netflix公司开发的Eureka模块来实现**服务治理**
-在传统的rpc远程调用框架中，管理每个服务与服务之间的依赖关系比较复杂，管理比较复杂，所以需要使用服务治理，管理服务于服务之间的依赖关系，可以实现服务调用、负载均衡、容错等，实现服务发现与注册。
-```
-
+在传统的rpc远程调用框架中，管理每个服务与服务之间的依赖关系比较复杂，管理比较复杂，
+所以需要使用服务治理，管理服务于服务之间的依赖关系，可以实现服务调用、负载均衡、容错等，实现服务发现与注册。
 **什么是服务注册与发现**
-
-```
 Eureka采用了CS的设计架构，Eureka Server作为服务注册功能的服务器，它是服务注册中信。而系统中的其他微服务，使用Eureka的客户端连接到Eureka Server并维持心跳连接。这样系统的维护人员就可以通过Eureka Server来监控系统中各个微服务是否正常运行。
 在服务注册与发现中，有一个注册中心。当服务器启动的时候，会把当前自己服务器的信息。比如服务地址、通讯地址等以别名方式注册到注册中心上。另一方（消费者-服务提供者），以该别名的方式去注册中心上获取到实际的服务通讯地址，然后再实现本地RPC调用。RPC远程调用框架核心设计思想：在于注册中心，因为使用注册中心管理每个服务与服务之间的一个依赖关系（服务治理概念）。在任何rpc远程框架中，都会有一个注册中心（存放服务地址相关信息（接口地址））
-```
-
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071551573.png)
 
 **<span style="color:blue;font:bold">Eureka包含两个组件：Eureka Server和Eureka Client</span>**
 
-**<span style="color:red">Eureka Server</span>**提供服务注册服务
+<span style="color:red;font-weight:bolder">Eureka Server</span>提供服务注册服务
 
-```j
 各个微服务节点通过配置启动后，会在Eureka Server中进行注册，这样Eureka Server中的服务注册表中将会存储所欲可用服务节点的信息，服务节点的信息可以在界面中直观看到。
-```
 
-**<span style="color:red">Eureka Client</span>**通过注册中心进行访问
+<span style="color:red;font-weight:bolder">Eureka Client</span>通过注册中心进行访问
 
-```jav
 是一个Java客户端，用于简化Eureka Server 的交互，客户端同时也具备一个内置的、使用轮询(round-robin)负载算法的负载均衡器。在应用启动后，将会向Eureka Server发送心跳(默认周期为30秒)。如果Eureka Server在多个心跳周期内没有接收到某个节点的心跳。Eureka Server将会从服务注册表中把这个服务节点移除(默认90秒)
-```
 
 ### **单机版eureka:**
 
@@ -579,7 +568,31 @@ Eureka采用了CS的设计架构，Eureka Server作为服务注册功能的服�
 
 #### 3.配置文件:
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071551902.png)
+```yml
+server:
+  port: 7001
+
+eureka:
+  instance:
+    #    hostname: localhost # eurka服务端的实例名称
+    hostname: eureka7001.com
+  client:
+    #    不向euraka注册自己
+    register-with-eureka: false
+    #    false表示自己端就是注册中心，我的职责就是维护实例，并不需要去检索服务
+    fetch-registry: false
+
+    service-url:
+      #      单机下配置
+      #      设置与Eurka Server交互端地址查询服务和注册服务都需要依赖这个地址
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+      #      集群下配置
+      #defaultZone: http://eureka7002.com:7002/eureka/
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 2000
+```
 
 #### 4.主启动类
 
@@ -629,7 +642,8 @@ eureka:
   client:
       #表示是否将自己注册进EurekaServer，默认为true。
       register-with-eureka: true
-      #是否从Eureka Server抓取已有的注册信息，默认为true。单节点无所谓，集群必须设置为true，才能配合ribbon使用负载均衡
+      #是否从Eureka Server抓取已有的注册信息，默认为true。单节点无所谓，集群必须设置为true，
+      #才能配合ribbon使用负载均衡
       fetchRegistry: true
       service-url:
         defaultZone: http://localhost:7001/eureka
@@ -645,17 +659,13 @@ eureka:
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071551465.png)
 
- ```java
 1.就是pay模块启动时，注册自己，并且自身信息也放入eureka
 2.order模块，首先也注册自己，放入信息，当要调用pay时，先从eureka拿到pay的调用地址
 3.通过HttpClient调用并且还会缓存一份到本地，每30秒更新一次
- ```
 
 <span style="color:red">问题：微服务RPC远程服务调用最核心的是什么？</span>
 
-```
 高可用，试想你的注册中心只有一个only one。它出了故障就呵呵了，会导致整个服务环境不可用，所以解决办法：搭建Eureka注册中心集群，实现负载均衡+故障容错
-```
 
 **集群构建原理:**
 
@@ -723,7 +733,8 @@ eureka:
   client:
     #表示是否将自己注册进EurekaServer，默认为true。
 	register-with-eureka: true
-	#是否从Eureka Server抓取已有的注册信息，默认为true。单节点无所谓，集群必须设置为true，才能配合ribbon使用负载均衡
+	#是否从Eureka Server抓取已有的注册信息，默认为true。
+	#单节点无所谓，集群必须设置为true，才能配合ribbon使用负载均衡
     fetch-registry: true
     service-url:
       #defaultZone: http://eureka7001.com:7001/eureka/
@@ -792,11 +803,13 @@ eureka:
   client:
     #表示是否将自己注册进EurekaServer，默认为true。
 	register-with-eureka: true
-	#是否从Eureka Server抓取已有的注册信息，默认为true。单节点无所谓，集群必须设置为true，才能配合ribbon使用负载均衡
+	#是否从Eureka Server抓取已有的注册信息，默认为true。
+	#单节点无所谓，集群必须设置为true，才能配合ribbon使用负载均衡
     fetch-registry: true
     service-url:
       #defaultZone: http://eureka7001.com:7001/eureka/ 单机版
- 		defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/  #集群版
+ 	   defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/ 
+       #集群版
   instance:
     instance-id: payment8001
     prefer-ip-address: true #访问路径可以显示IP地址
@@ -817,20 +830,23 @@ eureka:
 public class PaymentController {
     @Autowired
     private PaymentService paymentService;
-    
+
     @Resource
     private DiscoveryClient discoveryClient;
-    
+
     @Value("${server.port}")
     private  String serverPort;
-    
+
     @GetMapping(value = "/payment/discovery")
     public Object discovery(){
         List<String> services = discoveryClient.getServices();//拿到所有注册的信息
         services.forEach(System.out::println);
-        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");//拿到指定服务名称的所有服务的注册信息，比如pay模块，他们两个的名字都是一样的，所有这里返回的是一个list
-        for (ServiceInstance instance : instances) { log.info("instance:"+instance.getHost()+",port:"+instance.getPort()+","+"url:"+instance.getUri());
-        }
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+        //拿到指定服务名称的所有服务的注册信息，比如pay模块，他们两个的名字都是一样的，所有这里返回的是一个list
+        for (ServiceInstance instance : instances) {
+          log.info("instance:"+instance.getHost()+",port:"+
+                   instance.getPort()+","+"url:"+instance.getUri());
+            }
         return this.discoveryClient;
     }
 }
@@ -1176,8 +1192,6 @@ public class PaymentController {
 
 #### 6，启动服务
 
-####  
-
 ### 3，创建新order模块
 
 cloud-consul-order-80
@@ -1363,7 +1377,8 @@ public CommonResult<Payment> getId(@PathVariable("id") String id) {
 @GetMapping("/consumer/payment/getEntity/{id}")
 public CommonResult<Payment> getId1(@PathVariable("id") String id) {
     //返回对象为ResponseEntity对象，包含了响应中的一些重要信息，比如响应头、响应状态码、响应体等
-    ResponseEntity<CommonResult> entity = restTemplate.getForEntity(PAYMENT_URL + "/payment/getPaymentByid/" + id, CommonResult.class);
+    ResponseEntity<CommonResult> entity = 
+        restTemplate.getForEntity(PAYMENT_URL + "/payment/getPaymentByid/" + id, CommonResult.class);
     if (entity.getStatusCode().is2xxSuccessful()) {
         return entity.getBody();//这个ResponseEntity中有判断，这里是判断，状态码是不是2xx,
     } else {
@@ -1606,7 +1621,8 @@ public class OrderFeiginMain80 {
 
 ```java
 @Component
-@FeignClient(name = "CLOUD-PAYMENT-SERVICE"/*指定这个接口对应要调用的微服务的服务名称*/,configuration = FeignLogLevelConfig.class)
+/*指定这个接口对应要调用的微服务的服务名称*/
+@FeignClient(name = "CLOUD-PAYMENT-SERVICE",configuration = FeignLogLevelConfig.class)
 public interface PaymentFeignService {
 
     @GetMapping(value = "/payment/getPaymentByid/{id}")
@@ -1788,7 +1804,8 @@ public class PaymentHystrix8001 {
 public class PaymentHystrixService {
     //服务降级
     public String payment_ok(Integer id) {
-        return "线程池：" + Thread.currentThread().getName() + "payment_ok, id: " + id + "\t" + "哈哈";
+        return "线程池：" + Thread.currentThread().getName()
+            + "payment_ok, id: " + id + "\t" + "哈哈";
     }
     public String payment_timeout(Integer id) {
         int time = 13;
@@ -1797,7 +1814,8 @@ public class PaymentHystrixService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "线程池：" + Thread.currentThread().getName() + "payment_timeout, id: " + id + "\t" + "哈哈" + "耗时：" + time + "秒";
+        return "线程池：" + Thread.currentThread().getName() 
+            + "payment_timeout, id: " + id + "\t" + "哈哈" + "耗时：" + time + "秒";
     }
 }
 ```
@@ -1831,11 +1849,9 @@ public class paymentController {
 
 ##### 7，先测试:
 
-```java
 此时使用压测工具，并发20000个请求，请求会延迟的那个方法，
 压测中，发现，另外一个方法并没有被压测，但是我们访问它时，却需要等待
 这就是因为被压测的方法它占用了服务器大部分资源，导致其他请求也变慢了
-```
 
 ##### 8，先不加入hystrix，
 
@@ -2050,12 +2066,10 @@ feign:
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555631.png)
 
-```java
-它的运行逻辑是:
+**它的运行逻辑是:
 	当请求过来，首先还是通过Feign远程调用pay模块对应的方法
     但是如果pay模块报错，调用失败，那么就会调用PayMentFalbackService类的
-    当前同名的方法，作为降级方法
-```
+    当前同名的方法，作为降级方法**
 
 ###### 4，启动测试
 
@@ -2104,7 +2118,6 @@ IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法�
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071556752.png)
 
-```java
 断路器的打开和关闭，是按照一下5步决定的
     1，并发此时是否达到我们指定的阈值
     2，错误百分比，比如我们配置了60%，那么如果并发请求中，10次有6次是失败的，就开启断路器
@@ -2112,7 +2125,6 @@ IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法�
     4，这个服务的断路器开启，所有请求无法访问
     5，在我们的时间窗口期，期间，尝试让一些请求通过(半开状态)，如果请求还是失败，证明断路器还是开启状态，服务没有恢复
     如果请求成功了，证明服务已经恢复，断路器状态变为close关闭状态
-```
 
 ##### 2，修改controller
 
@@ -2166,22 +2178,20 @@ IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法�
 
 **熔断整体流程:**
 
-```java
-1 请求进来，首先查询缓存，如果缓存有，直接返回
-  如果缓存没有，--->2
-2 查看断路器是否开启，如果开启的，Hystrix直接将请求转发到降级返回，然后返回
-  如果断路器是关闭的，
-  判断线程池等资源是否已经满了，如果已经满了
-  也会走降级方法
-  如果资源没有满，判断我们使用的什么类型的Hystrix，决定调用构造方法还是run方法
-  然后处理请求
-  然后Hystrix将本次请求的结果信息汇报给断路器，因为断路器此时可能是开启的
-  (因为断路器开启也是可以接收请求的)
-  断路器收到信息，判断是否符合开启或关闭断路器的条件，
-  如果本次请求处理失败，又会进入降级方法
-  如果处理成功，判断处理是否超时，如果超时了，也进入降级方法
-  最后，没有超时，则本次请求处理成功，将结果返回给controller
-```
+- 1.请求进来，首先查询缓存，如果缓存有，直接返回
+    如果缓存没有，--->2
+-  2.查看断路器是否开启，如果开启的，Hystrix直接将请求转发到降级返回，然后返回
+    如果断路器是关闭的，
+    判断线程池等资源是否已经满了，如果已经满了
+    也会走降级方法
+    如果资源没有满，判断我们使用的什么类型的Hystrix，决定调用构造方法还是run方法
+    然后处理请求
+    然后Hystrix将本次请求的结果信息汇报给断路器，因为断路器此时可能是开启的
+    (因为断路器开启也是可以接收请求的)
+    断路器收到信息，判断是否符合开启或关闭断路器的条件，
+    如果本次请求处理失败，又会进入降级方法
+    如果处理成功，判断处理是否超时，如果超时了，也进入降级方法
+    最后，没有超时，则本次请求处理成功，将结果返回给controller
 
 ### Hystrix服务监控:
 
@@ -2444,10 +2454,8 @@ public class Gateway9572 {
 
 **启动7001，8001，9527**
 
-```java
 如果启动GateWay报错
 可能是GateWay模块引入了web和监控的starter依赖，需要移除
-```
 
 访问:
 
@@ -2662,7 +2670,8 @@ public class myGatewayFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         log.info("*************myGatewayFilter*************:{}",new Date());
-        String username = exchange.getRequest().getQueryParams().getFirst("username");//获取到请求参数username
+        String username = exchange.getRequest().getQueryParams().getFirst("username");
+        //获取到请求参数username
         //如果username为空，就直接过滤掉，不走路由
         if(username==null){
             exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
@@ -2691,10 +2700,8 @@ public class myGatewayFilter implements GlobalFilter, Ordered {
 
 **微服务面临的问题**
 
-```java
-可以看到，每个微服务都需要一个配置文件，并且，如果有几个微服务都需要连接数据库
-那么就需要配4次数据库相关配置，并且当数据库发生改动，那么需要同时修改4个微服务的配置文件才可以
-```
+**可以看到，每个微服务都需要一个配置文件，并且，如果有几个微服务都需要连接数据库**
+**那么就需要配4次数据库相关配置，并且当数据库发生改动，那么需要同时修改4个微服务的配置文件才可以**
 
 所以有了springconfig配置中心
 
@@ -2972,10 +2979,8 @@ public class ConfigClientController {
 
 ConfigClient实例都监听MQ中同一个topic(默认是SpringCloudBus)。当一个服务刷新数据的时候，它会把这个信息放入到Topic中，这样其他监听同一Topic的服务就能得到通知，然后去更新自身的配置。
 
-```java
-就是通过消息队列达到广播的效果
-我们要广播每个消息时，主要放到某个topic中，所有监听的节点都可以获取到
-```
+**就是通过消息队列达到广播的效果**
+**我们要广播每个消息时，主要放到某个topic中，所有监听的节点都可以获取到**
 
 ### 使用Bus:
 
@@ -3104,13 +3109,11 @@ ConfigClient实例都监听MQ中同一个topic(默认是<span style="color:red">
 
 ## Spring Cloud Stream:
 
-```java
-现在一个很项目可能分为三部分:
-    前端--->后端---->大数据
-    而后端开发使用消息中间件，可能会使用RabbitMq
-    而大数据开发，一般都是使用Kafka，
+**现在一个很项目可能分为三部分:**
+    **前端--->后端---->大数据**
+    **而后端开发使用消息中间件，可能会使用RabbitMq**
+    **而大数据开发，一般都是使用Kafka，**
     那么一个项目中有多个消息中间件，对于程序员，因为人员都不友好
-```
 
 而Spring Cloud Stream就类似jpa，屏蔽底层消息中间件的差异，程序员主要操作Spring Cloud Stream即可，不需要管底层是kafka还是rabbitMq。
 
@@ -3165,9 +3168,7 @@ Spring Cloud Stream为一些供应商的消息中间件产品提供了个性化�
 
 ### **Spring Cloud Stream 通信模式:**
 
-```
-Stream中的消息通信方式遵循了发布-订阅模式
-```
+**Stream中的消息通信方式遵循了发布-订阅模式**
 
 Topic主题进行广播
 
@@ -3182,15 +3183,11 @@ Topic主题进行广播
 
 **Source和Sink：**
 
-```
-简单的可理解为参照对象是Spring Cloud Stream自身，从Stream发布消息就是输出，接受消息就是输入。
-```
+**简单的可理解为参照对象是Spring Cloud Stream自身，从Stream发布消息就是输出，接受消息就是输入。**
 
 **Channel**
 
-```
 通道，是队列Queue的一种抽象，在消息通讯系统中就是实现存储和转发的媒介。
-```
 
 ```java
 类似flume中的channel，source，sink 估计是借鉴(抄袭)的
@@ -3241,15 +3238,18 @@ public interface IMessageProvicderService {
 ```
 
 ```java
-@EnableBinding(Source.class)//表示当前这个类是source，负责生产消息，并且发送给channel
+@EnableBinding(Source.class)
+//表示当前这个类是source，负责生产消息，并且发送给channel
 @Slf4j
 public class IMessageProviderServiceImpl  implements IMessageProvicderService {
     @Resource
-    private MessageChannel output;//channel，我们将消息发送到这个channel，消息发送管道
+    private MessageChannel output;
+    //channel，我们将消息发送到这个channel，消息发送管道
     @Override
     public String send() {
         String uuid= UUID.randomUUID().toString();
-        output.send(MessageBuilder.withPayload(uuid).build());//发送，build方法会构建一个Message类
+        output.send(MessageBuilder.withPayload(uuid).build());
+        //发送，build方法会构建一个Message类
         log.info("Send Message:{}",uuid);
         return uuid;
     }
@@ -3314,7 +3314,8 @@ public class StreamRabbitMQMain8802 {
 
 ```java
 @Component
-@EnableBinding(Sink.class)//启动绑定，就是表示当前类是sink，负责介绍channel发送过来的数据进行消费
+@EnableBinding(Sink.class)
+//启动绑定，就是表示当前类是sink，负责介绍channel发送过来的数据进行消费
 @Slf4j
 public class MessageRecieverController {
 
@@ -3724,10 +3725,8 @@ curl -X PUT '$NACOS_SERVER:8848/nacos/v1/ns/operator/switches?entry=serverMode&v
 
 ### 使用Nacos作为配置中心:
 
-```
-Nacos同Spring Cloud Config一样，在项目初始化时，要保证先从配置中心进行配置拉取，拉取配置之后，才能保证项目的正常启动
-SpringBoot中配置文件的加载是存在优先级顺序的，bootstrap优先级高于application
-```
+**Nacos同Spring Cloud Config一样，在项目初始化时，要保证先从配置中心进行配置拉取，拉取配置之后，才能保证项目的正常启动**
+**SpringBoot中配置文件的加载是存在优先级顺序的，bootstrap优先级高于application**
 
 **需要创建配置中心的客户端模块**
 
@@ -3779,11 +3778,8 @@ public class NacosConfigController {
 } 
 ```
 
-```java
-可以看到，这里也添加了@RefreshScope
-之前在Config配置中心，也是添加这个注解实现动态刷新的
-
-```
+**可以看到，这里也添加了@RefreshScope**
+**之前在Config配置中心，也是添加这个注解实现动态刷新的**
 
 **通过Spring Cloud原生注解<span style="color:blue">@RefreshScope</span>实现配置自动更新**
 
@@ -4153,11 +4149,9 @@ public class AlibabaSentinelController {
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071636922.png) 
 
-   ```
-   比如a请求过来，处理很慢，在一直处理，此时b请求又过来了
-   此时因为a占用一个线程，此时要处理b请求就只有额外开启一个线程
-   那么就会报错
-   ```
+**比如a请求过来，处理很慢，在一直处理，此时b请求又过来了**
+**此时因为a占用一个线程，此时要处理b请求就只有额外开启一个线程**
+**那么就会报错**
 
    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071637638.png)
 
@@ -4191,9 +4185,7 @@ public class AlibabaSentinelController {
 
 **应用场景**
 
-```
 如：秒杀系统在开启的瞬间，会有很多流量上来，很有可能把系统打死，预热方式就是把为了保护系统，可慢慢的把流量放进来，慢慢的把阈值增长到设置的阈值。
-```
 
 7. 排队等待:
 
@@ -4667,9 +4659,7 @@ Sentinel主要有三个核心API：
 
     ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071659188.png) 
 
-     **实际上就是指定，我们的规则要保证在哪个名称空间的哪个分组下**
-
-     			这里没有指定namespace， 但是是可以指定的
+     **实际上就是指定，我们的规则要保证在哪个名称空间的哪个分组下，这里没有指定namespace， 但是是可以指定的**
 
     **注意，这里的dataid要与8401的服务名一致**
 
