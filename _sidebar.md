@@ -237,7 +237,9 @@
       - [Java8新特性](/学习笔记/Java/Java8/Java8新特性.md)
       - [HashMap](/学习笔记/Java/Java8/HashMap.md)
     - SpringCloud
-      <!-- - [SpringCloud(H版&alibaba)](/学习笔记/Java/SpringCloud/尚硅谷SpringCloud(H版&alibaba).md) -->
+      
+      - [SpringCloud(H版&alibaba )](/学习笔记/Java/SpringCloud/尚硅谷SpringCloud(H版&alibaba).md) 
+      
       - [SpringCloud](/学习笔记/Java/SpringCloud/SpringCloud.md)
     - Java
       - [Java 基础](/学习笔记/Java/Java基础)
