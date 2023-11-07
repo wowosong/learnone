@@ -56,17 +56,17 @@
 
 ```vue
 <div id="app">
-  <input type="text" v-model="username">
-  <p>Hello, {{username}}</p>
+    <input type="text" v-model="username">
+    <p>Hello, {{username}}</p>
 </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-new Vue({
-  el: '#app',
-  data: {
-  username: 'atguigu'
-  }
-})
+    new Vue({
+        el: '#app',
+        data: {
+            username: 'atguigu'
+        }
+    })
 </script>
 ```
 

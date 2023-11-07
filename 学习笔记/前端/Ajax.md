@@ -19,9 +19,9 @@ name = "孙悟空" ; age = 18 ; gender = "男" ;
 
 ```xml
 <student>
-<name>孙悟空</name>
-<age>18</age>
-<gender>男</gender>
+    <name>孙悟空</name>
+    <age>18</age>
+    <gender>男</gender>
 </student>
 ```
 
