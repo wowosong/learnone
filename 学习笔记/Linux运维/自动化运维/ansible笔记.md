@@ -2,7 +2,7 @@
 
 ## **一**、ansible的主要组成部分
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/20210610222741.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203427.png)
 
 1、ansible playbook：任务剧本（任务集），编排定义ansible任务集的配置文件，由ansible顺序依次执行，通常是json格式的yml文件。
 
@@ -200,7 +200,7 @@ ansible 配置文件/etc/ansible/ansible.cfg(一般保持默认)
 
 \#host_key_checking = False #检查对应服务的的host_key，建议取消注释
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/20210610222752.png) 
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203442.png) 
 
 \#log_path = /var/log/ansible.log #日志文件
 
@@ -310,7 +310,7 @@ f 删除临时py文件，sleep 0退出
 
 红色：执行失败
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/20210610222805.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203128.png)
 
 ### **6、**ansible常见模块
 
@@ -348,7 +348,7 @@ ansible all -m copy -a "content='test content\n' dest=/tmo/f1.txt" 利用内容�
 
 ansible all -m fetch -a ‘src=/root/a.sh dest=/data/f2.sh'
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/20210610222815.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203683.png)
 
 **file**:设置文件属性（状态，属组，属主，权限）
 
@@ -508,7 +508,7 @@ root@dbserver (2)[f:5]$ service name=httpd state=restart
 
 **a.playbook流程介绍**
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/20210610222824.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203466.png)
 
 playbook是由一个或者多个“play”组成的列表
 
@@ -644,7 +644,7 @@ webserver:!dbserver 在webserver组中  但不在dbserver组中
 
 示例： - hosts：webserver:sbserver
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/20210610222834.png)  
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203529.png)  
 
 
 
@@ -738,13 +738,13 @@ ansible-playbook file.yml --list-tags  # 查看标签
 
 **练习**
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/20210610222841.png)  
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203760.png)  
 
-​    ![0](https://gitee.com/wowosong/pic-md/raw/master/20210610222849.png)
+​    ![0](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203229.png)
 
 **注意 ：上图中copy连续使用两次，这是错误操作，这种操作只会执行最下面的copy，其余copy不会执行！！应该将其分开，分为两个name。**
 
-​    ![0](https://gitee.com/wowosong/pic-md/raw/master/20210610222904.png)
+​    ![0](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203037.png)
 
 **f.handlers和notify结合使用触发条件**
 
@@ -777,11 +777,11 @@ notify 此action可用于在每个play的最后被出发，这样可以避免多
 
 小贴士：selinux的开启导致apache更换端口后启动不成功。
 
-​    ![0](https://gitee.com/wowosong/pic-md/raw/master/20210610222910.png)
+​    ![0](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203911.png)
 
 **g.playbook中tags的使用**
 
-​    ![0](https://gitee.com/wowosong/pic-md/raw/master/20210610222921.png)
+​    ![0](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203373.png)
 
 ansible-playbook -t conf httpd.yml    **【使用-t 指定标签名字】**
 
@@ -813,11 +813,11 @@ eg：ansible all -m setup #查看远程主机的所有变量
 
 公共组变量：针对主机组中所有主机定义统一变量
 
-​    ![0](https://gitee.com/wowosong/pic-md/raw/master/20210610222926.png)
+​    ![0](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203559.png)
 
 **普通变量的优先级高于公共变量**
 
-​    ![0](https://gitee.com/wowosong/pic-md/raw/master/20210610222930.png)
+​    ![0](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203955.png)
 
 （3）通过命令行指定变量，优先级最高
 
@@ -851,7 +851,7 @@ vars:
 
 ​           \- var2: value2
 
-​    ![0](https://gitee.com/wowosong/pic-md/raw/master/20210610222934.png)
+​    ![0](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203476.png)
 
 ​                ansible-playbook  test.yml              
 
@@ -960,17 +960,17 @@ when语句
 
 字典
 
-​    ![0](https://gitee.com/wowosong/pic-md/raw/master/20210610222939.png)
+​    ![0](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203325.png)
 
 **10.1迭代嵌套子变量**
 
-​    ![0](https://gitee.com/wowosong/pic-md/raw/master/20210610222943.png)
+​    ![0](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071204622.png)
 
 **11、playbook中template模板对于for  if 循环的使用**
 
-​    ![0](https://gitee.com/wowosong/pic-md/raw/master/20210610222948.png)
+​    ![0](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071204851.png)
 
-​    ![0](https://gitee.com/wowosong/pic-md/raw/master/20210610222952.png)
+​    ![0](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071204604.png)
 
 **for：**
 
@@ -1082,7 +1082,7 @@ yml文件
 
 ​        
 
-​    ![0](https://gitee.com/wowosong/pic-md/raw/master/20210610223016.png)
+​    ![0](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071204374.png)
 
 **I.roles**
 
@@ -1098,7 +1098,7 @@ ansible自1.2版本引入的新特性，用于层次性，结构化地组织play
 
 **roles的使用**
 
-​    ![0](https://gitee.com/wowosong/pic-md/raw/master/20210610223021.png)
+​    ![0](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071204670.png)
 
 roles目录结构
 

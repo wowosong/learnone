@@ -4,9 +4,9 @@
 
 ### 云计算运维工程师核心职能
 
-![运维自动化发展历程，运维职业发展路线插图](https://gitee.com/wowosong/pic-md/raw/master/20210603210931.png)
-![运维自动化发展历程，运维职业发展路线插图(1)](https://gitee.com/wowosong/pic-md/raw/master/20210610223054.jpg)
-![运维自动化发展历程，运维职业发展路线插图(3)](https://gitee.com/wowosong/pic-md/raw/master/20210610223058.jpg)
+![运维自动化发展历程，运维职业发展路线插图](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071201157.png)
+![运维自动化发展历程，运维职业发展路线插图(1)](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071201776.jpeg)
+![运维自动化发展历程，运维职业发展路线插图(3)](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071201323.jpeg)
 
 **相关工具**
 
@@ -30,11 +30,11 @@
 
 ### 运维职业发展路线
 
-![运维自动化发展历程，运维职业发展路线插图(4)](https://gitee.com/wowosong/pic-md/raw/master/20210610223102.jpg)
+![运维自动化发展历程，运维职业发展路线插图(4)](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071201074.jpeg)
 
 ## 企业实际应用场景分析
 
-![运维自动化企业应用场景以及技术分析插图](https://gitee.com/wowosong/pic-md/raw/master/20210610223107.png)
+![运维自动化企业应用场景以及技术分析插图](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071201950.png)
 
 ### Dev开发环境
 
@@ -145,7 +145,7 @@
 
 #### Ansible 组成
 
-![Ansible教程-Anaible基础入门插图](https://gitee.com/wowosong/pic-md/raw/master/20210610223113.png)
+![Ansible教程-Anaible基础入门插图](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071201128.png)
 
 组合INVENTORY、API、MODULES、PLUGINS的绿框，可以理解为是ansible命令工具，其为核心执行工具
 
