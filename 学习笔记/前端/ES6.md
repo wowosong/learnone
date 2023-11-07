@@ -222,7 +222,6 @@ function minus(a,b,...args){
     console.log(a,b,args);
 }
 minus(100,1,2,3,4,5,19);
-
 //ES6 允许给函数参数赋值初始值
 //1. 形参初始值 具有默认值的参数, 一般位置要靠后(潜规则)
 function add(a,b,c=10) {
@@ -230,7 +229,6 @@ function add(a,b,c=10) {
 }
 let result = add(1,2);
 console.log(result);
-
 //2. 与解构赋值结合
 function connect({host="127.0.0.1", username,password, port}){
     console.log(host);
