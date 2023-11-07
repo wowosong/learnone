@@ -107,7 +107,7 @@ vite官网：[vitejs.cn](https://link.juejin.cn/?target=https%3A%2F%2Fvitejs.cn 
  <img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208933.png" style="zoom:33%;" /> 
   <br/>**传统构建模式，是将所有资源都打包好，再上线**
   
-  <br/><img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208237.png" style="zoom: 33%;" /> 
+* <img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208237.png" style="zoom: 33%;" /> 
 
  而Vite有点按需加载的意思在那里了~
 
