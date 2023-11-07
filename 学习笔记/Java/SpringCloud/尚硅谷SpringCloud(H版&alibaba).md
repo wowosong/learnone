@@ -1,6 +1,6 @@
 SpringCloud升级，部分ss组件停用:
 
-![image-20220625183733401](https://gitee.com/wowosong/pic-md/raw/master/202212290851936.png)
+![image-20220625183733401](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071550986.png)
 
 1. Eureka停用，可以使用zk作为服务注册中心
 2. 服务调用，Ribbon准备停更，代替为LoadBalance
@@ -506,7 +506,7 @@ public class OrderController {
 
 ### 3.entity和实体类放入common中
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212290907638.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071551027.png) 
 
 ### 4.使用maven，将common模块打包(install)，
 
@@ -536,7 +536,7 @@ Eureka采用了CS的设计架构，Eureka Server作为服务注册功能的服�
 在服务注册与发现中，有一个注册中心。当服务器启动的时候，会把当前自己服务器的信息。比如服务地址、通讯地址等以别名方式注册到注册中心上。另一方（消费者-服务提供者），以该别名的方式去注册中心上获取到实际的服务通讯地址，然后再实现本地RPC调用。RPC远程调用框架核心设计思想：在于注册中心，因为使用注册中心管理每个服务与服务之间的一个依赖关系（服务治理概念）。在任何rpc远程框架中，都会有一个注册中心（存放服务地址相关信息（接口地址））
 ```
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212290908777.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071551573.png)
 
 **<span style="color:blue;font:bold">Eureka包含两个组件：Eureka Server和Eureka Client</span>**
 
@@ -579,7 +579,7 @@ Eureka采用了CS的设计架构，Eureka Server作为服务注册功能的服�
 
 #### 3.配置文件:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212290908829.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071551902.png)
 
 #### 4.主启动类
 
@@ -643,7 +643,7 @@ eureka:
 
 #### 集群原理:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212290909787.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071551465.png)
 
  ```java
 1.就是pay模块启动时，注册自己，并且自身信息也放入eureka
@@ -661,7 +661,7 @@ eureka:
 
  互相注册
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212290911369.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071551752.png)
 
 #### **构建新erueka项目**
 
@@ -712,7 +712,7 @@ eureka:
 
 ##### 4，然后启动7001，7002即可
 
-*![](https://gitee.com/wowosong/pic-md/raw/master/202212290913543.png)*
+*<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071551929.png" style="zoom:50%;" />*
 
 #### 将pay，order模块注册到eureka集群中:
 
@@ -762,7 +762,7 @@ eureka:
 
  虽然我们是使用RestTemplate访问的微服务，但是也可以负载均衡的        
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212290913724.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071552575.png)
 
 **<span style="color:red">注意这样还不可以，需要让RestTemplate开启负载均衡注解，还可以指定负载均衡算法，默认轮询</span>**
 
@@ -853,7 +853,7 @@ public class PaymentMain8001{
 
 ### 6，Eureka自我保护:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212290918764.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071552548.png)
 
 **概述**
 
@@ -875,7 +875,7 @@ public class PaymentMain8001{
 
 综上，自我保护模式就是一种应对网络异常的安全保护措施。它的架构哲学是<span style="color:red">**宁可同时保留所有微服务（健康的微服务和不健康的微服务都会保留）也不盲目注销任何健康的微服务**</span>。使用自我保护模式，可以让Eureka集群更加的健壮、稳定。
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212291125070.png" alt="image-20221229112515222" style="zoom:50%;" /> 
+![image-20221229112515222](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071552472.png) 
 
 自我保护机制：默认情况下EurekaClient定时向EurekaServer端发送心跳包。如果EurekaServer端在一定时间内(默认90秒)没有收到EurekaClient发送心跳包，便会直接从服务注册列表中剔除该服务，但是在短时间内(90秒内)丢失了大量的服务实例心跳，这时候EurekaServer会开启自我保护机制，不会剔除该服务(该现象可能出现在如果网络不通，但是EurekaClient以为出现宕机，此时如果换做别的注册中心如果一定时间内没有收到心跳，就会将剔除该服务，这样就出现了严重失误，因为客户端还能正常发送心跳，只是网络延迟问题，而保护机制是为了解决此问题而产生的)
 
@@ -1107,13 +1107,13 @@ Consul是一套开源的分布式服务发现和配置管理系统，油HashiCor
 
 它具有很多优点，包括：基于Raft协议，比较简洁：支持健康检查，同时支持HTTP和DNS协议，支持跨数据中心的WAN集群，提供图形界面，跨平台，支持Linux、Mac、Windows。
 
-![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222756.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071552794.png)
 
 ### 1，按照consul
 
 需要下载一个安装包
 
-![](./%E5%B0%9A%E7%A1%85%E8%B0%B7SpringCloud(H%E7%89%88&alibaba).assets/20211125222808.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071552115.png)
 
 启动是一个命令行界面，需要输入consul agen-dev启动
 
@@ -1267,7 +1267,7 @@ CAP理论的核心是：<span style="color:red">**一个分布式系统不可能
 - CP -满足一致性、分区容忍性的系统，通常性能不是特别高。
 - AP -满足可用性、分区容忍性的系统，通常可能对一致性要求低一些。
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202301031400956.png" alt="image-20220628213652280" style="zoom:50%;" /> 
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071553960.png" alt="image-20220628213652280" style="zoom:50%;" /> 
 
 **CP架构**
 
@@ -1275,9 +1275,9 @@ CAP理论的核心是：<span style="color:red">**一个分布式系统不可能
 
 **<span style="color:red">结论：违背了可用性A的要求，只满足一致性和分区容错，即CP</span>**
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202301031401229.png" style="zoom:50%;" /> 
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071553447.png" style="zoom:50%;" /> 
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202301031401104.png" style="zoom:50%;" /> 
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071554789.png" style="zoom:50%;" /> 
 
 # 3.服务调用
 
@@ -1289,7 +1289,7 @@ Spring Cloud Ribbon是基于Netflix Ribbon实现的一套<span style="color:red"
 
 **Ribbon目前也进入维护，基本上不准备更新了**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301031401384.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071554864.png)
 
 <span style="color:red">**进程内LB(本地负载均衡)**</span>
 
@@ -1317,7 +1317,7 @@ Ribbon本地负载均衡，在调用微服务接口时，会在注册中心上�
 
 总结：Ribbon其实就是一个软负载均衡的客户端组件，它可以和其他所需请求的客户端结合使用，和eureka结合只是其中的一个实例。
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202301031507324.png" style="zoom:67%;" /> 
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071554417.png" style="zoom:67%;" /> 
 
 Ribbon在工作时分成两步
 
@@ -1384,7 +1384,7 @@ RestTemplate的:
 
 IRule接口有7个实现类，每个实现类代表一个负载均衡算法
 
-![image-20220627093455387](https://gitee.com/wowosong/pic-md/raw/master/202301031649336.png) 
+![image-20220627093455387](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071554180.png) 
 
 #### 使用Ribbon:
 
@@ -1398,7 +1398,7 @@ IRule接口有7个实现类，每个实现类代表一个负载均衡算法
 
 ##### 2，额外创建一个包
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301031649896.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071554003.png) 
 
 ##### 3，创建配置类，指定负载均衡算法
 
@@ -1433,7 +1433,7 @@ public class OrderMain80 {
 
 <span style="color:red">**负载均衡算法：rest接口第几次请求数 % 服务器集群总数量 = 实际调用服务器位置下标，每次服务重启动后rest接口计数从1开始**</span>
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301031729697.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071554633.png)
 
 ##### 2，自定义负载均衡算法:
 
@@ -1729,7 +1729,7 @@ Hystrix是一个用于处理分布式系统的<span style="color:red">**延迟**
 
 "断路器"本身是一种开关装置，当某个服务单元发生故障之后，通过断路器的故障监控（类似熔断保险丝），<span style="color:red">**向调用方返回一个符合预期的、可处理的备选响应（Fallback），而不是长时间的等待或者抛出调用方无法处理的异常**</span>，这样就保证了服务调用方的线程不会被长时间、不必要地占用，从而避免了故障在分布式系统中的蔓延，乃至雪崩。
 
-![image-20221229161827362](https://gitee.com/wowosong/pic-md/raw/master/202212291618733.png) 
+![image-20221229161827362](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555267.png) 
 
 ### hystrix中的重要概念:
 
@@ -1925,7 +1925,7 @@ public class OrderHystrixFeiginController {
 
 **解决:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291651223.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555850.png)
 
 <span style="color:red">**调用者（80)自己出故障或有自我要求（自己的等待时间小于服务提供者)，自己处理降级**</span>
 
@@ -1935,7 +1935,7 @@ public class OrderHystrixFeiginController {
 
 ###### 1，为service的指定方法(会延迟的方法)添加@HystrixCommand注解
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291651754.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555560.png)
 
 ###### 2，主启动类上，添加激活hystrix的注解
 
@@ -1953,9 +1953,9 @@ public class PaymentHystrix8001 {
 
 ###### 3，触发异常
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291651808.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555704.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291651380.png)**可以看到，也触发了降级**
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555521.png)**可以看到，也触发了降级**
 
 ##### 2，修改order模块，进行服务降级
 
@@ -1987,7 +1987,7 @@ public class OrderHystrixFeignMain80 {
 
 ###### 3，修改controller，添加降级方法什么的
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291653798.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555300.png)
 
 ###### 4，测试
 
@@ -2018,17 +2018,17 @@ public String paymentglobalHandler() {
 
 ###### 2，使用注解指定其为全局降级方法(默认降级方法)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291654991.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555505.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291654977.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555187.png)
 
 ###### 3，业务方法使用默认降级方法:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291654009.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555015.png)
 
 ###### 4，测试:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291655799.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555801.png) 
 
 ##### 解决代码耦合度的问题:
 
@@ -2036,7 +2036,7 @@ public String paymentglobalHandler() {
 
 ###### 1，Payservice接口是远程调用pay模块的，我们这里创建一个类实现service接口，在实现类中统一处理异常
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291655163.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555912.png)
 
 ###### 2，修改配置文件:添加:
 
@@ -2048,7 +2048,7 @@ feign:
 
 ###### 3，让PayService的实现类生效:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291655204.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555631.png)
 
 ```java
 它的运行逻辑是:
@@ -2063,7 +2063,7 @@ feign:
 
 **此时将pay服务关闭，order再次访问**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291655793.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555814.png) 
 
 可以看到，并没有报500错误，而是降级访问**实现类**的同名方法
 
@@ -2077,7 +2077,7 @@ feign:
 
 类比保险丝达到最大服务访问后，直接拒接访问，拉闸限电，然后调用服务降级的方法并返回友好提示。
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291656486.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071556197.png)
 
 **比如并发达到1000，我们就拒绝其他用户访问，在有用户访问，就访问降级方法**
 
@@ -2093,16 +2093,16 @@ feign:
 
 ##### **1，修改Payservice接口，添加服务熔断相关的方法:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291656411.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071556646.png)
 
 这里属性整体意思是:
 10秒之内(窗口，会移动)，如果并发**超过**10个，或者10个并发中，失败了6个，就开启熔断器
 
-![image-20200414152637247](https://gitee.com/wowosong/pic-md/raw/master/202212291656234.png)
+![image-20200414152637247](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071556824.png)
 
 IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法，比如UUID，反射，IO流等工具方法什么的都整合了
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291656092.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071556752.png)
 
 ```java
 断路器的打开和关闭，是按照一下5步决定的
@@ -2118,7 +2118,7 @@ IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法�
 
 添加一个测试方法;
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291656089.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071556201.png) 
 
 ##### 3，测试:
 
@@ -2126,11 +2126,11 @@ IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法�
 
 ==多次访问，并且错误率超过60%:==
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291656333.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071557811.png) 
 
 此时服务熔断，此时即使访问正确的也会报错:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291657422.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071557593.png) 
 
 **但是，当过了几秒后，又恢复了**
 
@@ -2142,27 +2142,27 @@ IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法�
 
  以后需要什么属性，查看这个类即可
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291657688.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071557987.png) 
 
 ### 总结:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291659518.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558776.png)
 
 **当断路器开启后:**
 
-​    ![](https://gitee.com/wowosong/pic-md/raw/master/202212291659240.png)
+​    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558408.png)
 
 **其他参数:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291659630.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558006.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291700832.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558526.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291700114.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558446.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291700614.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558039.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291700826.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558278.png)
 
 **熔断整体流程:**
 
@@ -2276,15 +2276,15 @@ public class PaymentHystrix8001 {
 
 **然后在web界面，指定9001要监控8001:**
 
-##### ![](https://gitee.com/wowosong/pic-md/raw/master/202212291704199.png)
+##### ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071559133.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291704333.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071559108.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291705257.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071600786.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291705798.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071600277.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291705739.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071600496.png)
 
 ![](https://gitee.com/wowosong/pic-md/raw/master/202212291705063.png)
 
@@ -2304,7 +2304,7 @@ Spring Cloud Gateway的目标提供统一的路由方式且基于Filter链的方
 
 **Gateway之所以性能好，因为底层使用WebFlux，而webFlux底层使用netty通信(NIO)**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291705186.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071600418.png)
 
 ### GateWay的特性:
 
@@ -2331,7 +2331,7 @@ Spring Cloud Gateway具有如下特性：
 
 ### zuul1.x的模型:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291706297.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071600439.png)
 
 <span style="color:blue">**上述模式的缺点：**</span>
 
@@ -2371,7 +2371,7 @@ Spring WebFlux是Spring 5.0引入的新的响应式框架，区别于Spring MVC�
 
 ### GateWay的工作原理:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291706551.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071600751.png) 
 
 客户端向Spring Cloud Gateway发出请求。然后在Gateway Handler Mapping（类似MVC的映射器）中找到与请求<span style="color:red">**相匹配的路由**</span>，将其发送到Gateway Web Handler。
 
@@ -2428,11 +2428,11 @@ public class Gateway9572 {
 
 <span style="color:red">**我们目前不想暴露8001端口，希望在8001外面套一层9527**</span>
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291726760.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071601200.png)
 
 **修改GateWay模块(9527)的配置文件:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291728269.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071601121.png)
 
 这里表示，
 
@@ -2453,7 +2453,7 @@ public class Gateway9572 {
 
  localhost:9527/payment/get/1
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291728296.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071601791.png)
 
 #### 6，GateWay的网关配置，
 
@@ -2491,7 +2491,7 @@ public class GatewayConfig {
 
 #### 修改GateWay模块的配置文件:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291730457.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071601903.png)
 
 #### 然后就可以启动微服务.测试
 
@@ -2520,7 +2520,7 @@ routes:
 
 可以看到，这里有一个Path，这个是断言的一种，断言的类型:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291731489.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071601813.png)
 
 ```java
 After:
@@ -2556,28 +2556,28 @@ before:
    需要指定两个时间，在他们之间的时间才可以访问
 ```
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291743731.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071601568.png)
 
 ```java
 cookie:
   只有包含某些指定cookie(key，value)，的请求才可以路由
 ```
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291743898.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071601313.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291743741.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071601838.png) 
 
 ```java
 Header:
    只有包含指定请求头的请求，才可以路由
 ```
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291742434.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071601094.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291742435.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071602679.png) 
 
 测试:
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291742760.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071602923.png)
 
 ```java
 host:
@@ -2592,9 +2592,9 @@ host:
 
 Host Route Predicate接收一组参数，**一组匹配的域名列表**，这个模板是一个ant分割的模板，用.号作为分隔符。它通过参数中的**主机地址作为匹配规则**。
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291741618.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071602417.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291741361.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071602435.png)
 
 可以看到，如果带了域名访问，就可以，但是直接访问ip地址.就报错了
 
@@ -2629,7 +2629,7 @@ Query:
    必须带有请求参数才可以访问
 ```
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291752326.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071603287.png) 
 
 ### Filter过滤器:
 
@@ -2641,13 +2641,13 @@ Query:
 
 #### 种类:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291800407.png)  
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071603778.png)  
 
 GateWayFilter，单一的过滤器
 
 **与断言类似，比如闲置，请求头，只有特定的请求头才放行，反之就过滤**:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291801801.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071603976.png)
 
 GlobalFilter，全局过滤器:
 
@@ -2681,9 +2681,9 @@ public class myGatewayFilter implements GlobalFilter, Ordered {
 
 ​    **然后启动服务即可，因为过滤器通过@Component已经加入到容器了**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032139124.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071603294.png) 
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202301032139883.png" style="zoom:50%;" /> 
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071603384.png" style="zoom:50%;" /> 
 
 # 6.服务配置:
 
@@ -2700,7 +2700,7 @@ public class myGatewayFilter implements GlobalFilter, Ordered {
 
 SpringCloud Config为微服务架构中的微服务提供**<u>集中化的外部配置支持</u>**，配置服务器为<span style="color:red">**<u>各个不同微服务应用</u>**</span>的所有环境提供了一个<span style="color:red">**<u>中心化的外部匹配</u>**</span>。
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032140956.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071603879.png)
 
 SpringCloud Config分为<span style="color:red">**服务端和客户端两部分。**</span>
 
@@ -2720,7 +2720,7 @@ SpringCloud Config分为<span style="color:red">**服务端和客户端两部分
 
 **初始化git环境:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032201404.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071603486.png)
 
 #### 1，新建config模块:
 
@@ -2730,7 +2730,7 @@ SpringCloud Config分为<span style="color:red">**服务端和客户端两部分
 
 #### 3，配置文件
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032201633.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071604647.png)
 
 #### 4，主启动类
 
@@ -2749,7 +2749,7 @@ public class ConfigServerMain3344 {
 
 #### 5，修改hosts:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032202742.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071604923.png)
 
 #### 6，配置完成
 
@@ -2757,17 +2757,17 @@ public class ConfigServerMain3344 {
 
 启动3344    (要先启动eureka)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032202527.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071604081.png)
 
 它实际上就是，读取到配置文件中的GitHub的地址，然后拼接上/master/config-dev.yml
 
 #### 7，读取配置文件的规则:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032203076.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071604980.png)
 
 **2**，
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032203244.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071604791.png)
 
 **这里默认会读取master分支，因为我们配置文件中配置了**
 
@@ -2791,13 +2791,13 @@ spring:
 
 **3**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032203436.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071604371.png)
 
 注意，这个方式读取到的配置是==json格式==的
 
 **所有规则:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032204217.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071604782.png) 
 
 ### 2，创建配置中心客户端:
 
@@ -2827,7 +2827,7 @@ Spring Cloud会创建一个"Bootstrap Context"，作为Spring应用的"Applicati
 
 **<u>因为bootstrap.yml是比application.yml先加载的。bootstrap.yml优先级高于application.yml</u>**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032204504.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071604056.png)
 
 #### 4，主启动类:
 
@@ -2858,7 +2858,7 @@ public class ConfigClientController {
 } 
 ```
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032206681.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071604606.png) 
 
 **如果客户端运行正常，就会读取到github上配置文件的，config.info下的配置**
 
@@ -2868,7 +2868,7 @@ public class ConfigClientController {
 
  访问3355的 /configInfo
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032206498.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071604054.png) 
 
 #### 7，问题::
 
@@ -2922,7 +2922,7 @@ public class ConfigClientController {
 
 因为此时，还需要**外部发送**post请求通知3355
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032207245.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071605588.png) 
 
 **此时在刷新3355，发现可以获取到最新的配置文件了，这就实现了动态获取配置文件，因为3355并没有重启**
 
@@ -2950,11 +2950,11 @@ public class ConfigClientController {
 
 <span style="color:red">**Spring Cloud Bus配合Spring Cloud Config使用可以实现配置的动态刷新。**</span>
 
-![image-20230106222614592](https://gitee.com/wowosong/pic-md/raw/master/202301062226595.png) 
+![image-20230106222614592](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071605599.png) 
 
 <span style="color:red">**Spring Cloud Bus能管理和传播分布式系统间的消息，就像一个分布式执行器，可用于广播状态更改、事件推送等，也可以当作微服务间的通信通道。**</span>
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032210495.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071605284.png)
 
 注意，这里两张图片，就代表两种广播方式
 
@@ -2981,13 +2981,13 @@ ConfigClient实例都监听MQ中同一个topic(默认是SpringCloudBus)。当一
 
 #### 1，配置rabbitmq环境:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032210608.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071605459.png)
 
 #### **2，之前只有一个配置中心客户端，这里在创建一个**
 
  **复制3355即可，创建为3366**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032210441.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071605869.png)
 
 全部复制3355的即可
 
@@ -3014,7 +3014,7 @@ ConfigClient实例都监听MQ中同一个topic(默认是SpringCloudBus)。当一
 
 ###### 1，修改配置文件:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032211490.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071605609.png) 
 
 ###### 2，添加pom
 
@@ -3054,9 +3054,9 @@ ConfigClient实例都监听MQ中同一个topic(默认是SpringCloudBus)。当一
 
 **注意配置文件的名字，要改为bootstrap.yml**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032212872.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071605642.png) 
 
-![image-20200415102708661](https://gitee.com/wowosong/pic-md/raw/master/202301032213907) 
+![image-20231107160612888](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071606729.png) 
 
 ##### 3，修改3366(也是配置中心的客户端)
 
@@ -3070,7 +3070,7 @@ ConfigClient实例都监听MQ中同一个topic(默认是SpringCloudBus)。当一
 
 **此时只需要刷新3344，即可让3355，3366动态获取最新的配置文件**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032213279.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071606273.png) 
 
 其原理就是:
 
@@ -3094,9 +3094,9 @@ ConfigClient实例都监听MQ中同一个topic(默认是<span style="color:red">
 
 **只通知3355**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032213875.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071606214.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032213483.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071606138.png) 
 
 **可以看到，实际上就是通过<span style="color:red">微服务的名称+端口号</span>进行指定**
 
@@ -3136,7 +3136,7 @@ Spring Cloud Stream为一些供应商的消息中间件产品提供了个性化�
 
 比方说我们用到了RabbitMQ和Kafka，由于这两个消息中间件的架构上的不同，像RabbitMQ有exchange，Kafka有Topic和Partitions分区。
 
-![SpringCloudStream的4](https://gitee.com/wowosong/pic-md/raw/master/202301032215625.png)
+![SpringCloudStream的4](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071609626.png)
 
 这些中间件的差异性导致我们实际项目开发给我们造成了一定的困扰，我们如果用了两个消息队列的其中一种，后面的业务需求，我想往另外一种消息队列进行迁移，这时候无疑就是一个灾难性的，<span style="color:red">**一大堆东西都要重新推倒重新做**</span>，因为它跟我们的系统耦合了，这时候SpringCloud Stream给我们提供了一种解耦合的方式。
 
@@ -3161,7 +3161,7 @@ Spring Cloud Stream为一些供应商的消息中间件产品提供了个性化�
 
 在没有绑定器这个概念的情况下，我们的SpringBoot应用要直接与消息中间件进行信息交互的时候，由于各消息中间件构建的初衷不同，它们的实现细节上会有较大的差异性。通过定义绑定器作为中间层，<span style="color:red">**完美地实现了应用程序与消息中间件细节之间的隔离。**</span>Stream对消息中间件的进一步封装，可以做到代码层面对中间件的无感知，甚至于动态的切换中间件（RabbitMQ切换为Kafka)，使得微服务开发的高度解耦，服务可以更多地关注自己的业务流程。
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032217469.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071609168.png)
 
 ### **Spring Cloud Stream 通信模式:**
 
@@ -3176,9 +3176,9 @@ Topic主题进行广播
 
 ### Spring Cloud Stream的业务流程:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032217349.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071609673.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032217532.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071610356.png)
 
 **Source和Sink：**
 
@@ -3200,13 +3200,13 @@ channel类似SpringCloudStream中的中间件，用于存放source接收到的�
 
 ### 常用注解和api:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032217362.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071610698.png)
 
 ### 使用SpringCloudStream:
 
 需要创建三个项目，一个生产者，两个消费者
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032217353.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071610111.png)
 
 ### 1，创建生产者
 
@@ -3214,9 +3214,9 @@ channel类似SpringCloudStream中的中间件，用于存放source接收到的�
 
 #### 2，配置文件
 
-![image-20200415114816133](https://gitee.com/wowosong/pic-md/raw/master/202301032218980)
+![image-20231107161145091](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071611800.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032218942.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071611899.png)
 
 #### 3，主启动类
 
@@ -3294,9 +3294,9 @@ public class StremController {
 
 **input就表示，当前服务是一个消费者，需要消费消息，下面就是指定消费哪个Exchange中的消息**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032219474.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071612673.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032219721.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071612180.png) 
 
 #### 3，主启动类
 
@@ -3339,7 +3339,7 @@ public class MessageRecieverController {
 
 **此时使用生产者生产消息**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032219272.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071612065.png)
 
 可以看到，消费者已经接收到消息了
 
@@ -3365,17 +3365,17 @@ public class MessageRecieverController {
 
 但是此时查询消费者，发现8802，8803==都消费到了同一条数据==
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032219471.png)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071612086.png"  />
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032220502.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071621316.png) 
 
 #### 1，自定义分组
 
 **修改8802，8803的配置文件**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032220894.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071622123.png) 
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032220683.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071624948.png) 
 
 **现在将8802，8803都分到了A组**
 
@@ -3383,11 +3383,11 @@ public class MessageRecieverController {
 
 **然后此时生产者生产两条消息**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032220231.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071624164.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032220134.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071624708.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032220336.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071624263.png)
 
 **可以看到，每人只消费了一条消息，并且没有重复消费**
 
@@ -3422,13 +3422,13 @@ public class MessageRecieverController {
 
 **而sleuth就是用于追踪每个请求的整体链路**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032221929.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071625390.png)
 
 ### 使用sleuth:
 
 #### 1.安装zipkin:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032221928.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071625161.png)
 
 **运行jar包**
 
@@ -3438,15 +3438,15 @@ public class MessageRecieverController {
 
  localhost:9411/zipkin/
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032221661.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071625950.png)
 
 **一条链路完整图片:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032221285.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071625914.png)
 
 **精简版:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032221852.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071625793.png)
 
 **可以看到，类似链表的形式**
 
@@ -3472,7 +3472,7 @@ public class MessageRecieverController {
 
 **修改配置文件:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032221071.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071625650.png) 
 
 ##### 2，修改80
 
@@ -3488,7 +3488,7 @@ public class MessageRecieverController {
 
 启动7001.8001，80，9411
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032221227.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071625363.png)
 
 # 10.Spring CloudAlibaba:
 
@@ -3571,7 +3571,7 @@ Apache Dubbo是一个高性能的Java RPC框架。
 
 父项目管理alibaba的依赖:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032222722.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071626517.png) 
 
 ```xml
 <dependency>
@@ -3589,7 +3589,7 @@ Apache Dubbo是一个高性能的Java RPC框架。
 
 #### 2，配置文件
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032222502.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071626304.png) 
 
 #### 3，启动类
 
@@ -3643,7 +3643,7 @@ public class paymentController {
 
 #### 2，配置文件
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032222864.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071626970.png) 
 
 **这个server-url的作用是，我们在controller，需要使用RestTempalte远程调用9001，这里是指定9001的地址**
 
@@ -3706,7 +3706,7 @@ public class Order83Controller {
 
 Nacos它既可以支持CP，也可以支持AP，可以切换
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032223283.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071628916.png)
 
 <span style="color:blue">**何时选择使用何种模式？**</span>
 
@@ -3741,13 +3741,13 @@ cloudalibaba-Nacos-config-client-3377
 
  主要是为了可以与spring cloud config无缝迁移
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032223618.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071628380.png) 
 
 ```java
 可以看到
 ```
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032223149.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071628198.png) 
 
 #### 3.主启动类
 
@@ -3791,7 +3791,7 @@ public class NacosConfigController {
 
 **Nacos的配置规则:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032223545.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071628118.png)
 
 **配置规则，就是我们在客户端如何指定读取配置文件，配置文件的命名的规则**
 
@@ -3812,15 +3812,15 @@ prefix:
     就是当前文件的格式(后缀)，目前只支持yml和properties
 ```
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032224736.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071628438.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032224679.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071629762.png)
 
 **在web UI上创建配置文件:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032224245.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071629018.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032224528.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071629498.png)
 
 注意，DataId就是配置文件名字:
 
@@ -3832,7 +3832,7 @@ prefix:
 
 访问3377
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032224405.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071630709.png) 
 
 **拿到了配置文件中的值**
 
@@ -3864,7 +3864,7 @@ prefix:
 
 那怎么对这些微服务配置进行管理呢？
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032224471.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071630349.png)
 
 **Namespace+Group+Data ID三者关系？为什么这么设计？** 
 
@@ -3872,19 +3872,19 @@ NameSpace默认有一个：public名称空间
 
 这三个类似java的: 包名 + 类名 + 方法名
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032225948.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071631139.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032225831.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071631925.png)
 
 #### 1，配置不同DataId:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032225199.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071631806.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032225601.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071631470.png)
 
 **通过配置文件，实现多环境的读取:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032225513.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071632044.png)
 
 ```java
 此时，改为dev，就会读取dev的配置文件，改为test，就会读取test的配置文件
@@ -3894,9 +3894,9 @@ NameSpace默认有一个：public名称空间
 
 直接在新建配置文件时指定组
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032225264.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071632496.png) 
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032225275.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071632337.png) 
 
 在客户端配置，使用指定组的配置文件:
 
@@ -3906,19 +3906,19 @@ bootstrap + application
 
 **这两个配置文件都要修改**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032225393.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071632029.png)
 
 重启服务，即可
 
 #### 配置不同的namespace:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032226200.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071632154.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032226243.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071632756.png)
 
 客户端配置使用不同名称空间:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032226341.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071633190.png) 
 
 **要通过命名空间id指定**
 
@@ -3926,7 +3926,7 @@ OK，测试
 
 ### Nacos集群和持久化配置:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032226855.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071633963.png)
 
 Nacos默认有自带嵌入式数据库，derby，但是如果做集群模式的话，就不能使用自己的数据库
 
@@ -3952,7 +3952,7 @@ Nacos默认有自带嵌入式数据库，derby，但是如果做集群模式的�
 
 **数据库时区serverTimezone=UTC 可能会导致访问不到数据库**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032226818.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071633961.png)
 
 **3，此时可以重启nacos，那么就会改为使用我们自己的mysql**
 
@@ -3960,7 +3960,7 @@ Nacos默认有自带嵌入式数据库，derby，但是如果做集群模式的�
 
 官方架构图:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032226174.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071633994.png)
 
 **需要一个Nginx作为VIP**
 
@@ -3996,29 +3996,29 @@ db.password=password
 
  这里使用3333，4444，5555作为三个Nacos节点监听的端口
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032226674.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071633093.png) 
 
 5，我们这里就不配置在不同节点上了，就放在一个节点上
 
  既然要在一个节点上启动不同Nacos实例，就要修改startup.sh，使其根据不同端口启动不同Nacos实例
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032226099.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071633505.png) 
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032227942.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071634650.png) 
 
 可以看到，这个脚本就是通过jvm启动nacos
 
  所以我们最后修改的就是，nohup java -Dserver.port=3344
 
-![image-20211128215704352](https://gitee.com/wowosong/pic-md/raw/master/202301032227321.png)
+![image-20211128215704352](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071634113.png)
 
 6，配置Nginx:
 
 server后的IP填127.0.0.1
 
-![image-20211128222208687](https://gitee.com/wowosong/pic-md/raw/master/202301032227790.png)
+![image-20211128222208687](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071634360.png)
 
-​            ![](https://gitee.com/wowosong/pic-md/raw/master/202301032228462.png)
+​            ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071635348.png)
 
 7，启动Nacos:
 
@@ -4030,7 +4030,7 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
  ./startup.sh -p 5555
 
-![image-20211128222259008](https://gitee.com/wowosong/pic-md/raw/master/202301032228732.png)
+![image-20211128222259008](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071635374.png)
 
 7，启动nginx
 
@@ -4041,23 +4041,23 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
  如果可以进入nacos的web界面，就证明安装成功了
 
 9，将微服务注册到Nacos集群:
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032228725.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071635450.png)
 
 10，进入Nacos的web界面
 
  可以看到，已经注册成功
 
-![image-20211128224944538](https://gitee.com/wowosong/pic-md/raw/master/202301052133260.png)
+![image-20211128224944538](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071635587.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032228934.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071635568.png)
 
 ## Sentinel:
 
 实现熔断与限流，就是Hystrix
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032228117.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071635230.png)
 
-​    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032228164.png)
+​    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071635892.png)
 
 ### 使用sentinel
 
@@ -4083,7 +4083,7 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
 2. 配置文件
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032228925.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071635986.png) 
 
 3. 主启动类
 
@@ -4120,7 +4120,7 @@ public class AlibabaSentinelController {
 
  此时我们到sentinel中查看，发现并没有8401的任何信息 是因为，sentinel是懒加载，需要我们执行一次访问，才会有信息。 访问localhost/8401/testA
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032235664.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071635632.png) 
 
 6. 可以看到已经开始监听了
 
@@ -4128,11 +4128,11 @@ public class AlibabaSentinelController {
 
 #### 流量限制控制规则
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032238720.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071635892.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032238916.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071636237.png) 
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032238475.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071636803.png) 
 
 #### 流控模式:
 
@@ -4140,18 +4140,18 @@ public class AlibabaSentinelController {
 
     -  **QPS(每秒钟的请求数量)：当调用该api的QPS达到阈值的时候，进行限流**
 
-    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032238772.png) 
+    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071636576.png) 
 
        **直接失败的效果:**
 
-    ![](https://gitee.com/wowosong/pic-md/raw/master/202301052134134.png) 
+    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071636743.png) 
 
 2. 线程数:
 
    - 线程数：当调用该api的线程数达到阈值的时候，进行限流
 
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032238016.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071636922.png) 
 
    ```
    比如a请求过来，处理很慢，在一直处理，此时b请求又过来了
@@ -4159,7 +4159,7 @@ public class AlibabaSentinelController {
    那么就会报错
    ```
 
-   ![](https://gitee.com/wowosong/pic-md/raw/master/202301032239271.png)
+   ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071637638.png)
 
 
 3. 关联:
@@ -4172,7 +4172,7 @@ public class AlibabaSentinelController {
 
    应用场景:  比如**支付接口**达到阈值，就要限流下**订单的接口**，防止一直有订单
 
-   ![](https://gitee.com/wowosong/pic-md/raw/master/202301032239714.png) 
+   ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071637520.png) 
 
    **当testA达到阈值，qps大于1，就让testB之后的请求直接失败**
 
@@ -4187,9 +4187,7 @@ public class AlibabaSentinelController {
 
 - Warm Up:根据codeFactor(冷加载因子，默认为3)的值。从阈值/codeFactor，经过预热时长，才打到设置的QPS阈值。
 
- 
-
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032239200.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071637689.png)
 
 **应用场景**
 
@@ -4199,33 +4197,33 @@ public class AlibabaSentinelController {
 
 7. 排队等待:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032239757.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071637077.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032239854.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071637344.png)
 
 ### 降级规则:
 
 **就是熔断降级**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032240929.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071638806.png)  
 
 ![](https://gitee.com/wowosong/pic-md/raw/master/202301032240393.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301052135975.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071638590.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032240629.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071638675.png) 
 
 #### 1.RT配置:
 
 新增一个请求方法用于测试
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032240900.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071638113.png) 
 
 **配置RT**:
 
  这里配置的RT，默认是秒级的平均响应时间
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032241341.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071638867.png) 
 
 默认计算平均时间是: 1秒类进入5个请求，并且响应的平均值超过阈值(这里的200ms)，就报错
 
@@ -4233,9 +4231,9 @@ public class AlibabaSentinelController {
 
 **测试**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032241542.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071638571.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032241986.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071638124.png) 
 
 **默认熔断后.就直接抛出异常**
 
@@ -4245,34 +4243,34 @@ public class AlibabaSentinelController {
 
 修改请求方法
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032241709.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071638484.png) 
 
 配置:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032241385.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071638422.png) 
 
 **如果没触发熔断，这正常抛出异常**:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032241022.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071639192.png) 
 
 **触发熔断**:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032241597.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071639923.png) 
 
 #### 3.异常数:
 
 - 异常数（DEGRADE_GRADE_EXCEPTIO_COUNT）:当资源<u>**近1分钟的异常数目超过阈值**</u>之后会进行熔断。注意由于统计时间窗口是分钟级别的，若timeWindow小于60s，则结束熔断状态后仍可能再进入熔断状态。
 - <span style="color:red">**时间窗口一定要大于等于60秒**</span>
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032241032.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071639486.png) 
 
 一分钟之内，有5个请求发送异常，进入熔断
 
 ### 热点规则:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032242215.png)  
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071639025.png)  
 
-​    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032242840.png)
+​    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071639768.png)
 
 比如:
 
@@ -4298,45 +4296,45 @@ public class AlibabaSentinelController {
 
 **使用@SentinelResource直接实现降级方法，它等同Hystrix的@HystrixCommand**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032242309.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071639775.png) 
 
 **定义热点规则:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032242860.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071639199.png) 
 
-![sentinel的42](https://gitee.com/wowosong/pic-md/raw/master/202301032247712.png) 
+![sentinel的42](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071639057.png) 
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032246060.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071639911.png) 
 
 **此时我们访问/testHotkey并且带上才是p1**
 
  如果qps大于1，就会触发我们定义的降级方法
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032247243.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071639663.png) 
 
 **但是我们的参数是P2，就没有问题**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032247997.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071639838.png) 
 
 只有带了p1，才可能会触发热点限流
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032247044.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071639858.png)
 
 #### 2.设置热点规则中的其他选项:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032247702.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071640207.png) 
 
 **需求:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032247977.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071640335.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032247086.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071640522.png)
 
 ==测试==
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032248699.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071643754.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032248218.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071643779.png)
 
 **注意:**
 
@@ -4369,14 +4367,14 @@ int age =10/0，这个是Java运行时报出的运行时异常RuntimeException�
 
 对整体限流，比如设置qps到达100，这里限流会限制整个系统不可以
 
-*![](https://gitee.com/wowosong/pic-md/raw/master/202301032248183.png)*
+*![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071643292.png)*
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032248156.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071643916.png) 
 
 **测试**:
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032248134.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071643934.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032248525.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071643706.png) 
 
 ### @SentinelResource注解:
 
@@ -4399,7 +4397,7 @@ int age =10/0，这个是Java运行时报出的运行时异常RuntimeException�
    
    额外创建一个controller类
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032249997.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071655457.png)
 
 
 3. 配置限流
@@ -4408,19 +4406,19 @@ int age =10/0，这个是Java运行时报出的运行时异常RuntimeException�
 
     **这样也是可以的，也就是不一定要指定访问路径**
 
-    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032249135.png) 
+    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071656070.png) 
 
 4. 测试.
 
     可以看到已经进入降级方法了
 
-    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032249322.png)
+    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071656463.png)
 
 5. 此时我们关闭8401服务
 
     可以看到，这些定义的规则是临时的，关闭服务，规则就没有了
 
-    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032249852.png)
+    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071656442.png)
 
 **可以看到上面配置的降级方法又出现Hystrix遇到的问题了**
 
@@ -4437,26 +4435,26 @@ int age =10/0，这个是Java运行时报出的运行时异常RuntimeException�
 
 1. **单独创建一个类，用于处理限流**
 
-   ![](https://gitee.com/wowosong/pic-md/raw/master/202301032249164.png) 
+   ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071656922.png) 
 
 2. **在controller中，指定使用自定义类中的方法作为降级方法**
 
-   ![](https://gitee.com/wowosong/pic-md/raw/master/202301032249892.png)
+   ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071656050.png)
 
 3. **Sentinel中定义流控规则**:
 
    这里资源名，是以url指定，也可以使用@SentinelResource注解value的值指定
 
-   ![](https://gitee.com/wowosong/pic-md/raw/master/202301032250003.png) 
+   ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071656435.png) 
 
 
 4. **测试**:
 
-   ![](https://gitee.com/wowosong/pic-md/raw/master/202301032250119.png) 
+   ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071656398.png) 
 
 5. **整体**:
 
-   ![](https://gitee.com/wowosong/pic-md/raw/master/202301032250729.png) 
+   ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071656388.png) 
 
 ### @SentinelResource注解的其他属性:
 
@@ -4503,7 +4501,7 @@ Sentinel主要有三个核心API：
 
 2. 配置文件
 
-    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032250026.png)*
+    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071656871.png)*
 
 3. 主启动类
 
@@ -4522,7 +4520,7 @@ Sentinel主要有三个核心API：
 
 4. controller
 
-    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032250415.png)
+    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071657416.png)
 
      **然后启动9003.9004**
 
@@ -4534,7 +4532,7 @@ Sentinel主要有三个核心API：
 
 2. 配置文件
 
-    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032250907.png) 
+    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071657551.png) 
 
 3. 主启动类
 
@@ -4546,17 +4544,17 @@ Sentinel主要有三个核心API：
 
 5. controller
 
-    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032250809.png)
+    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071657331.png)
 
     6.   **为业务方法添加fallback来指定降级方法**:
 
-        ![](https://gitee.com/wowosong/pic-md/raw/master/202301032251460.png)
+        ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071657190.png)
 
         重启order
 
         测试:
 
-        ![](https://gitee.com/wowosong/pic-md/raw/master/202301032251611.png)所以fallback是用于管理异常的，当业务方法发生异常，可以降级到指定方法
+        ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071657052.png)所以fallback是用于管理异常的，当业务方法发生异常，可以降级到指定方法
 
     
 
@@ -4564,17 +4562,17 @@ Sentinel主要有三个核心API：
 
     6.   **为业务方法添加blockHandler，看看是什么效果**
     
-         ![](https://gitee.com/wowosong/pic-md/raw/master/202301032251214.png)
+         ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071657263.png)
     
          **重启84，访问业务方法:**
     
-         ![](https://gitee.com/wowosong/pic-md/raw/master/202301032251179.png) 
+         ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071658611.png) 
     
           可以看到直接报错了，并没有降级，也就是说blockHandler只对sentienl定义的规则降级
     
     7.   **如果fallback和blockHandler都配置呢?**
     
-         ![](https://gitee.com/wowosong/pic-md/raw/master/202301032251887.png) 
+         ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071658203.png) 
     
          **设置qps规则，阈值1**
     
@@ -4582,19 +4580,19 @@ Sentinel主要有三个核心API：
     
          **测试**:
     
-         ![](https://gitee.com/wowosong/pic-md/raw/master/202301032251376.png) 
+         ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071658550.png) 
     
           可以看到，当两个都同时生效时，blockhandler优先生效
     
     8.  **@SentinelResource还有一个属性，exceptionsToIgnore**
     
-        ![](https://gitee.com/wowosong/pic-md/raw/master/202301032251304.png)
+        ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071658461.png)
     
          **exceptionsToIgnore指定一个异常类，**
     
         **表示如果当前方法抛出的是指定的异常，不降级，直接对用户抛出异常**
     
-         ![](https://gitee.com/wowosong/pic-md/raw/master/202301032252555.png)
+         ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071658237.png)
 
 ### sentinel整合ribbon+openFeign+fallback
 
@@ -4602,31 +4600,31 @@ Sentinel主要有三个核心API：
 
     1. pom
 
-       ![](https://gitee.com/wowosong/pic-md/raw/master/202301032252661.png) 
+       ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071658267.png) 
 
     2. 配置文件
 
-       ![](https://gitee.com/wowosong/pic-md/raw/master/202301032252055.png) 
+       ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071658942.png) 
 
     3. 主启动类也要修改
 
-       ![](https://gitee.com/wowosong/pic-md/raw/master/202301032252787.png)
+       ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071658671.png)
 
     4. 创建远程调用pay模块的接口
 
-       ![](https://gitee.com/wowosong/pic-md/raw/master/202301032252442.png)
+       ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071658616.png)
 
     5. 创建这个接口的实现类，用于降级
 
-       ![](https://gitee.com/wowosong/pic-md/raw/master/202301032252217.png) 
+       ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071659824.png) 
 
     6. 再次修改接口，指定降级类
 
-    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032252438.png)
+    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071659284.png)
 
     7. controller添加远程调用
 
-    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032253395.png)
+    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071659766.png)
 
     8. 测试
 
@@ -4634,19 +4632,19 @@ Sentinel主要有三个核心API：
 
     9. 测试，如果关闭9003。看看84会不会降级
 
-    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032253256.png)
+    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071659826.png)
 
     **可以看到，正常降级了**
 
 **熔断框架比较**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032253019.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071659815.png) 
 
 ### sentinel持久化规则
 
 默认规则是临时存储的，重启sentinel就会消失
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032253313.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071659665.png)
 
 **这里以之前的8401为案例进行修改:**
 
@@ -4667,17 +4665,17 @@ Sentinel主要有三个核心API：
 
     添加:
 
-    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032253942.png) 
+    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071659188.png) 
 
      **实际上就是指定，我们的规则要保证在哪个名称空间的哪个分组下**
 
      			这里没有指定namespace， 但是是可以指定的
 
-    ​			**注意，这里的dataid要与8401的服务名一致**
+    **注意，这里的dataid要与8401的服务名一致**
 
 3. **在nacos中创建一个配置文件，dataId就是上面配置文件中指定的**
 
-   ![](https://gitee.com/wowosong/pic-md/raw/master/202301032253345.png) 
+   ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071659241.png) 
 
    json中这些属性的含义: ​
 
@@ -4695,37 +4693,37 @@ Sentinel主要有三个核心API：
    ]
    ```
 
-   ![](https://gitee.com/wowosong/pic-md/raw/master/202301032253675.png) 
+   ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071700201.png) 
 
 4. 启动8401:
 
-   ![](https://gitee.com/wowosong/pic-md/raw/master/202301032253701.png)
+   ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071700428.png)
 
    可以看到，直接读取到了规则(云服务器无法获取，这种方法是推模式，由nacos将限流策略推送到项目)
 
 5. 关闭8401
 
-    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032254896.png)
+    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071700801.png)
 
 6. 此时重启8401，如果sentinel又可以正常读取到规则，那么证明持久化成功
 
     可以看到，又重新出现了
 
-    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032254379.png)
+    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071700092.png)
 
 ## Seata:
 
-![image-20211130154414714](https://gitee.com/wowosong/pic-md/raw/master/202301032254522.png) 
+![image-20211130154414714](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071700693.png) 
 
 Seata 是一款开源的分布式事务解决方案，致力于提供高性能和简单易用的分布式事务服务。Seata 将为用户提供了 AT、TCC、SAGA 和 XA 事务模式，为用户打造一站式的分布式解决方案。
 
 **分布式事务中的一些概念，也是seata中的概念:**
 
-​        ![](https://gitee.com/wowosong/pic-md/raw/master/202301032254353.png)
+​        ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071700232.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032254021.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071700490.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032254721.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071700970.png)
 
 ### seata安装:
 
@@ -4733,7 +4731,7 @@ Seata 是一款开源的分布式事务解决方案，致力于提供高性能�
 
 2. **修改file.conf**
 
-3. ![image-20211130161912981](https://gitee.com/wowosong/pic-md/raw/master/202301032254478.png) 
+3. ![image-20211130161912981](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071700395.png) 
 
    ```properties
    service {
@@ -4858,7 +4856,7 @@ registry {
 
 **业务说明**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032254062.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071700909.png)
 
 下单--->库存--->账号余额
 
@@ -4872,7 +4870,7 @@ registry {
 
 2. 创建对应的表
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032254316.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071700812.png) 
 
 3. 三个数据库各个创建回滚日志表，方便查看
 
@@ -4903,7 +4901,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 4. 每个业务都创建一个微服务，也就是要有三个微服务：订单，库存，账号
 
-   ![image-20211130164922599](https://gitee.com/wowosong/pic-md/raw/master/202301032254573.png) 
+   ![image-20211130164922599](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071701338.png) 
 
  订单seta-order-2001
 
@@ -5469,9 +5467,9 @@ SET FOREIGN_KEY_CHECKS = 1;
     
 5. **全局创建完成后，首先测试不加seata**
 
-   ![](https://gitee.com/wowosong/pic-md/raw/master/202301032255055.png)
+   ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071701363.png)
 
-     ![](https://gitee.com/wowosong/pic-md/raw/master/202301032255510.png)
+     ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071701736.png)
 
 
 
@@ -5518,43 +5516,43 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 ### setat原理:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032255621.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071701108.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032255465.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071701232.png)
 
 **seata提供了四个模式:**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032255868.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702770.png) 
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032255399.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702051.png) 
 
 ==第一阶段:==
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032256280.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702152.png) 
 
-​    ![](https://gitee.com/wowosong/pic-md/raw/master/202301032256205.png)
+​    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702200.png)
 
 ==二阶段之提交==:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032256944.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702562.png)
 
 ==二阶段之回滚:==
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032256996.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702222.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032256773.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702532.png)
 
 ==断点==:
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032256939.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702275.png)
 
 **可以看到，他们的xid全局事务id是一样的，证明他们在一个事务下**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032256065.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071703900.png)
 
 **before 和 after的原理就是**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032256516.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071703145.png) 
 
 **在更新数据之前，先解析这个更新sql，然后查询要更新的数据，进行保存**
 
