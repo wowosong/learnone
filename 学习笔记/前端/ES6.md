@@ -178,19 +178,13 @@ let 关键字用来声明变量，使用 let 声明的变量有几个特点：
 
 5. 不能使用 arguments
 ```javascript
-/**
-* 2. 省略小括号的情况
-*/
+//2. 省略小括号的情况
 let fn2 = num => {
     return num * 10;
 };
-/**
-* 3. 省略花括号的情况
-*/
+//3. 省略花括号的情况
 let fn3 = score => score * 20;
-/**
-* 4. this 指向声明时所在作用域中 this 的值
-*/
+//4. this 指向声明时所在作用域中 this 的值
 let fn4 = () => {
     console.log(this);
     //指向window
@@ -215,24 +209,20 @@ console.log(arr.findIndex(x=>x>10))
 console.log(result);
 
 ```
-    注意：箭头函数不会更改 this 指向，用来指定回调函数会非常合适
-    // 箭头函数适合与 this 无关的回调. 定时器, 数组的方法回调
-    // 箭头函数不适合与 this 有关的回调.事件回调, 对象的方法
+注意：箭头函数不会更改 this 指向，用来指定回调函数会非常合适
+-  箭头函数适合与 this 无关的回调. 定时器, 数组的方法回调
+- 箭头函数不适合与 this 有关的回调.事件回调, 对象的方法
 ## 2.7. rest 参数
 
     ES6 引入 rest 参数，用于获取函数的实参，用来代替 arguments
 
 ```javascript
-/**
-  * 作用与 arguments 类似
-  */
+//作用与 arguments 类似
 function add(...args){
     console.log(args);
 }
 add(1,2,3,4,5);
-/**
-  * rest 参数必须是最后一个形参
-  */
+//rest 参数必须是最后一个形参
 function minus(a,b,...args){
     console.log(a,b,args);
 }
