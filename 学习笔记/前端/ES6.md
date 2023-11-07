@@ -178,7 +178,7 @@ let 关键字用来声明变量，使用 let 声明的变量有几个特点：
 
 5. 不能使用 arguments
 
-  ```
+  ```javascript
   /**
   * 2. 省略小括号的情况
   */
@@ -193,7 +193,8 @@ let 关键字用来声明变量，使用 let 声明的变量有几个特点：
   * 4. this 指向声明时所在作用域中 this 的值
   */
   let fn4 = () => {
-  	console.log(this);//指向window
+  	console.log(this);
+      //指向window
   }
   let school = {
     name: '尚硅谷',
@@ -222,7 +223,7 @@ let 关键字用来声明变量，使用 let 声明的变量有几个特点：
 
     ES6 引入 rest 参数，用于获取函数的实参，用来代替 arguments
 
-  ```
+  ```javascript
   /**
   * 作用与 arguments 类似
   */
@@ -237,7 +238,8 @@ let 关键字用来声明变量，使用 let 声明的变量有几个特点：
     console.log(a,b,args);
   }
   minus(100,1,2,3,4,5,19);
-  
+  ```
+  ```javascript
   //ES6 允许给函数参数赋值初始值
   //1. 形参初始值 具有默认值的参数, 一般位置要靠后(潜规则)
   function add(a,b,c=10) {
