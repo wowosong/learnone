@@ -186,8 +186,9 @@ app.mount('#app')
 
 ```
 
-这里的app到底是啥，我们输出到控制台看看
-<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208153.png" style="zoom:50%;" />
+这里的app到底是啥，我们输出到控制台看看 
+
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208153.png" style="zoom:50%;" /> 
 
 ## App.vue
 
@@ -221,7 +222,7 @@ app.mount('#app')
 
 <img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208785.webp" style="zoom:50%;" /> 
 
-<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208432.webp" style="zoom: 80%;" /> 
+<br/><img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208432.webp" style="zoom: 80%;" /> 
 
 ## 2.Composition API 的优势
 
@@ -229,7 +230,7 @@ app.mount('#app')
 
 <img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208739.webp" style="zoom: 67%;" /> 
 
-<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208977.webp" style="zoom: 67%;" /> 
+<br/><img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208977.webp" style="zoom: 67%;" /> 
 
 > 看不明白不要慌，学完下面的内容，再回来看你就懂了~
 
@@ -649,7 +650,8 @@ const p = new Proxy(person,{
 *   `setup`的参数
 
 **将`setup`接收的两个参数`(props, context)`打印在控制台，如下**
-<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062211814.png" style="zoom: 67%;" />
+
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062211814.png" style="zoom: 67%;" /> 
 
 *   `props`：值为对象，包含：**组件外部传递过来，且组件内部声明接收了的属性**。
 *   `context`：上下文对象
@@ -1395,7 +1397,8 @@ export default {
 ```
 
 这样就好了
-<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062215920.png" style="zoom: 33%;" /> 
+
+<br/><img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062215920.png" style="zoom: 33%;" /> 
 <img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062215629.png" style="zoom: 50%;" />
 
 ## 3\. `Suspense`
