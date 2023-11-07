@@ -359,7 +359,7 @@ Java8中有两大最为重要的改变**。第一个是 Lambda 表达式；另�
 
 一个终止操作，执行中间操作链，并产生结果
 
-![image-20210810204319399](https://gitee.com/wowosong/pic-md/raw/master/202303311518472.png)
+![image-20210810204319399](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071306414.png)
 
 #### 创建Stream
 
@@ -529,7 +529,7 @@ Optional<Integer> reduce1 = employeeList.stream().map(Employee::getAge).reduce(I
 
 Collector 接口中方法的实现决定了如何对流执行收集操作(如收集到 List、Set、Map)。但是 Collectors 实用类提供了很多静态方法，可以方便地创建常见收集器实例，具体方法与实例如下表：
 
-![image-20210810223247618](https://gitee.com/wowosong/pic-md/raw/master/202303311518267.png)
+![image-20210810223247618](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071306120.png)
 
 ```java
 List<String> collect2 = employeeList.stream().map(Employee::getName).collect(Collectors.toList());
@@ -542,7 +542,7 @@ DoubleSummaryStatistics collect5 = employeeList.stream().collect(Collectors.summ
 System.out.println(collect5);
 ```
 
-![image-20210810224030737](https://gitee.com/wowosong/pic-md/raw/master/202303311518105.png)
+![image-20210810224030737](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071306509.png)
 
 ```java
 Optional<Employee> collect6 = employeeList.stream().collect(Collectors.maxBy((x, y) -> Double.compare(x.getAge(), y.getAge())));
@@ -567,7 +567,7 @@ Java 8 中将并行进行了优化，我们可以很容易的对数据进行并�
 
 **Fork/Join 框架：**就是在必要的情况下，将一个大任务，进行拆分(fork)成若干个小任务（拆到不可再拆时），再将一个个的小任务运算的结果进行 join 汇总. 
 
-![image-20210811211918682](https://gitee.com/wowosong/pic-md/raw/master/202303311518504.png)
+![image-20210811211918682](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071306953.png)
 
 #### Fork/Join 框架与传统线程池的区别
 
@@ -589,7 +589,7 @@ LocalDateTime ldf=LocalDateTime.now();
 System.out.println(ldf);
 ```
 
-![image-20210811224711342](https://gitee.com/wowosong/pic-md/raw/master/202303311518906.png)
+![image-20210811224711342](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071306852.png)
 
 ### **Instant** **时间戳**
 
@@ -677,7 +677,7 @@ getAvailableZoneIds() : 可以获取所有时区时区信息
 
 of(id) : 用指定的时区信息获取ZoneId 对象
 
-![image-20210811232218744](https://gitee.com/wowosong/pic-md/raw/master/202303311518931.png)
+![image-20210811232218744](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071306727.png)
 
 ```java
 Set<String> availableZoneIds = ZoneId.getAvailableZoneIds();

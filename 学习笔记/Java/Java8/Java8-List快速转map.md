@@ -115,5 +115,5 @@ List<Person> unique = appleList.stream().collect(collectingAndThen(toCollection(
 
 下表展示 Collectors 类的静态工厂方法。
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202303311414507.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071305871.png)
 

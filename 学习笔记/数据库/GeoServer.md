@@ -31,7 +31,7 @@ http://localhost:8080/geoserver
 
    这些可以在 [安全性](https://www.osgeo.cn/geoserver-user-manual/security/index.html#security) 部分。
 
-   ![../../_images/login-page.png](https://www.osgeo.cn/geoserver-user-manual/_images/login-page.png)
+   ![../../_images/login-page.png](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071256196.png)
 
    登录
 

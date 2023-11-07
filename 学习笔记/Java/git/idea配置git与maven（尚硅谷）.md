@@ -88,23 +88,23 @@ Tips：~表示当前用户的家目录。
 
 1) 点击 Eclipse 中的 Window→Preferences
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311408671.png" alt="image-20210825215005848" style="zoom: 50%;" />
+![image-20210825215005848](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071300044.png)
 
 2) 点开 Maven 前面的箭头，选择 Installations，点击 Add…
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311408555.png" alt="image-20210825215158303" style="zoom:50%;" />
+![image-20210825215158303](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071300658.png)
 
 3) 点击 Directory…选择我们安装的 Maven 核心程序的根目录，然后点击 Finish
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311408500.png" alt="image-20210825215230867" style="zoom:50%;" />
+![image-20210825215230867](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071300473.png)
 
 4) 勾上添加的 Maven 核心程序
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311408128.png" alt="image-20210825215345048" style="zoom:50%;" />
+![image-20210825215345048](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071300233.png)
 
 5) 选择 Maven 下的 User Settings，在全局设置哪儿点击 Browse…选择 Maven核心程序的配置文件 settings.xml，本地仓库会自动变为我们在 settings.xml文件中设置的路径
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311408411.png" alt="image-20210825215435575" style="zoom:50%;" />
+![image-20210825215435575](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071300498.png)
 
 ###  **1.4** **在** **Eclipse** **中创建** **Maven** **项目**
 
@@ -112,11 +112,11 @@ Tips：~表示当前用户的家目录。
 
 1) 点击 File→New→Maven Project，弹出如下窗口
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311408325.png" alt="image-20210825215656488" style="zoom:50%;" />
+![image-20210825215656488](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071300810.png)
 
 2) 点击 Next，配置坐标（GAV）及打包方式，然后点击 Finish
 
-<img src="./idea%E9%85%8D%E7%BD%AEgit%E4%B8%8Emaven%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/20210825215727.png" alt="image-20210825215727120" style="zoom:50%;" />
+![image-20210825215727120](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071301615.png)
 
 3) 创建完工程之后发现默认的 JDK 的编译版本是 1.5，在 Maven 的核心配置文件 settings.xml 文件中添加以下配置将编译版本改为 1.8，重启 Eclipse 即可
 
@@ -191,37 +191,37 @@ public class HelloTest {
 
 在工程名 Hello 或 pom.xml 上右键→Run As 运行 Maven 项目
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311408107.png" alt="image-20210825220155842" style="zoom:50%;" />
+![image-20210825220155842](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071301873.png)
 
 #### **1.4.2** **创建** **Web** **工程（了解）**
 
 1) 创建简单的 Maven 工程，打包方式为 war 包
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311409772.png" alt="image-20210825220311546" style="zoom:50%;" />
+![image-20210825220311546](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071301509.png)
 
 2) 创建完成之后因缺少 web.xml 文件工程出现小红叉
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311408816.png" alt="image-20210825220344465" style="zoom:50%;" />
+![image-20210825220344465](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071301549.png)
 
 3) 在工程上右键→Build Path→Configure Build Path…
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311409771.png" alt="image-20210825220419987" style="zoom:50%;" />
+![image-20210825220419987](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071301756.png)
 
 4) 点击 Project Facets 欺骗 Eclipse 当前工程不是 Web 工程，点击应用
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311411080.png" alt="image-20210825220453051" style="zoom:50%;" />
+![image-20210825220453051](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071301364.png)
 
 5) 再告诉 Eclipse 当前工程是一个 Web 工程，点击应用并关闭
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311411891.png" alt="image-20210825220600814" style="zoom:50%;" />
+![image-20210825220600814](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071302626.png)
 
 6) 发现 MavenWeb 工程小红叉消失，并出现了 WebContext 目录
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311411926.png" alt="image-20210825220653309" style="zoom:50%;" />
+![image-20210825220653309](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071302760.png)
 
 7) 在 WebContext 下创建 index.jsp 页面并添加 Tomcat 库
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311411827.png" alt="image-20210825220733188" style="zoom:50%;" />
+![image-20210825220733188](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071302747.png)
 
 8) 在 MavenWeb 上右键→Run As→Run on Server 部署到 Tomcat 上运行
 
@@ -231,7 +231,7 @@ public class HelloTest {
 
 1) 创建简单的 Maven 工程，打包方式选择 pom
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311411169.png" alt="image-20210825221119704" style="zoom:50%;" />
+![image-20210825221119704](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071302575.png)
 
 2) 在 pom.xml 文件中通过<dependencyManagement></dependencyManagement>标签进行依赖管理
 
@@ -273,21 +273,21 @@ Idea 中也自带 Maven 插件，而且我们也可以给自带的 Maven 插件�
 
 1) Idea 自带的 Maven 在 Idea 的安装目录的 plugins 目录中
 
-![image-20210825221914767](https://gitee.com/wowosong/pic-md/raw/master/202303311412535.png)
+![image-20210825221914767](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071302490.png)
 
 2) 在自带的 Maven 里配置了本地仓库之后打开 Idea 之后会发现本地仓库自动变成了我们设置的仓库
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311412112.png" alt="image-20210825222251966" style="zoom:50%;" />
+![image-20210825222251966](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071302554.png)
 
 3) 设置 Maven 自动导包
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311412559.png" alt="image-20210825222326603" style="zoom:50%;" />
+![image-20210825222326603](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071302445.png)
 
 #### **2.1.2** **配置我们自己安装的** **Maven**
 
 1) 点击工具栏中的 Settings
 
-![image-20210825222420276](https://gitee.com/wowosong/pic-md/raw/master/202303311412342.png)
+![image-20210825222420276](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071303843.png)
 
 2) 点击 OK 保存即可
 
@@ -297,11 +297,11 @@ Idea 中也自带 Maven 插件，而且我们也可以给自带的 Maven 插件�
 
 1) 点击 File→New→Module…（如果之前没有 Project 选 Project）→Maven
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311412669.png" alt="image-20210825222537219" style="zoom:50%;" />
+![image-20210825222537219](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071303887.png)
 
 2) 点击 Next，配置要继承的模块（如果直接创建的是 Project 不存在这一项）、坐标（GAV）、路径。不同的 Idea 版本可能有所差别，我使用的是 2019.3.3的版本
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311412565.png" alt="image-20210825222822055" style="zoom:50%;" />
+![image-20210825222822055](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071303574.png)
 
 3) 点击 Finish 即可创建成功
 
@@ -360,7 +360,7 @@ public class HelloTest {
 
 7) 使用 Maven 的方式运行 Maven 工程
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311412754.png" alt="image-20210825223208479" style="zoom:50%;" />
+![image-20210825223208479](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071303213.png)
 
 #### **2.2.2** **创建** **Web** **工程（了解）**
 
@@ -375,19 +375,19 @@ public class HelloTest {
 
 2) 点击 Project Structure
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311412299.png" alt="image-20210825223356823" style="zoom:50%;" />
+![image-20210825223356823](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071303253.png)
 
 3) 选择对应的 Module，设置 Web 目录
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311412702.png" alt="image-20210825223426168" style="zoom:50%;" />
+![image-20210825223426168](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071303964.png)
 
 4) 弹出提示框，选择版本后点击 OK
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311413770.png" alt="image-20210825223511229" style="zoom:50%;" />
+![image-20210825223511229](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071303502.png)
 
 5) 生成 web.xml 文件
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311413718.png" alt="image-20210825223548581" style="zoom:50%;" />
+![image-20210825223548581](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071304517.png)
 
 6) 设置存放 web 页面文件的目录后点击 OK
 
@@ -395,15 +395,15 @@ public class HelloTest {
 
 7) 点击 OK
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311413490.png" alt="image-20210825223812864" style="zoom:50%;" />
+![image-20210825223812864](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071304308.png)
 
 8) 发现项目中多了一个 web 目录，而且目录上有一个蓝点
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311413279.png" alt="image-20210825223839783" style="zoom:50%;" />
+![image-20210825223839783](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071304971.png)
 
 9) 在 web 目录下创建 index.jsp 页面
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311413888.png" alt="image-20210825223938584" style="zoom:50%;" />
+![image-20210825223938584](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071304779.png)
 
 10) 部署到 Tomcat 上运行
 
@@ -415,19 +415,19 @@ public class HelloTest {
 
 1) 点击 Window→Preferences→Team→Git→Configuration
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311413429.png" alt="image-20210825224302690" style="zoom:50%;" />
+![image-20210825224302690](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071304008.png)
 
 2) 点击 Add Entry…设置全局用户名和邮箱
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311413869.png" alt="image-20210825224340400" style="zoom:50%;" />
+![image-20210825224340400](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071304109.png)
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311413091.png" alt="image-20210825224405689" style="zoom:50%;" />
+![image-20210825224405689](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071304914.png)
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311413613.png" alt="image-20210825224428868" style="zoom:50%;" />
+![image-20210825224428868](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071304660.png)
 
 3) 点击 Apply and Close 之后在 Windows 的用户目录下会生成.gitconfig 配置文件
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311413166.png" alt="image-20210825224459550" style="zoom:50%;" />
+![image-20210825224459550](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071305111.png)
 
 ### **3.1.2** **配置忽略的文件**
 
@@ -467,11 +467,11 @@ excludesfile = C:/Users/韩总/Java.gitignore
 
 3) 文件所在位置图
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311413580.png" alt="image-20210825224729881" style="zoom:50%;" />
+![image-20210825224729881](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071305585.png)
 
 4) 重启 Eclipse 忽略文件 Java.gitignore 即生效
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202303311414714.png" alt="image-20210825225356237" style="zoom:50%;" />
+![image-20210825225356237](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071305348.png)
 
 **Tips：方式二只需要修改.git/info 目录下的 exclude 文件即可，不需要创建新的文件，所以建议大家选择这种方式。**
 
