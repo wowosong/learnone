@@ -24,19 +24,19 @@ Debug用来追踪代码的运行流程，通常在程序运行过程中出现异
 
 　　⑧ Watches：查看变量，可以将Variables区中的变量拖到Watches中查看 
 
-![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102332-8317272.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072150722.webp)
 
 　　[图1.1] 　
 
-![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102337.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151619.png)
 
 [图1.2]：在设置里勾选Show debug window on breakpoint，则请求进入到断点后自动激活Debug窗口　　
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102341.png)
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151400.png)
 
 [图1.3]：如果你的IDEA底部没有显示工具栏或状态栏，可以在View里打开，显示出工具栏会方便我们使用。可以自己去尝试下这四个选项
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102344.png)
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151828.png)
 
  [图1.4]：在菜单栏Run里有调试对应的功能，同时可以查看对应的快捷键
 
@@ -48,7 +48,7 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　1、首先说第一组按钮，共8个按钮，从左到右依次如下：
 
-　　　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102350.png) [图2.1]
+　　　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151079.png) [图2.1]
 
 　　　　> Show Execution Point (Alt + F10)：如果你的光标在其它行或其它页面，点击这个按钮可跳转到当前代码执行的行。
 
@@ -68,7 +68,7 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　2、第二组按钮，共7个按钮，从上到下依次如下：
 
- 　　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102356.png) [图2.2]
+ 　　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151882.png) [图2.2]
 
 　　　　> Rerun 'xxxx'：重新运行程序，会关闭服务后重新启动程序。
 
@@ -90,11 +90,11 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　　　　　　下面的On frame deactivation，在IDEA窗口失去焦点时触发，即一般你从idea切换到浏览器的时候，idea会自动帮你做的事情，一般可以设置Do nothing，频繁切换会比较消耗资源的。
 
- 　 　 ![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102400.png)
+ 　 　 ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151806.png)
 
 　　　　[图2.4]
 
-　　　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102405.png)
+　　　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151381.png)
 
  
 
@@ -106,35 +106,35 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　1、如下，在IDEA中，参数所在行后面会显示当前变量的值。
 
-![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102415.png) [图3.1]
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151989.png) [图3.1]
 
 　　2、光标悬停到参数上，显示当前变量信息。点击打开详情如图3.3。我一般会使用这种方式，快捷方便。
 
-　　![图片](data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==)![image-20210623123625924](./Idea%E4%BD%BF%E7%94%A8.assets/20210623123640.png) [图3.2]
+　　![图片](data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==)![image-20210623123625924](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151370.png) [图3.2]
 
-　　![image-20210623123657131](./Idea%E4%BD%BF%E7%94%A8.assets/20210623123658.png)[图3.3]
+　　![image-20210623123657131](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151457.png)[图3.3]
 
 　　3、在Variables里查看，这里显示当前方法里的所有变量。
 
- 　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102419.webp) [图3.4]
+ 　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151658.webp) [图3.4]
 
 　　4、在Watches里，点击New Watch，输入需要查看的变量。或者可以从Variables里拖到Watche里查看。
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102422.webp) [图3.5]
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151393.webp) [图3.5]
 
 　　如果你发现你没有Watches，可能在下图所在的地方。
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102425.webp) 
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151128.webp) 
 
 [图3.6] 
 
-　  ![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102430.webp) [图3.7]
+　  ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151686.webp) [图3.7]
 
 ## 四、计算表达式
 
 　　在前面提到的计算表达式如图4.1的按钮，Evaluate Expression (Alt + F8) 。可以使用这个操作在调试过程中计算某个表达式的值，而不用再去打印信息。
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102435.webp) 
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151052.webp) 
 
 [图4.1]
 
@@ -142,11 +142,11 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　　 这个表达式不仅可以是一般变量或参数，也可以是方法，当你的一行代码中调用了几个方法时，就可以通过这种方式查看查看某个方法的返回值。
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102438.webp) [图4.2]
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152652.webp) [图4.2]
 
 　　2、设置变量，在计算表达式的框里，可以改变变量的值，这样有时候就能很方便我们去调试各种值的情况了不是。
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102441.png) [图4.3]
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152472.png) [图4.3]
 
  
 
@@ -156,7 +156,7 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　想想，一行代码里有好几个方法，怎么只选择某一个方法进入。之前提到过使用Step Into (Alt + F7) 或者 Force Step Into (Alt + Shift + F7)进入到方法内部，但这两个操作会根据方法调用顺序依次进入，这比较麻烦。
 
-　　那么智能步入就很方便了，智能步入，这个功能在Run里可以看到，Smart Step Into (Shift + F7)，如图5.1![image-20210623123805117](./Idea%E4%BD%BF%E7%94%A8.assets/20210623123806.png)
+　　那么智能步入就很方便了，智能步入，这个功能在Run里可以看到，Smart Step Into (Shift + F7)，如图5.1![image-20210623123805117](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152220.png)
 
 　　![图片](data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==) [图5.1]
 
@@ -164,7 +164,7 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　如果只有一个方法，则直接进入，类似Force Step Into。
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/640.png) [图5.2]
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152006.png) [图5.2]
 
 ## 六、断点条件设置
 
@@ -174,7 +174,7 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　1、在断点上右键直接设置当前断点的条件，如图6.1，我设置exist为true时断点才生效。
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102444.png) [图6.1]
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152983.png) [图6.1]
 
 　　2、点击View Breakpoints (Ctrl + Shift + F8)，查看所有断点。
 
@@ -184,11 +184,11 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　　　勾选Evaluate and log，可以在执行这行代码是计算表达式的值，并将结果输出到控制台。
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102446.png)
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152436.png)
 
 [图6.2]　　
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102449.png)
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152345.png)
 
  [图6.3]　　
 
@@ -200,11 +200,11 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　　　Pass count：用于循环中，如果断点在循环中，可以设置该值，循环多少次后停在断点处，之后的循环都会停在断点处。
 
-​        ![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102452.webp) 
+​        ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152298.webp) 
 
 [图6.4]
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102456.webp)
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152093.webp)
 
 [图6.5]　　
 
@@ -214,13 +214,13 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　我这里添加了一个NullPointerException异常断点，如图6.8，出现空指针异常后，自动定位在空指针异常行。
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102501.webp)
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152649.webp)
 
 [图6.6]
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102503.webp) [图6.7]
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152747.webp) [图6.7]
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102506.webp) [图6.8]
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152363.webp) [图6.8]
 
 ## 七、多线程调试
 
@@ -228,11 +228,11 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　那是因为IDEA在Debug时默认阻塞级别是ALL，会阻塞其它线程，只有在当前调试线程走完时才会走其它线程。可以在View Breakpoints里选择Thread，如图7.1，然后点击Make Default设置为默认选项。
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102509.webp) [图7.1]
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152350.webp) [图7.1]
 
 　　切换线程，在图7.2中Frames的下拉列表里，可以切换当前的线程，如下我这里有两个Debug的线程，切换另外一个则进入另一个Debug的线程。
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102512.webp) [图7.2]
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152488.webp) [图7.2]
 
 ## 八、回退断点
 
@@ -240,7 +240,7 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　1、首先认识下这个方法调用栈，如图8.1，首先请求进入DemoController的insertDemo方法，然后调用insert方法，其它的invoke我们且先不管，最上面的方法是当前断点所在的方法。
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102515.webp) [图8.1]
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152776.webp) [图8.1]
 
 　　2、断点回退
 
@@ -254,15 +254,15 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　
 
-![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102519.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153304.webp)
 
 图[8.2]
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102521.webp)
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153691.webp)
 
 图[8.3]
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102523.webp)
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153728.webp)
 
 ​																					图[8.4] 
 
@@ -276,11 +276,11 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　点击Force Return，弹出Return Value的窗口，我这个方法的返回类型为Map，所以，我这里直接返回 results，来强制返回，从而不再进行后续的流程。或者你可以new HashMap<>()。
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102526.webp)
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153268.webp)
 
 ​																						[图9.1]
 
-![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102533.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153944.webp)
 
  [图9.2]
 
@@ -290,15 +290,15 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 > 输入psvm
 
-![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102536.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153541.webp)
 ![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102539.webp)
 
 ### 2. 快速生成System.out.print
 
 > 使用sout
 
-![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102541.webp)
-![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102544.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153346.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153507.webp)
 
 ### 3. 文件保存
 
@@ -308,14 +308,14 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 > Ctrl+Y
 
-![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102547.webp)
-![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102551.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153720.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153722.webp)
 
 ### 5. 新添，新建，添加的快捷键
 
 > Alt + lnsert
 
-![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102553.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153193.webp)
 
 ### 6. 切换java程序
 
@@ -324,9 +324,9 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 ### 7. 目录显示与关闭
 
 > Ctrl + Fn + F12
-> ![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102600.webp)
+> ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153323.webp)
 
-![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102602.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153950.webp)
 
 ### 8. 运行
 
@@ -336,13 +336,13 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 > Ctrl + p
 
-![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102605.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072154769.webp)
 
 ### 10. 切换窗口
 
 > Alt + （数字）
 
-![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102609.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072154252.webp)
 我们可以鼠标放在窗口按钮查看快捷键数字。
 
 ### 11. 查找
@@ -394,7 +394,7 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 ctrl+alt+u
 
-![Toolbar](./Idea%E4%BD%BF%E7%94%A8.assets/20211028135759.png)
+![Toolbar](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072154944.png)
 
 ![img](./Idea%E4%BD%BF%E7%94%A8.assets/20211028140028.png)
 
@@ -433,15 +433,15 @@ ctrl+alt+u
 
 　　④ 在设置里Jrebel里设置激活码，如图10.3，如果没有安装JRebel插件，先在Plugins里安装搜索安装JRebel插件。
 
- 　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102614.webp)
+ 　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072154305.webp)
 
 [图10.1]
 
-　　![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102616.webp)
+　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072154463.webp)
 
 [图10.2]
 
-![图片](./Idea%E4%BD%BF%E7%94%A8.assets/20210611102619.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072154449.webp)
 
  [图10.3]
 

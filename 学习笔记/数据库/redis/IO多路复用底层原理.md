@@ -184,7 +184,7 @@ Socket client = server.accept();
 
 为什么要多线程读呢？首先因为读操作需要发生CPU的系统调用，如果通过多个线程读取，能够充分发挥CPU的多核作用
 
-![image-20200702084219155](./IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.assets/20220110232703.png)
+![image-20200702084219155](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072140058.png)
 
 而nginx只需要做一件事，就是等着客户端过来，不需要做其他的事情，所以也就设置成阻塞。
 

@@ -82,7 +82,7 @@
 
 - 将上述jar包拷贝到Java工程的一个目录中，习惯上新建一个lib文件夹。
 
- ![1566134718955](./JDBC%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7_%E5%AE%8B%E7%BA%A2%E5%BA%B7%EF%BC%89.assets/20211028125608.png)
+ ![1566134718955](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072113992.png)
 
 
 
@@ -1098,10 +1098,8 @@ public void testInsert1() throws Exception{
 			ps.clearBatch();
 		}
 	}
-		
 	long end = System.currentTimeMillis();
-	System.out.println("花费的时间为：" + (end - start));//20000条：625                                                                         //1000000条:14733  
-		
+	System.out.println("花费的时间为：" + (end - start));//20000条：625                                         //1000000条:14733  	
 	JDBCUtils.closeResource(conn, ps);
 }
 ```
@@ -2099,9 +2097,7 @@ filters=wall
 
 ![1555595163263](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061303287.png)
 
-![1555595198644](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061303365.png)
-
-
+![202311061303365](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072116199.png)
 
 
 

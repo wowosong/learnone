@@ -139,11 +139,11 @@ MySQL每次只使用一个索引，与其说数据库查询只能用一个索引
 
 例如，我们通过主键建立了主键索引，然后在叶子节点上存放的是我们的数据
 
-![image-20211210220053929](./Mysql%E7%B4%A2%E5%BC%95.assets/20211210220054.png)
+![image-20211210220053929](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072138159.png)
 
 当我们创建了两个索引时，一个是主键，一个是name，它还会再生成一棵B+Tree，这棵树的叶子节点存放的是主键，当我们通过name进行查找的时候，会得到一个主键，然后再通过主键，再去上面的这个主键B+Tree中进行查找，我们称这个操作为 **回表**
 
-![image-20211210220123234](./Mysql%E7%B4%A2%E5%BC%95.assets/20211210220123.png)
+![image-20211210220123234](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072138674.png)
 
 当我们的SQL语句使用的是下面这种的时候，它会查找第一颗树，直接返回我们的数据
 
@@ -172,7 +172,7 @@ select name from tb where name = zhou
 
 答案是不一样的，首先我们看第二个语句，就是要输出的列中，就是我们的主键，当我们通过name建立的B+Tree进行查询的时候
 
-![image-20211210220138899](./Mysql%E7%B4%A2%E5%BC%95.assets/20211210220138.png)
+![image-20211210220138899](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072138265.png)
 
 我们可以直接找到我们的数据，并得到主键，但是因为我们要返回的就是name，此时说明数据存在了，那么就直接把当前的name进行返回，而不需要通过主键再去主键B+Tree中进行查询。
 
@@ -235,7 +235,7 @@ select * from tb1 where name = ? and age = ?
 
 基于规则的优化
 
-![image-20211210220201961](./Mysql%E7%B4%A2%E5%BC%95.assets/20211210220202.png)
+![image-20211210220201961](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072138253.png)
 
 ## 索引匹配方式
 
@@ -267,7 +267,7 @@ explain select id from staffs where id = 1
 
 我们查看其任务计划，在某尾有 Extra字段，如果是Using index 表示是使用了覆盖索引
 
-![image-20211210220233125](./Mysql%E7%B4%A2%E5%BC%95.assets/20211210220233.png)
+![image-20211210220233125](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072138853.png)
 
 然后我们在查看下面这条SQL语句
 
@@ -277,7 +277,7 @@ explain select * from staffs where id = 1
 
 通过查看任务计划，发现extra字段是NULL，说明没有使用覆盖索引
 
-![image-20211210220252137](./Mysql%E7%B4%A2%E5%BC%95.assets/20211210220252.png)
+![image-20211210220252137](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072138179.png)
 
 ### 匹配列前缀
 
@@ -354,13 +354,13 @@ InnoDB中，表数据文件本身就是按B+Tree组织的一个索引结构，�
 
 InnoDB辅助索引的叶子节点并不包含行记录的全部数据，叶子节点除了包含键值外，还包含了行数据的聚簇索引建。辅助索引的存在不影响数据在聚簇索引中的组织，所以一张表可以有多个辅助索引。**在InnoDB中有时也称为辅助索引为二级索引**
 
-<img src="./Mysql%E7%B4%A2%E5%BC%95.assets/20211210220311.png" alt="image-20211210220311688" style="zoom:50%;" />
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072138956.png" alt="image-20211210220311688" style="zoom:50%;" />
 
 ## 组合索引
 
 当包含多个列为索引，需要注意的是正确的顺序依赖于该索引的查询，同时需要考虑如何更好的满足排序和分组的需要
 
-![image-20211210220328589](./Mysql%E7%B4%A2%E5%BC%95.assets/20211210220328.png)
+![image-20211210220328589](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072138365.png)
 
 第4个不走索引，是因为不满足最左匹配原则
 
@@ -377,11 +377,11 @@ InnoDB辅助索引的叶子节点并不包含行记录的全部数据，叶子�
 
   第一条语句走索引
 
-  ![image-20211210220434688](./Mysql%E7%B4%A2%E5%BC%95.assets/20211210220434.png)
+  ![image-20211210220434688](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072138584.png)
 
   而第二条语句没有走主键索引
 
-  ![image-20211210220452229](./Mysql%E7%B4%A2%E5%BC%95.assets/20211210220452.png)
+  ![image-20211210220452229](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072138702.png)
 
 - 尽量使用主键查询，而不是其它索引，因为主键查询不会触发回表操作
 
@@ -410,7 +410,7 @@ explain select * from actor where actor_id = 1 or actor_id = 2;
 
 范围列可以用到索引，但是范围列后面的列无法用到索引，索引最多用于一个范围列，所以一般如果我们使用组合索引的时候，最好不要使用范围查找
 
-![image-20211210220532549](./Mysql%E7%B4%A2%E5%BC%95.assets/20211210220532.png)
+![image-20211210220532549](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072139315.png)
 
 如倒数第一个所示，因为中间b使用了范围查找，所以后面的c是无法使用索引的，只能是a和b才能使用索引
 

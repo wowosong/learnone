@@ -1619,7 +1619,7 @@ ab -n 2000 -c 200 -k -p ~/postfile -T application/x-www-form-urlencoded http://1
 
 ![image-20211031175457760](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061703726.png)
 
-![image-20211031175527898](/Users/jiusonghuang/pic-md/20211031175528.png)
+![image-20211031175527898](https://learnone.oss-cn-beijing.aliyuncs.com/pic/20211031175528.png)
 
 ## 继续增加并发测试
 

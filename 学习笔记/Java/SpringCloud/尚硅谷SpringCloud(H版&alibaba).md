@@ -1,6 +1,7 @@
 SpringCloud升级，部分ss组件停用:
 
-![image-20220625183733401](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071550986.png)
+![image-20220625183733401
+](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071550986.png)
 
 1. Eureka停用，可以使用zk作为服务注册中心
 2. 服务调用，Ribbon准备停更，代替为LoadBalance

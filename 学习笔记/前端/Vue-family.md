@@ -993,10 +993,10 @@ let vm = new Vue({
 
 - 4. 组件
 
-路由最终的渲染离不开组件，Vue-Router 内置了 <router-view> 组件。<router-view> 是一个 functional 组件，它的渲染也是依赖 render 函数。
+路由最终的渲染离不开组件，Vue-Router 内置了 \<router-view> 组件。\<router-view> 是一个 functional 组件，它的渲染也是依赖 render 函数。
 
-1. <router-view> 是支持嵌套的，回到 render 函数，其中定义了 depth 的概念，它表示 <router-view> 嵌套的深度。
-2. 每个 <router-view> 在渲染的时候，会进行一个循环，就是从当前的 <router-view> 的父节点向上找，一直找到根 Vue 实例，在这个过程，如果碰到了父节点也是 <router-view> 的时候，说明 <router-view> 有嵌套的情况，depth++。遍历完成后，根据当前线路匹配的路径和 depth 找到对应的 RouteRecord，进而找到该渲染的组件。
+1. \<router-view> 是支持嵌套的，回到 render 函数，其中定义了 depth 的概念，它表示 \<router-view> 嵌套的深度。
+2. 每个 \<router-view> 在渲染的时候，会进行一个循环，就是从当前的\<router-view> 的父节点向上找，一直找到根 Vue 实例，在这个过程，如果碰到了父节点也是 \<router-view> 的时候，说明 \<router-view> 有嵌套的情况，depth++。遍历完成后，根据当前线路匹配的路径和 depth 找到对应的 RouteRecord，进而找到该渲染的组件。
 3. 注册路由实例
 
 ```javascript
@@ -1033,11 +1033,11 @@ if (isDef(this.$options.router)) {
     Vue.util.defineReactive(this, '_route', this._router.history.current)
 }
 ```
-  2. 访问 this._routerRoot._route，触发了它的 getter，相当于 <router-view> 对它有依赖，然后再执行完 transitionTo 后，修改 app._route 的时候，又触发了setter，因此会通知 <router-view> 的渲染 watcher 更新，重新渲染组件。
+  2. 访问 this._routerRoot._route，触发了它的 getter，相当于 \<router-view> 对它有依赖，然后再执行完 transitionTo 后，修改 app._route 的时候，又触发了setter，因此会通知 \<router-view> 的渲染 watcher 更新，重新渲染组件。
 
- - 5. <router-link>
+ - 5. \<router-link>
 
-Vue-Router 还内置了另一个组件 <router-link>，它支持用户在具有路由功能的应用中（点击）导航。 通过 to 属性指定目标地址，默认渲染成带有正确链接的 <a> 标签，可以通过配置 tag 属性生成别的标签。另外，当目标路由成功激活时，链接元素自动设置一个表示激活的 CSS 类名。
+Vue-Router 还内置了另一个组件 \<router-link>，它支持用户在具有路由功能的应用中（点击）导航。 通过 to 属性指定目标地址，默认渲染成带有正确链接的 \<a> 标签，可以通过配置 tag 属性生成别的标签。另外，当目标路由成功激活时，链接元素自动设置一个表示激活的 CSS 类名。
 
 1. 首先做了路由解析
 2. router.resolve 计算出最终跳转的 href
@@ -1046,7 +1046,7 @@ Vue-Router 还内置了另一个组件 <router-link>，它支持用户在具有�
 
 实际上就是执行了 history 的 push 和 replace 方法做路由跳转。
 
-5. 最后判断当前 tag 是否是 <a> 标签，<router-link> 默认会渲染成 <a> 标签，当然我们也可以修改 tag 的 prop 渲染成其他节点，这种情况下会尝试找它子元素的 <a> 标签，如果有则把事件绑定到 <a> 标签上并添加 href 属性，否则绑定到外层元素本身。
+5. 最后判断当前 tag 是否是 \<a> 标签，\<router-link> 默认会渲染成 \<a> 标签，当然我们也可以修改 tag 的 prop 渲染成其他节点，这种情况下会尝试找它子元素的 \<a> 标签，如果有则把事件绑定到 \<a> 标签上并添加 href 属性，否则绑定到外层元素本身。
 
 - 6. 总结
 
@@ -1149,27 +1149,27 @@ Store 对象的构造函数也是一个 class，接收一个对象参数，它�
 
 ```javascript
 const moduleA = {
-    state: { ... },
-            mutations: { ... },
-                        actions: { ... },
-                                  getters: { ... },
+  state: { ... },
+          mutations: { ... },
+                      actions: { ... },
+                                getters: { ... },
+                                         }
+                                const moduleB = {
+                                state: { ... },
+                      mutations: { ... },
+                                  actions: { ... },
+                                            getters: { ... },
+                                                     }
+
+                                            const store = new Vuex.Store({
+                                            modules: {
+                                            a: moduleA,
+                                            b: moduleB
                                            }
-                                  const moduleB = {
-                                  state: { ... },
-                        mutations: { ... },
-                                    actions: { ... },
-                                              getters: { ... },
-                                                       }
+                                 })
 
-                                              const store = new Vuex.Store({
-                                              modules: {
-                                              a: moduleA,
-                                              b: moduleB
-                                             }
-                                   })
-
-                        store.state.a // -> moduleA 的状态
-                        store.state.b // -> moduleB 的状态
+                      store.state.a // -> moduleA 的状态
+                      store.state.b // -> moduleB 的状态
 ```
 
 从数据结构上来看，模块的设计就是一个树型结构，store 本身可以理解为一个 root module，它下面的 modules 就是子模块，Vuex 需要完成这颗树的构建。

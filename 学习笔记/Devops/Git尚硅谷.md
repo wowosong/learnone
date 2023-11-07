@@ -960,7 +960,7 @@ excludesfile = **C:/Users/Lenovo/Java.gitignore**
 
 URI: 粘贴在GitHub复制的地址,后面2个默认;User账号,下面:密码
 
-![img](./Git%E5%B0%9A%E7%A1%85%E8%B0%B7.assets/20220122134008.jpg) 
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072148919.jpg) 
 
 点击Add All Bran... > 然后下一步/或者直接Finish
 

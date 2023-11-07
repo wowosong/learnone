@@ -202,7 +202,7 @@ FROM student_grades
 
 ```
 
-![image-20210611224452019](https://gitee.com/wowosong/pic-md/raw/master/202305050913951.png)
+![image-20210611224452019](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072112199.png)
 
 ROW_NUMBER（）返回每行开始的唯一编号。当存在关系时（例如，BOB vs Carrie），ROW_NUMBER（)如果未定义第二条标准，则任意分配数字。
 
@@ -244,7 +244,7 @@ SELECT Month
 FROM monthly_revenue
 ```
 
-![image-20210611224526419](https://gitee.com/wowosong/pic-md/raw/master/202305050913718.png)
+![image-20210611224526419](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072112132.png)
 
 # 10.日期时间操纵
 
