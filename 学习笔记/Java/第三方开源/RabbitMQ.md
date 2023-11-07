@@ -14,19 +14,19 @@ MQ(message queue)，从字面意思上看，本质是个队列，FIFO 先入先�
 
 举个例子，如果订单系统最多能处理一万次订单，这个处理能力应付正常时段的下单时绰绰有余，正常时段我们下单一秒后就能返回结果。但是在高峰期，如果有两万次下单操作系统是处理不了的，只能限制订单超过一万后不允许用户下单。使用消息队列做缓冲，我们可以取消这个限制，把一秒内下的订单分散成一段时间来处理，这时有些用户可能在下单十几秒后才能收到下单成功的操作，但是比不能下单的体验要好。
 
-![20211105202548](https://gitee.com/wowosong/pic-md/raw/master/202212151223947.png)
+![20211105202548](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071048690.png)
 
 2.应用解耦
 
 以电商应用为例，应用中有订单系统、库存系统、物流系统、支付系统。用户创建订单后，如果耦合调用库存系统、物流系统、支付系统，任何一个子系统出了故障，都会造成下单操作异常。当转变成基于消息队列的方式后，系统间调用的问题会减少很多，比如物流系统因为发生故障，需要几分钟来修复。在这几分钟的时间里，物流系统要处理的内存被缓存在消息队列中，用户的下单操作可以正常完成。当物流系统恢复后，继续处理订单信息即可，中单用户感受不到物流系统的故障，提升系统的可用性。
 
-![20211105202225](https://gitee.com/wowosong/pic-md/raw/master/202212151223909.png)
+![20211105202225](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071048796.png)
 
 3.异步处理
 
 有些服务间调用是异步的，例如 A 调用 B，B 需要花费很长时间执行，但是 A 需要知道 B 什么时候可以执行完，以前一般有两种方式，A 过一段时间去调用 B 的查询 api 查询。或者 A 提供一个 callback api， B 执行完之后调用 api 通知 A 服务。这两种方式都不是很优雅，使用消息总线，可以很方便解决这个问题，A 调用 B 服务后，只需要监听 B 处理完成的消息，当 B 处理完成后，会发送一条消息给 MQ，MQ 会将此消息转发给 A 服务。这样 A 服务既不用循环调用 B 的查询 api，也不用提供 callback api。同样 B 服务也不用做这些操作。A 服务还能及时的得到异步处理成功的消息。
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151223725.png" alt="20211105202801" style="zoom:50%;" />
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071048270.png" alt="20211105202801" style="zoom:50%;" />
 
 ### 1.1.3**MQ 的分类**
 
@@ -104,15 +104,15 @@ RabbitMQ 是一个消息中间件：它接受并转发消息。你可以把它�
 
 消费与接收具有相似的含义。消费者大多时候是一个等待接收消息的程序。请注意生产者，消费者和消息中间件很多时候并不在同一机器上。同一个应用程序既可以是生产者又是可以是消费者。
 
-![20211105211612](https://gitee.com/wowosong/pic-md/raw/master/202212151223103.png)
+![20211105211612](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071049862.png)
 
 ### **1.2.3. RabbitMQ 核心部分**
 
-![20211105211647](https://gitee.com/wowosong/pic-md/raw/master/202212151224983.png)
+![20211105211647](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071049406.png)
 
 ### **1.2.4. 各个名词介绍**
 
-![20211105211808](https://gitee.com/wowosong/pic-md/raw/master/202212151224876.png)
+![20211105211808](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071049330.png)
 
 **Broker**：接收和分发消息的应用，RabbitMQ Server 就是 Message Broker
 
@@ -138,7 +138,7 @@ https://www.rabbitmq.com/download.html
 
 上传到/usr/local/software 目录下(如果没有 software 需要自己创建)
 
-![20211105212858](https://gitee.com/wowosong/pic-md/raw/master/202212151224496.png)
+![20211105212858](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071049744.png)
 
 3.安装文件(分别按照以下顺序安装)
 
@@ -170,7 +170,7 @@ chkconfig rabbitmq-server on
 /sbin/service rabbitmq-server status
 ```
 
-![20211105212956](https://gitee.com/wowosong/pic-md/raw/master/202212151224509.png)
+![20211105212956](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071049488.png)
 
 停止服务(选择执行)
 
@@ -186,7 +186,7 @@ rabbitmq-plugins enable rabbitmq_management
 
 用默认账号密码(guest)访问地址 http://127.0.0.1:15672/#/出现权限问题
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151224460.png" alt="20211105213033" style="zoom:50%;" />
+![20211105213033](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071049337.png)
 
 5.添加一个新的用户
 
@@ -220,7 +220,7 @@ rabbitmqctl list_users
 
 6.再次利用 admin 用户登录
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151224906.png" alt="image-20211105213144020" style="zoom:50%;" />
+![image-20211105213144020](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071049435.png)
 
 7.重置命令
 
@@ -248,7 +248,7 @@ rabbitmqctl start_app
 
 在下图中，“ P”是我们的生产者，“ C”是我们的消费者。中间的框是一个队列-RabbitMQ 代表使用者保留的消息缓冲区
 
-![image-20211105213728955](https://gitee.com/wowosong/pic-md/raw/master/202212151224436.png)
+![image-20211105213728955](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071049567.png)
 
 ## **2.1.** **依赖**
 
@@ -400,11 +400,11 @@ public class Worker01 {
 }
 ```
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151224553.png" alt="image-20211106170353139" style="zoom:50%;" />
+![image-20211106170353139](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071050880.png)
 
-![image-20211106170413624](https://gitee.com/wowosong/pic-md/raw/master/202212151225267.png)
+![image-20211106170413624](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071050596.png)
 
-![image-20211106170429624](https://gitee.com/wowosong/pic-md/raw/master/202212151224798.png)
+![image-20211106170429624](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071050922.png)
 
 ### **3.1.3. 启动一个发送线程**
 
@@ -430,9 +430,9 @@ public class Task01 {
 
 通过程序执行发现生产者总共发送 4 个消息，消费者 1 和消费者 2 分别分得两个消息，**并且是按照有序的一个接收一次消息**
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151225166.png" alt="image-20211106172120589" style="zoom:50%;" />
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071050320.png" alt="image-20211106172120589" style="zoom:50%;" />
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151225863.png" alt="image-20211106172140987" style="zoom: 50%;" /><img src="https://gitee.com/wowosong/pic-md/raw/master/202212151225444.png" alt="image-20211106172159874" style="zoom:50%;" />
+![image-20211106172140987](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071050741.png)![image-20211106172159874](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071050893.png)
 
 ## **3.2.** **消息应答**
 
@@ -442,7 +442,7 @@ public class Task01 {
 
 为了保证消息在发送过程中不丢失，rabbitmq 引入**消息应答机制**，消息应答就是:**消费者在接收到消息并且处理该消息之后，告诉 rabbitmq 它已经处理了，rabbitmq 可以把该消息删除了。**
 
-![image-20211109100023871](https://gitee.com/wowosong/pic-md/raw/master/202212151225120.png)
+![image-20211109100023871](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071050122.png)
 
 ### **3.2.2. 自动应答**
 
@@ -466,7 +466,7 @@ public class Task01 {
 
 **手动应答的好处是可以批量应答并且减少网络拥堵**
 
-![image-20211106174056958](https://gitee.com/wowosong/pic-md/raw/master/202212151225500.png)
+![image-20211106174056958](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071051262.png)
 
 multiple 的 true 和 false 代表不同意思
 
@@ -478,13 +478,13 @@ multiple 的 true 和 false 代表不同意思
 
   只会应答 tag=8 的消息 5,6,7 这三个消息依然不会被确认收到消息应答
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151225007.png" alt="image-20211106174218799" style="zoom:50%;" />
+![image-20211106174218799](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071051977.png)
 
 ### **3.2.5. 消息自动重新入队**
 
 **如果消费者由于某些原因失去连接(其通道已关闭，连接已关闭或 TCP 连接丢失)，导致消息未发送 ACK 确认，RabbitMQ 将了解到消息未完全处理，并将对其重新排队。**如果此时其他消费者可以处理，它将很快将其重新分发给另一个消费者。这样，即使某个消费者偶尔死亡，也可以确保不会丢失任何消息。
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151226720.png" alt="image-20211109101336827" style="zoom:50%;" />
+![image-20211109101336827](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071051901.png)
 
 ### **3.2.6.** **消息手动应答代码**
 
@@ -577,17 +577,17 @@ public class Work03 {
 
 正常情况下消息发送方发送两个消息 C1 和 C2 分别接收到消息并进行处理
 
-![image-20211109113809161](https://gitee.com/wowosong/pic-md/raw/master/202212151226074.png)
+![image-20211109113809161](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071051486.png)
 
-![image-20211109113832227](https://gitee.com/wowosong/pic-md/raw/master/202212151226325.png)![image-20211109113859464](https://gitee.com/wowosong/pic-md/raw/master/202212151226150.png)
+![image-20211109113832227](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071051156.png)![image-20211109113859464](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071051217.png)
 
 
 
 在发送者发送消息 dd，发出消息之后的把 C2 消费者停掉，按理说该 C2 来处理该消息，但是由于它处理时间较长，在还未处理完，也就是说 **C2 还没有执行 ack 代码的时候**，C2 被停掉了，此时会看到消息被 C1 接收到了，说明消息 dd 被重新入队，然后分配给能处理消息的 C1 处理了
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151226065.png" alt="image-20211109114150384" style="zoom:50%;" />
+![image-20211109114150384](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071051075.png)
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212151226704.png" alt="image-20211109114236653" style="zoom:50%;" />
+![image-20211109114236653](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071051543.png)
 
 ## **3.3. RabbitMQ** **持久化**
 
@@ -601,15 +601,15 @@ public class Work03 {
 
 要队列实现持久化 需要在声明队列的时候把 durable 参数设置为持久化
 
-![image-20211109115028473](https://gitee.com/wowosong/pic-md/raw/master/202212151227500.png)
+![image-20211109115028473](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071051547.png)
 
 但是需要注意的就是如果之前声明的队列不是持久化的，需要把原先队列先删除，或者重新创建一个持久化的队列，不然就会出现错误
 
-![image-20211109115103406](https://gitee.com/wowosong/pic-md/raw/master/202212151228703.png)
+![image-20211109115103406](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071052654.png)
 
 以下为控制台中持久化与非持久化队列的 UI 显示区
 
-![image-20211109115122342](https://gitee.com/wowosong/pic-md/raw/master/202212151228695.png)
+![image-20211109115122342](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071052119.png)
 
 这个时候即使重启 rabbitmq 队列也依然存在
 
@@ -617,7 +617,7 @@ public class Work03 {
 
 要想让消息实现持久化需要在消息生产者修改代码，MessageProperties.PERSISTENT_TEXT_PLAIN 添加这个属性。
 
-![image-20211109115243995](https://gitee.com/wowosong/pic-md/raw/master/202212152240938.png)
+![image-20211109115243995](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071052091.png)
 
 **$\textcolor{red}{将消息标记为持久化并不能完全保证不会丢失消息}$**。**尽管它告诉 RabbitMQ 将消息保存到磁盘，但是这里依然存在当消息刚准备存储在磁盘的时候 但是还没有存储完，消息还在缓存的一个间隔点。此时并没有真正写入磁盘。**持久性保证并不强，但是对于我们的简单任务队列而言，这已经绰绰有余了。如果需要更强有力的持久化策略，参考**后边课件发布确认章节。**
 
@@ -632,9 +632,9 @@ public class Work03 {
  channel.basicQos(prefetchCount);
 ```
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152240993.png" alt="image-20211109124355447" style="zoom:50%;" />
+![image-20211109124355447](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071052957.png)
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152240282.png" alt="image-20211109124422090" style="zoom:50%;" />
+![image-20211109124422090](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071052641.png)
 
 意思就是如果这个任务我还没有处理完或者我还没有应答你，你先别分配给我，我目前只能处理一个任务，然后 rabbitmq 就会把该任务分配给没有那么忙的那个空闲消费者，当然如果所有的消费者都没有完成手上任务，队列还在不停的添加新任务，队列有可能就会遇到队列被撑满的情况，这个时候就只能添加新的 worker 或者改变其他存储任务的策略。
 
@@ -642,17 +642,17 @@ public class Work03 {
 
 本身消息的发送就是异步发送的，所以在任何时候，channel 上肯定不止只有一个消息，另外来自消费者的手动确认本质上也是异步的。因此这里就存在一个**未确认的消息缓冲区**，因此希望开发人员能**限制此缓冲区的大小，以避免缓冲区里面无限制的未确认消息问题**。**这个时候就可以通过使用 basic.qos 方法设置“预取计数”值来完成的。该值定义通道上允许的未确认消息的最大数量**。一旦数量达到配置的数量，RabbitMQ 将停止在通道上传递更多消息，除非至少有一个未处理的消息被确认。
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152240111.png" alt="image-20211109133956860" style="zoom:100%;" />
+![image-20211109133956860](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071052894.png)
 
 例如，假设在通道上有未确认的消息 5、6、7，8，并且通道的预取计数设置为 4，此时 RabbitMQ 将不会在该通道上再传递任何消息，除非至少有一个未应答的消息被 ack。比方说 tag=6 这个消息刚刚被确认 ACK，RabbitMQ 将会感知这个情况到并再发送一条消息。$\textcolor{red}{消息应答和 QoS 预取值对用户吞吐量有重大影响}$。通常，增加预取将提高向消费者传递消息的速度。**虽然自动应答传输消息速率是最佳的，但是，在这种情况下已传递但尚未处理的消息的数量也会增加，从而增加了消费者的 RAM消耗**(随机存取存储器)应该小心使用具有无限预处理的自动确认模式或手动确认模式，**消费者消费了大量的消息如果没有确认的话，会导致消费者连接节点的内存消耗变大，所以找到合适的预取值是一个反复试验的过程，不同的负载，该值取值也不同 。100 到 300 范围内的值通常可提供最佳的吞吐量，并且不会给消费者带来太大的风险。**预取值为 1 是最保守的。当然这将使吞吐量变得很低，特别是消费者连接延迟很严重的情况下，特别是在消费者连接等待时间较长的环境中。对于大多数应用来说，稍微高一点的值将是最佳的。
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152240199.png" alt="image-20211109135204790" style="zoom:50%;" />
+![image-20211109135204790](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071052117.png)
 
 # **4.** **发布确认**
 
 ## **4.1.** **发布确认原理**
 
-![image-20211109135748773](https://gitee.com/wowosong/pic-md/raw/master/202212152240975.png)
+![image-20211109135748773](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071052079.png)
 
 生产者将信道设置成 confirm 模式，一旦信道进入 confirm 模式，**所有在该信道上面发布的消息都将会被指派一个唯一的 ID**(从 1 开始)，一旦消息被投递到所有匹配的队列之后，broker就会发送一个确认给生产者(包含消息的唯一 ID)，这就使得生产者知道消息已经正确到达目的队列了，**如果消息和队列是可持久化的，那么确认消息会在将消息写入磁盘之后发出，**broker 回传给生产者的确认消息中 delivery-tag 域包含了确认消息的序列号，此外 broker 也可以设置basic.ack 的 multiple 域，表示到这个序列号之前的所有消息都已经得到了处理。
 
@@ -736,7 +736,7 @@ public static void publishMessageBatch() throws Exception {
 
 异步确认虽然编程逻辑比上两个要复杂，但是性价比最高，无论是可靠性还是效率都没得说，他是利用回调函数来达到消息可靠性传递的，这个中间件也是通过函数回调来保证是否投递成功，下面就让我们来详细讲解异步确认是怎么实现的。
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152240887.png" alt="image-20211109144655344" style="zoom:50%;" />
+![image-20211109144655344](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071053110.png)
 
 ```java
 public static void publishMessageAsync() throws Exception {
@@ -909,7 +909,7 @@ RabbitMQ 消息传递模型的核心思想是: **生产者生产的消息从不�
 
 相反，**生产者只能将消息发送到交换机(exchange)**，交换机工作的内容非常简单，一方面它接收来自生产者的消息，另一方面将它们推入队列。交换机必须确切知道如何处理收到的消息。是应该把这些消息放到特定队列还是说把他们到许多队列中还是说应该丢弃它们。这就的由交换机的类型来决定。
 
-![image-20211110100654025](https://gitee.com/wowosong/pic-md/raw/master/202212152239543.png)
+![image-20211110100654025](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071053075.png)
 
 ### **5.1.2.** **Exchanges 的类型** 
 
@@ -941,13 +941,13 @@ String queueName = channel.queueDeclare().getQueue();
 
 创建出来之后长成这样:
 
-![image-20211110101750622](https://gitee.com/wowosong/pic-md/raw/master/202212152239123.png)
+![image-20211110101750622](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071053817.png)
 
 ## **5.3.** **绑定**(bindings)
 
 什么是 bingding 呢，binding 其实是 exchange 和 queue 之间的桥梁，它告诉我们 exchange 和那个队列进行了绑定关系。比如说下面这张图告诉我们的就是 X 与 Q1 和 Q2 进行了绑定
 
-![image-20211110101849205](https://gitee.com/wowosong/pic-md/raw/master/202212152239782.png)
+![image-20211110101849205](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071053217.png)
 
 ## **5.4. Fanout**（发布订阅模式？）
 
@@ -955,15 +955,15 @@ String queueName = channel.queueDeclare().getQueue();
 
 Fanout 这种类型非常简单。正如从名称中猜到的那样，它是将接收到的所有消息**广播**到它知道的所有队列中。系统中默认有些 exchange 类型
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152239702.png" alt="image-20211110103225134" style="zoom: 67%;" />
+![image-20211110103225134](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071053359.png)
 
 **5.4.2.** **Fanout 实战**
 
-![image-20211110104408993](https://gitee.com/wowosong/pic-md/raw/master/202212152239700.png)
+![image-20211110104408993](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071053096.png)
 
 Logs 和临时队列的绑定关系如下图
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152239008.png" alt="image-20211110104714559" style="zoom:67%;" />
+![image-20211110104714559](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071053438.png)
 
 ReceiveLogs01 将接收到的消息打印在控制台
 
@@ -1055,7 +1055,7 @@ channel.queueBind(queueName, EXCHANGE_NAME, "routingKey");**绑定之后的意�
 
 上一节中的我们的日志系统将所有消息广播给所有消费者，对此我们想做一些改变，例如我们希望将日志消息写入磁盘的程序仅接收严重错误(errros)，而不存储哪些警告(warning)或信息(info)日志消息避免浪费磁盘空间。Fanout 这种交换类型并不能给我们带来很大的灵活性-它只能进行无意识的广播，在这里我们将使用 direct 这种类型来进行替换，这种类型的工作方式是，消息只去到它绑定的routingKey 队列中去。
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152239138.png" alt="image-20211110113158460" style="zoom:67%;" />
+![image-20211110113158460](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071054940.png)
 
 在上面这张图中，我们可以看到 X 绑定了两个队列，绑定类型是 direct。队列 Q1 绑定键为 orange，队列 Q2 绑定键有两个:一个绑定键为 black，另一个绑定键为 green.
 
@@ -1063,15 +1063,15 @@ channel.queueBind(queueName, EXCHANGE_NAME, "routingKey");**绑定之后的意�
 
 ### **5.5.3.** **多重绑定**
 
-![image-20211110135457177](https://gitee.com/wowosong/pic-md/raw/master/202212152239821.png)
+![image-20211110135457177](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071054287.png)
 
 当然如果 exchange 的绑定类型是 direct，**但是它绑定的多个队列的** **key** **如果都相同**，在这种情况下虽然绑定类型是 direct **但是它表现的就和** **fanout** **有点类似了**，就跟广播差不多，如上图所示。
 
 ### **5.5.4.** **实战** 
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152239808.png" alt="image-20211110135710739" style="zoom:67%;" />
+![image-20211110135710739](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071054616.png)
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152239885.png" alt="image-20211110135836014" style="zoom:67%;" />
+![image-20211110135836014](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071054756.png)
 
 ```java
 public class ReceiveLogsDirect01 {
@@ -1177,7 +1177,7 @@ Q2-->绑定的是
 
 ​		第一个单词是 lazy 的多个单词(lazy.#)
 
-![image-20211110142440924](https://gitee.com/wowosong/pic-md/raw/master/202212152239175.png)
+![image-20211110142440924](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071054677.png)
 
 上图是一个队列绑定关系图，我们来看看他们之间数据接收情况是怎么样的
 
@@ -1198,7 +1198,7 @@ Q2-->绑定的是
 
 **5.6.4.** **实战** 
 
-![image-20211110155119366](https://gitee.com/wowosong/pic-md/raw/master/202212152238784.png)
+![image-20211110155119366](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071054739.png)
 
 ```java
 public class RecevieLogTopic02 {
@@ -1281,7 +1281,7 @@ public class RecevieLogTopic01 {
 
 ### **6.3.1.** **代码架构图** 
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152238485.png" alt="image-20211110161519720" style="zoom:67%;" />
+![image-20211110161519720](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071054708.png)
 
 ### **6.3.2.** **消息 TTL 过期**
 
@@ -1342,7 +1342,7 @@ public class Consumer01 {
 }
 ```
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152238573.png" alt="image-20211111150512522" style="zoom:67%;" />
+![image-20211111150512522](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071054891.png)
 
 消费者 C2 代码(**以上步骤完成后 启动 C2 消费者 它消费死信队列里面的消息**) 
 
@@ -1370,7 +1370,7 @@ public class Consumer02 {
 
 ```
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152238652.png" alt="image-20211111150728371" style="zoom:67%;" />
+![image-20211111150728371](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071055049.png)
 
 ### **6.3.3.** **队列达到最大长度** 
 
@@ -1434,7 +1434,7 @@ public class Consumer01 {
 
 3. C2 消费者代码不变(启动 C2 消费者)
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152238864.png" alt="image-20211111153530525" style="zoom:67%;" />
+![image-20211111153530525](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071055998.png)
 
 **6.3.4.** **消息被拒** 
 
@@ -1491,7 +1491,7 @@ public class Consumer01 {
 
 **启动消费者 1 然后再启动消费者 2** 
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152238972.png" alt="image-20211111154806700" style="zoom:67%;" />
+![image-20211111154806700](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071055815.png)
 
 # **7.** **延迟队列**
 
@@ -1511,15 +1511,15 @@ public class Consumer01 {
 
 但对于数据量比较大，并且时效性较强的场景，如：“订单十分钟内未支付则关闭“，短期内未支付的订单数据可能会有很多，活动期间甚至会达到百万甚至千万级别，对这么庞大的数据量仍旧使用轮询的方式显然是不可取的，很可能在一秒内无法完成所有订单的检查，同时会给数据库带来很大压力，无法满足业务要求而且性能低下。
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152238209.png" alt="image-20211111164602414" style="zoom: 100%;" />
+![image-20211111164602414](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071055404.png)
 
 ## **7.3.** **整合** **springboot**
 
 ### **7.3.1.** **创建项目**
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152241092.png" alt="image-20211112101931186" style="zoom:67%;" />
+![image-20211112101931186](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071055880.png)
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152241526.png" alt="image-20211112102006235" style="zoom:67%;" />
+![image-20211112102006235](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071055524.png)
 
 ### **7.3.2.** **添加依赖** 
 
@@ -1619,13 +1619,13 @@ TTL 是什么呢？TTL 是 RabbitMQ 中一个消息或者队列的属性，表�
 
 另一种方式便是针对每条消息设置 TTL
 
-![image-20211112103130045](https://gitee.com/wowosong/pic-md/raw/master/202212152242843.png)
+![image-20211112103130045](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071055458.png)
 
 ### **7.4.2.** **队列设置 TTL** 
 
 第一种是在创建队列的时候设置队列的“x-message-ttl”属性
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212152242297.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071055379.png)
 
 ### **7.4.3.** **两者的区别**
 
@@ -1639,7 +1639,7 @@ TTL 是什么呢？TTL 是 RabbitMQ 中一个消息或者队列的属性，表�
 
 创建两个队列 QA 和 QB，两者队列 TTL 分别设置为 10S 和 40S，然后在创建一个交换机 X 和死信交换机 Y，它们的类型都是 direct，创建一个死信队列 QD，它们的绑定关系如下：
 
-![image-20211112110204618](https://gitee.com/wowosong/pic-md/raw/master/202212152242945.png)
+![image-20211112110204618](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071055730.png)
 
 ### **7.5.2.** **配置文件类代码**
 
@@ -1738,7 +1738,7 @@ public class DeadLetterQueueConsumer {
 
 发起一个请求 http://localhost:8080/ttl/sendMsg/wowosong
 
-![image-20211112140852031](https://gitee.com/wowosong/pic-md/raw/master/202212152242572.png)
+![image-20211112140852031](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071056863.png)
 
 第一条消息在 10S 后变成了死信消息，然后被消费者消费掉，第二条消息在 40S 之后变成了死信消息，然后被消费掉，这样一个延时队列就打造完成了。
 
@@ -1750,7 +1750,7 @@ public class DeadLetterQueueConsumer {
 
 在这里新增了一个队列 QC,绑定关系如下,该队列不设置 TTL 时间
 
-![image-20211112142651059](https://gitee.com/wowosong/pic-md/raw/master/202212152242458.png)
+![image-20211112142651059](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071056332.png)
 
 ### **7.6.2.** **配置文件类代码** 
 
@@ -1792,7 +1792,7 @@ http://localhost:8080/ttl/sendExpirationMsg/你好 1/20000
 
 http://localhost:8080/ttl/sendExpirationMsg/你好 2/2000
 
-![image-20211112212432152](https://gitee.com/wowosong/pic-md/raw/master/202212152242135.png)
+![image-20211112212432152](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071056513.png)
 
 看起来似乎没什么问题，但是在最开始的时候，就介绍过如果使用在消息属性上设置 TTL 的方式，消息可能并不会按时“死亡“，因为 **RabbitMQ** **只会检查第一个消息是否过期，如果过期则丢到死信队列，如果第一个消息的延时时长很长（因为队列是有顺序的），而第二个消息的延时时长很短，第二个消息并不会优先得到执行**。
 
@@ -1810,17 +1810,17 @@ http://localhost:8080/ttl/sendExpirationMsg/你好 2/2000
 
 rabbitmq-plugins enable rabbitmq_delayed_message_exchange
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152243372.png" alt="image-20211112174000134" style="zoom:67%;" />
+![image-20211112174000134](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071056964.png)
 
-![image-20211112174026286](https://gitee.com/wowosong/pic-md/raw/master/202212152243117.png)
+![image-20211112174026286](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071056300.png)
 
 ### **7.7.2. 代码架构图**
 
 在这里新增了一个队列 delayed.queue,一个自定义交换机 delayed.exchange，绑定关系如下:
 
-![image-20211112213654281](https://gitee.com/wowosong/pic-md/raw/master/202212152243318.png)
+![image-20211112213654281](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071056956.png)
 
-![image-20211112201056496](https://gitee.com/wowosong/pic-md/raw/master/202212152243913.png)
+![image-20211112201056496](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071056152.png)
 
 ### **7.7.3. 配置文件类代码**
 
@@ -1883,7 +1883,7 @@ http://localhost:8080/ttl/sendDelayMsg/wowosong/1000
 
 http://localhost:8080/ttl/sendDelayMsg/wowosong/10000
 
-![image-20211112205105824](https://gitee.com/wowosong/pic-md/raw/master/202212152243777.png)
+![image-20211112205105824](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071056180.png)
 
 第二个消息被先消费掉了，符合预期
 
@@ -1910,11 +1910,11 @@ allow us to use it.||Consumer received fatal=false exception on startup:
 
 ### **8.1.1. 确认机制方案**
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152243447.png" alt="image-20211112205400921" style="zoom:67%;" />
+![image-20211112205400921](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071057253.png)
 
 ### **8.1.2. 代码架构图**
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152243728.png" alt="image-20211112205431945" style="zoom:67%;" />
+![image-20211112205431945](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071057771.png)
 
 ### **8.1.3. 配置文件**
 
@@ -2028,7 +2028,7 @@ public void receviedConfirmQueue(Message message){
 
 ### **8.1.8. 结果分析**
 
-![image-20211113105116365](https://gitee.com/wowosong/pic-md/raw/master/202212152244999.png)
+![image-20211113105116365](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071057248.png)
 
 可以看到，发送了两条消息，第一条消息的 RoutingKey 为 "key1"，第二条消息的 RoutingKey 为"key2"，两条消息都成功被交换机接收，也收到了交换机的确认回调，但消费者只收到了一条消息，因为第二条消息的 RoutingKey 与队列的 BindingKey 不一致，也没有其它队列能接收这个消息，所以第二条消息被直接丢弃了。
 
@@ -2092,7 +2092,7 @@ public class MyCallBack implements RabbitTemplate.ConfirmCallback,RabbitTemplate
 
 ### **8.2.4. 结果分析**
 
-![image-20211113110807882](https://gitee.com/wowosong/pic-md/raw/master/202212152244156.png)
+![image-20211113110807882](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071057461.png)
 
 ## **8.3.** **备份交换机**
 
@@ -2100,7 +2100,7 @@ public class MyCallBack implements RabbitTemplate.ConfirmCallback,RabbitTemplate
 
 ### **8.3.1. 代码架构图**
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152244121.png" alt="image-20211113113939977" style="zoom:80%;" />
+![image-20211113113939977](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071057249.png)
 
 ### **8.3.2. 修改配置类**
 
@@ -2172,7 +2172,7 @@ public void receviedWaringQueue(Message message){
 
 ### **8.3.5. 结果分析**
 
-![image-20211113114219434](https://gitee.com/wowosong/pic-md/raw/master/202212152244126.png)
+![image-20211113114219434](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071057250.png)
 
 mandatory 参数与备份交换机可以一起使用的时候，如果两者同时开启，消息究竟何去何从？谁优先级高，经过上面结果显示答案是**备份交换机优先级高**。
 
@@ -2214,7 +2214,7 @@ MQ 消费者的幂等性的解决一般使用全局 ID 或者写个唯一标识�
 
 a.控制台页面添加
 
-![image-20211113205527196](https://gitee.com/wowosong/pic-md/raw/master/202212152244438.png)
+![image-20211113205527196](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071057892.png)
 
 b.队列中代码添加优先级
 
@@ -2224,7 +2224,7 @@ params.put("x-max-priority", 10);
 channel.queueDeclare("hello", true, false, false, params);
 ```
 
-![image-20211113205623561](https://gitee.com/wowosong/pic-md/raw/master/202212152245420.png)
+![image-20211113205623561](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071057385.png)
 
 c.消息中代码添加优先级
 
@@ -2306,7 +2306,7 @@ channel.queueDeclare("myqueue", false, false, false, args);
 
 ### **9.3.3. 内存开销对比**
 
-![image-20211113212224010](https://gitee.com/wowosong/pic-md/raw/master/202212152245270.png)
+![image-20211113212224010](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071057301.png)
 
 在发送 1 百万条消息，每条消息大概占 1KB 的情况下，普通队列占用内存是 1.2GB，而惰性队列仅仅占用 1.5MB
 
@@ -2334,7 +2334,7 @@ vim /etc/hosts
 
 10.211.55.76 node3
 
-![image-20211113212751577](https://gitee.com/wowosong/pic-md/raw/master/202212152245142.png)
+![image-20211113212751577](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071057373.png)
 
 3.以确保各个节点的 cookie 文件使用的是同一个值
 
@@ -2429,15 +2429,15 @@ rabbitmqctl forget_cluster_node rabbit@node2(node1 机器上执行)
 
 2.随便找一个节点添加 policy
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152245190.png" alt="image-20211113215326927" style="zoom:80%;" />
+![image-20211113215326927](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071058290.png)
 
 3.在 node1 上创建一个队列发送一条消息，队列存在镜像队列
 
-![image-20211113215358060](https://gitee.com/wowosong/pic-md/raw/master/202212152245831.png)
+![image-20211113215358060](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071058954.png)
 
 4.停掉 node1 之后发现 node2 成为镜像队列
 
-![image-20211113215448235](https://gitee.com/wowosong/pic-md/raw/master/202212152245586.png)
+![image-20211113215448235](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071058624.png)
 
 5.就算整个集群只剩下一台机器了 依然能消费队列里面的消息
 
@@ -2447,7 +2447,7 @@ rabbitmqctl forget_cluster_node rabbit@node2(node1 机器上执行)
 
 ### **10.3.1. 整体架构图**
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152245498.png" alt="image-20211113224124257" style="zoom:67%;" />
+![image-20211113224124257](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071058132.png)
 
 ### **10.3.2. Haproxy 实现负载均衡**
 
@@ -2465,7 +2465,7 @@ yum -y install haproxy
 
 需要修改红色 IP 为当前机器 IP
 
-![image-20211113224821801](https://gitee.com/wowosong/pic-md/raw/master/202212152245839.png)
+![image-20211113224821801](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071058092.png)
 
 3.在两台节点启动 haproxy
 
@@ -2535,7 +2535,7 @@ systemctl stop keepalived
 
 将业务(Client 深圳)部署到北京的机房可以解决这个问题，但是如果(Client 深圳)调用的另些服务都部署在深圳，那么又会引发新的时延问题，总不见得将所有业务全部部署在一个机房，那么容灾又何以实现？这里使用 Federation 插件就可以很好地解决这个问题.
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152246008.png" alt="image-20211113225149430" style="zoom:67%;" />
+![image-20211113225149430](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071058127.png)
 
 ### **10.4.2. 搭建步骤**
 
@@ -2549,19 +2549,19 @@ rabbitmq-plugins enable rabbitmq_federation_management
 
 3.原理图(先运行 consumer 在 node2 创建 fed_exchange)
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152246688.png" alt="image-20211113225309228" style="zoom:67%;" />
+![image-20211113225309228](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071058240.png)
 
 4.在 downstream(node2)配置 upstream(node1)
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152246415.png" alt="image-20211113225333142" style="zoom:67%;" />
+![image-20211113225333142](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071058472.png)
 
 5.添加 policy
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152246916.png" alt="image-20211113225409419" style="zoom:67%;" />
+![image-20211113225409419](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071059287.png)
 
 6.成功的前提
 
-![image-20211113225435463](https://gitee.com/wowosong/pic-md/raw/master/202212152246551.png)
+![image-20211113225435463](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071059450.png)
 
 ## **10.5. Federation Queue**
 
@@ -2573,13 +2573,13 @@ rabbitmq-plugins enable rabbitmq_federation_management
 
 1.原理图
 
-![image-20211113225541151](https://gitee.com/wowosong/pic-md/raw/master/202212152246659.png)
+![image-20211113225541151](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071059185.png)
 
 2.添加 upstream(同上) 
 
 3.添加 policy
 
-![image-20211113225611152](https://gitee.com/wowosong/pic-md/raw/master/202212152246552.png)
+![image-20211113225611152](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071059592.png)
 
 ## **10.6. Shovel**
 
@@ -2597,9 +2597,9 @@ rabbitmq-plugins enable rabbitmq_shovel_management
 
 2.原理图(在源头发送的消息直接回进入到目的地队列)
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152246759.png" alt="image-20211113230140742" style="zoom:67%;" />
+![image-20211113230140742](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071100684.png)
 
 3.添加 shovel 源和目的地
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202212152246091.png" alt="image-20211113230201865" style="zoom:67%;" />
+![image-20211113230201865](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071100011.png)
 
