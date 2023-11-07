@@ -55,8 +55,9 @@ encoding记录了对象所保存的值的编码，它的值可能是以下常量
 ```
 	ptr是一个指针，指向实际保存值的数据结构，这个数据结构由type和encoding属性决定。举个例子， 如果一个redisObject 的type 属性为REDIS\_LIST ， encoding 属性为REDIS\_ENCODING\_LINKEDLIST ，那么这个对象就是一个Redis 列表，它的值保存在一个双端链表内，而ptr 指针就指向这个双端链表；
 下图展示了redisObject 、Redis 所有数据类型、以及Redis 所有编码方式（底层实现）三者之间的关系：
-![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230110.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071240353.png)
 　　注意：REDIS\_ENCODING\_ZIPMAP没有出现在图中，因为在redis2.6开始，它不再是任何数据类型的底层结构。
+
 ### 3.1.2 命令的类型检查和多态
 当执行一个处理数据类型命令的时候，redis执行以下步骤：
 1）根据给定的key，在数据库字典中查找和他相对应的redisObject，如果没找到，就返回NULL；
@@ -64,14 +65,14 @@ encoding记录了对象所保存的值的编码，它的值可能是以下常量
 3）根据redisObject的encoding属性所指定的编码，选择合适的操作函数来处理底层的数据结构；
 4）返回数据结构的操作结果作为命令的返回值。
 比如现在执行LPOP命令：
-![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230115.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071240918.png)
 
 ### 3.1.3 对象共享
 redis一般会把一些常见的值放到一个共享对象中，这样可使程序避免了重复分配的麻烦，也节约了一些CPU时间。
 　redis预分配的值对象如下：
 1）各种命令的返回值，比如成功时返回的OK，错误时返回的ERROR，命令入队事务时返回的QUEUE，等等
 2）包括0 在内，小于REDIS\_SHARED\_INTEGERS的所有整数（REDIS\_SHARED\_INTEGERS的默认值是10000）
-![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230120.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071240055.png)
 	注意：共享对象只能被字典和双向链表这类能带有指针的数据结构使用。像整数集合和压缩列表这些只能保存字符串、整数等自勉之的内存数据结构
 
 ### 3.1.4 引用计数以及对象的消毁：
@@ -90,27 +91,27 @@ redis一般会把一些常见的值放到一个共享对象中，这样可使程
 * REDIS\_ENCODING\_INT使用long类型来保存long类型值；　　
 * REDIS\_ENCODING\_RAW使用sdshdr 结构来保存sds（即是 char\*）、long long 、double 和 long double 类型值。
 　换句话来说，在redis中，只有能表示为long类型的值，才会以整数的形式保存，其他类型的整数、小数和字符串，都是用sdshdr结构来保存。
-　　　　　![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230134.png)
-　　　　　新创建的字符串默认使用REDIS\_ENCODING\_RAW 编码，在将字符串作为键或者值保存进数据库时，程序会尝试将字符串转为REDIS\_ENCODING\_INT 编码。
+　　　　　　![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071240008.png)
+　　　　　　新创建的字符串默认使用REDIS\_ENCODING\_RAW 编码，在将字符串作为键或者值保存进数据库时，程序会尝试将字符串转为REDIS\_ENCODING\_INT 编码。
 ## 3.3 哈希表
 　REDIS\_HASH（哈希表）是HSET、HLEN等命令的操作对象。他使用REDIS\_ENCODING\_ZIPLIST 和 REDIS\_ENCODING\_HT 两种编码方式：
-![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230139.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071241206.png)
 
 ### 3.3.1 字典编码的哈希表：
 哈希表所使用的字典的键和值都是字符串对象。
-![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230144.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071241825.png)
 
 ### 3.3.2 压缩列表编码的哈希表：
 当使用REDIS\_ENCODING\_ZIPLIST 编码哈希表时，程序通过将键和值一同推入压缩列表，从而形成保存哈希表所需的键-值对结构：
-![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230148.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071241277.png)
 新添加的key-value会被添加到压缩列表的表尾。当进行查找/删除或更新操作时，程序先定位到键的位置，然后再通过对键的位置来定位值的位置。
 创建空白哈希表时，程序默认使用REDIS\_ENCODING\_ZIPLIST 编码，当以下任何一个条件被满足时，程序将编码从切换为REDIS\_ENCODING\_HT ：  
   • 哈希表中某个键或某个值的长度大于server.hash\_max\_ziplist\_value （默认值为64）。  
-  • 压缩列表中的节点数量大于server.hash\_max\_ziplist\_entries （默认值为512 ）。
+  • 压缩列表中的节点数量大于server.hash\_max\_ziplist\_entries （默认值为512 )。
 
 ## 3.4 列表
 　　REDIS\_LIST（列表）是LPUSH、LRANGE等命令的操作对象，他使用REDIS\_ENCODING\_ZIPLIST和REDIS\_ENCODING\_LINKEDLIST这两种方式编码：
-　![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230152.png)
+　![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071241786.png)
 
 ### 3.4.1 编码的选择：　　　
 创建新列表时Redis 默认使用REDIS\_ENCODING\_ZIPLIST 编码，当以下任意一个条件被满足时，列表会被转换成REDIS\_ENCODING\_LINKEDLIST 编码：  
@@ -122,7 +123,7 @@ BLPOP、LRPOP和BRPOPLPUSH三个命令都可能造成客户端被阻塞，所以
   • 只有当这些命令被用于空列表时，它们才会阻塞客户端。  
   • 如果被处理的列表不为空的话，它们就执行无阻塞版本的LPOP 、RPOP 或RPOPLPUSH命令。
 如下：
-![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230156.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071241982.png)
 
 ### 3.4.3 阻塞的过程：
  	当一个阻塞原语的处理目标为空值时，执行该阻塞原语的客户端就会被阻塞。阻塞一个客户端需要执行以下步骤：
@@ -131,15 +132,15 @@ BLPOP、LRPOP和BRPOPLPUSH三个命令都可能造成客户端被阻塞，所以
 2）将客户端的信息记录到server.db\[i\]->blocking\_keys中（其中i为客户端所使用的数据库号码）；
 3）继续维持客户端和服务器之间的网络连接，但不再向客户端传送任何信息，造成客户端阻塞。
  步骤2是将来解除阻塞的关键，server.db\[i\]->blocking\_keys 是一个字典，字典的键是那些造成客户端阻塞的键，而字典的值是一个链表，链表里保存了所有因为这个键而被阻塞的客户端（被同一个键所阻塞的客户端可能不止一个）：
- ![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230202.png)
+ ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071241306.png)
 当客户端被阻塞后，脱离阻塞状态有以下3种方法：
 1）被动脱离：有其他客户端为造成阻塞的键推入了新元素；
 2）主动脱离：到达执行阻塞原语时设定的最大阻塞时间；
-3）强制脱离：客户端强制终止和服务器的连接，或者服务器停机。
+3)强制脱离：客户端强制终止和服务器的连接，或者服务器停机。
 
 ### 3.4.4 阻塞因LPUSH、RPUSH、LINSERT等添加命令而被取消
 　通过将新元素推入造成客户端阻塞的某个键中，可以让相应的客户端从阻塞状态中脱离出来（取消阻塞的客户端数量取决于推入元素的数量）；这3个添加元素命令在底层实现上都是pushGenericCommand函数去执行的。
-![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230207.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071241559.png)
 当向一个空键推入新元素时，pushGenericCommand 函数执行以下两件事：  
 
 1. 检查这个键是否存在于前面提到的server.db\[i\]->blocking\_keys 字典里，如果是的话，那么说明有至少一个客户端因为这个key 而被阻塞，程序会为这个键创建一个redis.h/readyList 结构，并将它添加到server.ready\_keys 链表中。  
@@ -153,12 +154,12 @@ robj *key;
 ```
 key属性指向造成阻塞的键，而db则指向该键所在的数据库。
 比如说：假设某个非阻塞客户端正在使用0 号数据库，而这个数据库当前的blocking\_keys属性的值如下：
-![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230215.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071241264.png)
 如果这时客户端对该数据库执行PUSH key3 value ，那么pushGenericCommand 将创建一个db 属性指向0 号数据库、key 属性指向key3 键对象的readyList 结构，并将它添加到服务器server.ready\_keys 属性的链表中：
-![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230219.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071241137.png)
 此时pushGenericCommand 函数完成了以下两件事：
 1）将readyList添加到服务器；
-2）将新元素value添加到键key3；
+2)将新元素value添加到键key3；
 虽然key3已经不再是空键，但到目前为止，被key3阻塞的客户端还没有任何一个呗解除阻塞状态。这时redis会调用handleClientsBlockedOnLists函数，执行步骤如下：　
 
 1. 如果server.ready\_keys 不为空， 那么弹出该链表的表头元素， 并取出元素中的readyList 值。  
@@ -169,12 +170,12 @@ key属性指向造成阻塞的键，而db则指向该键所在的数据库。
 6. 继续执行步骤1 ，直到ready\_keys 链表里的所有readyList 结构都被处理完为止。
 ### 3.4.5 先阻塞先服务（FBFS）策略
 		值得一提的是，当程序添加一个新的被阻塞客户端到server.blocking\_keys 字典的链表中时，它将该客户端放在链表的最后，而当handleClientsBlockedOnLists 取消客户端的阻塞时，它从链表的最前面开始取消阻塞：这个链表形成了一个FIFO 队列，最先被阻塞 的客户端总值最先脱离阻塞状态，Redis 文档称这种模式为先阻塞先服务（FBFS，first-block-first-serve）。举个例子，在下图所示的阻塞状况中，如果客户端对数据库执行PUSH key3 value ，那么只有client3 会被取消阻塞，client6 和client4 仍然阻塞；如果客户端对数据库执行PUSH key3 value1 value2 ，那么client3 和client4 的阻塞都会被取消，而客户端client6 依然处于阻塞状态：
-![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230224.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071241880.png)
 ### 3.4.6 阻塞因超过最大等待时间而被取消
 		每次Redis 服务器常规操作函数（server cron job）执行时，程序都会检查所有连接到服务器的客户端，查看那些处于“正在阻塞”状态的客户端的最大阻塞时限是否已经过期，如果是的话，就给客户端返回一个空白回复，然后撤销对客户端的阻塞。
 ## 3.5 集合
 　　REDIS\_SET（集合） 是SADD。SRANGMEMBER等命令的操作对象，它使用REDIS\_ENCODING\_INTSET和REDIS\_ENCODING\_HT两种方式编码：
-![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230229.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071241816.png)
 
 ### 3.5.1 编码的选择：
 第一个添加到集合的元素，决定了创建集合时所使用的编码：  
@@ -186,11 +187,11 @@ key属性指向造成阻塞的键，而db则指向该键所在的数据库。
   • 试图往集合里添加一个新元素，并且这个元素不能被表示为long long 类型（也即是，它不是一个整数）。
 ### 3.5.3 字典编码的集合：
 当使用REDIS\_ENCODING\_HT编码时，集合将元素保存到字典的键里面，而字典的值则统一设为null，如下集合的成员分别是：elem1、elem2和elem3：
-![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230234.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071241994.png)
 
 ## 3.6 有序集
 REDIS\_ZSET（有序集）是ZADD、ZCOUNT等命令的操作对象，它使用REDIS\_ENCODING\_ZIPLIST和REDIS\_ENCODING\_SKIPLIST两种编码方式：
-![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230240.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071241247.png)
 
 ### 3.6.1 编码的选择：　　
 　　在通过ZADD 命令添加第一个元素到空key 时，程序通过检查输入的第一个元素来决定该创建什么编码的有序集。如果第一个元素符合以下条件的话，就创建一个REDIS\_ENCODING\_ZIPLIST 编码的有序集：  
@@ -202,7 +203,7 @@ REDIS\_ZSET（有序集）是ZADD、ZCOUNT等命令的操作对象，它使用RE
 	• 新添加元素的member 的长度大于服务器属性server.zset\_max\_ziplist\_value 的值（默认值为64 ）
 ### 3.6.3 ZIPLIST编码的有序集
 　　每个有序集元素以两个相邻的ziplist节点表示，第一个节点保存元素的member域，第二个节点保存元素的score值；多个元素之间按score值从小到大排序，如果两个元素的score值相同，那么就按字典对member进行对比，决定哪个元素排在前面，哪个元素排在后面
-![](./redis%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%89%EF%BC%89redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.assets/20220113230245.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071241285.png)
 
 ### 3.6.4 SKIPLIST编码的有序集
 	当使用REDIS\_ENCODING\_SKIPLIST编码时，有序集元素由redis.h/zset 结构来保存
