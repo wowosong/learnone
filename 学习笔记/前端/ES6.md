@@ -178,42 +178,42 @@ let 关键字用来声明变量，使用 let 声明的变量有几个特点：
 
 5. 不能使用 arguments
 ```javascript
-  /**
-  * 2. 省略小括号的情况
-  */
-  let fn2 = num => {
-  	return num * 10;
-  };
-  /**
-  * 3. 省略花括号的情况
-  */
-  let fn3 = score => score * 20;
-  /**
-  * 4. this 指向声明时所在作用域中 this 的值
-  */
-  let fn4 = () => {
-  	console.log(this);
-      //指向window
-  }
-  let school = {
+/**
+* 2. 省略小括号的情况
+*/
+let fn2 = num => {
+    return num * 10;
+};
+/**
+* 3. 省略花括号的情况
+*/
+let fn3 = score => score * 20;
+/**
+* 4. this 指向声明时所在作用域中 this 的值
+*/
+let fn4 = () => {
+    console.log(this);
+    //指向window
+}
+let school = {
     name: '尚硅谷',
     getName(){
-      let fn5 = () => {
-        console.log(this);
-      }
-      fn5();
+        let fn5 = () => {
+            console.log(this);
+        }
+        fn5();
     }
-  };
-  arr.forEach(item=>{
+};
+arr.forEach(item=>{
     console.log(item)
-  })
-  arr.map(item=>item*2).forEach(i=>console.log(i))
-  
-  const result = arr.filter(item => item % 2 === 0);
-  console.log(arr.findIndex(x=>x>10))
-  
-  console.log(result);
-  
+})
+arr.map(item=>item*2).forEach(i=>console.log(i))
+
+const result = arr.filter(item => item % 2 === 0);
+console.log(arr.findIndex(x=>x>10))
+
+console.log(result);
+
 ```
     注意：箭头函数不会更改 this 指向，用来指定回调函数会非常合适
     // 箭头函数适合与 this 无关的回调. 定时器, 数组的方法回调
@@ -223,42 +223,42 @@ let 关键字用来声明变量，使用 let 声明的变量有几个特点：
     ES6 引入 rest 参数，用于获取函数的实参，用来代替 arguments
 
 ```javascript
-  /**
+/**
   * 作用与 arguments 类似
   */
-  function add(...args){
+function add(...args){
     console.log(args);
-  }
-  add(1,2,3,4,5);
-  /**
+}
+add(1,2,3,4,5);
+/**
   * rest 参数必须是最后一个形参
   */
-  function minus(a,b,...args){
+function minus(a,b,...args){
     console.log(a,b,args);
-  }
-  minus(100,1,2,3,4,5,19);
+}
+minus(100,1,2,3,4,5,19);
 ```
   ```javascript
   //ES6 允许给函数参数赋值初始值
   //1. 形参初始值 具有默认值的参数, 一般位置要靠后(潜规则)
   function add(a,b,c=10) {
-    return a + b + c;
+      return a + b + c;
   }
   let result = add(1,2);
   console.log(result);
   
   //2. 与解构赋值结合
   function connect({host="127.0.0.1", username,password, port}){
-    console.log(host);
-    console.log(username);
-    console.log(password);
-    console.log(port);
+      console.log(host);
+      console.log(username);
+      console.log(password);
+      console.log(port);
   }
   connect({
-    host: 'atguigu.com',
-    username: 'root',
-    password: 'root',
-    port: 3306
+      host: 'atguigu.com',
+      username: 'root',
+      password: 'root',
+      port: 3306
   });
   ```
 
@@ -274,23 +274,23 @@ let 关键字用来声明变量，使用 let 声明的变量有几个特点：
   */
   let tfboys = ['德玛西亚之力','德玛西亚之翼','德玛西亚皇子'];
   function fn(){
-  	console.log(arguments);
+      console.log(arguments);
   }
   fn(...tfboys)
   /**
   * 展开对象
   */
   let skillOne = {
-  	q: '致命打击',
+      q: '致命打击',
   };
   let skillTwo = {
-  	w: '勇气'
+      w: '勇气'
   };
   let skillThree = {
-  	e: '审判'
+      e: '审判'
   };
   let skillFour = {
-  	r: '德玛西亚正义'
+      r: '德玛西亚正义'
   };
   let gailun = {...skillOne, ...skillTwo,...skillThree,...skillFour};
   ```
