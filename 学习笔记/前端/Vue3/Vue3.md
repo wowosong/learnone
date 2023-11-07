@@ -75,7 +75,7 @@ cd vue_test
 npm run serve
 ```
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062207462.webp)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062207462.webp" style="zoom:50%"/> 
 
 当然也可以用可视化面板创建
 
@@ -86,8 +86,8 @@ vue ui
 ```
 
 创建项目的时候预设选择Vue3即可 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062207300.png)
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062207003.png)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062207300.png" style="zoom: 33%;" />
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062207003.png" style="zoom:33%;" />
 
 ## 2\. 使用 vite 创建
 
@@ -102,9 +102,9 @@ vite官网：[vitejs.cn](https://link.juejin.cn/?target=https%3A%2F%2Fvitejs.cn 
     *   轻量快速的热重载（HMR）。
     *   真正的按需编译，不再等待整个应用编译完成。
 * 传统构建 与 vite构建对比图
- ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208933.png) 
+ <img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208933.png" style="zoom:33%;" /> 
   **传统构建模式，是将所有资源都打包好，再上线**
-  ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208237.png)
+  <img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208237.png" style="zoom: 33%;" />
 
  而Vite有点按需加载的意思在那里了~
 
@@ -122,9 +122,9 @@ npm run dev
 
 ```
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208403.png)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208403.png" style="zoom: 50%;" />
 构建速度明显vite快 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208811.png)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208811.png" style="zoom: 33%;" />
 
 > 项目构建完了，我们就来看看Vue3与Vue2在直观上，有哪些区别吧~
 
@@ -158,7 +158,7 @@ console.log(vm)
 vm.$mount('#app')
 
 ```
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208726.png) 
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208726.png" style="zoom: 50%;" /> 
 
 我们再来看看Vue3项目中的main.js
 
@@ -187,7 +187,7 @@ app.mount('#app')
 ```
 
 这里的app到底是啥，我们输出到控制台看看
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208153.png)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208153.png" style="zoom:50%;" />
 
 ## App.vue
 
@@ -219,17 +219,17 @@ app.mount('#app')
 
 使用传统Options API（配置式API）中，新增或者修改一个需求，就需要分别在data，methods，computed里修改 。
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208785.webp)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208785.webp" style="zoom:50%;" /> 
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208432.webp)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208432.webp" style="zoom: 80%;" /> 
 
 ## 2.Composition API 的优势
 
 我们可以更加优雅的组织我们的代码，函数。让相关功能的代码更加有序的组织在一起。
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208739.webp) 
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208739.webp" style="zoom: 67%;" /> 
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208977.webp)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208977.webp" style="zoom: 67%;" /> 
 
 > 看不明白不要慌，学完下面的内容，再回来看你就懂了~
 
@@ -278,13 +278,13 @@ export default {
 
 ```
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062209866.webp)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062209866.webp" style="zoom:50%;" /> 
 
 如果返回的是渲染函数
 
 那你在`template`里写的模板都不奏效了，页面渲染的就是你写的h函数中的内容 
 
-![img1](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062209851.webp)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062209851.webp" alt="img1" style="zoom: 67%;" /> 
 
 5.  注意点：
     1.  尽量**不要**与Vue2.x配置混用
@@ -352,7 +352,7 @@ export default {
 </script>
 ```
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062210296.webp)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062210296.webp" style="zoom:67%;" /> 
 
 通过看源码可以知道调用ref会返回一个RefImpl的实例对象，RefImpl类中有getter和setter可以检测到数据的变化
 
@@ -576,7 +576,7 @@ export default {
 
 ```
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062211599.webp) 
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062211599.webp" style="zoom:50%;" /> 
 
 *   实现原理
     *   通过 `Proxy`（代理）: **拦截对象中任意属性的变化, 包括：属性值的读写、属性的添加、属性的删除等**。
@@ -639,7 +639,7 @@ const p = new Proxy(person,{
     *   **`ref`定义的数据：操作数据需要`.value`，读取数据时模板中直接读取不需要`.value`。**
     *   **reactive定义的数据：操作数据与读取数据：均不需要`.value`。**
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062211758.png)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062211758.png" style="zoom:50%;" /> 
 
 ### ⑥ `setup`的两个注意点
 
@@ -649,7 +649,7 @@ const p = new Proxy(person,{
 *   `setup`的参数
 
 **将`setup`接收的两个参数`(props, context)`打印在控制台，如下**
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062211814.png)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062211814.png" style="zoom: 67%;" />
 
 *   `props`：值为对象，包含：**组件外部传递过来，且组件内部声明接收了的属性**。
 *   `context`：上下文对象
@@ -704,7 +704,7 @@ export default {
 </script>
 
 ```
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062217907.png)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062217907.png" style="zoom:50%;" /> 
 
 ##### 自定义事件
 
@@ -754,8 +754,8 @@ export default {
 </script>
 
 ```
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062216568.png)
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062216766.png)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062216568.png" style="zoom: 67%;" />
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062216766.png" style="zoom: 67%;" />
 
 ##### 插槽
 
@@ -776,7 +776,7 @@ export default {
   <slot></slot>
 </template>
 ```
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062216913.png)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062216913.png" style="zoom: 67%;" /> 
 
 具名插槽
 
@@ -797,7 +797,7 @@ export default {
   <slot name="ykMsg"></slot>
 </template>
 ```
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062213577.png)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062213577.png" style="zoom:67%;" /> 
 
 ### ⑦计算属性与监视
 
@@ -1016,7 +1016,7 @@ export default function() {
 </script>
 ```
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062214627.webp)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062214627.webp" style="zoom:50%;" /> 
 
 ### ⑩ `toRef`
 
@@ -1160,7 +1160,7 @@ export default {
 ```
 
 ## 5\. `provide` 与 `inject`
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062214124.png)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062214124.png" style="zoom:50%;" /> 
 
 *   作用：实现**祖与后代组件间**通信
     
@@ -1369,8 +1369,8 @@ export default {
 ```
 
 我故意给最里面的盒子加了定位，因为相对定位会找他外层最近的定位盒子进行定位，所以效果就是这样了，我们希望这个弹窗是在body下呈现的
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062214192.png)
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062215276.png)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062214192.png" style="zoom:50%;" />
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062215276.png" style="zoom:50%;" /> 
 
 我们在Dialog组件中加一个`teleport`标签
 
@@ -1395,8 +1395,8 @@ export default {
 ```
 
 这样就好了
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062215920.png)
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062215629.png)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062215920.png" style="zoom: 33%;" /> 
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062215629.png" style="zoom: 50%;" />
 
 ## 3\. `Suspense`
 
