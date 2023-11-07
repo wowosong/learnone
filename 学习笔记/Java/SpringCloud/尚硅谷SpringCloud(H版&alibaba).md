@@ -506,7 +506,7 @@ public class OrderController {
 
 ### 3.entity和实体类放入common中
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071551027.png) 
+![image-20231107173634263](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071736236.png) 
 
 ### 4.使用maven，将common模块打包(install)，
 
