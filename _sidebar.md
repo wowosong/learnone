@@ -4,7 +4,7 @@
     - 前端
       - [HTML+CSS](/学习笔记/前端/html+css（尚硅谷）.md)
       - [Vue](/学习笔记/前端/Vue.md)
-      - [Vue2]()
+      - [Vue2](/学习笔记/前端/Vue2&Vue3/1.Vue核心-Vue简介-初识.md)
         - [1.Vue核心-Vue简介-初识](/学习笔记/前端/Vue2&Vue3/1.Vue核心-Vue简介-初识.md)
         - [2.Vue核心-模板语法](/学习笔记/前端/Vue2&Vue3/2.Vue核心-模板语法.md)
         - [3.Vue核心-数据绑定](/学习笔记/前端/Vue2&Vue3/3.Vue核心-数据绑定)
