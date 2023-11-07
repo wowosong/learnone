@@ -200,11 +200,10 @@ let school = {
 };
 arr.forEach(item=>{
     console.log(item)
-})
-arr.map(item=>item*2).forEach(i=>console.log(i))
-
+});
+arr.map(item=>item*2).forEach(i=>console.log(i));
 const result = arr.filter(item => item % 2 === 0);
-console.log(arr.findIndex(x=>x>10))
+console.log(arr.findIndex(x=>x>10));
 
 console.log(result);
 
@@ -213,9 +212,7 @@ console.log(result);
 -  箭头函数适合与 this 无关的回调. 定时器, 数组的方法回调
 - 箭头函数不适合与 this 有关的回调.事件回调, 对象的方法
 ## 2.7. rest 参数
-
-    ES6 引入 rest 参数，用于获取函数的实参，用来代替 arguments
-
+ES6 引入 rest 参数，用于获取函数的实参，用来代替 arguments
 ```javascript
 //作用与 arguments 类似
 function add(...args){
@@ -228,7 +225,7 @@ function minus(a,b,...args){
 }
 minus(100,1,2,3,4,5,19);
 ```
-  ```javascript
+```javascript
   //ES6 允许给函数参数赋值初始值
   //1. 形参初始值 具有默认值的参数, 一般位置要靠后(潜规则)
   function add(a,b,c=10) {
@@ -250,8 +247,7 @@ minus(100,1,2,3,4,5,19);
       password: 'root',
       port: 3306
   });
-  ```
-
+```
   注意： **rest 参数非常适合不定个数参数函数的场景**
 
 ## 2.8. spread 扩展运算符
