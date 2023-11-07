@@ -204,9 +204,7 @@ arr.forEach(item=>{
 arr.map(item=>item*2).forEach(i=>console.log(i));
 const result = arr.filter(item => item % 2 === 0);
 console.log(arr.findIndex(x=>x>10));
-
 console.log(result);
-
 ```
 注意：箭头函数不会更改 this 指向，用来指定回调函数会非常合适
 -  箭头函数适合与 this 无关的回调. 定时器, 数组的方法回调
