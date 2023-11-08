@@ -108,7 +108,9 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 ![图片](data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==)![image-20210623123625924](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151370.png)
 
-​	[图3.3]![image-20210623123657131](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151457.png)
+​	[图3.3]
+
+![image-20210623123657131](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072151457.png) 
 
 　　3、在Variables里查看，这里显示当前方法里的所有变量。
 
@@ -142,9 +144,9 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　　 这个表达式不仅可以是一般变量或参数，也可以是方法，当你的一行代码中调用了几个方法时，就可以通过这种方式查看查看某个方法的返回值。
 
-![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152652.webp) [图4.2]
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152652.webp) 	[图4.2]
 
-　　2、设置变量，在计算表达式的框里，可以改变变量的值，这样有时候就能很方便我们去调试各种值的情况了不是。![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152472.png) [图4.3]
+　　2、设置变量，在计算表达式的框里，可以改变变量的值，这样有时候就能很方便我们去调试各种值的情况了不是。![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152472.png) 	[图4.3]
 
 ## 五、智能步入
 
@@ -168,7 +170,7 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152983.png) 
 
-[图6.1]
+​	[图6.1]
 
 　　2、点击View Breakpoints (Ctrl + Shift + F8)，查看所有断点。
 
@@ -178,11 +180,11 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　　　勾选Evaluate and log，可以在执行这行代码是计算表达式的值，并将结果输出到控制台。![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152436.png)
 
-[图6.2]　　
+​	[图6.2]　　
 
 ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152345.png) 
 
- [图6.3]　　
+​	 [图6.3]　　
 
 ​    3、再说说右边的Filters过滤，这些一般情况下不常用，简单说下意思。
 
@@ -194,11 +196,11 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
   ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152298.webp) 
 
-[图6.4]
+​	[图6.4]
 
  ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152093.webp)
 
-[图6.5]　　
+​	[图6.5]　　
 
 ​    4、异常断点，通过设置异常断点，在程序中出现需要拦截的异常时，会自动定位到异常行。
 
@@ -208,21 +210,21 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152649.webp) 
 
-[图6.6]
-![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152747.webp) [图6.7]
+​	[图6.6]
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152747.webp) 	[图6.7]
 
-![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152363.webp) [图6.8]
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152363.webp) 	[图6.8]
 
 ## 七、多线程调试
 
 　　一般情况下我们调试的时候是在一个线程中的，一步一步往下走。但有时候你会发现在Debug的时候，想发起另外一个请求都无法进行了？
 
 　　那是因为IDEA在Debug时默认阻塞级别是ALL，会阻塞其它线程，只有在当前调试线程走完时才会走其它线程。可以在View Breakpoints里选择Thread，如图7.1，然后点击Make Default设置为默认选项。
-![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152350.webp) [图7.1]
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152350.webp) 	[图7.1]
 
 　　切换线程，在图7.2中Frames的下拉列表里，可以切换当前的线程，如下我这里有两个Debug的线程，切换另外一个则进入另一个Debug的线程。
 
-![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152488.webp) [图7.2]
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152488.webp) 	[图7.2]
 
 ## 八、回退断点
 
@@ -230,7 +232,7 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　1、首先认识下这个方法调用栈，如图8.1，首先请求进入DemoController的insertDemo方法，然后调用insert方法，其它的invoke我们且先不管，最上面的方法是当前断点所在的方法。
 
-![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152776.webp) [图8.1]
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152776.webp) 	[图8.1]
 
 　　2、断点回退
 
@@ -242,11 +244,11 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　但有一点需要注意，断点回退只能重新走一下流程，之前的某些参数/数据的状态已经改变了的是无法回退到之前的状态的，如对象、集合、更新了数据库数据等等。
 ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153304.webp)
-图[8.2]
+	图[8.2]
 ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153691.webp)
-图[8.3]
+	图[8.3]
 ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153728.webp)
-图[8.4] 
+	图[8.4] 
 
 ## 九、中断Debug
 
@@ -259,9 +261,10 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 　　点击Force Return，弹出Return Value的窗口，我这个方法的返回类型为Map，所以，我这里直接返回 results，来强制返回，从而不再进行后续的流程。或者你可以new HashMap<>()。
 
 ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153268.webp)
-[图9.1]
+	[图9.1]
 ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072153944.webp)
-[图9.2]
+	[图9.2]
+
 ## 十、idea快捷键
 ### 1. 快速生成main
 > 输入psvm
@@ -373,15 +376,15 @@ ctrl+alt+u
 
 　　④ 在设置里Jrebel里设置激活码，如图10.3，如果没有安装JRebel插件，先在Plugins里安装搜索安装JRebel插件。 　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072154305.webp)
 
-[图10.1]
+​	[图10.1]
 
 　　![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072154463.webp)
 
-[图10.2]
+​	[图10.2]
 
 ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072154449.webp)
 
- [图10.3]
+​	[图10.3]
 
 链接: https://www.cnblogs.com/chiangchou/p/idea-debug.html
 
