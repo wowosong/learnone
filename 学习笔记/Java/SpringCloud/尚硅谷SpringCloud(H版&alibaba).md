@@ -1126,11 +1126,16 @@ Consul是一套开源的分布式服务发现和配置管理系统，油HashiCor
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071552794.png)
 
-### 1，按照consul
+### 1.安装consul
 
 需要下载一个安装包
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071552115.png)
+- 管网安装说明：https://learn.hashicorp.com/consul/getting-started/install.html
+- 下载完成后只有一个consul.exe文件：硬盘路径下双击运行，查看版本号信息
+- 使用开发模式启动：
+  - 启动命令：consul agent -dev
+  - 通过一下地址可以访问Consul的首页：http://localhost:8500
+  - 结果页面
 
 启动是一个命令行界面，需要输入consul agen-dev启动
 
@@ -1304,7 +1309,17 @@ Spring Cloud Ribbon是基于Netflix Ribbon实现的一套<span style="color:red"
 
 **Ribbon目前也进入维护，基本上不准备更新了**
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071554864.png)
+- <span style="color:red;font-weight:bolder">能干嘛</span>
+
+  - LB(负载均衡)
+
+    - 集中式LB
+
+    - 进程内LB
+
+	- 前面我们讲解过了80通过轮训负载访问8001/8002
+	
+	- 一句话
 
 <span style="color:red">**进程内LB(本地负载均衡)**</span>
 
@@ -1391,7 +1406,7 @@ public CommonResult<Payment> getId1(@PathVariable("id") String id) {
 ```java
 RestTemplate的:
 	xxxForObject()方法，返回的是响应体中的数据
-    xxxForEntity()方法.返回的是entity对象，这个对象不仅仅包含响应体数据，还包含响应体信息(状态码等)
+  xxxForEntity()方法.返回的是entity对象，这个对象不仅仅包含响应体数据，还包含响应体信息(状态码等)
 ```
 
 #### Ribbon常用负载均衡算法:
@@ -1494,30 +1509,30 @@ public interface LoadBalance {
 ```java
 @Component
 public class MyLoadBalanceImpl implements LoadBalance {
-    private AtomicInteger atomicInteger = new AtomicInteger(0);
-	//这个方法是获取下一个要调用服务的id
-    public final int getAndIncrement() {
-        int current;
-        int next;
-        do {
-            current = this.atomicInteger.get();
-            next = current >= 2147483647 ? 0 : current + 1;
-        } while (!this.atomicInteger.compareAndSet(current, next));//调用CAS进行自旋锁，每次next+1
-        System.out.println("*******第几次访问，next:" + next);
-        return next;
-    }
+  private AtomicInteger atomicInteger = new AtomicInteger(0);
+  //这个方法是获取下一个要调用服务的id
+  public final int getAndIncrement() {
+    int current;
+    int next;
+    do {
+      current = this.atomicInteger.get();
+      next = current >= 2147483647 ? 0 : current + 1;
+    } while (!this.atomicInteger.compareAndSet(current, next));//调用CAS进行自旋锁，每次next+1
+    System.out.println("*******第几次访问，next:" + next);
+    return next;
+  }
 ```
 
 ```java
 @Override
 public ServiceInstance instance(List<ServiceInstance> serviceInstances) {
-    int size = serviceInstances.size();
-    int index = 0;
-    if (size > 0) {
-       	//getAndIncrement() 拿到id，进行取余得到真正要调用服务的下标
-        index = getAndIncrement() % size;
-    }
-    return serviceInstances.get(index);
+  int size = serviceInstances.size();
+  int index = 0;
+  if (size > 0) {
+    //getAndIncrement() 拿到id，进行取余得到真正要调用服务的下标
+    index = getAndIncrement() % size;
+  }
+  return serviceInstances.get(index);
 }
 ```
 
@@ -1535,16 +1550,16 @@ private LoadBalance loadBalance;//自定义类
 
 ```java
 @GetMapping("/consumer/payment/lb")
-    public String getPaymentLB() {
-        //拿到指定服务下的所有服务
-        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
-        if (instances == null || instances.size() < 0) {
-            return null;
-        }
-        ServiceInstance instance = loadBalance.instance(instances);
-        URI uri = instance.getUri();
-        return restTemplate.getForObject(uri + "/payment/lb", String.class);
-    }
+public String getPaymentLB() {
+  //拿到指定服务下的所有服务
+  List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+  if (instances == null || instances.size() < 0) {
+    return null;
+  }
+  ServiceInstance instance = loadBalance.instance(instances);
+  URI uri = instance.getUri();
+  return restTemplate.getForObject(uri + "/payment/lb", String.class);
+}
 ```
 
 ##### 6，启动服务，测试即可
@@ -1578,10 +1593,8 @@ Feign旨在使编写Java HTTP客户端变得更容易，就是远程调用其他
 
 ### 使用OpenFeign
 
-```java
 之前的服务间调用，我们使用的是ribbon+RestTemplate
 现在改为使用Feign
-```
 
 #### 1，新建一个order项目，用于feign测试
 
@@ -1626,11 +1639,11 @@ public class OrderFeiginMain80 {
 @FeignClient(name = "CLOUD-PAYMENT-SERVICE",configuration = FeignLogLevelConfig.class)
 public interface PaymentFeignService {
 
-    @GetMapping(value = "/payment/getPaymentByid/{id}")
-    CommonResult getPaymentByid(@PathVariable("id") String id);
+  @GetMapping(value = "/payment/getPaymentByid/{id}")
+  CommonResult getPaymentByid(@PathVariable("id") String id);
 
-    @GetMapping(value = "/payment/feign/timout")
-    String paymentFeignTimemout();
+  @GetMapping(value = "/payment/feign/timout")
+  String paymentFeignTimemout();
 }
 ```
 
@@ -1640,12 +1653,12 @@ public interface PaymentFeignService {
 @RestController
 @Slf4j
 public class OrderFeignController {
-    @Resource
-    private PaymentFeignService paymentFeignService;
-    @GetMapping(value = "/payment/get/{id}")
-    public CommonResult<Payment> getPaymentById(@PathVariable("id") String id){
-        return paymentFeignService.getPaymentByid(id);
-    }
+  @Resource
+  private PaymentFeignService paymentFeignService;
+  @GetMapping(value = "/payment/get/{id}")
+  public CommonResult<Payment> getPaymentById(@PathVariable("id") String id){
+    return paymentFeignService.getPaymentByid(id);
+  }
 }
 ```
 
@@ -1670,10 +1683,10 @@ public class OrderFeignController {
 ```yaml
 #设置feign客户端超时时间，(OpenFeign默认支持ribbon)
 ribbon:
-  #指的是建立连接所用的时间，适用于网络状况正常的情况下，两端连接所用的时间
-  ReadTimeout: 5000
-  #指的是建立连接后从服务器读取到可用资源所用的时间，默认为5秒
-  ConnectTimeout: 5000
+#指的是建立连接所用的时间，适用于网络状况正常的情况下，两端连接所用的时间
+ReadTimeout: 5000
+#指的是建立连接后从服务器读取到可用资源所用的时间，默认为5秒
+ConnectTimeout: 5000
 ```
 
 ### OpenFeign日志:
@@ -1684,13 +1697,13 @@ Feign提供了日志打印功能，我们可以通过配置来调整日志级别
 
 ```java
 public static enum Level {
-    NONE,
-    BASIC,
-    HEADERS,
-    FULL;
+  NONE,
+  BASIC,
+  HEADERS,
+  FULL;
 
-    private Level() {
-    }
+  private Level() {
+  }
 }
 ```
 
@@ -1701,10 +1714,10 @@ public static enum Level {
 ```java
 @Configuration
 public class FeignLogLevelConfig {
-    @Bean
-    public Logger.Level feignLoglevelConfig(){
-        return  Logger.Level.FULL;
-    }
+  @Bean
+  public Logger.Level feignLoglevelConfig(){
+    return  Logger.Level.FULL;
+  }
 }
 ```
 
@@ -1714,7 +1727,7 @@ public class FeignLogLevelConfig {
 @Component
 @FeignClient(name = "CLOUD-PAYMENT-SERVICE",configuration = FeignLogLevelConfig.class)
 public interface PaymentFeignService {
-    
+
 }
 ```
 
@@ -1803,21 +1816,21 @@ public class PaymentHystrix8001 {
 ```java
 @Service
 public class PaymentHystrixService {
-    //服务降级
-    public String payment_ok(Integer id) {
-        return "线程池：" + Thread.currentThread().getName()
-            + "payment_ok, id: " + id + "\t" + "哈哈";
+  //服务降级
+  public String payment_ok(Integer id) {
+    return "线程池：" + Thread.currentThread().getName()
+      + "payment_ok, id: " + id + "\t" + "哈哈";
+  }
+  public String payment_timeout(Integer id) {
+    int time = 13;
+    try {
+      TimeUnit.SECONDS.sleep(time);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
-    public String payment_timeout(Integer id) {
-        int time = 13;
-        try {
-            TimeUnit.SECONDS.sleep(time);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return "线程池：" + Thread.currentThread().getName() 
-            + "payment_timeout, id: " + id + "\t" + "哈哈" + "耗时：" + time + "秒";
-    }
+    return "线程池：" + Thread.currentThread().getName() 
+      + "payment_timeout, id: " + id + "\t" + "哈哈" + "耗时：" + time + "秒";
+  }
 }
 ```
 
@@ -1962,9 +1975,9 @@ public class OrderHystrixFeiginController {
 @EnableDiscoveryClient
 @EnableCircuitBreaker
 public class PaymentHystrix8001 {
-    public static void main(String[] args) {
-        SpringApplication.run(PaymentHystrix8001.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(PaymentHystrix8001.class, args);
+  }
 }
 ```
 
@@ -2037,7 +2050,11 @@ public String paymentglobalHandler() {
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555505.png)
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555187.png)
+<span style="color:red;font-weight:bolder">@DefaultProperties(defaultFallback="")</span>
+
+- 每个方法配置一个服务降级方法，技术上可以，实际上傻X
+- N除了个别重要核心业务有专属，其他普通的可以通过@DefaultProperties(defaultFallback="")同意跳转到统一处理结果页面
+- 通用的和独享的各自分开，避免了代码膨胀，合并减少了代码量
 
 ###### 3，业务方法使用默认降级方法:
 
@@ -2090,9 +2107,10 @@ feign:
 
 ### 使用服务熔断:
 
+```
 类比保险丝达到最大服务访问后，直接拒接访问，拉闸限电，然后调用服务降级的方法并返回友好提示。
-
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071556197.png)
+就是保险丝---->服务的降级---->进而熔断--->恢复调用链路
+```
 
 **比如并发达到1000，我们就拒绝其他用户访问，在有用户访问，就访问降级方法**
 
@@ -2113,7 +2131,25 @@ feign:
 这里属性整体意思是:
 10秒之内(窗口，会移动)，如果并发**超过**10个，或者10个并发中，失败了6个，就开启熔断器
 
-![image-20200414152637247](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071556824.png)
+```java
+@HystrixCommand(fallbackMethod = "paymenetCircuitBreaker_fallback", commandProperties = {
+  //开启断路器
+  @HystrixProperty(name = "circuitBreaker.enabled", value = "true"),
+  //请求次数超过了峰值，断路器将会从关闭变为打开
+  @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),
+  //时间范围
+  @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000"),
+  //失败率达到多少后跳闸
+  @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60")
+})
+public String paymenetCircuitBreaker(@PathVariable("id") Integer id) 
+```
+
+涉及到断路器的三个重要参数：快照时间窗/请求总数阈值/错误百分比阈值
+
+1. 快照时间窗：断路器确定是否打开需要统计一些请求和错误数据，而统计的时间范围就是快照时间窗，默认为最近的10秒；
+2. 请求总数阈值：在快照时间窗内，必须满足请求总数阈值才有资格熔断。默认为20，意味着在10秒内，如果该hystrix命令的调用次数不足20次，即使所有的请求都超时或其他原因失败，断路器都不会打开；
+3. 错误百分比阈值：当请求总数在快照时间窗内超过了阈值，比如发生了30次调用，如果在这30次调用中，有15次发生了超时异常，也就是超过50%的错误百分比，在默认设定50%阈值情况下，这时候就会将断路器打开；
 
 IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法，比如UUID，反射，IO流等工具方法什么的都整合了
 
@@ -2131,7 +2167,15 @@ IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法�
 
 添加一个测试方法;
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071556201.png) 
+```java
+//服务熔断
+@GetMapping(value = "/payment/circuit/{id}")
+public String paymentCircuitBreaker(@PathVariable("id") Integer id) {
+  String result = paymentService.paymentCircuitBreaker(id);
+  log.info(">>>>>>result:" + result);
+  return result;
+} 
+```
 
 ##### 3，测试:
 
@@ -2163,7 +2207,9 @@ IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法�
 
 **当断路器开启后:**
 
-​    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558408.png)
+1. 再有请求调用的时候，将不会<span style="color:red">调用主逻f7d辑</span>，而是直接调用降级fallback。通过断路器，实现了自动地发现错误并将降级逻辑切换为主逻辑，将少响应延迟的效果
+
+​    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558408.png);l;.........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
 
 **其他参数:**
 
