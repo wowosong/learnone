@@ -8,7 +8,7 @@
 
 > JDK7用头插是考虑到了一个所谓的热点数据的点(新插入的数据可能会更早用到)，但这其实是个伪命题,因为JDK7中rehash的时候，旧链表迁移新链表的时候，如果在新表的数组索引位置相同，则链表元素会倒置(就是因为头插) 所以最后的结果 还是打乱了插入的顺序 所以总的来看支撑JDK7使用头插的这点原因也不足以支撑下去了 所以就干脆换成尾插 一举多得
 
-![image-20200405101639700](https://gitee.com/wowosong/pic-md/raw/master/202303311414423.png)
+![image-20200405101639700](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080906303.png)
 
 ## [HashMap1.7存在死链问题](#/./%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95/Java8%E6%96%B0%E7%89%B9%E6%80%A7/1_HashMap%E5%8F%98%E5%8C%96/README?id=hashmap17%e5%ad%98%e5%9c%a8%e6%ad%bb%e9%93%be%e9%97%ae%e9%a2%98)
 
@@ -102,7 +102,7 @@ void transfer(Entry[] newTable)
 
 do循环里面的是最能说明问题的，当只有一个线程的时候：
 
-![image-20200405110723887](https://gitee.com/wowosong/pic-md/raw/master/202303311424324.png)
+![image-20200405110723887](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080906856.png)
 
 最上面的是old hash 表，其中的Hash表的size=2, 所以key = 3, 7, 5，在mod 2以后都冲突在table\[1\]这里了。接下来的三个步骤是Hash表 扩容变成4，然后在把所有的元素放入新表
 
@@ -118,19 +118,19 @@ do {
 
 而我们的线程二执行完成了。于是我们有下面的这个样子
 
-![image-20200405111030936](https://gitee.com/wowosong/pic-md/raw/master/202303311424666.png)
+![image-20200405111030936](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080907819.png)
 
-![image-20200405111105573](./HashMap.assets/1641972305-d3d7064030fbbaa3132b1666dc3e659c.png)
+![image-20200405111105573](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080907227.png)
 
 注意，因为Thread1的 e 指向了key(3)，而next指向了key(7)，其在线程二rehash后，指向了线程二重组后的链表。我们可以看到链表的顺序被反转后。 这里的意思是线程1这会还没有完全开始扩容，但e和next已经指向了，线程2是正常的扩容的，那这会在3这个位置上，就是7->3这个顺序。 然后线程一被调度回来执行：
 
 先是执行 newTalbe\[i\] = e; 然后是e = next，导致了e指向了key(7)， 而下一次循环的next = e.next导致了next指向了key(3) 注意看图里面的线，线程1指向线程2里面的key3.
 
-![image-20200405111205298](https://gitee.com/wowosong/pic-md/raw/master/202303311425793.png)
+![image-20200405111205298](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080907117.png)
 
 线程一接着工作。把key(7)摘下来，放到newTable\[i\]的第一个，然后把e和next往下移。
 
-![image-20200405111254924](https://gitee.com/wowosong/pic-md/raw/master/202303311425258.png)
+![image-20200405111254924](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080907518.png)
 
 这时候，原来的线程2里面的key7的e和key3的next没了，e=key3,next=null。
 
@@ -138,7 +138,7 @@ do {
 
 注意：此时的key(7).next 已经指向了key(3)， 环形链表就这样出现了。
 
-![image-20200405111319072](https://gitee.com/wowosong/pic-md/raw/master/202303311425546.png)
+![image-20200405111319072](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080907457.png)
 
 线程2生成的e和next的关系影响到了线程1里面的情况。从而打乱了正常的e和next的链。于是，当我们的线程一调用到，HashTable.get(11)时，即又到了3这个位置，需要插入新的，那这会就e 和next就乱了
 
@@ -148,9 +148,9 @@ do {
 
 首先看向HashMap中添加元素是怎么存放的
 
-![image-20200405105335235](https://gitee.com/wowosong/pic-md/raw/master/202303311425515.png)
+![image-20200405105335235](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080907736.png)
 
-![image-20200405105401674](https://gitee.com/wowosong/pic-md/raw/master/202303311425887.png)
+![image-20200405105401674](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080907103.png)
 
 第一个截图是向HashMap中添加元素putVal()方法的部分源码，可以看出，向集合中添加元素时，会使用(n - 1) & hash的计算方法来得出该元素在集合中的位置；而第二个截图是HashMap扩容时调用resize()方法中的部分源码，可以看出会新建一个tab，然后遍历旧的tab，将旧的元素进过e.hash & (newCap - 1)的计算添加进新的tab中，也就是(n - 1) & hash的计算方法，其中n是集合的容量，hash是添加的元素进过hash函数计算出来的hash值
 
@@ -158,11 +158,11 @@ HashMap的容量为什么是2的n次幂，和这个(n - 1) & hash的计算方法
 
 当HashMap的容量是16时，它的二进制是10000，(n-1)的二进制是01111，与hash值得计算结果如下:
 
-![image-20200405105533985](https://gitee.com/wowosong/pic-md/raw/master/202303311425767.png)
+![image-20200405105533985](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080907339.png)
 
 上面四种情况我们可以看出，不同的hash值，和(n-1)进行位运算后，能够得出不同的值，使得添加的元素能够均匀分布在集合中不同的位置上，避免hash碰撞，下面就来看一下HashMap的容量不是2的n次幂的情况，当容量为10时，二进制为01010，(n-1)的二进制是01001，向里面添加同样的元素，结果为：
 
-![image-20200405105704798](https://gitee.com/wowosong/pic-md/raw/master/202303311425003.png)
+![image-20200405105704798](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080907407.png)
 
 可以看出，有三个不同的元素进过&运算得出了同样的结果，严重的hash碰撞了。
 
@@ -315,7 +315,7 @@ synchronized (f) {
 
 > 方法区主要用于存储一些类模板
 
-![image-20200405115011067](https://gitee.com/wowosong/pic-md/raw/master/202303311425235.png)
+![image-20200405115011067](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080908391.png)
 
 OOM错误发生概率降低
 
