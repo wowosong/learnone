@@ -181,6 +181,7 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152345.png) 
 ​	 [图6.3]　　
+
 ​    3、再说说右边的Filters过滤，这些一般情况下不常用，简单说下意思。
 　　　　Instance filters：实例过滤，输入实例ID(如图6.5中的实例ID)，但是我这里没有成功，不知道什么原因，知道的朋友留个言。
 　　　　Class filters：类过滤，根据类名过滤，同样没有成功....
@@ -189,12 +190,17 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 ​	[图6.4]
  ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152093.webp)
 ​	[图6.5]　　
+
 ​    4、异常断点，通过设置异常断点，在程序中出现需要拦截的异常时，会自动定位到异常行。
 　　如图6.6，点击+号添加Java Exception Breakpoints，添加异常断点。然后输入需要断点的异常类，如图6.7，之后可以在Java Exception Breakpoints里看到添加的异常断点。
 　　我这里添加了一个NullPointerException异常断点，如图6.8，出现空指针异常后，自动定位在空指针异常行。
+
 ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152649.webp) 
+
 ​	[图6.6]
+
 ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152747.webp) 	
+
 ​	[图6.7]
 
 ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152363.webp) 	
