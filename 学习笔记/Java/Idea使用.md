@@ -159,7 +159,9 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 　　如果只有一个方法，则直接进入，类似Force Step Into。
 
-![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152006.png) [图5.2]
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152006.png) 
+
+ [图5.2]
 
 ## 六、断点条件设置
 
@@ -169,8 +171,9 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 1、在断点上右键直接设置当前断点的条件，如图6.1，我设置exist为true时断点才生效。
 
-![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152983.png)         [图6.1]
-　　
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152983.png)      
+
+   [图6.1]
 
 2、点击View Breakpoints (Ctrl + Shift + F8)，查看所有断点。
 
