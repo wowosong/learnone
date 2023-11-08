@@ -24,7 +24,7 @@ Spring Boot -> J2EE一站式解决方案
 
 Spring Cloud -> 分布式整体解决方案
 
-![image-20210826105551564](https://gitee.com/wowosong/pic-md/raw/master/202301060919235.png) 
+![image-20210826105551564](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080844256.png) 
 
 • 优点：
 
@@ -52,11 +52,11 @@ Spring Cloud -> 分布式整体解决方案
 
 单体应用：ALL IN ONE
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202301060919690.png" alt="image-20210826140612874" style="zoom:50%;" /> 
+![image-20210826140612874](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080845902.png) 
 
 微服务：每一个功能元素最终都是一个可独立替换和独立升级的软件单元；
 
-![image-20210826140731787](https://gitee.com/wowosong/pic-md/raw/master/202301060920490.png) 
+![image-20210826140731787](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080845900.png) 
 
 [详细参照微服务文档](https://martinfowler.com/articles/microservices.html#MicroservicesAndSoa)
 
@@ -105,9 +105,9 @@ http://www.gulixueyuan.com/ 谷粒学院
 
 整合maven进来；
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202301060920677.png" alt="idea设置" style="zoom:50%;" /> 
+![idea设置](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080845918.png) 
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202301060920614.png" alt="images/" style="zoom:50%;" /> 
+![images/](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080846277.png) 
 
 ## 1.4 Spring Boot HelloWorld
 
@@ -152,7 +152,7 @@ public class SpringboottestApplication {
 }
 ```
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202301060920969.png" alt="image-20210826151630294" style="zoom:50%;" /> 
+![image-20210826151630294](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080846773.png) 
 
 – 4、编写相关的Controller、Service
 
@@ -328,7 +328,7 @@ SelectorImport方法将所有需要导入的组件以全类名的方式返回；
 
 会给容器中导入非常多的自动配置类（xxxAutoConfifiguration）；就是给容器中导入这个场景需要的所有组件， 并配置好这些组件； 
 
-![自动配置类](https://gitee.com/wowosong/pic-md/raw/master/202301060921711.png) 
+![自动配置类](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080846085.png) 
 
 有了自动配置类，免去了我们手动编写配置注入功能组件等的工作； 
 
@@ -545,7 +545,7 @@ public class Person {
 </dependency>
 ```
 
-![image-20210830151204725](https://gitee.com/wowosong/pic-md/raw/master/202301060921042.png) 
+![image-20210830151204725](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080846427.png) 
 
 **SpringboottestApplicationTests与SpringboottestApplication目录应该保持同级目录，否则失败**
 
@@ -558,7 +558,7 @@ Person{lastName='wowosong', age=30, boss=false, birth=Tue Dec 12 00:00:00 CST 20
 
 调整
 
-![idea配置乱码](https://gitee.com/wowosong/pic-md/raw/master/202301060921327.png)
+![idea配置乱码](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080846316.png)
 
 #### 2、@Value获取值和@ConfigurationProperties获取值比较
 
@@ -785,7 +785,7 @@ spring:
 
 **优先级由高到底，高优先级的配置会覆盖低优先级的配置；**
 
-![image-20210831102226114](https://gitee.com/wowosong/pic-md/raw/master/202301060921537.png) 
+![image-20210831102226114](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080847988.png) 
 
 SpringBoot会从这四个位置全部加载主配置文件；**互补配置**；
 
@@ -841,7 +841,7 @@ java -jar spring-boot-02-config-02-0.0.1-SNAPSHOT.jar --server.port=8087  --serv
 
 配置文件到底能写什么？怎么写？自动配置原理；
 
-   ![image-20220622113957589](https://gitee.com/wowosong/pic-md/raw/master/202301060922569.png)
+   ![image-20220622113957589](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080847701.png)
 
 [配置文件能配置的属性参照](https://docs.spring.io/spring-boot/docs/1.5.9.RELEASE/reference/htmlsingle/#common-application-properties)
 
@@ -1130,7 +1130,7 @@ public class HelloWorld {
 
 图示；
 
-![image-20210831205453360](https://gitee.com/wowosong/pic-md/raw/master/202301060922751.png)
+![image-20210831205453360](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080847354.png)
 
 每一个日志的实现框架都有自己的配置文件。使用slf4j以后，**配置文件还是做成日志实现框架自己本身的配置文件；**
 
@@ -1140,7 +1140,7 @@ a（slf4j+logback）: Spring（commons-logging）、Hibernate（jboss-logging）
 
 统一日志记录，即使是别的框架和我一起统一使用slf4j进行输出？
 
-![image-20210831211337824](https://gitee.com/wowosong/pic-md/raw/master/202301060923065.png) 
+![image-20210831211337824](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080847106.png) 
 
 **如何让系统中所有的日志都统一到slf4j；**
 
@@ -1170,7 +1170,7 @@ SpringBoot使用它来做日志功能；
 
 底层依赖关系
 
-![image-20210831220535466](https://gitee.com/wowosong/pic-md/raw/master/202301060923258.png)
+![image-20210831220535466](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080847294.png)
 
 总结：
 
@@ -1188,7 +1188,7 @@ public abstract class LogFactory {
     static LogFactory logFactory = new SLF4JLogFactory();
 ```
 
-![image-20210831222653599](https://gitee.com/wowosong/pic-md/raw/master/202301060923941.png) 
+![image-20210831222653599](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080847440.png) 
 
 4）、如果我们要引入其他框架？一定要把这个框架的默认日志依赖移除掉？
 
@@ -1392,7 +1392,7 @@ logging.config=classpath:logback.xml
 logback.xml需要放在类目录下才能找到
 ```
 
- ![image-20210901150717282](https://gitee.com/wowosong/pic-md/raw/master/202301060923454.png)
+ ![image-20210901150717282](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080847092.png)
 
 `no applicable action for [springProfile]`
 
@@ -1557,13 +1557,13 @@ public class ResourceProperties implements ResourceLoaderAware {
 		}																					
 ```
 
-1）、**所有 /webjars/** ，都去 classpath:/META-INF/resources/webjars/ 找资源；**
+1）、**所有 /webjars/** ，都去 classpath:/META-INF/resources/webjars/ 找资源；
 
 webjars：以jar包的方式引入静态资源；
 
 http://www.webjars.org/
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202301060924626.png) 
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080848135.png) 
 
 2）、"/**" 访问当前项目的任何资源，都去（静态资源的文件夹）找映射
 
@@ -1587,7 +1587,7 @@ localhost:8080/abc ===  去静态资源文件夹里面找abc
 
 JSP、Velocity、Freemarker、Thymeleaf
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202301060924195.png) 
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080848218.png) 
 
 SpringBoot推荐的Thymeleaf；
 
@@ -1659,7 +1659,7 @@ public class ThymeleafProperties {
 
 ​	th：任意html属性；来替换原生属性的值
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202301060924478.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080848376.png)
 
 2）、表达式？
 
@@ -1974,7 +1974,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 
 1）、编写国际化配置文件，抽取页面需要显示的国际化消息
 
-![img](https://gitee.com/wowosong/pic-md/raw/master/202301060924498.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080848567.png)
 
 2）、SpringBoot自动配置好了管理国际化资源文件的组件；
 
@@ -2430,13 +2430,13 @@ insert的公共片段在div标签中
 
 ​		1）、浏览器，返回一个默认的错误页面
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301060925833.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080848451.png) 
 
   浏览器发送请求的请求头：
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301060926066.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080848360.png) 
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301060926736.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080848491.png) 
 
 原理：
 
@@ -2646,13 +2646,13 @@ public class MyErrorAttributes extends DefaultErrorAttributes {
 
 最终的效果：响应是自适应的，可以通过定制ErrorAttributes改变需要返回的内容，
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301060926709.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080849325.png) 
 
 ## 8、配置嵌入式Servlet容器
 
 SpringBoot默认使用Tomcat作为嵌入式的Servlet容器；
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301060926876.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080849428.png)
 
 ### 1）、如何定制和修改Servlet容器的相关配置；
 
@@ -2753,7 +2753,7 @@ public ServletRegistrationBean dispatcherServletRegistration(
 
 ### 3）、替换为其他嵌入式Servlet容器
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301060927653.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080849782.png) 
 
 默认支持：
 
@@ -2879,11 +2879,11 @@ public interface EmbeddedServletContainerFactory {
 }
 ```
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301060927504.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080849489.png) 
 
 2）、EmbeddedServletContainer：（嵌入式的Servlet容器）
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301060927373.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080849696.png) 
 
 3）、以**TomcatEmbeddedServletContainerFactory**为例
 
@@ -2976,7 +2976,7 @@ private Collection<EmbeddedServletContainerCustomizer> getCustomizers() {
 
 3）、后置处理器，从容器中获取所有的**EmbeddedServletContainerCustomizer**，调用定制器的定制方法
 
-![image-20220624160513211](https://gitee.com/wowosong/pic-md/raw/master/202301060928377.png)
+![image-20220624160513211](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080849485.png)
 
 ### 5)、嵌入式Servlet容器启动原理；
 
@@ -3149,7 +3149,7 @@ Spring的web模块里面有这个文件：**org.springframework.web.SpringServle
 
 4）、每一个WebApplicationInitializer都调用自己的onStartup；
 
-![image-20210909170114604](https://gitee.com/wowosong/pic-md/raw/master/202301060928437.png) 
+![image-20210909170114604](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080849136.png) 
 
 5）、相当于我们的SpringBootServletInitializer的类会被创建对象，并执行onStartup方法
 
@@ -3268,9 +3268,7 @@ Docker支持将软件编译成一个镜像；然后在镜像中各种软件做�
 
 运行中的这个镜像称为容器，容器启动是非常快速的。
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301060928987.png) 
-
-![img](https://gitee.com/wowosong/pic-md/raw/master/202301060928684.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080849079.png)
 
 ## 2、核心概念
 
@@ -3284,7 +3282,7 @@ docker镜像(Images)：软件打包好的镜像；放在docker仓库中；
 
 docker容器(Container)：镜像启动后的实例称为一个容器；容器是独立运行的一个或一组应用
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301060929404.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080850193.png)
 
 使用Docker的步骤：
 
@@ -3607,7 +3605,7 @@ public class DruidConfig {
 </dependency>
 ```
 
-![image-20210923095206286](https://gitee.com/wowosong/pic-md/raw/master/202301060930104.png)
+![image-20210923095206286](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080850786.png)
 
 步骤：
 
@@ -3688,7 +3686,7 @@ http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/
 
 ### 1）、SpringData简介
 
-![image-20211004162859609](https://gitee.com/wowosong/pic-md/raw/master/202301060930183.png)
+![image-20211004162859609](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080850665.png)
 
 ### 2）、整合SpringData JPA
 
@@ -3749,11 +3747,11 @@ spring:
 
 **CommandLineRunner**
 
-![image-20211004194137706](https://gitee.com/wowosong/pic-md/raw/master/202301060930421.png)
+![image-20211004194137706](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080851135.png)
 
-![image-20211004194220302](https://gitee.com/wowosong/pic-md/raw/master/202301060931289.png)
+![image-20211004194220302](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080851434.png)
 
-![image-20211004194256924](https://gitee.com/wowosong/pic-md/raw/master/202301060931024.png)
+![image-20211004194256924](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080851481.png)
 
 启动流程：
 
@@ -3778,9 +3776,9 @@ private void initialize(Object[] sources) {
 }
 ```
 
-![image-20211004165926632](https://gitee.com/wowosong/pic-md/raw/master/202301060931270.png) 
+![image-20211004165926632](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080853668.png) 
 
-![image-20211004165942294](https://gitee.com/wowosong/pic-md/raw/master/202301060932220.png) 
+![image-20211004165942294](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080853257.png) 
 
 ## 2、运行run方法
 
@@ -3965,7 +3963,7 @@ org.springframework.boot.autoconfigure.aop.AopAutoConfiguration,\
 
 mybatis-spring-boot-starter；自定义启动器名-spring-boot-starter
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301060932409.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311080854816.png)
 
 步骤：
 
