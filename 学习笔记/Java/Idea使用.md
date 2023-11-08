@@ -173,9 +173,12 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 　　2、点击View Breakpoints (Ctrl + Shift + F8)，查看所有断点。
 　　　　Java Line Breakpoints 显示了所有的断点，在右边勾选Condition，设置断点的条件。
 　　　　勾选Log message to console，则会将当前断点行输出到控制台，如图6.3
-　　　　勾选Evaluate and log，可以在执行这行代码是计算表达式的值，并将结果输出到控制台。![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152436.png)
+　　　　勾选Evaluate and log，可以在执行这行代码是计算表达式的值，并将结果输出到控制台。
+
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152436.png)
 
 ​	[图6.2]　　
+
 ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311072152345.png) 
 ​	 [图6.3]　　
 ​    3、再说说右边的Filters过滤，这些一般情况下不常用，简单说下意思。
