@@ -787,7 +787,6 @@ public class RestTemplateConfig {
     public RestTemplate getRestTemplate(){
         return new RestTemplate();
     }
-
 }
 ```
 
@@ -1022,10 +1021,8 @@ public class PaymentController {
 
 **此时8003就注册到zk中了**
 
-```java
-我们在zk上注册的node是临时节点，当我们的服务一定时间内没有发送心跳
-那么zk就会`将这个服务的node删除了
-```
+**我们在zk上注册的node是临时节点，当我们的服务一定时间内没有发送心跳**
+**那么zk就会`将这个服务的node删除了**
 
 **这里测试，就不写service与dao什么的了**
 
@@ -1283,7 +1280,7 @@ public class OrderConsul80Controller {
 
 CAP理论的核心是：<span style="color:red">**一个分布式系统不可能同时很好的满足一致性、可用性和分区容错性这三个需求，**</span>因此根据CAP原理将NoSQL数据库分成了满足CA原则、满足CP原则和满足AP原则三大类：
 
-- CA - 单点集群，满足一致性、可用性的系统，通常在可扩性上不太强大。
+- CA -单点集群，满足一致性、可用性的系统，通常在可扩性上不太强大。
 - CP -满足一致性、分区容忍性的系统，通常性能不是特别高。
 - AP -满足可用性、分区容忍性的系统，通常可能对一致性要求低一些。
 
@@ -1429,7 +1426,7 @@ IRule接口有7个实现类，每个实现类代表一个负载均衡算法
 
 ##### 2，额外创建一个包
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071554003.png) 
+![image-20231109141502809](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311091415743.png) 
 
 ##### 3，创建配置类，指定负载均衡算法
 
@@ -1589,7 +1586,7 @@ Feign旨在使编写Java HTTP客户端变得更容易，就是远程调用其他
 | <span style="color:red;">Feign</span>                        | <span style="color:red">OpenFeign</span>                     |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | Feign是Spring Cloud组件中的一个轻量级RESTful的HTTP服务客户端，Feign内置了Ribbon，用来做客户端负载均衡，去调用服务注册中心的服务。Feign的使用方式是：使用Feign的注解定义接口，调用这个接口，就可以调用服务注册中心的服务 | OpenFeign是Spring Cloud在Feign的基础上支持了SpringMVC的注解，如@RequestMapping等等。OpenFeign的@FeignClient可以解析SpringMVC的@RequestMapping注解下的接口，并通过动态代理的方式产生实现类，实现类中做负载均衡并调用其他服务。 |
-| <dependency>     <groupId>org.springframework.cloud</groupId>     <artifactId>spring-cloud-starter-<span style="color:red">**feign**</span></artifactId><br/></dependency> | <dependency>     <groupId>org.springframework.cloud</groupId>     <artifactId>spring-cloud-starter-<span style="color:red">**openfeign**</span></artifactId><br></dependency> |
+| \<dependency>     \<groupId>org.springframework.cloud\</groupId>     \<artifactId>spring-cloud-starter-<span style="color:red">**feign**</span>\</artifactId><br/>\</dependency> | \<dependency>     \<groupId>org.springframework.cloud\</groupId>     \<artifactId>spring-cloud-starter-<span style="color:red">**openfeign**</span>\</artifactId><br>\</dependency> |
 
 ### 使用OpenFeign
 
@@ -1864,8 +1861,7 @@ public class paymentController {
 ##### 7，先测试:
 
 此时使用压测工具，并发20000个请求，请求会延迟的那个方法，
-压测中，发现，另外一个方法并没有被压测，但是我们访问它时，却需要等待
-这就是因为被压测的方法它占用了服务器大部分资源，导致其他请求也变慢了
+压测中，发现，另外一个方法并没有被压测，但是我们访问它时，却需要等待，这就是因为被压测的方法它占用了服务器大部分资源，导致其他请求也变慢了
 
 ##### 8，先不加入hystrix，
 
@@ -2085,9 +2081,7 @@ feign:
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555631.png)
 
 **它的运行逻辑是:
-	当请求过来，首先还是通过Feign远程调用pay模块对应的方法
-    但是如果pay模块报错，调用失败，那么就会调用PayMentFalbackService类的
-    当前同名的方法，作为降级方法**
+	当请求过来，首先还是通过Feign远程调用pay模块对应的方法，但是如果pay模块报错，调用失败，那么就会调用PayMentFalbackService类的当前同名的方法，作为降级方法**
 
 ###### 4，启动测试
 
@@ -2097,9 +2091,7 @@ feign:
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555814.png) 
 
-可以看到，并没有报500错误，而是降级访问**实现类**的同名方法
-
-这样，即使服务器挂了，用户要不要一直等待，或者报错
+可以看到，并没有报500错误，而是降级访问**实现类**的同名方法；这样，即使服务器挂了，用户要不要一直等待，或者报错
 
 问题:
 
@@ -2207,9 +2199,12 @@ public String paymentCircuitBreaker(@PathVariable("id") Integer id) {
 
 **当断路器开启后:**
 
-1. 再有请求调用的时候，将不会<span style="color:red">调用主逻f7d辑</span>，而是直接调用降级fallback。通过断路器，实现了自动地发现错误并将降级逻辑切换为主逻辑，将少响应延迟的效果
+1. 再有请求调用的时候，将不会<span style="color:red">调用主逻辑</span>，而是直接**调用降级fallback**。通过断路器，实现了自动地发现错误并将降级逻辑切换为主逻辑，将少响应延迟的效果
 
-​    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558408.png)
+1. 原来的主逻辑要如何恢复呢？
+
+  对于这一问题，hystrix也为我们实现了<span style='color:red;font-weight:bolder'>自动恢复</span>功能。
+  当断路器打开，对主逻辑进行<span style='color:red;font-weight:bolder'>熔断之后</span>，Hystrix会启动一个<span style='color:red;font-weight:bolder'>休眠时间窗，在这个时间窗内，降级逻辑是临时的成为主逻辑，</span><span style='color:red;font-weight:bolder'>当休眠时间窗到期，断路器将进入半开状态，释放一次请求到原来的主逻辑上，</span>如果此次请求正常返回，那么断路器将继续闭合，断路器关闭，主逻辑恢复，如果这次请求依然有问题，断路器继续进入打开状态，<span style='color:red;font-weight:bolder'>休眠时间窗重新计时</span>。
 
 **其他参数:**
 
@@ -2229,16 +2224,10 @@ public String paymentCircuitBreaker(@PathVariable("id") Integer id) {
     如果缓存没有，--->2
 -  2.查看断路器是否开启，如果开启的，Hystrix直接将请求转发到降级返回，然后返回
     如果断路器是关闭的，
-    判断线程池等资源是否已经满了，如果已经满了
-    也会走降级方法
-    如果资源没有满，判断我们使用的什么类型的Hystrix，决定调用构造方法还是run方法
-    然后处理请求
-    然后Hystrix将本次请求的结果信息汇报给断路器，因为断路器此时可能是开启的
-    (因为断路器开启也是可以接收请求的)
-    断路器收到信息，判断是否符合开启或关闭断路器的条件，
-    如果本次请求处理失败，又会进入降级方法
-    如果处理成功，判断处理是否超时，如果超时了，也进入降级方法
-    最后，没有超时，则本次请求处理成功，将结果返回给controller
+    - 判断线程池等资源是否已经满了，如果已经满了，也会走降级方法
+    - 如果资源没有满，判断我们使用的什么类型的Hystrix，决定调用构造方法还是run方法，然后处理请求；
+      然后Hystrix将本次请求的结果信息汇报给断路器，因为断路器此时可能是开启的；(因为断路器开启也是可以接收请求的)
+      断路器收到信息，判断是否符合开启或关闭断路器的条件，如果本次请求处理失败，又会进入降级方法；如果处理成功，判断处理是否超时，如果超时了，也进入降级方法；最后，没有超时，则本次请求处理成功，将结果返回给controller
 
 ### Hystrix服务监控:
 
@@ -2333,9 +2322,9 @@ public class PaymentHystrix8001 {
 
 **然后在web界面，指定9001要监控8001:**
 
-##### ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071559133.png)
+##### <img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071559133.png" style="zoom:50%;" />
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071559108.png)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071559108.png" style="zoom:50%;" />
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071600786.png)
 
@@ -3766,7 +3755,7 @@ CP模式下则支持注册持久化实例，此时则是以Raft协议为集群�
 
 **下面这个curl命令，就是切换模式**
 
-```
+```shell
 curl -X PUT '$NACOS_SERVER:8848/nacos/v1/ns/operator/switches?entry=serverMode&value=CP'
 ```
 
@@ -4039,7 +4028,11 @@ db.password=password
 
  这里使用3333，4444，5555作为三个Nacos节点监听的端口
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071633093.png) 
+```
+192.168.111.144:3333
+192.168.111.144:4444
+192.168.111.144:5555 
+```
 
 5，我们这里就不配置在不同节点上了，就放在一个节点上
 
@@ -4244,11 +4237,25 @@ public class AlibabaSentinelController {
 
 **就是熔断降级**
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071638806.png)  
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311091440432.png" alt="image-20231109144045377" style="zoom:67%;" />   
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202301032240393.png)
+- <span style="color:blue;font-weight:bolder">RT(平均响应时间，秒级)</span>
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071638590.png)
+  - 平均响应时间 超出阈值且 在时间窗口内通过的请求>=5，两个条件同时满足后触发降级，窗口期过后关闭断路器；就是窗口期内的请求的平均响应时间如果大于阈值，则熔断降级。
+
+  - RT最大4900（5秒），更大的需要通过-Dcsp.sentinel.statistic.max.rt=XXXX才能生效
+
+- <span style="color:blue;font-weight:bolder">异常比例（秒级）</span>
+
+  QPS>=5且异常比例（秒级统计）超过阈值时，触发降级；时间窗口结束后，关闭降级
+
+- <span style="color:blue;font-weight:bolder">异常数（分钟级）</span>
+
+  - 异常数（分钟统计）超过阈值时，触发降级；时间窗口结束后，关闭降级
+
+Sentinel熔断降级会在调用链路中<u>**某个资源**</u>出现不稳定状态时（例如<u>**调用超时或异常比例升高**</u>)，对这个资源的调用进行**<u>限制</u>**，让**<u>请求快速失败</u>**，避免影响到其他的资源而导致级联错误。
+
+当资源被降级后，在接下来的降级时间窗口之内，对该资源的调用都自动熔断（默认行为是抛出DegradeException)。
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071638675.png) 
 
@@ -4256,7 +4263,18 @@ public class AlibabaSentinelController {
 
 新增一个请求方法用于测试
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071638113.png) 
+```java
+@GetMapping("/testD")
+public String testD(){
+	//暂停几秒钟线程
+    try{
+		TimeUnit.SECONDS.sleep(1);
+    }catch{
+        log.info("testD 测试RT");
+        return "------testD";
+    }
+} 
+```
 
 **配置RT**:
 
@@ -4282,7 +4300,19 @@ public class AlibabaSentinelController {
 
 修改请求方法
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071638484.png) 
+```java
+@GetMapping("/testD")
+public String testD(){
+    //暂停几秒钟线程
+    //try{
+    //TimeUnit.SECONDS.sleep(1);
+    //}catch{
+    log.info("testD 异常比例");
+    int age=10/0;
+    return "------testD";
+    //}
+}  
+```
 
 配置:
 
@@ -4309,7 +4339,10 @@ public class AlibabaSentinelController {
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071639025.png)  
 
-​    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071639768.png)
+何为热点？热点即经常访问的数据。很多时候我们希望统计<span style="color:red;font-weight:bolder;text-decoration:underline">某个热点数据</span>中访问<span style="color:red;font-weight:bolder;text-decoration:underline">频次最高的Top K数据</span>，并对其访问进行限制。比例：
+
+- 商品ID为参数，统计一段时间内最常购买的商品ID并进行限制
+- 用户ID为参数，针对<span style="color:red;font-weight:bolder;text-decoration:underline">一段时间内**频繁访问的用户ID进行限制**</span>
 
 比如:
 
@@ -4408,7 +4441,13 @@ int age =10/0，这个是Java运行时报出的运行时异常RuntimeException�
 
 *![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071643292.png)*
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071643916.png) 
+系统规则支持以下的模式：
+
+-  <span style="color:red;font-weight:bolder;text-decoration:underline">Load自适应（仅对Linux/Unix-like机器生效)</span>：系统的load1作为启发指标，进行自适应系统保护。当系统load1超过设定的启发值，且系统当前的并发线程数超过估算的系统容量时才会触发系统保护（BBR阶段)。<span style="color:red;font-weight:bolder;text-decoration:underline">系统容量由系统的maxQps * minRt估算得出。设定参考值一般是CPU cores * 2.5。</span>
+- CPU usage(1.5.0+ 版本)：当系统CPU使用率超过阈值即触发系统保护（取值范围0.0-1.0）,比较灵敏。
+- 平均RT：当单台机器上所有入口流量的平均RT达到阈值即触发系统保护，单位是毫秒。
+- 并发线程数：当单台机器上所有入口流量的并发线程数达到阈值即触发系统保护。
+- 入口QPS：当单台机器上所有入口流量的QPS达到阈值即触发系统保护。
 
 **测试**:
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071643934.png)
@@ -4421,7 +4460,7 @@ int age =10/0，这个是Java运行时报出的运行时异常RuntimeException�
 
 1，环境搭建
 
-1. 为8401添加依赖
+2，为8401添加依赖
 
    添加我们自己的commone包的依赖
 
@@ -4433,19 +4472,17 @@ int age =10/0，这个是Java运行时报出的运行时异常RuntimeException�
        <version>1.0-SNAPSHOT</version>
    </dependency> 
    ```
-   
+
    额外创建一个controller类
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071655457.png)
 
+3，配置限流
 
-3. 配置限流
+**注意，我们这里配置规则，资源名指定的是@SentinelResource注解value的值，这样也是可以的，也就是不一定要指定访问路径**
 
-    **注意，我们这里配置规则，资源名指定的是@SentinelResource注解value的值，**
 
-    **这样也是可以的，也就是不一定要指定访问路径**
-
-    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071656070.png) 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071656070.png) 
 
 4. 测试.
 
@@ -4681,9 +4718,9 @@ Sentinel主要有三个核心API：
 
 ### sentinel持久化规则
 
-默认规则是临时存储的，重启sentinel就会消失
+默认规则是临时存储的，重启sentinel就会消失；
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071659665.png)
+**将限流配置规则持久化进<span style="color:red">Nacos保存</span>，只要刷新8401某个rest地址，sentinel控制台的流控规则就能看到，只要<span style="color:red">Nacos里面的配置不删除</span>，针对8401上sentinel伤的流控规则持续有效；**
 
 **这里以之前的8401为案例进行修改:**
 
@@ -4716,22 +4753,29 @@ Sentinel主要有三个核心API：
 
    json中这些属性的含义: ​
 
-   ```json
-   [
-     {
-   	"resource": "/rateLimit/byUrl"，
-   	"limitApp": "default"，
-   	"grade":1，
-   	"count":1，
-   	"strategy":0，
-   	"controlBehavior":0，
-   	"clusterMode": false
-     }
-   ]
-   ```
+```json
+[
+ {
+"resource": "/rateLimit/byUrl"，
+"limitApp": "default"，
+"grade":1，
+"count":1，
+"strategy":0，
+"controlBehavior":0，
+"clusterMode": false
+ }
+]
+```
 
-   ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071700201.png) 
-
+```
+resource：资源名称；
+limitApp：来源应用；
+grade：阈值类型，0表示线程数，1表示QPS；
+count：单机阈值；
+strategy：流控模式，0表示直接，1表示关联，2表示链路
+controlBehav：流控效果，0表示快速失败，1表示Warm Up，2表示排队等待；
+clusterMode：是否集群
+```
 4. 启动8401:
 
    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071700428.png)
@@ -4760,7 +4804,13 @@ Seata 是一款开源的分布式事务解决方案，致力于提供高性能�
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071700490.png)
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071700970.png)
+1. <span style="color:red;font-weight:bolder;text-decoration:underline">TM向TC申请开启一个全局事务，全局事务创建成功并生成一个全局唯一的XID；</span>
+2. XID在微服务调用链路的上下文中传播；<span style="color:red;font-weight:bolder;text-decoration:underline">也就是在多个TM、RM中传播；</span>
+3. RM向TC<span style="color:red;font-weight:bolder;text-decoration:underline">注册分支事务，</span>将其纳入XID对应全局事务的管辖；
+4. <span style="color:red;font-weight:bolder;text-decoration:underline">TM向TC</span>发起针对XID的<span style="color:red;font-weight:bolder;text-decoration:underline">全局提交或回滚决议</span>；
+5. <span style="color:red;font-weight:bolder;text-decoration:underline">TC调度XID</span>下管辖的全部分支事务完成提交或回滚请求。
+
+![image-20231109152417017](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311091524536.png)
 
 ### seata安装:
 
@@ -4785,8 +4835,6 @@ Seata 是一款开源的分布式事务解决方案，致力于提供高性能�
      max.rollback.retry.timeout = "-1"
    }
    ```
-
-   
 
    ```properties
    store {
@@ -4828,7 +4876,7 @@ Seata 是一款开源的分布式事务解决方案，致力于提供高性能�
      }
    }
    ```
-
+   
 4. **mysql建库建表**
 
    1.上面指定了数据库为seata，所以创建一个数据库名为seata
@@ -4893,7 +4941,11 @@ registry {
 
 **业务说明**
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071700909.png)
+这里我们会创建三个服务，<span style="color:red;background-color:black;font-weight:bolder;text-decoration:underline">一个订单服务，一个库存服务，一个账户服务.</span>
+
+<span style="color:blue;font-weight:bolder;text-decoration:underline">当用户下单时，会在订单服务中创建一个订单，然后通过远程调用库存服务来扣减下单商品的库存，再通过远程调用账户服务来扣减用不账户里面的余额，最后在订单服务中修改订单状态为已完成。</span>
+
+该操作跨越三个数据库，有两次远程调用，很明显会有分布式事务问题。
 
 下单--->库存--->账号余额
 
@@ -4907,7 +4959,9 @@ registry {
 
 2. 创建对应的表
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071700812.png) 
+   - seata_order库下建t_order表
+   - seata_staorage库下建t_storage表
+   - seata_account库下建t_account表 
 
 3. 三个数据库各个创建回滚日志表，方便查看
 
@@ -5433,7 +5487,8 @@ SET FOREIGN_KEY_CHECKS = 1;
     
         ```java
         @Configuration
-        @MapperScan({"com.eiletxie.springcloud.alibaba.dao"})		指定我们的接口的位置
+        @MapperScan({"com.eiletxie.springcloud.alibaba.dao"})	
+        //指定我们的接口的位置
         public class MyBatisConfig {
         
         }
@@ -5559,15 +5614,36 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 **seata提供了四个模式:**
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702770.png) 
+AT、TCC、SAGA和XA事务模式。
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702051.png) 
+<span style="color:red;font-weight:bolder;text-decoration:underline">AT模式</span>
+
+**前提**
+
+- 基于支持本地ACID事务的关系型数据库；
+
+- Java应用，通过JDBC访问数据库。
+
+**整体机制**
+
+两阶段提交协议的演变：
+
+- <span style="color:red;font-weight:bolder;text-decoration:underline">一阶段</span>：业务数据和回滚日志记录在同一个本地事务中提交，释放本地锁和连接资源。
+- <span style="color:red;font-weight:bolder;text-decoration:underline">**二阶段**</span>：
+  - 提交异步化，非常快速地完成。
+  - 回滚通过一阶段的回滚日志进行反向补偿。 
 
 ==第一阶段:==
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702152.png) 
 
-​    ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702200.png)
+在一阶段，Sea他会拦截”业务SQL“，
+
+- 解析SQL语义，找到“业务SQL"<span style="color:red;font-weight:bolder;">要更新的业务数据，在业务数据被更新前，将其保存成"before image"</span>(<span style="color:red;font-weight:bolder;">**也就是将原数据保存一份，方便回滚**),</span>
+- <span style="color:red;font-weight:bolder;">执行“业务SQL”更新业务数据</span>，在业务数据更新之后，<span style="color:red;font-weight:bolder;">更新后的数据也保存一份</span>
+- 将其保存成“after image”,<span style="color:red;font-weight:bolder;">最后生成行锁。</span>
+
+<span style="color:red;font-weight:bolder;">以上操作全部在一个数据库事务内完成，这样保证了一阶段操作的原子性。</span>
 
 ==二阶段之提交==:
 
@@ -5575,7 +5651,9 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 ==二阶段之回滚:==
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702222.png)
+二阶段如果是回滚的话，Seata就需要**<u>回滚</u>**一阶段**<u>已经执行的“业务SQL”</u>**，还原<span style="color:red;font-weight:bolder;">（补偿）</span>业务数据。
+
+回滚方式便是用“**<u>before image</u>**<u>**”还原业务数据**</u>；但在还原前要首先要<u>**校验脏写**</u>，对比“数据库当前业务数据”和“after image”<span style="color:red;font-weight:bolder;">(可能在回滚之前，其他请求已经成功修改过这条数据，那么当前就不能回滚了)</span>，如果两份数据完全一致就说明<u>**没有脏写**</u>，可以还原业务数据，如果不一致就说明有脏写，出现脏写就需要转**<u>人工处理</u>**。
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702532.png)
 
