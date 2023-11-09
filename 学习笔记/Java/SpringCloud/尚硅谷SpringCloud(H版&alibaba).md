@@ -5633,7 +5633,7 @@ AT、TCC、SAGA和XA事务模式。
   - 提交异步化，非常快速地完成。
   - 回滚通过一阶段的回滚日志进行反向补偿。 
 
-==第一阶段:==
+**第一阶段:**
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702152.png) 
 
@@ -5649,9 +5649,9 @@ AT、TCC、SAGA和XA事务模式。
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702562.png)
 
-==二阶段之回滚:==
+**二阶段之回滚:**
 
-二阶段如果是回滚的话，Seata就需要**<u>回滚</u>**一阶段**<u>已经执行的“业务SQL”</u>**，还原<span style="color:red;font-weight:bolder;">（补偿）</span>业务数据。
+二阶段如果是回滚的话，Seata就需要<u>回滚</u>一阶段**<u>已经执行的“业务SQL”</u>**，还原<span style="color:red;font-weight:bolder;">（补偿）</span>业务数据。
 
 回滚方式便是用“**<u>before image</u>**<u>**”还原业务数据**</u>；但在还原前要首先要<u>**校验脏写**</u>，对比“数据库当前业务数据”和“after image”<span style="color:red;font-weight:bolder;">(可能在回滚之前，其他请求已经成功修改过这条数据，那么当前就不能回滚了)</span>，如果两份数据完全一致就说明<u>**没有脏写**</u>，可以还原业务数据，如果不一致就说明有脏写，出现脏写就需要转**<u>人工处理</u>**。
 
