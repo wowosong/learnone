@@ -5645,7 +5645,7 @@ AT、TCC、SAGA和XA事务模式。
 
 <span style="color:red;font-weight:bolder;">以上操作全部在一个数据库事务内完成，这样保证了一阶段操作的原子性。</span>
 
-==二阶段之提交==:
+**二阶段之提交**:
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702562.png)
 
@@ -5657,7 +5657,7 @@ AT、TCC、SAGA和XA事务模式。
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702532.png)
 
-==断点==:
+**断点**:
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071702275.png)
 
