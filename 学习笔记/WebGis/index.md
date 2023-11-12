@@ -2,10 +2,7 @@
 
 # Documentation - Leaflet - a JavaScript library for interactive maps
 
-# [![Leaflet](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311121436344.png)](https://leafletjs.com/)
-
-an open-source JavaScript library  
-for mobile-friendly interactive maps
+an open-source JavaScript library  for mobile-friendly interactive maps
 
 *   [Overview](https://leafletjs.com/index.html)
 *   [Tutorials](https://leafletjs.com/examples.html)
@@ -18,7 +15,7 @@ for mobile-friendly interactive maps
 
 This reference reflects Leaflet . Check [this list](https://leafletjs.com/reference-versions.html) if you are using a different version of Leaflet.
 
-#### Map
+# Map
 
 *   [Usage example](#map-example)
 *   [Creation](#map-factory)
