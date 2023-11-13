@@ -1,6 +1,6 @@
 
 
-# Documentation - Leaflet - a JavaScript library for interactive maps
+# Leaflet - a JavaScript library for interactive maps
 
 an open-source JavaScript library  for mobile-friendly interactive maps
 

@@ -32,7 +32,7 @@
       - [Echart](/学习笔记/前端/echarts.md)
     - WebGIS
     	- [Openlayer](https://openlayers.org/)
-    	-  [Leaflet](https://leafletjs.com/reference.html)
+    	-  [Leaflet](https://leafletjs.cn/reference.html#map-example)
     - Mysql
       - [Mysql高级](/学习笔记/数据库/mysql/MySQL数据库笔记.md)
       - [Mysql语法](/学习笔记/数据库/mysql/Mysql语法.md)

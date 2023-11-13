@@ -568,8 +568,10 @@ ES6 之前的模块化规范有：
 3. CMD => seaJS
 ### 2.18.3. ES6 模块化语法
 模块功能主要由两个命令构成： export 和 import。
-⚫ export 命令用于规定模块的对外接口
-⚫ import 命令用于输入其他模块提供的功能
+
+- export 命令用于规定模块的对外接口
+- import 命令用于输入其他模块提供的功能
+
 # 第 3 章 ECMASript 7 新特性
 
 ### 3.1. Array.prototype.includes

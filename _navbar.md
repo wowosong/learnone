@@ -9,4 +9,4 @@
     * [redis](/学习笔记/数据库/redis/Redis.md)
  * WebGIS
     - [Openlayer](https://openlayers.org/)
-    - [Leaflet](https://leafletjs.com/reference.html)
+    - [Leaflet](https://leafletjs.cn/reference.html#map-example)
