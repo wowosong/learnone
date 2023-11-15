@@ -181,9 +181,9 @@ var app = new Vue({
 
 			- 1. 一个场景是 render 函数是用户手写的，当 children 只有一个节点的时候，Vue.js 从接口层面允许用户把 children 写成基础类型用来创建单个简单的文本节点，这种情况会调用 createTextVNode 创建一个文本节点的 VNode。
 			- 2. 另一个场景是当编译 slot、v-for 的时候会产生嵌套数组的情况，会调用 normalizeArrayChildren 方法，遍历 children (可能会递归调用 normalizeArrayChildren )。
-
+		
 		- 3. 总结
-
+		
 			- 经过对 children 的规范化，children 变成了一个类型为 VNode 的 Array
 
 	- 2. VNode 的创建
@@ -206,12 +206,13 @@ var app = new Vue({
 
 		- 1. 通过 createElm 方法，把虚拟节点创建真实的 DOM 并插入到它的父节点中。
 		- 2. 然后调用 createChildren 方法去创建子元素，实际上是遍历子虚拟节点，递归调用 createElm。
+	
 		- 3. 接着再调用 invokeCreateHooks 方法执行所有的 create 的钩子并把 vnode push 到 insertedVnodeQueue
 		- 4. 最后调用 insert 方法把 DOM 插入到父节点中，因为是递归调用，子元素会优先调用 insert，所以整个 vnode 树节点的插入顺序是先子后父。
 		- 5. 总结
-
+		
 			- 其实就是调用原生 DOM 的 API 进行 DOM 操作，Vue 就是这样动态创建的 DOM。
-
+	
 	- 2. 数据更新
 
 **8. DOM：Vue 最终创建的 DOM。**
@@ -359,27 +360,28 @@ Vue.component('async-example', AsyncComp)
 
 - 2. initState：在 Vue 的初始化阶段，_init 方法执行的时候，会执行 initState(vm) 方法
 
-	- 主要是对 props、methods、data、computed 和 wathcer 等属性做了初始化操作
+ -  主要是对 props、methods、data、computed 和 wathcer 等属性做了初始化操作
 
-		- 1. initProps：props 的初始化主要过程，就是遍历定义的 props 配置
+     - 1. initProps：props 的初始化主要过程，就是遍历定义的 props 配置
 
-			- 1. 一个是调用 defineReactive 方法把每个 prop 对应的值变成响应式，可以通过 vm._props.xxx 访问到定义 props 中对应的属性。
-			- 2. 通过 proxy 把 vm._props.xxx 的访问代理到 vm.xxx 上
-
-		- 2. initData
-
-			- 1. 一个是对定义 data 函数返回对象的遍历，通过 proxy 把每一个值 vm._data.xxx 都代理到 vm.xxx 上；
-			- 2. 另一个是调用 observe 方法观测整个 data 的变化，把 data 也变成响应式，可以通过 vm._data.xxx 访问到定义 data 返回函数中对应的属性
-
-		- 3. proxy：代理的作用是把 props 和 data 上的属性代理到 vm 实例上
-
-			- proxy 方法的实现很简单，通过 Object.defineProperty 把 target[sourceKey][key] 的读写变成了对 target[key] 的读写。
-
-				- 比如 data ，对 vm._data.xxxx 的读写变成了对 vm.xxxx 的读写。
-
-		- 4. 总结
-
-			- 无论是 props 或是 data 的初始化都是把它们变成响应式对象
+     		- 1. 一个是调用 defineReactive 方法把每个 prop 对应的值变成响应式，可以通过 vm._props.xxx 访问到定义 props 中对应的属性。
+     	
+     		- 2. 通过 proxy 把 vm._props.xxx 的访问代理到 vm.xxx 上
+     	
+     	- 2. initData
+     	
+     		- 1. 一个是对定义 data 函数返回对象的遍历，通过 proxy 把每一个值 vm._data.xxx 都代理到 vm.xxx 上；
+     		- 2. 另一个是调用 observe 方法观测整个 data 的变化，把 data 也变成响应式，可以通过 vm._data.xxx 访问到定义 data 返回函数中对应的属性
+     	
+     	- 3. proxy：代理的作用是把 props 和 data 上的属性代理到 vm 实例上
+     	
+     		- proxy 方法的实现很简单，通过 Object.defineProperty 把 target[sourceKey][key] 的读写变成了对 target[key] 的读写。
+     	
+     			- 比如 data ，对 vm._data.xxxx 的读写变成了对 vm.xxxx 的读写。
+     	
+     	- 4. 总结
+     	
+     		- 无论是 props 或是 data 的初始化都是把它们变成响应式对象
 
 - 3. observe ：功能就是用来监测数据的变化
 
@@ -603,22 +605,23 @@ set 方法是在对象上设置属性。添加新属性和如果属性不存在�
 
 			- 对应伪代码：
 		end () {
+
   	treeManagement()
   	closeElement()
-		}
-
-		- 5. 处理文本内容
-
-			- 对应伪代码：
-		chars (text: string) {
+  		}
+  	
+  		- 5. 处理文本内容
+  	
+  			- 对应伪代码：
+  		chars (text: string) {
   	handleText()
   	createChildrenASTOfText()
-		}
-
-		- 6. 总结
-
-			- parse 的目标是把 template 模板字符串转换成 AST 树，它是一种用 JavaScript 对象的形式来描述整个模板。那么整个 parse 的过程是利用正则表达式顺序解析模板，当解析到开始标签、闭合标签、文本的时候都会分别执行对应的回调函数，来达到构造 AST 树的目的。                    AST 元素节点总共有 3 种类型，type 为 1 表示是普通元素，为 2 表示是表达式，为 3 表示是纯文本。其实这里我觉得源码写的不够友好，这种是典型的魔术数字，如果转换成用常量表达会更利于源码阅读。
-			- 当 AST 树构造完毕，下一步就是 optimize 优化这颗树。
+  		}
+  	
+  		- 6. 总结
+  	
+  			- parse 的目标是把 template 模板字符串转换成 AST 树，它是一种用 JavaScript 对象的形式来描述整个模板。那么整个 parse 的过程是利用正则表达式顺序解析模板，当解析到开始标签、闭合标签、文本的时候都会分别执行对应的回调函数，来达到构造 AST 树的目的。                    AST 元素节点总共有 3 种类型，type 为 1 表示是普通元素，为 2 表示是表达式，为 3 表示是纯文本。其实这里我觉得源码写的不够友好，这种是典型的魔术数字，如果转换成用常量表达会更利于源码阅读。
+  			- 当 AST 树构造完毕，下一步就是 optimize 优化这颗树。
 
 **4. optimize**
 
@@ -848,9 +851,9 @@ let vm = new Vue({
 - 3. 生命周期
 - 4. 总结
 
-	- 1.  <keep-alive> 组件是一个抽象组件，它的实现通过自定义 render 函数并且利用了插槽，并且 <keep-alive> 缓存 vnode，组件包裹的子元素——也就是插槽是如何做更新的
+	- 1.  \<keep-alive> 组件是一个抽象组件，它的实现通过自定义 render 函数并且利用了插槽，并且 \<keep-alive> 缓存 vnode，组件包裹的子元素——也就是插槽是如何做更新的
 	- 2. 且在 patch 过程中对于已缓存的组件不会执行 mounted，所以不会有一般的组件的生命周期函数但是又提供了 activated 和 deactivated 钩子函数。
-	- 3. <keep-alive> 的 props 除了 include 和 exclude 还有文档中没有提到的 max，它能控制我们缓存的个数。
+	- 3. \<keep-alive> 的 props 除了 include 和 exclude 还有文档中没有提到的 max，它能控制我们缓存的个数。
 
 **5. transition**
 
@@ -899,7 +902,7 @@ let vm = new Vue({
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020856616.webp)
 
-- Vue-Router 的能力十分强大，它支持 hash、history、abstract 3 种路由方式，提供了 <router-link> 和 <router-view> 2 种组件，还提供了简单的路由配置和一系列好用的 API。注意：本思维导图主要讲的是 hash 模式下的。
+- Vue-Router 的能力十分强大，它支持 **hash、history、abstract 3 种路由方式，提供了 \<router-link> 和 \<router-view> 2 种组件**，还提供了简单的路由配置和一系列好用的 API。注意：本思维导图主要讲的是 hash 模式下的。
 
 **2. 路由注册**
 
@@ -908,25 +911,29 @@ let vm = new Vue({
 
 - 1. Vue.use
 
-	- Vue 提供了 Vue.use 的全局 API 来注册这些插件，比如注册 VueRouter。
+     Vue 提供了 Vue.use 的全局 API 来注册这些插件，比如注册 VueRouter。
 
 - 2. 路由安装
 
-	- 1. VueRouter 本质上是一个类，实现了 install 的静态方法：VueRouter.install = install，当执行 Vue.use(VueRouter) 的时候，实际上就是在执行 install 函数
-	- 2. Vue-Router 安装最重要的一步就是利用 Vue.mixin 去把 beforeCreate 和 destroyed 钩子函数注入到每一个组件中。
-	- 3. 通过 Vue.component 方法定义了全局的 <router-link> 和 <router-view> 2 个组件，这也是为什么我们在写模板的时候可以使用这两个标签
+  -       1.VueRouter 本质上是一个类，实现了 install 的静态方法：VueRouter.install = install，当执行 Vue.use(VueRouter) 的时候，实际上就是在执行 install 函数
+
+  - 2. Vue-Router 安装最重要的一步就是利用 Vue.mixin 去把 beforeCreate 和 destroyed 钩子函数注入到每一个组件中。
+  - 3. 通过 Vue.component 方法定义了全局的 \<router-link> 和 \<router-view> 2 个组件，这也是为什么我们在写模板的时候可以使用这两个标签
 
 **3. VueRouter 对象**
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311020856572.webp)
 
 - 1. VueRouter 的实现是一个类，定义了一些属性和方法。
+
 - 2. 当我们执行 new VueRouter 的时候
 
-	- 1. 在浏览器不支持 history.pushState 的情况下，根据传入的 fallback 配置参数，决定是否回退到 hash 模式。
-	- 2. 实例化 VueRouter 后会返回它的实例 router
+  - 1. 在浏览器不支持 history.pushState 的情况下，根据传入的 fallback 配置参数，决定是否回退到 hash 模式。
+
+  - 2. 实例化 VueRouter 后会返回它的实例 router
 
 - 3. 组件在执行 beforeCreate 钩子函数的时候，如果传入了 router 实例，都会执行 router.init 进行初始化。
+
 - 4. 然后又会执行 history.transitionTo 方法做路由过渡，进而引出了 matcher 的概念。
 
 **4. matcher**
@@ -935,23 +942,24 @@ let vm = new Vue({
 
 - 1. createMatcher
 
-	- createMatcher 的初始化就是根据路由的配置描述建立映射表，包括路径、名称到路由 record 的映射关系。
+     createMatcher 的初始化就是根据路由的配置描述建立映射表，包括路径、名称到路由 record 的映射关系。
 
 - 2. addRoutes
 
-	- addRoutes 方法的作用是动态添加路由配置，因为在实际开发中有些场景是不能提前把路由写死的，需要根据一些条件动态添加路由
+     addRoutes 方法的作用是动态添加路由配置，因为在实际开发中有些场景是不能提前把路由写死的，需要根据一些条件动态添加路由
 
-		- function addRoutes (routes) {
+
+  	function addRoutes (routes) {
   		createRouteMap(routes, pathList, pathMap, nameMap)
-			}
-
-			- addRoutes 的方法十分简单，再次调用 createRouteMap 即可，传入新的 routes 配置，由于 pathList、pathMap、nameMap 都是引用类型，执行 addRoutes 后会修改它们的值。
+  	}
+  	
+  	- addRoutes 的方法十分简单，再次调用 createRouteMap 即可，传入新的 routes 配置，由于 pathList、pathMap、nameMap 都是引用类型，执行 addRoutes 后会修改它们的值。
 
 - 3. match
 
-	- match 会根据传入的位置和路径计算出新的位置并匹配到相应的路由 record ，然后根据新的位置 和 record 创建新的路径并返回。
+     match 会根据传入的位置和路径计算出新的位置并匹配到相应的路由 record ，然后根据新的位置 和 record 创建新的路径并返回。
 
-		- 通过 matcher 的 match 方法，我们会找到匹配的路径 Route，这个对 Route 的切换，组件的渲染都有非常重要的指导意义。
+     - 通过 matcher 的 match 方法，我们会找到匹配的路径 Route，这个对 Route 的切换，组件的渲染都有非常重要的指导意义。
 
 **5. 路径切换**
 
@@ -965,31 +973,32 @@ let vm = new Vue({
 
 - 2. 导航守卫
 
-	- 实际上就是发生在路由路径切换的时候，执行的一系列钩子函数。
+ -  实际上就是发生在路由路径切换的时候，执行的一系列钩子函数。
 
-		- 完整的导航解析流程
+     - 完整的导航解析流程
 
-			- 1. 导航被触发。
-			- 2. 在失活的组件里调用离开守卫。
-			- 3. 调用全局的 beforeEach 守卫。
-			- 4. 在重用的组件里调用 beforeRouteUpdate 守卫 (2.2+)。
-			- 5. 在路由配置里调用 beforeEnter。
-			- 6. 解析异步路由组件。
-			- 7. 在被激活的组件里调用 beforeRouteEnter。
-			- 8. 调用全局的 beforeResolve 守卫 (2.5+)。
-			- 9. 导航被确认。
-			- 10. 调用全局的 afterEach 钩子。
-			- 11. 触发 DOM 更新。
-			- 12. 用创建好的实例调用 beforeRouteEnter 守卫中传给 next 的回调函数。
+       	- 1. 导航被触发。
+       	- 2. 在失活的组件里调用离开守卫。
+       	- 3. 调用全局的 beforeEach 守卫。
+       	- 4. 在重用的组件里调用 beforeRouteUpdate 守卫 (2.2+)。
+       	- 5. 在路由配置里调用 beforeEnter。
+       	- 6. 解析异步路由组件。
+       	- 7. 在被激活的组件里调用 beforeRouteEnter。
+       	- 8. 调用全局的 beforeResolve 守卫 (2.5+)。
+       	- 9. 导航被确认。
+       	- 10. 调用全局的 afterEach 钩子。
+       	- 11. 触发 DOM 更新。
+       	- 12. 用创建好的实例调用 beforeRouteEnter 守卫中传给 next 的回调函数。
 
 - 3. url ( hash 模式 )
 
-	- 1. 当我们点击 router-link 的时候，实际上最终会执行 router.push。
-	- 2. push 函数会先执行 this.transitionTo 做路径切换，在切换完成的回调函数中，执行 pushHash 函数
-	- 3. pushState 会调用浏览器原生的 history 的 pushState 接口或者 replaceState 接口，更新浏览器的 url 地址，并把当前 url 压入历史栈中。
-	- 4. ensureSlash
+     -    1.当我们点击 router-link 的时候，实际上最终会执行 router.push。
 
-		- 开发项目时，打开调试页面 http://localhost:8080 后会自动把 url 修改为 http://localhost:8080/#/。这是因为在实例化 HashHistory 的时候，构造函数会执行 ensureSlash() 方法，修改了 url 的原因。
+     - 2. push 函数会先执行 this.transitionTo 做路径切换，在切换完成的回调函数中，执行 pushHash 函数
+     - 3. pushState 会调用浏览器原生的 history 的 pushState 接口或者 replaceState 接口，更新浏览器的 url 地址，并把当前 url 压入历史栈中。
+     - 4. ensureSlash
+
+     	- 开发项目时，打开调试页面 http://localhost:8080 后会自动把 url 修改为 http://localhost:8080/#/。这是因为在实例化 HashHistory 的时候，构造函数会执行 ensureSlash() 方法，修改了 url 的原因。
 
 - 4. 组件
 
