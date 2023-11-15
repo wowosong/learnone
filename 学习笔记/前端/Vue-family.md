@@ -570,73 +570,79 @@ set 方法是在对象上设置属性。添加新属性和如果属性不存在�
 
 	- 4. 总结
 
-		- 编译入口逻辑之所以这么绕，是因为 Vue.js 在不同的平台下都会有编译的过程，因此编译过程中的依赖的配置 baseOptions 会有所不同。而编译过程会多次执行，但这同一个平台下每一次的编译过程配置又是相同的，为了不让这些配置在每次编译过程都通过参数传入，Vue.js 利用了函数柯里化的技巧很好的实现了 baseOptions 的参数保留。同样，Vue.js 也是利用函数柯里化技巧把基础的编译过程函数抽出来，通过 createCompilerCreator(baseCompile) 的方式把真正编译的过程和其它逻辑如对编译配置处理、缓存处理等剥离开，这样的设计还是非常巧妙的。
+	编译入口逻辑之所以这么绕，是因为 Vue.js 在不同的平台下都会有编译的过程，因此编译过程中的依赖的配置 baseOptions 会有所不同。而编译过程会多次执行，但这同一个平台下每一次的编译过程配置又是相同的，为了不让这些配置在每次编译过程都通过参数传入，Vue.js 利用了函数柯里化的技巧很好的实现了 baseOptions 的参数保留。同样，Vue.js 也是利用函数柯里化技巧把基础的编译过程函数抽出来，通过 createCompilerCreator(baseCompile) 的方式把真正编译的过程和其它逻辑如对编译配置处理、缓存处理等剥离开，这样的设计还是非常巧妙的。
 
 **3. parse**
 
 - 编译过程首先就是对模板做解析，生成 AST，它是一种抽象语法树，是对源代码的抽象语法结构的树状表现形式。在很多编译技术中，如 babel 编译 ES6 的代码都会先生成 AST。
 
-	- 整体流程
+ -  整体流程
 
-		- 1. 从 options 中获取方法和配置, 如伪代码 getFnsAndConfigFromOptions(options)
+    - 1. 从 options 中获取方法和配置, 如伪代码 getFnsAndConfigFromOptions(options)
 
-			- 这些属性和方法之所以放到 platforms 目录下是因为它们在不同的平台（web 和 weex）的实现是不同的。
+      这些属性和方法之所以放到 platforms 目录下是因为它们在不同的平台（web 和 weex）的实现是不同的。
 
-		- 2. 解析 HTML 模板， 对应伪代码  parseHTML(template, options)
+    - 2. 解析 HTML 模板， 对应伪代码  parseHTML(template, options)
 
-			- 整体来说它的逻辑就是循环解析 template ，用正则做各种匹配，对于不同情况分别进行不同的处理，直到整个 template 被解析完毕。 在匹配的过程中会利用 advance 函数不断前进整个模板字符串，直到字符串末尾。
+      整体来说它的逻辑就是循环解析 template ，用正则做各种匹配，对于不同情况分别进行不同的处理，直到整个 template 被解析完毕。 在匹配的过程中会利用 advance 函数不断前进整个模板字符串，直到字符串末尾。
 
-				- 匹配的过程中主要利用了正则表达式，通过一系列正则表达式，可以匹配注释节点、文档类型节点、文本、开始标签、闭合标签等。
+      匹配的过程中主要利用了正则表达式，通过一系列正则表达式，可以匹配注释节点、文档类型节点、文本、开始标签、闭合标签等。
 
-		- 3. 处理开始标签
+    - 3. 处理开始标签
+         1. 创建 AST 元素
+         2. 处理 AST 元素
+          这过程会判断 element 是否包含各种指令通过 processXXX 做相应的处理，处理的结果就是扩展 AST 元素的属性。比如 v-for、v-if 指令。
+    
+         3. AST 树管理
+    
+    ​    在处理开始标签的时候为每一个标签创建了一个 AST 元素，在不断解析模板创建 AST 元素的时候，我们也要为它们建立父子关系，就像 DOM 元素的父子关系那样。
+    
+    ​    AST 树管理的目标是构建一颗 AST 树，本质上它要维护 root 根节点和当前父节点 currentParent。为了保证元素可以正确闭合，这里也利用了 stack 栈的数据结构，和我们之前解析模板时用到的 stack 类似。
+    
+     - 4. 处理闭合标签
+    
+    对应伪代码：
+    
+      ```
+      end () {
+      
+      treeManagement()
+      closeElement()
+      }
+      ```
 
-			- 1. 创建 AST 元素
-			- 2. 处理 AST 元素
+ -  5. 处理文本内容
 
-				- 这过程会判断 element 是否包含各种指令通过 processXXX 做相应的处理，处理的结果就是扩展 AST 元素的属性。比如 v-for、v-if 指令。
+   - 对应伪代码：
 
-			- 3. AST 树管理
+     ```
+     chars (text: string) {
+     handleText()
+     createChildrenASTOfText()
+     }
+     ```
 
-				- 在处理开始标签的时候为每一个标签创建了一个 AST 元素，在不断解析模板创建 AST 元素的时候，我们也要为它们建立父子关系，就像 DOM 元素的父子关系那样。
+	- 6. 总结
 
-					- AST 树管理的目标是构建一颗 AST 树，本质上它要维护 root 根节点和当前父节点 currentParent。为了保证元素可以正确闭合，这里也利用了 stack 栈的数据结构，和我们之前解析模板时用到的 stack 类似。
-
-		- 4. 处理闭合标签
-
-			- 对应伪代码：
-		end () {
-
-  	treeManagement()
-  	closeElement()
-  		}
-  	
-  		- 5. 处理文本内容
-  	
-  			- 对应伪代码：
-  		chars (text: string) {
-  	handleText()
-  	createChildrenASTOfText()
-  		}
-  	
-  		- 6. 总结
-  	
-  			- parse 的目标是把 template 模板字符串转换成 AST 树，它是一种用 JavaScript 对象的形式来描述整个模板。那么整个 parse 的过程是利用正则表达式顺序解析模板，当解析到开始标签、闭合标签、文本的时候都会分别执行对应的回调函数，来达到构造 AST 树的目的。                    AST 元素节点总共有 3 种类型，type 为 1 表示是普通元素，为 2 表示是表达式，为 3 表示是纯文本。其实这里我觉得源码写的不够友好，这种是典型的魔术数字，如果转换成用常量表达会更利于源码阅读。
-  			- 当 AST 树构造完毕，下一步就是 optimize 优化这颗树。
+	- parse 的目标是把 template 模板字符串转换成 AST 树，它是一种用 JavaScript 对象的形式来描述整个模板。那么整个 parse 的过程是利用正则表达式顺序解析模板，当解析到开始标签、闭合标签、文本的时候都会分别执行对应的回调函数，来达到构造 AST 树的目的。                  
+	-   AST 元素节点总共有 3 种类型，type 为 1 表示是普通元素，为 2 表示是表达式，为 3 表示是纯文本。其实这里我觉得源码写的不够友好，这种是典型的魔术数字，如果转换成用常量表达会更利于源码阅读。
+	
+	当 AST 树构造完毕，下一步就是 optimize 优化这颗树。
 
 **4. optimize**
 
 - 当我们的模板 template 经过 parse 过程后，会输出生成 AST 树，那么接下来我们需要对这颗树做优化，Vue 是数据驱动，是响应式的，但是我们的模板并不是所有数据都是响应式的，也有很多数据是首次渲染后就永远不会变化的，那么这部分数据生成的 DOM 也不会变化，我们可以在 patch 的过程跳过对他们的比对。
 
-	- 1. 标记静态节点 markStatic(root)
-	- 2. 标记静态根 markStaticRoots(root, false)
+  - 标记静态节点 markStatic(root)
+  - 标记静态根 markStaticRoots(root, false)
 
 - 总结
 
-	- optimize 的过程，就是深度遍历这个 AST 树，去检测它的每一颗子树是不是静态节点，如果是静态节点则它们生成 DOM 永远不需要改变，这对运行时对模板的更新起到极大的优化作用。
+  optimize 的过程，就是深度遍历这个 AST 树，去检测它的每一颗子树是不是静态节点，如果是静态节点则它们生成 DOM 永远不需要改变，这对运行时对模板的更新起到极大的优化作用。
 
 **5. codegen**
 
-- 编译的最后一步就是把优化后的 AST 树转换成可执行的代码
+编译的最后一步就是把优化后的 AST 树转换成可执行的代码
 
 例子：
 ```javascript
@@ -645,7 +651,7 @@ set 方法是在对象上设置属性。添加新属性和如果属性不存在�
 </ul>
 ```
 
-- 它经过编译，执行 const code = generate(ast, options)，生成的 render 代码串如下：
+它经过编译，执行 const code = generate(ast, options)，生成的 render 代码串如下：
 
 ```javascript
 with(this){
@@ -1157,28 +1163,30 @@ Store 对象的构造函数也是一个 class，接收一个对象参数，它�
 1. Vuex 允许我们将 store 分割成模块（module）。每个模块拥有自己的 state、mutation、action、getter，甚至是嵌套子模块——从上至下进行同样方式的分割
 
 ```javascript
+
 const moduleA = {
-  state: { ... },
-          mutations: { ... },
-                      actions: { ... },
-                                getters: { ... },
-                                         }
-                                const moduleB = {
-                                state: { ... },
-                      mutations: { ... },
-                                  actions: { ... },
-                                            getters: { ... },
-                                                     }
+    state: {...}, 
+    mutations: {...},
+    actions: {...},
+    getters: {...}
+};
+const moduleB = {
+    state: {...}, 
+    mutations: {...},
+    actions: {...},
+    getters: {...},
+};
 
-                                            const store = new Vuex.Store({
-                                            modules: {
-                                            a: moduleA,
-                                            b: moduleB
-                                           }
-                                 })
+const store = new Vuex.Store({
+    modules: {
+        a: moduleA, b: moduleB
+    }
+})
 
-                      store.state.a // -> moduleA 的状态
-                      store.state.b // -> moduleB 的状态
+store.state.a // -> moduleA 的状态
+store.state.b // -> moduleB 的状态
+                       
+                       
 ```
 
 从数据结构上来看，模块的设计就是一个树型结构，store 本身可以理解为一个 root module，它下面的 modules 就是子模块，Vuex 需要完成这颗树的构建。

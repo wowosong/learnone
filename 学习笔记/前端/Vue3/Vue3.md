@@ -86,6 +86,7 @@ vue ui
 ```
 
 创建项目的时候预设选择Vue3即可 
+
 <img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062207300.png" style="zoom: 33%;" />
 <img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062207003.png" style="zoom:33%;" />
 
@@ -125,9 +126,11 @@ npm run dev
 
 ```
 
-<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208403.png" style="zoom: 50%;" />
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208403.png" style="zoom: 50%;" /> 
+
 构建速度明显vite快 
-<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208811.png" style="zoom: 33%;" />
+
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062208811.png" style="zoom: 33%;" /> 
 
 > 项目构建完了，我们就来看看Vue3与Vue2在直观上，有哪些区别吧~
 
