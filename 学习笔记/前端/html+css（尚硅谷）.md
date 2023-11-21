@@ -504,6 +504,14 @@
 
 #  BFC（Block Formatting Context）
 
+就是创建一个块，防止浮动导致的高度塌陷问题，
+
+格式化上下文影响布局，通常，我们会为定位和清除浮动创建新的 BFC，而不是更改布局，因为它将：
+
+- 包含内部浮动。
+- 排除外部浮动。
+- 阻止[外边距重叠](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_box_model/Mastering_margin_collapsing)。
+
 ```
   - 块级格式化环境
     - https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context
