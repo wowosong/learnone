@@ -789,6 +789,192 @@
                     3. 利用弹性盒来实现水平和垂直居中
 ```
 
+# 居中
+
+```html
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <title>总结居中</title>
+        <style>
+            .box1 {
+                width: 400px;
+                height: 400px;
+                border: 10px red solid;
+                /* position: relative; */
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                /* margin: 0 auto; */
+
+
+            }
+
+            .box2 {
+                background-color: #bfa;
+                width: 200px;
+                height: 200px;
+                position: fixed;
+                /*position: absolute;*/
+
+                /*left: 50%;
+                margin-left: -100px;
+
+                top:50%;
+                margin-top: -100px;*/
+
+                /*top: 0;*/
+                /*bottom: 0;*/
+                /*left: 0;*/
+                /*right: 0;*/
+                /*margin: auto;*/
+                /*
+                1. 使用盒子模型
+                直接通过盒子模型 margin: 0 auto; 来实现居中
+                - 原理：利用了盒子模型在水平布局时的等式
+                左右外边距 + 可见框宽度 = 包含块宽度
+                - 缺点：
+                1. 不能处理垂直居中问题
+                2. 居中的元素必须指定宽度
+
+                2. 使用定位
+                通过如下代码来实现：
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+
+                - 原理：利用定位后新的等式来实现居中
+                左右偏移量 + 左右外边距 + 可见框的宽度 = 包含块的宽度
+                上下偏移量 + 上下外边距 + 可见框的高度 = 包含块的高度
+
+                - 缺点：
+                1. 设置的样式稍微多一些
+                2. 必须指定元素的大小
+
+                3. 通过表格来居中
+                - 将父元素的display设置table-cell，然后通过vertical-align:middle来实现垂直居中
+                然后再通过子元素的 margin:0 auto; 来实现居中
+                - 也可以将子元素转换为inline-block，然后通过text-align:center来实现水平居中
+                - 缺点：
+                父元素设置为单元格后，默认宽度被内容撑开
+
+                4. 通过弹性盒来居中
+                - 代码：
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                - 缺点：
+                几乎没有
+                */
+            }
+            /**
+            * 盒子模型
+            */
+            /* .box3{
+            width: 200px;
+            height: 200px;
+            background-color: beige;
+            border-color: red;
+            border-width: 10px;
+            border-style: double;
+
+            }
+            .box4{
+            width: 40px;
+            height: 40px;
+            background-color: aqua;
+            margin: 0 auto;
+
+            } */
+
+            /**
+            * 定位实现
+            */
+
+            /* .box3{
+            width: 200px;
+            height: 200px;
+            background-color: beige;
+            border-color: red;
+            border-width: 10px;
+            border-style: double;
+            position: relative;
+
+            }
+            .box4{
+            width: 40px;
+            height: 40px;
+            background-color: aqua;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            } */
+            /* 弹性盒子实现 */
+            /* .box3{
+            width: 200px;
+            height: 200px;
+            background-color: beige;
+            border-color: red;
+            border-width: 10px;
+            border-style: double;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            }
+            .box4{
+            width: 40px;
+            height: 40px;
+            background-color: aqua;
+            flex-wrap: wrap;
+            } */
+
+            /* 表格居中*/
+            .box3{
+                width: 200px;
+                height: 200px;
+                background-color: beige;
+                border-color: red;
+                border-width: 10px;
+                border-style: double;
+                display: table-cell;
+                vertical-align: middle;
+            }
+            .box4{
+                width: 40px;
+                height: 40px;
+                background-color: aqua;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box1">
+            <div class="box2">
+            </div>
+        </div>
+
+
+        <table >
+            <div class="box3">
+                <div class="box4">123444144</div>
+            </div>
+        </table>
+
+    </body>
+</html>
+```
+
+
+
 # 背景
 
 ```
