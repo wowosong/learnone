@@ -1477,3 +1477,25 @@ animation 简写属性可以同时设置所有动画相关的样式
 */
 ```
 
+# 媒体查询
+
+```
+@media 设备类型{}
+        all 任意类型的设备
+        screen 带有屏幕的设备
+        print 打印设备
+        speech 屏幕阅读器
+```
+
+```css
+@media screen and (width: 600px) {
+  body {
+    color: red;
+  }
+}
+/*
+    min-width 指定最小视口，大于等于指定值时，样式生效
+    max-width 指定最大视口，小于等于指定值时，样式生效
+*/
+```
+
