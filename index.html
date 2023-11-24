@@ -236,27 +236,24 @@
             }
         }
         /* by default, the animations are paused. */
-        
-        i,
+        /* i,
         div[class] {
             animation-play-state: paused;
-        }
+        } */
         /* When the div is hovered, the animation plays. Also,
   when the input is checked, the animation coming after the checked checkbox plays */
-        
-        div:hover *,
+        /* div:hover *,
         input:checked~div * {
             animation-play-state: running;
         }
         /* Change the content of the label that comes right after the input. Included aria-label on the label to improve accessibility. */
-        
-        input+label::before {
+        /* input+label::before {
             content: "Play ";
         }
         
         input:checked+label::before {
             content: "Pause ";
-        }
+        } */
     </style>
 </head>
 
@@ -317,6 +314,11 @@
     <!-- Docsify v4 -->
     <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
     <!-- <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
+    <!-- Theme: Simple Dark -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
+
     <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
     <script src="//cdn.bootcss.com/docsify/4.5.9/plugins/search.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
