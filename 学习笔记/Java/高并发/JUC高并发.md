@@ -203,15 +203,15 @@ synchronized 是 Java 中的关键字，是一种同步锁。它修饰的对象�
 
 ```java
 class Ticket {
- //票数
- private int number = 30;
- //操作方法：卖票
- public synchronized void sale() {
- //判断：是否有票
- if(number > 0) {
-		 System.out.println(Thread.currentThread().getName()+" 卖出: "+(number--)+"剩余："+number);
-	 }
- } 
+    //票数
+    private int number = 30;
+    //操作方法：卖票
+    public synchronized void sale() {
+        //判断：是否有票
+        if(number > 0) {
+            System.out.println(Thread.currentThread().getName()+" 卖出: "+(number--)+"剩余："+number);
+        }
+    } 
 }
 ```
 
@@ -2345,9 +2345,7 @@ public class ForkJoinPoolDemo {
 
 CompletableFuture 在 Java 里面被用于异步编程，异步通常意味着非阻塞，可以使得我们的任务单独运行在与主线程分离的其他线程中，并且通过回调可以在主线程中得到异步任务的执行状态，是否完成，和是否异常等信息。
 
-CompletableFuture 实现了 Future, CompletionStage 接口，实现了 Future接口就可以兼容现在有线程池框架，而 CompletionStage 接口才是异步编程的接口抽象，里面定义多种异步方法，通过这两者集合，从而打造出了强大的
-
-CompletableFuture 类。
+CompletableFuture 实现了 Future, CompletionStage 接口，实现了 Future接口就可以兼容现在有线程池框架，而 CompletionStage 接口才是异步编程的接口抽象，里面定义多种异步方法，通过这两者集合，从而打造出了强大的CompletableFuture 类。
 
 ###   12.2 Future 与 CompletableFuture  
 
