@@ -315,8 +315,7 @@ div{}
 颜色单位：
 1.颜色名
 
-- 可以直接使用颜色名来设置颜色
-    - 比如：red、blue、green、yellow、orange ...
+​	可以直接使用颜色名来设置颜色，比如：red、blue、green、yellow、orange ...
 
 2.rgb值
 
@@ -331,6 +330,7 @@ div{}
 ​        光的三原色
 
 3.rgba()
+
    	  r 红色
 
 ​     	g 绿色
@@ -353,20 +353,20 @@ div{}
 
 # 盒子模型（box model）
 
-- 网页的布局指就是将元素摆放到网页的不同的位置
-	- 布局就得先确定元素的大小
-	- 在网页中每一个元素都是一个矩形，或者可以直接将其想象为是一个盒子，每一个盒子，都由以下几个部分组成：
-		- 内容区（content）
-		    1.  内容区在元素最内部，用来容纳子元素
-		    2.  内容区的大小由width和height设置
-		- 内边距（padding）
-		    1. 内容区和边框之间的距离称为内边距
-		- 边框（border）
-		    1. 边框是盒子边界，离开边框就属于盒子的外部了
-		    2.  边框会影响到盒子可见框的大小
-		- 外边距（margin）
-		    1. 盒子与盒子之间的距离称为外边距
-		    2. 外边距不会影响盒子的大小，但是它会影响盒子的位置（实际大小）
+网页的布局指就是将元素摆放到网页的不同的位置
+- 布局就得先确定元素的大小
+- 在网页中每一个元素都是一个矩形，或者可以直接将其想象为是一个盒子，每一个盒子，都由以下几个部分组成：
+	- 内容区（content）
+	    1.  内容区在元素最内部，用来容纳子元素
+	    2.  内容区的大小由width和height设置
+	- 内边距（padding）
+	    1. 内容区和边框之间的距离称为内边距
+	- 边框（border）
+	    1. 边框是盒子边界，离开边框就属于盒子的外部了
+	    2.  边框会影响到盒子可见框的大小
+	- 外边距（margin）
+	    1. 盒子与盒子之间的距离称为外边距
+	    2. 外边距不会影响盒子的大小，但是它会影响盒子的位置（实际大小）
 
 一个元素的可见框的大小由： 内容区、内边距和边框共同决定
 
@@ -395,10 +395,10 @@ box-sizing 用来指定盒子可见框的计算方式
 
 ## 外边距的折叠
 
-- 垂直方向的相邻外边距会发生外边距折叠的现象
-  - 兄弟元素间外边距会取较大值（这样设计是为了避免两个元素之间的距离）
-  - 父子元素间子元素外边距会传递给父元素，这样会导致布局出问题，需要避免该问题
-    
+垂直方向的相邻外边距会发生外边距折叠的现象
+- 兄弟元素间外边距会取较大值（这样设计是为了避免两个元素之间的距离）
+- 父子元素间子元素外边距会传递给父元素，这样会导致布局出问题，需要避免该问题
+  
 
 ## 行内元素的盒模型
 
@@ -443,20 +443,21 @@ box-sizing 用来指定盒子可见框的计算方式
             可以利用负值隐藏网页中的一些文字
 
 - text-decoration 文本修饰
+      
          可选值：
-      
+     
       ​        none 默认值 没有修饰
-      
+     
       ​        underline 下划线
-      
+     
       ​        overline 上划线
-      
-      ​	white-space: nowrap  
-      
-      ​      禁止文字的自动换行    white-space: nowrap;
-      
+     
+      ​	white-space: nowrap 
+     
+      禁止文字的自动换行    white-space: nowrap;
+     
 - overflow: hidden;
-    
+  
     禁止文字的溢出 
     
 - text-overflow: ellipsis;
@@ -478,23 +479,34 @@ box-sizing 用来指定盒子可见框的计算方式
 - font-size 字体的大小
 
 - font-weight 字重
-  ​        - 可选值：
+  
+  ​        可选值：
   ​            normal 默认值 正常的粗细
+  
   ​            bold 加粗
+  
   ​            lighter 细的
   
 -  font-style 字体的样式
-  ​           - 可选值
+  
+  ​         可选值
+  
   ​            normal 默认值 正常的
+  
   ​            italic 斜体
   
 - font-family 字体族，指定使用什么字体
-              字体的分类
-                          serif 衬线字体
-                          sans-serif 非衬线字体
-                          monospace 等宽字体
-                          ...
-                          - 当我们将字体设置为上述类型时， 浏览器会自动选择相应的字体来显示
+
+  	字体的分类
+
+​                serif 衬线字体
+
+​                sans-serif 非衬线字体
+
+​                monospace 等宽字体
+​                ...
+
+   - 当我们将字体设置为上述类型时， 浏览器会自动选择相应的字体来显示
 
 - font
   ​        简写属性
@@ -504,17 +516,17 @@ box-sizing 用来指定盒子可见框的计算方式
 
 - vertical-align
   ​       设置元素垂直对齐的方式
-  
+
   ​            可选值：
-  
-  ​            baseline 默认值 子元素和父元素的基线对齐
-  
-  ​            top 子元素文本框的顶部和父元素文本框的顶部对齐
-  
-  ​            bottom 子元素文本框的底部和父元素文本框的底部对齐
-  
-  ​            middle 将元素的中线和父元素基线高度+x高度一半的位置对齐
-  
+
+  ​            	baseline 默认值 子元素和父元素的基线对齐
+
+  ​           	 top 子元素文本框的顶部和父元素文本框的顶部对齐
+
+  ​           	 bottom 子元素文本框的底部和父元素文本框的底部对齐
+
+  ​            	middle 将元素的中线和父元素基线高度+x高度一半的位置对齐
+
   **开发中经常通过vertical-align来消除图片下边的空白**
 
 # 浮动
@@ -524,7 +536,7 @@ box-sizing 用来指定盒子可见框的计算方式
 - 设置元素浮动
 
 - 可选值：
-    
+  
     none，默认值 元素不浮动
     
     left，向左浮动
@@ -584,15 +596,16 @@ box-sizing 用来指定盒子可见框的计算方式
 
  在文档流中的元素，可以将其他元素的高度撑开！
 
-- 当元素浮动，它会脱离文档流，脱离文档流后，
-              无法撑开父元素的高度，导致父元素高度塌陷
+- 当元素浮动，它会脱离文档流，脱离文档流后，无法撑开父元素的高度，导致父元素高度塌陷
 - 父元素高度塌陷，其后的元素会自动上移，导致布局变得混乱
 
 ​    **高度塌陷是我们使用浮动布局时必须要解决的问题！**
 
 ​    如何解决该问题？
 ​        1. 可以直接将父元素的高度写死
-​            - 这样一来父元素高度写死，无法根据子元素高度的变化而变化
+
+​            这样一来父元素高度写死，无法根据子元素高度的变化而变化
+
 ​        解决方案：
 
 #  BFC（Block Formatting Context）
@@ -602,7 +615,9 @@ box-sizing 用来指定盒子可见框的计算方式
 格式化上下文影响布局，通常，我们会为定位和清除浮动创建新的 BFC，而不是更改布局，因为它将：
 
 - 包含内部浮动。
+
 - 排除外部浮动。
+
 - 阻止[外边距重叠](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_box_model/Mastering_margin_collapsing)。
 
   - 块级格式化环境
@@ -625,9 +640,12 @@ box-sizing 用来指定盒子可见框的计算方式
      **clear**
        - 清除浮动元素对当前元素所产生的影响
             - 可选值：
-            left 清除左侧浮动元素对当前元素的影响
-            right 清除右侧浮动元素对当前元素的影响
-            both 清除最大一侧浮动元素对当前元素的影响
+            
+              left 清除左侧浮动元素对当前元素的影响
+            
+              right 清除右侧浮动元素对当前元素的影响
+            
+              both 清除最大一侧浮动元素对当前元素的影响
 
 # 定位
 
@@ -639,75 +657,97 @@ box-sizing 用来指定盒子可见框的计算方式
 
 **position**
 
-- 用来设置元素的定位方式
-  可选值：
-    static，默认值，元素没有开启定位
-    relative，开启元素的相对定位
-    absolute，开启元素的绝对定位
-    fixed，开启元素的固定定位
-    sticky，开启粘滞定位
+用来设置元素的定位方式
+可选值：
+  static，默认值，元素没有开启定位
 
-  **相对定位：**
-   - 将元素的position属性设置为relative则开启了元素的相对定位
-        - 相对定位定位的特点：
-            1. 开启相对定位而不设置元素的偏移量，此时元素不会发生任何变化
-            2. 开启相对定位不会使得元素脱离文档流，不会改变元素的性质
-            3. 相对定位元素是参照于其原来的位置进行定位的
-            4. 相对定位会提升元素的层级
+  relative，开启元素的相对定位
+
+  absolute，开启元素的绝对定位
+
+  fixed，开启元素的固定定位
+
+  sticky，开启粘滞定位
+
+**相对定位：**
+
+将元素的position属性设置为relative则开启了元素的相对定位
+- 相对定位定位的特点：
+    1. 开启相对定位而不设置元素的偏移量，此时元素不会发生任何变化
+    2. 开启相对定位不会使得元素脱离文档流，不会改变元素的性质
+    3. 相对定位元素是参照于其原来的位置进行定位的
+    4. 相对定位会提升元素的层级
 
 **偏移量**
-​        - 开启了定位的元素可以通过偏移量来设置元素的位置
-​                - 偏移量一共有四个：
+​        开启了定位的元素可以通过偏移量来设置元素的位置
+
+偏移量一共有四个：
 ​            top
-​                - 元素上边距离定位位置上边的距离
+​                元素上边距离定位位置上边的距离
+
 ​            bottom
-​                - 元素下边距离定位位置下边的距离
+​                 元素下边距离定位位置下边的距离
+
 ​            left
-​                - 元素左边距离定位置左边的距离
+​                元素左边距离定位置左边的距离
+
 ​            right
-​                - 元素右边距离定位置右边的距离
-​            - 偏移量通常只使用两个即可定位一个元素的位置
+​                元素右边距离定位置右边的距离
 
-  **布局手段：**
-​        1. 盒子模型（纵向）
-​        2. 浮动（横向）
-​        3. 定位
+​            偏移量通常只使用两个即可定位一个元素的位置
 
-​    **定位（position）**
-​        - 通过定位可以将一个元素摆放到页面中的任意位置
-​                - CSS中共有四种定位方式：
-​            1.相对定位
-​            2.绝对定位
-​            3.固定定位
-​            4.粘滞定位
+**布局手段：**
 
+1. 盒子模型（纵向）
+2. 浮动（横向）
+3. 定位
 
-  **绝对定位**
+**定位（position）**
 
-   - 将元素的position设置为absolute，则开启了元素的绝对定位
-   - 特点：
+通过定位可以将一个元素摆放到页面中的任意位置
 
-        1. 开启绝对定位后，如果不设置偏移量，元素的位置不会发生变化
-        2. 开启绝对定位后，元素会脱离文档流，同时元素性质发生变化
-        3. 绝对定位元素是参照于离它最近的开启了定位的祖先元素进行定位,
-            如果所有的祖先元素都没有开启定位，则相对于浏览器窗口进行定位
-            所以在开发中，经常在为一个元素开启绝对定位后，同时也给它的父元素开启相对定位
-        4. 绝对定位会提升元素的层级
-        3. 绝对定位是参照于它的包含块进行定位的！
+CSS中共有四种定位方式：
 
-        **绝对定位元素的包含块是谁？**
-        
-        - 绝对定位元素的包含块是离它最近的开启定位的祖先元素
-            - 如果所有的祖先都没有开启定位，则它的包含块是初始包含块
-            - 初始包含块的大小和视口是相同
+1.相对定位
+
+2.绝对定位
+
+3.固定定位
+
+4.粘滞定位
+
+**绝对定位**
+
+将元素的position设置为absolute，则开启了元素的绝对定位
+
+特点：
+
+1. 开启绝对定位后，如果不设置偏移量，元素的位置不会发生变化
+2. 开启绝对定位后，元素会脱离文档流，同时元素性质发生变化
+3. 绝对定位元素是参照于离它最近的开启了定位的祖先元素进行定位,如果所有的祖先元素都没有开启定位，则相对于浏览器窗口进行定位。所以在开发中，经常在为一个元素开启绝对定位后，同时也给它的父元素开启相对定位
+4. 绝对定位会提升元素的层级
+3. 绝对定位是参照于它的包含块进行定位的！
+
+**绝对定位元素的包含块是谁？**
+
+绝对定位元素的包含块是离它最近的开启定位的祖先元素
+- 如果所有的祖先都没有开启定位，则它的包含块是初始包含块
+- 初始包含块的大小和视口是相同
 
 **盒子模型的等式**
-	margin-left + 可见框宽度 + margin-right = 包含块的内容区宽度
+
+​	margin-left + 可见框宽度 + margin-right = 包含块的内容区宽度
+
 当元素开启了绝对定位后，两个新的等式诞生了！
-	left + margin-left + 可见框宽度 + margin-right + right = 包含块的内容区宽度
-	top + margin-top + 可见框高度 + margin-bottom + bottom = 包含块的内容区高度
-	auto + auto + 200 + auto + auto = 800
-	0 + auto + 200 + auto + 0 = 800
+
+​	left + margin-left + 可见框宽度 + margin-right + right = 包含块的内容区宽度
+
+​	top + margin-top + 可见框高度 + margin-bottom + bottom = 包含块的内容区高度
+
+​	auto + auto + 200 + auto + auto = 800
+
+​	0 + auto + 200 + auto + 0 = 800
+
 开启了定位后，可以通过z-index来设置元素的层级，z-index的值越大，元素的层级就越高，层级越高越优先显示
 如果层级一样，则优先显示下边的元素。z-index可以设置为负值，设置负值后定位元素将会被文档流中的元素覆盖！
 
@@ -715,25 +755,28 @@ box-sizing 用来指定盒子可见框的计算方式
   祖先元素的层级再高，也无法盖住后代元素
 
 **固定定位**
-    将position设置为fixed则开启了元素的固定定位，
-        固定定位也是一种绝对定位，它的大部分的特点和绝对定位是相同的
-        不同点在于固定定位总是参照于浏览器的窗口进行定位
-            一旦定位，不会随窗口进行滚动
+
+  将position设置为fixed则开启了元素的固定定位，固定定位也是一种绝对定位，它的大部分的特点和绝对定位是相同的。不同点在于固定定位总是参照于浏览器的窗口进行定位；一旦定位，不会随窗口进行滚动
 
 **粘滞定位**
-    将元素的position设置sticky则开启了元素的粘滞定位，
-        粘滞定位的特点和相对定位类似
-    定位参照物：
-        粘滞定位相对于离它最近的拥有滚动条祖先元素来定位的
+
+​    将元素的position设置sticky则开启了元素的粘滞定位，
+
+​        粘滞定位的特点和相对定位类似
+
+​    定位参照物：
+
+​        粘滞定位相对于离它最近的拥有滚动条祖先元素来定位的
 
 # 布局
 
 
 ​    传统的布局手段
 1. 盒子模型（box model）
-            - 盒子模型主要用来确定元素的大小和间距的
-                - 主要用来处理元素的纵向排列
-
+        
+        盒子模型主要用来确定元素的大小和间距的
+                主要用来处理元素的纵向排列
+    
 2. 浮动（float）
     - 浮动本来是用来处理文本环绕图片这种类似效果的
         后来被用到了元素的水平排列上
@@ -756,113 +799,154 @@ box-sizing 用来指定盒子可见框的计算方式
   ![在从左到右的语言中，三个 flex 项并排放置在 flex 容器中。主轴——弹性容器布置 flex 方向上的轴——是水平的。主轴的两端是开始端和结束端，分别位于左侧和右侧。交叉轴是垂直的；垂直于主轴。交叉轴的开始端和结束端分别位于顶部和底部。flex 项沿着主轴排列，在这种情况下，宽度称为主轴尺寸，flex 项沿交叉轴排列，在这种情况下，高度称为交叉尺寸。](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311241509407.png)
 
 - **主轴**（main axis）是沿着 flex 元素放置的方向延伸的轴（比如页面上的横向的行、纵向的列）。该轴的开始和结束被称为 **main start** 和 **main end**。
-
 - **交叉轴**（cross axis）是垂直于 flex 元素放置方向的轴。该轴的开始和结束被称为 **cross start** 和 **cross end**。
-
 - 设置了 `display: flex` 的父元素（在本例中是 [`section`](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/section)）被称之为 **flex 容器（flex container）。**
-
 - 在 flex 容器中表现为弹性的盒子的元素被称之为 **flex 项**（**flex item**）（本例中是 [``](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/article) 元素。
-  **弹性容器**
-    - 要使用弹性盒必须先将元素设置为弹性容器
-        display:flex 块级弹性容器
-        display:inline-flex 行内弹性容器
-        
 
-  **弹性子元素（弹性项）**
-     - 弹性容器的子元素都会自动变成弹性子元素，弹性子元素都会沿着弹性容器的主轴排列
-  
-          - 主轴
+**弹性容器**
 
-            就是弹性子元素排列方向
+  - 要使用弹性盒必须先将元素设置为弹性容器
+    
+      display:flex 块级弹性容器
+      
+      display:inline-flex 行内弹性容器
 
-          - 侧轴（辅轴）
-             侧轴是与主轴垂直方向的轴
-             
+**弹性子元素（弹性项）**
+
+   - 弹性容器的子元素都会自动变成弹性子元素，弹性子元素都会沿着弹性容器的主轴排列
+
+        - 主轴
+
+          就是弹性子元素排列方向
+
+        - 侧轴（辅轴）
+           侧轴是与主轴垂直方向的轴
+           
 
 弹性盒是CSS3中新添加的布局方式，通过它可以更加方便完成我们对网页的布局，通过弹性盒模型，可以便捷完成网页中的各种布局
 
-如何设置主轴方向：
+**如何设置主轴方向：**
 
 - flex-direction
-      可选值：
-          row 主轴是自左向右水平排列
-          column 主轴是自上向下垂直排列
-          row-reverse 主轴是自右向左水平排列
-          column-reverse 主轴是自下向上垂直排列
+  可选值:
 
-设置元素是否换行
+  row 主轴是自左向右水平排列
+
+  column 主轴是自上向下垂直排列
+
+  row-reverse 主轴是自右向左水平排列
+
+  column-reverse 主轴是自下向上垂直排列
+
+**设置元素是否换行**
+
 - flex-wrap
         可选值：
-        nowrap 元素不会自动换行
-        wrap 自动换行
-        wrap-reverse 反向换行
-
+    
+    ​    nowrap 元素不会自动换行
+    
+    ​    wrap 自动换行
+    
+    ​    wrap-reverse 反向换行
+    
 - flex-flow：
       flex-direction 和 flex-wrap的简写属性
-          可以同时设置两个样式并且没有顺序和数量的要求
-
+  
+  ​        可以同时设置两个样式并且没有顺序和数量的要求
+  
 - justify-content 设置元素在主轴上的对齐方式
+      
           可选值：
-              start 默认值，元素靠主轴起始位置对齐
-              end 元素靠主轴的结束位置对齐
-              center 沿主轴方向居中对齐
-              space-between 将主轴方向空白位置分配到两个元素之间
-              space-around 将主轴方向空白位置分配到元素周围
-              space-evenly 将主轴方向的空白分配到元素的一侧
-
+      
+      ​        start 默认值，元素靠主轴起始位置对齐
+      
+      ​        end 元素靠主轴的结束位置对齐
+      
+      ​        center 沿主轴方向居中对齐
+      
+      ​        space-between 将主轴方向空白位置分配到两个元素之间
+      
+      ​        space-around 将主轴方向空白位置分配到元素周围
+      
+      ​        space-evenly 将主轴方向的空白分配到元素的一侧
+  
 - align-items 设置元素在侧轴上的对齐方式
-         stretch 拉伸，元素会自动拉伸将侧轴撑满
-         start 元素靠侧轴的起始位置对齐
-         end 元素靠侧轴的结束位置对齐
-         center 元素在侧轴上居中对齐
+  
+     ​	stretch 拉伸，元素会自动拉伸将侧轴撑满
+     
+     ​	start 元素靠侧轴的起始位置对齐
 
+     ​	end 元素靠侧轴的结束位置对齐
+     
+     ​	center 元素在侧轴上居中对齐
+     
 - align-content 设置元素在侧轴上空白空间的分配
+      
           space-between 将侧轴方向空白位置分配到两个元素之间
-          space-around 将侧轴方向空白位置分配到元素周围
-          space-evenly 将侧轴方向的空白分配到元素的一侧
+      
+      ​    space-around 将侧轴方向空白位置分配到元素周围
+      
+      ​    space-evenly 将侧轴方向的空白分配到元素的一侧
 
 **弹性子元素的样式（弹性项的样式）**
 
 - flex-basis
-    - 弹性子元素的基础大小，会根据主轴的方向自动设置width或height
-        主轴水平，设置宽度
-        主轴垂直，设置高度
-                    可选值：
-                    auto 默认值 以元素width或height为准
-
+  
+    弹性子元素的基础大小，会根据主轴的方向自动设置width或height
+    
+    主轴水平，设置宽度
+    
+    主轴垂直，设置高度
+    
+    ​            可选值：
+    
+    ​            auto 默认值 以元素width或height为准
+    
 - flex-shrink
-      - 弹性子元素的收缩系数
-          当父元素容纳不下所有子元素时，如何自动缩小元素大小
-          - 元素的收缩是根据flex-basis和flex-shrink综合计算的，收缩系数越大，元素基础大小越大，元素就缩的越多
-              - 默认值为1，可以根据需要设置，如果设置为则表示不收缩
+  
+  弹性子元素的收缩系数
+
+​        当父元素容纳不下所有子元素时，如何自动缩小元素大小
+
+​        元素的收缩是根据flex-basis和flex-shrink综合计算的，收缩系数越大，元素基础大小越大，元素就缩的越多
+
+​         默认值为1，可以根据需要设置，如果设置为则表示不收缩
+
 - flex-grow
-                                                                         - 弹性子元素的生长系数
-                                                                         - 当容器中有富余空间时，如果分配到子元素
-                                                                         - 默认值0，元素默认不会变大
+      弹性子元素的生长系数
+
+     ​    当容器中有富余空间时，如果分配到子元素，默认值0，元素默认不会变大
 
 - flex
-   -  上述三个属性的简写属性
-   - 属性顺序：
-       grow shrink basis
-   - 可选值：
-       initial 默认值 0 1 auto
-       auto 相当于 1 1 auto
-       none 相当于 0 0 auto
+
+   上述三个属性的简写属性
+
+   属性顺序：
+   	grow shrink basis
+
+   可选值：
+   	initial 默认值 0 1 auto
+   	auto 相当于 1 1 auto
+   	none 相当于 0 0 auto
+
 - align-self
-   - 弹性子元素的样式
-   - 用来单独设置某个弹性子元素的对齐方式
+
+   弹性子元素的样式
+
+   用来单独设置某个弹性子元素的对齐方式
 
 - order
-    - 用来指定弹性子元素的位置
+
+    用来指定弹性子元素的位置
 
 **侧轴（辅轴）**
 
 ​	侧轴是与主轴垂直方向的轴
 
 元素居中的方式：
-        1. 利用margin:0 auto来实现水平居中
-        2. 利用定位来实现水平和垂直居中
-        3. 利用弹性盒来实现水平和垂直居中
+1. 利用margin:0 auto来实现水平居中
+2. 利用定位来实现水平和垂直居中
+3. 利用弹性盒来实现水平和垂直居中
 
 # 居中
 
@@ -1055,44 +1139,69 @@ box-sizing 用来指定盒子可见框的计算方式
 
     - 可选值：
         repeat 默认值，背景图片会沿元素的水平垂直双方向重复
+        
         repeat-x 水平方向重复
+        
         repeat-y 垂直方向重复
+        
         no-repeat 不重复
+        
         space 背景图片充满元素，无法完整充满使用空白隔开
+        
         round 背景图片自动缩放以充满元素
     
 - background-position 设置背景图片的位置
     - 可选值：
       top bottom left right center
-            - 可以从上述关键字中任选两个来设置一个背景图片的位置
-                - 如果只传了一个关键字，则第二个默认就是center
-            background-position: 水平偏移量 垂直偏移量
-                水平偏移量 值越大，背景图片越右移，可以设置负值
-                垂直偏移量 值越大，背景图片越下移，可以设置负值
+            可以从上述关键字中任选两个来设置一个背景图片的位置
+      
+      ​          如果只传了一个关键字，则第二个默认就是center
+      
+      ​      background-position: 水平偏移量 垂直偏移量
+      
+      ​          水平偏移量 值越大，背景图片越右移，可以设置负值
+      
+      ​          垂直偏移量 值越大，背景图片越下移，可以设置负值
     
 - background-size 用来设置背景图片的尺寸
-        background-size: 200px auto;
-        background-size: auto 200px;
-        background-size: 200px 200px;
-        background-size: 100% auto;
-        background-size: auto 100% ;
+    
+    ​    background-size: 200px auto;
+    
+    ​    background-size: auto 200px;
+    
+    ​    background-size: 200px 200px;
+    
+    ​    background-size: 100% auto;
+    
+    ​    background-size: auto 100% ;
+    
     ​    background-size: contain;
+    
     ​	contain 缩放图片使得图片可以在元素中完整显示，元素有的地方可能会不显示背景
+    
        background-size: cover;
+    
     ​	cover 缩放图片使得图片可以在将元素撑满，图片可能显示不全
+    
 - background-clip
-        - 设置背景图片显示的区域
-        - 可选值：
-            border-box 默认值，背景会延伸到边框的下边
-            padding-box 背景会延伸到内边距下
-            content-box 背景只会在内容区中显示
+    
+    ​    设置背景图片显示的区域
+    
+    ​    可选值：
+    ​        border-box 默认值，背景会延伸到边框的下边
 
+    ​        padding-box 背景会延伸到内边距下
+    
+    ​        content-box 背景只会在内容区中显示
+    
 - background-origin
     - 设置背景图片定位的原点
         - 可选值：
-        padding-box 默认值，背景相对于padding定位
-        border-box 背景相对于边框定位
-        content-box 背景相对于内容区定位
+          padding-box 默认值，背景相对于padding定位
+        
+          border-box 背景相对于边框定位
+        
+          content-box 背景相对于内容区定位
 
 # 表格
 
@@ -1166,8 +1275,10 @@ box-sizing 用来指定盒子可见框的计算方式
 通过变形可以对元素的位置，大小、角度等进行修改
 
  transform用来设置变形，需要通过不同的变形函数来实现元素的变形
-            translateX() x轴平移
-            translateY() y轴平移
+
+​            translateX() x轴平移
+
+​            translateY() y轴平移
 
 设置平移时，如果使用百分比单位，百分比是相对于元素自身大小计算
 
@@ -1177,13 +1288,12 @@ box-sizing 用来指定盒子可见框的计算方式
 
 
 ​    translateZ 用来设置z轴平移
-- z轴平移视觉上会感觉到元素大小的变化
+
+z轴平移视觉上会感觉到元素大小的变化
 
 ```
 transform: translateX(100px) translateY(100px) translateZ(500px); 
 ```
-
- 
 
 # 旋转
 
@@ -1193,18 +1303,26 @@ transform: rotateX(1turn) rotateY(1turn) rotateZ(10turn);
 ```
 
  transform-origin 指定变形的原点
+
 ​    rotateX 沿x轴旋转
+
 ​    rotateY 沿y轴旋转
+
 ​    rotateZ 沿z轴旋转
+
 ​    单位：
 ​        deg 度
+
 ​        turn 圈
 
 # 缩放
 
 ​    scaleX x轴缩放
+
 ​    scaleY y轴缩放
+
 ​    scale x y缩放
+
 ​    scaleZ z轴缩放（需要3d下才能看出效果）
 
 # 过渡
@@ -1217,26 +1335,37 @@ transform: rotateX(1turn) rotateY(1turn) rotateZ(10turn);
     - all 表示所有样式
 
 - transition-duration
-    - 过渡效果所花费的时间
-        - 单位：
-        s 秒
-        ms 毫秒
+    
+    过渡效果所花费的时间
+    - 单位：
+      s 秒
+   
+     ms 毫秒
    
 - transition-delay
-    - 过渡效果的延时
+    
+   过渡效果的延时
    
 - transition-timing-function
-    - 指定过渡的时间的曲线
-        - 可选值：
-        ease， 默认值 先加速然后减速
-        linear 匀速运动
-        ease-in 加速运动
-        ease-out 减速运动
-        贝塞尔曲线 自定义运动方式
-            https://cubic-bezier.com/
-        steps() 分步执行动画
+    
+    指定过渡的时间的曲线
+    - 可选值：
+      ease， 默认值 先加速然后减速
+    
+      linear 匀速运动
+    
+      ease-in 加速运动
+    
+      ease-out 减速运动
+    
+      贝塞尔曲线 自定义运动方式
+    
+        https://cubic-bezier.com/
+      steps() 分步执行动画
+    
 - transition
-    - 过渡的简写属性，可以同时设置过渡的所有样式
+    
+    过渡的简写属性，可以同时设置过渡的所有样式
 
 # 动画
 - animation-name
@@ -1244,6 +1373,7 @@ transform: rotateX(1turn) rotateY(1turn) rotateZ(10turn);
 	- animation-name: change-color; 
 	
 - animation-duration
+    
     - 一次动画执行的时间
     
 - animation-iteration-count
@@ -1259,32 +1389,44 @@ transform: rotateX(1turn) rotateY(1turn) rotateZ(10turn);
 	
 - animation-direction
     动画的方向
-    	- 可选值：
-            - normal 默认值
-            - reverse 动画反向执行
-            - alternate 动画正向反向交替执行
-            - alternate-reverse 和alternate相反
-		- animation-direction: alternate-reverse;
+    
+    ​	可选值：
+    
+    ​        normal 默认值
+    
+	​        reverse 动画反向执行
+	
+	​        alternate 动画正向反向交替执行
+	
+	​        alternate-reverse 和alternate相反
+	
+	​	animation-direction: alternate-reverse;
 	
 - animation-fill-mode
     动画的填充模式
-        - 可选值：
-            - none 默认值 延迟时元素保持不变，动画执行结束恢复原状
-            - forwards 延迟时元素保持不变，动画执行结束保持to的状态
-            - backwards 延迟时元素变为from状态，动画执行结束恢复原状 
-            - both 延迟时元素变成from状态，动画执行结束保持to的状态
-            - animation-fill-mode: both;
+    
+    ​    可选值：
+    ​        none 默认值 延迟时元素保持不变，动画执行结束恢复原状
+    
+    ​        forwards 延迟时元素保持不变，动画执行结束保持to的状态
+    
+    ​        backwards 延迟时元素变为from状态，动画执行结束恢复原状 
+    
+    ​        both 延迟时元素变成from状态，动画执行结束保持to的状态
+    
+    ​        animation-fill-mode: both;
     
 - animation-play-state
+    
     动画的播放状态
     
-    - 可选值：
+	可选值：
 	
-	  - paused 暂停
-	  - animation-play-state: running;
-	
+	- paused 暂停
+	- animation-play-state: running;
 
 animation 简写属性可以同时设置所有动画相关的样式
+
 通过keyframes来定义关键帧
 
 ```css
@@ -1351,12 +1493,16 @@ animation 简写属性可以同时设置所有动画相关的样式
 - 要使用网格布局必须先设置网格容器
 
 - 使用 display:grid 或 display:inline-grid
+
 - 默认情况下，我们开启的是一个单列的网格布局
 
 - grid-template-columns
-        - 用来设置网格布局的列数
+    
+    ​    用来设置网格布局的列数
+    
 - grid-template-rows
-                        - 用来设置网格布局的行数
+                    
+                    ​    用来设置网格布局的行数
 
 **网格项**
 
@@ -1367,46 +1513,79 @@ animation 简写属性可以同时设置所有动画相关的样式
   可以通过z-index来调整网格项的层级
 
 - grid-column 同时设置列开始和结束
+     
      grid-column:开始/结束
+     
 - grid-row 同时设置行开始和结束
+     
      grid-row:开始/结束
+     
 - grid-area 同时设置行列的开始和结束
+     
      grid-area: 行开始/列开始/行结束/列结束
+     
 - grid-column-gap 列间距
-- grid-row-gap 行间距
-- grid-gap 同时指定行间距和列间距
-     grid-gap 行间距 列间距
-- justify-items
-     设置网格中元素水平方向的对齐方式
-- align-items
-     设置网格中元素垂直方向的对齐方式
 
+- grid-row-gap 行间距
+
+- grid-gap 同时指定行间距和列间距
+     
+     grid-gap 行间距 列间距
+     
+- justify-items
+     
+     设置网格中元素水平方向的对齐方式
+     
+- align-items
+     
+     设置网格中元素垂直方向的对齐方式
+     
 - justify-items / align-items 网格项在轨道中的对齐方式
-      justify-items: center;
-      align-items: center;
+  
+  ​    justify-items: center;
+  
+  ​    align-items: center;
+  
 - justify-content
+
 - align-content
-      设置网格项的整体对齐
+  
+  ​    设置网格项的整体对齐
+  
 - justify-self
+
 - align-self
-      单独设置某一个网格项在轨道中的对齐方式
+  
+  ​    单独设置某一个网格项在轨道中的对齐方式
+  
      - justify-self: start; 
      - align-self: start;
+  
 - grid-auto-flow 网格项的排列方式
-      - 可选值：
-        row 默认值，优先填充行，行满了会自动创建新行
-        column 优先填充列，列满了会自动换到下一列，此时会自动生成行
-        dense 紧凑的， 容器中有位置，后边的元素就会自动的补位
+  
+  ​    可选值：
+  
+  ​      row 默认值，优先填充行，行满了会自动创建新行
+  
+  ​      column 优先填充列，列满了会自动换到下一列，此时会自动生成行
+  
+  ​      dense 紧凑的， 容器中有位置，后边的元素就会自动的补位
+  
 - grid-auto-rows
-      -  指定自动行的大小
+  
+  ​	指定自动行的大小
+  
 - minmax(最小值, 最大值)
      -  用来设置行和列的大小
       -  可选值：
           像素、auto、min-content、max-content
+     
  - repeat()
     - 自动重复设置行和列
+    
     - 第一个值：
         auto-fill 自动计算列，尽可能多的生成列
+        
         auto-fit 自动计算列，尽量让列可以容纳下所有元素
 
 
