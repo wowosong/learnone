@@ -450,15 +450,15 @@ background-color: rgba(104, 151, 187, .1);
 - text-decoration 文本修饰
   
 
-​	可选值：
+  ​	可选值：
 
-​		none 默认值 没有修饰
+  ​		none 默认值 没有修饰
 
-​		underline 下划线
+  ​		underline 下划线
 
-​		overline 上划线
+  ​		overline 上划线
 
-​		white-space: nowrap 
+  ​		white-space: nowrap 
 
  禁止文字的自动换行    white-space: nowrap;
 
@@ -504,7 +504,7 @@ background-color: rgba(104, 151, 187, .1);
   
 - font-family 字体族，指定使用什么字体
 
-  	​	字体的分类
+  ​	字体的分类
 
   ​                serif 衬线字体
 
