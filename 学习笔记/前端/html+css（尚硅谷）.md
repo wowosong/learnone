@@ -331,23 +331,23 @@ div{}
 
 3.rgba()
 
-   	  r 红色
+​	r 红色
 
-​     	g 绿色
+​	g 绿色
 
-​    	 b 蓝色
+​	b 蓝色
 
-​     	a 不透明度，需要一个0-1之间的值
+​	a 不透明度，需要一个0-1之间的值
 
-  background-color: rgba(104, 151, 187, .1); 
+background-color: rgba(104, 151, 187, .1); 
 
 4.hsl() 也是设置颜色的方式
 
-​           h 色相 0 - 360
+​       h 色相 0 - 360
 
-​           s 饱和度 0% - 100%
+​       s 饱和度 0% - 100%
 
-​            l 亮度  0% - 100%
+​        l 亮度  0% - 100%
 
 5.hsla()
 
@@ -368,19 +368,19 @@ div{}
 	    1. 盒子与盒子之间的距离称为外边距
 	    2. 外边距不会影响盒子的大小，但是它会影响盒子的位置（实际大小）
 
-一个元素的可见框的大小由： 内容区、内边距和边框共同决定
+**一个元素的可见框的大小由： 内容区、内边距和边框共同决定**
 
-盒子的可见框指可见的部分，大小由内容区、内边距、边框共同决定
+**盒子的可见框指可见的部分，大小由内容区、内边距、边框共同决定**
 
-box-sizing 用来指定盒子可见框的计算方式
+**box-sizing 用来指定盒子可见框的计算方式**
 
 ​    可选值：
 
-​        content-box 默认值，width和height用来设置内容区的大小
+​	content-box 默认值，width和height用来设置内容区的大小
 
-​        border-box 设置该值后，width和height用来设置盒子可见框的大小
+​	border-box 设置该值后，width和height用来设置盒子可见框的大小
 
- 外边距同样有四个方向
+ **外边距同样有四个方向**
 
 ​          margin-top 上外边距，值越大元素越靠下
 
@@ -443,27 +443,28 @@ box-sizing 用来指定盒子可见框的计算方式
             可以利用负值隐藏网页中的一些文字
 
 - text-decoration 文本修饰
-      
-         可选值：
-     
-      ​        none 默认值 没有修饰
-     
-      ​        underline 下划线
-     
-      ​        overline 上划线
-     
-      ​	white-space: nowrap 
-     
-      禁止文字的自动换行    white-space: nowrap;
-     
+  
+
+可选值：
+
+​	none 默认值 没有修饰
+
+​	underline 下划线
+
+​	overline 上划线
+
+​	white-space: nowrap 
+
+ 禁止文字的自动换行    white-space: nowrap;
+
 - overflow: hidden;
-  
+
     禁止文字的溢出 
-    
+
 - text-overflow: ellipsis;
-  
+
   溢出文字显示为省略号
-  
+
 - line-height 用来设置元素的行高
 
 ​    	行就是用来放文字的，行高就是文字所在行的高度
@@ -481,6 +482,7 @@ box-sizing 用来指定盒子可见框的计算方式
 - font-weight 字重
   
   ​        可选值：
+  
   ​            normal 默认值 正常的粗细
   
   ​            bold 加粗
@@ -497,7 +499,7 @@ box-sizing 用来指定盒子可见框的计算方式
   
 - font-family 字体族，指定使用什么字体
 
-  	字体的分类
+  字体的分类
 
 ​                serif 衬线字体
 
@@ -506,28 +508,31 @@ box-sizing 用来指定盒子可见框的计算方式
 ​                monospace 等宽字体
 ​                ...
 
-   - 当我们将字体设置为上述类型时， 浏览器会自动选择相应的字体来显示
+​	当我们将字体设置为上述类型时， 浏览器会自动选择相应的字体来显示
 
 - font
+
   ​        简写属性
+
   ​            可以同时设置字体相关的所有样式
+
   ​       语法：
   ​            font: 任意 font-size/line-height font-family
 
 - vertical-align
   ​       设置元素垂直对齐的方式
 
-  ​            可选值：
+​            可选值：
 
-  ​            	baseline 默认值 子元素和父元素的基线对齐
+​            	baseline 默认值 子元素和父元素的基线对齐
 
-  ​           	 top 子元素文本框的顶部和父元素文本框的顶部对齐
+​           	 top 子元素文本框的顶部和父元素文本框的顶部对齐
 
-  ​           	 bottom 子元素文本框的底部和父元素文本框的底部对齐
+​           	 bottom 子元素文本框的底部和父元素文本框的底部对齐
 
-  ​            	middle 将元素的中线和父元素基线高度+x高度一半的位置对齐
+​            	middle 将元素的中线和父元素基线高度+x高度一半的位置对齐
 
-  **开发中经常通过vertical-align来消除图片下边的空白**
+**开发中经常通过vertical-align来消除图片下边的空白**
 
 # 浮动
 
@@ -773,9 +778,9 @@ CSS中共有四种定位方式：
 
 ​    传统的布局手段
 1. 盒子模型（box model）
-        
-        盒子模型主要用来确定元素的大小和间距的
-                主要用来处理元素的纵向排列
+   
+    盒子模型主要用来确定元素的大小和间距的
+            主要用来处理元素的纵向排列
     
 2. 浮动（float）
     - 浮动本来是用来处理文本环绕图片这种类似效果的
@@ -841,7 +846,8 @@ CSS中共有四种定位方式：
 **设置元素是否换行**
 
 - flex-wrap
-        可选值：
+    
+    可选值：
     
     ​    nowrap 元素不会自动换行
     
@@ -850,43 +856,44 @@ CSS中共有四种定位方式：
     ​    wrap-reverse 反向换行
     
 - flex-flow：
-      flex-direction 和 flex-wrap的简写属性
+  
+  flex-direction 和 flex-wrap的简写属性
   
   ​        可以同时设置两个样式并且没有顺序和数量的要求
   
 - justify-content 设置元素在主轴上的对齐方式
-      
-          可选值：
-      
-      ​        start 默认值，元素靠主轴起始位置对齐
-      
-      ​        end 元素靠主轴的结束位置对齐
-      
-      ​        center 沿主轴方向居中对齐
-      
-      ​        space-between 将主轴方向空白位置分配到两个元素之间
-      
-      ​        space-around 将主轴方向空白位置分配到元素周围
-      
-      ​        space-evenly 将主轴方向的空白分配到元素的一侧
-  
+
+​    可选值：
+
+​        start 默认值，元素靠主轴起始位置对齐
+
+​        end 元素靠主轴的结束位置对齐
+
+​        center 沿主轴方向居中对齐
+
+​        space-between 将主轴方向空白位置分配到两个元素之间
+
+​        space-around 将主轴方向空白位置分配到元素周围
+
+​        space-evenly 将主轴方向的空白分配到元素的一侧
+
 - align-items 设置元素在侧轴上的对齐方式
-  
+
      ​	stretch 拉伸，元素会自动拉伸将侧轴撑满
-     
+
      ​	start 元素靠侧轴的起始位置对齐
 
      ​	end 元素靠侧轴的结束位置对齐
-     
+
      ​	center 元素在侧轴上居中对齐
-     
+
 - align-content 设置元素在侧轴上空白空间的分配
-      
-          space-between 将侧轴方向空白位置分配到两个元素之间
-      
-      ​    space-around 将侧轴方向空白位置分配到元素周围
-      
-      ​    space-evenly 将侧轴方向的空白分配到元素的一侧
+
+  ​    space-between 将侧轴方向空白位置分配到两个元素之间
+
+  ​    space-around 将侧轴方向空白位置分配到元素周围
+
+  ​    space-evenly 将侧轴方向的空白分配到元素的一侧
 
 **弹性子元素的样式（弹性项的样式）**
 
@@ -913,21 +920,26 @@ CSS中共有四种定位方式：
 ​         默认值为1，可以根据需要设置，如果设置为则表示不收缩
 
 - flex-grow
-      弹性子元素的生长系数
-
+  
+  ​    弹性子元素的生长系数
+  
      ​    当容器中有富余空间时，如果分配到子元素，默认值0，元素默认不会变大
-
+  
 - flex
 
    上述三个属性的简写属性
 
    属性顺序：
-   	grow shrink basis
+
+   ​	grow shrink basis
 
    可选值：
-   	initial 默认值 0 1 auto
-   	auto 相当于 1 1 auto
-   	none 相当于 0 0 auto
+
+   ​	initial 默认值 0 1 auto
+
+   ​	auto 相当于 1 1 auto
+
+   ​	none 相当于 0 0 auto
 
 - align-self
 
@@ -1153,7 +1165,8 @@ CSS中共有四种定位方式：
 - background-position 设置背景图片的位置
     - 可选值：
       top bottom left right center
-            可以从上述关键字中任选两个来设置一个背景图片的位置
+      
+      可以从上述关键字中任选两个来设置一个背景图片的位置
       
       ​          如果只传了一个关键字，则第二个默认就是center
       
@@ -1179,7 +1192,7 @@ CSS中共有四种定位方式：
     
     ​	contain 缩放图片使得图片可以在元素中完整显示，元素有的地方可能会不显示背景
     
-       background-size: cover;
+    ​    background-size: cover;
     
     ​	cover 缩放图片使得图片可以在将元素撑满，图片可能显示不全
     
@@ -1188,15 +1201,18 @@ CSS中共有四种定位方式：
     ​    设置背景图片显示的区域
     
     ​    可选值：
+    
     ​        border-box 默认值，背景会延伸到边框的下边
-
+    
     ​        padding-box 背景会延伸到内边距下
     
     ​        content-box 背景只会在内容区中显示
     
 - background-origin
     - 设置背景图片定位的原点
+        
         - 可选值：
+        
           padding-box 默认值，背景相对于padding定位
         
           border-box 背景相对于边框定位
@@ -1350,6 +1366,7 @@ transform: rotateX(1turn) rotateY(1turn) rotateZ(10turn);
     
     指定过渡的时间的曲线
     - 可选值：
+    
       ease， 默认值 先加速然后减速
     
       linear 匀速运动
@@ -1403,9 +1420,11 @@ transform: rotateX(1turn) rotateY(1turn) rotateZ(10turn);
 	​	animation-direction: alternate-reverse;
 	
 - animation-fill-mode
+    
     动画的填充模式
     
     ​    可选值：
+    
     ​        none 默认值 延迟时元素保持不变，动画执行结束恢复原状
     
     ​        forwards 延迟时元素保持不变，动画执行结束保持to的状态
@@ -1498,11 +1517,11 @@ animation 简写属性可以同时设置所有动画相关的样式
 
 - grid-template-columns
     
-    ​    用来设置网格布局的列数
+    用来设置网格布局的列数
     
 - grid-template-rows
-                    
-                    ​    用来设置网格布局的行数
+
+     用来设置网格布局的行数
 
 **网格项**
 
