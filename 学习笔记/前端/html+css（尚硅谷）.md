@@ -450,15 +450,15 @@ background-color: rgba(104, 151, 187, .1);
 - text-decoration 文本修饰
   
 
-可选值：
+​	可选值：
 
-​	none 默认值 没有修饰
+​		none 默认值 没有修饰
 
-​	underline 下划线
+​		underline 下划线
 
-​	overline 上划线
+​		overline 上划线
 
-​	white-space: nowrap 
+​		white-space: nowrap 
 
  禁止文字的自动换行    white-space: nowrap;
 
@@ -504,14 +504,14 @@ background-color: rgba(104, 151, 187, .1);
   
 - font-family 字体族，指定使用什么字体
 
-  字体的分类
+  	​	字体的分类
 
-​                serif 衬线字体
+  ​                serif 衬线字体
 
-​                sans-serif 非衬线字体
+  ​                sans-serif 非衬线字体
 
-​                monospace 等宽字体
-​                ...
+  ​                monospace 等宽字体
+  ​                ...
 
 ​	当我们将字体设置为上述类型时， 浏览器会自动选择相应的字体来显示
 
@@ -527,15 +527,15 @@ background-color: rgba(104, 151, 187, .1);
 - vertical-align
   ​       设置元素垂直对齐的方式
 
-​            可选值：
+  ​            可选值：
 
-​            	baseline 默认值 子元素和父元素的基线对齐
+  ​            	baseline 默认值 子元素和父元素的基线对齐
 
-​           	 top 子元素文本框的顶部和父元素文本框的顶部对齐
+  ​           	 top 子元素文本框的顶部和父元素文本框的顶部对齐
 
-​           	 bottom 子元素文本框的底部和父元素文本框的底部对齐
+  ​           	 bottom 子元素文本框的底部和父元素文本框的底部对齐
 
-​            	middle 将元素的中线和父元素基线高度+x高度一半的位置对齐
+  ​            	middle 将元素的中线和父元素基线高度+x高度一半的位置对齐
 
 **开发中经常通过vertical-align来消除图片下边的空白**
 
@@ -1360,7 +1360,7 @@ transform: rotateX(1turn) rotateY(1turn) rotateZ(10turn);
     过渡效果所花费的时间
     - 单位：
       s 秒
-     
+    
     
     ms 毫秒
    
