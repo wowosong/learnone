@@ -110,7 +110,7 @@ package com.example.mp.mappers;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;  
 import com.example.mp.po.User;  
 public interface UserMapper extends BaseMapper<User> {
-    
+
 }
 ```
 
@@ -183,7 +183,7 @@ public class SampleTest {
 
 项目目录如下：
 
-![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071130930.png)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071130930.png) 
 
 ​																		图片
 
@@ -321,8 +321,8 @@ public void test3() {
 ```java
 // 按照直属上级进行分组，查询每组的平均年龄，最大年龄，最小年龄  
 /**  
-  select avg(age) avg_age ,min(age) min_age, max(age) max_age from user group by manager_id having sum(age) < 500;  
-  **/  
+select avg(age) avg_age ,min(age) min_age, max(age) max_age from user group by manager_id having sum(age) < 500;  
+**/  
 
 @Test  
 public void test3() {  
@@ -343,12 +343,12 @@ public void test3() {
 
 ```java
 @Test  
- public void test3() {  
-  QueryWrapper<User> wrapper = new QueryWrapper<>();  
-  wrapper.select("id", "name").like("name", "黄");  
-  List<Object> objects = userMapper.selectObjs(wrapper);  
-  objects.forEach(System.out::println);  
- }
+public void test3() {  
+    QueryWrapper<User> wrapper = new QueryWrapper<>();  
+    wrapper.select("id", "name").like("name", "黄");  
+    List<Object> objects = userMapper.selectObjs(wrapper);  
+    objects.forEach(System.out::println);  
+}
 ```
 
 得到的结果，只封装了第一列的id
@@ -1319,7 +1319,7 @@ public void testAuto() {
     user.setCreateTime(LocalDateTime.now());  
     userMapper.insert(user);  
     System.out.println(user.getId());  
-}结果
+}
 ```
 
 ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071133934.png)
@@ -1334,7 +1334,7 @@ public void testAuto() {
 
 ```java
 @TableId(type = IdType.NONE)  
-  private Long id;
+private Long id;
 ```
 
 插入时，若实体类的主键ID有值，则使用之；若主键ID为空，则使用主键全局策略，来生成一个ID。
@@ -1896,7 +1896,7 @@ public void testOpLocker() {
 
 实体类中version字段，类型只支持int，long，Date，Timestamp，LocalDateTime
 
-**注意，乐观锁插件仅支持****`updateById(id)`与`update(entity, wrapper)`方法**
+**注意，乐观锁插件仅支持updateById(id)与update(entity, wrapper)方法**
 
 注意：如果使用`wrapper`，则`wrapper`不能复用！示例如下
 
@@ -2110,7 +2110,8 @@ public class MybatisPlusConfig {
         map.put("user2", (sql, tableName) -> {  
             String _ = "_";  
             int random = new Random().nextInt(2) + 1;  
-            return tableName + _ + random; // 若返回null, 则不会进行动态表名替换, 还是会使用user2  
+            return tableName + _ + random; 
+            // 若返回null, 则不会进行动态表名替换, 还是会使用user2  
         });  
         dynamicTableNameInnerInterceptor.setTableNameHandlerMap(map);  
         interceptor.addInnerInterceptor(dynamicTableNameInnerInterceptor);  

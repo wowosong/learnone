@@ -1053,19 +1053,19 @@ CSS中共有四种定位方式：
             * 盒子模型
             */
             /* .box3{
-            width: 200px;
-            height: 200px;
-            background-color: beige;
-            border-color: red;
-            border-width: 10px;
-            border-style: double;
+                width: 200px;
+                height: 200px;
+                background-color: beige;
+                border-color: red;
+                border-width: 10px;
+            	border-style: double;
 
             }
             .box4{
-            width: 40px;
-            height: 40px;
-            background-color: aqua;
-            margin: 0 auto;
+                width: 40px;
+                height: 40px;
+                background-color: aqua;
+                margin: 0 auto;
 
             } */
 
@@ -1074,43 +1074,43 @@ CSS中共有四种定位方式：
             */
 
             /* .box3{
-            width: 200px;
-            height: 200px;
-            background-color: beige;
-            border-color: red;
-            border-width: 10px;
-            border-style: double;
-            position: relative;
+                width: 200px;
+                height: 200px;
+                background-color: beige;
+                border-color: red;
+                border-width: 10px;
+                border-style: double;
+                position: relative;
 
             }
             .box4{
-            width: 40px;
-            height: 40px;
-            background-color: aqua;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin: auto;
+                width: 40px;
+                height: 40px;
+                background-color: aqua;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
             } */
             /* 弹性盒子实现 */
             /* .box3{
-            width: 200px;
-            height: 200px;
-            background-color: beige;
-            border-color: red;
-            border-width: 10px;
-            border-style: double;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+                width: 200px;
+                height: 200px;
+                background-color: beige;
+                border-color: red;
+                border-width: 10px;
+                border-style: double;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
             .box4{
-            width: 40px;
-            height: 40px;
-            background-color: aqua;
-            flex-wrap: wrap;
+                width: 40px;
+                height: 40px;
+                background-color: aqua;
+                flex-wrap: wrap;
             } */
 
             /* 表格居中*/

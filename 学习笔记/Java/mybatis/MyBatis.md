@@ -3,21 +3,22 @@
 [TOC]
 
 mybatis运行原理：
-1.通过加载mybatis全局配置文件以及mapper映射文件初始化configuration对象 
-   和Executor对象（通过全局配置文件中的defaultExecutorType初始化）；
-2.创建一个defaultSqlSession对象，将configuration对象和Executor对象注入给 
-   defaulSqlSession对象中；
-3.defaulSqlSession通过getMapper()获取mapper接口的代理对象mapperProxy 
-  （mapperProxy中包含defaultSQLSession对象）
+1.通过加载mybatis全局配置文件以及mapper映射文件初始化configuration对象和Executor对象（通过全局配置文件中的defaultExecutorType初始化）；
+
+2.创建一个defaultSqlSession对象，将configuration对象和Executor对象注入给defaulSqlSession对象中；
+
+3.defaulSqlSession通过getMapper()获取mapper接口的代理对象mapperProxy （mapperProxy中包含defaultSQLSession对象）
+
 4.执行增删改查：
     1）通过defaulSqlSession中的属性Executor创建statementHandler对象；
-    2）创建statementHandler对象的同时也创建parameterHandler和 
-         resultSetHandler；
-    3） 通过parameterHandler设置预编译参数及参数值；
-    4）调用statementHandler执行增删改查；
-    5）通过resultsetHandler封装查询结果
 
+​    2）创建statementHandler对象的同时也创建parameterHandler和resultSetHandler；
 
+​    3） 通过parameterHandler设置预编译参数及参数值；
+
+​    4）调用statementHandler执行增删改查；
+
+​    5）通过resultsetHandler封装查询结果
 
 
 

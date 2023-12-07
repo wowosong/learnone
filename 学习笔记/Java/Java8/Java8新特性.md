@@ -96,8 +96,8 @@ consumer.accept("wowosong");
 
 ```java
 BinaryOperator<Long> bo=(x,y)->{
-  System.out.println("方式");
-  return x+y;
+    System.out.println("方式");
+    return x+y;
 };
 System.out.println(bo.apply(1L,10L));
 ```
@@ -113,9 +113,9 @@ System.out.println(bo.apply(1L,10L));
 
 ```java
 BinaryOperator<Long> bo=(Long x,Long y)->{
-  //数据类型可以省略，因为可由编译器推断得出，称为“类型推断”
-  System.out.println("方式");
-  return x+y;
+    //数据类型可以省略，因为可由编译器推断得出，称为“类型推断”
+    System.out.println("方式");
+    return x+y;
 };
 ```
 
@@ -138,7 +138,7 @@ BinaryOperator<Long> bo=(Long x,Long y)->{
 ```java
 @FunctionalInterface
 public interface MyFunction<> {
-  public double getValue();
+    public double getValue();
 }
 ```
 
@@ -147,7 +147,7 @@ public interface MyFunction<> {
 ```java
 @FunctionalInterface
 public interface MyFunction<T> {
-  public T getValue(T t);
+    public T getValue(T t);
 }
 ```
 
@@ -155,7 +155,7 @@ public interface MyFunction<T> {
 
 ```java
 public Object strHandler(MyFunction mf, String string){
-  return mf.getValue(string);
+    return mf.getValue(string);
 }
 ```
 
@@ -164,8 +164,8 @@ public Object strHandler(MyFunction mf, String string){
 ```java
 @Test
 public void  test4(){
-  String test = (String) strHandler((x) ->x.toString().toUpperCase(), "test");
-  System.out.println(test);
+    String test = (String) strHandler((x) ->x.toString().toUpperCase(), "test");
+    System.out.println(test);
 }
 ```
 
@@ -184,13 +184,13 @@ public void  test4(){
 
 ```java
 public void  test5(){
-  happy(1000,(x)->{
-    System.out.println(x+":"+x*2);
-  });
+    happy(1000,(x)->{
+        System.out.println(x+":"+x*2);
+    });
 
 }
 public void happy(double money,Consumer<Double> consumer){
-  consumer.accept(money);
+    consumer.accept(money);
 }
 ```
 
@@ -199,18 +199,18 @@ public void happy(double money,Consumer<Double> consumer){
 ```java
 @Test
 public void  test6(){
-  List<Integer> num = getNum(100, () -> (int) (Math.random() * 100));
-  num.forEach(System.out::println);
+    List<Integer> num = getNum(100, () -> (int) (Math.random() * 100));
+    num.forEach(System.out::println);
 
 }
 public List<Integer> getNum(int num, Supplier<Integer> supplier){
-  List<Integer> list=new ArrayList<>();
+    List<Integer> list=new ArrayList<>();
 
-  for (int i = 0; i <num ; i++) {
-    Integer integer = supplier.get();
-    list.add(integer);
-  }
-  return list;
+    for (int i = 0; i <num ; i++) {
+        Integer integer = supplier.get();
+        list.add(integer);
+    }
+    return list;
 }
 ```
 
@@ -219,14 +219,14 @@ public List<Integer> getNum(int num, Supplier<Integer> supplier){
 ```java
 @Test
 public  void test7(){
-  String string = handlerString("wowosong", (x) -> {
-    return x.toUpperCase();
-  });
-  System.out.println(string);
+    String string = handlerString("wowosong", (x) -> {
+        return x.toUpperCase();
+    });
+    System.out.println(string);
 
 }
 public String handlerString(String string, Function<String,String> function){
-  return function.apply(string);
+    return function.apply(string);
 }
 ```
 
@@ -235,20 +235,20 @@ public String handlerString(String string, Function<String,String> function){
 ```java
 @Test
 public void test8(){
-  List<String> list= Arrays.asList("111","221111111111112","333");
-  List<String> list1 = filterString(list, (x) -> x.length() > 10);
-  for (String s : list1) {
-    System.out.println(s);
-  }
+    List<String> list= Arrays.asList("111","221111111111112","333");
+    List<String> list1 = filterString(list, (x) -> x.length() > 10);
+    for (String s : list1) {
+        System.out.println(s);
+    }
 }
 public List<String> filterString(List<String> list, Predicate<String> predicate){
-  List<String> list1=new ArrayList<>();
-  for (String s : list) {
-    if(predicate.test(s)){
-      list1.add(s);
+    List<String> list1=new ArrayList<>();
+    for (String s : list) {
+        if(predicate.test(s)){
+            list1.add(s);
+        }
     }
-  }
-  return  list1;
+    return  list1;
 }
 ```
 
@@ -457,7 +457,7 @@ iterate.limit(10).forEach(System.out::println);
 
 ```java
 List<Integer> collect1 = employeeList.stream().map(employee -> {
-  return employee.getAge();
+    return employee.getAge();
 }).collect(Collectors.toList());
 ```
 
@@ -612,7 +612,7 @@ System.out.println(instant);
 OffsetDateTime offsetDateTime = instant.atOffset(ZoneOffset.ofHours(8));
 System.out.println(offsetDateTime);
 try {
-  Thread.sleep(1000);
+    Thread.sleep(1000);
 }catch (Exception e){
 
 }
@@ -714,8 +714,8 @@ Employee employee = optional.get();
 System.out.println(employee);
 Optional<Employee> optional = Optional.of(new Employee());
 if (optional.isPresent()) {
-  optional.get();
-  optional.orElse(new Employee());
+    optional.get();
+    optional.orElse(new Employee());
 }
 Employee employee = optional.get();
 System.out.println(employee);
@@ -731,10 +731,10 @@ System.out.println(integer.get());
 
 ```java
 interface MyFunc<T> {
-  T func(int a);
-  default String getName(){
-    return "Hello Java8";
-  }
+    T func(int a);
+    default String getName(){
+        return "Hello Java8";
+    }
 }
 ```
 
@@ -749,19 +749,19 @@ interface MyFunc<T> {
 ```java
 //接口默认方法的“类优先”原则
 interface MyFunc{
-  default String getName(){
-    return "Hello Java8";
-  }
+    default String getName(){
+        return "Hello Java8";
+    }
 }
 interface Named{
-  default String getName(){
-    return "Hello atguigu";
-  }
+    default String getName(){
+        return "Hello atguigu";
+    }
 }
 class MyClass implements MyFunc,Named{
-  default String getName(){
-    return Named.super.getName();
-  }
+    default String getName(){
+        return Named.super.getName();
+    }
 }
 ```
 
@@ -771,13 +771,13 @@ class MyClass implements MyFunc,Named{
 //Java8中，接口中允许添加静态方法。
 // 例如：
 interface Named{
-  public Integer myFun();
-  default String getName(){
-    return "Hello atguigu";
-  }
-  static void show(){
-    System.out.println("Hello lambda");
-  }
+    public Integer myFun();
+    default String getName(){
+        return "Hello atguigu";
+    }
+    static void show(){
+        System.out.println("Hello lambda");
+    }
 }
 ```
 
@@ -791,7 +791,7 @@ Java 8对注解处理提供了两点改进：可重复的注解及可用于类�
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD, ElementType.CONSTRUCTOR, ElementType.LOCAL_VARIABLE, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MyAnnations {
-  MyAnnation[] value();
+    MyAnnation[] value();
 }
 ```
 
@@ -800,22 +800,22 @@ public @interface MyAnnations {
 @Target({ElementType.TYPE,ElementType.METHOD,ElementType.FIELD,ElementType.CONSTRUCTOR,ElementType.LOCAL_VARIABLE,ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MyAnnation {
-  String value() default "atguigu";
+    String value() default "atguigu";
 }
 ```
 
 ```java
 @Test
 public void testAnnation() throws NoSuchMethodException {
-  Class<TestLamda> clazz = TestLamda.class;
-  Method show = clazz.getMethod("Show");
-  MyAnnation[] annotationsByType = show.getAnnotationsByType(MyAnnation.class);
-  Arrays.stream(annotationsByType).forEach(System.out::println);
+    Class<TestLamda> clazz = TestLamda.class;
+    Method show = clazz.getMethod("Show");
+    MyAnnation[] annotationsByType = show.getAnnotationsByType(MyAnnation.class);
+    Arrays.stream(annotationsByType).forEach(System.out::println);
 }
 @MyAnnation(value = "hello")
 @MyAnnation(value = "world")
 public void Show(@MyAnnation("abc") String id){
-  System.out.println("show ...");
+    System.out.println("show ...");
 }
 ```
 

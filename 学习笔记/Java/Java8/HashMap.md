@@ -22,7 +22,7 @@
 public V put(K key, V value)
 {
     ......
-    //计算Hash值
+        //计算Hash值
     int hash = hash(key.hashCode());
     int i = indexFor(hash, table.length);
     //各种校验吧

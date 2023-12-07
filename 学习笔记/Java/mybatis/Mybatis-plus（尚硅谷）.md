@@ -367,10 +367,10 @@ public interface EmployeeMapper  extends BaseMapper<Employee> {
 
    ```java
    /**
-        * @TableId:
-        * value :指定表中的主键列的列名，如果实体属性名与列名一致，可以省略不指定
-        * type：指定主键策略
-        */
+    * @TableId:
+    * value :指定表中的主键列的列名，如果实体属性名与列名一致，可以省略不指定
+    * type：指定主键策略
+    */
    @TableId(value = "",type = IdType.AUTO)
    
    ```
@@ -472,8 +472,8 @@ updateById方法在更新时，会根据实体类的每个属性进行非空判�
 
 ```java
 /**
-     * 通用更新操作
-     */
+ * 通用更新操作
+ */
 @Test
 public void testCommonUpdte(){
     Employee employee = new Employee();
@@ -497,8 +497,8 @@ updateAllColumnById方法在更新时，不管属性是否为空，所有属性�
 
 ```java
 /**
-     * 通用更新操作
-     */
+ * 通用更新操作
+ */
 @Test
 public void testCommonUpdte(){
     Employee employee = new Employee();
@@ -737,14 +737,14 @@ MP: 依旧不用编写 SQL 语句, MP 提供了功能强大的条件构造器 En
 
 ```java
 /**
-     *
-    分页查询 tbl_employee表中，年龄在 18~50之间性别为男且姓名为 xx的所有用户，这时候我们该如何实现上述需求呢？
-     */
+ *
+分页查询 tbl_employee表中，年龄在 18~50之间性别为男且姓名为 xx的所有用户，这时候我们该如何实现上述需求呢？
+ */
 @Test
 public void  testWrapper(){
-  List<Employee> employees = employeeMapper.selectPage(new Page<Employee>(1, 2),
-                                                       new EntityWrapper<Employee>().between("age", 15, 18).eq("gender", 1).eq("last_name", "wowosong"));
-  System.out.println(employees);
+    List<Employee> employees = employeeMapper.selectPage(new Page<Employee>(1, 2),
+                                                         new EntityWrapper<Employee>().between("age", 15, 18).eq("gender", 1).eq("last_name", "wowosong"));
+    System.out.println(employees);
 }
 
 ```
@@ -765,10 +765,10 @@ DEBUG 06-16 20:52:27,050 ==> Parameters: 15(Integer), 18(Integer), 1(Integer), w
  * 查询出性别为男，且名字中含老师，或邮箱中含a
  */
 List<Employee> employees = employeeMapper.selectList(new EntityWrapper<Employee>()
-  .eq("gender", 1).like("last_name", "老师").or()
- //WHERE (gender = ? AND last_name LIKE ? OR email LIKE ?).orNew() 
- // (gender = ? AND last_name LIKE ?) OR (email LIKE ?) 
- .like("email", "a"));
+                                                     .eq("gender", 1).like("last_name", "老师").or()
+                                                     .like("email", "a"));
+//WHERE (gender = ? AND last_name LIKE ? OR email LIKE ?).orNew() 
+// (gender = ? AND last_name LIKE ?) OR (email LIKE ?) 
 System.out.println(employees);
 ```
 
@@ -785,8 +785,8 @@ DEBUG 06-16 21:00:59,860 ==> Parameters: 1(Integer), %老师%(String), %a%(Strin
 
 ```java
 /**
-     * 条件构造器 更新操作
-     */
+ * 条件构造器 更新操作
+ */
 @Test
 public void testEntityUpdateWrapper(){
     Employee employee = new Employee();
@@ -913,8 +913,8 @@ public boolean insert()
 
 ```java
 /**
-     * AR 插入操作
-     */
+ * AR 插入操作
+ */
 @Test
 public void testAR(){
     Employee employee = new Employee();
@@ -939,8 +939,8 @@ public boolean updateById()
 
 ```java
 /**
-     * AR 更新操作
-     */
+ * AR 更新操作
+ */
 @Test
 public void testARUpdate(){
     Employee employee = new Employee();
@@ -967,8 +967,8 @@ public T selectById()
 
 ```java
 /**
-     * AR 查询操作
-     */
+ * AR 查询操作
+ */
 @Test
 public void testARSelect(){
     Employee employee = new Employee();
@@ -988,8 +988,8 @@ public T selectById(Serializable id)
 
 ```java
 /**
-     * AR 查询操作
-     */
+ * AR 查询操作
+ */
 @Test
 public void testARSelect(){
     Employee employee = new Employee();
@@ -1008,8 +1008,8 @@ public List<T> selectAll()
 
 ```java
 /**
-     * AR 查询操作
-     */
+ * AR 查询操作
+ */
 @Test
 public void testARSelect(){
     Employee employee = new Employee();
@@ -1029,8 +1029,8 @@ public List<T> selectList(Wrapper wrapper)
 
 ```java
 /**
-     * AR 查询操作
-     */
+ * AR 查询操作
+ */
 @Test
 public void testARSelect(){
     Employee employee = new Employee();
@@ -1049,8 +1049,8 @@ public int selectCount(Wrapper wrapper)
 
 ```java
 /**
-     * AR 查询操作
-     */
+ * AR 查询操作
+ */
 @Test
 public void testARSelect(){
     Employee employee = new Employee();
@@ -1071,8 +1071,8 @@ public boolean deleteById()
 
 ```java
 /**
-     * AR 删除操作
-     */
+ * AR 删除操作
+ */
 @Test
 public void testARDelete(){
     Employee employee = new Employee();
@@ -1091,8 +1091,8 @@ public boolean deleteById(Serializable id)
 
 ```java
 /**
-     * AR 删除操作
-     */
+ * AR 删除操作
+ */
 @Test
 public void testARDelete(){
     Employee employee = new Employee();
@@ -1110,8 +1110,8 @@ public boolean delete(Wrapper wrapper)
 
 ```java
 /**
-     * AR 删除操作
-     */
+ * AR 删除操作
+ */
 @Test
 public void testARDelete(){
     Employee employee = new Employee();
@@ -1132,8 +1132,8 @@ public Page<T> selectPage(Page<T> page, Wrapper<T> wrapper)
 
 ```java
 /**
-     * AR 分页查询
-     */
+ * AR 分页查询
+ */
 @Test
 public void testSelectPage(){
     Employee employee = new Employee();
@@ -1187,15 +1187,10 @@ MP 的代码生成器默认使用的是 Apache 的 Velocity 模板，当然也�
 
 ```xml
 <dependency> 
-
     <groupId>org.apache.velocity</groupId> 
-
     <artifactId>velocity-engine-core</artifactId> 
-
     <version>2.0</version>
-
 </dependency>
-
 ```
 
 2) 加入 slf4j ,查看日志输出信息
