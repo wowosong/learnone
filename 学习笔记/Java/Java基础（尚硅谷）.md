@@ -5450,7 +5450,7 @@ ElementType.TYPE_USE 表示该注解能写在使用类型的任何语句中。
 
 对应图示：
 
-![image-20211231124637337](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311246515.png)
+![image-20211231124637337](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072240629.png)
 
 2.Collection接口常用方法：
 
@@ -5477,7 +5477,7 @@ iterator();
 //集合 --->数组：toArray()
 Object[] arr = coll.toArray();
 for(int i = 0;i < arr.length;i++){
-    System.out.println(arr[i]);
+  System.out.println(arr[i]);
 }
 ```
 
@@ -5494,39 +5494,49 @@ System.out.println(arr2.size());//2
 ```
 
 4.使用Collection集合存储对象，要求对象所属的类满足：
+
 向Collection接口的实现类的对象中添加数据obj时，要求obj所在类要重写equals().
 
 5.本章节对大家的要求：
+
 层次一：选择合适的集合类去实现数据的保存，调用其内部的相关方法。
 
 层次二：不同的集合类底层的数据结构为何？如何实现数据的操作的：增删改查等。
 
 ### Iterator接口与foreach循环 
 
-![image-20211231124744832](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311247029.png)
+![image-20211231124744832](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072241566.png)
 
 1.遍历Collection的两种方式：
+
 ① 使用迭代器Iterator  ② foreach循环（或增强for循环）
+
 2.java.utils包下定义的迭代器接口：Iterator
+
 2.1说明：
+
 **Iterator对象称为迭代器(设计模式的一种)，主要用于遍历 Collection 集合中的元素。**
+
  GOF给迭代器模式的定义为：提供一种方法访问一个容器(container)对象中各个元素，而又不需暴露该对象的内部细节。迭代器模式，就是为容器而生。
+
 2.2作用：遍历集合Collectiton元素
+
 2.3如何获取实例：coll.iterator()返回一个迭代器实例
+
 2.4遍历的代码实现：
 
 ```java
 Iterator iterator = coll.iterator();
 //hasNext():判断是否还有下一个元素
 while(iterator.hasNext()){
-    //next():①指针下移 ②将下移以后集合位置上的元素返回
-    System.out.println(iterator.next());
+  //next():①指针下移 ②将下移以后集合位置上的元素返回
+  System.out.println(iterator.next());
 }
 ```
 
 2.5图示说明：
 
-![image-20211231124758387](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311247557.png)
+![image-20211231124758387](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072241333.png)
 
 2.6 remove()的使用：
 
@@ -5534,38 +5544,41 @@ while(iterator.hasNext()){
 //测试Iterator中的remove()
 //如果还未调用next()或在上一次调用 next 方法之后已经调用了 remove 方法，再调用remove都会报IllegalStateException。
 //内部定义了remove(),可以在遍历的时候，删除集合中的元素。此方法不同于集合直接调用remove()
-    @Test
-    public void test3(){
-        Collection coll = new ArrayList();
-        coll.add(123);
-        coll.add(456);
-        coll.add(new Person("Jerry",20));
-        coll.add(new String("Tom"));
-        coll.add(false);
+@Test
+public void test3(){
+  Collection coll = new ArrayList();
+  coll.add(123);
+  coll.add(456);
+  coll.add(new Person("Jerry",20));
+  coll.add(new String("Tom"));
+  coll.add(false);
 
-        //删除集合中"Tom"
-        Iterator iterator = coll.iterator();
-        while (iterator.hasNext()){
+  //删除集合中"Tom"
+  Iterator iterator = coll.iterator();
+  while (iterator.hasNext()){
 
-//            iterator.remove();
-            Object obj = iterator.next();
-            if("Tom".equals(obj)){
-                iterator.remove();
-//                iterator.remove();
-            }
-
-        }
-        //遍历集合
-        iterator = coll.iterator();
-        while (iterator.hasNext()){
-            System.out.println(iterator.next());
-        }
+    //            iterator.remove();
+    Object obj = iterator.next();
+    if("Tom".equals(obj)){
+      iterator.remove();
+      //                iterator.remove();
     }
+
+  }
+  //遍历集合
+  iterator = coll.iterator();
+  while (iterator.hasNext()){
+    System.out.println(iterator.next());
+  }
+}
 ```
 
 注意：
+
 Iterator可以删除集合的元素，但是是遍历过程中通过迭代器对象的remove方法，不是集合对象的remove方法。
+
 如果还未调用next()或在上一次调用 next 方法之后已经调用了 remove 方法，
+
 再调用remove都会报IllegalStateException。
 
 
@@ -5576,18 +5589,18 @@ Iterator可以删除集合的元素，但是是遍历过程中通过迭代器对
 ```java
 @Test
 public void test1(){
-    Collection coll = new ArrayList();
-    coll.add(123);
-    coll.add(456);
-    coll.add(new Person("Jerry",20));
-    coll.add(new String("Tom"));
-    coll.add(false);
+  Collection coll = new ArrayList();
+  coll.add(123);
+  coll.add(456);
+  coll.add(new Person("Jerry",20));
+  coll.add(new String("Tom"));
+  coll.add(false);
 
-    //for(集合元素的类型 局部变量 : 集合对象)
-    
-    for(Object obj : coll){
-        System.out.println(obj);
-    }
+  //for(集合元素的类型 局部变量 : 集合对象)
+
+  for(Object obj : coll){
+    System.out.println(obj);
+  }
 }
 ```
 
@@ -5599,11 +5612,11 @@ public void test1(){
 ```java
 @Test
 public void test2(){
-    int[] arr = new int[]{1,2,3,4,5,6};
-    //for(数组元素的类型 局部变量 : 数组对象)
-    for(int i : arr){
-        System.out.println(i);
-    }
+  int[] arr = new int[]{1,2,3,4,5,6};
+  //for(数组元素的类型 局部变量 : 数组对象)
+  for(int i : arr){
+    System.out.println(i);
+  }
 }
 ```
 
@@ -5672,25 +5685,29 @@ list.add(123);//将123封装到Node中，创建了Node对象。
 
 ```java
 private static class Node<E> {
-     E item;
-     Node<E> next;
-     Node<E> prev;
+  E item;
+  Node<E> next;
+  Node<E> prev;
 
-     Node(Node<E> prev, E element, Node<E> next) {
-     this.item = element;
-     this.next = next;
-     this.prev = prev;
-     }
+  Node(Node<E> prev, E element, Node<E> next) {
+    this.item = element;
+    this.next = next;
+    this.prev = prev;
+  }
 
- }
+}
 ```
 
 4.3 Vector的源码分析：
+
 jdk7和jdk8中通过Vector()构造器创建对象时，底层都创建了长度为10的数组。
+
 在扩容方面，默认扩容为原来的数组长度的2倍。
 
 5.存储的元素的要求：
+
 添加的对象，所在的类要重写equals()方法
+
 [面试题]
 
 面试题：ArrayList、LinkedList、Vector者的异同？
@@ -5710,17 +5727,25 @@ jdk7和jdk8中通过Vector()构造器创建对象时，底层都创建了长度�
 
 2. 元素添加过程：(以HashSet为例)
    我们向HashSet中添加元素a,首先调用元素a所在类的hashCode()方法，计算元素a的哈希值，此哈希值接着通过某种算法计算出在HashSet底层数组中的存放位置（即为：**索引位置，判断数组此位置上是否已经元素**：
-    如果此位置上没其他元素，则元素a添加成功。 --->情况1
+   
+   如果此位置上没其他元素，则元素a添加成功。 --->情况1
+   
     **如果此位置上其他元素b(或以链表形式存在的多个元素，则比较元素a与元素b的hash值：**  
    
      如果hash值不相同，则元素a添加成功。--->情况2
-        如果hash值相同，进而需要调用元素a所在类的equals()方法：
-               equals()返回true,元素a添加失败
-               equals()返回false,则元素a添加成功。--->情况3
+   
+   ​     如果hash值相同，进而需要调用元素a所在类的equals()方法：
+   
+   ​            equals()返回true,元素a添加失败
+   
+   ​            equals()返回false,则元素a添加成功。--->情况3
 
 对于添加成功的情况2和情况3而言：元素a 与已经存在指定索引位置上数据以链表的方式存储。
+
 jdk 7 :元素a放到数组中，指向原来的元素。
+
 jdk 8 :原来的元素在数组中，指向元素a
+
 总结：七上八下
 
 HashSet底层：数组+链表的结构。（**前提：jdk7**)
@@ -5730,109 +5755,117 @@ HashSet底层：数组+链表的结构。（**前提：jdk7**)
 Set接口中没额外定义新的方法，使用的都是Collection中声明过的方法。
 
 4. 常用实现类：
-![image-20211231135801245](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311358515.png)
+![image-20211231135801245](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072243950.png)
 
 LinkedHashSet：
 
-![image-20211231125327076](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311253274.png)
+![image-20211231125327076](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072243003.png)
 
 5. 存储对象所在类的要求：
 HashSet/LinkedHashSet:
 
 要求：向Set(主要指：HashSet、LinkedHashSet)中添加的数据，其所在的类一定要重写hashCode()和equals()
+
 要求：重写的hashCode()和equals()尽可能保持一致性：相等的对象必须具有相等的散列码
 
 **重写两个方法的小技巧：对象中用作 equals() 方法比较的 Field，都应该用来计算 hashCode 值。**
 
 TreeSet:
+
 1.自然排序中，比较两个对象是否相同的标准为：compareTo()返回0.不再是equals().
+
 2.定制排序中，比较两个对象是否相同的标准为：compare()返回0.不再是equals().
 
 6. TreeSet的使用
-6.1 使用说明:
-1.向TreeSet中添加的数据，要求是相同类的对象。
-2.两种排序方式：自然排序（实现Comparable接口 和 定制排序（Comparator）
+
+  6.1 使用说明:
+
+  1.向TreeSet中添加的数据，要求是相同类的对象。
+
+  2.两种排序方式：自然排序（实现Comparable接口 和 定制排序（Comparator）
 
 6.2 常用的排序方式:
 
 ```java
 //方式一：自然排序
 @Test
-    public void test1(){
-        TreeSet set = new TreeSet();
+public void test1(){
+  TreeSet set = new TreeSet();
 
-        //失败：不能添加不同类的对象
-//        set.add(123);
-//        set.add(456);
-//        set.add("AA");
-//        set.add(new User("Tom",12));
+  //失败：不能添加不同类的对象
+  //        set.add(123);
+  //        set.add(456);
+  //        set.add("AA");
+  //        set.add(new User("Tom",12));
 
-            //举例一：
+  //举例一：
 
-//        set.add(34);
-//        set.add(-34);
-//        set.add(43);
-//        set.add(11);
-//        set.add(8);
+  //        set.add(34);
+  //        set.add(-34);
+  //        set.add(43);
+  //        set.add(11);
+  //        set.add(8);
 
-        //举例二：
-        set.add(new User("Tom",12));
-        set.add(new User("Jerry",32));
-        set.add(new User("Jim",2));
-        set.add(new User("Mike",65));
-        set.add(new User("Jack",33));
-        set.add(new User("Jack",56));//两个Jack，如果只按名字比较，只会遍历出一个，TreeSet不是按照hashcode比较，按照compare/compareTo比较器比较，返回0就是一样的
+  //举例二：
+  set.add(new User("Tom",12));
+  set.add(new User("Jerry",32));
+  set.add(new User("Jim",2));
+  set.add(new User("Mike",65));
+  set.add(new User("Jack",33));
+  set.add(new User("Jack",56));
+  //两个Jack，如果只按名字比较，只会遍历出一个，TreeSet不是按照hashcode比较，按照compare/compareTo比较器比较，返回0就是一样的
 
 
-        Iterator iterator = set.iterator();
-        while(iterator.hasNext()){
-            System.out.println(iterator.next());
-        }
-    
-    }
+  Iterator iterator = set.iterator();
+  while(iterator.hasNext()){
+    System.out.println(iterator.next());
+  }
+
+}
 
 //方式二：定制排序
-    @Test
-    public void test2(){
-        Comparator com = new Comparator() {
-            //照年龄从小到大排列
-            @Override
-            public int compare(Object o1, Object o2) {
-                if(o1 instanceof User && o2 instanceof User){
-                    User u1 = (User)o1;
-                    User u2 = (User)o2;
-                    return Integer.compare(u1.getAge(),u2.getAge());
-                }else{
-                    throw new RuntimeException("输入的数据类型不匹配");
-                }
-            }
-        };
+@Test
+public void test2(){
+  Comparator com = new Comparator() {
+    //照年龄从小到大排列
+    @Override
+    public int compare(Object o1, Object o2) {
+      if(o1 instanceof User && o2 instanceof User){
+        User u1 = (User)o1;
+        User u2 = (User)o2;
+        return Integer.compare(u1.getAge(),u2.getAge());
+      }else{
+        throw new RuntimeException("输入的数据类型不匹配");
+      }
+    }
+  };
 
-        TreeSet set = new TreeSet(com);//有参数就按照定制排序
-        set.add(new User("Tom",12));
-        set.add(new User("Jerry",32));
-        set.add(new User("Jim",2));
-        set.add(new User("Mike",65));
-        set.add(new User("Mary",33));
-        set.add(new User("Jack",33));
-        set.add(new User("Jack",56));
+  TreeSet set = new TreeSet(com);//有参数就按照定制排序
+  set.add(new User("Tom",12));
+  set.add(new User("Jerry",32));
+  set.add(new User("Jim",2));
+  set.add(new User("Mike",65));
+  set.add(new User("Mary",33));
+  set.add(new User("Jack",33));
+  set.add(new User("Jack",56));
 
-     Iterator iterator = set.iterator();
-     while(iterator.hasNext()){
-         System.out.println(iterator.next());
-     }
+  Iterator iterator = set.iterator();
+  while(iterator.hasNext()){
+    System.out.println(iterator.next());
+  }
 }
 ```
 
 面试题：
 
-![image-20211231125343633](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311253855.png)
+![image-20211231125343633](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072243149.png)
 
 ### Map接口
 
 双列集合框架：Map
+
 1.常用实现类结构
-![image-20211231135833246](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311358555.png)
+![image-20211231135833246](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072244681.png)
 
 [面试题]
 *  1. HashMap的底层实现原理？
@@ -5848,7 +5881,7 @@ TreeSet:
 
 图示：
 
-![image-20211231125649583](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311256760.png)
+![image-20211231125649583](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072244440.png)
 
 
 3.常用方法
@@ -5860,7 +5893,9 @@ TreeSet:
 * 遍历：keySet() / values() / entrySet()
 
 4.内存结构说明：（难点）
+
 4.1 HashMap在jdk7中实现原理：
+
 HashMap map = new HashMap():
 
 1. 在实例化以后，底层创建了长度是16的一维数组Entry[] table。
@@ -5878,61 +5913,75 @@ HashMap map = new HashMap():
 
 4.2 HashMap在jdk8中相较于jdk7在底层实现方面的不同：
 1. new HashMap():底层没创建一个长度为16的数组
+
 2. jdk 8底层的数组是：Node[],而非Entry[]
+
 3. 首次调用put()方法时，底层创建长度为16的数组
+
 4. jdk7底层结构**：数组+链表。jdk8中底层结构：数组+链表+红黑树。**
-4.1 形成链表时，七上八下（jdk7:新的元素指向旧的元素。jdk8：旧的元素指向新的元素）
-**4.2 当数组的某一个索引位置上的元素以链表形式存在的数据个数 > 8 且当前数组的长度 > 64时，此时此索引位置上的所数据改为使用红黑树存储。**
+
+  4.1 形成链表时，七上八下（jdk7:新的元素指向旧的元素。jdk8：旧的元素指向新的元素）
+
+  **4.2 当数组的某一个索引位置上的元素以链表形式存在的数据个数 > 8 且当前数组的长度 > 64时，此时此索引位置上的所数据改为使用红黑树存储。**
 
  JDK7：
 
-![image-20211231125705087](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311257287.png)
+![image-20211231125705087](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072244632.png)
 
-![image-20211231125713029](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311257209.png)
+![image-20211231125713029](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072244788.png)
 
 4.3 HashMap底层典型属性的属性的说明：
+
 DEFAULT_INITIAL_CAPACITY : HashMap的默认容量，16
+
 DEFAULT_LOAD_FACTOR：HashMap的默认加载因子：0.75
+
 threshold：扩容的临界值=容量*填充因子：16 * 0.75 => 12
+
 TREEIFY_THRESHOLD：Bucket中链表长度大于该默认值，转化为红黑树:8
+
 MIN_TREEIFY_CAPACITY：桶中的Node被树化时最小的hash表容量:64
 
 4.4 LinkedHashMap的底层实现原理(了解)
+
 LinkedHashMap底层使用的结构与HashMap相同，因为LinkedHashMap继承于HashMap.
+
 区别就在于：LinkedHashMap内部提供了Entry，替换HashMap中的Node.
 
-![image-20211231125734077](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311257258.png)
+![image-20211231125734077](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072245872.png)
 
 5.TreeMap的使用
+
 //向TreeMap中添加key-value，要求key必须是由同一个类创建的对象
+
 //因为要按照key进行排序：自然排序 、定制排序
 
 6.使用Properties读取配置文件
 
 ```java
- //Properties:常用来处理配置文件。key和value都是String类型
+//Properties:常用来处理配置文件。key和value都是String类型
 public static void main(String[] args)  {
-    FileInputStream fis = null;
-    try {
-      Properties pros = new Properties();
-      fis = new FileInputStream("jdbc.properties");
-      pros.load(fis);//加载流对应的文件
+  FileInputStream fis = null;
+  try {
+    Properties pros = new Properties();
+    fis = new FileInputStream("jdbc.properties");
+    pros.load(fis);//加载流对应的文件
 
-      String name = pros.getProperty("name");
-      String password = pros.getProperty("password");
+    String name = pros.getProperty("name");
+    String password = pros.getProperty("password");
 
-      System.out.println("name = " + name + ", password = " + password);
-} catch (IOException e) {
+    System.out.println("name = " + name + ", password = " + password);
+  } catch (IOException e) {
     e.printStackTrace();
-} finally {
+  } finally {
     if(fis != null){
-        try {
-            fis.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+      try {
+        fis.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
-}
+  }
 ```
 
 ### Collections工具类的使用
@@ -5954,15 +6003,16 @@ int frequency(Collection，Object)：返回指定集合中指定元素的出现�
 void copy(List dest,List src)：将src中的内容复制到dest中
 boolean replaceAll(List list，Object oldVal，Object newVal)：使用新值替换 List 对象的所旧值
 
-![image-20211231130211070](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311302237.png)
+![image-20211231130211070](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072245193.png)
 
 **说明：ArrayList和HashMap都是线程不安全的，如果程序要求线程安全，我们可以将ArrayList、HashMap**
 **转换为线程安全的。**
+
 **使用synchronizedList(List list） 和 synchronizedMap(Map map）**
 
 案例：
 
-![image-20211231130230736](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311302929.png)
+![image-20211231130230736](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072245221.png)
 
 3.面试题：
 面试题：Collection 和 Collections的区别？
@@ -5982,33 +6032,38 @@ boolean replaceAll(List list，Object oldVal，Object newVal)：使用新值替�
 3.数据结构的研究对象
 3.1 数据间的逻辑结构
 
-<img src="./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311303737.png" alt="image-20211231130334563" style="zoom:50%;" />
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072246200.png" alt="image-20211231130334563" style="zoom:50%;" />
 
 ​																													集合结构   
 
-![image-20211231130358882](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311303037.png)
+![image-20211231130358882](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072246479.png)
 
 
 
 ​																									 一对一：线性结构
 
-![image-20211231130409250](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311304410.png)
+![image-20211231130409250](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072246082.png)
 
 ​																										 一对多：树形结构      
 
-![image-20211231130418989](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311304153.png)
+![image-20211231130418989](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072246636.png)
 
 ​																											多对多：图形结构
 
 3.2 数据的存储结构：
+
 线性表（顺序表、链表、栈、队列）
+
 树
+
 图
 
 说明：习惯上把顺序表和链表看做基本数据结构（或真实数据结构）
-      习惯上把栈、队列、树、图看做抽象数据类型，简称ADT
+
+​      习惯上把栈、队列、树、图看做抽象数据类型，简称ADT
 
 4.使用详情见思维导图：
+
 《附录：尚硅谷_宋红康_数据结构概述-Java版.xmind》
 
 ## 12_泛型
@@ -6016,99 +6071,101 @@ boolean replaceAll(List list，Object oldVal，Object newVal)：使用新值替�
 ### 泛型的理解
 
 1.泛型的概念
+
 所谓泛型，就是允许在**定义类、接口时通过一个标识表示类中某个属性的类型或者是某个方法的返回值及参数类型**。这个类型参数将在使用时（例如，继承或实现这个接口，用这个类型声明变量、创建对象时确定（即传入实际的类型参数，也称为类型实参）。
 
 2.泛型的引入背景
+
 集合容器类在设计阶段/声明阶段不能确定这个容器到底实际存的是什么类型的对象，所以在JDK1.5之前只能把元素类型设计为Object，JDK1.5之后使用泛型来解决。因为这个时候除了元素的类型不确定，其他的部分是确定的，例如关于这个元素如何保存，如何管理等是确定的，因此此时把元素的类型设计成一个参数，这个类型参数叫做泛型。**Collection<E>，List<E>，ArrayList<E>   这个<E>就是类型参数，即泛型**。
 
 ### 泛型在集合中的使用
 
 1. 在集合中使用泛型之前的例子
 
-   ```JAVA
-    @Test
-    public void test1(){
-        ArrayList list = new ArrayList();
-        //需求：存放学生的成绩
-        list.add(78);
-        list.add(76);
-        list.add(89);
-     	 list.add(88);
-        //问题一：类型不安全
-        //list.add("Tom");
-        for(Object score : list){
-        //问题二：强转时，可能出现ClassCastException
-        int stuScore = (Integer) score;
-           System.out.println(stuScore);
-    	 }
-    }
-
+```JAVA
+@Test
+public void test1(){
+  ArrayList list = new ArrayList();
+  //需求：存放学生的成绩
+  list.add(78);
+  list.add(76);
+  list.add(89);
+  list.add(88);
+  //问题一：类型不安全
+  //list.add("Tom");
+  for(Object score : list){
+    //问题二：强转时，可能出现ClassCastException
+    int stuScore = (Integer) score;
+    System.out.println(stuScore);
+  }
+}
+```
 图示：
 
-![image-20211231130717518](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311351288.png)
+![image-20211231130717518](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072248930.png)
 
 2. 在集合中使用泛型例子1
 
-   ```JAVA
-   @Test
-    public void test2(){
-       ArrayList<Integer> list =  new ArrayList<Integer>();
-   
-        list.add(78);
-        list.add(87);
-        list.add(99);
-        list.add(65);
-        //编译时，就会进行类型检查，保证数据的安全
-        //        list.add("Tom");
-        //方式一：
-        //        for(Integer score : list){
-        //            //避免了强转操作
-        //            int stuScore = score;
-        //
-        //            System.out.println(stuScore);
-        //
-        //        }
-        //方式二：
-        Iterator<Integer> iterator = list.iterator();
-        while(iterator.hasNext()){
-            int stuScore = iterator.next();
-            System.out.println(stuScore);
-        }
-    } 
+```JAVA
+@Test
+public void test2(){
+  ArrayList<Integer> list =  new ArrayList<Integer>();
 
+  list.add(78);
+  list.add(87);
+  list.add(99);
+  list.add(65);
+  //编译时，就会进行类型检查，保证数据的安全
+  //        list.add("Tom");
+  //方式一：
+  //        for(Integer score : list){
+  //            //避免了强转操作
+  //            int stuScore = score;
+  //
+  //            System.out.println(stuScore);
+  //
+  //        }
+  //方式二：
+  Iterator<Integer> iterator = list.iterator();
+  while(iterator.hasNext()){
+    int stuScore = iterator.next();
+    System.out.println(stuScore);
+  }
+} 
+```
 图示：
 
-![image-20211231130727939](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311307085.png)
+![image-20211231130727939](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072248441.png)
 
 
 3. 在集合中使用泛型例子2
 
-   ```java
-   3. //在集合中使用泛型的情况：以HashMap为例
-       @Test
-       public void test3(){
-       //Map<String,Integer> map = new HashMap<String,Integer>();
-       //jdk7新特性：类型推断
-       Map<String,Integer> map = new HashMap<>();
-   
-       map.put("Tom",87);
-       map.put("Jerry",87);
-       map.put("Jack",67);
-   
-       //map.put(123,"ABC");
-       //泛型的嵌套
-       Set<Map.Entry<String,Integer>> entry = map.entrySet();
-       Iterator<Map.Entry<String, Integer>> iterator = entry.iterator();
-   
-       while(iterator.hasNext()){
-           Map.Entry<String, Integer> e = iterator.next();
-           String key = e.getKey();
-           Integer value = e.getValue();
-           System.out.println(key + "----" + value);
-       }
-   }
-   ```
-   
+```java
+3. //在集合中使用泛型的情况：以HashMap为例
+  @Test
+  public void test3(){
+  //Map<String,Integer> map = new HashMap<String,Integer>();
+  //jdk7新特性：类型推断
+  Map<String,Integer> map = new HashMap<>();
+
+  map.put("Tom",87);
+  map.put("Jerry",87);
+  map.put("Jack",67);
+
+  //map.put(123,"ABC");
+  //泛型的嵌套
+  Set<Map.Entry<String,Integer>> entry = map.entrySet();
+  Iterator<Map.Entry<String, Integer>> iterator = entry.iterator();
+
+  while(iterator.hasNext()){
+    Map.Entry<String, Integer> e = iterator.next();
+    String key = e.getKey();
+    Integer value = e.getValue();
+    System.out.println(key + "----" + value);
+  }
+}
+```
+
 4. 集合中使用泛型总结：
 
 ① 集合接口或集合类在jdk5.0时都修改为带泛型的结构。
@@ -6131,77 +6188,76 @@ boolean replaceAll(List list，Object oldVal，Object newVal)：使用新值替�
 ```java
 public class Order<T> {
 
-    String orderName;
-    int orderId;
-    
-    //类的内部结构就可以使用类的泛型
-    
-    T orderT;
-    
-    public Order(){
-        //编译不通过
-		//T[] arr = new T[10];
-        //编译通过
-        T[] arr = (T[]) new Object[10];
-    }
+  String orderName;
+  int orderId;
 
-    public Order(String orderName,int orderId,T orderT){
-        this.orderName = orderName;
-        this.orderId = orderId;
-        this.orderT = orderT;
-    }
-    
-    //如下的各个方法都不是泛型方法
-    public T getOrderT(){
-        return orderT;
-    }
-    
-    public void setOrderT(T orderT){
-        this.orderT = orderT;
-    }
-    
-    @Override
-    public String toString() {
-        return "Order{" +
-                "orderName='" + orderName + '\'' +
-                ", orderId=" + orderId +
-                ", orderT=" + orderT +
-                '}';
-    }
-    //静态方法中不能使用类的泛型。
+  //类的内部结构就可以使用类的泛型
 
-//    public static void show(T orderT){
-//        System.out.println(orderT);
-//    }
+  T orderT;
 
-    public void show(){
-//        编译不通过
+  public Order(){
+    //编译不通过
+    //T[] arr = new T[10];
+    //编译通过
+    T[] arr = (T[]) new Object[10];
+  }
 
-//        try{
-//
-//
-//        }catch(T t){
-//
-//        }
+  public Order(String orderName,int orderId,T orderT){
+    this.orderName = orderName;
+    this.orderId = orderId;
+    this.orderT = orderT;
+  }
 
-    }
+  //如下的各个方法都不是泛型方法
+  public T getOrderT(){
+    return orderT;
+  }
+
+  public void setOrderT(T orderT){
+    this.orderT = orderT;
+  }
+
+  @Override
+  public String toString() {
+    return "Order{" +
+      "orderName='" + orderName + '\'' +
+      ", orderId=" + orderId +
+      ", orderT=" + orderT +
+      '}';
+  }
+  //静态方法中不能使用类的泛型。
+
+  //    public static void show(T orderT){
+  //        System.out.println(orderT);
+  //    }
+
+  public void show(){
+    //        编译不通过
+
+    //        try{
+    //
+    //
+    //        }catch(T t){
+    //
+    //        }
+
+  }
 ```
 
 泛型类和泛型方法直接没有关系
 
 ```java
-    //泛型方法：在方法中出现了泛型的结构，泛型参数与类的泛型参数没任何关系。
-    //换句话说，泛型方法所属的类是不是泛型类都没关系。
-    //泛型方法，可以声明为静态的。原因：泛型参数是在调用方法时确定的。并非在实例化类时确定。	   
-  public static <E>  List<E> copyFromArrayToList(E[] arr){
-    ArrayList<E> list = new ArrayList<>();
+//泛型方法：在方法中出现了泛型的结构，泛型参数与类的泛型参数没任何关系。
+//换句话说，泛型方法所属的类是不是泛型类都没关系。
+//泛型方法，可以声明为静态的。原因：泛型参数是在调用方法时确定的。并非在实例化类时确定。	   
+public static <E>  List<E> copyFromArrayToList(E[] arr){
+  ArrayList<E> list = new ArrayList<>();
 
-    for(E e : arr){
-        list.add(e);
-    }
-    return list;
+  for(E e : arr){
+    list.add(e);
+  }
+  return list;
 
-	}
 }
 ```
 【SubOrder.java】
@@ -6211,11 +6267,11 @@ public class Order<T> {
 //SubOrder:不是泛型类
 public class SubOrder extends Order<Integer> {
   public static <E> List<E> copyFromArrayToList(E[] arr){
-      ArrayList<E> list = new ArrayList<>();
-      for(E e : arr){
-          list.add(e);
-      }
-      return list;
+    ArrayList<E> list = new ArrayList<>();
+    for(E e : arr){
+      list.add(e);
+    }
+    return list;
   }
 }
 ```
@@ -6228,10 +6284,10 @@ SubOrder<Integer> o = new SubOrder<>();
 
 ```java
 【SubOrder1.java】
-    //SubOrder1<T>:仍然是泛型类
-    public class SubOrder1<T> extends Order<T> {
+  //SubOrder1<T>:仍然是泛型类
+  public class SubOrder1<T> extends Order<T> {
 
-    }
+  }
 ```
 
 
@@ -6240,95 +6296,96 @@ SubOrder<Integer> o = new SubOrder<>();
 ```java
 @Test
 public void test1(){
-    //如果定义了泛型类，实例化没指明类的泛型，则认为此泛型类型为Object类型
-    //要求：如果大家定义了类是带泛型的，建议在实例化时要指明类的泛型。
-    Order order = new Order();
-    order.setOrderT(123);
-    order.setOrderT("ABC");
-    //建议：实例化时指明类的泛型
-    Order<String> order1 = new Order<String>("orderAA",1001,"order:AA");
+  //如果定义了泛型类，实例化没指明类的泛型，则认为此泛型类型为Object类型
+  //要求：如果大家定义了类是带泛型的，建议在实例化时要指明类的泛型。
+  Order order = new Order();
+  order.setOrderT(123);
+  order.setOrderT("ABC");
+  //建议：实例化时指明类的泛型
+  Order<String> order1 = new Order<String>("orderAA",1001,"order:AA");
 
-    order1.setOrderT("AA:hello");
+  order1.setOrderT("AA:hello");
 }
 
 @Test
 public void test2(){
-    SubOrder sub1 = new SubOrder();
-    //由于子类在继承带泛型的父类时，指明了泛型类型。则实例化子类对象时，不再需要指明泛型。
-    sub1.setOrderT(1122);
+  SubOrder sub1 = new SubOrder();
+  //由于子类在继承带泛型的父类时，指明了泛型类型。则实例化子类对象时，不再需要指明泛型。
+  sub1.setOrderT(1122);
 
-    SubOrder1<String> sub2 = new SubOrder1<>();
-    sub2.setOrderT("order2...");
+  SubOrder1<String> sub2 = new SubOrder1<>();
+  sub2.setOrderT("order2...");
 }
 
 @Test
 public void test3(){
 
-    ArrayList<String> list1 = null;
-    ArrayList<Integer> list2 = new ArrayList<Integer>();
-    //泛型不同的引用不能相互赋值。
-    //list1 = list2;
-    Person p1 = null;
-    Person p2 = null;
-    p1 = p2; 
+  ArrayList<String> list1 = null;
+  ArrayList<Integer> list2 = new ArrayList<Integer>();
+  //泛型不同的引用不能相互赋值。
+  //list1 = list2;
+  Person p1 = null;
+  Person p2 = null;
+  p1 = p2; 
 }
 
 //测试泛型方法
 @Test
 public void test4(){
-    Order<String> order = new Order<>();
-    Integer[] arr = new Integer[]{1,2,3,4};
-    //泛型方法在调用时，指明泛型参数的类型。
-    List<Integer> list = order.copyFromArrayToList(arr);
+  Order<String> order = new Order<>();
+  Integer[] arr = new Integer[]{1,2,3,4};
+  //泛型方法在调用时，指明泛型参数的类型。
+  List<Integer> list = order.copyFromArrayToList(arr);
 
-    System.out.println(list);
+  System.out.println(list);
 }
 ```
 2.注意点：
 
-![image-20211231134155591](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311341798.png)
+![image-20211231134155591](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072250194.png)
 
-![image-20211231134209254](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202112311342426.png)
+![image-20211231134209254](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072250545.png)
 
 3.应用场景举例：
+
 【DAO.java】:定义了操作数据库中的表的通用操作。   ORM思想(数据库中的表和Java中的类对应)
 
 ```java
 public class DAO<T> {//表的共性操作的DAO
-//添加一条记录
-public void add(T t){
+  //添加一条记录
+  public void add(T t){
 
-}
+  }
 
-//删除一条记录
-public boolean remove(int index){
+  //删除一条记录
+  public boolean remove(int index){
 
     return false;
-}
+  }
 
-//修改一条记录
-public void update(int index,T t){
+  //修改一条记录
+  public void update(int index,T t){
 
-}
+  }
 
-//查询一条记录
-public T getIndex(int index){
-
-    return null;
-}
-
-//查询多条记录
-public List<T> getForList(int index){
+  //查询一条记录
+  public T getIndex(int index){
 
     return null;
-}
+  }
 
-//泛型方法
-//举例：获取表中一共有多少条记录？获取最大的员工入职时间？
-public <E> E getValue(){
+  //查询多条记录
+  public List<T> getForList(int index){
 
     return null;
-}
+  }
+
+  //泛型方法
+  //举例：获取表中一共有多少条记录？获取最大的员工入职时间？
+  public <E> E getValue(){
+
+    return null;
+  }
 ```
 
 }
@@ -6354,29 +6411,29 @@ public class StudentDAO extends DAO<Student> {//只能操作某一个表的DAO
 @Test
 public void test1(){
 
-    Object obj = null;
-    String str = null;
-    obj = str;
+  Object obj = null;
+  String str = null;
+  obj = str;
 
-    Object[] arr1 = null;
-    String[] arr2 = null;
-    arr1 = arr2;
-    //编译不通过
-  	Date date = new Date();
-  	//str = date;
-  	List<Object> list1 = null;
-  	List<String> list2 = new ArrayList<String>();
-  	//此时的list1和list2的类型不具子父类关系
-  	//编译不通过
-  	//list1 = list2;
-  	/*
-       反证法：
-       假设list1 = list2;
-       list1.add(123);导致混入非String的数据。出错。   
-     */
+  Object[] arr1 = null;
+  String[] arr2 = null;
+  arr1 = arr2;
+  //编译不通过
+  Date date = new Date();
+  //str = date;
+  List<Object> list1 = null;
+  List<String> list2 = new ArrayList<String>();
+  //此时的list1和list2的类型不具子父类关系
+  //编译不通过
+  //list1 = list2;
+  /*
+     反证法：
+     假设list1 = list2;
+     list1.add(123);导致混入非String的数据。出错。   
+   */
 
-    show(list1);
-    show1(list2);
+  show(list1);
+  show1(list2);
 
 }
 public void show1(List<String> list){
@@ -6390,14 +6447,14 @@ public void show(List<Object> list){
 @Test
 public void test2(){
 
-    AbstractList<String> list1 = null;
-    List<String> list2 = null;
-    ArrayList<String> list3 = null;
+  AbstractList<String> list1 = null;
+  List<String> list2 = null;
+  ArrayList<String> list3 = null;
 
-    list1 = list3;
-    list2 = list3;
+  list1 = list3;
+  list2 = list3;
 
-    List<String> list4 = new ArrayList<>();
+  List<String> list4 = new ArrayList<>();
 
 }
 ```
@@ -6415,39 +6472,39 @@ public void test2(){
 
 @Test
 public void test3(){
-    List<Object> list1 = null;
-    List<String> list2 = null;
+  List<Object> list1 = null;
+  List<String> list2 = null;
 
-    List<?> list = null;
+  List<?> list = null;
 
-    list = list1;
-    list = list2;
-    //编译通过
-    //print(list1);
-    //print(list2);
-    //
-    List<String> list3 = new ArrayList<>();
-    list3.add("AA");
-    list3.add("BB");
-    list3.add("CC");
-    list = list3;
-    //添加(写入)：对于List<?>就不能向其内部添加数据。
-    //除了添加null之外。
-    //list.add("DD");
-    //list.add('?'); 
-    list.add(null);
+  list = list1;
+  list = list2;
+  //编译通过
+  //print(list1);
+  //print(list2);
+  //
+  List<String> list3 = new ArrayList<>();
+  list3.add("AA");
+  list3.add("BB");
+  list3.add("CC");
+  list = list3;
+  //添加(写入)：对于List<?>就不能向其内部添加数据。
+  //除了添加null之外。
+  //list.add("DD");
+  //list.add('?'); 
+  list.add(null);
 
-    //获取(读取)：允许读取数据，读取的数据类型为Object。
-    Object o = list.get(0);
-    System.out.println(o);
+  //获取(读取)：允许读取数据，读取的数据类型为Object。
+  Object o = list.get(0);
+  System.out.println(o);
 }
 
 public void print(List<?> list){
-    Iterator<?> iterator = list.iterator();
-    while(iterator.hasNext()){
-        Object obj = iterator.next();
-        System.out.println(obj);
-    }
+  Iterator<?> iterator = list.iterator();
+  while(iterator.hasNext()){
+    Object obj = iterator.next();
+    System.out.println(obj);
+  }
 }
 ```
 2.涉及通配符的集合的数据的写入和读取:
@@ -6470,35 +6527,35 @@ public void print(List<?> list){
 @Test
 public void test4(){
 
-    List<? extends Person> list1 = null;
-    List<? super Person> list2 = null;
+  List<? extends Person> list1 = null;
+  List<? super Person> list2 = null;
 
-    List<Student> list3 = new ArrayList<Student>();
-    List<Person> list4 = new ArrayList<Person>();
-    List<Object> list5 = new ArrayList<Object>();
+  List<Student> list3 = new ArrayList<Student>();
+  List<Person> list4 = new ArrayList<Person>();
+  List<Object> list5 = new ArrayList<Object>();
 
-    list1 = list3;
-    list1 = list4;
-    // list1 = list5;
-    // list2 = list3;
-    list2 = list4;
-    list2 = list5;
-    //读取数据：
-    list1 = list3;
-    Person p = list1.get(0);
-    //编译不通过
-    //Student s = list1.get(0);
+  list1 = list3;
+  list1 = list4;
+  // list1 = list5;
+  // list2 = list3;
+  list2 = list4;
+  list2 = list5;
+  //读取数据：
+  list1 = list3;
+  Person p = list1.get(0);
+  //编译不通过
+  //Student s = list1.get(0);
 
-    list2 = list4;
-    Object obj = list2.get(0);
-    //编译不通过
-    // Person obj = list2.get(0);
-    //写入数据：
-    //编译不通过
-    //list1.add(new Student())
-    //编译通过
-    list2.add(new Person());
-    list2.add(new Student());
+  list2 = list4;
+  Object obj = list2.get(0);
+  //编译不通过
+  // Person obj = list2.get(0);
+  //写入数据：
+  //编译不通过
+  //list1.add(new Student())
+  //编译通过
+  list2.add(new Person());
+  list2.add(new Student());
 }	  
 ```
 
@@ -6513,6 +6570,7 @@ public void test4(){
 * 4. 后续File类的对象常会作为参数传递到流的构造器中，指明读取或写入的"终点".
 
 2.File的实例化
+
 2.1 常用构造器
 
 ```java
@@ -6522,18 +6580,26 @@ File(File parentFile,String childPath)
 ```
 
 2.2 路径的分类
+
 相对路径：相较于某个路径下，指明的路径。
+
 绝对路径：包含盘符在内的文件或文件目录的路径
 
 说明：
+
 IDEA中：
+
 **如果大家开发使用JUnit中的单元测试方法测试，相对路径即为当前Module下。**
+
 **如果大家使用main()测试，相对路径即为当前的Project下。**
 Eclipse中：
+
 **不管使用单元测试方法还是使用main()测试，相对路径都是当前的Project下。**
 
 2.3 路径分隔符
+
 windows和DOS系统默认使用“\”来表示
+
 UNIX和URL使用“/”来表示
 
 3.File类的常用方法
@@ -6597,33 +6663,47 @@ UNIX和URL使用“/”来表示
 
 图示：
 
-![image-20220104125057734](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041250915.png)
+![image-20220104125057734](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072252297.png)
 
 2.流的体系结构
 
-![image-20220104125111115](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041251313.png)
+![image-20220104125111115](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072252190.png)
 
 说明：红框对应的是IO流中的4个抽象基类。
+
 蓝框的流需要大家重点关注。
 
 3.重点说明的几个流结构
 
-![image-20220104125123140](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041251354.png)
+![image-20220104125123140](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072252512.png)
 
 4.输入、输出的标准化过程
+
 4.1 输入过程
+
 ① 创建File类的对象，指明读取的数据的来源。（要求此文件一定要存在）
+
 ② 创建相应的输入流，将File类的对象作为参数，传入流的构造器中
+
 ③ 具体的读入过程：
-    创建相应的byte[] 或 char[]。
+
+​    创建相应的byte[] 或 char[]。
+
 ④ 关闭流资源
+
 说明：程序中出现的异常需要使用try-catch-finally处理。
+
 4.2 输出过程
+
 ① 创建File类的对象，指明写出的数据的位置。（不要求此文件一定要存在）
+
 ② 创建相应的输出流，将File类的对象作为参数，传入流的构造器中
+
 ③ 具体的写出过程：
-    **write(char[]/byte[] buffer,0,len)**
+
+​    **write(char[]/byte[] buffer,0,len)**
 ④ 关闭流资源
+
 说明：程序中出现的异常需要使用try-catch-finally处理。
 
 ### 节点流（或文件流）
@@ -6643,51 +6723,51 @@ UNIX和URL使用“/”来表示
 
  */
 @Test
-    public void testFileReader1()  {
-        FileReader fr = null;
-        try {
-            //1.File类的实例化
-            File file = new File("hello.txt");
+public void testFileReader1()  {
+  FileReader fr = null;
+  try {
+    //1.File类的实例化
+    File file = new File("hello.txt");
 
-            //2.FileReader流的实例化
-            fr = new FileReader(file);
-    
-            //3.读入的操作
-            //read(char[] cbuf):返回每次读入cbuf数组中的字符的个数。如果达到文件末尾，返回-1
-            char[] cbuf = new char[5];
-            int len;
-            while((len = fr.read(cbuf)) != -1){
-                //方式一：
-                //错误的写法
+    //2.FileReader流的实例化
+    fr = new FileReader(file);
 
-//                for(int i = 0;i < cbuf.length;i++){
-//                    System.out.print(cbuf[i]);
-//                }
-                //正确的写法
-//                for(int i = 0;i < len;i++){
-//                    System.out.print(cbuf[i]);
-//                }
-                //方式二：
-                //错误的写法,对应着方式一的错误的写法
-//                String str = new String(cbuf);
-//                System.out.print(str);
-                //正确的写法
-                String str = new String(cbuf,0,len);
-                System.out.print(str);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if(fr != null){
-                //4.资源的关闭
-                try {
-                    fr.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+    //3.读入的操作
+    //read(char[] cbuf):返回每次读入cbuf数组中的字符的个数。如果达到文件末尾，返回-1
+    char[] cbuf = new char[5];
+    int len;
+    while((len = fr.read(cbuf)) != -1){
+      //方式一：
+      //错误的写法
+
+      //                for(int i = 0;i < cbuf.length;i++){
+      //                    System.out.print(cbuf[i]);
+      //                }
+      //正确的写法
+      //                for(int i = 0;i < len;i++){
+      //                    System.out.print(cbuf[i]);
+      //                }
+      //方式二：
+      //错误的写法,对应着方式一的错误的写法
+      //                String str = new String(cbuf);
+      //                System.out.print(str);
+      //正确的写法
+      String str = new String(cbuf,0,len);
+      System.out.print(str);
     }
+  } catch (IOException e) {
+    e.printStackTrace();
+  } finally {
+    if(fr != null){
+      //4.资源的关闭
+      try {
+        fr.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+}
 ```
 
 1.2 FileWriter的使用
@@ -6708,30 +6788,30 @@ UNIX和URL使用“/”来表示
  */
 @Test
 public void testFileWriter() {
-    FileWriter fw = null;
-    try {
-        //1.提供File类的对象，指明写出到的文件
-        File file = new File("hello1.txt");
+  FileWriter fw = null;
+  try {
+    //1.提供File类的对象，指明写出到的文件
+    File file = new File("hello1.txt");
 
-        //2.提供FileWriter的对象，用于数据的写出
-        fw = new FileWriter(file,false);
-    
-        //3.写出的操作
-        fw.write("I have a dream!\n");
-        fw.write("you need to have a dream!");
-    } catch (IOException e) {
+    //2.提供FileWriter的对象，用于数据的写出
+    fw = new FileWriter(file,false);
+
+    //3.写出的操作
+    fw.write("I have a dream!\n");
+    fw.write("you need to have a dream!");
+  } catch (IOException e) {
+    e.printStackTrace();
+  } finally {
+    //4.流资源的关闭
+    if(fw != null){
+
+      try {
+        fw.close();
+      } catch (IOException e) {
         e.printStackTrace();
-    } finally {
-        //4.流资源的关闭
-        if(fw != null){
-    
-            try {
-                fw.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+      }
     }
+  }
 
 }
 ```
@@ -6741,67 +6821,67 @@ public void testFileWriter() {
 ```java
 @Test
 public void testFileReaderFileWriter() {
-    FileReader fr = null;
-    FileWriter fw = null;
-    try {
-        //1.创建File类的对象，指明读入和写出的文件
-        File srcFile = new File("hello.txt");
-        File destFile = new File("hello2.txt");
+  FileReader fr = null;
+  FileWriter fw = null;
+  try {
+    //1.创建File类的对象，指明读入和写出的文件
+    File srcFile = new File("hello.txt");
+    File destFile = new File("hello2.txt");
 
-        //不能使用字符流来处理图片等字节数据
+    //不能使用字符流来处理图片等字节数据
 
-        //            File srcFile = new File("爱情与友情.jpg");
-        //            File destFile = new File("爱情与友情1.jpg");
-
-
-        //2.创建输入流和输出流的对象
-        fr = new FileReader(srcFile);
-        fw = new FileWriter(destFile);
+    //            File srcFile = new File("爱情与友情.jpg");
+    //            File destFile = new File("爱情与友情1.jpg");
 
 
-        //3.数据的读入和写出操作
-        char[] cbuf = new char[5];
-        int len;//记录每次读入到cbuf数组中的字符的个数
-        while((len = fr.read(cbuf)) != -1){
-            //每次写出len个字符
-            fw.write(cbuf,0,len);
+    //2.创建输入流和输出流的对象
+    fr = new FileReader(srcFile);
+    fw = new FileWriter(destFile);
 
-        }
-    } catch (IOException e) {
-        e.printStackTrace();
-    } finally {
-        //4.关闭流资源
-        //方式一：
 
-        //            try {
-        //                if(fw != null)
-        //                    fw.close();
-        //            } catch (IOException e) {
-        //                e.printStackTrace();
-        //            }finally{
-        //                try {
-        //                    if(fr != null)
-        //                        fr.close();
-        //                } catch (IOException e) {
-        //                    e.printStackTrace();
-        //                }
-        //            }
-        //方式二：
-        try {
-            if(fw != null)
-                fw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            if(fr != null)
-                fr.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    //3.数据的读入和写出操作
+    char[] cbuf = new char[5];
+    int len;//记录每次读入到cbuf数组中的字符的个数
+    while((len = fr.read(cbuf)) != -1){
+      //每次写出len个字符
+      fw.write(cbuf,0,len);
 
     }
+  } catch (IOException e) {
+    e.printStackTrace();
+  } finally {
+    //4.关闭流资源
+    //方式一：
+
+    //            try {
+    //                if(fw != null)
+    //                    fw.close();
+    //            } catch (IOException e) {
+    //                e.printStackTrace();
+    //            }finally{
+    //                try {
+    //                    if(fr != null)
+    //                        fr.close();
+    //                } catch (IOException e) {
+    //                    e.printStackTrace();
+    //                }
+    //            }
+    //方式二：
+    try {
+      if(fw != null)
+        fw.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    try {
+      if(fr != null)
+        fr.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+  }
 
 }
 ```
@@ -6812,61 +6892,66 @@ public void testFileReaderFileWriter() {
 
 2. 对于非文本文件(.jpg,.mp3,.mp4,.avi,.doc,.ppt,...)，使用字节流处理
 
-   ~~~java
-   /*
-      实现对图片的复制操作
-       */
-   @Test
-   public void testFileInputOutputStream()  {
-       FileInputStream fis = null;
-       FileOutputStream fos = null;
-       try {
-           //1.造文件
-           File srcFile = new File("爱情与友情.jpg");
-           File destFile = new File("爱情与友情2.jpg");
-   
-           //2.造流
-           fis = new FileInputStream(srcFile);
-           fos = new FileOutputStream(destFile);
-   
-           //3.复制的过程
-           byte[] buffer = new byte[5];
-           int len;
-           while((len = fis.read(buffer)) != -1){
-               fos.write(buffer,0,len);
-           }
-   
-       } catch (IOException e) {
-           e.printStackTrace();
-       } finally {
-           if(fos != null){
-               //4.关闭流
-               try {
-                   fos.close();
-               } catch (IOException e) {
-                   e.printStackTrace();
-               }
-           }
-           if(fis != null){
-               try {
-                   fis.close();
-               } catch (IOException e) {
-                   e.printStackTrace();
-               }
-   
-           } 
+~~~java
+/*
+  实现对图片的复制操作
+   */
+@Test
+public void testFileInputOutputStream()  {
+   FileInputStream fis = null;
+   FileOutputStream fos = null;
+   try {
+       //1.造文件
+       File srcFile = new File("爱情与友情.jpg");
+       File destFile = new File("爱情与友情2.jpg");
+
+       //2.造流
+       fis = new FileInputStream(srcFile);
+       fos = new FileOutputStream(destFile);
+
+       //3.复制的过程
+       byte[] buffer = new byte[5];
+       int len;
+       while((len = fis.read(buffer)) != -1){
+           fos.write(buffer,0,len);
        }
-   
+
+   } catch (IOException e) {
+       e.printStackTrace();
+   } finally {
+       if(fos != null){
+           //4.关闭流
+           try {
+               fos.close();
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+       }
+       if(fis != null){
+           try {
+               fis.close();
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+
+       } 
    }
-   ~~~
+
+}
+~~~
 
 【注意】
+
 相对路径在IDEA和Eclipse中使用的区别？
+
 IDEA:
+
 如果使用单元测试方法，相对路径基于当前的Module的。
+
 如果使用main()测试，相对路径基于当前Project的。
 
 Eclipse:
+
 单元测试方法还是main(),相对路径都是基于当前Project的。
 
 ### 缓冲流的使用
@@ -6880,12 +6965,13 @@ Eclipse:
 
 2.作用：
 作用：提供流的读取、写入的速度
+
 提高读写速度的原因：内部提供了一个缓冲区。默认情况下是8kb
 
 ```java
 public class BufferedInputStream extends FilterInputStream {
 
-	private static int DEFAULT_BUFFER_SIZE = 8192;
+  private static int DEFAULT_BUFFER_SIZE = 8192;
 }
 ```
 
@@ -6895,52 +6981,52 @@ public class BufferedInputStream extends FilterInputStream {
 ```java
 //实现文件复制的方法
 public void copyFileWithBuffered(String srcPath,String destPath){
-    BufferedInputStream bis = null;
-    BufferedOutputStream bos = null;
+  BufferedInputStream bis = null;
+  BufferedOutputStream bos = null;
 
-    try {
-        //1.造文件
-        File srcFile = new File(srcPath);
-        File destFile = new File(destPath);
-        //2.造流
-        //2.1 造节点流
-        FileInputStream fis = new FileInputStream((srcFile));
-        FileOutputStream fos = new FileOutputStream(destFile);
-        //2.2 造缓冲流
-        bis = new BufferedInputStream(fis);
-        bos = new BufferedOutputStream(fos);
+  try {
+    //1.造文件
+    File srcFile = new File(srcPath);
+    File destFile = new File(destPath);
+    //2.造流
+    //2.1 造节点流
+    FileInputStream fis = new FileInputStream((srcFile));
+    FileOutputStream fos = new FileOutputStream(destFile);
+    //2.2 造缓冲流
+    bis = new BufferedInputStream(fis);
+    bos = new BufferedOutputStream(fos);
 
-        //3.复制的细节：读取、写入
-        byte[] buffer = new byte[1024];
-        int len;
-        while((len = bis.read(buffer)) != -1){
-            bos.write(buffer,0,len);
-        }
-    } catch (IOException e) {
-        e.printStackTrace();
-    } finally {
-        //4.资源关闭
-        //要求：先关闭外层的流，再关闭内层的流
-        if(bos != null){
-            try {
-                bos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-        if(bis != null){
-            try {
-                bis.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-        //说明：关闭外层流的同时，内层流也会自动的进行关闭。关于内层流的关闭，我们可以省略.
-        //        fos.close();
-        //        fis.close();
+    //3.复制的细节：读取、写入
+    byte[] buffer = new byte[1024];
+    int len;
+    while((len = bis.read(buffer)) != -1){
+      bos.write(buffer,0,len);
     }
+  } catch (IOException e) {
+    e.printStackTrace();
+  } finally {
+    //4.资源关闭
+    //要求：先关闭外层的流，再关闭内层的流
+    if(bos != null){
+      try {
+        bos.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+    }
+    if(bis != null){
+      try {
+        bis.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+    }
+    //说明：关闭外层流的同时，内层流也会自动的进行关闭。关于内层流的关闭，我们可以省略.
+    //        fos.close();
+    //        fis.close();
+  }
 }
 ```
 
@@ -6949,57 +7035,57 @@ public void copyFileWithBuffered(String srcPath,String destPath){
 ```java
 @Test
 public void testBufferedReaderBufferedWriter(){
-    BufferedReader br = null;
-    BufferedWriter bw = null;
-    try {
-        //创建文件和相应的流
-        br = new BufferedReader(new FileReader(new File("dbcp.txt")));
-        bw = new BufferedWriter(new FileWriter(new File("dbcp1.txt")));
+  BufferedReader br = null;
+  BufferedWriter bw = null;
+  try {
+    //创建文件和相应的流
+    br = new BufferedReader(new FileReader(new File("dbcp.txt")));
+    bw = new BufferedWriter(new FileWriter(new File("dbcp1.txt")));
 
-        //读写操作
-        //方式一：使用char[]数组
+    //读写操作
+    //方式一：使用char[]数组
 
-        //            char[] cbuf = new char[1024];
-        //            int len;
-        //            while((len = br.read(cbuf)) != -1){
-        //                bw.write(cbuf,0,len);
-        //                bw.flush();
-        //            }
+    //            char[] cbuf = new char[1024];
+    //            int len;
+    //            while((len = br.read(cbuf)) != -1){
+    //                bw.write(cbuf,0,len);
+    //                bw.flush();
+    //            }
 
-        //方式二：使用String
-        String data;
-        while((data = br.readLine()) != null){
-            //方法一：
+    //方式二：使用String
+    String data;
+    while((data = br.readLine()) != null){
+      //方法一：
 
-            //bw.write(data + "\n");//data中不包含换行符
-            //方法二：
-            bw.write(data);//data中不包含换行符
-            bw.newLine();//提供换行的操作
+      //bw.write(data + "\n");//data中不包含换行符
+      //方法二：
+      bw.write(data);//data中不包含换行符
+      bw.newLine();//提供换行的操作
 
-        }
-
-
-    } catch (IOException e) {
-        e.printStackTrace();
-    } finally {
-        //关闭资源
-        if(bw != null){
-
-            try {
-                bw.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        if(br != null){
-            try {
-                br.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
     }
+
+
+  } catch (IOException e) {
+    e.printStackTrace();
+  } finally {
+    //关闭资源
+    if(bw != null){
+
+      try {
+        bw.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    if(br != null){
+      try {
+        br.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+    }
+  }
 
 }
 
@@ -7008,10 +7094,13 @@ public void testBufferedReaderBufferedWriter(){
 ### 转换流的使用
 
 1.转换流涉及到的类：属于字符流
+
 InputStreamReader：**将一个字节的输入流转换为字符的输入流**
+
 解码：字节、字节数组  --->字符数组、字符串
 
 OutputStreamWriter：**将一个字符的输出流转换为字节的输出流**
+
 编码：字符数组、字符串 ---> 字节、字节数组
 
 说明：编码决定了解码的方式
@@ -7021,7 +7110,7 @@ OutputStreamWriter：**将一个字符的输出流转换为字节的输出流**
 
 3.图示：
 
-![image-20220104125356373](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041253584.png)
+![image-20220104125356373](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072254783.png)
 
 
 4.典型实现：
@@ -7030,19 +7119,19 @@ OutputStreamWriter：**将一个字符的输出流转换为字节的输出流**
 @Test
 public void test1() throws IOException {
 
-    FileInputStream fis = new FileInputStream("dbcp.txt");
+  FileInputStream fis = new FileInputStream("dbcp.txt");
 
-    //InputStreamReader isr = new InputStreamReader(fis);//使用系统默认的字符集
-    //参数2指明了字符集，具体使用哪个字符集，取决于文件dbcp.txt保存时使用的字符集
-    InputStreamReader isr = new InputStreamReader(fis,"UTF-8");//使用系统默认的字符集
+  //InputStreamReader isr = new InputStreamReader(fis);//使用系统默认的字符集
+  //参数2指明了字符集，具体使用哪个字符集，取决于文件dbcp.txt保存时使用的字符集
+  InputStreamReader isr = new InputStreamReader(fis,"UTF-8");//使用系统默认的字符集
 
-    char[] cbuf = new char[20];
-    int len;
-    while((len = isr.read(cbuf)) != -1){
-        String str = new String(cbuf,0,len);
-        System.out.print(str);
-    }
-    isr.close();
+  char[] cbuf = new char[20];
+  int len;
+  while((len = isr.read(cbuf)) != -1){
+    String str = new String(cbuf,0,len);
+    System.out.print(str);
+  }
+  isr.close();
 }
 ```
 
@@ -7053,25 +7142,25 @@ public void test1() throws IOException {
  */
 @Test
 public void test2() throws Exception {
-    //1.造文件、造流
-    File file1 = new File("dbcp.txt");
-    File file2 = new File("dbcp_gbk.txt");
+  //1.造文件、造流
+  File file1 = new File("dbcp.txt");
+  File file2 = new File("dbcp_gbk.txt");
 
-    FileInputStream fis = new FileInputStream(file1);
-    FileOutputStream fos = new FileOutputStream(file2);
-    
-    InputStreamReader isr = new InputStreamReader(fis,"utf-8");
-    OutputStreamWriter osw = new OutputStreamWriter(fos,"gbk");
-    
-    //2.读写过程
-    char[] cbuf = new char[20];
-    int len;
-    while((len = isr.read(cbuf)) != -1){
-        osw.write(cbuf,0,len);
-    }
-    //3.关闭资源
-    isr.close();
-    osw.close();
+  FileInputStream fis = new FileInputStream(file1);
+  FileOutputStream fos = new FileOutputStream(file2);
+
+  InputStreamReader isr = new InputStreamReader(fis,"utf-8");
+  OutputStreamWriter osw = new OutputStreamWriter(fos,"gbk");
+
+  //2.读写过程
+  char[] cbuf = new char[20];
+  int len;
+  while((len = isr.read(cbuf)) != -1){
+    osw.write(cbuf,0,len);
+  }
+  //3.关闭资源
+  isr.close();
+  osw.close();
 }
 ```
 
@@ -7083,11 +7172,17 @@ public void test2() throws Exception {
 1.常见的编码表
 
 ASCII：美国标准信息交换码。
-	用一个字节的7位可以表示。
+
+​	用一个字节的7位可以表示。
+
 ISO8859-1：拉丁码表。欧洲码表
-	用一个字节的8位表示。
+
+​	用一个字节的8位表示。
+
 GB2312：中国的中文编码表。最多两个字节编码所有字符
+
 GBK：中国的中文编码表升级，融合了更多的中文文字符号。最多两个字节编码
+
 Unicode：国际标准码，融合了目前人类使用的所字符。为每个字符分配唯一的字符码。所有的文字都用两个字节来表示。
 UTF-8：变长的编码方式，可用1-4个字节来表示一个字符。
 
@@ -7100,21 +7195,32 @@ UTF-8：变长的编码方式，可用1-4个字节来表示一个字符。
 ### 其它的流的使用
 
 1. 标准的输入输出流：
-System.in:标准的输入流，默认从键盘输入
-System.out:标准的输出流，默认从控制台输出
+
+  System.in:标准的输入流，默认从键盘输入
+
+  System.out:标准的输出流，默认从控制台输出
 
 修改默认的输入和输出行为：
+
 System类的setIn(InputStream is) / setOut(PrintStream ps)方式重新指定输入和输出的流。
 
 2. 打印流：
-PrintStream 和PrintWriter
-说明：
-提供了一系列重载的print()和println()方法，用于多种数据类型的输出
-System.out返回的是PrintStream的实例
+
+  PrintStream 和PrintWriter
+
+  说明：
+
+  提供了一系列重载的print()和println()方法，用于多种数据类型的输出
+
+  System.out返回的是PrintStream的实例
+
 3. 数据流：
-DataInputStream 和 DataOutputStream
-作用：
-用于读取或写出基本数据类型的变量或字符串
+
+  DataInputStream 和 DataOutputStream
+
+  作用：
+
+  用于读取或写出基本数据类型的变量或字符串
 
 示例代码：
 
@@ -7126,17 +7232,17 @@ DataInputStream 和 DataOutputStream
  */
 @Test
 public void test3() throws IOException {
-    //1.
-    DataOutputStream dos = new DataOutputStream(new FileOutputStream("data.txt"));
-    //2.
-    dos.writeUTF("刘建辰");
-    dos.flush();//刷新操作，将内存中的数据写入文件
-    dos.writeInt(23);
-    dos.flush();
-    dos.writeBoolean(true);
-    dos.flush();
-    //3.
-    dos.close();
+  //1.
+  DataOutputStream dos = new DataOutputStream(new FileOutputStream("data.txt"));
+  //2.
+  dos.writeUTF("刘建辰");
+  dos.flush();//刷新操作，将内存中的数据写入文件
+  dos.writeInt(23);
+  dos.flush();
+  dos.writeBoolean(true);
+  dos.flush();
+  //3.
+  dos.close();
 }
 /*
     将文件中存储的基本数据类型变量和字符串读取到内存中，保存在变量中。
@@ -7144,19 +7250,19 @@ public void test3() throws IOException {
  */
 @Test
 public void test4() throws IOException {
-    //1.
-    DataInputStream dis = new DataInputStream(new FileInputStream("data.txt"));
-    //2.
-    String name = dis.readUTF();
-    int age = dis.readInt();
-    boolean isMale = dis.readBoolean();
+  //1.
+  DataInputStream dis = new DataInputStream(new FileInputStream("data.txt"));
+  //2.
+  String name = dis.readUTF();
+  int age = dis.readInt();
+  boolean isMale = dis.readBoolean();
 
-    System.out.println("name = " + name);
-    System.out.println("age = " + age);
-    System.out.println("isMale = " + isMale);
-    
-    //3.
-    dis.close();
+  System.out.println("name = " + name);
+  System.out.println("age = " + age);
+  System.out.println("isMale = " + isMale);
+
+  //3.
+  dis.close();
 
 }
 ```
@@ -7164,46 +7270,54 @@ public void test4() throws IOException {
 ### 对象流的使用
 
 1.对象流： 
+
 ObjectInputStream 和 ObjectOutputStream
+
 2.作用：
+
 ObjectOutputStream:内存中的对象--->存储中的文件、通过网络传输出去：序列化过程
+
 ObjectInputStream:存储中的文件、通过网络接收过来 --->内存中的对象：反序列化过程
+
 3.对象的序列化机制：
+
 对象序列化机制允许把内存中的Java对象转换成平台无关的二进制流，从而允许把这种二进制流持久地保存在磁盘
+
 上，或通过网络将这种二进制流传输到另一个网络节点。当其它程序获取了这种二进制流，就可以恢复成原来的
 Java对象
+
 4.序列化代码实现：
 
 ```java
 @Test
 public void testObjectOutputStream(){
-    ObjectOutputStream oos = null;
+  ObjectOutputStream oos = null;
 
-    try {
-        //1.
-        oos = new ObjectOutputStream(new FileOutputStream("object.dat"));
-        //2.
-        oos.writeObject(new String("我爱北京天安门"));
-        oos.flush();//刷新操作
-    
-         oos.writeObject(new Person("王铭",23));
-        oos.flush();
-    
-        oos.writeObject(new Person("张学良",23,1001,new Account(5000)));
-        oos.flush();
-    
-    } catch (IOException e) {
+  try {
+    //1.
+    oos = new ObjectOutputStream(new FileOutputStream("object.dat"));
+    //2.
+    oos.writeObject(new String("我爱北京天安门"));
+    oos.flush();//刷新操作
+
+    oos.writeObject(new Person("王铭",23));
+    oos.flush();
+
+    oos.writeObject(new Person("张学良",23,1001,new Account(5000)));
+    oos.flush();
+
+  } catch (IOException e) {
+    e.printStackTrace();
+  } finally {
+    if(oos != null){
+      //3.
+      try {
+        oos.close();
+      } catch (IOException e) {
         e.printStackTrace();
-    } finally {
-        if(oos != null){
-            //3.
-            try {
-                oos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+      }
     }
+  }
 }
 ```
 
@@ -7212,39 +7326,41 @@ public void testObjectOutputStream(){
 ```java
 @Test
 public void testObjectInputStream(){
-    ObjectInputStream ois = null;
-    try {
-        ois = new ObjectInputStream(new FileInputStream("object.dat"));
+  ObjectInputStream ois = null;
+  try {
+    ois = new ObjectInputStream(new FileInputStream("object.dat"));
 
-        Object obj = ois.readObject();
-        String str = (String) obj;
-    
-        Person p = (Person) ois.readObject();
-        Person p1 = (Person) ois.readObject();
-    
-        System.out.println(str);
-        System.out.println(p);
-        System.out.println(p1);
-    
-    } catch (IOException e) {
+    Object obj = ois.readObject();
+    String str = (String) obj;
+
+    Person p = (Person) ois.readObject();
+    Person p1 = (Person) ois.readObject();
+
+    System.out.println(str);
+    System.out.println(p);
+    System.out.println(p1);
+
+  } catch (IOException e) {
+    e.printStackTrace();
+  } catch (ClassNotFoundException e) {
+    e.printStackTrace();
+  } finally {
+    if(ois != null){
+      try {
+        ois.close();
+      } catch (IOException e) {
         e.printStackTrace();
-    } catch (ClassNotFoundException e) {
-        e.printStackTrace();
-    } finally {
-        if(ois != null){
-            try {
-                ois.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-    
-        }
+      }
+
     }
+  }
 }
 ```
 
 6.实现序列化的对象所属的类需要满足：
+
   1.需要实现接口：Serializable
+
 * 2.当前类提供一个全局常量：serialVersionUID
 * 3.除了当前Person类需要实现Serializable接口之外，还必须保证其内部所属性
 * 也必须是可序列化的。（默认情况下，基本数据类型可序列化）
@@ -7260,7 +7376,7 @@ public void testObjectInputStream(){
 * 1.RandomAccessFile直接继承于java.lang.Object类，实现了DataInput和DataOutput接口
 * 2.RandomAccessFile既可以作为一个输入流，又可以作为一个输出流
 * 3.如果RandomAccessFile作为输出流时，写出到的文件如果不存在，则在执行过程中自动创建。如果写出到的文件存在，则会对原文件内容进行覆盖。（默认情况下，从头覆盖）
-* 4. 可以通过相关的操作，实现RandomAccessFile“插入”数据的效果。seek(int pos)
+* 4.可以通过相关的操作，实现RandomAccessFile“插入”数据的效果。seek(int pos)
 
 3.典型代码1：
 
@@ -7268,70 +7384,70 @@ public void testObjectInputStream(){
 @Test
 public void test1() {
 
-    RandomAccessFile raf1 = null;
-    RandomAccessFile raf2 = null;
-    try {
-        //1.
-        raf1 = new RandomAccessFile(new File("爱情与友情.jpg"),"r");
-        raf2 = new RandomAccessFile(new File("爱情与友情1.jpg"),"rw");
-        //2.
-        byte[] buffer = new byte[1024];
-        int len;
-        while((len = raf1.read(buffer)) != -1){
-            raf2.write(buffer,0,len);
-        }
-    } catch (IOException e) {
-        e.printStackTrace();
-    } finally {
-        //3.
-        if(raf1 != null){
-            try {
-                raf1.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-    
-        }
-        if(raf2 != null){
-            try {
-                raf2.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-    
-        }
+  RandomAccessFile raf1 = null;
+  RandomAccessFile raf2 = null;
+  try {
+    //1.
+    raf1 = new RandomAccessFile(new File("爱情与友情.jpg"),"r");
+    raf2 = new RandomAccessFile(new File("爱情与友情1.jpg"),"rw");
+    //2.
+    byte[] buffer = new byte[1024];
+    int len;
+    while((len = raf1.read(buffer)) != -1){
+      raf2.write(buffer,0,len);
     }
+  } catch (IOException e) {
+    e.printStackTrace();
+  } finally {
+    //3.
+    if(raf1 != null){
+      try {
+        raf1.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+    }
+    if(raf2 != null){
+      try {
+        raf2.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+    }
+  }
 
 }
 
 典型代码2：
 
-/*
+  /*
 使用RandomAccessFile实现数据的插入效果
  */
-@Test
-public void test3() throws IOException {
+  @Test
+  public void test3() throws IOException {
 
-    RandomAccessFile raf1 = new RandomAccessFile("hello.txt","rw");
-    
-    raf1.seek(3);//将指针调到角标为3的位置
-    //保存指针3后面的所数据到StringBuilder中
-    StringBuilder builder = new StringBuilder((int) new File("hello.txt").length());
-    byte[] buffer = new byte[20];
-    int len;
-    while((len = raf1.read(buffer)) != -1){
-        builder.append(new String(buffer,0,len)) ;
-    }
-    //调回指针，写入“xyz”
-    raf1.seek(3);
-    raf1.write("xyz".getBytes());
-    
-    //将StringBuilder中的数据写入到文件中
-    raf1.write(builder.toString().getBytes());
-    
-    raf1.close();
-    
-    //思考：将StringBuilder替换为ByteArrayOutputStream
+  RandomAccessFile raf1 = new RandomAccessFile("hello.txt","rw");
+
+  raf1.seek(3);//将指针调到角标为3的位置
+  //保存指针3后面的所数据到StringBuilder中
+  StringBuilder builder = new StringBuilder((int) new File("hello.txt").length());
+  byte[] buffer = new byte[20];
+  int len;
+  while((len = raf1.read(buffer)) != -1){
+    builder.append(new String(buffer,0,len)) ;
+  }
+  //调回指针，写入“xyz”
+  raf1.seek(3);
+  raf1.write("xyz".getBytes());
+
+  //将StringBuilder中的数据写入到文件中
+  raf1.write(builder.toString().getBytes());
+
+  raf1.close();
+
+  //思考：将StringBuilder替换为ByteArrayOutputStream
 
 }
 ```
@@ -7347,8 +7463,11 @@ public void test3() throws IOException {
 >随着 JDK 7 的发布，Java对NIO进行了极大的扩展，增强了对文件处理和文件系统特性的支持，以至于我们称他们为 NIO.2。
 
 2.Path的使用 ---jdk7提供
+
 2.1Path的说明：
+
 Path替换原有的File类。
+
 2.2如何实例化：
 
 - Paths类提供的静态get()方法用来获取Path对象：
@@ -7357,16 +7476,19 @@ Path替换原有的File类。
 
 2.3常用方法：
 
-![image-20220104125632731](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041256950.png)
+![image-20220104125632731](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072256887.png)
 
 3.Files工具类 ---jdk7提供
+
 3.1作用：
+
 操作文件或文件目录的工具类
+
 3.2常用方法：
 
-![image-20220104125653101](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041256294.png)
+![image-20220104125653101](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072256155.png)
 
-![image-20220104125700749](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041257947.png)
+![image-20220104125700749](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072256494.png)
 
 ## 14_网络编程
 
@@ -7394,10 +7516,13 @@ Path替换原有的File类。
 * 5. 本地回路地址：127.0.0.1 对应着：localhost
 
 2.InetAddress类:此类的一个对象就代表着一个具体的IP地址
+
 2.1实例化
+
 getByName(String host) 、 getLocalHost()
 
 2.2常用方法
+
 getHostName() / getHostAddress()
 
 3.端口号：正在计算机上运行的进程。
@@ -7407,17 +7532,17 @@ getHostName() / getHostAddress()
 端口号与IP地址的组合得出一个网络套接字：Socket
 
 四、通信要素二：网络通信协议
-1. 分型模型![img](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041312203.png)
+1. 分型模型![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072257708.png)
 
 2.TCP和UDP的区别
 
-![image-20220104131313714](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041313964.png)
+![image-20220104131313714](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072257189.png)
 
 3.TCP三次握手和四次挥手
 
-![image-20220104131322386](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041313561.png)
+![image-20220104131322386](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072257857.png)
 
-![image-20220104131330107](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041313296.png)
+![image-20220104131330107](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072257518.png)
 
 ### TCP网络编程
 
@@ -7425,39 +7550,39 @@ getHostName() / getHostAddress()
 
 ```java
 //客户端
-    @Test
-    public void client()  {
-        Socket socket = null;
-        OutputStream os = null;
-        try {
-            //1.创建Socket对象，指明服务器端的ip和端口号
-            InetAddress inet = InetAddress.getByName("192.168.14.100");
-            socket = new Socket(inet,8899);
-            //2.获取一个输出流，用于输出数据
-            os = socket.getOutputStream();
-            //3.写出数据的操作
-            os.write("你好，我是客户端mm".getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            //4.资源的关闭
-            if(os != null){
-                try {
-                    os.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+@Test
+public void client()  {
+  Socket socket = null;
+  OutputStream os = null;
+  try {
+    //1.创建Socket对象，指明服务器端的ip和端口号
+    InetAddress inet = InetAddress.getByName("192.168.14.100");
+    socket = new Socket(inet,8899);
+    //2.获取一个输出流，用于输出数据
+    os = socket.getOutputStream();
+    //3.写出数据的操作
+    os.write("你好，我是客户端mm".getBytes());
+  } catch (IOException e) {
+    e.printStackTrace();
+  } finally {
+    //4.资源的关闭
+    if(os != null){
+      try {
+        os.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
 
-            }
-            if(socket != null){
-                try {
-                    socket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-    
-            }
-        }
+    }
+    if(socket != null){
+      try {
+        socket.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+    }
+  }
 }
 ```
 
@@ -7466,71 +7591,71 @@ getHostName() / getHostAddress()
 @Test
 public void server()  {
 
-    ServerSocket ss = null;
-    Socket socket = null;
-    InputStream is = null;
-    ByteArrayOutputStream baos = null;
-   try {
-        //1.创建服务器端的ServerSocket，指明自己的端口号
-        ss = new ServerSocket(8899);
-        //2.调用accept()表示接收来自于客户端的socket
-        socket = ss.accept();
-        //3.获取输入流
-        is = socket.getInputStream();
+  ServerSocket ss = null;
+  Socket socket = null;
+  InputStream is = null;
+  ByteArrayOutputStream baos = null;
+  try {
+    //1.创建服务器端的ServerSocket，指明自己的端口号
+    ss = new ServerSocket(8899);
+    //2.调用accept()表示接收来自于客户端的socket
+    socket = ss.accept();
+    //3.获取输入流
+    is = socket.getInputStream();
 
-        //不建议这样写，可能会乱码
+    //不建议这样写，可能会乱码
 
-//        byte[] buffer = new byte[1024];
-//        int len;
-//        while((len = is.read(buffer)) != -1){
-//            String str = new String(buffer,0,len);
-//            System.out.print(str);
-//        }
-            //4.读取输入流中的数据
-            baos = new ByteArrayOutputStream();
-            byte[] buffer = new byte[5];
-            int len;
-            while((len = is.read(buffer)) != -1){
-                baos.write(buffer,0,len);
-            }
-        System.out.println(baos.toString());
-
-        System.out.println("收到了来自于：" + socket.getInetAddress().getHostAddress() + "的数据");
-
-    } catch (IOException e) {
-        e.printStackTrace();
-    } finally {
-        if(baos != null){
-            //5.关闭资源
-            try {
-                baos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        if(is != null){
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        if(socket != null){
-            try {
-               socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        if(ss != null){
-            try {
-                ss.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-           }
-        }
-
+    //        byte[] buffer = new byte[1024];
+    //        int len;
+    //        while((len = is.read(buffer)) != -1){
+    //            String str = new String(buffer,0,len);
+    //            System.out.print(str);
+    //        }
+    //4.读取输入流中的数据
+    baos = new ByteArrayOutputStream();
+    byte[] buffer = new byte[5];
+    int len;
+    while((len = is.read(buffer)) != -1){
+      baos.write(buffer,0,len);
     }
+    System.out.println(baos.toString());
+
+    System.out.println("收到了来自于：" + socket.getInetAddress().getHostAddress() + "的数据");
+
+  } catch (IOException e) {
+    e.printStackTrace();
+  } finally {
+    if(baos != null){
+      //5.关闭资源
+      try {
+        baos.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    if(is != null){
+      try {
+        is.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    if(socket != null){
+      try {
+        socket.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    if(ss != null){
+      try {
+        ss.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
+  }
 
 }
 ```
@@ -7543,22 +7668,22 @@ public void server()  {
  */
 @Test
 public void client() throws IOException {
-    //1.
-    Socket socket = new Socket(InetAddress.getByName("127.0.0.1"),9090);
-    //2.
-    OutputStream os = socket.getOutputStream();
-    //3.
-    FileInputStream fis = new FileInputStream(new File("beauty.jpg"));
-    //4.
-    byte[] buffer = new byte[1024];
-    int len;
-    while((len = fis.read(buffer)) != -1){
-        os.write(buffer,0,len);
-    }
-    //5.
-    fis.close();
-    os.close();
-    socket.close();
+  //1.
+  Socket socket = new Socket(InetAddress.getByName("127.0.0.1"),9090);
+  //2.
+  OutputStream os = socket.getOutputStream();
+  //3.
+  FileInputStream fis = new FileInputStream(new File("beauty.jpg"));
+  //4.
+  byte[] buffer = new byte[1024];
+  int len;
+  while((len = fis.read(buffer)) != -1){
+    os.write(buffer,0,len);
+  }
+  //5.
+  fis.close();
+  os.close();
+  socket.close();
 }
 
 /*
@@ -7566,25 +7691,25 @@ public void client() throws IOException {
  */
 @Test
 public void server() throws IOException {
-    //1.
-    ServerSocket ss = new ServerSocket(9090);
-    //2.
-    Socket socket = ss.accept();
-    //3.
-    InputStream is = socket.getInputStream();
-    //4.
-    FileOutputStream fos = new FileOutputStream(new File("beauty1.jpg"));
-    //5.
-    byte[] buffer = new byte[1024];
-    int len;
-    while((len = is.read(buffer)) != -1){
-        fos.write(buffer,0,len);
-    }
-    //6.
-    fos.close();
-    is.close();
-    socket.close();
-    ss.close();
+  //1.
+  ServerSocket ss = new ServerSocket(9090);
+  //2.
+  Socket socket = ss.accept();
+  //3.
+  InputStream is = socket.getInputStream();
+  //4.
+  FileOutputStream fos = new FileOutputStream(new File("beauty1.jpg"));
+  //5.
+  byte[] buffer = new byte[1024];
+  int len;
+  while((len = is.read(buffer)) != -1){
+    fos.write(buffer,0,len);
+  }
+  //6.
+  fos.close();
+  is.close();
+  socket.close();
+  ss.close();
 
 }
 ```
@@ -7593,41 +7718,41 @@ public void server() throws IOException {
 
 ```java
 /*
-    这里涉及到的异常，应该使用try-catch-finally处理
-     */
+这里涉及到的异常，应该使用try-catch-finally处理
+ */
 @Test
 public void client() throws IOException {
-    //1.
-    Socket socket = new Socket(InetAddress.getByName("127.0.0.1"),9090);
-    //2.
-    OutputStream os = socket.getOutputStream();
-    //3.
-    FileInputStream fis = new FileInputStream(new File("beauty.jpg"));
-    //4.
-    byte[] buffer = new byte[1024];
-    int len;
-    while((len = fis.read(buffer)) != -1){
-        os.write(buffer,0,len);
-    }
-    //关闭数据的输出
-    socket.shutdownOutput();
+  //1.
+  Socket socket = new Socket(InetAddress.getByName("127.0.0.1"),9090);
+  //2.
+  OutputStream os = socket.getOutputStream();
+  //3.
+  FileInputStream fis = new FileInputStream(new File("beauty.jpg"));
+  //4.
+  byte[] buffer = new byte[1024];
+  int len;
+  while((len = fis.read(buffer)) != -1){
+    os.write(buffer,0,len);
+  }
+  //关闭数据的输出
+  socket.shutdownOutput();
 
-    //5.接收来自于服务器端的数据，并显示到控制台上
-    InputStream is = socket.getInputStream();
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    byte[] bufferr = new byte[20];
-    int len1;
-    while((len1 = is.read(buffer)) != -1){
-        baos.write(buffer,0,len1);
-    }
-    
-    System.out.println(baos.toString());
-    
-    //6.
-    fis.close();
-    os.close();
-    socket.close();
-    baos.close();
+  //5.接收来自于服务器端的数据，并显示到控制台上
+  InputStream is = socket.getInputStream();
+  ByteArrayOutputStream baos = new ByteArrayOutputStream();
+  byte[] bufferr = new byte[20];
+  int len1;
+  while((len1 = is.read(buffer)) != -1){
+    baos.write(buffer,0,len1);
+  }
+
+  System.out.println(baos.toString());
+
+  //6.
+  fis.close();
+  os.close();
+  socket.close();
+  baos.close();
 
 }
 
@@ -7636,33 +7761,33 @@ public void client() throws IOException {
  */
 @Test
 public void server() throws IOException {
-    //1.
-    ServerSocket ss = new ServerSocket(9090);
-    //2.
-    Socket socket = ss.accept();
-    //3.
-    InputStream is = socket.getInputStream();
-    //4.
-    FileOutputStream fos = new FileOutputStream(new File("beauty2.jpg"));
-    //5.
-    byte[] buffer = new byte[1024];
-    int len;
-    while((len = is.read(buffer)) != -1){
-        fos.write(buffer,0,len);
-    }
+  //1.
+  ServerSocket ss = new ServerSocket(9090);
+  //2.
+  Socket socket = ss.accept();
+  //3.
+  InputStream is = socket.getInputStream();
+  //4.
+  FileOutputStream fos = new FileOutputStream(new File("beauty2.jpg"));
+  //5.
+  byte[] buffer = new byte[1024];
+  int len;
+  while((len = is.read(buffer)) != -1){
+    fos.write(buffer,0,len);
+  }
 
-    System.out.println("图片传输完成");
-    
-    //6.服务器端给予客户端反馈
-    OutputStream os = socket.getOutputStream();
-    os.write("你好，美女，照片我已收到，非常漂亮！".getBytes());
-    
-    //7.
-    fos.close();
-    is.close();
-    socket.close();
-    ss.close();
-    os.close();
+  System.out.println("图片传输完成");
+
+  //6.服务器端给予客户端反馈
+  OutputStream os = socket.getOutputStream();
+  os.write("你好，美女，照片我已收到，非常漂亮！".getBytes());
+
+  //7.
+  fos.close();
+  is.close();
+  socket.close();
+  ss.close();
+  os.close();
 
 }
 ```
@@ -7676,32 +7801,32 @@ public void server() throws IOException {
 @Test
 public void sender() throws IOException {
 
-    DatagramSocket socket = new DatagramSocket();
+  DatagramSocket socket = new DatagramSocket();
 
-    String str = "我是UDP方式发送的导弹";
-    byte[] data = str.getBytes();
-    InetAddress inet = InetAddress.getLocalHost();
-    DatagramPacket packet = new DatagramPacket(data,0,data.length,inet,9090);
-    
-    socket.send(packet);
-    
-    socket.close();
+  String str = "我是UDP方式发送的导弹";
+  byte[] data = str.getBytes();
+  InetAddress inet = InetAddress.getLocalHost();
+  DatagramPacket packet = new DatagramPacket(data,0,data.length,inet,9090);
+
+  socket.send(packet);
+
+  socket.close();
 
 }
 //接收端
 @Test
 public void receiver() throws IOException {
 
-    DatagramSocket socket = new DatagramSocket(9090);
-    
-    byte[] buffer = new byte[100];
-    DatagramPacket packet = new DatagramPacket(buffer,0,buffer.length);
-    
-    socket.receive(packet);
-    
-    System.out.println(new String(packet.getData(),0,packet.getLength()));
-    
-    socket.close();
+  DatagramSocket socket = new DatagramSocket(9090);
+
+  byte[] buffer = new byte[100];
+  DatagramPacket packet = new DatagramPacket(buffer,0,buffer.length);
+
+  socket.receive(packet);
+
+  System.out.println(new String(packet.getData(),0,packet.getLength()));
+
+  socket.close();
 
 }
 ```
@@ -7709,6 +7834,7 @@ public void receiver() throws IOException {
 ### URL编程
 
 1.URL(Uniform Resource Locator)的理解:
+
 统一资源定位符，对应着互联网的某一资源地址
 
 2.URL的5个基本结构：
@@ -7716,60 +7842,62 @@ public void receiver() throws IOException {
 http:/localhost:8080/examples/beauty.jpg?username=Tom
 
 协议   主机名    端口号  资源地址           参数列表
+
 3.如何实例化:
+
 URL url = new URL("http:/localhost:8080/examples/beauty.jpg?username=Tom");
 
 4.常用方法：
 
-![image-20220104131728220](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041317434.png)
+![image-20220104131728220](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072258258.png)
 
 5.可以读取、下载对应的url资源：
 
 ```java
 public static void main(String[] args) {
 
-    HttpURLConnection urlConnection = null;
-    InputStream is = null;
-    FileOutputStream fos = null;
-    try {
-        URL url = new URL("http://localhost:8080/examples/beauty.jpg");
-    
-        urlConnection = (HttpURLConnection) url.openConnection();
-    
-        urlConnection.connect();
-    
-        is = urlConnection.getInputStream();
-        fos = new FileOutputStream("day10\\beauty3.jpg");
-    
-        byte[] buffer = new byte[1024];
-        int len;
-        while((len = is.read(buffer)) != -1){
-            fos.write(buffer,0,len);
-        }
-    
-        System.out.println("下载完成");
-    } catch (IOException e) {
-        e.printStackTrace();
-    } finally {
-        //关闭资源
-        if(is != null){
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        if(fos != null){
-            try {
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        if(urlConnection != null){
-            urlConnection.disconnect();
-        }
+  HttpURLConnection urlConnection = null;
+  InputStream is = null;
+  FileOutputStream fos = null;
+  try {
+    URL url = new URL("http://localhost:8080/examples/beauty.jpg");
+
+    urlConnection = (HttpURLConnection) url.openConnection();
+
+    urlConnection.connect();
+
+    is = urlConnection.getInputStream();
+    fos = new FileOutputStream("day10\\beauty3.jpg");
+
+    byte[] buffer = new byte[1024];
+    int len;
+    while((len = is.read(buffer)) != -1){
+      fos.write(buffer,0,len);
     }
+
+    System.out.println("下载完成");
+  } catch (IOException e) {
+    e.printStackTrace();
+  } finally {
+    //关闭资源
+    if(is != null){
+      try {
+        is.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    if(fos != null){
+      try {
+        fos.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    if(urlConnection != null){
+      urlConnection.disconnect();
+    }
+  }
 
 }
 ```
@@ -7780,7 +7908,7 @@ public static void main(String[] args) {
 
 1.本章的主要内容
 
-![image-20220104131902383](https://gitee.com/wowosong/pic-md/raw/master/202304231544361.png)
+![image-20220104131902383](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072258300.png)
 
 2.关于反射的理解
 
@@ -7796,28 +7924,28 @@ Reflection（反射)是被视为动态语言的关键，反射机制允许程序
 @Test
 public void test2(){
 
-    for(int i = 0;i < 100;i++){
-        int num = new Random().nextInt(3);//0,1,2
-        String classPath = "";
-        switch(num){
-            case 0:
-                classPath = "java.util.Date";
-                break;
-            case 1:
-                classPath = "java.lang.Object";
-                break;
-            case 2:
-                classPath = "com.atguigu.java.Person";
-                break;
-        }
-    
-        try {
-            Object obj = getInstance(classPath);
-            System.out.println(obj);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+  for(int i = 0;i < 100;i++){
+    int num = new Random().nextInt(3);//0,1,2
+    String classPath = "";
+    switch(num){
+      case 0:
+        classPath = "java.util.Date";
+        break;
+      case 1:
+        classPath = "java.lang.Object";
+        break;
+      case 2:
+        classPath = "com.atguigu.java.Person";
+        break;
     }
+
+    try {
+      Object obj = getInstance(classPath);
+      System.out.println(obj);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 }
 
 /*
@@ -7825,8 +7953,8 @@ public void test2(){
     classPath:指定类的全类名
  */
 public Object getInstance(String classPath) throws Exception {
-   Class clazz =  Class.forName(classPath);
-   return clazz.newInstance();
+  Class clazz =  Class.forName(classPath);
+  return clazz.newInstance();
 }
 ```
 
@@ -7860,29 +7988,29 @@ java.lang.reflect.Constructor
 2.获取Class实例的几种方式：（前三种方式需要掌握）
 
 ```java
-    //方式一：调用运行时类的属性：.class
-    Class clazz1 = Person.class;
-    System.out.println(clazz1);
-    //方式二：通过运行时类的对象,调用getClass()
-    Person p1 = new Person();
-    Class clazz2 = p1.getClass();
-    System.out.println(clazz2);
+//方式一：调用运行时类的属性：.class
+Class clazz1 = Person.class;
+System.out.println(clazz1);
+//方式二：通过运行时类的对象,调用getClass()
+Person p1 = new Person();
+Class clazz2 = p1.getClass();
+System.out.println(clazz2);
 
-    //方式三：调用Class的静态方法：forName(String classPath)
-    Class clazz3 = Class.forName("com.atguigu.java.Person");
+//方式三：调用Class的静态方法：forName(String classPath)
+Class clazz3 = Class.forName("com.atguigu.java.Person");
 
-    //clazz3 = Class.forName("java.lang.String");
-    System.out.println(clazz3);
+//clazz3 = Class.forName("java.lang.String");
+System.out.println(clazz3);
 
-    System.out.println(clazz1 == clazz2);
-    System.out.println(clazz1 == clazz3);
+System.out.println(clazz1 == clazz2);
+System.out.println(clazz1 == clazz3);
 
-    //方式四：使用类的加载器：ClassLoader  (了解)
-    ClassLoader classLoader = ReflectionTest.class.getClassLoader();
-    Class clazz4 = classLoader.loadClass("com.atguigu.java.Person");
-    System.out.println(clazz4);
+//方式四：使用类的加载器：ClassLoader  (了解)
+ClassLoader classLoader = ReflectionTest.class.getClassLoader();
+Class clazz4 = classLoader.loadClass("com.atguigu.java.Person");
+System.out.println(clazz4);
 
-    System.out.println(clazz1 == clazz4);
+System.out.println(clazz1 == clazz4);
 ```
 
 3.总结：创建类的对象的方式?
@@ -7892,13 +8020,13 @@ java.lang.reflect.Constructor
 
 4.Class实例可以是哪些结构的说明
 
-![image-20220104132008331](https://gitee.com/wowosong/pic-md/raw/master/202304231545768.png)
+![image-20220104132008331](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072259297.png)
 
 ### 了解ClassLoader
 
 1.类的加载过程----了解
 
-![image-20220104132255267](https://gitee.com/wowosong/pic-md/raw/master/202304231545878.png)
+![image-20220104132255267](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072259000.png)
 
 2.类的加载器的作用
 
@@ -7907,11 +8035,11 @@ java.lang.reflect.Constructor
 
 3.类的加载器的分类
 
-![image-20220104132310319](https://gitee.com/wowosong/pic-md/raw/master/202304231545751.png)
+![image-20220104132310319](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072259318.png)
 
 4.Java类编译、运行的执行的流程
 
-![image-20220104132317681](https://gitee.com/wowosong/pic-md/raw/master/202304231545392.png)
+![image-20220104132317681](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072259872.png)
 
 5.使用Classloader加载src目录下的配置文件
 
@@ -7919,22 +8047,22 @@ java.lang.reflect.Constructor
 @Test
 public void test2() throws Exception {
 
-    Properties pros =  new Properties();
-    //此时的文件默认在当前的module下。
-    //读取配置文件的方式一：
-    //FileInputStream fis = new FileInputStream("jdbc.properties");
-    //FileInputStream fis = new FileInputStream("src\\jdbc1.properties");
-    //pros.load(fis);
+  Properties pros =  new Properties();
+  //此时的文件默认在当前的module下。
+  //读取配置文件的方式一：
+  //FileInputStream fis = new FileInputStream("jdbc.properties");
+  //FileInputStream fis = new FileInputStream("src\\jdbc1.properties");
+  //pros.load(fis);
 
-    //读取配置文件的方式二：使用ClassLoader
-    //配置文件默认识别为：当前module的src下
-    ClassLoader classLoader = ClassLoaderTest.class.getClassLoader();
-    InputStream is = classLoader.getResourceAsStream("jdbc1.properties");
-    pros.load(is);
+  //读取配置文件的方式二：使用ClassLoader
+  //配置文件默认识别为：当前module的src下
+  ClassLoader classLoader = ClassLoaderTest.class.getClassLoader();
+  InputStream is = classLoader.getResourceAsStream("jdbc1.properties");
+  pros.load(is);
 
-    String user = pros.getProperty("user");
-    String password = pros.getProperty("password");
-    System.out.println("user = " + user + ",password = " + password);
+  String user = pros.getProperty("user");
+  String password = pros.getProperty("password");
+  System.out.println("user = " + user + ",password = " + password);
 }
 ```
 
@@ -7949,14 +8077,19 @@ System.out.println(obj);
 ```
 
 2.说明
+
 newInstance():调用此方法，创建对应的运行时类的对象。内部调用了运行时类的**空参的构造器**。
 
 要想此方法正常的创建运行时类的对象，要求：
+
 1.运行时类必须提供空参的构造器
+
 2.空参的构造器的访问权限得够。通常，**设置为public**。
 
 **在javabean中要求提供一个public的空参构造器。原因：**
+
 **1.便于通过反射，创建运行时类的对象**
+
 **2.便于子类继承此运行时类时，默认调用super()时，保证父类此构造器**
 
 ### 反射应用二：获取运行时类的完整结构
@@ -7968,40 +8101,40 @@ newInstance():调用此方法，创建对应的运行时类的对象。内部调
 @Test
 public void test1(){
 
-    Class clazz = Person.class;
+  Class clazz = Person.class;
 
-    //获取属性结构
-    //getFields():获取当前运行时类及其父类中声明为public访问权限的属性
-    Field[] fields = clazz.getFields();
-    for(Field f : fields){
-        System.out.println(f);
-    }
-    System.out.println();
+  //获取属性结构
+  //getFields():获取当前运行时类及其父类中声明为public访问权限的属性
+  Field[] fields = clazz.getFields();
+  for(Field f : fields){
+    System.out.println(f);
+  }
+  System.out.println();
 
-    //getDeclaredFields():获取当前运行时类中声明的所属性。（不包含父类中声明的属性）
-    Field[] declaredFields = clazz.getDeclaredFields();
-    for(Field f : declaredFields){
-        System.out.println(f);
-    }
+  //getDeclaredFields():获取当前运行时类中声明的所属性。（不包含父类中声明的属性）
+  Field[] declaredFields = clazz.getDeclaredFields();
+  for(Field f : declaredFields){
+    System.out.println(f);
+  }
 
 }
 
 @Test
 public void test1(){
 
-    Class clazz = Person.class;
+  Class clazz = Person.class;
 
-    //getMethods():获取当前运行时类及其所父类中声明为public权限的方法
-    Method[] methods = clazz.getMethods();
-    for(Method m : methods){
-        System.out.println(m);
-    }
-    System.out.println();
-    //getDeclaredMethods():获取当前运行时类中声明的所方法。（不包含父类中声明的方法）
-    Method[] declaredMethods = clazz.getDeclaredMethods();
-    for(Method m : declaredMethods){
-        System.out.println(m);
-    }
+  //getMethods():获取当前运行时类及其所父类中声明为public权限的方法
+  Method[] methods = clazz.getMethods();
+  for(Method m : methods){
+    System.out.println(m);
+  }
+  System.out.println();
+  //getDeclaredMethods():获取当前运行时类中声明的所方法。（不包含父类中声明的方法）
+  Method[] declaredMethods = clazz.getDeclaredMethods();
+  for(Method m : declaredMethods){
+    System.out.println(m);
+  }
 }
 
 /*
@@ -8010,19 +8143,19 @@ public void test1(){
 @Test
 public void test1(){
 
-    Class clazz = Person.class;
-    //getConstructors():获取当前运行时类中声明为public的构造器
-    Constructor[] constructors = clazz.getConstructors();
-    for(Constructor c : constructors){
-        System.out.println(c);
-    }
+  Class clazz = Person.class;
+  //getConstructors():获取当前运行时类中声明为public的构造器
+  Constructor[] constructors = clazz.getConstructors();
+  for(Constructor c : constructors){
+    System.out.println(c);
+  }
 
-    System.out.println();
-    //getDeclaredConstructors():获取当前运行时类中声明的所有的构造器
-    Constructor[] declaredConstructors = clazz.getDeclaredConstructors();
-    for(Constructor c : declaredConstructors){
-        System.out.println(c);
-    }
+  System.out.println();
+  //getDeclaredConstructors():获取当前运行时类中声明的所有的构造器
+  Constructor[] declaredConstructors = clazz.getDeclaredConstructors();
+  for(Constructor c : declaredConstructors){
+    System.out.println(c);
+  }
 }
 
 /*
@@ -8030,10 +8163,10 @@ public void test1(){
  */
 @Test
 public void test2(){
-    Class clazz = Person.class;
+  Class clazz = Person.class;
 
-    Class superclass = clazz.getSuperclass();
-    System.out.println(superclass);
+  Class superclass = clazz.getSuperclass();
+  System.out.println(superclass);
 }
 
 /*
@@ -8041,10 +8174,10 @@ public void test2(){
  */
 @Test
 public void test3(){
-    Class clazz = Person.class;
+  Class clazz = Person.class;
 
-    Type genericSuperclass = clazz.getGenericSuperclass();
-    System.out.println(genericSuperclass);
+  Type genericSuperclass = clazz.getGenericSuperclass();
+  System.out.println(genericSuperclass);
 }
 
 /*
@@ -8053,14 +8186,14 @@ public void test3(){
  */
 @Test
 public void test4(){
-    Class clazz = Person.class;
+  Class clazz = Person.class;
 
-    Type genericSuperclass = clazz.getGenericSuperclass();
-    ParameterizedType paramType = (ParameterizedType) genericSuperclass;
-    //获取泛型类型
-    Type[] actualTypeArguments = paramType.getActualTypeArguments();
-    //System.out.println(actualTypeArguments[0].getTypeName());
-    System.out.println(((Class)actualTypeArguments[0]).getName());
+  Type genericSuperclass = clazz.getGenericSuperclass();
+  ParameterizedType paramType = (ParameterizedType) genericSuperclass;
+  //获取泛型类型
+  Type[] actualTypeArguments = paramType.getActualTypeArguments();
+  //System.out.println(actualTypeArguments[0].getTypeName());
+  System.out.println(((Class)actualTypeArguments[0]).getName());
 }
 
 /*
@@ -8068,19 +8201,19 @@ public void test4(){
  */
 @Test
 public void test5(){
-    Class clazz = Person.class;
+  Class clazz = Person.class;
 
-    Class[] interfaces = clazz.getInterfaces();
-    for(Class c : interfaces){
-        System.out.println(c);
-    }
+  Class[] interfaces = clazz.getInterfaces();
+  for(Class c : interfaces){
+    System.out.println(c);
+  }
 
-    System.out.println();
-    //获取运行时类的父类实现的接口
-    Class[] interfaces1 = clazz.getSuperclass().getInterfaces();
-    for(Class c : interfaces1){
-        System.out.println(c);
-    }
+  System.out.println();
+  //获取运行时类的父类实现的接口
+  Class[] interfaces1 = clazz.getSuperclass().getInterfaces();
+  for(Class c : interfaces1){
+    System.out.println(c);
+  }
 
 }
 /*
@@ -8088,10 +8221,10 @@ public void test5(){
  */
 @Test
 public void test6(){
-    Class clazz = Person.class;
+  Class clazz = Person.class;
 
-    Package pack = clazz.getPackage();
-    System.out.println(pack);
+  Package pack = clazz.getPackage();
+  System.out.println(pack);
 }
 
 /*
@@ -8099,12 +8232,12 @@ public void test6(){
  */
 @Test
 public void test7(){
-    Class clazz = Person.class;
+  Class clazz = Person.class;
 
-    Annotation[] annotations = clazz.getAnnotations();
-    for(Annotation annos : annotations){
-        System.out.println(annos);
-    }
+  Annotation[] annotations = clazz.getAnnotations();
+  for(Annotation annos : annotations){
+    System.out.println(annos);
+  }
 }
 ```
 ### 反射应用三：调用运行时类的指定结构
@@ -8114,78 +8247,78 @@ public void test7(){
 ```java
 @Test
 public void testField1() throws Exception {
-    Class clazz = Person.class;
+  Class clazz = Person.class;
 
-    //创建运行时类的对象
-    Person p = (Person) clazz.newInstance();
+  //创建运行时类的对象
+  Person p = (Person) clazz.newInstance();
 
-    //1. getDeclaredField(String fieldName):获取运行时类中指定变量名的属性
-    Field name = clazz.getDeclaredField("name");
+  //1. getDeclaredField(String fieldName):获取运行时类中指定变量名的属性
+  Field name = clazz.getDeclaredField("name");
 
-    //2.保证当前属性是可访问的
-    name.setAccessible(true);
-    //3.获取、设置指定对象的此属性值
-    name.set(p,"Tom");
+  //2.保证当前属性是可访问的
+  name.setAccessible(true);
+  //3.获取、设置指定对象的此属性值
+  name.set(p,"Tom");
 
-    System.out.println(name.get(p));
+  System.out.println(name.get(p));
 
 }
 //调用指定的方法：
 @Test
 public void testMethod() throws Exception {
 
-    Class clazz = Person.class;
+  Class clazz = Person.class;
 
-    //创建运行时类的对象
-    Person p = (Person) clazz.newInstance();
+  //创建运行时类的对象
+  Person p = (Person) clazz.newInstance();
 
-    /*
+  /*
         1.获取指定的某个方法
         getDeclaredMethod():参数1 ：指明获取的方法的名称  参数2：指明获取的方法的形参列表
          */
-    Method show = clazz.getDeclaredMethod("show", String.class);
-    //2.保证当前方法是可访问的
-    show.setAccessible(true);
+  Method show = clazz.getDeclaredMethod("show", String.class);
+  //2.保证当前方法是可访问的
+  show.setAccessible(true);
 
-    /*
+  /*
         3. 调用方法的invoke():参数1：方法的调用者  参数2：给方法形参赋值的实参
         invoke()的返回值即为对应类中调用的方法的返回值。
          */
-    Object returnValue = show.invoke(p,"CHN"); //String nation = p.show("CHN");
-    System.out.println(returnValue);
+  Object returnValue = show.invoke(p,"CHN"); //String nation = p.show("CHN");
+  System.out.println(returnValue);
 
-    System.out.println("*************如何调用静态方法*****************");
+  System.out.println("*************如何调用静态方法*****************");
 
-    // private static void showDesc()
+  // private static void showDesc()
 
-    Method showDesc = clazz.getDeclaredMethod("showDesc");
-    showDesc.setAccessible(true);
-    //如果调用的运行时类中的方法没返回值，则此invoke()返回null
+  Method showDesc = clazz.getDeclaredMethod("showDesc");
+  showDesc.setAccessible(true);
+  //如果调用的运行时类中的方法没返回值，则此invoke()返回null
 
-    //Object returnVal = showDesc.invoke(null);
-    Object returnVal = showDesc.invoke(Person.class);
-    System.out.println(returnVal);//null
+  //Object returnVal = showDesc.invoke(null);
+  Object returnVal = showDesc.invoke(Person.class);
+  System.out.println(returnVal);//null
 }
 
 //调用指定的构造器：
 @Test
 public void testConstructor() throws Exception {
-    Class clazz = Person.class;
+  Class clazz = Person.class;
 
-    //private Person(String name)
-    /*
+  //private Person(String name)
+  /*
     1.获取指定的构造器
     getDeclaredConstructor():参数：指明构造器的参数列表
      */
 
-    Constructor constructor = clazz.getDeclaredConstructor(String.class);
+  Constructor constructor = clazz.getDeclaredConstructor(String.class);
 
-    //2.保证此构造器是可访问的
-    constructor.setAccessible(true);
+  //2.保证此构造器是可访问的
+  constructor.setAccessible(true);
 
-    //3.调用此构造器创建运行时类的对象
-    Person per = (Person) constructor.newInstance("Tom");
-    System.out.println(per);
+  //3.调用此构造器创建运行时类的对象
+  Person per = (Person) constructor.newInstance("Tom");
+  System.out.println(per);
 
 }
 ```
@@ -8193,9 +8326,11 @@ public void testConstructor() throws Exception {
 ### 反射应用四：动态代理
 
 1.代理模式的原理：
+
 使用一个代理将对象包装起来, 然后用该代理对象取代原始对象。任何对原始对象的调用都要通过代理。代理对象决定是否以及何时将方法调用转到原始对象上。 
 
 2.静态代理
+
 2.1 举例：
 
 ```java
@@ -8203,25 +8338,32 @@ public void testConstructor() throws Exception {
 Class MyThread implements Runnable{} //相当于被代理类
 Class Thread implements Runnable{} //相当于代理类
 main(){
-    MyThread t = new MyThread();
-    Thread thread = new Thread(t);
-    thread.start();//启动线程；调用线程的run()
+  MyThread t = new MyThread();
+  Thread thread = new Thread(t);
+  thread.start();//启动线程；调用线程的run()
 }
 ```
 
 2.2 静态代理的缺点：
+
 ① 代理类和目标对象的类都是在编译期间确定下来，不利于程序的扩展。
+
 ② 每一个代理类只能为一个接口服务，这样一来程序开发中必然产生过多的代理。
 
 3.动态代理的特点：
+
 动态代理是指客户通过代理类来调用其它对象的方法，并且是在程序运行时根据需要动态创建目标类的代理对
 象。
 
 4.动态代理的实现
+
 4.1 需要解决的两个主要问题：
+
 **问题一：如何根据加载到内存中的被代理类，动态的创建一个代理类及其对象。** 
 **（通过Proxy.newProxyInstance()实现）**
+
 **问题二：当通过代理类的对象调用方法a时，如何动态的去调用被代理类中的同名方法a。**
+
 **(通过InvocationHandler接口的实现类及其方法invoke())**
 4.2 代码实现：
 
@@ -8234,101 +8376,101 @@ main(){
    */
 interface Human{
 
-    String getBelief();
+  String getBelief();
 
-    void eat(String food);
+  void eat(String food);
 
 }
 //被代理类
 class SuperMan implements Human{
 
 
-    @Override
-    public String getBelief() {
-        return "I believe I can fly!";
-    }
+  @Override
+  public String getBelief() {
+    return "I believe I can fly!";
+  }
 
-    @Override
-    public void eat(String food) {
-        System.out.println("我喜欢吃" + food);
-    }
+  @Override
+  public void eat(String food) {
+    System.out.println("我喜欢吃" + food);
+  }
 
 }
 
 class HumanUtil{
 
-    public void method1(){
-        System.out.println("====================通用方法一====================");
+  public void method1(){
+    System.out.println("====================通用方法一====================");
 
-    }
+  }
 
-    public void method2(){
-        System.out.println("====================通用方法二====================");
-    }
+  public void method2(){
+    System.out.println("====================通用方法二====================");
+  }
 
 }
 
 
 class ProxyFactory{
-    //调用此方法，返回一个代理类的对象。解决问题一
-    public static Object getProxyInstance(Object obj){//obj:被代理类的对象
-        MyInvocationHandler handler = new MyInvocationHandler();
+  //调用此方法，返回一个代理类的对象。解决问题一
+  public static Object getProxyInstance(Object obj){//obj:被代理类的对象
+    MyInvocationHandler handler = new MyInvocationHandler();
 
-        handler.bind(obj);
+    handler.bind(obj);
 
-        return Proxy.newProxyInstance(obj.getClass().getClassLoader(),obj.getClass().getInterfaces(),handler);
-    }
+    return Proxy.newProxyInstance(obj.getClass().getClassLoader(),obj.getClass().getInterfaces(),handler);
+  }
 
 }
 
 class MyInvocationHandler implements InvocationHandler{
 
-    private Object obj;//需要使用被代理类的对象进行赋值
+  private Object obj;//需要使用被代理类的对象进行赋值
 
-    public void bind(Object obj){
-        this.obj = obj;
-    }
+  public void bind(Object obj){
+    this.obj = obj;
+  }
 
-    //当我们通过代理类的对象，调用方法a时，就会自动的调用如下的方法：invoke()
-    //将被代理类要执行的方法a的功能就声明在invoke()中
-    @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+  //当我们通过代理类的对象，调用方法a时，就会自动的调用如下的方法：invoke()
+  //将被代理类要执行的方法a的功能就声明在invoke()中
+  @Override
+  public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-        HumanUtil util = new HumanUtil();
-        util.method1();
+    HumanUtil util = new HumanUtil();
+    util.method1();
 
-        //method:即为代理类对象调用的方法，此方法也就作为了被代理类对象要调用的方法
-        //obj:被代理类的对象
-        Object returnValue = method.invoke(obj,args);
+    //method:即为代理类对象调用的方法，此方法也就作为了被代理类对象要调用的方法
+    //obj:被代理类的对象
+    Object returnValue = method.invoke(obj,args);
 
-        util.method2();
+    util.method2();
 
-        //上述方法的返回值就作为当前类中的invoke()的返回值。
-        return returnValue;
+    //上述方法的返回值就作为当前类中的invoke()的返回值。
+    return returnValue;
 
-    }
+  }
 
 }
 
 public class ProxyTest {
 
-    public static void main(String[] args) {
-        SuperMan superMan = new SuperMan();
-        //proxyInstance:代理类的对象
-        Human proxyInstance = (Human) ProxyFactory.getProxyInstance(superMan);
-        //当通过代理类对象调用方法时，会自动的调用被代理类中同名的方法
-        String belief = proxyInstance.getBelief();
-        System.out.println(belief);
-        proxyInstance.eat("麻烫");
+  public static void main(String[] args) {
+    SuperMan superMan = new SuperMan();
+    //proxyInstance:代理类的对象
+    Human proxyInstance = (Human) ProxyFactory.getProxyInstance(superMan);
+    //当通过代理类对象调用方法时，会自动的调用被代理类中同名的方法
+    String belief = proxyInstance.getBelief();
+    System.out.println(belief);
+    proxyInstance.eat("麻烫");
 
-        System.out.println("*****************************");
+    System.out.println("*****************************");
 
-        NikeClothFactory nikeClothFactory = new NikeClothFactory();
+    NikeClothFactory nikeClothFactory = new NikeClothFactory();
 
-        ClothFactory proxyClothFactory = (ClothFactory) ProxyFactory.getProxyInstance(nikeClothFactory);
+    ClothFactory proxyClothFactory = (ClothFactory) ProxyFactory.getProxyInstance(nikeClothFactory);
 
-        proxyClothFactory.produceCloth();
-    }
+    proxyClothFactory.produceCloth();
+  }
 }
 ```
 
@@ -8339,7 +8481,7 @@ public class ProxyTest {
 
 ### Java8新特性概述
 
-<img src=".\Java基础（尚硅谷）.assets\未命名文件-16698646602774-16698646624306.png" alt="未命名文件" style="zoom:33%;" />
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072301600.png" alt="未命名文件" style="zoom:33%;" />
 
 ### Lambda表达式
 
@@ -8350,20 +8492,20 @@ public class ProxyTest {
 @Test
 public void test1(){
 
-    Runnable r1 = new Runnable() {
-        @Override
-        public void run() {
-            System.out.println("我爱北京天安门");
-        }
-    };
-    
-    r1.run();
-    
-    System.out.println("***********************");
-    
-    Runnable r2 = () -> System.out.println("我爱北京故宫");
-    
-    r2.run();
+  Runnable r1 = new Runnable() {
+    @Override
+    public void run() {
+      System.out.println("我爱北京天安门");
+    }
+  };
+
+  r1.run();
+
+  System.out.println("***********************");
+
+  Runnable r2 = () -> System.out.println("我爱北京故宫");
+
+  r2.run();
 }
 ```
 
@@ -8373,30 +8515,30 @@ public void test1(){
 @Test
 public void test2(){
 
-    Comparator<Integer> com1 = new Comparator<Integer>() {
-        @Override
-        public int compare(Integer o1, Integer o2) {
-            return Integer.compare(o1,o2);
-        }
-    };
-    
-    int compare1 = com1.compare(12,21);
-    System.out.println(compare1);
-    
-    System.out.println("***********************");
-    //Lambda表达式的写法
-    Comparator<Integer> com2 = (o1,o2) -> Integer.compare(o1,o2);
-    
-    int compare2 = com2.compare(32,21);
-    System.out.println(compare2);
+  Comparator<Integer> com1 = new Comparator<Integer>() {
+    @Override
+    public int compare(Integer o1, Integer o2) {
+      return Integer.compare(o1,o2);
+    }
+  };
+
+  int compare1 = com1.compare(12,21);
+  System.out.println(compare1);
+
+  System.out.println("***********************");
+  //Lambda表达式的写法
+  Comparator<Integer> com2 = (o1,o2) -> Integer.compare(o1,o2);
+
+  int compare2 = com2.compare(32,21);
+  System.out.println(compare2);
 
 
-    System.out.println("***********************");
-    //方法引用
-    Comparator<Integer> com3 = Integer :: compare;
-    
-    int compare3 = com3.compare(32,21);
-    System.out.println(compare3);
+  System.out.println("***********************");
+  //方法引用
+  Comparator<Integer> com3 = Integer :: compare;
+
+  int compare3 = com3.compare(32,21);
+  System.out.println(compare3);
 
 }
 ```
@@ -8411,12 +8553,13 @@ public void test2(){
 
 3.如何使用：分为六种情况
 
-![image-20220104133005407](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041330667.png)
+![image-20220104133005407](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072301407.png)
 
-![image-20220104133015971](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041330168.png)
+![image-20220104133015971](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072302222.png)
 
 总结六种情况：
 ->**左边：lambda形参列表的参数类型可以省略(类型推断)；如果lambda形参列表只一个参数，其一对()也可以省略**
+
 **->右边：lambda体应该使用一对{}包裹；如果lambda体只一条执行语句（可能是return语句，省略这一对{}和return关键字**
 
 ### 函数式接口
@@ -8428,27 +8571,37 @@ public void test2(){
 > Lambda表达式的本质：作为函数式接口的实例
 
 2.Java8中关于Lambda表达式提供的4个基本的函数式接口：
+
 具体使用：
 
-![image-20220104133044746](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041330964.png)
+![image-20220104133044746](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072302133.png)
 
 3.总结
+
 3.1 何时使用lambda表达式？
+
 当需要对一个函数式接口实例化的时候，可以使用lambda表达式。
+
 3.2 何时使用给定的函数式接口？
+
 如果我们开发中需要定义一个函数式接口，首先看看在已有的jdk提供的函数式接口是否提供了
+
 能满足需求的函数式接口。如果有，则直接调用即可，不需要自己再自定义了。
 
 ### 方法引用
 
 方法引用
+
 1.理解：
+
 方法引用可以看做是Lambda表达式深层次的表达。换句话说，方法引用就是Lambda表达式，也就是函数式接口的一个实例，通过方法的名字来指向一个方法。
 
 2.使用情境：
+
 当要传递给Lambda体的操作，已经实现的方法了，可以使用方法引用！
 
 3.格式：
+
 类(或对象) :: 方法名
 
 4.分为如下的三种情况：
@@ -8461,6 +8614,7 @@ public void test2(){
 > 当函数式接口方法的第一个参数是需要引用方法的调用者，并且第二个参数是需要引用方法的参数(或无参数)时：ClassName::methodName（针对于情况3）
 
 6.使用建议：
+
 如果给函数式接口提供实例，恰好满足方法引用的使用情境，大家就可以考虑使用方法引用给函数式接口提供实例。如果大家不熟悉方法引用，那么还可以使用lambda表达式。
 
 7.使用举例：
@@ -8471,13 +8625,13 @@ public void test2(){
 //PrintStream中的void println(T t)
 @Test
 public void test1() {
-	Consumer<String> con1 = str -> System.out.println(str);
-	con1.accept("123");
+  Consumer<String> con1 = str -> System.out.println(str);
+  con1.accept("123");
 
-	System.out.println("*******************");
-	PrintStream ps = System.out;
-	Consumer<String> con2 = ps::println;
-	con2.accept("beijing");
+  System.out.println("*******************");
+  PrintStream ps = System.out;
+  Consumer<String> con2 = ps::println;
+  con2.accept("beijing");
 
 }
 
@@ -8485,14 +8639,14 @@ public void test1() {
 //Employee中的String getName()
 @Test
 public void test2() {
-	Employee emp = new Employee(1001,"Tom",23,5600);
+  Employee emp = new Employee(1001,"Tom",23,5600);
 
-	Supplier<String> sup1 = () -> emp.getName();
-	System.out.println(sup1.get());
-	
-	System.out.println("*******************");
-	Supplier<String> sup2 = emp::getName;
-	System.out.println(sup2.get());
+  Supplier<String> sup1 = () -> emp.getName();
+  System.out.println(sup1.get());
+
+  System.out.println("*******************");
+  Supplier<String> sup2 = emp::getName;
+  System.out.println(sup2.get());
 
 }
 ```
@@ -8503,13 +8657,13 @@ public void test2() {
 //Integer中的int compare(T t1,T t2)
 @Test
 public void test3() {
-	Comparator<Integer> com1 = (t1,t2) -> Integer.compare(t1,t2);
-	System.out.println(com1.compare(12,21));
+  Comparator<Integer> com1 = (t1,t2) -> Integer.compare(t1,t2);
+  System.out.println(com1.compare(12,21));
 
-	System.out.println("*******************");
-	
-	Comparator<Integer> com2 = Integer::compare;
-	System.out.println(com2.compare(12,3));
+  System.out.println("*******************");
+
+  Comparator<Integer> com2 = Integer::compare;
+  System.out.println(com2.compare(12,3));
 
 }
 
@@ -8517,22 +8671,22 @@ public void test3() {
 //Math中的Long round(Double d)
 @Test
 public void test4() {
-	Function<Double,Long> func = new Function<Double, Long>() {
-		@Override
-		public Long apply(Double d) {
-			return Math.round(d);
-		}
-	};
+  Function<Double,Long> func = new Function<Double, Long>() {
+    @Override
+    public Long apply(Double d) {
+      return Math.round(d);
+    }
+  };
 
-	System.out.println("*******************");
-	
-	Function<Double,Long> func1 = d -> Math.round(d);
-	System.out.println(func1.apply(12.3));
-	
-	System.out.println("*******************");
-	
-	Function<Double,Long> func2 = Math::round;
-	System.out.println(func2.apply(12.6));
+  System.out.println("*******************");
+
+  Function<Double,Long> func1 = d -> Math.round(d);
+  System.out.println(func1.apply(12.3));
+
+  System.out.println("*******************");
+
+  Function<Double,Long> func2 = Math::round;
+  System.out.println(func2.apply(12.6));
 
 }
 ```
@@ -8543,13 +8697,13 @@ public void test4() {
 // String中的int t1.compareTo(t2)
 @Test
 public void test5() {
-	Comparator<String> com1 = (s1,s2) -> s1.compareTo(s2);
-	System.out.println(com1.compare("abc","abd"));
+  Comparator<String> com1 = (s1,s2) -> s1.compareTo(s2);
+  System.out.println(com1.compare("abc","abd"));
 
-	System.out.println("*******************");
-	
-	Comparator<String> com2 = String :: compareTo;
-	System.out.println(com2.compare("abd","abm"));
+  System.out.println("*******************");
+
+  Comparator<String> com2 = String :: compareTo;
+  System.out.println(com2.compare("abd","abm"));
 
 }
 
@@ -8557,12 +8711,12 @@ public void test5() {
 //String中的boolean t1.equals(t2)
 @Test
 public void test6() {
-	BiPredicate<String,String> pre1 = (s1,s2) -> s1.equals(s2);
-	System.out.println(pre1.test("abc","abc"));
+  BiPredicate<String,String> pre1 = (s1,s2) -> s1.equals(s2);
+  System.out.println(pre1.test("abc","abc"));
 
-	System.out.println("*******************");
-	BiPredicate<String,String> pre2 = String :: equals;
-	System.out.println(pre2.test("abc","abd"));
+  System.out.println("*******************");
+  BiPredicate<String,String> pre2 = String :: equals;
+  System.out.println(pre2.test("abc","abd"));
 
 }
 
@@ -8570,16 +8724,16 @@ public void test6() {
 // Employee中的String getName();
 @Test
 public void test7() {
-	Employee employee = new Employee(1001, "Jerry", 23, 6000);
+  Employee employee = new Employee(1001, "Jerry", 23, 6000);
 
 
-	Function<Employee,String> func1 = e -> e.getName();
-	System.out.println(func1.apply(employee));
-	
-	System.out.println("*******************");
-	
-	Function<Employee,String> func2 = Employee::getName;
-	System.out.println(func2.apply(employee));
+  Function<Employee,String> func1 = e -> e.getName();
+  System.out.println(func1.apply(employee));
+
+  System.out.println("*******************");
+
+  Function<Employee,String> func2 = Employee::getName;
+  System.out.println(func2.apply(employee));
 
 }
 ```
@@ -8587,66 +8741,69 @@ public void test7() {
 ### 构造器引用与数组引用
 
 1.构造器引用格式：
+
 类名::new
 
 2.构造器引用使用要求：
+
 和方法引用类似，函数式接口的抽象方法的形参列表和构造器的形参列表一致。抽象方法的返回值类型即为构造器所属的类的类型
 
 3.构造器引用举例：
 
 ```java
-   //Supplier中的T get()
-   //Employee的空参构造器：Employee()
-   @Test
-   public void test1(){
+//Supplier中的T get()
+//Employee的空参构造器：Employee()
+@Test
+public void test1(){
 
-       Supplier<Employee> sup = new Supplier<Employee>() {
-           @Override
-           public Employee get() {
-               return new Employee();
-           }
-       };
-       System.out.println("*******************");
-    
-       Supplier<Employee>  sup1 = () -> new Employee();
-       System.out.println(sup1.get());
-    
-       System.out.println("*******************");
-    
-       Supplier<Employee>  sup2 = Employee :: new;
-       System.out.println(sup2.get());
+  Supplier<Employee> sup = new Supplier<Employee>() {
+    @Override
+    public Employee get() {
+      return new Employee();
+    }
+  };
+  System.out.println("*******************");
 
-   }
+  Supplier<Employee>  sup1 = () -> new Employee();
+  System.out.println(sup1.get());
 
-   //Function中的R apply(T t)
-   @Test
-   public void test2(){
-       Function<Integer,Employee> func1 = id -> new Employee(id);
-       Employee employee = func1.apply(1001);
-       System.out.println(employee);
+  System.out.println("*******************");
 
-       System.out.println("*******************");
-    
-       Function<Integer,Employee> func2 = Employee :: new;
-       Employee employee1 = func2.apply(1002);
-       System.out.println(employee1);
+  Supplier<Employee>  sup2 = Employee :: new;
+  System.out.println(sup2.get());
 
-   }
+}
 
-   //BiFunction中的R apply(T t,U u)
-   @Test
-   public void test3(){
-       BiFunction<Integer,String,Employee> func1 = (id,name) -> new Employee(id,name);
-       System.out.println(func1.apply(1001,"Tom"));
+//Function中的R apply(T t)
+@Test
+public void test2(){
+  Function<Integer,Employee> func1 = id -> new Employee(id);
+  Employee employee = func1.apply(1001);
+  System.out.println(employee);
 
-       System.out.println("*******************");
-    
-       BiFunction<Integer,String,Employee> func2 = Employee :: new;
-       System.out.println(func2.apply(1002,"Tom"));
-   }
+  System.out.println("*******************");
+
+  Function<Integer,Employee> func2 = Employee :: new;
+  Employee employee1 = func2.apply(1002);
+  System.out.println(employee1);
+
+}
+
+//BiFunction中的R apply(T t,U u)
+@Test
+public void test3(){
+  BiFunction<Integer,String,Employee> func1 = (id,name) -> new Employee(id,name);
+  System.out.println(func1.apply(1001,"Tom"));
+
+  System.out.println("*******************");
+
+  BiFunction<Integer,String,Employee> func2 = Employee :: new;
+  System.out.println(func2.apply(1002,"Tom"));
+}
 ```
 
 4.数组引用格式：
+
 数组类型[] :: new
 
 5.数组引用举例：
@@ -8655,22 +8812,24 @@ public void test7() {
 //Function中的R apply(T t)
 @Test
 public void test4(){
-    Function<Integer,String[]> func1 = length -> new String[length];
-    String[] arr1 = func1.apply(5);
-    System.out.println(Arrays.toString(arr1));
+  Function<Integer,String[]> func1 = length -> new String[length];
+  String[] arr1 = func1.apply(5);
+  System.out.println(Arrays.toString(arr1));
 
-    System.out.println("*******************");
-    
-    Function<Integer,String[]> func2 = String[] :: new;
-    String[] arr2 = func2.apply(10);
-    System.out.println(Arrays.toString(arr2));
+  System.out.println("*******************");
+
+  Function<Integer,String[]> func2 = String[] :: new;
+  String[] arr2 = func2.apply(10);
+  System.out.println(Arrays.toString(arr2));
 }
 ```
 
 ### Stream API
 
 1.Stream API的理解：
+
 1.1 Stream关注的是对数据的运算，与CPU打交道
+
 集合关注的是数据的存储，与内存打交道
 
 1.2 java8提供了一套api,使用这套api可以对内存中的数据进行过滤、排序、映射、归约等操作。类似于sql对数据库中表的相关操作。
@@ -8698,34 +8857,34 @@ public void test4(){
 //创建 Stream方式一：通过集合
 @Test
 public void test1(){
-    List<Employee> employees = EmployeeData.getEmployees();
+  List<Employee> employees = EmployeeData.getEmployees();
 
-    //        default Stream<E> stream() : 返回一个顺序流
-    Stream<Employee> stream = employees.stream();
+  //        default Stream<E> stream() : 返回一个顺序流
+  Stream<Employee> stream = employees.stream();
 
-    //        default Stream<E> parallelStream() : 返回一个并行流
-    Stream<Employee> parallelStream = employees.parallelStream();
+  //        default Stream<E> parallelStream() : 返回一个并行流
+  Stream<Employee> parallelStream = employees.parallelStream();
 
 }
 
 //创建 Stream方式二：通过数组
 @Test
 public void test2(){
-    int[] arr = new int[]{1,2,3,4,5,6};
-    //调用Arrays类的static <T> Stream<T> stream(T[] array): 返回一个流
-    IntStream stream = Arrays.stream(arr);
+  int[] arr = new int[]{1,2,3,4,5,6};
+  //调用Arrays类的static <T> Stream<T> stream(T[] array): 返回一个流
+  IntStream stream = Arrays.stream(arr);
 
-    Employee e1 = new Employee(1001,"Tom");
-    Employee e2 = new Employee(1002,"Jerry");
-    Employee[] arr1 = new Employee[]{e1,e2};
-    Stream<Employee> stream1 = Arrays.stream(arr1);
+  Employee e1 = new Employee(1001,"Tom");
+  Employee e2 = new Employee(1002,"Jerry");
+  Employee[] arr1 = new Employee[]{e1,e2};
+  Stream<Employee> stream1 = Arrays.stream(arr1);
 
 }
 //创建 Stream方式三：通过Stream的of()
 @Test
 public void test3(){
 
-    Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5, 6);
+  Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5, 6);
 
 }
 
@@ -8733,15 +8892,15 @@ public void test3(){
 @Test
 public void test4(){
 
-    //      迭代
-    //      public static<T> Stream<T> iterate(final T seed, final UnaryOperator<T> f)
-    //遍历前10个偶数
-    Stream.iterate(0, t -> t + 2).limit(10).forEach(System.out::println);
+  //      迭代
+  //      public static<T> Stream<T> iterate(final T seed, final UnaryOperator<T> f)
+  //遍历前10个偶数
+  Stream.iterate(0, t -> t + 2).limit(10).forEach(System.out::println);
 
 
-    //      生成
-    //      public static<T> Stream<T> generate(Supplier<T> s)
-    Stream.generate(Math::random).limit(10).forEach(System.out::println);
+  //      生成
+  //      public static<T> Stream<T> generate(Supplier<T> s)
+  Stream.generate(Math::random).limit(10).forEach(System.out::println);
 
 }
 
@@ -8750,29 +8909,31 @@ public void test4(){
 
 6.步骤二：中间操作
 
-![image-20220104133320511](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041333877.png)
+![image-20220104133320511](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072304302.png)
 
-![image-20220104133329220](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041333447.png)
+![image-20220104133329220](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072304954.png)
 
-![image-20220104133338140](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041333368.png)
+![image-20220104133338140](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072304825.png)
 
 7.步骤三：终止操作
 
-![image-20220104133346552](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041333786.png)
+![image-20220104133346552](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072304337.png)
 
-![image-20220104133356201](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041333426.png)
+![image-20220104133356201](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072305870.png)
 
-![image-20220104133405505](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041334718.png)
+![image-20220104133405505](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072305801.png)
 
 
 Collector需要使用Collectors提供实例。
 
-![image-20220104133412054](./Java%E5%9F%BA%E7%A1%80%EF%BC%88%E5%B0%9A%E7%A1%85%E8%B0%B7%EF%BC%89.assets/202201041334284.png)
+![image-20220104133412054](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072305263.png)
 
 ### Optional类的使用
 
 java.util.Optional类
+
 1.理解：为了解决java中的空指针问题而生！
+
 Optional<T> 类(java.util.Optional) 是一个容器类，它可以保存类型T的值，代表这个值存在。或者仅仅保存null
 ，表示这个值不存在。原来用 null 表示一个值不存在，现在 Optional 可以更好的表达这个概念。并且可以避
 免空指针异常。
@@ -8781,80 +8942,77 @@ Optional<T> 类(java.util.Optional) 是一个容器类，它可以保存类型T�
 
 ```java
 @Test
-    public void test1(){
-        //empty():创建的Optional对象内部的value = null
-        Optional<Object> op1 = Optional.empty();
-        if(!op1.isPresent()){//Optional封装的数据是否包含数据
-            System.out.println("数据为空");
+public void test1(){
+  //empty():创建的Optional对象内部的value = null
+  Optional<Object> op1 = Optional.empty();
+  if(!op1.isPresent()){//Optional封装的数据是否包含数据
+    System.out.println("数据为空");
 
-        }
-        System.out.println(op1);
-        System.out.println(op1.isPresent());
-        //如果Optional封装的数据value为空，则get()报错。否则，value不为空时，返回value.
+  }
+  System.out.println(op1);
+  System.out.println(op1.isPresent());
+  //如果Optional封装的数据value为空，则get()报错。否则，value不为空时，返回value.
 
-//        System.out.println(op1.get());
+  //        System.out.println(op1.get());
 
-    }
-    
-    @Test
-    public void test2(){
-        String str = "hello";
+}
 
-//        str = null;
-        //of(T t):封装数据t生成Optional对象。要求t非空，否则报错。
-        Optional<String> op1 = Optional.of(str);
-        //get()通常与of()方法搭配使用。用于获取内部的封装的数据value
-        String str1 = op1.get();
-        System.out.println(str1);
+@Test
+public void test2(){
+  String str = "hello";
+
+  //        str = null;
+  //of(T t):封装数据t生成Optional对象。要求t非空，否则报错。
+  Optional<String> op1 = Optional.of(str);
+  //get()通常与of()方法搭配使用。用于获取内部的封装的数据value
+  String str1 = op1.get();
+  System.out.println(str1);
 }
 
 @Test
 public void test3(){
-    String str = "beijing";
-    str = null;
-    //ofNullable(T t) ：封装数据t赋给Optional内部的value。不要求t非空
-    Optional<String> op1 = Optional.ofNullable(str);
-    //orElse(T t1):如果Optional内部的value非空，则返回此value值。如果
-    //value为空，则返回t1.
-    String str2 = op1.orElse("shanghai");
+  String str = "beijing";
+  str = null;
+  //ofNullable(T t) ：封装数据t赋给Optional内部的value。不要求t非空
+  Optional<String> op1 = Optional.ofNullable(str);
+  //orElse(T t1):如果Optional内部的value非空，则返回此value值。如果
+  //value为空，则返回t1.
+  String str2 = op1.orElse("shanghai");
 
-    System.out.println(str2);
-    }
+  System.out.println(str2);
+}
 ```
 
 3.典型练习：
+
 能保证如下的方法执行中不会出现空指针的异常。
 
 ```java
 //使用Optional类的getGirlName():
 public String getGirlName2(Boy boy){
 
-    Optional<Boy> boyOptional = Optional.ofNullable(boy);
-    //此时的boy1一定非空
-    Boy boy1 = boyOptional.orElse(new Boy(new Girl("")));
-    
-    Girl girl = boy1.getGirl();
-    
-    Optional<Girl> girlOptional = Optional.ofNullable(girl);
-    //girl1一定非空
-    Girl girl1 = girlOptional.orElse(new Girl(""));
-    
-    return girl1.getName();
+  Optional<Boy> boyOptional = Optional.ofNullable(boy);
+  //此时的boy1一定非空
+  Boy boy1 = boyOptional.orElse(new Boy(new Girl("")));
+
+  Girl girl = boy1.getGirl();
+
+  Optional<Girl> girlOptional = Optional.ofNullable(girl);
+  //girl1一定非空
+  Girl girl1 = girlOptional.orElse(new Girl(""));
+
+  return girl1.getName();
 
 }
 
 @Test
 public void test5(){
-    Boy boy = null;
-    boy = new Boy();
-    boy = new Boy(new Girl("老师"));
-    String girlName = getGirlName2(boy);
-    System.out.println(girlName);
+  Boy boy = null;
+  boy = new Boy();
+  boy = new Boy(new Girl("老师"));
+  String girlName = getGirlName2(boy);
+  System.out.println(girlName);
 
 }
 ```
-
-‘】
-
-？｜：》「
 
