@@ -187,19 +187,19 @@ Person person = (Person)applicationContext.getBean("person2");
 
 ```java
 public class LinuxCondition implements Condition {
-    //ConditionContext 判断条件能使用的上下文环境
-    //AnnotatedTypeMetadata 注释信息
-    public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
-        ClassLoader classLoader = context.getClassLoader();
-        Environment environment = context.getEnvironment();
-        BeanDefinitionRegistry registry = context.getRegistry();
-        String property = environment.getProperty("os.name");
-        if(property.contains("Linux")){
-            return true;
-        }
-        return false;
+  //ConditionContext 判断条件能使用的上下文环境
+  //AnnotatedTypeMetadata 注释信息
+  public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+    ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
+    ClassLoader classLoader = context.getClassLoader();
+    Environment environment = context.getEnvironment();
+    BeanDefinitionRegistry registry = context.getRegistry();
+    String property = environment.getProperty("os.name");
+    if(property.contains("Linux")){
+      return true;
     }
+    return false;
+  }
 }
 ```
 
@@ -208,8 +208,8 @@ public class LinuxCondition implements Condition {
 @Conditional(value = WindowsCondition.class)
 @Bean("person1")
 public Person person1(){
-    System.out.println("给容器添加person1...");
-    return new Person("1","Bill Gates",54);
+  System.out.println("给容器添加person1...");
+  return new Person("1","Bill Gates",54);
 };
 ```
 
@@ -252,22 +252,22 @@ public class MyImportSelector  implements ImportSelector {
 
 ```java
 public class MyImporBeanDefinitionRegister implements ImportBeanDefinitionRegistrar {
-    /**
+  /**
      *
      * @param importingClassMetadata 当前类的注释信息
      * @param registry ：BeanDefinition注册类
      * 把所有要注册的bean通过BeanDefinitionRegistry手动注册到容器中
      */
-    public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+  public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 
-        boolean red = registry.containsBeanDefinition("beans.Red");
-        boolean blue = registry.containsBeanDefinition("beans.Yellow");
-        if(red && blue){
-            RootBeanDefinition beanDefinition = new RootBeanDefinition(black.class);
-            //指定bean名
-            registry.registerBeanDefinition("black",beanDefinition);
-        }
+    boolean red = registry.containsBeanDefinition("beans.Red");
+    boolean blue = registry.containsBeanDefinition("beans.Yellow");
+    if(red && blue){
+      RootBeanDefinition beanDefinition = new RootBeanDefinition(black.class);
+      //指定bean名
+      registry.registerBeanDefinition("black",beanDefinition);
     }
+  }
 }
 ```
 
@@ -293,24 +293,24 @@ import java.awt.*;
  * @apiNote
  **/
 public class myFactoryBean implements FactoryBean<RedBiow> {
-    public RedBiow getObject() throws Exception {
-        System.out.println("myFactoryBean....");
-        return new RedBiow();
-    }
+  public RedBiow getObject() throws Exception {
+    System.out.println("myFactoryBean....");
+    return new RedBiow();
+  }
 
-    public Class<?> getObjectType() {
-        return RedBiow.class;
-    }
+  public Class<?> getObjectType() {
+    return RedBiow.class;
+  }
 
-    /**
-     * 判断是否单例
-     * true 这个bean是单例,在容器中存在一份
-     * false 多实例,每次获取都会创建新的bean实例
-     * @return
-     */
-    public boolean isSingleton() {
-        return false;
-    }
+  /**
+   * 判断是否单例
+   * true 这个bean是单例,在容器中存在一份
+   * false 多实例,每次获取都会创建新的bean实例
+   * @return
+   */
+  public boolean isSingleton() {
+    return false;
+  }
 }
 
 ```
@@ -485,10 +485,10 @@ private Integer age;
 //使用PropertySource读取外部配置中的k/v保存到运行的环境变量中,加载完配置文件以后使用${}取值
 @PropertySource(value = {"classpath:/person.properties"})
 public class MainConfigOfPropertyValue {
-    @Bean
-    public Person person(){
-        return new Person();
-    }
+  @Bean
+  public Person person(){
+    return new Person();
+  }
 }
 ```
 
@@ -582,37 +582,37 @@ public class MainConfigOfPropertyValue {
  */
 @Component
 public class Boss {
-	
-	private Car car;
+
+  private Car car;
   public Boss(){}
-	@AutoWired
-	//构造器要用的组件,都是从容器中获取
-	public Boss(Car car){
-		this.car = car;
-		System.out.println("Boss...有参构造器");
-	}
-	public Car getCar() {
-		return car;
-	}
+  @AutoWired
+  //构造器要用的组件,都是从容器中获取
+  public Boss(Car car){
+    this.car = car;
+    System.out.println("Boss...有参构造器");
+  }
+  public Car getCar() {
+    return car;
+  }
 
-	//@Autowired 
-	//标注在方法,Spring容器创建当前对象,就会调用方法,完成赋值;
-	//方法使用的参数,自定义类型的值从ioc容器中获取
-	public void setCar(@Autowired Car car) {
-		this.car = car;
-	}
+  //@Autowired 
+  //标注在方法,Spring容器创建当前对象,就会调用方法,完成赋值;
+  //方法使用的参数,自定义类型的值从ioc容器中获取
+  public void setCar(@Autowired Car car) {
+    this.car = car;
+  }
 
-	@Override
-	public String toString() {
-		return "Boss [car=" + car + "]";
-	}
+  @Override
+  public String toString() {
+    return "Boss [car=" + car + "]";
+  }
 }
 ```
 
 #### Aware注入Spring底层组件&原理
 
 ```java
- /*   4）自定义组件想要使用Spring容器底层的一些组件（ApplicationContext,BeanFactory,xxx）;
+/*   4）自定义组件想要使用Spring容器底层的一些组件（ApplicationContext,BeanFactory,xxx）;
  * 		自定义组件实现xxxAware;在创建对象的时候,会调用接口规定的方法注入相关组件;Aware;
  * 		把Spring底层一些组件注入到自定义的Bean中;
  * 		xxxAware：功能使用xxxProcessor;
@@ -620,21 +620,21 @@ public class Boss {
  */
 @Component
 public class Red implements ApplicationContextAware, BeanNameAware, EmbeddedValueResolverAware {
-    private ApplicationContext applicationContext;
-    public Red(){}
-    public void setBeanName(String name) {
-        System.out.println("当前bean name:"+name);
-    }
+  private ApplicationContext applicationContext;
+  public Red(){}
+  public void setBeanName(String name) {
+    System.out.println("当前bean name:"+name);
+  }
 
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        System.out.println("传入的IOC容器:"+applicationContext);
-        this.applicationContext= applicationContext;
-    }
+  public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    System.out.println("传入的IOC容器:"+applicationContext);
+    this.applicationContext= applicationContext;
+  }
 
-    public void setEmbeddedValueResolver(StringValueResolver resolver) {
-        String s = resolver.resolveStringValue("解析字符串： 你好,${os.name},值：#{20*2}");
-        System.out.println(s);
-    }
+  public void setEmbeddedValueResolver(StringValueResolver resolver) {
+    String s = resolver.resolveStringValue("解析字符串： 你好,${os.name},值：#{20*2}");
+    System.out.println(s);
+  }
 }
 ```
 
@@ -717,28 +717,28 @@ public class MainConfigOfProfile implements EmbeddedValueResolverAware{
 **需要指定虚拟机启动参数-Dspring.profiles.active=dev指定启动环境**
 
 ```java
-	//1、使用命令行动态参数: 在虚拟机参数位置加载 -Dspring.profiles.active=test
-	//2、代码的方式激活某种环境;
-	@Test
-	public void test01(){
-		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
-		//1、创建一个applicationContext
-		//2、设置需要激活的环境
-		applicationContext.getEnvironment().setActiveProfiles("dev");
-		//3、注册主配置类
-		applicationContext.register(MainConfigOfProfile.class);
-		//4、启动刷新容器
-		applicationContext.refresh();
-	
-		String[] namesForType = applicationContext.getBeanNamesForType(DataSource.class);
-		for (String string : namesForType) {
-			System.out.println(string);
-		}
-		
-		Yellow bean = applicationContext.getBean(Yellow.class);
-		System.out.println(bean);
-		applicationContext.close();
-	}
+//1、使用命令行动态参数: 在虚拟机参数位置加载 -Dspring.profiles.active=test
+//2、代码的方式激活某种环境;
+@Test
+public void test01(){
+  AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
+  //1、创建一个applicationContext
+  //2、设置需要激活的环境
+  applicationContext.getEnvironment().setActiveProfiles("dev");
+  //3、注册主配置类
+  applicationContext.register(MainConfigOfProfile.class);
+  //4、启动刷新容器
+  applicationContext.refresh();
+
+  String[] namesForType = applicationContext.getBeanNamesForType(DataSource.class);
+  for (String string : namesForType) {
+    System.out.println(string);
+  }
+
+  Yellow bean = applicationContext.getBean(Yellow.class);
+  System.out.println(bean);
+  applicationContext.close();
+}
 ```
 
 ### IOC-小结
@@ -921,18 +921,18 @@ public class MainConfigOfProfile implements EmbeddedValueResolverAware{
 @EnableAspectJAutoProxy
 @Configuration
 public class MainConfigOfAOP {
-	 
-	//业务逻辑类加入容器中
-	@Bean
-	public MathCalculator calculator(){
-		return new MathCalculator();
-	}
 
-	//切面类加入到容器中
-	@Bean
-	public LogAspects logAspects(){
-		return new LogAspects();
-	}
+  //业务逻辑类加入容器中
+  @Bean
+  public MathCalculator calculator(){
+    return new MathCalculator();
+  }
+
+  //切面类加入到容器中
+  @Bean
+  public LogAspects logAspects(){
+    return new LogAspects();
+  }
 }
 ```
 
@@ -1119,7 +1119,7 @@ retVal = new CglibMethodInvocation(proxy, target, method, args, targetClass, cha
 ```java
 /** 总结：
  * 1）、 @EnableAspectJAutoProxy 开启AOP功能
- * 2）、 @EnableAspectJAutoProxy 会给容器中注册一个组 AnnotationAwareAspectJAutoProxyCreator
+ * 2）、 @EnableAspectJAutoProxy 会给容器中注册一个组件 AnnotationAwareAspectJAutoProxyCreator
  * 3）、AnnotationAwareAspectJAutoProxyCreator是一个后置处理器;
  * 4）、容器的创建流程：
  * 	1）registerBeanPostProcessors()注册后置处理器;创建AnnotationAwareAspectJAutoProxyCreator对象
@@ -1155,31 +1155,31 @@ retVal = new CglibMethodInvocation(proxy, target, method, args, targetClass, cha
 @ComponentScan(value = "tx")
 public class MainConfigOfTx   {
 
-    @Bean
-    public DataSource dataSource() throws Exception {
-        ComboPooledDataSource dataSource = new ComboPooledDataSource();
-        dataSource.setUser("root");
-        dataSource.setPassword("password");
-        dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&verifyServerCertificate=false");
-        dataSource.setDriverClass("com.mysql.jdbc.Driver");
-        return dataSource;
-    }
-    @Bean
-    public JdbcTemplate jdbcTemplate() throws Exception {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
-        return jdbcTemplate;
-    }
+  @Bean
+  public DataSource dataSource() throws Exception {
+    ComboPooledDataSource dataSource = new ComboPooledDataSource();
+    dataSource.setUser("root");
+    dataSource.setPassword("password");
+    dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&verifyServerCertificate=false");
+    dataSource.setDriverClass("com.mysql.jdbc.Driver");
+    return dataSource;
+  }
+  @Bean
+  public JdbcTemplate jdbcTemplate() throws Exception {
+    JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
+    return jdbcTemplate;
+  }
 }
 ```
 
 ```java
 @Repository
 public class UserDao  {
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-    public void insertUser(){
-        jdbcTemplate.update("insert into tbl_user(id,lastName,email)  values (?,?,?)",10,101,"123@qq.com");
-    }
+  @Autowired
+  private JdbcTemplate jdbcTemplate;
+  public void insertUser(){
+    jdbcTemplate.update("insert into tbl_user(id,lastName,email)  values (?,?,?)",10,101,"123@qq.com");
+  }
 }
 ```
 
@@ -1199,26 +1199,26 @@ public class UserDao  {
 @ComponentScan(value = "tx")
 public class MainConfigOfTx   {
 
-    @Bean
-    public DataSource dataSource() throws Exception {
-        ComboPooledDataSource dataSource = new ComboPooledDataSource();
-        dataSource.setUser("root");
-        dataSource.setPassword("password");
-        dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&verifyServerCertificate=false");
-        dataSource.setDriverClass("com.mysql.jdbc.Driver");
-        return dataSource;
-    }
-    @Bean
-    public JdbcTemplate jdbcTemplate() throws Exception {
-        // Spring会对Configuration类做特殊处理，在容器中找组件的方法都是从容器中获取组件
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
-        return jdbcTemplate;
-    }
-    @Bean
-    public PlatformTransactionManager platformTransactionManager() throws Exception {
-        PlatformTransactionManager platformTransactionManager = new DataSourceTransactionManager(dataSource());
-        return platformTransactionManager;
-    }
+  @Bean
+  public DataSource dataSource() throws Exception {
+    ComboPooledDataSource dataSource = new ComboPooledDataSource();
+    dataSource.setUser("root");
+    dataSource.setPassword("password");
+    dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&verifyServerCertificate=false");
+    dataSource.setDriverClass("com.mysql.jdbc.Driver");
+    return dataSource;
+  }
+  @Bean
+  public JdbcTemplate jdbcTemplate() throws Exception {
+    // Spring会对Configuration类做特殊处理，在容器中找组件的方法都是从容器中获取组件
+    JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
+    return jdbcTemplate;
+  }
+  @Bean
+  public PlatformTransactionManager platformTransactionManager() throws Exception {
+    PlatformTransactionManager platformTransactionManager = new DataSourceTransactionManager(dataSource());
+    return platformTransactionManager;
+  }
 }
 ```
 
@@ -1278,10 +1278,10 @@ public class MainConfigOfTx   {
 @Configuration
 @ComponentScan("ext")
 public class extConfig {
-    @Bean
-    public Car car(){
-        return new Car();
-    }
+  @Bean
+  public Car car(){
+    return new Car();
+  }
 }
 ```
 
@@ -1306,23 +1306,23 @@ public class extConfig {
 @Component
 public class MyBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor{
 
-    @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        // TODO Auto-generated method stub
-        System.out.println("MyBeanDefinitionRegistryPostProcessor...bean的数量："
-                           +beanFactory.getBeanDefinitionCount());
-    }
+  @Override
+  public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+    // TODO Auto-generated method stub
+    System.out.println("MyBeanDefinitionRegistryPostProcessor...bean的数量："
+                       +beanFactory.getBeanDefinitionCount());
+  }
 
-    //BeanDefinitionRegistry Bean定义信息的保存中心,以后BeanFactory就是按照BeanDefinitionRegistry里面保存的每一个bean定义信息创建bean实例;
-    @Override
-    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-        // TODO Auto-generated method stub
-        System.out.println("postProcessBeanDefinitionRegistry...bean的数量："
-                           +registry.getBeanDefinitionCount());
-        //RootBeanDefinition beanDefinition = new RootBeanDefinition(Blue.class);
-        AbstractBeanDefinition beanDefinition = BeanDefinitionBuilder.rootBeanDefinition(Blue.class).getBeanDefinition();
-        registry.registerBeanDefinition("hello", beanDefinition);
-    }
+  //BeanDefinitionRegistry Bean定义信息的保存中心,以后BeanFactory就是按照BeanDefinitionRegistry里面保存的每一个bean定义信息创建bean实例;
+  @Override
+  public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
+    // TODO Auto-generated method stub
+    System.out.println("postProcessBeanDefinitionRegistry...bean的数量："
+                       +registry.getBeanDefinitionCount());
+    //RootBeanDefinition beanDefinition = new RootBeanDefinition(Blue.class);
+    AbstractBeanDefinition beanDefinition = BeanDefinitionBuilder.rootBeanDefinition(Blue.class).getBeanDefinition();
+    registry.registerBeanDefinition("hello", beanDefinition);
+  }
 }
 ```
 
@@ -1666,19 +1666,19 @@ DefaultLifecycleProcessor defaultProcessor = new DefaultLifecycleProcessor();、
 
 ```java
 ===================总结=======================
-    1）spring在容器启动时,先会保存所有注册进来的bean定义信息
+  1）spring在容器启动时,先会保存所有注册进来的bean定义信息
     1.xml注册bean <bean>
     2.注解注册bean @Service @Component @Bean
-    2)Spring容器会在合适的时机创建这些bean
+  2)Spring容器会在合适的时机创建这些bean
     1.用到这个bean时利用getBean创建bean,创建好保存在容器中
     2.统一创建剩下所有的bean时,finishBeanFactoryInitialization
-    3）后置处理器：
+  3）后置处理器：
     1.每个bean创建完成,都会使用各种后置处理器进行处理,来增强bean的功能。
     AutowiredAnnotationBeanPostProcessor：处理自动注入
-    AnnotationAwareAspectJAutoProxyCreator：来做AOP代理对象
-    4)事件驱动模型：
+  	AnnotationAwareAspectJAutoProxyCreator：来做AOP代理对象
+  4)事件驱动模型：
     ApplicationListener;事件监听
-        ApplicationEventMulticaster;事件派发
+    ApplicationEventMulticaster;事件派发
 ```
 
 ### servlet3.0（在javaweb中学习,此处不学）
