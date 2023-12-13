@@ -164,29 +164,27 @@ spring是一个简化java企业级开发的一个框架，内部包含了很多�
 
 打开idea，点击`File->New->Project`，如下：
 
-![](./1Spring%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0%E5%AE%83%EF%BC%9F.assets/1641957764-802f7ac3a5fd52cb374eb7e3be316245-8233059.png)
-
-![](/Users/jiusonghuang/pic-md/1641957764-409b66d6a05dfdd4a27eb668c8563306.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072307301.png)
 
 点击`Spring Initializr->Next`，如下图：
 
-![](../luren/1Spring%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0%E5%AE%83%EF%BC%9F.assets/1641957764-bb6e03a7cb84b1a29091634157ac06eb-8233079.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072307238.png)
 
 输入项目坐标信息，如下图：
 
-![](./1Spring%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0%E5%AE%83%EF%BC%9F.assets/1641957764-7de80907ffebcf1a307fc960a154a46a-8233106-8233108.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072308655.png)
 
 选择`Web->Spring Web->Spring Boot(2.24)->Next`，如下图：
 
-![](./1Spring%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0%E5%AE%83%EF%BC%9F.assets/1641957764-b5c90d8b8fdd37c0425da51caab41e85.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072308197.png)
 
 点击`Finish`，完成项目的创建，如下图：
 
-![](./1Spring%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0%E5%AE%83%EF%BC%9F.assets/1641957764-6a52f7e1fd2551e98608e819e749dfb7.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072308047.png)
 
 项目结构如下图：
 
-![](./1Spring%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0%E5%AE%83%EF%BC%9F.assets/1641957764-b47813489c018d7f4647d4b47f82f8b9.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072308901.png)
 
 目前为止我们还未写一行代码，下面我们创建一个类`HelloWorldController`，代码如下：
 
@@ -202,10 +200,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/helloWorld")
 public class HelloWorldController {
-    @RequestMapping("/index")
-    public String index() {
-        return "hello world!";
-    }
+  @RequestMapping("/index")
+  public String index() {
+    return "hello world!";
+  }
 }
 ```
 
@@ -247,7 +245,7 @@ http://localhost:8080/helloWorld/index
 
 效果如下图：
 
-![](./1Spring%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0%E5%AE%83%EF%BC%9F.assets/1641957764-098f630845e3f7f4ae917a0e2c82745b.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072308461.png)
 
 此时我们需要的功能已经实现了，然而到目前为止，只有`HelloWorldController`代码是我们写的，而我们没有去创建servlet、将返回的结果以json格式输出、配置web.xml，没有将项目发布到tomcat，没有去启动tomcat，而只启动了一个main方法，是不是非常神奇。创建servlet、通过response将数据以json格式输出、配置web.xml、发布项目到tomcat、启动tomcat等这些操作并不是说不需要，而是springboot内部已经帮我们实现了，对于开发者来说这些都被隐藏了，springboot让我们更关注业务代码的实现，从而最大限度的帮我们提升开发效率，简化项目的开发过程。
 

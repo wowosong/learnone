@@ -105,7 +105,7 @@ org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 spring-series项目中创建一个子模块`lesson-001`，项目maven父子结构，如下图：
 
-![](./3Spring%E5%AE%B9%E5%99%A8%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E5%8F%8A%E5%8E%9F%E7%90%86.assets/1641958135-9a2f8a4458a584e9fa3ac801920400e2.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312072308359.png)
 
 ### spring-series/pom.xml
 
