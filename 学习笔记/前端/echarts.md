@@ -305,8 +305,6 @@ myChart.on('click', function(event) {
 
 # 散点图
 
-![image-20231026140012417](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202310261400867.png)
-
 - 实现步骤
 
   - Echarts最基本的代码结构：
