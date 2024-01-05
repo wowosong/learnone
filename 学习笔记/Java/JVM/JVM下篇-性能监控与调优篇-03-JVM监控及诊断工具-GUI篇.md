@@ -44,15 +44,15 @@ jconsole：从 Java5 开始，在 JDK 中自带的 java 监控和管理控制台
 
 官方地址：[https://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html](https://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html)
 
-![image-20210505141631635](https://gitee.com/wowosong/pic-md/raw/master/202305311258046.png)
+![image-20210505141631635](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051520431.png)
 
-![image-20210505141726143](https://gitee.com/wowosong/pic-md/raw/master/202305311258423.png)
+![image-20210505141726143](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051520239.png)
 
-![image-20210505141924211](https://gitee.com/wowosong/pic-md/raw/master/202305311258615.png)
+![image-20210505141924211](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051520767.png)
 
-![image-20210505141950000](https://gitee.com/wowosong/pic-md/raw/master/202305311258701.png)
+![image-20210505141950000](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051520917.png)
 
-![image-20210505142050157](https://gitee.com/wowosong/pic-md/raw/master/202305311258947.png)
+![image-20210505142050157](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051520924.png)
 
 ## 3.3. Visual VM
 
@@ -68,11 +68,11 @@ Visual VM 是一个功能强大的多合一故障诊断和性能监控的可视�
 
 官方地址：[https://visualvm.github.io/index.html](https://visualvm.github.io/index.html)
 
-![image-20210505143844282](https://gitee.com/wowosong/pic-md/raw/master/202305311258126.png)
+![image-20210505143844282](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051521067.png)
 
-![image-20210505144716064](https://gitee.com/wowosong/pic-md/raw/master/202305311259109.png)
+![image-20210505144716064](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051521815.png)
 
-![image-20210505144805307](https://gitee.com/wowosong/pic-md/raw/master/202305311259640.png)
+![image-20210505144805307](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051521766.png)
 
 ## 3.4. Eclipse MAT
 
@@ -91,13 +91,13 @@ MAT 不是一个万能工具，它并不能处理所有类型的堆存储文件�
 
 官方地址： [https://www.eclipse.org/mat/downloads.php](https://www.eclipse.org/mat/downloads.php)
 
-![image-20210505145708567](https://gitee.com/wowosong/pic-md/raw/master/202305311259113.png)
+![image-20210505145708567](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051521797.png)
 
-![image-20210505145826442](https://gitee.com/wowosong/pic-md/raw/master/202305311259624.png)
+![image-20210505145826442](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051521916.png)
 
-![image-20210505145945951](https://gitee.com/wowosong/pic-md/raw/master/202305311259489.png)
+![image-20210505145945951](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051521809.png)
 
-![image-20210505150039376](https://gitee.com/wowosong/pic-md/raw/master/202305311259711.png)
+![image-20210505150039376](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051521218.png)
 
 ## 3.5. JProfiler
 
@@ -140,19 +140,19 @@ JProfier 数据采集方式分为两种：Sampling（样本采集）和 Instrume
 
 **遥感监测 Telemetries**
 
-![image-20210505164521410](https://gitee.com/wowosong/pic-md/raw/master/202305311259430.png)
+![image-20210505164521410](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051521410.png)
 
-![image-20210505164907312](https://gitee.com/wowosong/pic-md/raw/master/202305311259252.png)
+![image-20210505164907312](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051522881.png)
 
-![image-20210505164815324](https://gitee.com/wowosong/pic-md/raw/master/202305311259818.png)
+![image-20210505164815324](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051522227.png)
 
-![image-20210505164945192](https://gitee.com/wowosong/pic-md/raw/master/202305311300325.png)
+![image-20210505164945192](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051522928.png)
 
-![image-20210505165010529](https://gitee.com/wowosong/pic-md/raw/master/202305311300723.png)
+![image-20210505165010529](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051522297.png)
 
-![image-20210505165128212](https://gitee.com/wowosong/pic-md/raw/master/202305311300877.png)
+![image-20210505165128212](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051522764.png)
 
-![image-20210505165249919](https://gitee.com/wowosong/pic-md/raw/master/202305311300622.png)
+![image-20210505165249919](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051522862.png)
 
 **内存视图 Live Memory**
 
@@ -164,15 +164,15 @@ Live memory 内存剖析：class／class instance 的相关信息。例如对象
 *   **分配热点 Allocation Hot Spots**：显示一个列表，包括方法、类、包或分配已选类的 J2EE 组件。你可以标注当前值并且显示差异值。对于每个热点都可以显示它的跟踪记录树。
 *   **类追踪器 Class Tracker**：类跟踪视图可以包含任意数量的图表，显示选定的类和包的实例与时间。
 
-![image-20210505164554298](https://gitee.com/wowosong/pic-md/raw/master/202305311300752.png)
+![image-20210505164554298](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051522094.png)
 
-![image-20210505165519790](https://gitee.com/wowosong/pic-md/raw/master/202305311300384.png)
+![image-20210505165519790](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051522678.png)
 
 **堆遍历 heap walker**
 
-![image-20210505165710620](https://gitee.com/wowosong/pic-md/raw/master/202305311300200.png)
+![image-20210505165710620](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051522927.png)
 
-![image-20210505165823201](https://gitee.com/wowosong/pic-md/raw/master/202305311300291.png)
+![image-20210505165823201](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051522691.png)
 
 **cpu 视图 cpu views**
 
@@ -183,9 +183,9 @@ JProfiler 提供不同的方法来记录访问树以优化性能和细节。线�
 *   **访问图 Call Graph**：显示一个从已选方法、类、包或 J2EE 组件开始的访问队列的图。
 *   **方法统计 Method Statistis**：显示一段时间内记录的方法的调用时间细节。
 
-![image-20210505170055722](https://gitee.com/wowosong/pic-md/raw/master/202305311301986.png)
+![image-20210505170055722](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051522946.png)
 
-![image-20210505170141278](https://gitee.com/wowosong/pic-md/raw/master/202305311301011.png)
+![image-20210505170141278](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051522361.png)
 
 **线程视图 threads**
 
@@ -201,7 +201,7 @@ JProfiler 通过对线程历史的监控判断其运行状态，并监控是否�
 *   2．线程阻塞
 *   3．线程死锁
 
-![image-20210505170739972](https://gitee.com/wowosong/pic-md/raw/master/202305311301037.png)
+![image-20210505170739972](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051523242.png)
 
 **监控和锁 Monitors ＆Locks**
 
@@ -349,7 +349,7 @@ JMC 的另一个优点就是：采用取样，而不是传统的代码植入技�
 
 官方地址：[https://github.com/JDKMissionControl/jmc](https://github.com/JDKMissionControl/jmc)
 
-![image-20210505184358041](https://gitee.com/wowosong/pic-md/raw/master/202305311301360.png)
+![image-20210505184358041](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051523648.png)
 
 **Java Flight Recorder**
 
@@ -370,19 +370,19 @@ Java Flight Recorder 和 JDK Mission Control 共同创建了一个完整的工�
 
 取样事件的其中一个常见例子便是方法抽样（Method Sampling），即每隔一段时问统计各个线程的栈轨迹。如果在这些抽样取得的栈轨迹中存在一个反复出现的方法，那么我们可以推测该方法是热点方法
 
-![image-20210505185941373](https://gitee.com/wowosong/pic-md/raw/master/202305311301205.png)
+![image-20210505185941373](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051523488.png)
 
-![image-20210505185954567](https://gitee.com/wowosong/pic-md/raw/master/202305311301975.png)
+![image-20210505185954567](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051523287.png)
 
-![image-20210505190009274](https://gitee.com/wowosong/pic-md/raw/master/202305311301251.png)
+![image-20210505190009274](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051523081.png)
 
-![image-20210505190023099](https://gitee.com/wowosong/pic-md/raw/master/202305311301683.png)
+![image-20210505190023099](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051523849.png)
 
-![image-20210505190037354](https://gitee.com/wowosong/pic-md/raw/master/202305311302525.png)
+![image-20210505190037354](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051523964.png)
 
-![image-20210505190052561](https://gitee.com/wowosong/pic-md/raw/master/202305311301790.png)
+![image-20210505190052561](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051523480.png)
 
-![image-20210505190106004](https://gitee.com/wowosong/pic-md/raw/master/202305311302820.png)
+![image-20210505190106004](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051523451.png)
 
 ## 3.8. 其他工具
 
@@ -392,7 +392,7 @@ Java Flight Recorder 和 JDK Mission Control 共同创建了一个完整的工�
 
 网上的关于 Java 火焰图的讲解大部分来自于 Brenden Gregg 的博客 [http://new.brendangregg.com/flamegraphs.html](http://new.brendangregg.com/flamegraphs.html)
 
-![image-20210505190823214](https://gitee.com/wowosong/pic-md/raw/master/202305311302326.png)
+![image-20210505190823214](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051524837.png)
 
 火焰图，简单通过 x 轴横条宽度来度量时间指标，y 轴代表线程栈的层次。
 
@@ -415,7 +415,7 @@ Java Flight Recorder 和 JDK Mission Control 共同创建了一个完整的工�
 
 BTrace 是 SUN Kenai 云计算开发平台下的一个开源项目，旨在为 java 提供安全可靠的动态跟踪分析工具。先看一卜日 Trace 的官方定义：
 
-![image-20210505192042974](https://gitee.com/wowosong/pic-md/raw/master/202305311302643.png)
+![image-20210505192042974](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051524976.png)
 
 大概意思是一个 Java 平台的安全的动态追踪工具，可以用来动态地追踪一个运行的 Java 程序。BTrace 动态调整目标应用程序的类以注入跟踪代码（“字节码跟踪“）。
 

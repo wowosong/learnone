@@ -204,9 +204,9 @@ Java 作为最流行的编程语言之一，其应用性能诊断一直受到业
 
 我们进入到安装 jdk 的 bin 目录，发现还有一系列辅助工具。这些辅助工具用来获取目标 JVM 不同方面、不同层次的信息，帮助开发人员很好地解决 Java 应用程序的一些疑难杂症。
 
-![image-20210504195803526](https://img-blog.csdnimg.cn/img_convert/5b7c5d239e4da192ba65edb0800055c5.png)
+![image-20210504195803526](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051509294.png)
 
-![image-20210504195836342](https://img-blog.csdnimg.cn/img_convert/fa3c5e41cbf999d261bcf32851731565.png)
+![image-20210504195836342](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051509094.png)
 
 官方源码地址：[http://hg.openjdk.java.net/jdk/jdk11/file/1ddf9a99e4ad/src/jdk.jcmd/share/classes/sun/tools](http://hg.openjdk.java.net/jdk/jdk11/file/1ddf9a99e4ad/src/jdk.jcmd/share/classes/sun/tools)
 
@@ -225,11 +225,11 @@ jps(Java Process Status)：显示指定系统内所有的 HotSpot 虚拟机进�
 *   \-q：仅仅显示 LVMID（local virtual machine id），即本地虚拟机唯一 id。不显示主类的名称等
 *   \-l：输出应用程序主类的全类名 或 如果进程执行的是 jar 包，则输出 jar 完整路径
 *   \-m：输出虚拟机进程启动时传递给主类 main()的参数
-*   \-v：列出虚拟机进程启动时的 JVM 参数。比如：-Xms20m -Xmx50m 是启动程序指定的 jvm 参数。
+*   \-v：列出虚拟机进程启动时的 JVM 参数。比如：\-Xms20m \-Xmx50m 是启动程序指定的 jvm 参数。
 
 说明：以上参数可以综合使用。
 
-补充：如果某 Java 进程关闭了默认开启的 UsePerfData 参数（即使用参数-XX：-UsePerfData），那么 jps 命令（以及下面介绍的 jstat）将无法探知该 Java 进程。
+补充：如果某 Java 进程关闭了默认开启的 UsePerfData 参数（即使用参数\-XX：\-UsePerfData），那么 jps 命令（以及下面介绍的 jstat）将无法探知该 Java 进程。
 
 **hostid 参数**
 
@@ -245,13 +245,13 @@ jstat（JVM Statistics Monitoring Tool）：用于监视虚拟机各种运行状
 
 官方文档：[https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jstat.html](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jstat.html)
 
-基本使用语法为：jstat -<option> \[-t\] \[-h<lines>\] <vmid> \[<interval> \[<count>\]\]
+基本使用语法为:`jstat -<option> [-t] [-h<lines>] <vmid> [<interval> [<count>]]`
 
-查看命令相关参数：jstat-h 或 jstat-help
+查看命令相关参数：jstat \-h 或 jstat \-help
 
 其中 vmid 是进程 id 号，也就是 jps 之后看到的前面的号码，如下：
 
-![image-20210504201703222](https://img-blog.csdnimg.cn/img_convert/83dddc874824b88d7fd03dab2b3889f1.png)
+![image-20210504201703222](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051509905.png)
 
 **option 参数**
 
@@ -282,55 +282,55 @@ JIT 相关的：
 
 **jstat -class**
 
-![img](https://img-blog.csdnimg.cn/img_convert/9f2cea8b0a9b1bc47c10281b5c140cc4.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051509122.png)
 
 **jstat -compiler**
 
-![img](https://img-blog.csdnimg.cn/img_convert/4e11a07ce9b8ff2f73ba5585e11e1da3.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051509256.png)
 
 **jstat -printcompilation**
 
-![img](https://img-blog.csdnimg.cn/img_convert/2a2553eef35293d28ef095feee3bb3b7.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051509210.png)
 
 **jstat -gc**
 
-![img](https://img-blog.csdnimg.cn/img_convert/6ea2aa6665c49b4bd35d46152dd2f1aa.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051510952.png)
 
 **jstat -gccapacity**
 
-![img](https://img-blog.csdnimg.cn/img_convert/be1dbc9fb1100c4ab76fdf802171c000.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051510982.png)
 
 **jstat -gcutil**
 
-![img](https://img-blog.csdnimg.cn/img_convert/527f347102e0f48036f4e643103a735f.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051510330.png)
 
 **jstat -gccause**
 
-![img](https://img-blog.csdnimg.cn/img_convert/2e5d220a3ceb094b3d6aee8b46867942.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051510100.png)
 
 **jstat -gcnew**
 
-![img](https://img-blog.csdnimg.cn/img_convert/766a9d8c98c1add9ff60f001fcbe552b.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051510478.png)
 
 **jstat -gcnewcapacity**
 
-![img](https://img-blog.csdnimg.cn/img_convert/d26356900de541c149df9c00852245a1.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051510634.png)
 
 **jstat -gcold**
 
-![img](https://img-blog.csdnimg.cn/img_convert/64f18adec84996fec58edf7052440610.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051510349.png)
 
 **jstat -gcoldcapacity**
 
-![img](https://img-blog.csdnimg.cn/img_convert/52bf3b50ba4a48247742caa0aa30be7e.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051511066.png)
 
 **jstat -t**
 
-![img](https://img-blog.csdnimg.cn/img_convert/61a5c6b9c421ba9ec38db1f132ef4161.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051511919.png)
 
 **jstat -t -h**
 
-![img](https://img-blog.csdnimg.cn/img_convert/73a294c043f770940daa6a501c1e8d2c.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051508145.png)
 
 | 表头 | 含义（字节） |
 | --- | --- |
@@ -476,16 +476,16 @@ jmap（JVM Memory Map）：作用一方面是获取 dump 文件（堆转储快�
 
 基本使用语法为：
 
-*   jmap \[option\] <pid>
-*   jmap \[option\] <executable <core>
-*   jmap \[option\] \[server\_id@\] <remote server IP or hostname>
+*   jmap \[option\] \<pid>
+*   jmap \[option\] <executable \<core>
+*   jmap \[option\] \[server\_id@\] \<remote server IP or hostname>
 
 | 选项 | 作用 |
 | --- | --- |
 | \-dump | 生成 dump 文件（Java 堆转储快照），-dump:live 只保存堆中的存活对象 |
 | \-heap | 输出整个堆空间的详细信息，包括 GC 的使用、堆配置信息，以及内存的使用信息等 |
 | \-histo | 输出堆空间中对象的统计信息，包括类、实例数量和合计容量，-histo:live 只统计堆中的存活对象 |
-| \-J <flag> | 传递参数给 jmap 启动的 jvm |
+| \-J \<flag> | 传递参数给 jmap 启动的 jvm |
 | \-finalizerinfo | 显示在 F-Queue 中等待 Finalizer 线程执行 finalize 方法的对象，仅 linux/solaris 平台有效 |
 | \-permstat | 以 ClassLoader 为统计口径输出永久代的内存状态信息，仅 linux/solaris 平台有效 |
 | \-F | 当虚拟机进程对-dump 选项没有任何响应时，强制执行生成 dump 文件，仅 linux/solaris 平台有效 |
@@ -510,7 +510,7 @@ jhat(JVM Heap Analysis Tool)：Sun JDK 提供的 jhat 命令与 jmap 命令搭�
 
 说明：jhat 命令在 JDK9、JDK10 中已经被删除，官方建议用 VisualVM 代替。
 
-基本适用语法：jhat <option> <dumpfile>
+基本适用语法：jhat \<option> \<dumpfile>
 
 | option 参数 | 作用 |
 | --- | --- |
@@ -521,7 +521,7 @@ jhat(JVM Heap Analysis Tool)：Sun JDK 提供的 jhat 命令与 jmap 命令搭�
 | \-baseline exclude-file | 指定一个基准堆转储 |
 | \-debug int | 设置 debug 级别 |
 | \-version | 启动后显示版本信息就退出 |
-| \-J <flag> | 传入启动参数，比如-J-Xmx512m |
+| \-J \<flag> | 传入启动参数，比如-J-Xmx512m |
 
 ## 2.7. jstack：打印 JVM 中线程快照
 
@@ -560,7 +560,7 @@ jcmd 拥有 jmap 的大部分功能，并且在 Oracle 的官方网站上也推�
 
 **jcmd 进程号 help：**针对指定的进程，列出支持的所有具体命令
 
-![image-20210504213044819](https://img-blog.csdnimg.cn/img_convert/f3507ac3e24d40625f6c3d54c25c743b.png)
+![image-20210504213044819](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051508139.png)
 
 **jcmd 进程号 具体命令：**显示指定进程的指令命令的数据
 
@@ -576,28 +576,5 @@ jcmd 拥有 jmap 的大部分功能，并且在 Oracle 的官方网站上也推�
 
 之前的指令只涉及到监控本机的 Java 应用程序，而在这些工具中，一些监控工具也支持对远程计算机的监控（如 jps、jstat）。为了启用远程监控，则需要配合使用 jstatd 工具。命令 jstatd 是一个 RMI 服务端程序，它的作用相当于代理服务器，建立本地计算机与远程监控工具的通信。jstatd 服务器将本机的 Java 应用程序信息传递到远程计算机。
 
-![image-20210504213301077](https://img-blog.csdnimg.cn/img_convert/2225de448c4af005aa0f72e84bba5e57.png)
+![image-20210504213301077](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051508341.png)
 
-* * *
-
-[上一篇＜JVM中篇：字节码与类的加载篇＞04-再谈类的加载器
-
-](https://www.cnblogs.com/vectorx/p/14725421.html)
-
-[下一篇<JVM下篇：性能监控与调优篇>03-JVM监控及诊断工具-GUI篇
-
-](https://www.cnblogs.com/vectorx/p/14732510.html)
-
-本文作者：VectorX
-
-本文链接：https://www.cnblogs.com/vectorx/p/14730392.html
-
-版权声明：本作品采用知识共享署名-非商业性使用-禁止演绎 2.5 中国大陆许可协议进行许可。
-
-[关注我](javascript:) [收藏该文](javascript:)
-
-1
-
-0
-
-posted @ 2021-05-04 21:50  [VectorX](https://www.cnblogs.com/vectorx/)  阅读(453)  评论(2)  [编辑](https://i.cnblogs.com/EditPosts.aspx?postid=14730392)  [收藏](javascript:)  [举报](javascript:)

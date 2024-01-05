@@ -90,7 +90,7 @@ SELECT * FROM java.util.Vector v WHERE v.elementData.@length>15 AND v.@retainedH
 
 OQL 中可以访问堆内对象的属性，也可以访问堆内代理对象的属性。访问堆内对象的属性时，格式如下，其中 alias 为对象名称：
 
-\[ <alias>. \] <field> . <field>. <field>
+\[ \<alias>. \] \<field> . \<field>. \<field>
 
 访问 java.io.File 对象的 path 属性，并进一步访问 path 的 value 属性：
 
@@ -115,31 +115,3 @@ SELECT v.elementData.@length FROM java.util.Vector v
 ```sql
 select * from INSTANCEOF java.util.Vector
 ```
-
-[上一篇<JVM下篇：性能监控与调优篇>补充：浅堆深堆与内存泄露
-
-](https://www.cnblogs.com/vectorx/p/14732550.html)
-
-[下一篇<JVM下篇：性能监控与调优篇>04-JVM运行时参数
-
-](https://www.cnblogs.com/vectorx/p/14737039.html)
-
-本文作者：VectorX
-
-本文链接：https://www.cnblogs.com/vectorx/p/14732555.html
-
-版权声明：本作品采用知识共享署名-非商业性使用-禁止演绎 2.5 中国大陆许可协议进行许可。
-
-[关注我](javascript:) [收藏该文](javascript:)
-
-0
-
-0
-
-posted @ 2021-05-05 19:46  [VectorX](https://www.cnblogs.com/vectorx/)  阅读(190)  评论(0)  [编辑](https://i.cnblogs.com/EditPosts.aspx?postid=14732555)  [收藏](javascript:)  [举报](javascript:)
-
-登录后才能查看或发表评论，立即 [登录](javascript:) 或者 [逛逛](https://www.cnblogs.com/) 博客园首页
-
-[【推荐】园子的商业化努力-AI人才服务：招募AI导师，一起探索AI领域的机会](https://www.cnblogs.com/cmt/p/17402955.html)  
-[【推荐】中国云计算领导者：阿里云轻量应用服务器2核2G低至108元/年](https://click.aliyun.com/m/1000370062/)  
-[【推荐】第五届金蝶云苍穹低代码开发大赛正式启动，百万奖金等你拿！](https://datayi.cn/w/1P64E1x9)

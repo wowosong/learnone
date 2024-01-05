@@ -114,9 +114,9 @@ Java 7 中 Oracle 的工程师对字符串池的逻辑做了很大的改变，�
 
 Java8 元空间，字符串常量在堆
 
-![image-20200711093546398](https://img-blog.csdnimg.cn/img_convert/27b7bf706fc1724baf503eac9b49c7fc.png)
+![image-20200711093546398](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051450619.png)
 
-![image-20200711093558709](https://img-blog.csdnimg.cn/img_convert/c59830deeebca85d5b2e446211e4e28d.png)
+![image-20200711093558709](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051451746.png)
 
 **StringTable 为什么要调整？**
 
@@ -171,7 +171,7 @@ class Memory {
 }
 ```
 
-![image-20210511111607132](https://img-blog.csdnimg.cn/img_convert/0ca01e17abb22f0fa16e87dd93b26a65.png)
+![image-20210511111607132](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051451304.png)
 
 ## 10.4. 字符串拼接操作
 
@@ -286,7 +286,45 @@ public void test3(){
 **字符串拼接操作性能对比**
 
 ```java
-public class Test{    public static void main(String[] args) {        int times = 50000;        // String        long start = System.currentTimeMillis();        testString(times);        long end = System.currentTimeMillis();        System.out.println("String: " + (end-start) + "ms");        // StringBuilder        start = System.currentTimeMillis();        testStringBuilder(times);        end = System.currentTimeMillis();        System.out.println("StringBuilder: " + (end-start) + "ms");        // StringBuffer        start = System.currentTimeMillis();        testStringBuffer(times);        end = System.currentTimeMillis();        System.out.println("StringBuffer: " + (end-start) + "ms");    }    public static void testString(int times) {        String str = "";        for (int i = 0; i < times; i++) {            str += "test";        }    }    public static void testStringBuilder(int times) {        StringBuilder sb = new StringBuilder();        for (int i = 0; i < times; i++) {            sb.append("test");        }    }    public static void testStringBuffer(int times) {        StringBuffer sb = new StringBuffer();        for (int i = 0; i < times; i++) {            sb.append("test");        }    }}// 结果String: 7963msStringBuilder: 1msStringBuffer: 4ms
+public class Test{    
+    public static void main(String[] args) {      
+        int times = 50000;   
+
+        // String       
+        long start = System.currentTimeMillis(); 
+        testString(times);     
+        long end = System.currentTimeMillis();      
+        System.out.println("String: " + (end-start) + "ms");   
+        // StringBuilder  
+        start = System.currentTimeMillis();  
+        testStringBuilder(times);      
+        end = System.currentTimeMillis();      
+        System.out.println("StringBuilder: " + (end-start) + "ms");   
+        // StringBuffer      
+
+        start = System.currentTimeMillis();      
+        testStringBuffer(times);      
+        end = System.currentTimeMillis();     
+        System.out.println("StringBuffer: " + (end-start) + "ms");   
+    } 
+    public static void testString(int times) {  
+        String str = "";      
+        for (int i = 0; i < times; i++) {  
+            str += "test";  
+        }  
+    }   
+    public static void testStringBuilder(int times) {  
+        StringBuilder sb = new StringBuilder(); 
+        for (int i = 0; i < times; i++) {   
+            sb.append("test");        } 
+    }   
+    public static void testStringBuffer(int times) {  
+        StringBuffer sb = new StringBuffer();  
+        for (int i = 0; i < times; i++) {       
+            sb.append("test");        }   
+    }
+}
+// 结果String: 7963msStringBuilder: 1msStringBuffer: 4ms
 ```
 
 本实验进行 5 万次循环，String 拼接方式的时间是 StringBuilder.append 方式的约 8000 倍，StringBuffer.append()方式的时间是 StringBuilder.append()方式的约 4 倍
@@ -300,7 +338,15 @@ public class Test{    public static void main(String[] args) {        int times 
 StringBuilder 空参构造器的初始化大小为 16。那么，如果提前知道需要拼接 String 的个数，就应该直接使用带参构造器指定 capacity，以减少扩容的次数（扩容的逻辑可以自行查看源代码）
 
 ```java
-/** * Constructs a string builder with no characters in it and an * initial capacity of 16 characters. */public StringBuilder() {    super(16);}/** * Constructs a string builder with no characters in it and an * initial capacity specified by the {@code capacity} argument. * * @param      capacity  the initial capacity. * @throws     NegativeArraySizeException  if the {@code capacity} *               argument is less than {@code 0}. */public StringBuilder(int capacity) {    super(capacity);}
+/** * Constructs a string builder with no characters in it and an * initial capacity of 16 characters. */public StringBuilder() {  
+    super(16);
+}
+/** * Constructs a string builder with no characters in it and an * initial capacity specified by the {@code capacity} argument. * * @param      capacity  the initial capacity. * 
+@throws     NegativeArraySizeException  if the {@code capacity} *               argument is less than {@code 0}. */
+
+public StringBuilder(int capacity) {  
+    super(capacity);
+}
 ```
 
 ## 10.5. intern()的使用
@@ -354,17 +400,40 @@ String myInfo = new string("I love atguigu").intern();
 
 通俗点讲，Interned string 就是确保字符串在内存里只有一份拷贝，这样可以节约内存空间，加快字符串操作任务的执行速度。注意，这个值会被存放在字符串内部池（String Intern Pool）
 
-![image-20210511145542579](https://img-blog.csdnimg.cn/img_convert/b3657b493efaf41f83b72e2debffb14b.png)
+![image-20210511145542579](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051453176.png)
 
 ### 10.5.1. intern 的使用：JDK6 vs JDK7/8
 
 ```java
-/** * ① String s = new String("1") * 创建了两个对象 * 		堆空间中一个new对象 * 		字符串常量池中一个字符串常量"1"（注意：此时字符串常量池中已有"1"） * ② s.intern()由于字符串常量池中已存在"1" *  * s  指向的是堆空间中的对象地址 * s2 指向的是堆空间中常量池中"1"的地址 * 所以不相等 */String s = new String("1");s.intern();String s2 = "1";System.out.println(s==s2); // jdk1.6 false jdk7/8 false/* * ① String s3 = new String("1") + new String("1") * 等价于new String（"11"），但是，常量池中并不生成字符串"11"； * * ② s3.intern() * 由于此时常量池中并无"11"，所以把s3中记录的对象的地址存入常量池 * 所以s3 和 s4 指向的都是一个地址*/String s3 = new String("1") + new String("1");s3.intern();String s4 = "11";System.out.println(s3==s4); //jdk1.6 false jdk7/8 true
+/** ① String s = new String("1") 
+* 创建了两个对象
+堆空间中一个new对象  		
+字符串常量池中一个字符串常量"1"（注意：此时字符串常量池中已有"1"）
+② s.intern()由于字符串常量池中已存在"1" 
+s  指向的是堆空间中的对象地址 
+s2 指向的是堆空间中常量池中"1"的地址
+所以不相等 */
+String s = new String("1");
+s.intern();
+String s2 = "1";
+System.out.println(s==s2); 
+// jdk1.6 false jdk7/8 false
+/* * ① String s3 = new String("1") + new String("1") 
+* 等价于new String（"11"），但是，常量池中并不生成字符串"11"；
+* 
+* ② s3.intern()
+* 由于此时常量池中并无"11"，所以把s3中记录的对象的地址存入常量池
+* 所以s3 和 s4 指向的都是一个地址
+*/
+String s3 = new String("1") + new String("1");
+s3.intern();String s4 = "11";
+System.out.println(s3==s4);
+//jdk1.6 false jdk7/8 true
 ```
 
-![image-20210511152240683](https://img-blog.csdnimg.cn/img_convert/4c11070481d7c3cdb566163802cf582b.png)
+![image-20210511152240683](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051455811.png)
 
-![image-20200711145925091](https://img-blog.csdnimg.cn/img_convert/3a3bab69ad3c6302ea00c301dffb5193.png)
+![image-20200711145925091](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051455286.png)
 
 总结 String 的 intern()的使用：
 
@@ -380,20 +449,39 @@ JDK1.7 起，将这个字符串对象尝试放入串池。
 
 **练习 1**
 
-![image-20200711150859709](https://img-blog.csdnimg.cn/img_convert/bb9abdd927bd9ac80c1c18359d299629.png)
+![image-20200711150859709](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051455824.png)
 
-![image-20200711151326909](https://img-blog.csdnimg.cn/img_convert/e6c4796fa8d9b5dda9438c799bb45540.png)
+![image-20200711151326909](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051455421.png)
 
 **练习 2**
 
-![image-20200711151433277](https://img-blog.csdnimg.cn/img_convert/ad465da04603bb228d6dde8950ee95ec.png)
+![image-20200711151433277](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051455969.png)
 
 ### 10.5.2. intern 的效率测试：空间角度
 
 我们通过测试一下，使用了 intern 和不使用的时候，其实相差还挺多的
 
 ```java
-public class StringIntern2 {    static final int MAX_COUNT = 1000 * 10000;    static final String[] arr = new String[MAX_COUNT];    public static void main(String[] args) {        Integer [] data = new Integer[]{1,2,3,4,5,6,7,8,9,10};        long start = System.currentTimeMillis();        for (int i = 0; i < MAX_COUNT; i++) {            // arr[i] = new String(String.valueOf(data[i%data.length]));            arr[i] = new String(String.valueOf(data[i%data.length])).intern();        }        long end = System.currentTimeMillis();        System.out.println("花费的时间为：" + (end - start));        try {            Thread.sleep(1000000);        } catch (Exception e) {            e.getStackTrace();        }    }}// 运行结果不使用intern：7256ms使用intern：1395ms
+public class StringIntern2 {    
+    static final int MAX_COUNT = 1000 * 10000;   
+    static final String[] arr = new String[MAX_COUNT]; 
+    public static void main(String[] args) {    
+        Integer [] data = new Integer[]{1,2,3,4,5,6,7,8,9,10};  
+        long start = System.currentTimeMillis();       
+        for (int i = 0; i < MAX_COUNT; i++) {       
+            // arr[i] = new String(String.valueOf(data[i%data.length]));   
+            arr[i] = new String(String.valueOf(data[i%data.length])).intern(); 
+        }      
+        long end = System.currentTimeMillis();   
+        System.out.println("花费的时间为：" + (end - start));  
+        try {           
+            Thread.sleep(1000000); 
+        } catch (Exception e) {    
+            e.getStackTrace();    
+        }  
+    }
+}
+// 运行结果不使用intern：7256ms使用intern：1395ms
 ```
 
 **结论**：对于程序中大量使用存在的字符串时，尤其存在很多已经重复的字符串时，使用 intern()方法能够节省内存空间。
@@ -403,7 +491,16 @@ public class StringIntern2 {    static final int MAX_COUNT = 1000 * 10000;    st
 ## 10.6. StringTable 的垃圾回收
 
 ```java
-public class StringGCTest {    /**     * -Xms15m -Xmx15m -XX:+PrintGCDetails     */    public static void main(String[] args) {                for (int i = 0; i < 100000; i++) {            String.valueOf(i).intern();        }    }}
+public class StringGCTest {    
+    /**     
+    * -Xms15m -Xmx15m -XX:+PrintGCDetails  
+    */ 
+    public static void main(String[] args) {  
+        for (int i = 0; i < 100000; i++) {   
+            String.valueOf(i).intern();   
+        } 
+    }
+}
 ```
 
 运行结果
@@ -447,31 +544,3 @@ public class StringGCTest {    /**     * -Xms15m -Xmx15m -XX:+PrintGCDetails    
 ```shell
 # 开启String去重，默认是不开启的，需要手动开启。 UseStringDeduplication(bool)  # 打印详细的去重统计信息 PrintStringDeduplicationStatistics(bool)  # 达到这个年龄的String对象被认为是去重的候选对象StringpeDuplicationAgeThreshold(uintx)
 ```
-
-[上一篇<JVM上篇：内存与垃圾回收篇>09-执行引擎
-
-](https://www.cnblogs.com/vectorx/p/14757595.html)
-
-[下一篇<JVM上篇：内存与垃圾回收篇>11-垃圾回收概述及算法
-
-](https://www.cnblogs.com/vectorx/p/14761565.html)
-
-本文作者：VectorX
-
-本文链接：https://www.cnblogs.com/vectorx/p/14757605.html
-
-版权声明：本作品采用知识共享署名-非商业性使用-禁止演绎 2.5 中国大陆许可协议进行许可。
-
-[关注我](javascript:) [收藏该文](javascript:)
-
-0
-
-0
-
-posted @ 2021-05-11 22:03  [VectorX](https://www.cnblogs.com/vectorx/)  阅读(482)  评论(0)  [编辑](https://i.cnblogs.com/EditPosts.aspx?postid=14757605)  [收藏](javascript:)  [举报](javascript:)
-
-登录后才能查看或发表评论，立即 [登录](javascript:) 或者 [逛逛](https://www.cnblogs.com/) 博客园首页
-
-[【推荐】园子的商业化努力-AI人才服务：招募AI导师，一起探索AI领域的机会](https://www.cnblogs.com/cmt/p/17402955.html)  
-[【推荐】中国云计算领导者：阿里云轻量应用服务器2核2G低至108元/年](https://click.aliyun.com/m/1000370062/)  
-[【推荐】第五届金蝶云苍穹低代码开发大赛正式启动，百万奖金等你拿！](https://datayi.cn/w/1P64E1x9)

@@ -809,7 +809,7 @@ User(id=1, name=谢禹宏, pwd=123456)
 
 MyBatis会做特殊处理，**多个参数会被封装成一个 `map`**
 
-​	**key：**<font color='red'>`param1...paramN`</font> **or** <font color='red'>`arg0...argN-1 `</font>
+​	**key：**<span style='color:red'>`param1...paramN`</span> **or** <span style='color:red'>`arg0...argN-1 `</span>
 
 ​	**value：**传入的参数
 
@@ -865,11 +865,11 @@ User(id=2, name=Tom, pwd=123456)
 
 ### 命名参数
 
-<font color='red'>使用注解 `@Param` 指定参数的 `key`</font>
+<span style='color:red'>使用注解 `@Param` 指定参数的 `key`</span>
 
 多个参数会被封装成一个map
 
-​		**key：**<font color='red'>使用 `@param` 注解给参数多加一个 `key`</font>，原来的 `arg` 和 `param` 依旧能使用
+​		**key：**<span style='color:red'>使用 `@param` 注解给参数多加一个 `key`</span>，原来的 `arg` 和 `param` 依旧能使用
 
 ​		**value：**参数值
 
@@ -1033,7 +1033,7 @@ User(id=2, name=Tom, pwd=123456)
 
 ### TO
 
-**多个参数不是业务模型中的数据, 但经常要使用,<font color='red'> 推荐编写TO(Transfer Object)数据传输对象, 就是再专门写个类</font>**
+**多个参数不是业务模型中的数据, 但经常要使用,<span style='color:red'> 推荐编写TO(Transfer Object)数据传输对象, 就是再专门写个类</span>**
 
 
 
@@ -3165,8 +3165,8 @@ Dept(id=1, name=开发部, employees=[Employee(id=1, name=小明), Employee(id=3
 
 ### 总结
 
--   **嵌套查询**的方式在查询时会向数据库<font color='red'>发送**多次**SQL语句</font>
--   **联合查询**的方式只会向数据库<font color='red'>发送**一次**SQL语句</font>
+-   **嵌套查询**的方式在查询时会向数据库<span style='color:red'>发送**多次**SQL语句</span>
+-   **联合查询**的方式只会向数据库<span style='color:red'>发送**一次**SQL语句</span>
 
 <hr/>
 
@@ -3182,19 +3182,19 @@ Dept(id=1, name=开发部, employees=[Employee(id=1, name=小明), Employee(id=3
 
 <hr/>
 
--   **association**：定义关联<font color='red'>**对象**的封装规则</font>
+-   **association**：定义关联<span style='color:red'>**对象**的封装规则</span>
 
--   **collection**：定义关联<font color='red'>**集合类型**的属性的封装规则</font>
+-   **collection**：定义关联<span style='color:red'>**集合类型**的属性的封装规则</span>
 
-    -   **property**：当前封装的<font color='red'>对象的属性</font>
+    -   **property**：当前封装的<span style='color:red'>对象的属性</span>
 
-    -   <font color='red'>**javaType**</font>：指定<font color='red'>**实体类中属性的类型**</font>
+    -   <span style='color:red'>**javaType**</span>：指定<span style='color:red'>**实体类中属性的类型**</span>
 
-    -   <font color='red'>**ofType**</font>：指定映射到List或集合中的pojo类型，<font color='red'>**泛型中的约束类型**</font>
+    -   <span style='color:red'>**ofType**</span>：指定映射到List或集合中的pojo类型，<span style='color:red'>**泛型中的约束类型**</span>
 
-    -   **select**：表明<font color='red'>当前属性是调用select指定的方法查出的结果</font>
+    -   **select**：表明<span style='color:red'>当前属性是调用select指定的方法查出的结果</span>
 
-    -   **column**： 指定将<font color='red'>哪一列的值传给select</font>
+    -   **column**： 指定将<span style='color:red'>哪一列的值传给select</span>
 
         -   ```java
             // 传递多列的值
@@ -3203,7 +3203,7 @@ Dept(id=1, name=开发部, employees=[Employee(id=1, name=小明), Employee(id=3
                     colnmn: 列名
             ```
 
-        -   <span style='background:yellow;'><font color='red'>流程：使用select指定的方法(传入column指定的列的参数值)查出对象, 并封装给property</font></span>
+        -   <span style='background:yellow;color:red'>流程：使用select指定的方法(传入column指定的列的参数值)查出对象, 并封装给property</span>
 
     -   **fetchType**：在全局配置中设置了延迟加载的情况下可以将联合属性修改为立即加载
 
@@ -3461,8 +3461,8 @@ Blog(id=0003, title=Hello MyBatis, author=母鸡, createTime=2021-04-21, views=1
 
 **解决方案：**
 
-1.  在 where 添加后面添加 1=1, 以后的条件都 `and xxx`<font color='red'>`（不推荐, 会导致数据库性损失）`</font>
-2.  MyBatis 使用 `where` 标签来将所有的查询条件包括在内，MyBatis 会<font color='red'>**`自动的忽略 where 后第一个不合法的 and 或 or`**</font>, 并且在<font color='red'>**`有条件的情况下自动拼接上 where`**</font>
+1.  在 where 添加后面添加 1=1, 以后的条件都 `and xxx`<span style='color:red'>`（不推荐, 会导致数据库性损失）`</span>
+2.  MyBatis 使用 `where` 标签来将所有的查询条件包括在内，MyBatis 会<span style='color:red'>**`自动的忽略 where 后第一个不合法的 and 或 or`**</span>, 并且在<span style='color:red'>**`有条件的情况下自动拼接上 where`**</span>
 
 
 
@@ -3524,7 +3524,7 @@ Blog(id=0001, title=hong/My-Note, author=谢禹宏, createTime=2020-01-01, views
 
 ### bind
 
-元素允许你在 OGNL 表达式以外创建一个变量，并将其绑定到当前的上下文。<font color='red'>**通常用来拼接模糊查询**</font>
+元素允许你在 OGNL 表达式以外创建一个变量，并将其绑定到当前的上下文。<span style='color:red'>**通常用来拼接模糊查询**</span>
 
 Mapper 接口和测试不变，对 `where` 演示的方法映射进行改造！！！
 
@@ -3649,7 +3649,7 @@ int update(Blog blog);
 
 ### choose{when, otherwise}
 
-有时候，我们不想使用所有的条件，而只是想从多个条件中选择一个使用。针对这种情况，MyBatis 提供了 choose 元素，它有点像 Java 中的 switch 语句。<font color='red'>`（choose --> switch，when --> case，otherwise --> default）`</font>
+有时候，我们不想使用所有的条件，而只是想从多个条件中选择一个使用。针对这种情况，MyBatis 提供了 choose 元素，它有点像 Java 中的 switch 语句。<span style ="color:red">`（choose --> switch，when --> case，otherwise --> default）`</span>
 
 #### 接口方法
 
@@ -3904,10 +3904,10 @@ Blog(id=0005, title=Hello Linux, author=林纳斯, createTime=2001-04-21, views=
 
 ### 缓存失效的情况
 
--   <font color='red'>不同的SqlSession</font>对应不同的一级缓存
--   同一个SqlSession但是<font color='red'>查询条件不同</font>
--   一个SqlSession<font color='red'>两次查询期间执行了任何一次增删改操作</font>
--   同一个SqlSession两次查询期间<font color='red'>手动清空了缓存</font>
+-   <span style='color:red'>不同的SqlSession</span>对应不同的一级缓存
+-   同一个SqlSession但是<span style='color:red'>查询条件不同</span>
+-   一个SqlSession<span style='color:red'>两次查询期间执行了任何一次增删改操作</span>
+-   同一个SqlSession两次查询期间<span style='color:red'>手动清空了缓存</span>
 
 
 
@@ -5298,9 +5298,9 @@ public class EmployeeController {
 
 ### SqlSessionTemplate
 
-`SqlSessionTemplate` 是 MyBatis-Spring 的核心。**作为 `SqlSession` 的一个实现**，这意味着可以使用它无缝代替你代码中已经在使用的 `SqlSession`。 **<font color='red'>`SqlSessionTemplate` 是线程安全的</font>**，可以被多个 DAO 或映射器所共享使用。
+`SqlSessionTemplate` 是 MyBatis-Spring 的核心。**作为 `SqlSession` 的一个实现**，这意味着可以使用它无缝代替你代码中已经在使用的 `SqlSession`。 **<span style='color:red'>`SqlSessionTemplate` 是线程安全的</span >**，可以被多个 DAO 或映射器所共享使用。
 
-当调用 SQL 方法时（包括由 `getMapper()` 方法返回的映射器中的方法），**`SqlSessionTemplate` 将会保证使用的 `SqlSession` 与当前 Spring 的事务相关。 此外，<font color='red'>它管理 session 的生命周期，包含必要的关闭、提交或回滚操作</font>。**另外，它也负责将 MyBatis 的异常翻译成 Spring 中的 `DataAccessExceptions`。
+当调用 SQL 方法时（包括由 `getMapper()` 方法返回的映射器中的方法），**`SqlSessionTemplate` 将会保证使用的 `SqlSession` 与当前 Spring 的事务相关。 此外，<span style='color:red'>它管理 session 的生命周期，包含必要的关闭、提交或回滚操作</span>。**另外，它也负责将 MyBatis 的异常翻译成 Spring 中的 `DataAccessExceptions`。
 
 由于模板可以参与到 Spring 的事务管理中，并且由于其是线程安全的，可以供多个映射器类使用，你应该**总是**用 `SqlSessionTemplate` 来替换 MyBatis 默认的 `DefaultSqlSession` 实现。在同一应用程序中的不同类之间混杂使用可能会引起数据一致性的问题。
 

@@ -72,7 +72,7 @@
 
 按线程数分，可以分为串行垃圾回收器和并行垃圾回收器。
 
-![image-20210512144253383](https://img-blog.csdnimg.cn/img_convert/ab10d1899d353ea14797f9ce1778503c.png)
+![image-20210512144253383](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051459213.png)
 
 串行回收指的是在同一时间段内只允许有一个 CPU 用于执行垃圾回收操作，此时工作线程被暂停，直至垃圾收集工作结束。
 
@@ -86,7 +86,7 @@
 *   并发式垃圾回收器与应用程序线程交替工作，以尽可能减少应用程序的停顿时间。
 *   独占式垃圾回收器（Stop the world）一旦运行，就停止应用程序中的所有用户线程，直到垃圾回收过程完全结束。
 
-![image-20200713083443486](https://img-blog.csdnimg.cn/img_convert/6e2c2869a4450dc405bda0ea8a8e7c31.png)
+![image-20200713083443486](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051459223.png)
 
 按碎片处理方式分，可分为压缩式垃圾回收器和非压缩式垃圾回收器。
 
@@ -118,7 +118,7 @@
 
 吞吐量优先，意味着在单位时间内，STW 的时间最短：0.2 + 0.2 = 0.4
 
-![image-20200713084726176](https://img-blog.csdnimg.cn/img_convert/a05d48c1926a03c3acdebf74d10bf522.png)
+![image-20200713084726176](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051459326.png)
 
 #### 暂停时间
 
@@ -128,7 +128,7 @@
 
 暂停时间优先，意味着尽可能让单次 STW 的时间最短：0.1 + 0.1 + 0.1 + 0.1 + 0.1 = 0.5
 
-![image-20200713085306400](https://img-blog.csdnimg.cn/img_convert/de90092e21cbff31926f7cc7dceebf25.png)
+![image-20200713085306400](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051459916.png)
 
 #### 吞吐量 vs 暂停时间
 
@@ -170,15 +170,15 @@
 *   并行回收器：ParNew、Parallel Scavenge、Parallel old
 *   并发回收器：CMS、G1
 
-![image-20200713093551365](https://img-blog.csdnimg.cn/img_convert/90c3bcdc22cd0b49e10d702c608c4fc6.png)
+![image-20200713093551365](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051459131.png)
 
 官方手册：[https://www.oracle.com/technetwork/java/javase/tech/memorymanagement-whitepaper-1-150020.pdf](https://www.oracle.com/technetwork/java/javase/tech/memorymanagement-whitepaper-1-150020.pdf)
 
-![image-20210512145950897](https://img-blog.csdnimg.cn/img_convert/c529d76b22212c44275b94675cc56760.png)
+![image-20210512145950897](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051459375.png)
 
 ### 13.2.3. 7 款经典收集器与垃圾分代之间的关系
 
-![image-20200713093757644](https://img-blog.csdnimg.cn/img_convert/fd16701d3e150d5e58d52b7306473a42.png)
+![image-20200713093757644](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051459625.png)
 
 *   新生代收集器：Serial、ParNew、Parallel Scavenge；
     
@@ -189,7 +189,7 @@
 
 ### 13.2.4. 垃圾收集器的组合关系
 
-![image-20200713094745366](https://img-blog.csdnimg.cn/img_convert/b92c2212bea2907cb75ff9ef26f346fe.png)
+![image-20200713094745366](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051459272.png)
 
 1.  两个收集器间有连线，表明它们可以搭配使用：Serial/Serial Old、Serial/CMS、ParNew/Serial Old、ParNew/CMS、Parallel Scavenge/Serial Old、Parallel Scavenge/Parallel Old、G1；
 2.  其中 Serial Old 作为 CMS 出现"`Concurrent Mode Failure`"失败的后备预案。
@@ -222,7 +222,7 @@ Serial 收集器采用复制算法、串行回收和"stop-the-World"机制的方
 *   Serial old 是运行在 Client 模式下默认的老年代的垃圾回收器
 *   Serial 0ld 在 Server 模式下主要有两个用途：① 与新生代的 Parallel scavenge 配合使用 ② 作为老年代 CMS 收集器的后备垃圾收集方案
 
-![image-20200713100703799](https://img-blog.csdnimg.cn/img_convert/d66b612e68381df2101c3e829a18b4f0.png)
+![image-20200713100703799](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051459825.png)
 
 这个收集器是一个单线程的收集器，但它的“单线程”的意义并不仅仅说明它只会使用一个 CPU 或一条收集线程去完成垃圾收集工作，更重要的是在它进行垃圾收集时，必须暂停其他所有的工作线程，直到它收集结束（Stop The World）
 
@@ -246,7 +246,7 @@ ParNew 收集器除了采用并行回收的方式执行内存回收外，两款�
 
 ParNew 是很多 JVM 运行在 Server 模式下新生代的默认垃圾收集器。
 
-![image-20200713102030127](https://img-blog.csdnimg.cn/img_convert/187fdcd46a1cb35be6d88a01a433c0f3.png)
+![image-20200713102030127](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051459585.png)
 
 *   对于新生代，回收次数频繁，使用并行方式高效。
 *   对于老年代，回收次数少，使用串行方式节省资源。（CPU 并行需要切换线程，串行可以省去切换线程的资源）
@@ -277,7 +277,7 @@ Parallel 收集器在 JDK1.6 时提供了用于执行老年代垃圾收集的 Pa
 
 Parallel Old 收集器采用了标记-压缩算法，但同样也是基于并行回收和"Stop-the-World"机制。
 
-![image-20200713110359441](https://img-blog.csdnimg.cn/img_convert/8a4b655ee277aaf0f9a46754248ce05a.png)
+![image-20200713110359441](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051500393.png)
 
 在程序吞吐量优先的应用场景中，Parallel 收集器和 Parallel Old 收集器的组合，在 Server 模式下的内存回收性能很不错。在 Java8 中，默认是此垃圾收集器。
 
@@ -321,7 +321,7 @@ CMS 的垃圾收集算法采用标记-清除算法，并且也会"Stop-the-World
 
 在 G1 出现之前，CMS 使用还是非常广泛的。一直到今天，仍然有很多系统使用 CMS GC。
 
-![image-20200713205154007](https://img-blog.csdnimg.cn/img_convert/f84a132db8c56a488e14f51e2c4d7fa7.png)
+![image-20200713205154007](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051500007.png)
 
 CMS 整个过程比之前的收集器要复杂，整个过程分为 4 个主要阶段，即初始标记阶段、并发标记阶段、重新标记阶段和并发清除阶段
 
@@ -338,7 +338,7 @@ CMS 整个过程比之前的收集器要复杂，整个过程分为 4 个主要�
 
 CMS 收集器的垃圾收集算法采用的是标记清除算法，这意味着每次执行完内存回收后，由于被执行内存回收的无用对象所占用的内存空间极有可能是不连续的一些内存块，不可避免地将会产生一些内存碎片。那么 CMS 在为新对象分配内存空间时，将无法使用指针碰撞（Bump the Pointer）技术，而只能够选择空闲列表（Free List）执行内存分配。
 
-![image-20200713212230352](https://img-blog.csdnimg.cn/img_convert/052d6ef7655e46e040729082ac36da30.png)
+![image-20200713212230352](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051500706.png)
 
 **有人会觉得既然 Mark Sweep 会造成内存碎片，那么为什么不把算法换成 Mark Compact？**
 
@@ -432,9 +432,9 @@ G1（Garbage-First）是一款面向服务端应用的垃圾收集器，主要�
 *   将堆空间分为若干个区域（Region），这些区域中包含了逻辑上的年轻代和老年代。
 *   和之前的各类回收器不同，它同时兼顾年轻代和老年代。对比其他回收器，或者工作在年轻代，或者工作在老年代；
 
-![image-20200713215105293](https://img-blog.csdnimg.cn/img_convert/9a71df3a4013da274aa3b28cd95e7d37.png)
+![image-20200713215105293](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051500938.png)
 
-![image-20200713215133839](https://img-blog.csdnimg.cn/img_convert/8bcd36541731eb308043eba968b7a828.png)
+![image-20200713215133839](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051500987.png)
 
 #### 空间整合
 
@@ -494,7 +494,7 @@ HotSpot 垃圾收集器里，除了 G1 以外，其他的垃圾收集器使用�
 
 虽然还保留有新生代和老年代的概念，但新生代和老年代不再是物理隔离的了，它们都是一部分 Region（不需要连续）的集合。通过 Region 的动态分配方式实现逻辑上的连续。
 
-![image-20200713223244886](https://img-blog.csdnimg.cn/img_convert/74c611464ae6cdae3cbfffaef213cfd5.png)
+![image-20200713223244886](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051500706.png)
 
 一个 region 有可能属于 Eden，Survivor 或者 Old/Tenured 内存区域。但是一个 region 只可能属于一个角色。图中的 E 表示该 region 属于 Eden 内存区域，S 表示属于 survivor 内存区域，O 表示属于 Old 内存区域。图中空白的表示未使用的内存空间。
 
@@ -504,7 +504,7 @@ G1 垃圾收集器还增加了一种新的内存区域，叫做 Humongous 内存
 
 每个 Region 都是通过指针碰撞来分配空间
 
-![image-20200713223509993](https://img-blog.csdnimg.cn/img_convert/049520c5a004b63f750e04d5362a2992.png)
+![image-20200713223509993](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051500423.png)
 
 ### 13.7.7. G1 垃圾回收器的回收过程
 
@@ -519,7 +519,7 @@ G1GC 的垃圾回收过程主要包括如下三个环节：
     （如果需要，单线程、独占式、高强度的 Full GC 还是继续存在的。它针对 GC 的评估失败提供了一种失败保护机制，即强力回收。）
     
 
-![image-20200713224113996](https://img-blog.csdnimg.cn/img_convert/e8f79c3cdeb0969981703f7a026cf581.png)
+![image-20200713224113996](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051500712.png)
 
 顺时针，Young gc -> Young gc + Concurrent mark->Mixed GC 顺序，进行垃圾回收。
 
@@ -556,7 +556,7 @@ G1GC 的垃圾回收过程主要包括如下三个环节：
 
 当进行垃圾收集时，在 GC 根节点的枚举范围加入 Remembered Set；就可以保证不进行全局扫描，也不会有遗漏。
 
-![image-20200713224716715](https://img-blog.csdnimg.cn/img_convert/c97de4bdada1da5a9fdd344692ed0957.png)
+![image-20200713224716715](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051500525.png)
 
 ### 13.7.9. G1 回收过程一：年轻代 GC
 
@@ -566,7 +566,7 @@ JVM 启动时，G1 先准备好 Eden 区，程序在运行过程中不断创建�
 
 首先 G1 停止应用程序的执行（Stop-The-World），G1 创建回收集（Collection Set），回收集是指需要被回收的内存分段的集合，年轻代回收过程的回收集包含年轻代 Eden 区和 Survivor 区所有的内存分段。
 
-![image-20200713225100632](https://img-blog.csdnimg.cn/img_convert/f29fa4dfe3abf4a77be06fdf3378aecf.png)
+![image-20200713225100632](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051501357.png)
 
 然后开始如下回收过程：
 
@@ -589,7 +589,7 @@ JVM 启动时，G1 先准备好 Eden 区，程序在运行过程中不断创建�
 
 当越来越多的对象晋升到老年代 o1d region 时，为了避免堆内存被耗尽，虚拟机会触发一个混合的垃圾收集器，即 Mixed GC，该算法并不是一个 Old GC，除了回收整个 Young Region，还会回收一部分的 Old Region。这里需要注意：是一部分老年代，而不是全部老年代。可以选择哪些 Old Region 进行收集，从而可以对垃圾回收的耗时时间进行控制。也要注意的是 Mixed GC 并不是 Full GC。
 
-![image-20200713225810871](https://img-blog.csdnimg.cn/img_convert/766b882cba7e709202005a3baeb596d0.png)
+![image-20200713225810871](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051501393.png)
 
 并发标记结束以后，老年代中百分百为垃圾的内存分段被回收了，部分为垃圾的内存分段被计算了出来。默认情况下，这些老年代的内存分段会分 8 次（可以通过`-XX:G1MixedGCCountTarget`设置）被回收
 
@@ -648,7 +648,7 @@ GC 发展阶段：Serial => Parallel（并行）=> CMS（并发）=> G1 => ZGC
 
 不同厂商、不同版本的虚拟机实现差距比较大。HotSpot 虚拟机在 JDK7/8 后所有收集器及组合如下图
 
-![image-20200714080151020](https://img-blog.csdnimg.cn/img_convert/5e57edaa3ec7295424480c67daee499e.png)
+![image-20200714080151020](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051501152.png)
 
 1.  两个收集器间有连线，表明它们可以搭配使用：Serial/Serial Old、Serial/CMS、ParNew/Serial Old、ParNew/CMS、Parallel Scavenge/Serial Old、Parallel Scavenge/Parallel Old、G1;
     
@@ -829,16 +829,26 @@ object space（显示个使用百分比，自己能算出来）21504K， 238 use
 
 ### Minor GC 日志
 
-![image-20200714082555688](https://img-blog.csdnimg.cn/img_convert/9364561fbb81a0e2f9aedc45a383972f.png)
+![image-20200714082555688](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051501635.png)
 
 ### Full GC 日志
 
-![image-20210512194815354](https://img-blog.csdnimg.cn/img_convert/502793e725122b958f2861932e5ef9c1.png)
+![image-20210512194815354](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051501560.png)
 
 **举例**
 
 ```java
-private static final int _1MB = 1024 * 1024;public static void testAllocation() {    byte [] allocation1, allocation2, allocation3, allocation4;    allocation1 = new byte[2 *_1MB];    allocation2 = new byte[2 *_1MB];    allocation3 = new byte[2 *_1MB];    allocation4 = new byte[4 *_1MB];}public static void main(String[] args) {    testAllocation();}
+private static final int _1MB = 1024 * 1024;
+public static void testAllocation() {   
+    byte [] allocation1, allocation2, allocation3, allocation4;  
+    allocation1 = new byte[2 *_1MB]; 
+    allocation2 = new byte[2 *_1MB];    
+    allocation3 = new byte[2 *_1MB];   
+    allocation4 = new byte[4 *_1MB];
+}
+public static void main(String[] args) { 
+    testAllocation();
+}
 ```
 
 设置 JVM 参数
@@ -849,9 +859,9 @@ private static final int _1MB = 1024 * 1024;public static void testAllocation() 
 
 **图示**
 
-![image-20200714083332238](https://img-blog.csdnimg.cn/img_convert/8dada6b73786eb693975593db10ce825.png)
+![image-20200714083332238](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051502108.png)
 
-![image-20200714083526790](https://img-blog.csdnimg.cn/img_convert/78f6489bd1a3b74e14ee4a95392df8c2.png)
+![image-20200714083526790](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051502450.png)
 
 可以用一些工具去分析这些 GC 日志
 
@@ -871,13 +881,13 @@ Epsilon:A No-Op GarbageCollector（Epsilon 垃圾回收器，"No-Op（无操作�
 
 ZGC:A Scalable Low-Latency Garbage Collector（Experimental）（ZGC：可伸缩的低延迟垃圾回收器，处于实验性阶段）[http://openidk.iava.net/jeps/333](http://openidk.iava.net/jeps/318)
 
-![image-20210512195426194](https://img-blog.csdnimg.cn/img_convert/4aaef244379d75ba838e10d4178b2960.png)
+![image-20210512195426194](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051502882.png)
 
 现在 G1 回收器已成为默认回收器好几年了。
 
 我们还看到了引入了两个新的收集器：ZGC（JDK11 出现）和 Shenandoah（Open JDK12）。主打特点：低停顿时间
 
-![image-20210512195528695](https://img-blog.csdnimg.cn/img_convert/00920e4ae2b2c80a8016e6d8f4632545.png)
+![image-20210512195528695](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051502222.png)
 
 ### 13.X.2. Open JDK12 的 Shenandoash GC
 
@@ -889,7 +899,7 @@ Shenandoah 垃圾回收器最初由 RedHat 进行的一项垃圾收集器研究�
 
 Red Hat 研发 Shenandoah 团队对外宣称，Shenandoah 垃圾回收器的暂停时间与堆大小无关，这意味着无论将堆设置为 200MB 还是 200GB，99.9%的目标都可以把垃圾收集的停顿时间限制在十毫秒以内。不过实际使用性能将取决于实际工作堆的大小和工作负载。
 
-![image-20200714090608807](https://img-blog.csdnimg.cn/img_convert/01f566c0db04f0e475db05addd94259f.png)
+![image-20200714090608807](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051502702.png)
 
 这是 RedHat 在 2016 年发表的论文数据，测试内容是使用 Es 对 200GB 的维基百科数据进行索引。从结果看：
 
@@ -914,7 +924,7 @@ Red Hat 研发 Shenandoah 团队对外宣称，Shenandoah 垃圾回收器的暂�
 
 官方地址：[https://docs.oracle.com/en/java/javase/12/gctuning/](https://docs.oracle.com/en/java/javase/12/gctuning/)
 
-![image-20210512200236647](https://img-blog.csdnimg.cn/img_convert/f78eebadbabf7450ded984f0f1e3a405.png)
+![image-20210512200236647](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051502144.png)
 
 ZGC 与 Shenandoah 目标高度相似，在尽可能对吞吐量影响不大的前提下，实现在任意堆内存大小下都可以把垃圾收集的停颇时间限制在十毫秒以内的低延迟。
 
@@ -926,15 +936,15 @@ ZGC 几乎在所有地方并发执行的，除了初始标记的是 STw 的。�
 
 测试数据：
 
-![image-20200714091201073](https://img-blog.csdnimg.cn/img_convert/b08828b548a255493e934c6fe3308e50.png)
+![image-20200714091201073](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051502082.png)
 
-![image-20200714091401511](https://img-blog.csdnimg.cn/img_convert/4e648c4e37d84f5d83d965b55f6bc5f9.png)
+![image-20200714091401511](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051502588.png)
 
 在 ZGC 的强项停顿时间测试上，它毫不留情的将 Parallel、G1 拉开了两个数量级的差距。无论平均停顿、95％停顿、99％停顿、99.9％停顿，还是最大停顿时间，ZGC 都能毫不费劲控制在 10 毫秒以内。
 
 虽然 ZGC 还在试验状态，没有完成所有特性，但此时性能已经相当亮眼，用“令人震惊、革命性”来形容，不为过。 未来将在服务端、大内存、低延迟应用的首选垃圾收集器。
 
-![image-20200714093243028](https://img-blog.csdnimg.cn/img_convert/59b014ca2eeda5332fd40a4a2356f883.png)
+![image-20200714093243028](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051503746.png)
 
 JEP 364：ZGC 应用在 macos 上
 
@@ -954,34 +964,4 @@ JDK14 之前，ZGC 仅 Linux 才支持。
 
 AliGC 是阿里巴巴 JVM 团队基于 G1 算法，面向大堆（LargeHeap）应用场景。指定场景下的对比：
 
-![image-20200714093604012](https://img-blog.csdnimg.cn/img_convert/835fff5c3a7884de2a1d564b7f332900.png)
-
-当然，其它厂商也提供了各种别具一格的 GC 实现，例如比较有名的低延迟 GC：Zing，有兴趣可以参考提供的链接 [https://www.infoq.com/articles/azul\_gc\_in\_detail](https://www.infoq.com/articles/azul_gc_in_detail)
-
-[上一篇<JVM上篇：内存与垃圾回收篇>12-垃圾回收相关概念
-
-](https://www.cnblogs.com/vectorx/p/14761569.html)
-
-[下一篇【Web前端HTML5&CSS3】01-前端简介
-
-](https://www.cnblogs.com/vectorx/p/14770613.html)
-
-本文作者：VectorX
-
-本文链接：https://www.cnblogs.com/vectorx/p/14761575.html
-
-版权声明：本作品采用知识共享署名-非商业性使用-禁止演绎 2.5 中国大陆许可协议进行许可。
-
-[关注我](javascript:) [收藏该文](javascript:)
-
-0
-
-0
-
-posted @ 2021-05-12 20:27  [VectorX](https://www.cnblogs.com/vectorx/)  阅读(489)  评论(0)  [编辑](https://i.cnblogs.com/EditPosts.aspx?postid=14761575)  [收藏](javascript:)  [举报](javascript:)
-
-登录后才能查看或发表评论，立即 [登录](javascript:) 或者 [逛逛](https://www.cnblogs.com/) 博客园首页
-
-[【推荐】园子的商业化努力-AI人才服务：招募AI导师，一起探索AI领域的机会](https://www.cnblogs.com/cmt/p/17402955.html)  
-[【推荐】中国云计算领导者：阿里云轻量应用服务器2核2G低至108元/年](https://click.aliyun.com/m/1000370062/)  
-[【推荐】第五届金蝶云苍穹低代码开发大赛正式启动，百万奖金等你拿！](https://datayi.cn/w/1P64E1x9)
+![image-20200714093604012](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051503709.png)

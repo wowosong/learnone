@@ -60,7 +60,7 @@
 *   栈解决程序的运行问题，即程序如何执行，或者说如何处理数据。
 *   堆解决的是数据存储的问题，即数据怎么放，放哪里
 
-![image-20200705163928652](https://gitee.com/wowosong/pic-md/raw/master/202306210950785.png)
+![image-20200705163928652](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051438510.png)
 
 ### 4.1.4. 虚拟机栈基本内容
 
@@ -87,7 +87,7 @@ JVM 直接对 Java 栈的操作只有两个：
 
 对于栈来说不存在垃圾回收问题（栈存在溢出的情况）
 
-![image-20200705165025382](https://gitee.com/wowosong/pic-md/raw/master/202306211033997.png)
+![image-20200705165025382](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051438486.png)
 
 #### 面试题：开发中遇到哪些异常？
 
@@ -153,7 +153,7 @@ public class StackDeepTest{
 
 如果在该方法中调用了其他方法，对应的新的栈帧会被创建出来，放在栈的顶端，成为新的当前帧。
 
-![image-20200705203142545](https://gitee.com/wowosong/pic-md/raw/master/202306211156310.png)
+![image-20200705203142545](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051438418.png)
 
 不同线程中所包含的栈帧是不允许存在相互引用的，即不可能在一个栈帧之中引用另外一个线程的栈帧。
 
@@ -183,11 +183,11 @@ public class CurrentFrameTest{
 *   方法返回地址（Return Address）（或方法正常退出或者异常退出的定义）
 *   一些附加信息
 
-![image-20200705204836977](https://img-blog.csdnimg.cn/img_convert/0ed2029b435d547547f32540077bb082.png)
+![image-20200705204836977](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051438051.png)
 
 并行每个线程下的栈都是私有的，因此每个线程都有自己各自的栈，并且每个栈里面都有很多栈帧，栈帧的大小主要由局部变量表 和 操作数栈决定的。
 
-![image-20200705205443993](https://img-blog.csdnimg.cn/img_convert/2451fa6f061c426179e3674bb6813e46.png)
+![image-20200705205443993](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051438821.png)
 
 ## 4.3. 局部变量表(Local Variables)
 
@@ -225,7 +225,7 @@ public class CurrentFrameTest{
 *   如果当前帧是由构造方法或者实例方法创建的，那么该对象引用 this 将会存放在 index 为 0 的 slot 处，其余的参数按照参数表顺序继续排列。
     
 
-![image-20200705212454445](https://img-blog.csdnimg.cn/img_convert/866e014106701648c63c0b232066fced.png)
+![image-20200705212454445](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051439762.png)
 
 ### 4.3.2. Slot 的重复利用
 
@@ -281,7 +281,7 @@ public void test(){
 *   某些字节码指令将值压入操作数栈，其余的字节码指令将操作数取出栈。使用它们后再把结果压入栈
 *   比如：执行复制、交换、求和等操作
 
-![image-20200706090618332](https://img-blog.csdnimg.cn/img_convert/7f911f276f834d820fa09f31dd63a74b.png)
+![image-20200706090618332](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051439351.png)
 
 代码举例
 
@@ -344,21 +344,21 @@ public void testAddOperation() {
 public void testAddoperation(); 		Code:	0: bipush 15 	2: istore_1 	3: bipush 8	5: istore_2	6: iload_1	7: iload_2	8: iadd	9: istore_3    10: return
 ```
 
-![image-20200706093131621](https://img-blog.csdnimg.cn/img_convert/da41b01ad08238a2c8065552aaa7d676.png)
+![image-20200706093131621](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051439197.png)
 
-![image-20200706093251302](https://img-blog.csdnimg.cn/img_convert/6867c7a53a4faff29318783b46aef097.png)
+![image-20200706093251302](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051439335.png)
 
-![image-20200706093646406](https://img-blog.csdnimg.cn/img_convert/f2d6c5d906914ebdca0a472fee33e047.png)
+![image-20200706093646406](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051439178.png)
 
-![image-20200706093751711](https://img-blog.csdnimg.cn/img_convert/6ef9c2eb8ac3395133950caf8ef80da3.png)
+![image-20200706093751711](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051439473.png)
 
-![image-20200706093859191](https://img-blog.csdnimg.cn/img_convert/28113c3dc724bbffe677ea61b49e7c56.png)
+![image-20200706093859191](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051439124.png)
 
-![image-20200706093921573](https://img-blog.csdnimg.cn/img_convert/f960c074fb4a6b1f35e862568ed23d04.png)
+![image-20200706093921573](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051439012.png)
 
-![image-20200706094046782](https://img-blog.csdnimg.cn/img_convert/73a07a0e10bef2537b6da97a5348fee2.png)
+![image-20200706094046782](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051439816.png)
 
-![image-20200706094109629](https://img-blog.csdnimg.cn/img_convert/17309b8150015a8b359f2cb2ef78cb60.png)
+![image-20200706094109629](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051439220.png)
 
 程序员面试过程中，常见的 i++和++i 的区别，放到字节码篇章时再介绍。
 
@@ -376,7 +376,7 @@ public void testAddoperation(); 		Code:	0: bipush 15 	2: istore_1 	3: bipush 8	5
 
 在 Java 源文件被编译到字节码文件中时，所有的变量和方法引用都作为符号引用（Symbolic Reference）保存在 class 文件的常量池里。比如：描述一个方法调用了另外的其他方法时，就是通过常量池中指向方法的符号引用来表示的，那么动态链接的作用就是为了将这些符号引用转换为调用方法的直接引用。
 
-![image-20200706101251847](https://img-blog.csdnimg.cn/img_convert/31f48e82748240d7694e542374e9d723.png)
+![image-20200706101251847](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051439933.png)
 
 为什么需要运行时常量池呢？
 
@@ -425,7 +425,23 @@ Java 中任何一个普通的方法其实都具备虚函数的特征，它们相
 在类加载的解析阶段就可以进行解析，如下是非虚方法举例：
 
 ```java
-class Father{    public static void print(String str){        System. out. println("father "+str);     }    private void show(String str){        System. out. println("father"+str);    }}class Son extends Father{    public class VirtualMethodTest{        public static void main(String[] args){            Son.print("coder");            //Father fa=new Father();            //fa.show("atguigu.com");        }    }
+class Father{    
+    public static void print(String str){    
+        System. out. println("father "+str);     
+    }   
+    private void show(String str){       
+        System. out. println("father"+str);   
+    }
+}
+class Son extends Father{
+    public class VirtualMethodTest{   
+        public static void main(String[] args){ 
+            Son.print("coder");            
+            //Father fa=new Father();  
+            //fa.show("atguigu.com");  
+        }  
+    }
+}
 ```
 
 虚拟机中提供了以下几条方法调用指令：
@@ -483,15 +499,42 @@ class Father{    public static void print(String str){        System. out. print
 
 举例 1：
 
-![image-20200706144954070](https://img-blog.csdnimg.cn/img_convert/79470fa420092e07a411e4e849f743b8.png)
+![image-20200706144954070](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051440270.png)
 
 举例 2：
 
 ```java
-interface Friendly{    void sayHello();    void sayGoodbye(); }class Dog{    public void sayHello(){    }    public String tostring(){        return "Dog";    }}class Cat implements Friendly {    public void eat() {    }    public void sayHello() {     }     public void sayGoodbye() {    }    protected void finalize() {    }}class CockerSpaniel extends Dog implements Friendly{    public void sayHello() {         super.sayHello();    }    public void sayGoodbye() {    }}
+interface Friendly{    
+    void sayHello();    
+    void sayGoodbye(); 
+}
+class Dog{  
+    public void sayHello(){ 
+    }    
+    public String tostring(){
+        return "Dog";   
+    }
+}
+class Cat implements Friendly {
+    public void eat() {   
+    }   
+    public void sayHello() { 
+    }   
+    public void sayGoodbye() {
+    }  
+    protected void finalize() {  
+    }
+}
+class CockerSpaniel extends Dog implements Friendly{ 
+    public void sayHello() {  
+        super.sayHello();   
+    }   
+    public void sayGoodbye() {  
+    }
+}
 ```
 
-![image-20210509203351535](https://img-blog.csdnimg.cn/img_convert/2264627eaca3c5385a75101478565f5b.png)
+![image-20210509203351535](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051440405.png)
 
 ## 4.9. 方法返回地址（return address）
 

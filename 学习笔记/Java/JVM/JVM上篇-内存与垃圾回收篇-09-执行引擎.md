@@ -39,7 +39,7 @@
 
 执行引擎属于 JVM 的下层，里面包括解释器、及时编译器、垃圾回收器
 
-![image-20200710080707873](https://img-blog.csdnimg.cn/img_convert/9c0459b0f80a1c9bb534418b8e5a4ddd.png)
+![image-20200710080707873](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051447189.png)
 
 执行引擎是 Java 虚拟机核心的组成部分之一。
 
@@ -47,7 +47,7 @@
 
 JVM 的主要任务是负责装载字节码到其内部，但字节码并不能够直接运行在操作系统之上，因为字节码指令并非等价于本地机器指令，它内部包含的仅仅只是一些能够被 JVM 所识别的字节码指令、符号表，以及其他辅助信息。
 
-![image-20200710081118053](https://img-blog.csdnimg.cn/img_convert/b28ff1d82bc72999d1cbbae3f419673d.png)
+![image-20200710081118053](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051447582.png)
 
 那么，如果想要让一个 Java 程序运行起来，执行引擎（Execution Engine）的任务就是将字节码指令解释/编译为对应平台上的本地机器指令.才可以。简单来说，JVM 中的执行引擎充当了将高级语言翻译为机器语言的译者。
 
@@ -59,23 +59,23 @@ JVM 的主要任务是负责装载字节码到其内部，但字节码并不能�
 2.  每当执行完一项指令操作后，PC 寄存器就会更新下一条需要被执行的指令地址。
 3.  当然方法在执行的过程中，执行引擎有可能会通过存储在局部变量表中的对象引用准确定位到存储在 Java 堆区中的对象实例信息，以及通过对象头中的元数据指针定位到目标对象的类型信息。
 
-![image-20200710081627217](https://img-blog.csdnimg.cn/img_convert/a03c1910e508456b690ec9088300de5f.png)
+![image-20200710081627217](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051449791.png)
 
 从外观上来看，所有的 Java 虚拟机的执行引擎输入，输出都是一致的：输入的是字节码二进制流，处理过程是字节码解析执行的等效过程，输出的是执行过程。
 
 ## 9.2. Java 代码编译和执行过程
 
-![image-20200710082141643](https://img-blog.csdnimg.cn/img_convert/e2a8ec10bc97a061e4b77abf63936ba1.png)
+![image-20200710082141643](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051449686.png)
 
 大部分的程序代码转换成物理机的目标代码或虚拟机能执行的指令集之前，都需要经过上图中的各个步骤
 
 Java 代码编译是由 Java 源码编译器（前端编译器）来完成，流程图如下所示：
 
-![image-20200710082433146](https://img-blog.csdnimg.cn/img_convert/93e5f0b67767b7d783ace2471447f449.png)
+![image-20200710082433146](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051449234.png)
 
 Java 字节码的执行是由 JVM 执行引擎（后端编译器）来完成，流程图 如下所示
 
-![image-20200710083036258](https://img-blog.csdnimg.cn/img_convert/bf1139f9652e2a1ac0cab00df869e23e.png)
+![image-20200710083036258](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051450109.png)
 
 ### 9.2.1. 什么是解释器（Interpreter）？什么是 JIT 编译器？
 
@@ -89,7 +89,7 @@ JDK1.0 时代，将 Java 语言定位为“解释执行”还是比较准确的�
 
 **图示**
 
-![image-20200710083656277](https://img-blog.csdnimg.cn/img_convert/f10a353479e6d2bca99abd4781fd9940.png)
+![image-20200710083656277](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051450289.png)
 
 ## 9.3. 机器码、指令、汇编语言
 
@@ -132,7 +132,7 @@ JDK1.0 时代，将 Java 语言定位为“解释执行”还是比较准确的�
 
 当计算机执行高级语言编写的程序时，仍然需要把程序解释和编译成机器的指令码。完成这个过程的程序就叫做解释程序或编译程序。
 
-![image-20200710085323733](https://img-blog.csdnimg.cn/img_convert/c812403e1ebae81455d5276b884e5ca8.png)
+![image-20200710085323733](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051450956.png)
 
 高级语言也不是直接翻译成机器指令，而是翻译成汇编语言码，如下面说的 C 和 C++
 
@@ -144,7 +144,7 @@ JDK1.0 时代，将 Java 语言定位为“解释执行”还是比较准确的�
 
 汇编过程：实际上指把汇编语言代码翻译成目标机器指令的过程。
 
-![image-20200710085553258](https://img-blog.csdnimg.cn/img_convert/71d4298a250e724d64d78a2d8ec67cdc.png)
+![image-20200710085553258](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051450278.png)
 
 ### 9.3.6. 字节码
 
@@ -154,13 +154,13 @@ JDK1.0 时代，将 Java 语言定位为“解释执行”还是比较准确的�
 
 字节码的实现方式是通过编译器和虚拟机器。编译器将源码编译成字节码，特定平台上的虚拟机器将字节码转译为可以直接执行的指令。字节码典型的应用为：Java bytecode
 
-![image-20210511092336091](https://img-blog.csdnimg.cn/img_convert/cba8c417f20ae9f6671e64574d2e229a.png)
+![image-20210511092336091](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051450098.png)
 
 ## 9.4. 解释器
 
 JVM 设计者们的初衷仅仅只是单纯地为了满足 Java 程序实现跨平台特性，因此避免采用静态编译的方式直接生成本地机器指令，从而诞生了实现解释器在运行时采用逐行解释字节码执行程序的想法。
 
-![image-20200710090203674](https://img-blog.csdnimg.cn/img_convert/f1a9c57cf4b6b4197b85d6e2a48a045e.png)
+![image-20200710090203674](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051450212.png)
 
 为什么 Java 源文件不直接翻译成 JMV，而是翻译成字节码文件？可能是因为直接翻译的代价是比较大的
 
@@ -223,7 +223,7 @@ HotSpot VM 是目前市面上高性能虚拟机的代表作之一。它采用解
 
 在生产环境发布过程中，以分批的方式进行发布，根据机器数量划分成多个批次，每个批次的机器数至多占到整个集群的 1/8。曾经有这样的故障案例：某程序员在发布平台进行分批发布，在输入发布总批数时，误填写成分为两批发布。如果是热机状态，在正常情况下一半的机器可以勉强承载流量，但由于刚启动的 JVM 均是解释执行，还没有进行热点代码统计和 JIT 动态编译，导致机器启动之后，当前 1/2 发布成功的服务器马上全部宕机，此故障说明了 JIT 的存在。—阿里团队
 
-![image-20200710095417462](https://img-blog.csdnimg.cn/img_convert/7f26fbc3a6ec701fe4f84eea99811540.png)
+![image-20200710095417462](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051450703.png)
 
 ### 9.5.3. 概念解释
 
@@ -263,7 +263,7 @@ Java 语言的“编译期”其实是一段“不确定”的操作过程，因
 
 当一个方法被调用时，会先检查该方法是否存在被 JIT 编译过的版本，如果存在，则优先使用编译后的本地代码来执行。如果不存在已被编译过的版本，则将此方法的调用计数器值加 1，然后判断方法调用计数器与回边计数器值之和是否超过方法调用计数器的阀值。如果已超过阈值，那么将会向即时编译器提交一个该方法的代码编译请求。
 
-![image-20200710101829934](https://img-blog.csdnimg.cn/img_convert/26dc8459b4b31e3d9c40b3aec10b15cd.png)
+![image-20200710101829934](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051450586.png)
 
 #### 热点衰减
 
@@ -277,7 +277,7 @@ Java 语言的“编译期”其实是一段“不确定”的操作过程，因
 
 它的作用是统计一个方法中循环体代码执行的次数，在字节码中遇到控制流向后跳转的指令称为“回边”（Back Edge）。显然，建立回边计数器统计的目的就是为了触发 OSR 编译。
 
-![image-20200710103103869](https://img-blog.csdnimg.cn/img_convert/4de983636a290fde3fea83a6cd60d6a5.png)
+![image-20200710103103869](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051450900.png)
 
 ### 9.5.5. HotSpotVM 可以设置程序执行方法
 

@@ -240,7 +240,7 @@ jinfo -flag <name>=<value> <pid>
 *   绿色虚线表示在 jdk14 时被 Deprecate
 *   绿色虚框表示在 jdk9 时被 Deprecate，jdk14 时被删除
 
-![image-20210506182458663](https://img-blog.csdnimg.cn/img_convert/46dec5b346fcc5b147491481787ea8ec.png)
+![image-20210506182458663](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051525889.png)
 
 ```shell
 # Serial回收器
@@ -335,7 +335,7 @@ jinfo -flag <name>=<value> <pid>
 -Xloggc:<file> 输出GC导指定路径下的文件中
 ```
 
-![image-20210506195156935](https://img-blog.csdnimg.cn/img_convert/9f323dd9b55235ed0a33e6a0af8adbca.png)
+![image-20210506195156935](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051525434.png)
 
 ```shell
 -XX:+TraceClassLoading  监控类的加载
@@ -385,25 +385,3 @@ public class MemoryMonitor {
     }
 }
 ```
-
-[上一篇<JVM下篇：性能监控与调优篇>补充：使用OQL语言查询对象信息
-
-](https://www.cnblogs.com/vectorx/p/14732555.html)
-
-[下一篇<JVM下篇：性能监控与调优篇>05-分析GC日志
-
-](https://www.cnblogs.com/vectorx/p/14737043.html)
-
-本文作者：VectorX
-
-本文链接：https://www.cnblogs.com/vectorx/p/14737039.html
-
-版权声明：本作品采用知识共享署名-非商业性使用-禁止演绎 2.5 中国大陆许可协议进行许可。
-
-[关注我](javascript:) [收藏该文](javascript:)
-
-0
-
-0
-
-posted @ 2021-05-06 21:54  [VectorX](https://www.cnblogs.com/vectorx/)  阅读(269)  评论(0)  [编辑](https://i.cnblogs.com/EditPosts.aspx?postid=14737039)  [收藏](javascript:)  [举报](javascript:)

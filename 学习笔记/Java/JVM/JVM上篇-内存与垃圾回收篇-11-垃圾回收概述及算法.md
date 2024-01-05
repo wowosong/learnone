@@ -62,7 +62,7 @@
 
 ### 11.1.1. 什么是垃圾？
 
-![image-20200712085456113](https://img-blog.csdnimg.cn/img_convert/7d77b6d955e70ac268b08593078fbbdd.png)
+![image-20200712085456113](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051456356.png)
 
 垃圾收集，不是 Java 语言的伴生产物。早在 1960 年，第一门开始使用内存动态分配和垃圾收集技术的 Lisp 语言诞生。
 
@@ -144,7 +144,7 @@
 
 机械硬盘需要进行磁盘整理，同时还有坏道
 
-![image-20200712090848669](https://img-blog.csdnimg.cn/img_convert/309e92079f207b99ecb61e0e61f59933.png)
+![image-20200712090848669](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051456584.png)
 
 ## 11.1.2. 为什么需要 GC
 
@@ -200,7 +200,7 @@ oracle 官网关于垃圾回收的介绍 [https://docs.oracle.com/javase/8/docs/
 
 GC 主要关注于 方法区 和堆中的垃圾收集
 
-![image-20200712092427246](https://img-blog.csdnimg.cn/img_convert/c3e4606c5878ad5ae19f878e2585ee9f.png)
+![image-20200712092427246](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051456098.png)
 
 垃圾收集器可以对年轻代回收，也可以对老年代回收，甚至是全栈和方法区的回收。其中，Java 堆是垃圾收集器的工作重点
 
@@ -240,7 +240,7 @@ GC 主要关注于 方法区 和堆中的垃圾收集
 
 当 p 的指针断开的时候，内部的引用形成一个循环，这就是循环引用
 
-![image-20200712102205795](https://img-blog.csdnimg.cn/img_convert/1367a58058e6653d53afdea83b937af3.png)
+![image-20200712102205795](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051457192.png)
 
 **举例**
 
@@ -273,7 +273,7 @@ PSYoungGen: 15490K->808K(76288K)] 15490K->816K(251392K)
 
 上述进行了 GC 收集的行为，所以可以证明 JVM 中采用的不是引用计数器的算法
 
-![image-20200712103230349](https://img-blog.csdnimg.cn/img_convert/010896600bb4483f35d004dce60cc58b.png)
+![image-20200712103230349](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051457418.png)
 
 #### 小结
 
@@ -304,7 +304,7 @@ Python 如何解决循环引用？
 *   如果目标对象没有任何引用链相连，则是不可达的，就意味着该对象己经死亡，可以标记为垃圾对象。
 *   在可达性分析算法中，只有能够被根对象集合直接或者间接连接的对象才是存活对象。
 
-![image-20210511195540451](https://img-blog.csdnimg.cn/img_convert/071039dcf30672f55dfe8e5dab5e8081.png)
+![image-20210511195540451](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051457645.png)
 
 **在 Java 语言中，GC Roots 包括以下几类元素：**
 
@@ -320,7 +320,7 @@ Python 如何解决循环引用？
     *   基本数据类型对应的 Class 对象，一些常驻的异常对象（如：NullPointerException、OutOfMemoryError），系统类加载器。
 *   反映 java 虚拟机内部情况的 JMXBean、JVMTI 中注册的回调、本地代码缓存等。
 
-![image-20200712104622677](https://img-blog.csdnimg.cn/img_convert/d1ce4b570439851d57973a00684c6410.png)
+![image-20200712104622677](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051457884.png)
 
 除了这些固定的 GC Roots 集合以外，根据用户所选用的垃圾收集器以及当前回收的内存区域不同，还可以有其他对象“临时性”地加入，共同构成完整 GC Roots 集合。比如：分代收集和局部回收（PartialGC）。
 
@@ -442,7 +442,7 @@ MAT 是基于 Eclipse 开发的，是一款免费的性能分析工具。
 
 ##### 方式一：命令行使用 jmap
 
-![image-20210512105418987](https://img-blog.csdnimg.cn/img_convert/f8cc8bd3ef9526b497bcc4335e84e639.png)
+![image-20210512105418987](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051457838.png)
 
 ##### 方式二：使用 JVisualVM 导出
 
@@ -461,13 +461,13 @@ MAT 是基于 Eclipse 开发的，是一款免费的性能分析工具。
 
 ##### 方式三：使用 MAT 打开 Dump 文件
 
-![image-20200712112512720](https://img-blog.csdnimg.cn/img_convert/01043fbb9006d66c6b4c6826b2a62658.png)
+![image-20200712112512720](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051457913.png)
 
 #### JProfiler 的 GC Roots 溯源
 
 我们在实际的开发中，一般不会查找全部的 GC Roots，可能只是查找某个对象的整个链路，或者称为 GC Roots 溯源，这个时候，我们就可以使用 JProfiler
 
-![image-20200712113256075](https://img-blog.csdnimg.cn/img_convert/70d4af563cb19fffd12b0cb9e9236b0f.png)
+![image-20200712113256075](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051458341.png)
 
 ### 11.2.5. 清除阶段：标记-清除算法
 
@@ -488,7 +488,7 @@ MAT 是基于 Eclipse 开发的，是一款免费的性能分析工具。
 *   清除：Collector 对堆内存从头到尾进行线性的遍历，如果发现某个对象在其 Header 中没有标记为可达对象，则将其回收
     
 
-![image-20200712150935078](https://img-blog.csdnimg.cn/img_convert/8ea506a5c45c10410418ff0403e2b3a8.png)
+![image-20200712150935078](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051458027.png)
 
 #### 缺点
 
@@ -510,7 +510,7 @@ MAT 是基于 Eclipse 开发的，是一款免费的性能分析工具。
 
 将活着的内存空间分为两块，每次只使用其中一块，在垃圾回收时将正在使用的内存中的存活对象复制到未被使用的内存块中，之后清除正在使用的内存块中的所有对象，交换两个内存的角色，最后完成垃圾回收
 
-![image-20200712151916991](https://img-blog.csdnimg.cn/img_convert/b508a12ff6282839b65f8be9a683e04b.png)
+![image-20200712151916991](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051458976.png)
 
 #### 优点
 
@@ -530,7 +530,7 @@ MAT 是基于 Eclipse 开发的，是一款免费的性能分析工具。
 
 在新生代，对常规应用的垃圾回收，一次通常可以回收 70% - 99% 的内存空间。回收性价比很高。所以现在的商业虚拟机都是用这种收集算法回收新生代。
 
-![image-20200712152847218](https://img-blog.csdnimg.cn/img_convert/3a911b5f7d17bd00fda883623e4d831a.png)
+![image-20200712152847218](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051458171.png)
 
 ### 11.2.7. 清除阶段：标记-压缩（整理）算法
 
@@ -551,7 +551,7 @@ MAT 是基于 Eclipse 开发的，是一款免费的性能分析工具。
 3.  之后，清理边界外所有的空间。
     
 
-![image-20200712153236508](https://img-blog.csdnimg.cn/img_convert/aac06de20fada1a602f1955010bd969d.png)
+![image-20200712153236508](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051458412.png)
 
 标记-压缩算法的最终效果等同于标记-清除算法执行完成后，再进行一次内存碎片整理，因此，也可以把它称为标记-清除-压缩（Mark-Sweep-Compact）算法。
 
@@ -588,7 +588,7 @@ MAT 是基于 Eclipse 开发的，是一款免费的性能分析工具。
 
 回答：无，没有最好的算法，只有最合适的算法。
 
-![image-20210512104415281](https://img-blog.csdnimg.cn/img_convert/cdb03d2691d80ca89da2805015ad31e9.png)
+![image-20210512104415281](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051458185.png)
 
 ### 11.2.9. 分代收集算法
 
@@ -646,7 +646,7 @@ MAT 是基于 Eclipse 开发的，是一款免费的性能分析工具。
 
 每一个小区间都独立使用，独立回收。这种算法的好处是可以控制一次回收多少个小区间。
 
-![image-20200712165318590](https://img-blog.csdnimg.cn/img_convert/34de5a2cce0c5e9c88f76652b674877d.png)
+![image-20200712165318590](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051458633.png)
 
 #### 写到最后
 

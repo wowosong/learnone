@@ -28,7 +28,7 @@
 - 数组类型是从抽象基类 Array 派生的引用类型。
 
 
-注意：如果你熟悉 C/[C++](http://c.biancheng.net/cplus/)，请注意，[Java](http://c.biancheng.net/java/) 数组的工作原理与它们不同。
+注意：如果你熟悉 C/C++，请注意，Java数组的工作原理与它们不同。
 
 在 Java 中数组的下标是从零开始的，很多计算机语言的数组下标也从零开始。Java 数组下标访问运算符是中括号，如 intArray[0]，表示访问 intArray 数组的第一个元素，0 是第一个元素的下标。Java 中的数组本身是引用数据类型，它的长度属性是 length。
 
@@ -54,13 +54,13 @@ type arrayName[];    // 数据类型 数组名[];
 
 可见数组的声明有两种形式：一种是中括号”[]“跟在元素数据类型之后，另一种是中括号”[]“跟在变量名之后。
 
-对于以上两种语法格式而言，[Java](http://c.biancheng.net/java/) 更推荐采用第一种声明格式，因为第一种格式不仅具有更好的语意，而且具有更好的可读性。对于第一种格式`type[] arrayName`，很容易理解这是定义一个变量，其中变量名是 arrayName，而变量类型是 type[]。
+对于以上两种语法格式而言，Java 更推荐采用第一种声明格式，因为第一种格式不仅具有更好的语意，而且具有更好的可读性。对于第一种格式`type[] arrayName`，很容易理解这是定义一个变量，其中变量名是 arrayName，而变量类型是 type\[\]。
 
-前面已经指出：type[] 确实是一种新类型，与 type 类型完全不同（例如 int 类型是基本类型，但 int[] 是引用类型）。因此，这种方式既容易理解，也符合定义变量的语法。但第二种格式`type arrayName[]`的可读性就差了，看起来好像定义了一个类型为 type 的变量，而变量名是 arrayName[]，这与真实的含义相去甚远。
+前面已经指出：type[] 确实是一种新类型，与 type 类型完全不同（例如 int 类型是基本类型，但 int[] 是引用类型）。因此，这种方式既容易理解，也符合定义变量的语法。但第二种格式`type arrayName[]`的可读性就差了，看起来好像定义了一个类型为 type 的变量，而变量名是 arrayName\[\]，这与真实的含义相去甚远。
 
 可能有些读者非常喜欢`type arrayName[]`这种定义数组的方式，这可能是因为早期某些计算机读物的误导，从现在开始最好就不要再使用这种糟糕的方式了。
 
-提示：Java 的模仿者 [C#](http://c.biancheng.net/csharp/) 就不再支持`type arrayName[]`这种语法，它只支持第一种定义数组的语法。越来越多的语言不再支持`type arrayName[]`这种数组定义语法。
+提示：Java 的模仿者 C# 就不再支持`type arrayName[]`这种语法，它只支持第一种定义数组的语法。越来越多的语言不再支持`type arrayName[]`这种数组定义语法。
 
 以上两种格式都可以声明一个数组，其中的数据类型既可以是基本数据类型，也可以是引用数据类型。数组名可以是任意合法的变量名。声明数组就是要告诉计算机该数组中数据的类型是什么。例如：
 
@@ -78,7 +78,7 @@ int score[10];    // 这是错误的
 ```
 
 
-注意：在声明数组变量时千万不要漏写[]。
+注意：在声明数组变量时千万不要漏写\[\]。
 
 #### 分配空间
 
@@ -112,9 +112,7 @@ int[] arr = new int[5];
 
 执行后 arr 数组在内存中的格式如图 1 所示。
 
-
-
-![img](/Users/jiusonghuang/pic-md/20210712172212.jpeg)
+![20210712172212](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051253471.jpeg)
 图 1 一维数组的内存格式
 
 
@@ -122,9 +120,7 @@ int[] arr = new int[5];
 
 注意：一旦声明了数组的大小，就不能再修改。这里的数组长度也是必需的，不能少。
 
-尽管数组可以存储一组基本数据类型的元素，但是数组整体属于引用数据类型。当声明一个数组变量时，其实是创建了一个类型为“数据类型[]”（如 int[]、double[]、String[]）的数组对象，它具有表 1 所示的方法和属性。
-
-
+尽管数组可以存储一组基本数据类型的元素，但是数组整体属于引用数据类型。当声明一个数组变量时，其实是创建了一个类型为“数据类型[]”（如 int\[\]、double\[\]、String\[\]）的数组对象，它具有表 1 所示的方法和属性。
 
 | 方法                         | 名称     | 返回值 |
 | ---------------------------- | -------- | ------ |
@@ -139,8 +135,6 @@ int[] arr = new int[5];
 | wait(long timeout)           | void     |        |
 | wait(long timeout,int nanos) | void     |        |
 | 属性                         | length   | int    |
-
-
 
 #### 初始化一维数组
 
@@ -276,11 +270,11 @@ public static void main(String[] args) {
 }
 ```
 
-上述代码的“int[] prices = new int[5]”语句创建了需要 5 个元素空间的 prices 数组，然后结合 for 循环向数组中的每个元素赋值。
+上述代码的“int\[\] prices = new int\[5\]”语句创建了需要 5 个元素空间的 prices 数组，然后结合 for 循环向数组中的每个元素赋值。
 
 注意：在 Java 中取得数组的长度（也就是数组元素的长度）可以利用“数组名称.length”，返回一个 int 型数据。
 
-数组的索引从 0 开始，而 for 循环中的变量 i 也从 0 开始，因此 score 数组中的元素可以使用 scored 来表示，大大简化了代码。最后使用 prices[2] 获取 prices 数组的第 3 个元素，最终运行效果如下所示。
+数组的索引从 0 开始，而 for 循环中的变量 i 也从 0 开始，因此 score 数组中的元素可以使用 scored 来表示，大大简化了代码。最后使用 prices\[2\] 获取 prices 数组的第 3 个元素，最终运行效果如下所示。
 
 ```
 请输入第1件商品的价格：
@@ -323,7 +317,7 @@ for(int val:number) {
 
 #### 创建二维数组
 
-在 [Java](http://c.biancheng.net/java/) 中二维数组被看作数组的数组，即二维数组为一个特殊的一维数组，其每个元素又是一个一维数组。Java 并不直接支持二维数组，但是允许定义数组元素是一维数组的一维数组，以达到同样的效果。声明二维数组的语法如下：
+在 Java 中二维数组被看作数组的数组，即二维数组为一个特殊的一维数组，其每个元素又是一个一维数组。Java 并不直接支持二维数组，但是允许定义数组元素是一维数组的一维数组，以达到同样的效果。声明二维数组的语法如下：
 
 ```java
 type arrayName[][];    // 数据类型 数组名[][];
@@ -364,9 +358,7 @@ int[][] temp = new int[][]{{1,2},{3,4}};
 
 上述代码创建了一个二行二列的二维数组 temp，并对数组中的元素进行了初始化。图 1 所示为该数组的内存结构。
 
-
-
-![img](/Users/jiusonghuang/pic-md/20210713093957.jpeg)
+![20210713093957](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051255548.jpeg)
 图1 二维数组内存结构
 
 
@@ -436,7 +428,7 @@ for (int i = 0; i < class_score.length; i++) {
 
 执行上述代码，输出结果如下所示。
 
-```
+```java
 class_score[0][0]=100.0
 class_score[0][1]=99.0
 class_score[0][2]=99.0
@@ -607,7 +599,7 @@ public static void main(String[] args) {
 
 ### 1.4Java sort()数组排序（升序和降序）
 
-我们在学习 [Java](http://c.biancheng.net/java/) 的过程中肯定会遇到对数组进行升序或降序等排序问题，本节主要介绍如何实现 Java 数组的升序和降序。Java 语言使用 Arrays 类提供的 sort() 方法来对数组进行排序。
+我们在学习 Java的过程中肯定会遇到对数组进行升序或降序等排序问题，本节主要介绍如何实现 Java 数组的升序和降序。Java 语言使用 Arrays 类提供的 sort() 方法来对数组进行排序。
 
 #### 升序
 
@@ -651,7 +643,7 @@ public static void main(String[] args) {
 
 在 Java 语言中使用 sort 实现降序有两种方法，简单了解即可。
 
-1）利用 Collections.reverseOrder() 方法（Collections 是一个包装类。大家可以学习《[Java Collections类](http://c.biancheng.net/view/6884.html)》一节详细了解）：
+1）利用 Collections.reverseOrder() 方法（Collections 是一个包装类。大家可以学习《Java Collections类》一节详细了解）：
 
 ```java
 public static void main(String[] args) {  
@@ -711,7 +703,7 @@ class MyComparator implements Comparator<Integer> {
 
 冒泡排序的基本思想是：对比相邻的元素值，如果满足条件就交换元素值，把较小的元素值移动到数组前面，把大的元素值移动到数组后面（也就是交换两个元素的位置），这样数组元素就像气泡一样从底部上升到顶部。
 
-冒泡排序的算法比较简单，排序的结果稳定，但时间效率不太高。[Java](http://c.biancheng.net/java/) 中的冒泡排序在双层循环中实现，其中外层循环控制排序轮数，总循环次数为要排序数组的长度减 1。而内层循环主要用于对比相邻元素的大小，以确定是否交换位置，对比和交换次数依排序轮数而减少。
+冒泡排序的算法比较简单，排序的结果稳定，但时间效率不太高。Java 中的冒泡排序在双层循环中实现，其中外层循环控制排序轮数，总循环次数为要排序数组的长度减 1。而内层循环主要用于对比相邻元素的大小，以确定是否交换位置，对比和交换次数依排序轮数而减少。
 
 获取用户在控制台输入的 5 个成绩信息，将这些成绩保存到数组中，然后对数组应用冒泡排序，并输出排序后的结果，实现步骤如下。
 
@@ -1006,7 +998,7 @@ public static void main(String[] args) {
 
 面向对象简称 OO（Object Oriented），20 世纪 80 年代以后，有了面向对象分析（OOA）、 面向对象设计（OOD）、面向对象程序设计（OOP）等新的系统开发方式模型的研究。
 
-对 [Java](http://c.biancheng.net/java/) 语言来说，一切皆是对象。把现实世界中的对象抽象地体现在编程世界中，一个对象代表了某个具体的操作。一个个对象最终组成了完整的程序设计，这些对象可以是独立存在的，也可以是从别的对象继承过来的。对象之间通过相互作用传递信息，实现程序开发。
+对 Java 语言来说，一切皆是对象。把现实世界中的对象抽象地体现在编程世界中，一个对象代表了某个具体的操作。一个个对象最终组成了完整的程序设计，这些对象可以是独立存在的，也可以是从别的对象继承过来的。对象之间通过相互作用传递信息，实现程序开发。
 
 ### 2.2对象的概念
 
@@ -1038,25 +1030,16 @@ Java 是面向对象的编程语言，对象就是面向对象程序设计的核
 
 例如定义一个语文老师类和数学老师类，如果不采用继承方式，那么两个类中需要定义的属性和方法如图 1 所示。
 
-
-
-![img](/Users/jiusonghuang/pic-md/20210713171904.jpeg)
+![20210713171904](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051255152.jpeg)
 图 1 语文老师类和数学老师类中的属性和方法
 
 
 从图 1 能够看出，语文老师类和数学老师类中的许多属性和方法相同，这些相同的属性和方法可以提取出来放在一个父类中，这个父类用于被语文老师类和数学老师类继承。当然父类还可以继承别的类，如图 2 所示。
 
-
-
-![img](/Users/jiusonghuang/pic-md/20210713171909.jpeg)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051304243.jpeg)
 图 2 父类继承示例图
 
-
-总结图 2 的继承关系，可以用概括的树形关系来表示，如图 3 所示。
-
-
-
-![img](/Users/jiusonghuang/pic-md/20210713171914.jpeg)
+总结图 2 的继承关系，可以用概括的树形关系来表示，如图 3 所示。![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051304142.jpeg)
 图 3 类继承示例图
 
 
@@ -1064,7 +1047,7 @@ Java 是面向对象的编程语言，对象就是面向对象程序设计的核
 
 使用这种层次形的分类方式，是为了将多个类的通用属性和方法提取出来，放在它们的父类中，然后只需要在子类中各自定义自己独有的属性和方法，并以继承的形式在父类中获取它们的通用属性和方法即可。
 
-提示：[C++](http://c.biancheng.net/cplus/) 支持多继承，多继承就是一个子类可有多个父类。例如，客轮是轮船也是交通工具，客轮的父类是轮船和交通工具。多继承会引起很多冲突问题，因此现在很多面向对象的语言都不支持多继承。Java 语言是单继承的，即只能有一个父类，但 Java 可以实现多个接口（接口类似于类，但接口的成员没有执行体。详细了解可参考《[Java接口](http://c.biancheng.net/view/6540.html)》一节），可以防止多继承所引起的冲突问题。
+提示：C++ 支持多继承，多继承就是一个子类可有多个父类。例如，客轮是轮船也是交通工具，客轮的父类是轮船和交通工具。多继承会引起很多冲突问题，因此现在很多面向对象的语言都不支持多继承。Java 语言是单继承的，即只能有一个父类，但 Java 可以实现多个接口（接口类似于类，但接口的成员没有执行体。详细了解可参考《Java接口》一节），可以防止多继承所引起的冲突问题。
 
 #### 封装性
 
@@ -1082,9 +1065,7 @@ Java 语言的基本封装单位是类。由于类的用途是封装复杂性，
 
 面向对象的多态性，即“一个接口，多个方法”。多态性体现在父类中定义的属性和方法被子类继承后，可以具有不同的属性或表现方式。多态性允许一个接口被多个同类使用，弥补了单继承的不足。多态概念可以用树形关系来表示，如图 4 所示。
 
-
-
-![img](/Users/jiusonghuang/pic-md/20210713171919.jpeg)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051305257.jpeg)
 图 4 多态示例图
 
 
@@ -1092,7 +1073,7 @@ Java 语言的基本封装单位是类。由于类的用途是封装复杂性，
 
 ### 2.4Java类的定义及定义类时可用的关键字
 
-类是 [Java](http://c.biancheng.net/java/) 中的一种重要的引用数据类型，也是组成 Java 程序的基本要素，因为所有的 Java 程序都是基于类的。本节介绍如何定义类。
+类是 Java 中的一种重要的引用数据类型，也是组成 Java 程序的基本要素，因为所有的 Java 程序都是基于类的。本节介绍如何定义类。
 
 在 Java 中定义一个类，需要使用 class 关键字、一个自定义的类名和一对表示程序体的大括号。完整语法如下：
 
@@ -1111,7 +1092,7 @@ Java 语言的基本封装单位是类。由于类的用途是封装复杂性，
 }
 ```
 
-提示：上述语法中，中括号“[]”中的部分表示可以省略，竖线“|”表示“或关系”，**例如 abstract|final，说明可以使用 abstract 或 final 关键字，但是两个关键字不能同时出现。**
+提示：上述语法中，中括号“\[\]”中的部分表示可以省略，竖线“|”表示“或关系”，**例如 abstract|final，说明可以使用 abstract 或 final 关键字，但是两个关键字不能同时出现。**
 
 上述语法中各关键字的描述如下。
 
@@ -1129,10 +1110,10 @@ Java 语言的基本封装单位是类。由于类的用途是封装复杂性，
 
 Java 类名的命名规则：
 
-1. 类名应该以下划线（_）或字母开头，最好以字母开头。
+1. 类名应该以下划线（\_）或字母开头，最好以字母开头。
 2. 第一个字母最好大写，如果类名由多个单词组成，则每个单词的首字母最好都大写。
 3. 类名不能为 Java 中的关键字，例如 boolean、this、int 等。
-4. 类名不能包含任何嵌入的空格或点号以及除了下划线（_）和美元符号（$）字符之外的特殊字符。
+4. 类名不能包含任何嵌入的空格或点号以及除了下划线（\_）和美元符号（\$）字符之外的特殊字符。
 
 创建一个新的类，就是创建一个新的数据类型。实例化一个类，就是得到类的一个对象。因此，对象就是一组变量和相关方法的集合，其中变量表明对象的状态和属性，方法表明对象所具有的行为。定义一个类的步骤如下所述。
 
@@ -1165,7 +1146,7 @@ public class Person {
 
 ### 2.5Java类的属性：成员变量的定义和声明
 
-在 [Java](http://c.biancheng.net/java/) 中类的成员变量定义了类的属性。例如，一个学生类中一般需要有姓名、性别和年龄等属性，这时就需要定义姓名、性别和年龄 3 个属性。声明成员变量的语法如下：
+在 Java 中类的成员变量定义了类的属性。例如，一个学生类中一般需要有姓名、性别和年龄等属性，这时就需要定义姓名、性别和年龄 3 个属性。声明成员变量的语法如下：
 
 ```java
 [public|protected|private][static][final]  <type>  <variable_name>
@@ -1221,9 +1202,7 @@ public class Counter {
 
 声明成员方法可以定义类的行为，行为表示一个对象能够做的事情或者能够从一个对象取得的信息。类的各种功能操作都是用方法来实现的，属性只不过提供了相应的数据。一个完整的方法通常包括方法名称、方法主体、方法参数和方法返回值类型，其结构如图 1 所示。
 
-
-
-![img](/Users/jiusonghuang/pic-md/20210714092102.jpeg)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051306763.jpeg)
 图 1 方法组成元素
 
 
@@ -1237,7 +1216,7 @@ public class Test {
 }
 ```
 
-注意：上述语法中，中括号“[]”中的部分表示可以省略，竖线“|”表示“或”，例如 public|private，说明可以使用 public 或 private 关键字，但是两个关键字不能同时出现。
+注意：上述语法中，中括号“\[\]”中的部分表示可以省略，竖线“|”表示“或”，例如 public\|private，说明可以使用 public 或 private 关键字，但是两个关键字不能同时出现。
 
 上述代码中一个方法包含 4 部分：方法的返回值、方法名称、方法的参数和方法体。其中 retum_type 是方法返回值的数据类型，数据类型可以是原始的数据类型，即常用的 8 种数据类型，也可以是一个引用数据类型，如一个类、接口和数组等。
 
@@ -1250,7 +1229,7 @@ paramList 表示参数列表，这些变量都要有自己的数据类型，可�
 - final：表示限定该成员方法不能被重写或重载。
 - abstract：表示限定该成员方法为抽象方法。抽象方法不提供具体的实现，并且所属类型必须为抽象类。
 
-注意：上面所提到的重写、重载和抽象类，由于篇幅有限，我们会在教程《[Java方法重载](http://c.biancheng.net/view/998.html)》《[Java方法重写](http://c.biancheng.net/view/1000.html)》和《[Java抽象类](http://c.biancheng.net/view/1004.html)》中讲解，这里大致了解就可以。
+注意：上面所提到的重写、重载和抽象类，由于篇幅有限，我们会在教程《Java方法重载》《Java方法重写》和《Java抽象类》中讲解，这里大致了解就可以。
 
 为上一节创建的学生类 Student 添加一个可以返回学生信息字符串的方法。代码如下：
 
@@ -1347,7 +1326,7 @@ public static void main(String[] args) {
 
 1. 对无参成员方法来说，是没有实际参数列表的（即没有 paramList），但方法名后的括号不能省略。
 2. 对带参数的成员方法来说，实参的个数、顺序以及它们的数据类型必须与形式参数的个数、顺序以及它们的数据类型保持一致，各个实参间用逗号分隔。实参名与形参名可以相同，也可以不同。
-3. 实参也可以是表达式，此时一定要注意使表达式的数据类型与形参的数据类型相同，或者使表达式的类型按 [Java](http://c.biancheng.net/java/) 类型转换规则达到形参指明的数据类型。
+3. 实参也可以是表达式，此时一定要注意使表达式的数据类型与形参的数据类型相同，或者使表达式的类型按 Java类型转换规则达到形参指明的数据类型。
 4. 实参变量对形参变量的数据传递是“值传递”，即只能由实参传递给形参，而不能由形参传递给实参。程序中执行到调用成员方法时，Java 把实参值复制到一个临时的存储区（栈）中，形参的任何修改都在栈中进行，当退出该成员方法时，Java 自动清除栈中的内容。
 
 #### 3. 方法体中的局部变量
@@ -1358,7 +1337,7 @@ public static void main(String[] args) {
 
 ### 2.7Java this关键字详解（3种用法）
 
-**this 关键字是 [Java](http://c.biancheng.net/java/) 常用的关键字，可用于任何实例方法内指向当前对象，也可指向对其调用当前方法的对象，或者在需要当前类型对象引用时使用。**
+**this 关键字是 Java 常用的关键字，可用于任何实例方法内指向当前对象，也可指向对其调用当前方法的对象，或者在需要当前类型对象引用时使用。**
 
 下面我们根据示例分别讲解 this 关键字的作用。
 
@@ -1496,7 +1475,7 @@ public void run() {
 
 #### this( )访问构造方法
 
-this( ) 用来访问本类的构造方法（构造方法是类的一种特殊方法，方法名称和类名相同，没有返回值。详细了解可参考《[Java构造方法](http://c.biancheng.net/view/976.html)》一节），括号中可以有参数，如果有参数就是调用指定的有参构造方法。
+this( ) 用来访问本类的构造方法（构造方法是类的一种特殊方法，方法名称和类名相同，没有返回值。详细了解可参考《Java构造方法》一节），括号中可以有参数，如果有参数就是调用指定的有参构造方法。
 
 下面定义一个 Student 类，使用 this( ) 调用构造方法给 name 赋值，Student 类的代码如下所示：
 
@@ -1533,7 +1512,7 @@ public class Student {
 
 ### 2.8Java访问控制修饰符详解（public、 private、protected 和 friendly）
 
-在 [Java](http://c.biancheng.net/java/) 语言中提供了多个作用域修饰符，其中常用的有 public、private、protected、final、abstract、static、transient 和 volatile，这些修饰符有类修饰符、变量修饰符和方法修饰符。本文将详细介绍访问控制修饰符。
+在 Java 语言中提供了多个作用域修饰符，其中常用的有 public、private、protected、final、abstract、static、transient 和 volatile，这些修饰符有类修饰符、变量修饰符和方法修饰符。本文将详细介绍访问控制修饰符。
 
 在实际生活中，如果要获取某件物品，与其直接穿过堡垒的墙壁，从而导致墙壁毁灭和破坏，不如通过门口的警卫请求进入堡垒的许可。一般而言，这对对象同样适用：没有对象的许可（即对象的属性是私有的），不能直接访问该对象的私有属性。
 
@@ -1638,7 +1617,7 @@ public class StudentTest {
 
 在类中，使用 static 修饰符修饰的属性（成员变量）称为静态变量，也可以称为类变量，常量称为静态常量，方法称为静态方法或类方法，它们统称为静态成员，归整个类所有。
 
-静态成员不依赖于类的特定实例，被类的所有实例共享，就是说 static 修饰的方法或者变量不需要依赖于对象来进行访问，只要这个类被加载，[Java](http://c.biancheng.net/java/) 虚拟机就可以根据类名找到它们。
+静态成员不依赖于类的特定实例，被类的所有实例共享，就是说 static 修饰的方法或者变量不需要依赖于对象来进行访问，只要这个类被加载，Java 虚拟机就可以根据类名找到它们。
 
 调用静态成员的语法形式如下：
 
@@ -1844,7 +1823,7 @@ public static void main(String[] args) {
 
 ### 2.10Java final修饰符详解
 
-final 在 [Java](http://c.biancheng.net/java/) 中的意思是最终，也可以称为完结器，表示对象是最终形态的，不可改变的意思。final 应用于类、方法和变量时意义是不同的，但本质是一样的，都表示不可改变，类似 [C#](http://c.biancheng.net/csharp/) 里的 sealed 关键字。
+final 在 Java 中的意思是最终，也可以称为完结器，表示对象是最终形态的，不可改变的意思。final 应用于类、方法和变量时意义是不同的，但本质是一样的，都表示不可改变，类似 C# 里的 sealed 关键字。
 
 使用 final 关键字声明类、变量和方法需要注意以下几点：
 
@@ -2038,7 +2017,7 @@ class SubClass extends SuperClass {    //编译错误
 
 ### 2.11Java构造方法
 
-构造方法是类的一种特殊方法，用来初始化类的一个新的对象，在创建对象（new 运算符）之后自动调用。[Java](http://c.biancheng.net/java/) 中的每个类都有一个默认的构造方法，并且可以有一个以上的构造方法。
+构造方法是类的一种特殊方法，用来初始化类的一个新的对象，在创建对象（new 运算符）之后自动调用。Java 中的每个类都有一个默认的构造方法，并且可以有一个以上的构造方法。
 
 Java 构造方法有以下特点：
 
@@ -2138,7 +2117,7 @@ public class TestWorker {
 
 在上述代码中，创建了两个不同的 Worker 对象：一个是姓名为张强的员工对象，一个是姓名为李丽、年龄为 25 的员工对象。对于第一个 Worker 对象 Worker1，并未指定 age 属性值，因此程序会将其值采用默认值 0。对于第二个 Worker 对象 Worker2，分别对其指定了 name 属性值和 age 属性值，因此程序会将传递的参数值重新赋值给 Worker 类中的属性值。
 
-注意：Java 构造器的工作方式与 [C++](http://c.biancheng.net/cplus/) 一样。但是，要记住所有的 Java 对象都是在堆中构造的，构造器总是伴随着 new 操作符一起使用。C++ 程序员最易犯的错误就是忘记 new 操作符，例如以下语句：
+注意：Java 构造器的工作方式与 C++ 一样。但是，要记住所有的 Java 对象都是在堆中构造的，构造器总是伴随着 new 操作符一起使用。C++ 程序员最易犯的错误就是忘记 new 操作符，例如以下语句：
 
 ```java
 Worker worker("张三",12);
@@ -2252,7 +2231,7 @@ public class EmployeeTest {
 
 继承是面向对象的三大特征之一。继承和现实生活中的“继承”的相似之处是保留一些父辈的特性，从而减少代码冗余，提高程序运行效率。
 
-[Java](http://c.biancheng.net/java/) 中的继承就是在已经存在类的基础上进行扩展，从而产生新的类。已经存在的类称为父类、基类或超类，而新产生的类称为子类或派生类**。在子类中，不仅包含父类的属性和方法，还可以增加新的属性和方法。**
+Java 中的继承就是在已经存在类的基础上进行扩展，从而产生新的类。已经存在的类称为父类、基类或超类，而新产生的类称为子类或派生类**。在子类中，不仅包含父类的属性和方法，还可以增加新的属性和方法。**
 
 Java 中子类继承父类的语法格式如下：
 
@@ -2272,7 +2251,7 @@ Java 的继承通过 extends 关键字来实现，extends 的英文意思是扩�
 
 那么为什么国内把 extends 翻译为“继承”呢？子类扩展父类之后就可以获得父类的属性和方法，这与汉语中的继承（子类从父类获得一笔财富称为继承）具有相似性。
 
-> Java 与 [C++](http://c.biancheng.net/cplus/) 定义继承类的方式十分相似。Java 用关键字 extends 代替了 C++ 中的冒号（：）。在 Java 中，所有的继承都是公有继承， 而没有 C++ 中的私有继承和保护继承。
+> Java 与 C++定义继承类的方式十分相似。Java 用关键字 extends 代替了 C++ 中的冒号（：）。在 Java 中，所有的继承都是公有继承， 而没有 C++ 中的私有继承和保护继承。
 
 **类的继承不改变类成员的访问权限，也就是说，如果父类的成员是公有的、被保护的或默认的，它的子类仍具有相应的这些特性，并且子类不能获得父类的构造方法。**
 
@@ -2390,9 +2369,7 @@ class Student extends Person,extends Person1,extends Person2{…}
 
 很多地方在介绍 Java 的单继承时，可能会说 Java 类只能有一个父类，严格来讲，这种说法是错误的，应该是一个类只能有一个直接父类，但是它可以有多个间接的父类。例如，Student 类继承 Person 类，Person 类继承 Person1 类，Person1 类继承 Person2 类，那么 Person1 和 Person2 类是 Student 类的间接父类。图 1 展示了单继承的关系。
 
-
-
-![img](/Users/jiusonghuang/pic-md/20210715112739.jpeg)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051308715.jpeg)
 图 1 图形类之间的关系
 
 
@@ -2564,7 +2541,8 @@ class Test {
 输出结果为：
 
 This is student class
-        This is person class
+
+This is person class
 
 在上面的例子中，可以看到如果只调用方法 message( )，是当前的类 message( ) 被调用，使用 super 关键字时，是父类的 message( ) 被调用。
 
@@ -2589,7 +2567,7 @@ this 关键字的用法：
 
 当局部变量和成员变量发生冲突时，使用`this.`进行区分。
 
-关于 [Java](http://c.biancheng.net/java/) super 和 this 关键字的异同，可简单总结为以下几条。
+关于 Java super 和 this 关键字的异同，可简单总结为以下几条。
 
 1. 子类和父类中变量或方法名称相同时，用 super 关键字来访问。可以理解为 super 是指向自己父类对象的一个指针。在子类中调用父类的构造方法。
 2. this 是自身的一个对象，代表对象本身，可以理解为 this 是指向对象本身的一个指针。在同一个类中调用其它方法。
@@ -2629,7 +2607,7 @@ public class Cat extends Animal {
 
 ### Java对象类型转换：向上转型和向下转型
 
-将一个类型强制转换成另一个类型的过程被称为类型转换。本节所说的对象类型转换，是指存在继承关系的对象，不是任意类型的对象。**当对不存在继承关系的对象进行强制类型转换时，会抛出 [Java](http://c.biancheng.net/java/) 强制类型转换（java.lang.ClassCastException）异常。**
+将一个类型强制转换成另一个类型的过程被称为类型转换。本节所说的对象类型转换，是指存在继承关系的对象，不是任意类型的对象。**当对不存在继承关系的对象进行强制类型转换时，会抛出 Java 强制类型转换（java.lang.ClassCastException）异常。**
 
 Java 语言允许某个类型的引用变量引用子类的实例，而且可以对这个引用变量进行类型转换。Java 中引用类型之间的类型转换（前提是两个类是父子关系）主要有两种，分别是向上转型（upcasting）和向下转型（downcasting）。
 
@@ -2849,7 +2827,7 @@ public class Cat extends Animal {
 
 ### Java方法重载
 
-[Java](http://c.biancheng.net/java/) 允许同一个类中定义多个同名方法，只要它们的形参列表不同即可。如果同一个类中包含了两个或两个以上方法名相同的方法，但形参列表不同，这种情况被称为方法重载（overload）。
+Java 允许同一个类中定义多个同名方法，只要它们的形参列表不同即可。如果同一个类中包含了两个或两个以上方法名相同的方法，但形参列表不同，这种情况被称为方法重载（overload）。
 
 例如，在 JDK 的 java.io.PrintStream 中定义了十多个同名的 println() 方法。
 
@@ -2925,8 +2903,8 @@ public class OverLoading {
 在重写方法时，需要遵循下面的规则：
 
 - 参数列表必须完全与被重写的方法参数列表相同。
-- 返回的类型必须与被重写的方法的返回类型相同（[Java](http://c.biancheng.net/java/)1.5 版本之前返回值类型必须一样，之后的 Java 版本放宽了限制，返回值类型必须小于或者等于父类方法的返回值类型）。
-- 访问权限不能比父类中被重写方法的访问权限更低（public>protected>default>private）。
+- 返回的类型必须与被重写的方法的返回类型相同（Java1.5 版本之前返回值类型必须一样，之后的 Java 版本放宽了限制，返回值类型必须小于或者等于父类方法的返回值类型）。
+- 访问权限不能比父类中被重写方法的访问权限更低（public\>protected\>default\>private）。
 - 重写方法一定不能抛出新的检査异常或者比被重写方法声明更加宽泛的检査型异常。例如，父类的一个方法声明了一个检査异常 IOException，在重写这个方法时就不能抛出 Exception，只能拋出 IOException 的子类异常，可以抛出非检査异常。
 
 
@@ -3188,11 +3166,9 @@ System.out.println(p1 instanceof List<?>);    // false
 System.out.println(p1 instanceof List<Person>);    // 编译报错
 ```
 
-上述代码中，Person 的对象 p1 很明显不能转换为 String 对象，那么`p1 instanceof String`不能通过编译，但`p1 instanceof List`却能通过编译，而`instanceof List<Person>`又不能通过编译了。关于这些问题，可以查看[Java语言规范Java SE8版](https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.20.2)寻找答案，如图所示。
+上述代码中，Person 的对象 p1 很明显不能转换为 String 对象，那么`p1 instanceof String`不能通过编译，但`p1 instanceof List`却能通过编译，而`instanceof List<Person>`又不能通过编译了。关于这些问题，可以查看**Java语言规范Java SE8版**寻找答案，如图所示。
 
-
-
-![img](/Users/jiusonghuang/pic-md/20210716105939.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051309740.png)
 
 
 可以理解成以下代码：
@@ -3250,13 +3226,13 @@ class Sheep extends Animal {
 
 ### Java抽象（abstract）类
 
-[Java](http://c.biancheng.net/java/) 语言提供了两种类，分别为具体类和抽象类。前面学习接触的类都是具体类。这一节介绍一下抽象类。
+Java 语言提供了两种类，分别为具体类和抽象类。前面学习接触的类都是具体类。这一节介绍一下抽象类。
 
 在面向对象的概念中，所有的对象都是通过类来描绘的，但是反过来，并不是所有的类都是用来描绘对象的，如果一个类中没有包含足够的信息来描绘一个具体的对象，那么这样的类称为抽象类。
 
 在 Java 中抽象类的语法格式如下：
 
-```
+```java
 <abstract> class <class_name> {
     <abstract> <type> <method_name> (parameter-iist);
 }
@@ -3357,7 +3333,7 @@ public class ShapeTest {
 
 ### Java接口（Interface）的定义和实现
 
-抽象类是从多个类中抽象出来的模板，如果将这种抽象进行的更彻底，则可以提炼出一种更加特殊的“抽象类”——接口（Interface）。接口是 [Java](http://c.biancheng.net/java/) 中最重要的概念之一，它可以被理解为一种特殊的类，不同的是接口的成员没有执行体，是由全局常量和公共的抽象方法所组成。
+抽象类是从多个类中抽象出来的模板，如果将这种抽象进行的更彻底，则可以提炼出一种更加特殊的“抽象类”——接口（Interface）。接口是 Java 中最重要的概念之一，它可以被理解为一种特殊的类，不同的是接口的成员没有执行体，是由全局常量和公共的抽象方法所组成。
 
 #### 定义接口
 
@@ -3504,7 +3480,7 @@ public class NumTest {
 
 ###  Java抽象类和接口的联系和区别
 
-前面《[Java接口](http://c.biancheng.net/view/6540.html)》一节中提到接口是一种特殊的抽象类，接口和抽象类的渊源颇深，有很大的相似之处，所以在选择使用谁的问题上很容易迷糊。本节我们先整理一下 [Java](http://c.biancheng.net/java/) 中抽象类和接口的特点，再分析它们具有的相同点、不同点和使用场景。
+前面《Java接口》一节中提到接口是一种特殊的抽象类，接口和抽象类的渊源颇深，有很大的相似之处，所以在选择使用谁的问题上很容易迷糊。本节我们先整理一下 Java 中抽象类和接口的特点，再分析它们具有的相同点、不同点和使用场景。
 
 #### 1）抽象类
 
@@ -3545,8 +3521,6 @@ Java 中的接口具有以下几个特点：
 抽象类则不一样，抽象类作为系统中多个子类的共同父类，它所体现的是一种模板式设计。抽象类作为多个子类的抽象父类，可以被当成系统实现过程中的中间产品，这个中间产品已经实现了系统的部分功能（那些已经提供实现的方法），但这个产品依然不能当成最终产品，必须有更进一步的完善，这种完善可能有几种不同方式。
 
 除此之外，接口和抽象类在用法上也存在差别，如下表所示：
-
-
 
 | 参数               | 抽象类                                                       | 接口                                                         |
 | ------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -3595,9 +3569,7 @@ Java 中的接口具有以下几个特点：
 
 内部类也可以分为多种形式，与变量非常类似，如图 1 所示。
 
-
-
-![img](/Users/jiusonghuang/pic-md/20210716151011.jpeg)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051310925.jpeg)
 图 1 内部类的分类
 
 
@@ -3820,7 +3792,7 @@ public class Test {
 
 5）在局部内部类中可以访问外部类的所有成员。
 
-6）在局部内部类中只可以访问当前方法中 final 类型的参数与变量。如果方法中的成员与外部类中的成员同名，则可以使用 <OuterClassName>.this.<MemberName> 的形式访问外部类中的成员。
+6）在局部内部类中只可以访问当前方法中 final 类型的参数与变量。如果方法中的成员与外部类中的成员同名，则可以使用 \<OuterClassName>.this.\<MemberName> 的形式访问外部类中的成员。
 
 ```java
 public class Test {
@@ -3920,7 +3892,7 @@ public static void main(String[] args) {
 }
 ```
 
-> 从 [Java](http://c.biancheng.net/java/) 8 开始添加了 Effectively final 功能，在 Java 8 及以后的版本中代码第 6 行不会出现编译错误，详情可点击《[Java8新特性之Effectively final](http://c.biancheng.net/view/6564.html)》进行学习。
+> 从 Java 8 开始添加了 Effectively final 功能，在 Java 8 及以后的版本中代码第 6 行不会出现编译错误，详情可点击《Java8新特性之Effectively final》进行学习。
 
 2）匿名类中允许使用非静态代码块进行成员初始化操作。
 
@@ -3941,7 +3913,7 @@ Out anonyInter = new Out() {
 
 ### Java利用内部类实现多重继承
 
-多重继承指的是一个类可以同时从多于一个的父类那里继承行为和特征，然而我们知道 [Java](http://c.biancheng.net/java/) 为了保证数据安全，只允许单继承。
+多重继承指的是一个类可以同时从多于一个的父类那里继承行为和特征，然而我们知道 Java 为了保证数据安全，只允许单继承。
 
 有些时候我们会认为如果系统中需要使用多重继承，那往往都是糟糕的设想，这时开发人员往往需要思考的不是怎么使用多重继承，而是他的设计是否存在问题。但是，有时候开发人员确实需要实现多重继承，而且现实生活中真正地存在这样的情况，例如遗传，我们既继承了父亲的行为和特征，也继承了母亲的行为和特征。
 
@@ -4020,7 +3992,7 @@ Son 的友好指数：6
 
 ###  Java8新特性：Effectively final
 
-[Java](http://c.biancheng.net/java/) 中局部内部类和匿名内部类访问的局部变量必须由 final 修饰，以保证内部类和外部类的数据一致性。但从 Java 8 开始，我们可以不加 final 修饰符，由系统默认添加，当然这在 Java 8 以前的版本是不允许的。Java 将这个功能称为 Effectively final 功能。
+Java 中局部内部类和匿名内部类访问的局部变量必须由 final 修饰，以保证内部类和外部类的数据一致性。但从 Java 8 开始，我们可以不加 final 修饰符，由系统默认添加，当然这在 Java 8 以前的版本是不允许的。Java 将这个功能称为 Effectively final 功能。
 
 编写同样的代码，分别在 Java 7 和 Java 8 下运行，代码如下：
 
@@ -4040,18 +4012,16 @@ public class Test {
 
 图 1 是 Java 7 编译结果，图 2 和图 3 是 Java 8 编译结果。
 
-
-
-![Java 7 运行结果](/Users/jiusonghuang/pic-md/20211025233110.png)
+![Java 7 运行结果](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051256660.png)
 图 1
 
 
-可以看到在 Java 7（图 1）中出现代码错误，提示我们必须显式的声明这个变量为 final 的run 方法中代码为输出 name 语句，即`System.out.println(name);`）。
+可以看到在 Java 7（图 1）中出现代码错误，提示我们必须显式的声明这个变量为 final 的run 方法中代码为输出 name 语句，即`System.out.println(name);`。
 
-![img](/Users/jiusonghuang/pic-md/20211025233119.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051256429.png)
 图 2 
 
-![img](/Users/jiusonghuang/pic-md/20211025233127.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051257922.png)
 图 3
 
 
@@ -4069,11 +4039,11 @@ Lambda 表达式在编程中是经常使用的，而匿名内部类是很少使�
 
 很多事件并非总是按照人们自己设计意愿顺利发展的，经常出现这样那样的异常情况。例如： 你计划周末郊游，计划从家里出发→到达目的→游泳→烧烤→回家。但天有不测风云，当你准备烧烤时候突然天降大雨，只能终止郊游提前回家。“天降大雨”是一种异常情况，你的计划应该考虑到这样的情况，并且应该有处理这种异常的预案。
 
-计算机程序的编写也需要考虑处理这些异常情况。异常（exception）是在运行程序时产生的一种异常情况，已经成为了衡量一门语言是否成熟的标准之一。目前的主流编程语言，如 [C++](http://c.biancheng.net/cplus/)、c#、Ruby 和 [Python](http://c.biancheng.net/python/) 等大都提供了异常处理机制。
+计算机程序的编写也需要考虑处理这些异常情况。异常（exception）是在运行程序时产生的一种异常情况，已经成为了衡量一门语言是否成熟的标准之一。目前的主流编程语言，如 C++、c#、Ruby 和 Python等大都提供了异常处理机制。
 
 #####  异常简介
 
-[Java](http://c.biancheng.net/java/) 中的异常又称为例外，是一个在程序执行期间发生的事件，它中断正在执行程序的正常指令流。为了能够及时有效地处理程序中的运行错误，必须使用异常类，这可以让程序具有极好的容错性且更加健壮。 
+Java 中的异常又称为例外，是一个在程序执行期间发生的事件，它中断正在执行程序的正常指令流。为了能够及时有效地处理程序中的运行错误，必须使用异常类，这可以让程序具有极好的容错性且更加健壮。 
 
 在 Java 中一个异常的产生，主要有如下三种原因：
 
@@ -4131,9 +4101,7 @@ Exception in thread "main" java.util.InputMismatchException
 
 为了能够及时有效地处理程序中的运行错误，Java 专门引入了异常类。**在 Java 中所有异常类型都是内置类 java.lang.Throwable 类的子类，**即 Throwable 位于异常类层次结构的顶层。Throwable 类下有两个异常分支 Exception 和 Error，如图 1 所示。
 
-
-
-![img](/Users/jiusonghuang/pic-md/20211026235240.jpg)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051257117.jpeg)
 
 ​																							图 1 异常结构图
 
@@ -4183,7 +4151,7 @@ Exception in thread "main" java.util.InputMismatchException
 
 ###  Java中Error和Exception的异同
 
-Error（错误）和 Exception（异常）都是 java.lang.Throwable 类的子类，在 [Java](http://c.biancheng.net/java/) 代码中只有继承了 Throwable 类的实例才能被 throw 或者 catch。
+Error（错误）和 Exception（异常）都是 java.lang.Throwable 类的子类，在 Java 代码中只有继承了 Throwable 类的实例才能被 throw 或者 catch。
 
 **Exception 和 Error 体现了 Java 平台设计者对不同异常情况的分类，Exception 是程序正常运行过程中可以预料到的意外情况，并且应该被开发者捕获，进行相应的处理。Error 是指正常情况下不大可能出现的情况，绝大部分的 Error 都会导致程序处于非正常、不可恢复状态。所以不需要被开发者捕获。**
 
@@ -4249,7 +4217,7 @@ Exception in thread "main" java.lang.StackOverflowError
 
 前面介绍了异常的产生是不可避免的，那么为了保证程序有效地执行，需要对发生的异常进行相应的处理。
 
-[Java](http://c.biancheng.net/java/) 的异常处理通过 5 个关键字来实现：try、catch、throw、throws 和 finally。try catch 语句用于捕获并处理异常，finally 语句用于在任何情况下（除特殊情况外）都必须执行的代码，throw 语句用于拋出异常，throws 语句用于声明可能会出现的异常。
+Java 的异常处理通过 5 个关键字来实现：try、catch、throw、throws 和 finally。try catch 语句用于捕获并处理异常，finally 语句用于在任何情况下（除特殊情况外）都必须执行的代码，throw 语句用于拋出异常，throws 语句用于声明可能会出现的异常。
 
 本节先主要介绍异常处理的机制及基本的语句结构。
 
@@ -4276,14 +4244,18 @@ try {
 
 ### Java try catch语句详解
 
-在实际应用中，对于错误的处理是极其重要的，任何程序都很难做到百分百完美，程序中可能存在大量未知问题，所以程序开发时一定要对各种问题进行相应的处理，而 [Java](http://c.biancheng.net/java/) 提供的异常处理机制可以帮用户更好地解决这方面的问题。Java 的异常处理机制可以让程序具有极好的容错性，让程序更加健壮。
+在实际应用中，对于错误的处理是极其重要的，任何程序都很难做到百分百完美，程序中可能存在大量未知问题，所以程序开发时一定要对各种问题进行相应的处理，而 Java 提供的异常处理机制可以帮用户更好地解决这方面的问题。Java 的异常处理机制可以让程序具有极好的容错性，让程序更加健壮。
 
 Java 的异常处理通过 5 个关键字来实现：try、catch、throw、throws 和 finally。try catch 语句用于捕获并处理异常，finally 语句用于在任何情况下（除特殊情况外）都必须执行的代码，throw 语句用于拋出异常，throws 语句用于声明可能会出现的异常。
 
 本节先主要介绍 Java 中的 try catch 语句。在 Java 中通常采用 try catch 语句来捕获异常并处理。语法格式如下：
 
 ```java
-try {    // 可能发生异常的语句} catch(ExceptionType e) {    // 处理异常语句}
+try {    
+    // 可能发生异常的语句
+} catch(ExceptionType e) {
+    // 处理异常语句
+}
 ```
 
 在以上语法中，把可能引发异常的语句封装在 try 语句块中，用以捕获可能发生的异常。catch 后的`( )`里放匹配的异常类，指明 catch 语句可以处理的异常类型，发生异常时产生异常类的实例化对象。
@@ -4299,7 +4271,7 @@ try {    // 可能发生异常的语句} catch(ExceptionType e) {    // 处理�
 
 在上面语法的处理代码块 1 中，可以使用以下 3 个方法输出相应的异常信息。
 
-- printStackTrace() 方法：指出异常的类型、性质、栈层次及出现在程序中的位置（关于 printStackTrace 方法的使用可参考《[Java的异常跟踪栈](http://c.biancheng.net/view/6657.html)》一节）。
+- printStackTrace() 方法：指出异常的类型、性质、栈层次及出现在程序中的位置（关于 printStackTrace 方法的使用可参考《Java的异常跟踪栈》一节）。
 - getMessage() 方法：输出错误的性质。
 - toString() 方法：给出异常的类型与性质。
 
@@ -4422,11 +4394,11 @@ public class Test03 {
 
 在实际开发中，根据 try catch 语句的执行过程，try 语句块和 catch 语句块有可能不被完全执行，而有些处理代码则要求必须执行。例如，程序在 try 块里打开了一些物理资源（如数据库连接、网络连接和磁盘文件等），这些物理资源都必须显式回收。
 
-> [Java](http://c.biancheng.net/java/)的垃圾回收机制不会回收任何物理资源，垃圾回收机制只回收堆内存中对象所占用的内存。
+> Java的垃圾回收机制不会回收任何物理资源，垃圾回收机制只回收堆内存中对象所占用的内存。
 
 所以为了确保一定能回收 try 块中打开的物理资源，异常处理机制提供了 finally 代码块，并且 Java 7 之后提供了自动资源管理（Automatic Resource Management）技术。
 
-finally 语句可以与前面介绍的 [try catch](http://c-local.biancheng.net/view/6732.html) 语句块匹配使用，语法格式如下：
+finally 语句可以与前面介绍的 try catch 语句块匹配使用，语法格式如下：
 
 ```java
 try {
@@ -4460,9 +4432,7 @@ try {
 
 一般情况下，无论是否有异常拋出，都会执行 finally 语句块中的语句，执行流程如图 1 所示。
 
-
-
-![img](/Users/jiusonghuang/pic-md/20211027001226.jpg)
+![img](https://gitee.com/wowosong/pic-md/raw/master/20211027001226.jpg)
    															图 1 try catch finally 语句执行流程图
 
 
@@ -4475,7 +4445,7 @@ try catch finally 语句块的执行情况可以细分为以下 3 种情况：
 
 除非在 try 块、catch 块中调用了退出虚拟机的方法`System.exit(int status)`，否则不管在 try 块或者 catch 块中执行怎样的代码，出现怎样的情况，异常处理的 finally 块总会执行。
 
-通常情况下不在 finally 代码块中使用 return 或 throw 等导致方法终止的语句，否则将会导致 try 和 catch 代码块中的 return 和 throw 语句失效，详细讲解可参考《[Java中finally与return的执行顺序](http://c.biancheng.net/view/vip_7075.html)》一节。
+通常情况下不在 finally 代码块中使用 return 或 throw 等导致方法终止的语句，否则将会导致 try 和 catch 代码块中的 return 和 throw 语句失效，详细讲解可参考《Java中finally与return的执行顺序)》一节。
 
 #### 例 1
 
@@ -4546,7 +4516,7 @@ asdfasd
 
 ### Java 9增强的自动资源管理
 
-在学习《[Java try catch finally语句](http://c.biancheng.net/view/1046.html)》一节后我们可以发现，当程序使用 finally 块关闭资源时，程序会显得异常臃肿，例如以下代码。
+在学习《Java try catch finally语句》一节后我们可以发现，当程序使用 finally 块关闭资源时，程序会显得异常臃肿，例如以下代码。
 
 ```java
 public static void main(String[] args) {
@@ -4568,7 +4538,7 @@ public static void main(String[] args) {
 }
 ```
 
-[Java](http://c.biancheng.net/java/) 7 以前，上面程序中的 finally 代码块是不得不写的“臃肿代码”，为了解决这种问题，Java 7 增加了一个新特性，该特性提供了另外一种管理资源的方式，这种方式能自动关闭文件，被称为自动资源管理（Automatic Resource Management）。该特性是在 try 语句上的扩展，主要释放不再需要的文件或其他资源。
+Java 7 以前，上面程序中的 finally 代码块是不得不写的“臃肿代码”，为了解决这种问题，Java 7 增加了一个新特性，该特性提供了另外一种管理资源的方式，这种方式能自动关闭文件，被称为自动资源管理（Automatic Resource Management）。该特性是在 try 语句上的扩展，主要释放不再需要的文件或其他资源。
 
 自动资源管理替代了 finally 代码块，并优化了代码结构和提高程序可读性。语法如下：
 
@@ -4593,10 +4563,8 @@ try (声明或初始化资源语句) {
 3. 需要关闭的资源必须实现了 AutoCloseable 或 Closeable 接口。
 
 ```
-Closeable 是 AutoCloseable 的子接口，Closeable 接口里的 close() 方法声明抛出了 IOException，因此它的实现类在实现 close() 方法时只能声明抛出 IOException 或其子类；AutoCloseable 接口里的 close() 方法声明抛出了 Exc
+Closeable 是 AutoCloseable 的子接口，Closeable 接口里的 close() 方法声明抛出了 IOException，因此它的实现类在实现 close() 方法时只能声明抛出 IOException 或其子类；AutoCloseable 接口里的 close() 方法声明抛出了 Exception，因此它的实现类在实现 close() 方法时可以声明抛出任何异常。
 ```
-
-eption，因此它的实现类在实现 close() 方法时可以声明抛出任何异常。
 
 下面示范如何使用自动关闭资源的 try 语句。
 
@@ -4604,10 +4572,10 @@ eption，因此它的实现类在实现 close() 方法时可以声明抛出任�
 public class AutoCloseTest {
     public static void main(String[] args) throws IOException {
         try (
-                // 声明、初始化两个可关闭的资源
-                // try语句会自动关闭这两个资源
-                BufferedReader br = new BufferedReader(new FileReader("AutoCloseTest.java"));
-                PrintStream ps = new PrintStream(new FileOutputStream("a.txt"))) {
+            // 声明、初始化两个可关闭的资源
+            // try语句会自动关闭这两个资源
+            BufferedReader br = new BufferedReader(new FileReader("AutoCloseTest.java"));
+            PrintStream ps = new PrintStream(new FileOutputStream("a.txt"))) {
             // 使用两个资源
             System.out.println(br.readLine());
             ps.println("C语言中文网");
@@ -4620,9 +4588,7 @@ public class AutoCloseTest {
 
 自动关闭资源的 try 语句相当于包含了隐式的 finally 块（这个 finally 块用于关闭资源），因此这个 try 语句可以既没有 catch 块，也没有 finally 块。
 
-```
 Java 7 几乎把所有的“资源类”（包括文件 IO 的各种类、JDBC 编程的 Connection 和 Statement 等接口）进行了改写，改写后的资源类都实现了 AutoCloseable 或 Closeable 接口。
-```
 
 如果程序需要，自动关闭资源的 try 语句后也可以带多个 catch 块和一个 finally 块。
 
@@ -4647,7 +4613,7 @@ public class AutoCloseTest {
 
 ### Java throws和throw：声明和抛出异常
 
-[Java](http://c.biancheng.net/java/) 中的异常处理除了捕获异常和处理异常之外，还包括声明异常和拋出异常。实现声明和抛出异常的关键字非常相似，它们是 throws 和 throw。**可以通过 throws 关键字在方法上声明该方法要拋出的异常，然后在方法内部通过 throw 拋出异常对象。**本节详细介绍在 Java 中如何声明异常和拋出异常。
+Java 中的异常处理除了捕获异常和处理异常之外，还包括声明异常和拋出异常。实现声明和抛出异常的关键字非常相似，它们是 throws 和 throw。**可以通过 throws 关键字在方法上声明该方法要拋出的异常，然后在方法内部通过 throw 拋出异常对象。**本节详细介绍在 Java 中如何声明异常和拋出异常。
 
 #### throws 声明异常
 
@@ -4721,15 +4687,13 @@ class Sub extends OverrideThrows {
 
 与 throws 不同的是，throw 语句用来直接拋出一个异常，后接一个可拋出的异常类对象，其语法格式如下：
 
-
-
 ```java
 throw ExceptionObject;
 ```
 
 其中，ExceptionObject 必须是 Throwable 类或其子类的对象。如果是自定义异常类，也必须是 Throwable 的直接或间接子类。例如，以下语句在编译时将会产生语法错误：
 
-```
+```java
 throw new String("拋出异常");    // String类不是Throwable类的子类
 ```
 
@@ -4826,7 +4790,7 @@ try{
 }
 ```
 
-3 个不同类型的异常，要求捕获之后的处理都是调用 methodA 方法。为了解决这种问题，[Java](http://c.biancheng.net/java/) 7 推出了多异常捕获技术，可以把这些异常合并处理。上述代码修改如下：
+3 个不同类型的异常，要求捕获之后的处理都是调用 methodA 方法。为了解决这种问题，Java 7 推出了多异常捕获技术，可以把这些异常合并处理。上述代码修改如下：
 
 ```
 try{
@@ -4885,7 +4849,7 @@ public class ExceptionTest {
 
 #### 不要过度使用异常
 
-不可否认，[Java](http://c.biancheng.net/java/) 的异常机制确实方便，但滥用异常机制也会带来一些负面影响。过度使用异常主要有以下两个方面：
+不可否认，Java 的异常机制确实方便，但滥用异常机制也会带来一些负面影响。过度使用异常主要有以下两个方面：
 
 1. 把异常和普通错误混淆在一起，不再编写任何错误处理代码，而是以简单地抛出异常来代替所有的错误处理。
 2. 使用异常处理来代替流程控制。
@@ -4893,7 +4857,7 @@ public class ExceptionTest {
 
 熟悉了异常使用方法后，程序员可能不再愿意编写烦琐的错误处理代码，而是简单地抛出异常。实际上这样做是不对的，对于完全已知和普通的错误，应该编写处理这种错误处理代码，增加程序的健壮性；只有对外部的、不能确定和预知的运行时错误才使用异常。
 
-下面我们来看《[Java五子棋游戏](http://c.biancheng.net/view/5859.html)》一节中处理用户输入坐标点已有棋子的两种方式。
+下面我们来看《Java五子棋游戏》一节中处理用户输入坐标点已有棋子的两种方式。
 
 ```java
 // 如果用户试图下棋的坐标点已有棋子了
@@ -4986,7 +4950,7 @@ try {
 
 ### Java反射机制是什么？
 
-[Java](http://c.biancheng.net/java/) 反射机制是 Java语言的一个重要特性。在学习 Java 反射机制前，大家应该先了解两个概念，编译期和运行期。
+Java 反射机制是 Java语言的一个重要特性。在学习 Java 反射机制前，大家应该先了解两个概念，编译期和运行期。
 
 编译期是指把源码交给编译器编译成计算机可以执行的文件的过程。在Java中也就是把 Java代码编成class文件的过程。编译期只是做了一些翻译功能，并没有把代码放在内存中运行起来，而只是把代码当成文本进行操作，比如检查错误。
 
@@ -4996,7 +4960,7 @@ Java 反射机制是在运行状态中，**对于任意一个类，都能够知�
 
 Java 反射机制在服务器程序和中间件程序中得到了广泛运用。在服务器端，往往需要根据客户的请求，动态调用某一个对象的特定方法。此外，**在 ORM 中间件的实现中，运用 Java 反射机制可以读取任意一个 JavaBean 的所有属性，或者给这些属性赋值。**
 
-![img](/Users/jiusonghuang/pic-md/20210817112337.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051259836.png)
 
 Java 反射机制主要提供了以下功能，这些功能都位于`java.lang.reflect`包。
 
@@ -5032,7 +4996,9 @@ Class labelCls = label1.getClass();    // label1为 JLabel 类的对象
 |                | getDeclaredClasses()     | Class 型数组       | 获取所有内部类                                    |
 | 内部类的声明类 | getDeclaringClass()      | Class 对象         | 如果该类为内部类，则返回它的成员类，否则返回 null |
 
-如表 1 所示，在调用 getFields() 和 getMethods() 方法时将会依次获取权限为 public 的字段和变量，然后将包含从超类中继承到的成员变量和方法。而通过 getDeclareFields() 和 getDeclareMethod() 只是获取在本类中定义的成员变量和方法。
+如表 1 所示，在调用 getFields() 和 getMethods() 方法时将会依次获取权限为 public 的字段和变量，然后将包含从超类中继承到的成员
+
+变量和方法。而通过 getDeclareFields() 和 getDeclareMethod() 只是获取在本类中定义的成员变量和方法。
 
 #### Java 反射机制的优缺点
 
@@ -5053,9 +5019,9 @@ Java 反射机制在一般的 Java 应用开发中很少使用，即便是 Java 
 
 ### Java反射机制API
 
-实现 [Java](http://c.biancheng.net/java/) 反射机制的类都位于 java.lang.reflect 包中，java.lang.Class 类是 Java 反射机制 API 中的核心类。本节将从这两个方面讲解 Java 反射机制 API。
+实现 Java 反射机制的类都位于 java.lang.reflect 包中，java.lang.Class 类是 Java 反射机制 API 中的核心类。本节将从这两个方面讲解 Java 反射机制 API。
 
-> 可参考《[Java反射机制的基本概念](http://c.biancheng.net/view/6907.html)》一节中介绍的关于 Java 反射机制获取类对象相关信息的方法，来学习本节内容。
+> 可参考《Java反射机制的基本概念》一节中介绍的关于 Java 反射机制获取类对象相关信息的方法，来学习本节内容。
 
 #### java.lang.Class 类
 
@@ -5525,3 +5491,4 @@ privateMethod()的返回值为：
 在变量、数组、对象和集合中存储的数据是暂时存在的，一旦程序结束它们就会丢失。为了能够永久地保存程序创建的数据，需要将其保存到磁盘文件中，这样就可以在其他程序中使用它们。Java 的 I/O（输入/输出）技术可以将数据保存到文本文件和二进制文件中， 以达到永久保存数据的要求。
 
 本章首先从基础的流概念、流的分类、系统流的使用开始介绍，进而介绍如何操作文件、读取文件和写入文件。掌握 Java 中 I/O 处理技术能够提高读者对数据的处理能力。
+

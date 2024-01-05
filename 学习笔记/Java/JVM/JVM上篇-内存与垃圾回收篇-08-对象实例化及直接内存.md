@@ -41,7 +41,7 @@
 > 
 > Java 对象头有什么？
 
-![image-20200709095356247](https://img-blog.csdnimg.cn/img_convert/fe7dfd78e13789563d56f9fbd1b79cad.png)
+![image-20200709095356247](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051447711.png)
 
 ### 8.1.1. 创建对象的方式
 
@@ -56,7 +56,7 @@
 
 前面所述是从字节码角度看待对象的创建过程，现在从执行步骤的角度来分析：
 
-![image-20210510220743192](https://img-blog.csdnimg.cn/img_convert/504c93d37f3d51c88b1834d78c33eaa2.png)
+![image-20210510220743192](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051449110.png)
 
 #### 1\. 判断对象对应的类是否加载、链接、初始化
 
@@ -118,7 +118,7 @@
 
 ## 8.2. 对象内存布局
 
-![image-20200709151033237](https://img-blog.csdnimg.cn/img_convert/f6e34140a6bd24a85d9f766652b57d98.png)
+![image-20200709151033237](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051447147.png)
 
 ### 8.2.1. 对象头（Header）
 
@@ -175,29 +175,29 @@ public class CustomerTest{
 
 **图示**
 
-![image-20200709152801713](https://img-blog.csdnimg.cn/img_convert/1bba0ee2a8a614b80d6cac9fecbb3f8a.png)
+![image-20200709152801713](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051447178.png)
 
 ### 小结
 
-![image-20210510225407119](https://img-blog.csdnimg.cn/img_convert/3be25c48b29d3cef51354f19cbe31d7d.png)
+![image-20210510225407119](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051447615.png)
 
 ## 8.3. 对象的访问定位
 
-![image-20210510230045654](https://img-blog.csdnimg.cn/img_convert/375b00ca9022291e7d2e214ce2d7cbfd.png)
+![image-20210510230045654](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051447908.png)
 
 JVM 是如何通过栈帧中的对象引用访问到其内部的对象实例呢？
 
-![image-20200709164149920](https://img-blog.csdnimg.cn/img_convert/deab7773248ea150e5f7dee3901700cd.png)
+![image-20200709164149920](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051447326.png)
 
 ### 8.3.1. 句柄访问
 
-![image-20210510230241991](https://img-blog.csdnimg.cn/img_convert/59cc079fe02b7a5836ff7c2c7fffb635.png)
+![image-20210510230241991](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051447909.png)
 
 reference 中存储稳定句柄地址，对象被移动（垃圾收集时移动对象很普遍）时只会改变句柄中实例数据指针即可，reference 本身不需要被修改
 
 ### 8.3.2. 直接指针（HotSpot 采用）
 
-![image-20210510230337956](https://img-blog.csdnimg.cn/img_convert/694601dcb023c6d10168a00fe000becc.png)
+![image-20210510230337956](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051447818.png)
 
 直接指针是局部变量表中的引用，直接指向堆中的实例，在对象实例中有类型指针，指向的是方法区中的对象类型数据
 
@@ -214,13 +214,13 @@ reference 中存储稳定句柄地址，对象被移动（垃圾收集时移动�
 
 使用 IO 读写文件，需要与磁盘交互，需要由用户态切换到内核态。在内核态时，需要两份内存存储重复数据，效率低。
 
-![image-20210510231408607](https://img-blog.csdnimg.cn/img_convert/c691d62d73e977fb942748a81313f5e6.png)
+![image-20210510231408607](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051447628.png)
 
 ### 8.4.3. 直接缓存区
 
 使用 NIO 时，操作系统划出的直接缓存区可以被 java 代码直接访问，只有一份。NIO 适合对大文件的读写操作。
 
-![image-20210510231456550](https://img-blog.csdnimg.cn/img_convert/d13b08447999ab32811a440496e4dac7.png)
+![image-20210510231456550](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051447641.png)
 
 也可能导致 OutOfMemoryError 异常
 
@@ -239,26 +239,4 @@ Exception in thread "main" java.lang.OutOfMemoryError: Direct buffer memory
 
 直接内存大小可以通过`MaxDirectMemorySize`设置。如果不指定，默认与堆的最大值-Xmx 参数值一致
 
-![image-20200709230647277](https://img-blog.csdnimg.cn/img_convert/0ac6c50a98325c93b5652602137b9dea.png)
-
-[上一篇<JVM上篇：内存与垃圾回收篇>07-方法区
-
-](https://www.cnblogs.com/vectorx/p/14752613.html)
-
-[下一篇<JVM上篇：内存与垃圾回收篇>09-执行引擎
-
-](https://www.cnblogs.com/vectorx/p/14757595.html)
-
-本文作者：VectorX
-
-本文链接：https://www.cnblogs.com/vectorx/p/14753436.html
-
-版权声明：本作品采用知识共享署名-非商业性使用-禁止演绎 2.5 中国大陆许可协议进行许可。
-
-[关注我](javascript:) [收藏该文](javascript:)
-
-0
-
-0
-
-posted @ 2021-05-10 23:26  [VectorX](https://www.cnblogs.com/vectorx/)  阅读(383)  评论(0)  [编辑](https://i.cnblogs.com/EditPosts.aspx?postid=14753436)  [收藏](javascript:)  [举报](javascript:)
+![image-20200709230647277](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051447959.png)

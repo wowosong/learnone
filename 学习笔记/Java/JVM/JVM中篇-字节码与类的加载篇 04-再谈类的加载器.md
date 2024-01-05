@@ -41,7 +41,7 @@
 
 ClassLoader是Java的核心组件，所有的Class都是由ClassLoader进行加载的，ClassLoader负责通过各种方式将Class信息的二进制数据流读入JVM内部，转换为一个与目标类对应的java.lang.Class对象实例。然后交给Java虚拟机进行链接、初始化等操作。因此，ClassLoader在整个装载阶段，只能影响到类的加载，而无法通过ClassLoader去改变类的链接和初始化行为。至于它是否可以运行，则由Execution Engine决定。
 
-![image-20210501102535142](https://img-blog.csdnimg.cn/img_convert/fb51cabb2218d857a809a59918c5beec.png)
+![image-20210501102535142](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051534774.png)
 
 ## 1.1. 大厂面试题
 
@@ -174,7 +174,7 @@ JVM支持两种类型的类加载器，分别为引导类加载器（Bootstrap C
 
 从概念上来讲，自定义类加载器一般指的是程序中由开发人员自定义的一类类加载器，但是Java虚拟机规范却没有这么定义，而是将所有派生于抽象类ClassLoader的类加载器都划分为自定义类加载器。无论类加载器的类型如何划分，在程序中我们最常见的类加载器结构主要是如下情况：
 
-![image-20210501164413665](https://img-blog.csdnimg.cn/img_convert/0c43fb4a7da20038c8f56b42a1ddf802.png)
+![image-20210501164413665](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051534510.png)
 
 *   除了顶层的启动类加载器外，其余的类加载器都应当有自己的“父类”加戟器。
 *   不同类加载器看似是继承（Inheritance）关系，实际上是包含关系。在下层加载器中，包含着上层加载器的引用。
@@ -220,7 +220,7 @@ class ChildClassLoader extends ClassLoader{
     
 *   加载扩展类和应用程序类加载器，并指定为他们的父类加载器。
     
-    ![image-20210501170011811](https://img-blog.csdnimg.cn/img_convert/43431a1abff0e5f2bd7bfd20fe91e5f7.png)![image-20210501170038212](https://img-blog.csdnimg.cn/img_convert/5cd73234cd993408846ec7b4c2cb7238.png)使用-XX:+TraceClassLoading参数得到。
+    ![image-20210501170011811](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051534600.png)![image-20210501170038212](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051534552.png)使用-XX:+TraceClassLoading参数得到。
     
 
 启动类加载器使用C++编写的？Yes！
@@ -241,7 +241,7 @@ System.out.println(classLoader);
 ```
 
 **执行结果：**  
-![image-20210501170425889](https://img-blog.csdnimg.cn/img_convert/c72286acf05c7f86d1ea24f74e0c2a1e.png)
+![image-20210501170425889](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051534293.png)
 
 ## 2.2. 扩展类加载器
 
@@ -255,7 +255,7 @@ System.out.println(classLoader);
     
 *   从java.ext.dirs系统属性所指定的目录中加载类库，或从JDK的安装目录的jre/lib/ext子目录下加载类库。如果用户创建的JAR放在此目录下，也会自动由扩展类加载器加载。
     
-    ![在这里插入图片描述](https://img-blog.csdnimg.cn/img_convert/ba54af96e744eb99a9248d13e55a7e3c.png)
+    ![在这里插入图片描述](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051534300.png)
     
 
 ```java
@@ -272,7 +272,7 @@ System.out.print1n(classLoader1); //sun.misc. Launcher$ExtCLassLoader@1540e19d
 
 **执行结果：**
 
-![img](https://img-blog.csdnimg.cn/img_convert/b21313ee65acb4f01f1d03b88529e9f5.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051534323.png)
 
 ## 2.3. 系统类加载器
 
@@ -286,7 +286,7 @@ System.out.print1n(classLoader1); //sun.misc. Launcher$ExtCLassLoader@1540e19d
 *   它是用户自定义类加载器的默认父加载器
 *   通过ClassLoader的getSystemClassLoader()方法可以获取到该类加载器
 
-![image-20210501171206453](https://img-blog.csdnimg.cn/img_convert/19dd9595afeb6543593ef14161fc1bb8.png)
+![image-20210501171206453](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051534139.png)
 
 ## 2.4. 用户自定义类加载器
 
@@ -359,14 +359,14 @@ public class ClassLoaderTest1{
             //自定义的类默认使用系统类加载器
             ClassLoader classLoader1=Class.forName("com.atguigu.java.ClassLoaderTest1").getClassLoader();
             System.out.println(classLoader1);
-            
+
             //关于数组类型的加载：使用的类的加载器与数组元素的类的加载器相同
             String[] arrstr = new String[10];
             System.out.println(arrstr.getClass().getClassLoader());//null：表示使用的是引导类加载器
-                
+
             ClassLoaderTest1[] arr1 =new ClassLoaderTest1[10];
             System.out.println(arr1.getClass().getClassLoader());//sun.misc. Launcher$AppcLassLoader@18b4aac2
-            
+
             int[] arr2 = new int[10];
             System.out.println(arr2.getClass().getClassLoader());//null:
         } catch (ClassNotFoundException e) {
@@ -382,7 +382,7 @@ public class ClassLoaderTest1{
 
 **ClassLoader与现有类的关系：**
 
-![image-20210501173110637](https://img-blog.csdnimg.cn/img_convert/00148a792adcf05932114dff408f82b5.png)
+![image-20210501173110637](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051535911.png)
 
 除了以上虚拟机自带的加载器外，用户还可以定制自己的类加载器。Java提供了抽象类java.lang.ClassLoader，所有用户自定义的类加载器都应该继承ClassLoader类。
 
@@ -463,7 +463,7 @@ private final ClassLoader parent;
 
 前面说过，ClassLoader是一个抽象类，很多方法是空的没有实现，比如findClass()、findResource()等。而URLClassLoader这个实现类为这些方法提供了具体的实现。并新增了URLClassPath类协助取得Class字节码流等功能。在编写自定义类加载器时，如果没有太过于复杂的需求，可以直接继承𝑈𝑅𝐿𝐶𝑙𝑎𝑠𝑠𝐿𝑜𝑎𝑑𝑒𝑟类$ 在编写自定义类加载器时，如果没有太过于复杂的需求，可以直接继承URLClassLoader类 $，这样就可以避免自己去编写findClass()方法及其获取字节码流的方式，使自定义类加载器编写更加简洁。
 
-![image-20210501174730756](https://img-blog.csdnimg.cn/img_convert/53f634bada23b3400a303bfcc6e11a31.png)
+![image-20210501174730756](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051535343.png)
 
 ## 4.3. ExtClassLoader与AppClassLoader
 
@@ -471,7 +471,7 @@ private final ClassLoader parent;
 
 sun.misc.Launcher主要被系统用于启动主应用程序，ExtClassLoader和AppClassLoader都是由sun.misc.Launcher创建的，其类主要类结构如下：
 
-![img](https://img-blog.csdnimg.cn/img_convert/a77b6bca10308e6b9be35b1b2dfc84bc.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051535461.png)
 
 我们发现ExtClassLoader并没有重写loadClass()方法，这足矣说明其遵循双亲委派模式，而AppClassLoader重载了loadClass()方法，但最终调用的还是父类loadClass()方法，因此依然遵守双亲委派模式。
 
@@ -515,9 +515,9 @@ sun.misc.Launcher主要被系统用于启动主应用程序，ExtClassLoader和A
 
 规定了类加载的顺序是：引导类加载器先加载，若加载不到，由扩展类加载器加载，若还加载不到，才会由系统类加载器或自定义的类加载器进行加载。
 
-![image-20210501175529542](https://img-blog.csdnimg.cn/img_convert/41cbfd9ba1da676a7f05dae0dac3abae.png)
+![image-20210501175529542](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051535191.png)
 
-![img](https://img-blog.csdnimg.cn/img_convert/c1526b63e95852b48551b4f136ebbd6f.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051535057.png)
 
 ## 5.2. 优势与劣势
 
@@ -586,7 +586,7 @@ sun.misc.Launcher主要被系统用于启动主应用程序，ExtClassLoader和A
 
 有了线程上下文类加载器，程序就可以做一些“舞弊”的事情了。JNDI服务使用这个线程上下文类加载器去加载所需的SPI服务代码，这是一种父类加载器去请求子类加载器完成类加载的行为，这种行为实际上是打通了双亲委派模型的层次结构来逆向使用类加载器，已经违背了双亲委派模型的一般性原则$ 这是一种父类加载器去请求子类加载器完成类加载的行为，这种行为实际上是打通了双亲委派模型的层次结构来逆向使用类加载器，已经违背了双亲委派模型的一般性原则 $，但也是无可奈何的事情。 ，例如JNDI、JDBC、JCE、JAXB和JBI等。不过，当SPI的服务提供者多于一个的时候，代码就只能根据具体提供者的类型来硬编码判断，为了消除这种极不优雅的实现方式，在JDK6时，JDK提供了java.util.ServiceLoader类，以META-INF/services中的配置信息，辅以责任链模式，这才算是给SPI的加载提供了一种相对合理的解决方案。
 
-![img](https://img-blog.csdnimg.cn/img_convert/814235dcce5471c2a527e82bafcf21c7.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051535218.png)
 
 默认上下文加载器就是应用类加载器，这样以上下文加载器为中介，使得启动类加载器中的代码也可以访问应用类加载器中的类。
 
@@ -628,7 +628,7 @@ IBM公司主导的JSR-291(即OSGiR4.2)实现模块化热部署的关键是它自
 
 根据这个特点，可以用来模拟热替换的实现，基本思路如下图所示：
 
-![image-20210501182003439](https://img-blog.csdnimg.cn/img_convert/9ae876265c85af4e431932647993dab7.png)
+![image-20210501182003439](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051535829.png)
 
 * * *
 
@@ -651,7 +651,7 @@ IBM公司主导的JSR-291(即OSGiR4.2)实现模块化热部署的关键是它自
 
 在Java中将执行程序分成本地代码和远程代码两种，本地代码默认视为可信任的，而远程代码则被看作是不受信的。对于授信的本地代码，可以访问一切本地资源。而对于非授信的远程代码在早期的Java实现中，安全依赖于**沙箱（Sandbox）机制**。如下图所示JDK1.0安全模型
 
-![image-20210501182608205](https://img-blog.csdnimg.cn/img_convert/71caf905a0ca13866e24419b7faa14ee.png)
+![image-20210501182608205](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051535962.png)
 
 ## 6.2. JDK1.1时期
 
@@ -661,13 +661,13 @@ JDK1.0中如此严格的安全机制也给程序的功能扩展带来障碍，�
 
 如下图所示JDK1.1安全模型
 
-![image-20210501182626963](https://img-blog.csdnimg.cn/img_convert/b93f0829e8340131a49738f8843307e4.png)
+![image-20210501182626963](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051536290.png)
 
 ## 6.3. JDK1.2时期
 
 在Java1.2版本中，再次改进了安全机制，增加了**代码签名**。不论本地代码或是远程代码，都会按照用户的安全策略设定，由类加载器加载到虚拟机中权限不同的运行空间，来实现差异化的代码执行权限控制。如下图所示JDK1.2安全模型：
 
-![image-20210501182652378](https://img-blog.csdnimg.cn/img_convert/81919ed70977f2b57ef5a11481c68abc.png)
+![image-20210501182652378](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051536502.png)
 
 ## 6.4. JDK1.6时期
 
@@ -675,7 +675,7 @@ JDK1.0中如此严格的安全机制也给程序的功能扩展带来障碍，�
 
 虚拟机会把所有代码加载到不同的系统域和应用域。系统域部分专门负责与关键资源进行交互$ 系统域部分专门负责与关键资源进行交互 $，而各个应用域部分则通过系统域的部分代理来对各种需要的资源进行访问。虚拟机中不同的受保护域（Protected Domain），对应不一样的权限（Permission）。存在于不同域中的类文件就具有了当前域的全部权限，如下图所示，最新的安全模型（jdk1.6）
 
-![image-20210501182740197](https://img-blog.csdnimg.cn/img_convert/cf22059daec45f370ae3afb33b870c1f.png)
+![image-20210501182740197](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051536237.png)
 
 * * *
 
@@ -744,7 +744,7 @@ Java提供了抽象类java.lang.ClassLoader，所有用户自定义的类加载�
     现在启动类加载器、平台类加载器、应用程序类加载器全都继承于jdk.internal.loader.BuiltinClassLoader。
     
 
-![img](https://img-blog.csdnimg.cn/img_convert/323cfcda53f98034ed15372c0ea43685.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051536431.png)
 
  如果有程序直接依赖了这种继承关系，或者依赖了URLClassLoader类的特定方法，那代码很可能会在JDK9及更高版本的JDK中崩溃。
 
@@ -752,13 +752,13 @@ Java提供了抽象类java.lang.ClassLoader，所有用户自定义的类加载�
 4.  启动类加载器现在是在jvm内部和java类库共同协作实现的类加载器（以前是C++实现），但为了与之前代码兼容，在获取启动类加载器的场景中仍然会返回null，而不会得到BootClassLoader实例。
 5.  类加载的委派关系也发生了变动。当平台及应用程序类加载器收到类加载请求，在委派给父加载器加载前，要先判断该类是否能够归属到某一个系统模块中，如果可以找到这样的归属关系，就要优先委派给负责那个模块的加载器完成加载。
 
-![img](https://img-blog.csdnimg.cn/img_convert/cb23791a5fb1bf1a4c8a28d6a3179e84.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051536466.png)
 
-![img](https://img-blog.csdnimg.cn/img_convert/ef9b83abcdb9f54d0f0ec7d15f0adc44.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051536224.png)
 
-![img](https://img-blog.csdnimg.cn/img_convert/192fda50804d35e7d1b44dc61a65ede1.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051536878.png)
 
-![img](https://img-blog.csdnimg.cn/img_convert/f07a455ec275a6503bfad070ae3d9ffb.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051536293.png)
 
 **代码：**
 
@@ -778,25 +778,3 @@ public class ClassLoaderTest {
     }
 }
 ```
-
-[上一篇＜JVM中篇：字节码与类的加载篇＞03-类的加载过程（类的生命周期）详解
-
-](https://www.cnblogs.com/vectorx/p/14725419.html)
-
-[下一篇<JVM下篇：性能监控与调优篇>01-概述篇-02-JVM监控及诊断工具-命令行篇
-
-](https://www.cnblogs.com/vectorx/p/14730392.html)
-
-本文作者：VectorX
-
-本文链接：https://www.cnblogs.com/vectorx/p/14725421.html
-
-版权声明：本作品采用知识共享署名-非商业性使用-禁止演绎 2.5 中国大陆许可协议进行许可。
-
-[关注我](javascript:) [收藏该文](javascript:)
-
-0
-
-0
-
-posted @ 2021-05-02 11:24  [VectorX](https://www.cnblogs.com/vectorx/)  阅读(290)  评论(0)  [编辑](https://i.cnblogs.com/EditPosts.aspx?postid=14725421)  [收藏](javascript:)  [举报](javascript:)

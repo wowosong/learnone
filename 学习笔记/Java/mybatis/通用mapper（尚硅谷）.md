@@ -209,7 +209,7 @@ public class Employees implements Serializable {
 
 实体类字段：驼峰式命名 
 
-数据库表字段：使用“_”区分各个单词 
+数据库表字段：使用"\_"区分各个单词 
 
 用法：在@Column 注解的 name 属性中指定目标字段的字段名
 
@@ -269,7 +269,7 @@ WHERE
 
 > 生成订单数据→封装到 Order 对象中→保存 Order 对象→数据库自动生成主键值→回写到实体类对象 Order 中 
 
-> 生成一系列订单详情数据→List<OrderItem>→在每一个 OrderItem 中设置 Order 对象的主键值作为外键→批量保存 List<OrderItem> …… 
+> 生成一系列订单详情数据→List\<OrderItem>→在每一个 OrderItem 中设置 Order 对象的主键值作为外键→批量保存 List\<OrderItem> …… 
 
 ## 3.5@Transient主键
 
@@ -619,15 +619,15 @@ generatorConfig.xml
 
 https://github.com/abel533/Mapper/wiki/4.1.mappergenerator
 
-# **7** 自定义Mapper<T>接口
+# **7** 自定义Mapper\<T>接口
 
 ![image-20210620191515136](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071127969.png)
 
 ## 7.1用途
 
-让我们可以根据开发的实际需要对 Mapper<T>接口进行定制。
+让我们可以根据开发的实际需要对 Mapper\<T>接口进行定制。
 
-## 7.2创建自定义Mapper<T>接口
+## 7.2创建自定义Mapper\<T>接口
 
 自主选择要继承的mapper
 
@@ -647,7 +647,7 @@ public interface EmployeeMapper extends MyMapper<Employee>{
 }
 ```
 
-## 7.3配置MapperScannerConfigurer注册MyMapper<T>
+## 7.3配置MapperScannerConfigurer注册MyMapper\<T>
 
 ```xml
 <!-- 整合通用Mapper所需要做的配置修改： -->
@@ -1003,7 +1003,7 @@ public class AddressTypeHandler extends BaseTypeHandler<Address> {
 
 > 本质
 
-使用了 org.apache.ibatis.type.EnumTypeHandler<E>
+使用了 org.apache.ibatis.type.EnumTypeHandler\<E>
 
 ### 10.3.2办法二：为枚举类型配置对应的类型处理器
 
@@ -1013,11 +1013,11 @@ public class AddressTypeHandler extends BaseTypeHandler<Address> {
 
 1. 内置
 
-   org.apache.ibatis.type.EnumTypeHandler<E> 
+   org.apache.ibatis.type.EnumTypeHandler\<E> 
 
    ​	在数据库中存储枚举值本身 
 
-   org.apache.ibatis.type.EnumOrdinalTypeHandler<E> 
+   org.apache.ibatis.type.EnumOrdinalTypeHandler\<E> 
 
    ​	在数据库中仅仅存储枚举值的索引 
 

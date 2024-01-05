@@ -78,37 +78,37 @@ let 关键字用来声明变量，使用 let 声明的变量有几个特点：
 
 ## 2.3.变量的解构赋值
 
-​    ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为**解构赋值**。
+ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为**解构赋值**。
 
 ```javascript
 //数组的解构赋值
-    const arr = ['张学友', '刘德华', '黎明', '郭富城'];
-    let [zhang, liu, li, guo] = arr;
-    //对象的解构赋值
-    const lin = {
-      name: '林志颖',
-      tags: ['车手', '歌手', '小旋风', '演员']
-    };
-    let {name, tags} = lin;
-    //复杂解构
-    let wangfei = {
-      name: '王菲',
-      age: 18,
-      songs: ['红豆', '流年', '暧昧', '传奇'],
-      history: [
+const arr = ['张学友', '刘德华', '黎明', '郭富城'];
+let [zhang, liu, li, guo] = arr;
+//对象的解构赋值
+const lin = {
+    name: '林志颖',
+    tags: ['车手', '歌手', '小旋风', '演员']
+};
+let {name, tags} = lin;
+//复杂解构
+let wangfei = {
+    name: '王菲',
+    age: 18,
+    songs: ['红豆', '流年', '暧昧', '传奇'],
+    history: [
         {name: '窦唯'},
         {name: '李亚鹏'},
         {name: '谢霆锋'}
-      ]
-    };
-    let {songs: [one, two, three], history: [first, second, third]} =wangfei;
+    ]
+};
+let {songs: [one, two, three], history: [first, second, third]} =wangfei;
 ```
 
-​    注意：频繁使用对象方法、数组元素，就可以使用解构赋值形式
+注意：频繁使用对象方法、数组元素，就可以使用解构赋值形式
 
 ##     2.4.模板字符串
 
-​    模板字符串（template string）是增强版的字符串， 用反引号（`）标识，特点：
+模板字符串（template string）是增强版的字符串， 用反引号（`）标识，特点：
 
 1. 字符串中可以出现换行符
 
@@ -134,20 +134,20 @@ let 关键字用来声明变量，使用 let 声明的变量有几个特点：
   ES6 允许在大括号里面，直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁。
 
 ```javascript
-  let name = '尚硅谷';
-  let slogon = '永远追求行业更高标准';
-  let improve = function () {
-  	console.log('可以提高你的技能');
-  }
-  //属性和方法简写
-  let atguigu = {
+let name = '尚硅谷';
+let slogon = '永远追求行业更高标准';
+let improve = function () {
+    console.log('可以提高你的技能');
+}
+//属性和方法简写
+let atguigu = {
     name,
     slogon,
     improve,
     change() {
-    console.log('可以改变你')
+        console.log('可以改变你')
     }
-  };
+};
 ```
 
   注意：对象简写形式简化了代码，所以以后用简写就对了
@@ -366,7 +366,7 @@ connect({
 
 代码说明：
 
-1. *的位置没有限制
+1. 的位置没有限制
 
 2. 生成器函数返回的结果是迭代器对象，调用迭代器对象的 next 方法可以得到yield 语句后的值
 
@@ -394,24 +394,24 @@ ES6 提供了新的数据结构 Set（集合） 。它类似于数组，但成�
 
 5. clear 清空集合，返回 undefined
    
-    ```javascript
-    //创建一个空集合
-    let s = new Set();14
-    //创建一个非空集合
-    let s1 = new Set([1,2,3,1,2,3]);
-    //集合属性与方法
-    //返回集合的元素个数
-    console.log(s1.size);
-    //添加新元素
-    console.log(s1.add(4));
-    //删除元素
-    console.log(s1.delete(1));
-    //检测是否存在某个值
-    console.log(s1.has(2));
-    //清空集合
-    console.log(s1.clear());
-    ```
-    
+```javascript
+//创建一个空集合
+let s = new Set();14
+//创建一个非空集合
+let s1 = new Set([1,2,3,1,2,3]);
+//集合属性与方法
+//返回集合的元素个数
+console.log(s1.size);
+//添加新元素
+console.log(s1.add(4));
+//删除元素
+console.log(s1.delete(1));
+//检测是否存在某个值
+console.log(s1.has(2));
+//清空集合
+console.log(s1.clear());
+```
+
 ## 2.14. Map
 
 ES6 提供了 Map 数据结构。它类似于对象，也是键值对的集合。 但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。 Map 也实现了iterator 接口，所以可以使用『扩展运算符』和『for…of…』进行遍历。 Map 的属性和方法：
@@ -426,27 +426,27 @@ ES6 提供了 Map 数据结构。它类似于对象，也是键值对的集合�
 
 5. clear 清空集合，返回 undefined
    
-     ```javascript
-     //创建一个空 map
-     let m = new Map();
-     //创建一个非空 map
-     let m2 = new Map([
-       ['name','尚硅谷'],
-       ['slogon','不断提高行业标准']
-     ]);
-     //属性和方法
-     //获取映射元素的个数
-     console.log(m2.size);
-     //添加映射值
-     console.log(m2.set('age', 6));
-     //获取映射值
-     console.log(m2.get('age'));
-     //检测是否有该映射
-     console.log(m2.has('age'));
-     //清除
-     console.log(m2.clear());
-     ```
-     
+ ```javascript
+ //创建一个空 map
+ let m = new Map();
+ //创建一个非空 map
+ let m2 = new Map([
+   ['name','尚硅谷'],
+   ['slogon','不断提高行业标准']
+ ]);
+ //属性和方法
+ //获取映射元素的个数
+ console.log(m2.size);
+ //添加映射值
+ console.log(m2.set('age', 6));
+ //获取映射值
+ console.log(m2.get('age'));
+ //检测是否有该映射
+ console.log(m2.has('age'));
+ //清除
+ console.log(m2.clear());
+ ```
+
 ## 2.15. class 类
 
 ES6 提供了更接近传统语言的写法，引入了 Class（类）这个概念，作为对象的模板。通过 class 关键字，可以定义类。基本上， ES6 的 class 可以看作只是一个语法糖，它的绝大部分功能， ES5 都可以做到，新的 class 写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。
@@ -464,83 +464,83 @@ ES6 提供了更接近传统语言的写法，引入了 Class（类）这个概�
 
 6. 父类方法可以重写
    
-     ```javascript
-     //父类
-     class Phone {
-         //构造方法
-         constructor(brand, color, price) {
-             this.brand = brand;
-             this.color = color;
-             this.price = price;
-         }
-         //对象方法
-         call() {
-             console.log('我可以打电话!!!')
-         }
+ ```javascript
+ //父类
+ class Phone {
+     //构造方法
+     constructor(brand, color, price) {
+         this.brand = brand;
+         this.color = color;
+         this.price = price;
      }
-     //子类
-     class SmartPhone extends Phone {
-         constructor(brand, color, price, screen, pixel) {
-             super(brand, color, price);
-             this.screen = screen;
-             this.pixel = pixel;
-         }
-         //子类方法
-         photo(){
-             console.log('我可以拍照!!');
-         }
-         playGame(){
-             console.log('我可以玩游戏!!');
-         }
-         //方法重写
-         call(){
-             console.log('我可以进行视频通话!!');
-         }
-         //静态方法
-         static run(){
-             console.log('我可以运行程序')
-         }
-         static connect(){
-             console.log('我可以建立连接')
-         }
+     //对象方法
+     call() {
+         console.log('我可以打电话!!!')
      }
-     //实例化对象
-     const Nokia = new Phone('诺基亚', '灰色', 230);
-     const iPhone6s = new SmartPhone('苹果', '白色', 6088,'4.7inch','500w');
-     //调用子类方法
-     iPhone6s.playGame();
-     //调用重写方法
-     iPhone6s.call();
-     //调用静态方法
-     SmartPhone.run();
-     ```
-     
+ }
+ //子类
+ class SmartPhone extends Phone {
+     constructor(brand, color, price, screen, pixel) {
+         super(brand, color, price);
+         this.screen = screen;
+         this.pixel = pixel;
+     }
+     //子类方法
+     photo(){
+         console.log('我可以拍照!!');
+     }
+     playGame(){
+         console.log('我可以玩游戏!!');
+     }
+     //方法重写
+     call(){
+         console.log('我可以进行视频通话!!');
+     }
+     //静态方法
+     static run(){
+         console.log('我可以运行程序')
+     }
+     static connect(){
+         console.log('我可以建立连接')
+     }
+ }
+ //实例化对象
+ const Nokia = new Phone('诺基亚', '灰色', 230);
+ const iPhone6s = new SmartPhone('苹果', '白色', 6088,'4.7inch','500w');
+ //调用子类方法
+ iPhone6s.playGame();
+ //调用重写方法
+ iPhone6s.call();
+ //调用静态方法
+ SmartPhone.run();
+ ```
+
 ##     2.16. 数值扩展
 
 ###      2.16.1. 二进制和八进制
 
- ​    ES6 提供了二进制和八进制数值的新的写法，分别用前缀 0b 和 0o 表示。
+ ES6 提供了二进制和八进制数值的新的写法，分别用前缀 0b 和 0o 表示。
 
 ###      2.16.2. Number.isFinite() 与 Number.isNaN()
 
- ​    Number.isFinite() 用来检查一个数值是否为有限的
- ​    Number.isNaN() 用来检查一个值是否为 NaN
+ Number.isFinite() 用来检查一个数值是否为有限的
+ Number.isNaN() 用来检查一个值是否为 NaN
 
 ###      2.16.3. Number.parseInt() 与 Number.parseFloat()
 
- ​    ES6 将全局方法 parseInt 和 parseFloat，移植到 Number 对象上面，使用不变。
+  ES6 将全局方法 parseInt 和 parseFloat，移植到 Number 对象上面，使用不变。
 
 ###      2.16.4. Math.trunc
 
- ​    用于去除一个数的小数部分，返回整数部分。
+  用于去除一个数的小数部分，返回整数部分。
 
 ###      2.16.5. Number.isInteger
 
- ​    Number.isInteger() 用来判断一个数值是否为整数
+  Number.isInteger() 用来判断一个数值是否为整数
 
 ##     2.17. 对象扩展
 
-​    ES6 新增了一些 Object 对象的方法
+ES6 新增了一些 Object 对象的方法
 
 1. Object.is 比较两个值是否严格相等，与『===』行为基本一致（+0 与 NaN）
 
@@ -600,6 +600,7 @@ async 和 await 两种语法结合可以让异步代码像同步代码一样
 2. Object.entries()方法返回一个给定对象自身可遍历属性 [key,value] 的数组
 ## 4.3. Object.getOwnPropertyDescriptors
 该方法返回指定对象所有自身属性的描述对象
+
 # 第 5 章 ECMASript 9 新特性
 ## 5.1. Rest/Spread 属性
 Rest 参数与 spread 扩展运算符在 ES6 中已经引入，不过 ES6 中只针对于数组，
@@ -622,11 +623,11 @@ connect({
 
 ## 5.2.正则表达式命名捕获组
 
-ES9 允许命名捕获组使用符号『?<name>』 ,这样获取捕获结果可读性更强
+ES9 允许命名捕获组使用符号`?<name>` ,这样获取捕获结果可读性更强。
 
 ```javascript
 let str = '<a href="http://www.atguigu.com">尚硅谷</a>';
-const reg = /<a href="(?<url>.*)">(?<text>.*)<\/a>/;
+const reg = '/<a href="(?<url>.*)">(?<text>.*)<\/a>/';
 const result = reg.exec(str);
 console.log(result.groups.url);
 console.log(result.groups.text);
@@ -694,3 +695,4 @@ console.log(data);
 ## 7.5.动态 import 导入
 
 ## 7.6. globalThis 对象
+

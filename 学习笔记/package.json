@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "vitepress": "^1.0.0-rc.35"
+  },
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "dependencies": {
+    "directory-tree": "^3.5.1",
+    "path": "^0.12.7"
+  }
+}

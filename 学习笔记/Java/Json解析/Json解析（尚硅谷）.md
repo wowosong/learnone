@@ -24,11 +24,9 @@ String json1 = "{"id":12,"name":"Tom"}"
 String json2 = "[{"id":12,"name":"Tom"},{"id":12,"name":"Tom"}]"
 ```
 
+## 2.2_Json 对象: \{\}
 
-
-## 2.2_Json 对象: {}
-
-（1）Json 对象的结构: {key1:value1, key2:value2, key3:value3}
+（1）Json 对象的结构: \{key1:value1, key2:value2, key3:value3\}
 
 （2）key 的数据类型: 字符串
 
@@ -397,7 +395,7 @@ private void jsonToJavaOfSpecial() {
 
 1）用到的 API
 
-<T> T fromJson(String json, Class<T> classOfT);//将 json 对象转换为 Java 对象的方法
+\<T> T fromJson(String json, Class\<T> classOfT);//将 json 对象转换为 Java 对象的方法
 
 注意：要求 json 对象中的 key 的名称与 java 对象对应的类中的属性名要相同
 
@@ -478,7 +476,7 @@ T fromJson(String json, Type typeOfT);//将 json 数组转换为 Java 对象的 
 
 （3）通过创建的Gson对象调用fromJson()方法，返回该JSON数据对应的Java集合：
 
-List<ShopInfo> shops = gson.fromJson(json, new TypeToken<List<ShopInfo>>() {}.getType());
+List\<ShopInfo> shops = gson.fromJson(json, new TypeToken<List\<ShopInfo>>() {}.getType());
 
 3）测试数据
 
@@ -590,7 +588,7 @@ String toJson(Object src);
 
 （3）通过创建的Gson对象调用toJson()方法，返回json数据：
 
-List<ShopInfo> shops = new ArrayList<>();
+List\<ShopInfo> shops = new ArrayList<>();
 
 String json = gson.toJson(shops);
 
@@ -640,7 +638,7 @@ private void javaToJsonList() {
 
 1）用到的 API
 
-< T > T parseObject(String json, Class<T> classOfT); //将 json 对象转换为 Java
+< T > T parseObject(String json, Class<\T> classOfT); //将 json 对象转换为 Java
 
 对象的方法
 
@@ -707,7 +705,7 @@ tv_fastjson_last.setText(shopInfo.toString());
 
 1）用到的 API
 
-List<T> parseArray(String json,Class<T> classOfT);//将 json 数组转换为 Java 对
+List\<T> parseArray(String json,Class\<T> classOfT);//将 json 数组转换为 Java 对
 
 象的 list
 
@@ -719,7 +717,7 @@ List<T> parseArray(String json,Class<T> classOfT);//将 json 数组转换为 Jav
 
 （2）JSON调用parseArray()方法，获取转换后的Java集合
 
-例如：List<ShopInfo> shopInfos = JSON.parseArray(json, ShopInfo.class);
+例如：List\<ShopInfo> shopInfos = JSON.parseArray(json, ShopInfo.class);
 
 3）测试数据
 

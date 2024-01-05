@@ -105,7 +105,7 @@ yarn.lock ：yarn 锁定文件
 **2. 总结**
 
 - Runtime Only：通常需要借助如 webpack 的 vue-loader 工具把 .vue 文件编译成JavaScript，因为是在编译阶段做的，所以它只包含运行时的 Vue.js 代码，因此代码体积也会更轻量。             
-Runtime + Compiler：我们如果没有对代码做预编译，但又使用了 Vue 的 template 属性并传入一个字符串，则需要在客户端编译模板。Vue.js 2.0 中，最终渲染都是通过 render 函数，如果写 template 属性，则需要编译成 render 函数，那么这个编译过程会发生运行时，所以需要带有编译器的版本。
+- Runtime + Compiler：我们如果没有对代码做预编译，但又使用了 Vue 的 template 属性并传入一个字符串，则需要在客户端编译模板。Vue.js 2.0 中，最终渲染都是通过 render 函数，如果写 template 属性，则需要编译成 render 函数，那么这个编译过程会发生运行时，所以需要带有编译器的版本。
 
 ## 3. vue 本质：构造函数
 
@@ -113,10 +113,10 @@ Runtime + Compiler：我们如果没有对代码做预编译，但又使用了 V
 
 ```javascript
 function Vue (options) {
-    if (process.env.NODE_ENV !== production' && !(this instanceof Vue) ) {
+    if (process.env.NODE_ENV !== 'production' && !(this instanceof Vue) ) {
         warn('Vue is a constructor and should be called with the `new` keyword')
-}
-this._init(options)
+    }
+    this._init(options)
 }
 ```
 **总结**
@@ -458,7 +458,6 @@ for (macroTask of macroTaskQueue) {
 	- 4. nextTick 把传入的回调函数 cb 压入 callbacks 数组，最后一次性地根据 useMacroTask 条件执行 macroTimerFunc 或者是 microTimerFunc，而它们都会在下一个 tick 执行 flushCallbacks，flushCallbacks 的逻辑非常简单，对 callbacks 遍历，然后执行相应的回调函数。
 
 这里使用 callbacks 而不是直接在 nextTick 中执行回调函数的原因是保证在同一个 tick 内多次执行 nextTick，不会开启多个异步任务，而把这些异步任务都压成一个同步任务，在下一个 tick 执行完毕。
-
 	- 5. next-tick.js 还对外暴露了 withMacroTask 函数，它是对函数做一层包装，确保函数执行过程中对数据任意的修改，触发变化执行 nextTick 的时候强制走 macroTimerFunc。比如对于一些 DOM 交互事件，如 v-on 绑定的事件回调函数的处理，会强制走 macro task。
 	- 6. 总结
 
@@ -851,7 +850,7 @@ let vm = new Vue({
 
 - 1. 内置组件
 
-	- <keep-alive> 是 Vue 源码中实现的一个组件，是 Vue 的内置组件，是下抽象组件，形式 “有点像” 平时写的 Vue 的组件，但是做了缓存的处理。
+	- \<keep-alive> 是 Vue 源码中实现的一个组件，是 Vue 的内置组件，是下抽象组件，形式 “有点像” 平时写的 Vue 的组件，但是做了缓存的处理。
 
 - 2. 组件渲染
 - 3. 生命周期
@@ -865,7 +864,7 @@ let vm = new Vue({
 
 - 1. 内置组件
 
-	- <transition> 组件和 <keep-alive> 组件一样，都是 Vue 的内置组件，同样是抽象组件，同样直接实现 render 函数，同样利用了默认插槽。而且 <transition> 组件是 web 平台独有的
+	- \<transition> 组件和 \<keep-alive> 组件一样，都是 Vue 的内置组件，同样是抽象组件，同样直接实现 render 函数，同样利用了默认插槽。而且 \<transition> 组件是 web 平台独有的
 
 - 2. transition module
 
@@ -886,19 +885,19 @@ let vm = new Vue({
 	- 3. 如果没有找到 JavaScript 钩子并且也没有检测到 CSS 过渡/动画，DOM 操作 (插入/删除) 在下一帧中立即执行。
 	- 总结
 
-		- 所以真正执行动画的是我们写的 CSS 或者是 JavaScript 钩子函数，而 Vue 的 <transition> 只是帮我们很好地管理了这些 CSS 的添加/删除，以及钩子函数的执行时机。
+		- 所以真正执行动画的是我们写的 CSS 或者是 JavaScript 钩子函数，而 Vue 的 \<transition> 只是帮我们很好地管理了这些 CSS 的添加/删除，以及钩子函数的执行时机。
 
 **6. transition-group**
 
 - 1. render 函数
 
-	- <transition-group> 组件也是由 render 函数渲染生成 vnode，不同于 <transition> 组件，<transition-group> 组件非抽象组件，它会渲染成一个真实元素，默认 tag 是 span。
+	- \<transition-group> 组件也是由 render 函数渲染生成 vnode，不同于 \<transition> 组件，\<transition-group> 组件非抽象组件，它会渲染成一个真实元素，默认 tag 是 span。
 
 - 2. move 过渡实现
 
 - 3. 总结
 
-	- <transtion-group> 和 <transition> 组件相比，实现了列表的过渡，以及它会渲染成真实的元素。当我们去修改列表的数据的时候，如果是添加或者删除数据，则会触发相应元素本身的过渡动画，这点和 <transition> 组件实现效果一样，除此之外 <transtion-group> 还实现了 move 的过渡效果，让我们的列表过渡动画更加丰富。
+	- \<transtion-group> 和 \<transition> 组件相比，实现了列表的过渡，以及它会渲染成真实的元素。当我们去修改列表的数据的时候，如果是添加或者删除数据，则会触发相应元素本身的过渡动画，这点和 \<transition> 组件实现效果一样，除此之外 \<transtion-group> 还实现了 move 的过渡效果，让我们的列表过渡动画更加丰富。
 
 ## 9. Vue-Router
 

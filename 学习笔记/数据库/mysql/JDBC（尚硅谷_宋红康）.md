@@ -151,28 +151,28 @@
 #### 2.4.1 连接方式一
 
 ```java
-	@Test
-    public void testConnection1() {
-        try {
-            //1.提供java.sql.Driver接口实现类的对象
-            Driver driver = null;
-            driver = new com.mysql.jdbc.Driver();
+@Test
+public void testConnection1() {
+    try {
+        //1.提供java.sql.Driver接口实现类的对象
+        Driver driver = null;
+        driver = new com.mysql.jdbc.Driver();
 
-            //2.提供url，指明具体操作的数据
-            String url = "jdbc:mysql://localhost:3306/test";
+        //2.提供url，指明具体操作的数据
+        String url = "jdbc:mysql://localhost:3306/test";
 
-            //3.提供Properties的对象，指明用户名和密码
-            Properties info = new Properties();
-            info.setProperty("user", "root");
-            info.setProperty("password", "abc123");
+        //3.提供Properties的对象，指明用户名和密码
+        Properties info = new Properties();
+        info.setProperty("user", "root");
+        info.setProperty("password", "abc123");
 
-            //4.调用driver的connect()，获取连接
-            Connection conn = driver.connect(url, info);
-            System.out.println(conn);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        //4.调用driver的connect()，获取连接
+        Connection conn = driver.connect(url, info);
+        System.out.println(conn);
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+}
 ```
 
 > 说明：上述代码中显式出现了第三方数据库的API
@@ -180,30 +180,30 @@
 #### 2.4.2 连接方式二
 
 ```java
-	@Test
-    public void testConnection2() {
-        try {
-            //1.实例化Driver
-            String className = "com.mysql.jdbc.Driver";
-            Class clazz = Class.forName(className);
-            Driver driver = (Driver) clazz.newInstance();
+@Test
+public void testConnection2() {
+    try {
+        //1.实例化Driver
+        String className = "com.mysql.jdbc.Driver";
+        Class clazz = Class.forName(className);
+        Driver driver = (Driver) clazz.newInstance();
 
-            //2.提供url，指明具体操作的数据
-            String url = "jdbc:mysql://localhost:3306/test";
+        //2.提供url，指明具体操作的数据
+        String url = "jdbc:mysql://localhost:3306/test";
 
-            //3.提供Properties的对象，指明用户名和密码
-            Properties info = new Properties();
-            info.setProperty("user", "root");
-            info.setProperty("password", "abc123");
+        //3.提供Properties的对象，指明用户名和密码
+        Properties info = new Properties();
+        info.setProperty("user", "root");
+        info.setProperty("password", "abc123");
 
-            //4.调用driver的connect()，获取连接
-            Connection conn = driver.connect(url, info);
-            System.out.println(conn);
+        //4.调用driver的connect()，获取连接
+        Connection conn = driver.connect(url, info);
+        System.out.println(conn);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
 ```
 
 > 说明：相较于方式一，这里使用反射实例化Driver，不在代码中体现第三方数据库的API。体现了面向接口编程思想。
@@ -211,28 +211,28 @@
 #### 2.4.3 连接方式三
 
 ```java
-	@Test
-    public void testConnection3() {
-        try {
-            //1.数据库连接的4个基本要素：
-            String url = "jdbc:mysql://localhost:3306/test";
-            String user = "root";
-            String password = "abc123";
-            String driverName = "com.mysql.jdbc.Driver";
+@Test
+public void testConnection3() {
+    try {
+        //1.数据库连接的4个基本要素：
+        String url = "jdbc:mysql://localhost:3306/test";
+        String user = "root";
+        String password = "abc123";
+        String driverName = "com.mysql.jdbc.Driver";
 
-            //2.实例化Driver
-            Class clazz = Class.forName(driverName);
-            Driver driver = (Driver) clazz.newInstance();
-            //3.注册驱动
-            DriverManager.registerDriver(driver);
-            //4.获取连接
-            Connection conn = DriverManager.getConnection(url, user, password);
-            System.out.println(conn);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        //2.实例化Driver
+        Class clazz = Class.forName(driverName);
+        Driver driver = (Driver) clazz.newInstance();
+        //3.注册驱动
+        DriverManager.registerDriver(driver);
+        //4.获取连接
+        Connection conn = DriverManager.getConnection(url, user, password);
+        System.out.println(conn);
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+
+}
 ```
 
 > 说明：使用DriverManager实现数据库的连接。体会获取连接必要的4个基本要素。
@@ -240,23 +240,23 @@
 #### 2.4.4 连接方式四
 
 ```java
-	@Test
-    public void testConnection4() {
-        try {
-            //1.数据库连接的4个基本要素：
-            String url = "jdbc:mysql://localhost:3306/test";
-            String user = "root";
-            String password = "abc123";
-            String driverName = "com.mysql.jdbc.Driver";
+@Test
+public void testConnection4() {
+    try {
+        //1.数据库连接的4个基本要素：
+        String url = "jdbc:mysql://localhost:3306/test";
+        String user = "root";
+        String password = "abc123";
+        String driverName = "com.mysql.jdbc.Driver";
 
-            //2.加载驱动 （①实例化Driver ②注册驱动）
-            Class.forName(driverName);
+        //2.加载驱动 （①实例化Driver ②注册驱动）
+        Class.forName(driverName);
 
 
-            //Driver driver = (Driver) clazz.newInstance();
-            //3.注册驱动
-            //DriverManager.registerDriver(driver);
-            /*
+        //Driver driver = (Driver) clazz.newInstance();
+        //3.注册驱动
+        //DriverManager.registerDriver(driver);
+        /*
             可以注释掉上述代码的原因，是因为在mysql的Driver类中声明有：
             static {
                 try {
@@ -266,14 +266,14 @@
                 }
             }
              */
-            //3.获取连接
-            Connection conn = DriverManager.getConnection(url, user, password);
-            System.out.println(conn);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        //3.获取连接
+        Connection conn = DriverManager.getConnection(url, user, password);
+        System.out.println(conn);
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+
+}
 ```
 
 > **说明：不必显式的注册驱动了。因为在DriverManager的源码中已经存在静态代码块，实现了驱动的注册。**
@@ -281,27 +281,27 @@
 #### 2.4.5 连接方式五(最终版)
 
 ```java
-	@Test
-    public  void testConnection5() throws Exception {
-    	//1.加载配置文件
-        InputStream is = ConnectionTest.class.getClassLoader().getResourceAsStream("jdbc.properties");
-        Properties pros = new Properties();
-        pros.load(is);
-        
-        //2.读取配置信息
-        String user = pros.getProperty("user");
-        String password = pros.getProperty("password");
-        String url = pros.getProperty("url");
-        String driverClass = pros.getProperty("driverClass");
+@Test
+public  void testConnection5() throws Exception {
+    //1.加载配置文件
+    InputStream is = ConnectionTest.class.getClassLoader().getResourceAsStream("jdbc.properties");
+    Properties pros = new Properties();
+    pros.load(is);
 
-        //3.加载驱动
-        Class.forName(driverClass);
+    //2.读取配置信息
+    String user = pros.getProperty("user");
+    String password = pros.getProperty("password");
+    String url = pros.getProperty("url");
+    String driverClass = pros.getProperty("driverClass");
 
-        //4.获取连接
-        Connection conn = DriverManager.getConnection(url,user,password);
-        System.out.println(conn);
+    //3.加载驱动
+    Class.forName(driverClass);
 
-    }
+    //4.获取连接
+    Connection conn = DriverManager.getConnection(url,user,password);
+    System.out.println(conn);
+
+}
 ```
 
 其中，配置文件声明在工程的src目录下：【jdbc.properties】
@@ -340,8 +340,8 @@ driverClass=com.mysql.jdbc.Driver
 - Statement 接口中定义了下列方法用于执行 SQL 语句：
 
   ```sql
-  int excuteUpdate(String sql)：执行更新操作INSERT、UPDATE、DELETE
-  ResultSet executeQuery(String sql)：执行查询操作SELECT
+  int excuteUpdate(String sql)：//执行更新操作INSERT、UPDATE、DELETE
+  ResultSet executeQuery(String sql)：//执行查询操作SELECT
   ```
 
 - 但是使用Statement操作数据表存在弊端：
@@ -358,113 +358,113 @@ driverClass=com.mysql.jdbc.Driver
 ```java
 public class StatementTest {
 
-	// 使用Statement的弊端：需要拼写sql语句，并且存在SQL注入的问题
-	@Test
-	public void testLogin() {
-		Scanner scan = new Scanner(System.in);
+    // 使用Statement的弊端：需要拼写sql语句，并且存在SQL注入的问题
+    @Test
+    public void testLogin() {
+        Scanner scan = new Scanner(System.in);
 
-		System.out.print("用户名：");
-		String userName = scan.nextLine();
-		System.out.print("密   码：");
-		String password = scan.nextLine();
+        System.out.print("用户名：");
+        String userName = scan.nextLine();
+        System.out.print("密   码：");
+        String password = scan.nextLine();
 
-		// SELECT user,password FROM user_table WHERE USER = '1' or ' AND PASSWORD = '='1' or '1' = '1';
-		String sql = "SELECT user,password FROM user_table WHERE USER = '" + userName + "' AND PASSWORD = '" + password
-				+ "'";
-		User user = get(sql, User.class);
-		if (user != null) {
-			System.out.println("登陆成功!");
-		} else {
-			System.out.println("用户名或密码错误！");
-		}
-	}
+        // SELECT user,password FROM user_table WHERE USER = '1' or ' AND PASSWORD = '='1' or '1' = '1';
+        String sql = "SELECT user,password FROM user_table WHERE USER = '" + userName + "' AND PASSWORD = '" + password
+            + "'";
+        User user = get(sql, User.class);
+        if (user != null) {
+            System.out.println("登陆成功!");
+        } else {
+            System.out.println("用户名或密码错误！");
+        }
+    }
 
-	// 使用Statement实现对数据表的查询操作
-	public <T> T get(String sql, Class<T> clazz) {
-		T t = null;
+    // 使用Statement实现对数据表的查询操作
+    public <T> T get(String sql, Class<T> clazz) {
+        T t = null;
 
-		Connection conn = null;
-		Statement st = null;
-		ResultSet rs = null;
-		try {
-			// 1.加载配置文件
-			InputStream is = StatementTest.class.getClassLoader().getResourceAsStream("jdbc.properties");
-			Properties pros = new Properties();
-			pros.load(is);
+        Connection conn = null;
+        Statement st = null;
+        ResultSet rs = null;
+        try {
+            // 1.加载配置文件
+            InputStream is = StatementTest.class.getClassLoader().getResourceAsStream("jdbc.properties");
+            Properties pros = new Properties();
+            pros.load(is);
 
-			// 2.读取配置信息
-			String user = pros.getProperty("user");
-			String password = pros.getProperty("password");
-			String url = pros.getProperty("url");
-			String driverClass = pros.getProperty("driverClass");
+            // 2.读取配置信息
+            String user = pros.getProperty("user");
+            String password = pros.getProperty("password");
+            String url = pros.getProperty("url");
+            String driverClass = pros.getProperty("driverClass");
 
-			// 3.加载驱动
-			Class.forName(driverClass);
+            // 3.加载驱动
+            Class.forName(driverClass);
 
-			// 4.获取连接
-			conn = DriverManager.getConnection(url, user, password);
+            // 4.获取连接
+            conn = DriverManager.getConnection(url, user, password);
 
-			st = conn.createStatement();
+            st = conn.createStatement();
 
-			rs = st.executeQuery(sql);
+            rs = st.executeQuery(sql);
 
-			// 获取结果集的元数据
-			ResultSetMetaData rsmd = rs.getMetaData();
+            // 获取结果集的元数据
+            ResultSetMetaData rsmd = rs.getMetaData();
 
-			// 获取结果集的列数
-			int columnCount = rsmd.getColumnCount();
+            // 获取结果集的列数
+            int columnCount = rsmd.getColumnCount();
 
-			if (rs.next()) {
+            if (rs.next()) {
 
-				t = clazz.newInstance();
+                t = clazz.newInstance();
 
-				for (int i = 0; i < columnCount; i++) {
-					// //1. 获取列的名称
-					// String columnName = rsmd.getColumnName(i+1);
+                for (int i = 0; i < columnCount; i++) {
+                    // //1. 获取列的名称
+                    // String columnName = rsmd.getColumnName(i+1);
 
-					// 1. 获取列的别名
-					String columnName = rsmd.getColumnLabel(i + 1);
+                    // 1. 获取列的别名
+                    String columnName = rsmd.getColumnLabel(i + 1);
 
-					// 2. 根据列名获取对应数据表中的数据
-					Object columnVal = rs.getObject(columnName);
+                    // 2. 根据列名获取对应数据表中的数据
+                    Object columnVal = rs.getObject(columnName);
 
-					// 3. 将数据表中得到的数据，封装进对象
-					Field field = clazz.getDeclaredField(columnName);
-					field.setAccessible(true);
-					field.set(t, columnVal);
-				}
-				return t;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			// 关闭资源
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (st != null) {
-				try {
-					st.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+                    // 3. 将数据表中得到的数据，封装进对象
+                    Field field = clazz.getDeclaredField(columnName);
+                    field.setAccessible(true);
+                    field.set(t, columnVal);
+                }
+                return t;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭资源
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
 
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 }
 ```
 
@@ -511,85 +511,84 @@ public class StatementTest {
 #### 3.3.4 使用PreparedStatement实现增、删、改操作
 
 ```java
-
-	@Test
-	public void testInsert() throws Exception {
-		PreparedStatement preparedStatement=null;
-		Connection connection=null;
-		try {
-			// 1.读取配置文件中的4个基本信息
-			InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("jdbc.properties");
-			Properties ps = new Properties();
-			ps.load(resourceAsStream);
-			String user = ps.getProperty("user");
-			String password = ps.getProperty("password");
-			String url = ps.getProperty("url");
-			String driver = ps.getProperty("driverClass");
-			// 2.加载驱动
-			Class.forName(driver);
-			// 3.获取连接
-			connection = DriverManager.getConnection(url, user, password);
-			System.out.println(connection);
-			//4.预编译sql语句，返回PreparedStatement的实例
-			String sql = "insert into customers(name,email,birth,photo) value (?,?,?,?)";
-			preparedStatement = connection.prepareStatement(sql);
-			//5.填充占位符
-			preparedStatement.setObject(1, "wowosong");
-			preparedStatement.setObject(2, "wowosong@qq.com");
-			preparedStatement.setObject(3, new Date());
-			preparedStatement.setObject(4, "test");
-			preparedStatement.execute();
-			//6.执行操作
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-				//7.资源的关闭
-			try {
-				if(preparedStatement != null)
-					preparedStatement.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			try {
-				if(connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+@Test
+public void testInsert() throws Exception {
+    PreparedStatement preparedStatement=null;
+    Connection connection=null;
+    try {
+        // 1.读取配置文件中的4个基本信息
+        InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("jdbc.properties");
+        Properties ps = new Properties();
+        ps.load(resourceAsStream);
+        String user = ps.getProperty("user");
+        String password = ps.getProperty("password");
+        String url = ps.getProperty("url");
+        String driver = ps.getProperty("driverClass");
+        // 2.加载驱动
+        Class.forName(driver);
+        // 3.获取连接
+        connection = DriverManager.getConnection(url, user, password);
+        System.out.println(connection);
+        //4.预编译sql语句，返回PreparedStatement的实例
+        String sql = "insert into customers(name,email,birth,photo) value (?,?,?,?)";
+        preparedStatement = connection.prepareStatement(sql);
+        //5.填充占位符
+        preparedStatement.setObject(1, "wowosong");
+        preparedStatement.setObject(2, "wowosong@qq.com");
+        preparedStatement.setObject(3, new Date());
+        preparedStatement.setObject(4, "test");
+        preparedStatement.execute();
+        //6.执行操作
+    } catch (Exception e) {
+        e.printStackTrace();
+    }finally {
+        //7.资源的关闭
+        try {
+            if(preparedStatement != null)
+                preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            if(connection != null)
+                connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
 }
 ```
 
 
 
 ```java
-	//通用的增、删、改操作（体现一：增、删、改 ； 体现二：针对于不同的表）
-	public void update(String sql,Object ... args){
-		Connection conn = null;
-		PreparedStatement ps = null;
-		try {
-			//1.获取数据库的连接
-			conn = JDBCUtils.getConnection();
-			
-			//2.获取PreparedStatement的实例 (或：预编译sql语句)
-			ps = conn.prepareStatement(sql);
-			//3.填充占位符
-			for(int i = 0;i < args.length;i++){
-				ps.setObject(i + 1, args[i]);
-			}
-			
-			//4.执行sql语句
-			ps.execute();
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-		}finally{
-			//5.关闭资源
-			JDBCUtils.closeResource(conn, ps);
-			
-		}
-	}
+//通用的增、删、改操作（体现一：增、删、改 ； 体现二：针对于不同的表）
+public void update(String sql,Object ... args){
+    Connection conn = null;
+    PreparedStatement ps = null;
+    try {
+        //1.获取数据库的连接
+        conn = JDBCUtils.getConnection();
+
+        //2.获取PreparedStatement的实例 (或：预编译sql语句)
+        ps = conn.prepareStatement(sql);
+        //3.填充占位符
+        for(int i = 0;i < args.length;i++){
+            ps.setObject(i + 1, args[i]);
+        }
+
+        //4.执行sql语句
+        ps.execute();
+    } catch (Exception e) {
+
+        e.printStackTrace();
+    }finally{
+        //5.关闭资源
+        JDBCUtils.closeResource(conn, ps);
+
+    }
+}
 ```
 
 
@@ -604,80 +603,80 @@ public class StatementTest {
 	 * 
 	 * 
 	 */
-针对customer的通用查询
+//针对customer的通用查询
 public Customer queryForCustomer(String sql,Object... args) {
-		
-		Connection connection=null;
-		ResultSet resultSet=null;
-		PreparedStatement preparedStatement=null;
-		try {
-			connection=JDBCUtils.getConnection();
-			preparedStatement=connection.prepareStatement(sql);
-			for(int i=0;i<args.length;i++) {
-				preparedStatement.setObject(i+1, args[i]);
-			}
-			resultSet=preparedStatement.executeQuery();
-			ResultSetMetaData resultSetMetaData=resultSet.getMetaData();
-			int count=resultSetMetaData.getColumnCount();
-			if(resultSet.next()) {
-				Customer customer=new Customer();
-				for(int i=0;i<count;i++) {
-					Object columelValue=resultSet.getObject(i+1);
-					String columeLabelString= resultSetMetaData.getColumnLabel(i+1);
-					Field field=Customer.class.getDeclaredField(columeLabelString);
-					field.setAccessible(true);
-					field.set(customer,columelValue);
-				}
-				return customer;
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}finally {
-			JDBCUtils.closeResource(connection, preparedStatement, resultSet);
-		}
-		return null;
-	}
-针对order表的通用查询
 
-public Order queryCommonOrder(String sql,Object...args) throws SQLException {
-		Connection conn=null;
-		PreparedStatement ps=null;
-		ResultSet rs=null;
-		try {
-			conn = JDBCUtils.getConnection();
-			ps =conn.prepareStatement(sql);
-			for(int i=0;i<args.length;i++) {
-				ps.setObject(i+1, args[i]);
-			}
-      //获取结果集
-			rs=	ps.executeQuery();
-			ResultSetMetaData resultSetMetaData= rs.getMetaData();
-			int count= resultSetMetaData.getColumnCount();
-			if(rs.next()) {
-				Order order= new Order();
-				for(int i=0;i<count;i++) {
-//					获取每个列的值；通过resultSet;
-				  Object object=rs.getObject(i+1);	
-//				 String columLabel= resultSetMetaData.getColumnName(i+1);不推荐使用
-//				 获取每个列的别名，通过resultSetMeta;
-				  String columLabel= resultSetMetaData.getColumnLabel(i+1);
-//				  通过反射把值和列对应起来，赋值
-				  Field field=Order.class.getDeclaredField(columLabel);
-				  field.setAccessible(true);
-				  field.set(order, object);
-				}
-				return order;
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCUtils.closeResource(conn, ps,rs);
-		}
-		
-		return null;
-		
-	}
+    Connection connection=null;
+    ResultSet resultSet=null;
+    PreparedStatement preparedStatement=null;
+    try {
+        connection=JDBCUtils.getConnection();
+        preparedStatement=connection.prepareStatement(sql);
+        for(int i=0;i<args.length;i++) {
+            preparedStatement.setObject(i+1, args[i]);
+        }
+        resultSet=preparedStatement.executeQuery();
+        ResultSetMetaData resultSetMetaData=resultSet.getMetaData();
+        int count=resultSetMetaData.getColumnCount();
+        if(resultSet.next()) {
+            Customer customer=new Customer();
+            for(int i=0;i<count;i++) {
+                Object columelValue=resultSet.getObject(i+1);
+                String columeLabelString= resultSetMetaData.getColumnLabel(i+1);
+                Field field=Customer.class.getDeclaredField(columeLabelString);
+                field.setAccessible(true);
+                field.set(customer,columelValue);
+            }
+            return customer;
+        }
+    } catch (Exception e) {
+        // TODO: handle exception
+    }finally {
+        JDBCUtils.closeResource(connection, preparedStatement, resultSet);
+    }
+    return null;
+}
+//针对order表的通用查询
+
+    public Order queryCommonOrder(String sql,Object...args) throws SQLException {
+    Connection conn=null;
+    PreparedStatement ps=null;
+    ResultSet rs=null;
+    try {
+        conn = JDBCUtils.getConnection();
+        ps =conn.prepareStatement(sql);
+        for(int i=0;i<args.length;i++) {
+            ps.setObject(i+1, args[i]);
+        }
+        //获取结果集
+        rs=	ps.executeQuery();
+        ResultSetMetaData resultSetMetaData= rs.getMetaData();
+        int count= resultSetMetaData.getColumnCount();
+        if(rs.next()) {
+            Order order= new Order();
+            for(int i=0;i<count;i++) {
+                //					获取每个列的值；通过resultSet;
+                Object object=rs.getObject(i+1);	
+                //				 String columLabel= resultSetMetaData.getColumnName(i+1);不推荐使用
+                //				 获取每个列的别名，通过resultSetMeta;
+                String columLabel= resultSetMetaData.getColumnLabel(i+1);
+                //				  通过反射把值和列对应起来，赋值
+                Field field=Order.class.getDeclaredField(columLabel);
+                field.setAccessible(true);
+                field.set(order, object);
+            }
+            return order;
+        }
+    } catch (Exception e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }finally {
+        JDBCUtils.closeResource(conn, ps,rs);
+    }
+
+    return null;
+
+}
 ```
 
 
@@ -686,40 +685,40 @@ public Order queryCommonOrder(String sql,Object...args) throws SQLException {
 
 ```java
 public <T> List<T> getInstanceList(Class<T> cls,String sql,Object ...args){
-		
-		Connection conn=null;
-		PreparedStatement ps=null;
-		ResultSet rs=null;
-		try {
-			conn=JDBCUtils.getConnection();
-			ps=conn.prepareStatement(sql);
-			 for(int i =0;i<args.length;i++) {
-				 ps.setObject(i+1, args[i]);
-			 }
-			 rs =ps.executeQuery();
-			 ResultSetMetaData resultSetMetaData= rs.getMetaData();
-			 int columncount=resultSetMetaData.getColumnCount();
-			 ArrayList<T> list=new ArrayList<T>();
-			 while(rs.next()) {
-				T t= cls.newInstance();
-				 for(int i=0;i<columncount;i++) {
-					 Object object= rs.getObject(i+1);
-					 String columnLabel= resultSetMetaData.getColumnLabel(i+1);
-					 Field field= cls.getDeclaredField(columnLabel);
-					 field.setAccessible(true);
-					 field.set(t, object);
-				 }
-				 list.add(t);
-			 }
-			 return list;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCUtils.closeResource(conn, ps, rs);
-		}	
-		return null;	
-	}
+
+    Connection conn=null;
+    PreparedStatement ps=null;
+    ResultSet rs=null;
+    try {
+        conn=JDBCUtils.getConnection();
+        ps=conn.prepareStatement(sql);
+        for(int i =0;i<args.length;i++) {
+            ps.setObject(i+1, args[i]);
+        }
+        rs =ps.executeQuery();
+        ResultSetMetaData resultSetMetaData= rs.getMetaData();
+        int columncount=resultSetMetaData.getColumnCount();
+        ArrayList<T> list=new ArrayList<T>();
+        while(rs.next()) {
+            T t= cls.newInstance();
+            for(int i=0;i<columncount;i++) {
+                Object object= rs.getObject(i+1);
+                String columnLabel= resultSetMetaData.getColumnLabel(i+1);
+                Field field= cls.getDeclaredField(columnLabel);
+                field.setAccessible(true);
+                field.set(t, object);
+            }
+            list.add(t);
+        }
+        return list;
+    } catch (Exception e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }finally {
+        JDBCUtils.closeResource(conn, ps, rs);
+    }	
+    return null;	
+}
 ```
 
 
@@ -727,55 +726,55 @@ public <T> List<T> getInstanceList(Class<T> cls,String sql,Object ...args){
 ```java
 
 // 通用的针对于不同表的查询:返回一个对象 (version 1.0)
-	public <T> T getInstance(Class<T> clazz, String sql, Object... args) {
+public <T> T getInstance(Class<T> clazz, String sql, Object... args) {
 
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try {
-			// 1.获取数据库连接
-			conn = JDBCUtils.getConnection();
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    try {
+        // 1.获取数据库连接
+        conn = JDBCUtils.getConnection();
 
-			// 2.预编译sql语句，得到PreparedStatement对象
-			ps = conn.prepareStatement(sql);
+        // 2.预编译sql语句，得到PreparedStatement对象
+        ps = conn.prepareStatement(sql);
 
-			// 3.填充占位符
-			for (int i = 0; i < args.length; i++) {
-				ps.setObject(i + 1, args[i]);
-			}
+        // 3.填充占位符
+        for (int i = 0; i < args.length; i++) {
+            ps.setObject(i + 1, args[i]);
+        }
 
-			// 4.执行executeQuery(),得到结果集：ResultSet
-			rs = ps.executeQuery();
+        // 4.执行executeQuery(),得到结果集：ResultSet
+        rs = ps.executeQuery();
 
-			// 5.得到结果集的元数据：ResultSetMetaData
-			ResultSetMetaData rsmd = rs.getMetaData();
+        // 5.得到结果集的元数据：ResultSetMetaData
+        ResultSetMetaData rsmd = rs.getMetaData();
 
-			// 6.1通过ResultSetMetaData得到columnCount,columnLabel；通过ResultSet得到列值
-			int columnCount = rsmd.getColumnCount();
-			if (rs.next()) {
-				T t = clazz.newInstance();
-				for (int i = 0; i < columnCount; i++) {// 遍历每一个列
+        // 6.1通过ResultSetMetaData得到columnCount,columnLabel；通过ResultSet得到列值
+        int columnCount = rsmd.getColumnCount();
+        if (rs.next()) {
+            T t = clazz.newInstance();
+            for (int i = 0; i < columnCount; i++) {// 遍历每一个列
 
-					// 获取列值
-					Object columnVal = rs.getObject(i + 1);
-					// 获取列的别名:列的别名，使用类的属性名充当
-					String columnLabel = rsmd.getColumnLabel(i + 1);
-					// 6.2使用反射，给对象的相应属性赋值
-					Field field = clazz.getDeclaredField(columnLabel);
-					field.setAccessible(true);
-					field.set(t, columnVal);
-				}
-				return t;
-			}
-		} catch (Exception e) {
+                // 获取列值
+                Object columnVal = rs.getObject(i + 1);
+                // 获取列的别名:列的别名，使用类的属性名充当
+                String columnLabel = rsmd.getColumnLabel(i + 1);
+                // 6.2使用反射，给对象的相应属性赋值
+                Field field = clazz.getDeclaredField(columnLabel);
+                field.setAccessible(true);
+                field.set(t, columnVal);
+            }
+            return t;
+        }
+    } catch (Exception e) {
 
-			e.printStackTrace();
-		} finally {
-			// 7.关闭资源
-			JDBCUtils.closeResource(conn, ps, rs);
-		}
-		return null;
-	}
+        e.printStackTrace();
+    } finally {
+        // 7.关闭资源
+        JDBCUtils.closeResource(conn, ps, rs);
+    }
+    return null;
+}
 ```
 
 > 说明：使用PreparedStatement实现的查询操作可以替换Statement实现的查询操作，解决Statement拼串和SQL注入问题。
@@ -919,7 +918,7 @@ Grade:
 ```java
 //获取连接
 Connection conn = JDBCUtils.getConnection();
-		
+
 String sql = "insert into customers(name,email,birth,photo)values(?,?,?,?)";
 PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -932,7 +931,7 @@ FileInputStream fis = new FileInputStream("xhq.png");
 ps.setBlob(4, fis);
 //执行
 ps.execute();
-		
+
 fis.close();
 JDBCUtils.closeResource(conn, ps);
 
@@ -970,31 +969,31 @@ ps = conn.prepareStatement(sql);
 ps.setInt(1, 8);
 rs = ps.executeQuery();
 if(rs.next()){
-	Integer id = rs.getInt(1);
+    Integer id = rs.getInt(1);
     String name = rs.getString(2);
-	String email = rs.getString(3);
+    String email = rs.getString(3);
     Date birth = rs.getDate(4);
-	Customer cust = new Customer(id, name, email, birth);
+    Customer cust = new Customer(id, name, email, birth);
     System.out.println(cust); 
     //读取Blob类型的字段
-	Blob photo = rs.getBlob(5);
-	InputStream is = photo.getBinaryStream();
-	OutputStream os = new FileOutputStream("c.jpg");
-	byte [] buffer = new byte[1024];
-	int len = 0;
-	while((len = is.read(buffer)) != -1){
-		os.write(buffer, 0, len);
-	}
+    Blob photo = rs.getBlob(5);
+    InputStream is = photo.getBinaryStream();
+    OutputStream os = new FileOutputStream("c.jpg");
+    byte [] buffer = new byte[1024];
+    int len = 0;
+    while((len = is.read(buffer)) != -1){
+        os.write(buffer, 0, len);
+    }
     JDBCUtils.closeResource(conn, ps, rs);
-		
-	if(is != null){
-		is.close();
-	}
-		
-	if(os !=  null){
-		os.close();
-	}
-    
+
+    if(is != null){
+        is.close();
+    }
+
+    if(os !=  null){
+        os.close();
+    }
+
 }
 
 ```
@@ -1026,8 +1025,8 @@ JDBC的批量处理语句包括下面三个方法：
 
 ```sql
 CREATE TABLE goods(
-id INT PRIMARY KEY AUTO_INCREMENT,
-NAME VARCHAR(20)
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    NAME VARCHAR(20)
 );
 ```
 
@@ -1039,8 +1038,8 @@ NAME VARCHAR(20)
 Connection conn = JDBCUtils.getConnection();
 Statement st = conn.createStatement();
 for(int i = 1;i <= 20000;i++){
-	String sql = "insert into goods(name) values('name_' + "+ i +")";
-	st.executeUpdate(sql);
+    String sql = "insert into goods(name) values('name_' + "+ i +")";
+    st.executeUpdate(sql);
 }
 ```
 
@@ -1050,20 +1049,20 @@ for(int i = 1;i <= 20000;i++){
 
 ```java
 long start = System.currentTimeMillis();
-		
+
 Connection conn = JDBCUtils.getConnection();
-		
+
 String sql = "insert into goods(name)values(?)";
 PreparedStatement ps = conn.prepareStatement(sql);
 for(int i = 1;i <= 20000;i++){
-	ps.setString(1, "name_" + i);
-	ps.executeUpdate();
+    ps.setString(1, "name_" + i);
+    ps.executeUpdate();
 }
-		
+
 long end = System.currentTimeMillis();
 System.out.println("花费的时间为：" + (end - start));//82340
-		
-		
+
+
 JDBCUtils.closeResource(conn, ps);
 ```
 
@@ -1079,28 +1078,28 @@ JDBCUtils.closeResource(conn, ps);
  */
 @Test
 public void testInsert1() throws Exception{
-	long start = System.currentTimeMillis();
-		
-	Connection conn = JDBCUtils.getConnection();
-		
-	String sql = "insert into goods(name)values(?)";
-	PreparedStatement ps = conn.prepareStatement(sql);
-		
-	for(int i = 1;i <= 1000000;i++){
-		ps.setString(1, "name_" + i);
-			
-		//1.“攒”sql
-		ps.addBatch();
-		if(i % 500 == 0){
-			//2.执行
-			ps.executeBatch();
-			//3.清空
-			ps.clearBatch();
-		}
-	}
-	long end = System.currentTimeMillis();
-	System.out.println("花费的时间为：" + (end - start));//20000条：625                                         //1000000条:14733  	
-	JDBCUtils.closeResource(conn, ps);
+    long start = System.currentTimeMillis();
+
+    Connection conn = JDBCUtils.getConnection();
+
+    String sql = "insert into goods(name)values(?)";
+    PreparedStatement ps = conn.prepareStatement(sql);
+
+    for(int i = 1;i <= 1000000;i++){
+        ps.setString(1, "name_" + i);
+
+        //1.“攒”sql
+        ps.addBatch();
+        if(i % 500 == 0){
+            //2.执行
+            ps.executeBatch();
+            //3.清空
+            ps.clearBatch();
+        }
+    }
+    long end = System.currentTimeMillis();
+    System.out.println("花费的时间为：" + (end - start));//20000条：625                                         //1000000条:14733  	
+    JDBCUtils.closeResource(conn, ps);
 }
 ```
 
@@ -1177,40 +1176,40 @@ public void testInsert2() throws Exception{
 
 ```java
 public void testJDBCTransaction() {
-	Connection conn = null;
-	try {
-		// 1.获取数据库连接
-		conn = JDBCUtils.getConnection();
-		// 2.开启事务
-		conn.setAutoCommit(false);
-		// 3.进行数据库操作
-		String sql1 = "update user_table set balance = balance - 100 where user = ?";
-		update(conn, sql1, "AA");
+    Connection conn = null;
+    try {
+        // 1.获取数据库连接
+        conn = JDBCUtils.getConnection();
+        // 2.开启事务
+        conn.setAutoCommit(false);
+        // 3.进行数据库操作
+        String sql1 = "update user_table set balance = balance - 100 where user = ?";
+        update(conn, sql1, "AA");
 
-		// 模拟网络异常
-		//System.out.println(10 / 0);
+        // 模拟网络异常
+        //System.out.println(10 / 0);
 
-		String sql2 = "update user_table set balance = balance + 100 where user = ?";
-		update(conn, sql2, "BB");
-		// 4.若没有异常，则提交事务
-		conn.commit();
-	} catch (Exception e) {
-		e.printStackTrace();
-		// 5.若有异常，则回滚事务
-		try {
-			conn.rollback();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
+        String sql2 = "update user_table set balance = balance + 100 where user = ?";
+        update(conn, sql2, "BB");
+        // 4.若没有异常，则提交事务
+        conn.commit();
+    } catch (Exception e) {
+        e.printStackTrace();
+        // 5.若有异常，则回滚事务
+        try {
+            conn.rollback();
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
     } finally {
         try {
-			//6.恢复每次DML操作的自动提交功能
-			conn.setAutoCommit(true);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+            //6.恢复每次DML操作的自动提交功能
+            conn.setAutoCommit(true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         //7.关闭连接
-		JDBCUtils.closeResource(conn, null, null); 
+        JDBCUtils.closeResource(conn, null, null); 
     }  
 }
 
@@ -1221,23 +1220,23 @@ public void testJDBCTransaction() {
 ```java
 //使用事务以后的通用的增删改操作（version 2.0）
 public void update(Connection conn ,String sql, Object... args) {
-	PreparedStatement ps = null;
-	try {
-		// 1.获取PreparedStatement的实例 (或：预编译sql语句)
-		ps = conn.prepareStatement(sql);
-		// 2.填充占位符
-		for (int i = 0; i < args.length; i++) {
-			ps.setObject(i + 1, args[i]);
-		}
-		// 3.执行sql语句
-		ps.execute();
-	} catch (Exception e) {
-		e.printStackTrace();
-	} finally {
-		// 4.关闭资源
-		JDBCUtils.closeResource(null, ps);
+    PreparedStatement ps = null;
+    try {
+        // 1.获取PreparedStatement的实例 (或：预编译sql语句)
+        ps = conn.prepareStatement(sql);
+        // 2.填充占位符
+        for (int i = 0; i < args.length; i++) {
+            ps.setObject(i + 1, args[i]);
+        }
+        // 3.执行sql语句
+        ps.execute();
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        // 4.关闭资源
+        JDBCUtils.closeResource(null, ps);
 
-	}
+    }
 }
 ```
 
@@ -1306,56 +1305,56 @@ public void update(Connection conn ,String sql, Object... args) {
 
   - 创建mysql数据库用户：
 
-    ```mysql
-    create user tom identified by 'abc123';
-    ```
+```mysql
+create user tom identified by 'abc123';
+```
 
-  - 授予权限
+- 授予权限
 
-    ```mysql
-    #授予通过网络方式登录的tom用户，对所有库所有表的全部权限，密码设为abc123.
-    grant all privileges on *.* to tom@'%'  identified by 'abc123'; 
-    
-     #给tom用户使用本地命令行方式，授予atguigudb这个库下的所有表的插删改查的权限。
-    grant select,insert,delete,update on atguigudb.* to tom@localhost identified by 'abc123'; 
-    
-    ```
+```mysql
+#授予通过网络方式登录的tom用户，对所有库所有表的全部权限，密码设为abc123.
+grant all privileges on *.* to tom@'%'  identified by 'abc123'; 
 
-    ```java
-    //*****************************************************
-    	@Test
-    	public void testTransactionSelect() throws Exception{
-    		
-    		Connection conn = JDBCUtils.getConnection();
-    		//获取当前连接的隔离级别
-    		System.out.println(conn.getTransactionIsolation());
-    		//设置数据库的隔离级别：
-    		conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-    		//取消自动提交数据
-    		conn.setAutoCommit(false);
-    		
-    		String sql = "select user,password,balance from user_table where user = ?";
-    		User user = getInstance(conn, User.class, sql, "CC");
-    		
-    		System.out.println(user);
-    		
-    	}
-    	
-    	@Test
-    	public void testTransactionUpdate() throws Exception{
-    		Connection conn = JDBCUtils.getConnection();
-    		
-    		//取消自动提交数据
-    		conn.setAutoCommit(false);
-    		String sql = "update user_table set balance = ? where user = ?";
-    		update(conn, sql, 5000,"CC");
-    		
-    		Thread.sleep(15000);
-    		System.out.println("修改结束");
-    	}
-    ```
-    
-    
+ #给tom用户使用本地命令行方式，授予atguigudb这个库下的所有表的插删改查的权限。
+grant select,insert,delete,update on atguigudb.* to tom@localhost identified by 'abc123'; 
+
+```
+
+```java
+//*****************************************************
+    @Test
+    public void testTransactionSelect() throws Exception{
+
+        Connection conn = JDBCUtils.getConnection();
+        //获取当前连接的隔离级别
+        System.out.println(conn.getTransactionIsolation());
+        //设置数据库的隔离级别：
+        conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+        //取消自动提交数据
+        conn.setAutoCommit(false);
+
+        String sql = "select user,password,balance from user_table where user = ?";
+        User user = getInstance(conn, User.class, sql, "CC");
+
+        System.out.println(user);
+
+    }
+
+    @Test
+    public void testTransactionUpdate() throws Exception{
+        Connection conn = JDBCUtils.getConnection();
+
+        //取消自动提交数据
+        conn.setAutoCommit(false);
+        String sql = "update user_table set balance = ? where user = ?";
+        update(conn, sql, 5000,"CC");
+
+        Thread.sleep(15000);
+        System.out.println("修改结束");
+    }
+```
+
+​    
 
 ## 第7章：DAO及相关实现类
 
@@ -1394,101 +1393,101 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
  * @param <T>
  */
 public abstract class BaseDao<T> {
-	private QueryRunner queryRunner = new QueryRunner();
-	// 定义一个变量来接收泛型的类型
-	private Class<T> type;
-	第一种方式
-	// 获取T的Class对象，获取泛型的类型，泛型是在被子类继承时才确定
-	public BaseDao() {
-		// 获取子类的类型
-		Class clazz = this.getClass();
-		// 获取父类的类型
-		// getGenericSuperclass()用来获取当前类的父类的类型
-		// ParameterizedType表示的是带泛型的类型
-		ParameterizedType parameterizedType = (ParameterizedType) clazz.getGenericSuperclass();
-		// 获取具体的泛型类型 getActualTypeArguments获取具体的泛型的类型
-		// 这个方法会返回一个Type的数组
-		Type[] types = parameterizedType.getActualTypeArguments();
-		// 获取具体的泛型的类型·
-		this.type = (Class<T>) types[0];
-	}
-  第二种方式
-  {
-		//获取带泛型的父类
-		Type genericSuperclass = this.getClass().getGenericSuperclass();
-		ParameterizedType parameterizedType=(ParameterizedType) genericSuperclass;
-		Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
-		cls =(Class<T>) actualTypeArguments[0];
-	}
+    private QueryRunner queryRunner = new QueryRunner();
+    // 定义一个变量来接收泛型的类型
+    private Class<T> type;
+    第一种方式
+        // 获取T的Class对象，获取泛型的类型，泛型是在被子类继承时才确定
+        public BaseDao() {
+        // 获取子类的类型
+        Class clazz = this.getClass();
+        // 获取父类的类型
+        // getGenericSuperclass()用来获取当前类的父类的类型
+        // ParameterizedType表示的是带泛型的类型
+        ParameterizedType parameterizedType = (ParameterizedType) clazz.getGenericSuperclass();
+        // 获取具体的泛型类型 getActualTypeArguments获取具体的泛型的类型
+        // 这个方法会返回一个Type的数组
+        Type[] types = parameterizedType.getActualTypeArguments();
+        // 获取具体的泛型的类型·
+        this.type = (Class<T>) types[0];
+    }
+    第二种方式
+    {
+        //获取带泛型的父类
+        Type genericSuperclass = this.getClass().getGenericSuperclass();
+        ParameterizedType parameterizedType=(ParameterizedType) genericSuperclass;
+        Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
+        cls =(Class<T>) actualTypeArguments[0];
+    }
 
-	/**
+    /**
 	 * 通用的增删改操作
 	 * 
 	 * @param sql
 	 * @param params
 	 * @return
 	 */
-	public int update(Connection conn,String sql, Object... params) {
-		int count = 0;
-		try {
-			count = queryRunner.update(conn, sql, params);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} 
-		return count;
-	}
+    public int update(Connection conn,String sql, Object... params) {
+        int count = 0;
+        try {
+            count = queryRunner.update(conn, sql, params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return count;
+    }
 
-	/**
+    /**
 	 * 获取一个对象
 	 * 
 	 * @param sql
 	 * @param params
 	 * @return
 	 */
-	public T getBean(Connection conn,String sql, Object... params) {
-		T t = null;
-		try {
-			t = queryRunner.query(conn, sql, new BeanHandler<T>(type), params);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} 
-		return t;
-	}
+    public T getBean(Connection conn,String sql, Object... params) {
+        T t = null;
+        try {
+            t = queryRunner.query(conn, sql, new BeanHandler<T>(type), params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return t;
+    }
 
-	/**
+    /**
 	 * 获取所有对象
 	 * 
 	 * @param sql
 	 * @param params
 	 * @return
 	 */
-	public List<T> getBeanList(Connection conn,String sql, Object... params) {
-		List<T> list = null;
-		try {
-			list = queryRunner.query(conn, sql, new BeanListHandler<T>(type), params);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} 
-		return list;
-	}
+    public List<T> getBeanList(Connection conn,String sql, Object... params) {
+        List<T> list = null;
+        try {
+            list = queryRunner.query(conn, sql, new BeanListHandler<T>(type), params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return list;
+    }
 
-	/**
+    /**
 	 * 获取一个但一值得方法，专门用来执行像 select count(*)...这样的sql语句
 	 * 
 	 * @param sql
 	 * @param params
 	 * @return
 	 */
-	public Object getValue(Connection conn,String sql, Object... params) {
-		Object count = null;
-		try {
-			// 调用queryRunner的query方法获取一个单一的值
-			count = queryRunner.query(conn, sql, new ScalarHandler<>(), params);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} 
-		return count;
-	}
+    public Object getValue(Connection conn,String sql, Object... params) {
+        Object count = null;
+        try {
+            // 调用queryRunner的query方法获取一个单一的值
+            count = queryRunner.query(conn, sql, new ScalarHandler<>(), params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return count;
+    }
 }
 ```
 
@@ -1505,57 +1504,57 @@ import com.atguigu.bookstore.beans.Page;
 
 public interface BookDao {
 
-	/**
+    /**
 	 * 从数据库中查询出所有的记录
 	 * 
 	 * @return
 	 */
-	List<Book> getBooks(Connection conn);
+    List<Book> getBooks(Connection conn);
 
-	/**
+    /**
 	 * 向数据库中插入一条记录
 	 * 
 	 * @param book
 	 */
-	void saveBook(Connection conn,Book book);
+    void saveBook(Connection conn,Book book);
 
-	/**
+    /**
 	 * 从数据库中根据图书的id删除一条记录
 	 * 
 	 * @param bookId
 	 */
-	void deleteBookById(Connection conn,String bookId);
+    void deleteBookById(Connection conn,String bookId);
 
-	/**
+    /**
 	 * 根据图书的id从数据库中查询出一条记录
 	 * 
 	 * @param bookId
 	 * @return
 	 */
-	Book getBookById(Connection conn,String bookId);
+    Book getBookById(Connection conn,String bookId);
 
-	/**
+    /**
 	 * 根据图书的id从数据库中更新一条记录
 	 * 
 	 * @param book
 	 */
-	void updateBook(Connection conn,Book book);
+    void updateBook(Connection conn,Book book);
 
-	/**
+    /**
 	 * 获取带分页的图书信息
 	 * 
 	 * @param page：是只包含了用户输入的pageNo属性的page对象
 	 * @return 返回的Page对象是包含了所有属性的Page对象
 	 */
-	Page<Book> getPageBooks(Connection conn,Page<Book> page);
+    Page<Book> getPageBooks(Connection conn,Page<Book> page);
 
-	/**
+    /**
 	 * 获取带分页和价格范围的图书信息
 	 * 
 	 * @param page：是只包含了用户输入的pageNo属性的page对象
 	 * @return 返回的Page对象是包含了所有属性的Page对象
 	 */
-	Page<Book> getPageBooksByPrice(Connection conn,Page<Book> page, double minPrice, double maxPrice);
+    Page<Book> getPageBooksByPrice(Connection conn,Page<Book> page, double minPrice, double maxPrice);
 
 }
 ```
@@ -1611,87 +1610,87 @@ import com.atguigu.bookstore.dao.BookDao;
 
 public class BookDaoImpl extends BaseDao<Book> implements BookDao {
 
-	@Override
-	public List<Book> getBooks(Connection conn) {
-		// 调用BaseDao中得到一个List的方法
-		List<Book> beanList = null;
-		// 写sql语句
-		String sql = "select id,title,author,price,sales,stock,img_path imgPath from books";
-		beanList = getBeanList(conn,sql);
-		return beanList;
-	}
+    @Override
+    public List<Book> getBooks(Connection conn) {
+        // 调用BaseDao中得到一个List的方法
+        List<Book> beanList = null;
+        // 写sql语句
+        String sql = "select id,title,author,price,sales,stock,img_path imgPath from books";
+        beanList = getBeanList(conn,sql);
+        return beanList;
+    }
 
-	@Override
-	public void saveBook(Connection conn,Book book) {
-		// 写sql语句
-		String sql = "insert into books(title,author,price,sales,stock,img_path) values(?,?,?,?,?,?)";
-		// 调用BaseDao中通用的增删改的方法
-		update(conn,sql, book.getTitle(), book.getAuthor(), book.getPrice(), book.getSales(), book.getStock(),book.getImgPath());
-	}
+    @Override
+    public void saveBook(Connection conn,Book book) {
+        // 写sql语句
+        String sql = "insert into books(title,author,price,sales,stock,img_path) values(?,?,?,?,?,?)";
+        // 调用BaseDao中通用的增删改的方法
+        update(conn,sql, book.getTitle(), book.getAuthor(), book.getPrice(), book.getSales(), book.getStock(),book.getImgPath());
+    }
 
-	@Override
-	public void deleteBookById(Connection conn,String bookId) {
-		// 写sql语句
-		String sql = "DELETE FROM books WHERE id = ?";
-		// 调用BaseDao中通用增删改的方法
-		update(conn,sql, bookId);
-			
-	}
+    @Override
+    public void deleteBookById(Connection conn,String bookId) {
+        // 写sql语句
+        String sql = "DELETE FROM books WHERE id = ?";
+        // 调用BaseDao中通用增删改的方法
+        update(conn,sql, bookId);
 
-	@Override
-	public Book getBookById(Connection conn,String bookId) {
-		// 调用BaseDao中获取一个对象的方法
-		Book book = null;
-		// 写sql语句
-		String sql = "select id,title,author,price,sales,stock,img_path imgPath from books where id = ?";
-		book = getBean(conn,sql, bookId);
-		return book;
-	}
+    }
 
-	@Override
-	public void updateBook(Connection conn,Book book) {
-		// 写sql语句
-		String sql = "update books set title = ? , author = ? , price = ? , sales = ? , stock = ? where id = ?";
-		// 调用BaseDao中通用的增删改的方法
-		update(conn,sql, book.getTitle(), book.getAuthor(), book.getPrice(), book.getSales(), book.getStock(), book.getId());
-	}
+    @Override
+    public Book getBookById(Connection conn,String bookId) {
+        // 调用BaseDao中获取一个对象的方法
+        Book book = null;
+        // 写sql语句
+        String sql = "select id,title,author,price,sales,stock,img_path imgPath from books where id = ?";
+        book = getBean(conn,sql, bookId);
+        return book;
+    }
 
-	@Override
-	public Page<Book> getPageBooks(Connection conn,Page<Book> page) {
-		// 获取数据库中图书的总记录数
-		String sql = "select count(*) from books";
-		// 调用BaseDao中获取一个单一值的方法
-		long totalRecord = (long) getValue(conn,sql);
-		// 将总记录数设置都page对象中
-		page.setTotalRecord((int) totalRecord);
+    @Override
+    public void updateBook(Connection conn,Book book) {
+        // 写sql语句
+        String sql = "update books set title = ? , author = ? , price = ? , sales = ? , stock = ? where id = ?";
+        // 调用BaseDao中通用的增删改的方法
+        update(conn,sql, book.getTitle(), book.getAuthor(), book.getPrice(), book.getSales(), book.getStock(), book.getId());
+    }
 
-		// 获取当前页中的记录存放的List
-		String sql2 = "select id,title,author,price,sales,stock,img_path imgPath from books limit ?,?";
-		// 调用BaseDao中获取一个集合的方法
-		List<Book> beanList = getBeanList(conn,sql2, (page.getPageNo() - 1) * Page.PAGE_SIZE, Page.PAGE_SIZE);
-		// 将这个List设置到page对象中
-		page.setList(beanList);
-		return page;
-	}
+    @Override
+    public Page<Book> getPageBooks(Connection conn,Page<Book> page) {
+        // 获取数据库中图书的总记录数
+        String sql = "select count(*) from books";
+        // 调用BaseDao中获取一个单一值的方法
+        long totalRecord = (long) getValue(conn,sql);
+        // 将总记录数设置都page对象中
+        page.setTotalRecord((int) totalRecord);
 
-	@Override
-	public Page<Book> getPageBooksByPrice(Connection conn,Page<Book> page, double minPrice, double maxPrice) {
-		// 获取数据库中图书的总记录数
-		String sql = "select count(*) from books where price between ? and ?";
-		// 调用BaseDao中获取一个单一值的方法
-		long totalRecord = (long) getValue(conn,sql,minPrice,maxPrice);
-		// 将总记录数设置都page对象中
-		page.setTotalRecord((int) totalRecord);
+        // 获取当前页中的记录存放的List
+        String sql2 = "select id,title,author,price,sales,stock,img_path imgPath from books limit ?,?";
+        // 调用BaseDao中获取一个集合的方法
+        List<Book> beanList = getBeanList(conn,sql2, (page.getPageNo() - 1) * Page.PAGE_SIZE, Page.PAGE_SIZE);
+        // 将这个List设置到page对象中
+        page.setList(beanList);
+        return page;
+    }
 
-		// 获取当前页中的记录存放的List
-		String sql2 = "select id,title,author,price,sales,stock,img_path imgPath from books where price between ? and ? limit ?,?";
-		// 调用BaseDao中获取一个集合的方法
-		List<Book> beanList = getBeanList(conn,sql2, minPrice , maxPrice , (page.getPageNo() - 1) * Page.PAGE_SIZE, Page.PAGE_SIZE);
-		// 将这个List设置到page对象中
-		page.setList(beanList);
-		
-		return page;
-	}
+    @Override
+    public Page<Book> getPageBooksByPrice(Connection conn,Page<Book> page, double minPrice, double maxPrice) {
+        // 获取数据库中图书的总记录数
+        String sql = "select count(*) from books where price between ? and ?";
+        // 调用BaseDao中获取一个单一值的方法
+        long totalRecord = (long) getValue(conn,sql,minPrice,maxPrice);
+        // 将总记录数设置都page对象中
+        page.setTotalRecord((int) totalRecord);
+
+        // 获取当前页中的记录存放的List
+        String sql2 = "select id,title,author,price,sales,stock,img_path imgPath from books where price between ? and ? limit ?,?";
+        // 调用BaseDao中获取一个集合的方法
+        List<Book> beanList = getBeanList(conn,sql2, minPrice , maxPrice , (page.getPageNo() - 1) * Page.PAGE_SIZE, Page.PAGE_SIZE);
+        // 将这个List设置到page对象中
+        page.setList(beanList);
+
+        return page;
+    }
 
 }
 ```
@@ -1709,33 +1708,33 @@ import com.atguigu.bookstore.dao.UserDao;
 
 public class UserDaoImpl extends BaseDao<User> implements UserDao {
 
-	@Override
-	public User getUser(Connection conn,User user) {
-		// 调用BaseDao中获取一个对象的方法
-		User bean = null;
-		// 写sql语句
-		String sql = "select id,username,password,email from users where username = ? and password = ?";
-		bean = getBean(conn,sql, user.getUsername(), user.getPassword());
-		return bean;
-	}
+    @Override
+    public User getUser(Connection conn,User user) {
+        // 调用BaseDao中获取一个对象的方法
+        User bean = null;
+        // 写sql语句
+        String sql = "select id,username,password,email from users where username = ? and password = ?";
+        bean = getBean(conn,sql, user.getUsername(), user.getPassword());
+        return bean;
+    }
 
-	@Override
-	public boolean checkUsername(Connection conn,User user) {
-		// 调用BaseDao中获取一个对象的方法
-		User bean = null;
-		// 写sql语句
-		String sql = "select id,username,password,email from users where username = ?";
-		bean = getBean(conn,sql, user.getUsername());
-		return bean != null;
-	}
+    @Override
+    public boolean checkUsername(Connection conn,User user) {
+        // 调用BaseDao中获取一个对象的方法
+        User bean = null;
+        // 写sql语句
+        String sql = "select id,username,password,email from users where username = ?";
+        bean = getBean(conn,sql, user.getUsername());
+        return bean != null;
+    }
 
-	@Override
-	public void saveUser(Connection conn,User user) {
-		//写sql语句
-		String sql = "insert into users(username,password,email) values(?,?,?)";
-		//调用BaseDao中通用的增删改的方法
-		update(conn,sql, user.getUsername(),user.getPassword(),user.getEmail());
-	}
+    @Override
+    public void saveUser(Connection conn,User user) {
+        //写sql语句
+        String sql = "insert into users(username,password,email) values(?,?,?)";
+        //调用BaseDao中通用的增删改的方法
+        update(conn,sql, user.getUsername(),user.getPassword(),user.getEmail());
+    }
 
 }
 ```
@@ -1871,16 +1870,16 @@ public class User {
 ```java
 //使用C3P0数据库连接池的方式，获取数据库的连接：不推荐
 public static Connection getConnection1() throws Exception{
-	ComboPooledDataSource cpds = new ComboPooledDataSource();
-	cpds.setDriverClass("com.mysql.jdbc.Driver"); 
-	cpds.setJdbcUrl("jdbc:mysql://localhost:3306/test");
-	cpds.setUser("root");
-	cpds.setPassword("abc123");
-		
-//	cpds.setMaxPoolSize(100);
-	
-	Connection conn = cpds.getConnection();
-	return conn;
+    ComboPooledDataSource cpds = new ComboPooledDataSource();
+    cpds.setDriverClass("com.mysql.jdbc.Driver"); 
+    cpds.setJdbcUrl("jdbc:mysql://localhost:3306/test");
+    cpds.setUser("root");
+    cpds.setPassword("abc123");
+
+    //	cpds.setMaxPoolSize(100);
+
+    Connection conn = cpds.getConnection();
+    return conn;
 }
 ```
 
@@ -1892,8 +1891,8 @@ public static Connection getConnection1() throws Exception{
 //使用C3P0数据库连接池的配置文件方式，获取数据库的连接：推荐
 private static DataSource cpds = new ComboPooledDataSource("helloc3p0");
 public static Connection getConnection2() throws SQLException{
-	Connection conn = cpds.getConnection();
-	return conn;
+    Connection conn = cpds.getConnection();
+    return conn;
 }
 ```
 
@@ -1902,28 +1901,28 @@ public static Connection getConnection2() throws SQLException{
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <c3p0-config>
-	<named-config name="helloc3p0">
-		<!-- 获取连接的4个基本信息 -->
-		<property name="driverClass">com.mysql.jdbc.Driver</property>
-		<property name="jdbcUrl">jdbc:mysql://127.0.0.1:3306/test</property>
-		<property name="user">root</property>
-		<property name="password">password</property>
-		
-		<!-- 涉及到数据库连接池的管理的相关属性的设置 -->
-		<!-- 若数据库中连接数不足时, 一次向数据库服务器申请多少个连接 -->
-		<property name="acquireIncrement">5</property>
-		<!-- 初始化数据库连接池时连接的数量 -->
-		<property name="initialPoolSize">5</property>
-		<!-- 数据库连接池中的最小的数据库连接数 -->
-		<property name="minPoolSize">5</property>
-		<!-- 数据库连接池中的最大的数据库连接数 -->
-		<property name="maxPoolSize">10</property>
-		<!-- C3P0 数据库连接池可以维护的 Statement 的个数 -->
-		<property name="maxStatements">50</property>
-		<!-- 每个连接同时可以使用的 Statement 对象的个数 -->
-		<property name="maxStatementsPerConnection">5</property>
+    <named-config name="helloc3p0">
+        <!-- 获取连接的4个基本信息 -->
+        <property name="driverClass">com.mysql.jdbc.Driver</property>
+        <property name="jdbcUrl">jdbc:mysql://127.0.0.1:3306/test</property>
+        <property name="user">root</property>
+        <property name="password">password</property>
 
-	</named-config>
+        <!-- 涉及到数据库连接池的管理的相关属性的设置 -->
+        <!-- 若数据库中连接数不足时, 一次向数据库服务器申请多少个连接 -->
+        <property name="acquireIncrement">5</property>
+        <!-- 初始化数据库连接池时连接的数量 -->
+        <property name="initialPoolSize">5</property>
+        <!-- 数据库连接池中的最小的数据库连接数 -->
+        <property name="minPoolSize">5</property>
+        <!-- 数据库连接池中的最大的数据库连接数 -->
+        <property name="maxPoolSize">10</property>
+        <!-- C3P0 数据库连接池可以维护的 Statement 的个数 -->
+        <property name="maxStatements">50</property>
+        <!-- 每个连接同时可以使用的 Statement 对象的个数 -->
+        <property name="maxStatementsPerConnection">5</property>
+
+    </named-config>
 </c3p0-config>
 ```
 
@@ -2128,11 +2127,11 @@ filters=wall
     - public int update(Connection conn, String sql, Object... params) throws SQLException:用来执行一个更新（插入、更新或删除）操作。
     -  ......
   - **插入**
-    - public <T> T insert(Connection conn,String sql,ResultSetHandler<T> rsh, Object... params) throws SQLException：只支持INSERT语句，其中 rsh - The handler used to create the result object from the ResultSet of auto-generated keys.  返回值: An object generated by the handler.即自动生成的键值
+    - public \<T> T insert(Connection conn,String sql,ResultSetHandler\<T> rsh, Object... params) throws SQLException：只支持INSERT语句，其中 rsh - The handler used to create the result object from the ResultSet of auto-generated keys.  返回值: An object generated by the handler.即自动生成的键值
     - ....
   - **批处理**
     - public int[] batch(Connection conn,String sql,Object[][] params)throws SQLException： INSERT, UPDATE, or DELETE语句
-    - public <T> T insertBatch(Connection conn,String sql,ResultSetHandler<T> rsh,Object[][] params)throws SQLException：只支持INSERT语句
+    - public \<T> T insertBatch(Connection conn,String sql,ResultSetHandler\<T> rsh,Object[][] params)throws SQLException：只支持INSERT语句
     - .....
   - **查询**
     - public Object query(Connection conn, String sql, ResultSetHandler rsh,Object... params) throws SQLException：执行一个查询操作，在这个查询中，对象数组中的每个元素值被用来作为查询语句的置换参数。该方法会自行处理 PreparedStatement 和 ResultSet 的创建和关闭。
@@ -2144,14 +2143,14 @@ filters=wall
 // 测试添加
 @Test
 public void testInsert() throws Exception {
-	QueryRunner runner = new QueryRunner();
-	Connection conn = JDBCUtils.getConnection3();
-	String sql = "insert into customers(name,email,birth)values(?,?,?)";
-	int count = runner.update(conn, sql, "何成飞", "he@qq.com", "1992-09-08");
+    QueryRunner runner = new QueryRunner();
+    Connection conn = JDBCUtils.getConnection3();
+    String sql = "insert into customers(name,email,birth)values(?,?,?)";
+    int count = runner.update(conn, sql, "何成飞", "he@qq.com", "1992-09-08");
 
-	System.out.println("添加了" + count + "条记录");
-		
-	JDBCUtils.closeResource(conn, null);
+    System.out.println("添加了" + count + "条记录");
+
+    JDBCUtils.closeResource(conn, null);
 
 }
 ```

@@ -317,9 +317,9 @@ Mybatis-Plus的集成非常简单，对于Spring，我们仅仅需要把Mybatis�
 
    **基于MP:**
 
-​		只需要创建EmployeeMapper接口，并继承BaseMapper接口。这就是使用MP 需要完成的所有操作，甚至不需要创建SQL映射文件。
+​		只需要创建EmployeeMapper接口，并继承BaseMapper接口。这就是使用MP需要完成的所有操作，甚至不需要创建SQL映射文件。
 
-```java
+```java 
 package mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
@@ -393,7 +393,7 @@ public interface EmployeeMapper  extends BaseMapper<Employee> {
    }
    ```
 
-4. 全局的MP表前缀配置: <propertyname="tablePrefix" value="tbl_"></property>
+4. 全局的MP表前缀配置: <propertyname="tablePrefix" value="tbl_">\</property>
 
    ```xml
    <!-- 定义MybatisPlus的全局策略配置-->
@@ -411,7 +411,7 @@ public interface EmployeeMapper  extends BaseMapper<Employee> {
    ```
 
    ```xml
-   配置全局策略后需要注入到mybatis-plus
+   <!--配置全局策略后需要注入到mybatis-plus -->
    <bean id="sqlSessionFactoryBean" class="com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean">
        <!-- 数据源 -->
        <property name="dataSource" ref="dataSource"></property>
@@ -424,9 +424,9 @@ public interface EmployeeMapper  extends BaseMapper<Employee> {
    </bean>
    ```
 
-5. 全局的MP下划线到驼峰命名配置:<propertyname="dbColumnUnderline"value="true"></property>
+5. 全局的MP下划线到驼峰命名配置:<propertyname="dbColumnUnderline"value="true">\</property>
 
-6. 全局的MP主键策略配置:<propertyname="idType"value="0"></property>
+6. 全局的MP主键策略配置:<propertyname="idType"value="0">\</property>
 
 7. @TableField 
 
@@ -516,7 +516,7 @@ Preparing: UPDATE tbl_employee SET last_name=?,email=?,gender=?,age=? WHERE id=�
 DEBUG 06-14 22:31:09,870 ==> Parameters: test(String), wowosong@qq.com(String), null, null, 1(Integer)  (JakartaCommonsLoggingImpl.java:54) 
 ```
 
-3）int update(@Param(Constants.ENTITY) T updateEntity, @Param(Constants.WRAPPER) Wrapper<T> whereWrapper);
+3）int update(@Param(Constants.ENTITY) T updateEntity, @Param(Constants.WRAPPER) Wrapper\<T> whereWrapper);
 
 ```java
 // 根据 whereWrapper 条件，更新记录
@@ -561,7 +561,7 @@ Preparing: SELECT id,last_name AS lastName,email,gender,age FROM tbl_employee WH
 DEBUG 06-15 21:40:18,197 ==> Parameters: 1(Integer), wowosong(String)  (JakartaCommonsLoggingImpl.java:54) 
 ```
 
-3) List<T> selectBatchIds(List<? extends Serializable> idList);
+3) List\<T> selectBatchIds(List<? extends Serializable> idList);
 
 ```java
 //  通过多个ID查询
@@ -574,7 +574,7 @@ Preparing: SELECT id,last_name AS lastName,email,gender,age FROM tbl_employee WH
 DEBUG 06-15 21:46:11,451 ==> Parameters: 1(Integer), 2(Integer), 3(Integer), 4(Integer), 1(Integer)  (JakartaCommonsLoggingImpl.java:54)
 ```
 
-4) List<T> selectByMap(@Param("cm") Map<String, Object> columnMap);
+4) List\<T> selectByMap(@Param("cm") Map<String, Object> columnMap);
 
 ```java
 //通过Map封装查询
@@ -589,7 +589,7 @@ Preparing: SELECT id,last_name AS lastName,email,gender,age FROM tbl_employee WH
 DEBUG 06-15 21:50:17,267 ==> Parameters: 1(Integer), wowosong(String)  (JakartaCommonsLoggingImpl.java:54) 
 ```
 
-5) List<T> selectPage(RowBounds rowBounds, @Param("ew") Wrapper<T> wrapper);
+5) List\<T> selectPage(RowBounds rowBounds, @Param("ew") Wrapper\<T> wrapper);
 
 ```java
 //分页查询
@@ -655,7 +655,7 @@ DEBUG 06-15 22:07:14,567 ==> Parameters: 1(Integer), 2(Integer)  (JakartaCommons
 
 ## **3.6 MP** **启动注入** **SQL** **原理分析**
 
-1) 问题: xxxMapper 继承了 BaseMapper<T>, BaseMapper 中提供了通用的 CRUD 方法，方法来源于 BaseMapper, 有方法就必须有 SQL, **因为 MyBatis 最终还是需要通过SQL 语句操作数据.**
+1) 问题: xxxMapper 继承了 BaseMapper\<T>, BaseMapper 中提供了通用的 CRUD 方法，方法来源于 BaseMapper, 有方法就必须有 SQL, **因为 MyBatis 最终还是需要通过SQL 语句操作数据.**
 
 前置知识:MyBatis 源码中比较重要的一些对象， MyBatis 框架的执行流程
 
@@ -758,7 +758,7 @@ DEBUG 06-16 20:52:27,050 ==> Parameters: 15(Integer), 18(Integer), 1(Integer), w
 
 ## **4.3** **带条件的查询**
 
-1) List<T> selectList(@Param("ew") Wrapper<T> wrapper);
+1) List\<T> selectList(@Param("ew") Wrapper\<T> wrapper);
 
 ```java
 /**
@@ -781,7 +781,7 @@ DEBUG 06-16 21:00:59,860 ==> Parameters: 1(Integer), %老师%(String), %a%(Strin
 
 ## **4.4** **带条件的修改**
 
-1) Integer update(@Param("et") T entity, @Param("ew") Wrapper<T> wrapper);
+1) Integer update(@Param("et") T entity, @Param("ew") Wrapper\<T> wrapper);
 
 ```java
 /**
@@ -807,7 +807,7 @@ DEBUG 06-16 21:38:30,423 ==> Parameters: 111(String), 1231@qq.com(String), wowos
 
 ## **4.5** **带条件的删除**
 
-1) Integer delete(@Param("ew") Wrapper<T> wrapper);
+1) Integer delete(@Param("ew") Wrapper\<T> wrapper);
 
 ```java
 /**
@@ -1004,7 +1004,7 @@ Preparing: SELECT id,last_name AS lastName,email,gender,age FROM tbl_employee WH
 DEBUG 06-16 22:25:15,316 ==> Parameters: 4(Integer)  (JakartaCommonsLoggingImpl.java:54) 
 ```
 
-public List<T> selectAll()
+public List\<T> selectAll()
 
 ```java
 /**
@@ -1025,7 +1025,7 @@ Preparing: SELECT id,last_name AS lastName,email,gender,age FROM tbl_employee   
 DEBUG 06-16 22:26:17,573 ==> Parameters:   (JakartaCommonsLoggingImpl.java:54) 
 ```
 
-public List<T> selectList(Wrapper wrapper)
+public List\<T> selectList(Wrapper wrapper)
 
 ```java
 /**
@@ -1128,7 +1128,7 @@ DEBUG 06-16 22:32:27,514 ==> Parameters: wowosong(String)  (JakartaCommonsLoggin
 
 5) 分页复杂操作
 
-public Page<T> selectPage(Page<T> page, Wrapper<T> wrapper)
+public Page\<T> selectPage(Page\<T> page, Wrapper\<T> wrapper)
 
 ```java
 /**

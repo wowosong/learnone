@@ -20,14 +20,10 @@
 2) 编码简洁, 体积小, 运行效率高, 适合移动/PC 端开发
 3) 它本身只关注 UI, 可以轻松引入 vue 插件或其它第三库开发项目
 
-
-
 ### 1.1.4. 与其它前端 JS 框架的关联
 
 1) 借鉴 angular 的模板和数据绑定技术
 2) 借鉴 react 的组件化和虚拟 DOM 技术
-
-
 
 ### 1.1.5. Vue 扩展插件
 
@@ -40,17 +36,11 @@
 7) mint-ui: 基于 vue 的 UI 组件库(移动端)
 8) element-ui: 基于 vue 的 UI 组件库(PC 端)
 
-
-
 ## 1.2. Vue 的基本使用
-
-
 
 ### 1.2.1. 效果 (01_HelloWorld/test.html)
 
 01_helloworld.gif
-
-
 
 ### 1.2.2. 编码
 
@@ -76,21 +66,13 @@
 Vue.js
 devtools_3.1.2_0.crx
 
-
-
 ### 1.2.4. 理解 Vue 的 MVVM
 
-
-
 ## 1.3. 模板语法
-
-
 
 ### 1.3.1. 效果 (02_模板语法/test.html)
 
 02_模板语法.gif
-
-
 
 ### 1.3.2. 模板的理解
 
@@ -99,23 +81,17 @@ devtools_3.1.2_0.crx
 a. 双大括号表达式
 b. 指令(以 v-开头的自定义标签属性)
 
-
-
 ### 1.3.3. 双大括号表达式
 
 1) 语法: {{exp}}
 2) 功能: 向页面输出数据
 3) 可以调用对象的方法
 
-
-
 ### 1.3.4. 指令一: 强制数据绑定
 
 1) 功能: 指定变化的属性值
 2) 完整写法: v-bind:xxx='yyy' //yyy 会作为表达式解析执行
 3) 简洁写法: :xxx='yyy'
-
-
 
 ### 1.3.5. 指令二: 绑定事件监听
 
@@ -127,8 +103,6 @@ v-on:keyup.enter='xxx'
 3) 简洁写法:
 @keyup='xxx'
 @keyup.enter='xxx'
-
-
 
 ### 1.3.6. 编码
 
@@ -196,11 +170,12 @@ v-on:keyup.enter='xxx'
 ### 1.4.5. 编码
 
 ```vue
-姓: <input type="text" placeholder="First Name" v-model="firstName"><br>
-名: <input type="text" placeholder="Last Name" v-model="lastName"><br>
-姓名 1(单向): <input type="text" placeholder="Full Name" v-model="fullName1"><br>
-姓名 2(单向): <input type="text" placeholder="Full Name" v-model="fullName2"><br>
-姓名 3(双向): <input type="text" placeholder="Full Name2" v-model="fullName3"><br>
+<div>
+    姓: <input type="text" placeholder="First Name" v-model="firstName"><br>
+    名: <input type="text" placeholder="Last Name" v-model="lastName"><br>
+    姓名 1(单向): <input type="text" placeholder="Full Name" v-model="fullName1"><br>
+    姓名 2(单向): <input type="text" placeholder="Full Name" v-model="fullName2"><br>
+    姓名 3(双向): <input type="text" placeholder="Full Name2" v-model="fullName3"><br>
 </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
@@ -327,12 +302,13 @@ v-on:keyup.enter='xxx'
 
 ### 1.6.4. 编码
 ```vue
-<h2 v-if="ok">表白成功</h2>
-<h2 v-else>表白失败</h2>
-<h2 v-show="ok">求婚成功</h2>
-<h2 v-show="!ok">求婚失败</h2>
-<br>
-<button @click="ok=!ok">切换</button>
+<div> 
+    <h2 v-if="ok">表白成功</h2>
+    <h2 v-else>表白失败</h2>
+    <h2 v-show="ok">求婚成功</h2>
+    <h2 v-show="!ok">求婚失败</h2>
+    <br>
+    <button @click="ok=!ok">切换</button>
 </div> 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
@@ -361,22 +337,23 @@ v-on:keyup.enter='xxx'
 
 ### 1.7.2. 编码 1
 ``` vue
-<h2>测试: v-for 遍历数组</h2>
-<ul> 
-    <li v-for="(p, index) in persons" :key="index">
-        {{index}}--{{p.name}}--{{p.age}}
-        --
-        <button @click="deleteItem(index)">删除</button>
-        --
-        <button @click="updateItem(index, {name:'Jok',age:15})">更新</button>
-    </li>
-</ul>
-<h2>测试: v-for 遍历对象</h2>
-<ul>
-    <li v-for="(value, key) in persons[0]">
-        {{ key }} : {{ value }}
-    </li>
-</ul>
+<div>
+    <h2>测试: v-for 遍历数组</h2>
+    <ul> 
+        <li v-for="(p, index) in persons" :key="index">
+            {{index}}--{{p.name}}--{{p.age}}
+            --
+            <button @click="deleteItem(index)">删除</button>
+            --
+            <button @click="updateItem(index, {name:'Jok',age:15})">更新</button>
+        </li>
+    </ul>
+    <h2>测试: v-for 遍历对象</h2>
+    <ul>
+        <li v-for="(value, key) in persons[0]">
+            {{ key }} : {{ value }}
+        </li>
+    </ul>
 </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
@@ -404,16 +381,17 @@ v-on:keyup.enter='xxx'
 
 ### 1.7.3. 编码 2
 ```vue
-<input type="text" name="searchName" placeholder="搜索指定用户名"
-       v-model="searchName">
-<ul>
-    <li v-for="(p, index) in filterPerson" :key="index">
-        {{index}}--{{p.name}}--{{p.age}}
-    </li>
-</ul>
-<button @click="setOrderType(1)">年龄升序</button>
-<button @click="setOrderType(2)">年龄降序</button>
-<button @click="setOrderType(0)">原本顺序</button>
+<div> 
+    <input type="text" name="searchName" placeholder="搜索指定用户名"
+           v-model="searchName">
+    <ul>
+        <li v-for="(p, index) in filterPerson" :key="index">
+            {{index}}--{{p.name}}--{{p.age}}
+        </li>
+    </ul>
+    <button @click="setOrderType(1)">年龄升序</button>
+    <button @click="setOrderType(2)">年龄降序</button>
+    <button @click="setOrderType(0)">原本顺序</button>
 </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
@@ -480,23 +458,24 @@ v-on:keyup.enter='xxx'
 
 ### 1.8.5. 编码
 ```vue
-<h2>1. 绑定监听</h2>
-<button v-on:click="test1">Greet</button>
-<button @click="test1">Greet2</button>
-<button @click="test2($event, 'hello')">Greet3</button>
-<h2>2. 事件修饰符</h2>
-<!-- 阻止事件默认行为 -->
-<a href="http://www.baidu.com" @click.prevent="test3">百度一下</a>
-<br/>
-<br/>
-<!-- 停止事件冒泡 -->
-<div style="width: 200px;height: 200px;background: red" @click="test4">
-    <div style="width: 100px;height: 100px;background: green"
-         @click.stop="test5"></div>
-</div>
-<h2>3. 按键修饰符</h2>
-<input @keyup.8="test6">
-<input @keyup.enter="test6">
+<div>
+    <h2>1. 绑定监听</h2>
+    <button v-on:click="test1">Greet</button>
+    <button @click="test1">Greet2</button>
+    <button @click="test2($event, 'hello')">Greet3</button>
+    <h2>2. 事件修饰符</h2>
+    <!-- 阻止事件默认行为 -->
+    <a href="http://www.baidu.com" @click.prevent="test3">百度一下</a>
+    <br/>
+    <br/>
+    <!-- 停止事件冒泡 -->
+    <div style="width: 200px;height: 200px;background: red" @click="test4">
+        <div style="width: 100px;height: 100px;background: green"
+             @click.stop="test5"></div>
+    </div>
+    <h2>3. 按键修饰符</h2>
+    <input @keyup.8="test6">
+    <input @keyup.enter="test6">
 </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
@@ -546,29 +525,30 @@ gif
 
 ### 1.9.3. 编码
 ```vue
-<form @submit.prevent="handleSubmit">
-    <span>用户名: </span> <input type="text" v-model="user.username"><br>
-    <span>密码: </span> <input type="password" v-model="user.pwd"><br>
-    <span>性别: </span> <input type="radio" id="female" value="female" v-model="user.sex">
-    <label for="female">女</label> <input type="radio" id="male" value="male" v-model="user.sex">
-    <label for="male">男</label><br>
-    <span>爱好: </span> <input type="checkbox" id="basket" value="basketball" v-model="user.likes"> 
-    <label for="basket">篮球</label>
-    <input type="checkbox" id="foot" value="football" v-model="user.likes">
-    <label for="foot">足球</label>
-    <input type="checkbox" id="pingpang" value="pingpang"  v-model="user.likes">
-    <label for="pingpang">乒乓</label><br>
-    <span>城市: </span>
-    <select v-model="user.cityId">
-        <option value="">未选择</option>
-        <option v-for="city in allCitys" :value="city.id">{{ city.name }} </option>
-    </select>
-    <br>
-    <span>介绍: </span>
-    <textarea v-model="user.desc" rows="10"></textarea>
-    <br><br>
-    <input type="submit" value="注册">
-</form>
+<div> 
+    <form @submit.prevent="handleSubmit">
+        <span>用户名: </span> <input type="text" v-model="user.username"><br>
+        <span>密码: </span> <input type="password" v-model="user.pwd"><br>
+        <span>性别: </span> <input type="radio" id="female" value="female" v-model="user.sex">
+        <label for="female">女</label> <input type="radio" id="male" value="male" v-model="user.sex">
+        <label for="male">男</label><br>
+        <span>爱好: </span> <input type="checkbox" id="basket" value="basketball" v-model="user.likes"> 
+        <label for="basket">篮球</label>
+        <input type="checkbox" id="foot" value="football" v-model="user.likes">
+        <label for="foot">足球</label>
+        <input type="checkbox" id="pingpang" value="pingpang"  v-model="user.likes">
+        <label for="pingpang">乒乓</label><br>
+        <span>城市: </span>
+        <select v-model="user.cityId">
+            <option value="">未选择</option>
+            <option v-for="city in allCitys" :value="city.id">{{ city.name }} </option>
+        </select>
+        <br>
+        <span>介绍: </span>
+        <textarea v-model="user.desc" rows="10"></textarea>
+        <br><br>
+        <input type="submit" value="注册">
+    </form>
 </div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
@@ -686,30 +666,34 @@ xxx-leave-active: 指定隐藏的 transition
 xxx-enter/xxx-leave-to: 指定隐藏时的样式 
 
 ### 1.11.3. 基本过渡动画的编码
-1) 在目标元素外包裹\<transition name="xxx">
-2) 定义 class 样式
-指定过渡样式: transition
-指定隐藏时的样式: opacity/其它
+1. 在目标元素外包裹\<transition name="xxx">
+
+2. 定义 class 样式
+
+  指定过渡样式: transition
+
+  指定隐藏时的样式: opacity/其它
 
 ### 1.11.4. 编码 1
 ```vue
-.fade-enter-active, .fade-leave-active {
-transition: opacity .5s
-} .
-fade-enter, .fade-leave-to {
-opacity: 0
-} /
-* 可以设置不同的进入和离开动画 */
-.slide-fade-enter-active {
-transition: all .3s ease;
-} .
-slide-fade-leave-active {
-transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-} .
-slide-fade-enter, .slide-fade-leave-to {
-transform: translateX(10px);
-opacity: 0;
-}
+<style>
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s
+    } .
+    fade-enter, .fade-leave-to {
+        opacity: 0
+    } /
+    * 可以设置不同的进入和离开动画 */
+    .slide-fade-enter-active {
+        transition: all .3s ease;
+    } .
+    slide-fade-leave-active {
+        transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    } .
+    slide-fade-enter, .slide-fade-leave-to {
+        transform: translateX(10px);
+        opacity: 0;
+    }
 </style>
 <div id="demo1">
     <button @click="show = !show">
@@ -793,10 +777,10 @@ opacity: 0;
 
 ### 1.12.3. 定义和使用过滤器
 1. 定义过滤器
-  ```vue
+  ```javascript
   Vue.filter(filterName, function(value[,arg1,arg2,...]){
-  // 进行一定的数据处理
-  return newValue
+      // 进行一定的数据处理
+      return newValue
   })
   ```
 
@@ -989,7 +973,7 @@ new Vue({
 2. 添加全局资源
       ```javascript
       Vue.directive('my-directive', function (el, binding) {
-        el.innerHTML = "MyPlugin my-directive " + binding.value
+          el.innerHTML = "MyPlugin my-directive " + binding.value
       })
       ```
 
@@ -997,10 +981,9 @@ new Vue({
      ```javascript
      Vue.prototype.$myMethod = function () {
          alert('vue 实例对象方法执行')
-         }
      } 
      window.MyPlugin = MyPlugin
-     })()
+     ({})()
      ```
 2) 页面使用插件
 ```vue
@@ -1233,7 +1216,7 @@ this.$refs.xxx.$on('delete_todo', function (todo) {
 ```
 
 ### 2.7.2. 触发事件
-```vue
+```javascript
 // 触发事件(只能在父组件中接收)
 this.$emit(eventName, data)
 ```
@@ -1270,7 +1253,7 @@ PubSub.publish('msg', data)
 ### 2.9.2. 子组件: Child.vue
 ```vue
 <template>
-	<div> 
+<div> 
     <slot name="xxx">不确定的标签结构 1</slot>
     <div>组件确定的标签结构</div>
     <slot name="yyy">不确定的标签结构 2</slot>
@@ -1559,8 +1542,9 @@ Message.vue
 
 ### 5.3.3. 配置嵌套路由: router.js
 ```javascript
-{path: '/home',
-component: home,
+{
+    path: '/home',
+    component: home,
     children: [
         {
             path: 'news',
@@ -1730,7 +1714,7 @@ import {mapState, mapGetters, mapActions} from 'vuex'
 export default {
     computed: {
         ...mapState(['xxx']),
-        ...mapGetters(['mmm']),
+        ...mapGetters(['mmm'])
     }
     methods: mapActions(['zzz'])
 } {
@@ -1863,26 +1847,27 @@ new Vue({
     </div>
 </template>
 <script>
-    export default {
-        computed: {
-            oddOrEven () {
-                return this.$store.getters.oddOrEven
-            }
-        },
-        methods: {
-            increment () {
-                this.$store.dispatch('increment')
-            };
-            decrement () {
-        this.$store.dispatch('decrement')
-    };
-    incrementIfOdd () {
-        this.$store.dispatch('incrementIfOdd')
-    };
-    incrementAsync () {
-        this.$store.dispatch('incrementAsync')
+export default {
+    computed: {
+        oddOrEven () {
+            return this.$store.getters.oddOrEven
+        }
+    },
+    methods: {
+        increment () {
+            this.$store.dispatch('increment')
+        };
+        decrement () {
+            this.$store.dispatch('decrement')
+        };
+        incrementIfOdd () {
+            this.$store.dispatch('incrementIfOdd')
+        };
+        incrementAsync () {
+            this.$store.dispatch('incrementAsync')
+        }
     }
-  }
+}
 </script>
 <style></style>
 ```
@@ -2026,24 +2011,24 @@ export default new Vuex.Store({
         <todo-main></todo-main>
         <todo-footer></todo-footer>
     </div>
-    </div>
+</div>
 </template>
 <script>
-    import todoHeader from './todoHeader.vue'
-    import todoMain from './todoMain.vue'
-    import todoFooter from './todoFooter.vue'
-    import storageUtil from '../util/storageUtil'
-    export default {
-        created () {
-            // 模拟异步读取数据
-            this.$store.dispatch('readTodo')
-        },
-        components: {
-            todoHeader,
-            todoMain,
-            todoFooter
-        }
+import todoHeader from './todoHeader.vue'
+import todoMain from './todoMain.vue'
+import todoFooter from './todoFooter.vue'
+import storageUtil from '../util/storageUtil'
+export default {
+    created () {
+        // 模拟异步读取数据
+        this.$store.dispatch('readTodo')
+    },
+    components: {
+        todoHeader,
+        todoMain,
+        todoFooter
     }
+}
 </script>
 <style>
     .todo-container {
@@ -2252,7 +2237,7 @@ props: ['todo', 'index'],
             ...mapGetters(['completeSize', 'totalSize'])
         }
     }
-    /*
+/*
 const arr1 = [1, 3, 5]
 const arr2 = [4, ...arr1, 7]
 const obj = {

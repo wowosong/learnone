@@ -17,7 +17,7 @@
 
 本地接口的作用是融合不同的编程语言为 Java 所用，它的初衷是融合 C/C++程序。
 
-![image-20200706164139252](https://img-blog.csdnimg.cn/img_convert/7b36a8321e4c955f06220775c9c2cf4c.png)
+![image-20200706164139252](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051442038.png)
 
 举例
 
@@ -67,7 +67,7 @@ Java 虚拟机栈于管理 Java 方法的调用，而本地方法栈用于管理
 
 它的具体做法是 Native Method Stack 中登记 native 方法，在 Execution Engine 执行时加载本地方法库。
 
-![image-20200706174708418](https://img-blog.csdnimg.cn/img_convert/b4aea15cec874411f749e336c8b5d8fd.png)
+![image-20200706174708418](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051442335.png)
 
 当某个线程调用一个本地方法时，它就进入了一个全新的并且不再受虚拟机限制的世界。它和虚拟机拥有同样的权限。
 
@@ -78,25 +78,3 @@ Java 虚拟机栈于管理 Java 方法的调用，而本地方法栈用于管理
 并不是所有的 JVM 都支持本地方法。因为 Java 虚拟机规范并没有明确要求本地方法栈的使用语言、具体实现方式、数据结构等。如果 JVM 产品不打算支持 native 方法，也可以无需实现本地方法栈。
 
 在 Hotspot JVM 中，直接将本地方法栈和虚拟机栈合二为一。
-
-[上一篇<JVM上篇：内存与垃圾回收篇>04-虚拟机栈
-
-](https://www.cnblogs.com/vectorx/p/14748872.html)
-
-[下一篇<JVM上篇：内存与垃圾回收篇>06-堆
-
-](https://www.cnblogs.com/vectorx/p/14752607.html)
-
-本文作者：VectorX
-
-本文链接：https://www.cnblogs.com/vectorx/p/14748877.html
-
-版权声明：本作品采用知识共享署名-非商业性使用-禁止演绎 2.5 中国大陆许可协议进行许可。
-
-[关注我](javascript:) [收藏该文](javascript:)
-
-0
-
-0
-
-posted @ 2021-05-09 21:10  [VectorX](https://www.cnblogs.com/vectorx/)  阅读(160)  评论(0)  [编辑](https://i.cnblogs.com/EditPosts.aspx?postid=14748877)  [收藏](javascript:)  [举报](javascript:)

@@ -33,21 +33,21 @@
 
 # 7\. 方法区
 
-![image-20210510141044840](https://img-blog.csdnimg.cn/img_convert/b802b35c3936900c290f8ad123e68b9b.png)
+![image-20210510141044840](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051444236.png)
 
 从线程共享与否的角度来看
 
-![image-20210510141131860](https://img-blog.csdnimg.cn/img_convert/f356e103d9f75e3c0086079bba2b28a9.png)
+![image-20210510141131860](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051444288.png)
 
 ## 7.1. 栈、堆、方法区的交互关系
 
-![image-20200708094747667](https://img-blog.csdnimg.cn/img_convert/b9f11764ee47b28d37f7764dfd9c9f55.png)
+![image-20200708094747667](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051444848.png)
 
 ## 7.2. 方法区的理解
 
 官方文档：[Chapter 2. The Structure of the Java Virtual Machine (oracle.com)](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.5.4)
 
-![image-20210510195446194](https://img-blog.csdnimg.cn/img_convert/ec22e5d6086dd6219195b2d886118d65.png)
+![image-20210510195446194](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051444472.png)
 
 ### 7.2.1. 方法区在哪里？
 
@@ -55,7 +55,7 @@
 
 所以，方法区看作是一块独立于 Java 堆的内存空间。
 
-![image-20200708095853544](https://img-blog.csdnimg.cn/img_convert/6a7f2350e0f4e0cde0ac246225e2acdd.png)
+![image-20200708095853544](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051444952.png)
 
 ### 7.2.2. 方法区的基本理解
 
@@ -70,17 +70,17 @@
 
 在 jdk7 及以前，习惯上把方法区，称为永久代。jdk8 开始，使用元空间取代了永久代。
 
-![image-20210510142516373](https://img-blog.csdnimg.cn/img_convert/fb71df89c52f89d3b711e0b648de244c.png)
+![image-20210510142516373](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051444578.png)
 
 本质上，方法区和永久代并不等价。仅是对 hotspot 而言的。《Java 虚拟机规范》对如何实现方法区，不做统一要求。例如：BEA JRockit / IBM J9 中不存在永久代的概念。
 
 现在来看，当年使用永久代，不是好的 idea。导致 Java 程序更容易 OOM（超过`-XX:MaxPermsize`上限）
 
-![image-20210510142656677](https://img-blog.csdnimg.cn/img_convert/7d0789c206d53bfb4b6004052236197a.png)
+![image-20210510142656677](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051444849.png)
 
 而到了 JDK8，终于完全废弃了永久代的概念，改用与 JRockit、J9 一样在本地内存中实现的元空间（Metaspace）来代替
 
-![image-20200708103055914](https://img-blog.csdnimg.cn/img_convert/1c229dc39ffc79e8e4f3abf765378d3b.png)
+![image-20200708103055914](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051444904.png)
 
 元空间的本质和永久代类似，都是对 JVM 规范中方法区的实现。不过元空间与永久代最大的区别在于：元空间不在虚拟机设置的内存中，而是使用本地内存
 
@@ -100,7 +100,7 @@
 *   通过`-XX:MaxPermsize`来设定永久代最大可分配空间。32 位机器默认是 64M，64 位机器模式是 82M
 *   当 JVM 加载的类信息容量超过了这个值，会报异常`OutOfMemoryError:PermGen space`。
 
-![image-20200708111756800](https://img-blog.csdnimg.cn/img_convert/79ec6c83a9b6a4a7281c2ef5442f18ce.png)
+![image-20200708111756800](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051445618.png)
 
 **JDK8 以后**
 
@@ -112,7 +112,7 @@
 
 **举例 1：《深入理解 Java 虚拟机》的例子**
 
-![image-20210510143959924](https://img-blog.csdnimg.cn/img_convert/6d1f5d0e7f035df53d16a16451781677.png)
+![image-20210510143959924](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051445316.png)
 
 **举例 2**
 
@@ -157,7 +157,7 @@ public class OOMTest extends ClassLoader{
 
 ## 7.4. 方法区的内部结构
 
-![image-20200708161728320](https://img-blog.csdnimg.cn/img_convert/8a5fcba10ccb773f185288ac22bde206.png)
+![image-20200708161728320](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051445164.png)
 
 ### 7.4.1. 方法区（Method Area）存储什么？
 
@@ -165,7 +165,7 @@ public class OOMTest extends ClassLoader{
 
 > 它用于存储已被虚拟机加载的类型信息、常量、静态变量、即时编译器编译后的代码缓存等。
 
-![image-20200708161856504](https://img-blog.csdnimg.cn/img_convert/fbe3915506e7979c7d591d17c216fbb1.png)
+![image-20200708161856504](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051445724.png)
 
 ### 7.4.2. 方法区的内部结构
 
@@ -223,7 +223,7 @@ class Order {
 
 ### 7.4.3. 运行时常量池 VS 常量池
 
-![image-20200708171151384](https://img-blog.csdnimg.cn/img_convert/7ec9b450764c623c89e7de7e0d3c8d19.png)
+![image-20200708171151384](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051445727.png)
 
 *   方法区，内部包含了运行时常量池
 *   字节码文件，内部包含了常量池
@@ -232,7 +232,7 @@ class Order {
 
 官方文档：[https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html)
 
-![image-20200708172357052](https://img-blog.csdnimg.cn/img_convert/be6d675673b353a266d48df43b0411f4.png)
+![image-20200708172357052](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051445973.png)
 
 一个有效的字节码文件中除了包含类的版本信息、字段、方法以及接口等描述符信息外，还包含一项信息就是常量池表（Constant Pool Table），包括各种字面量和对类型、域和方法的符号引用
 
@@ -252,7 +252,7 @@ public class SimpleClass {
 
 虽然只有 194 字节，但是里面却使用了 String、System、PrintStream 及 Object 等结构。这里的代码量其实很少了，如果代码多的话，引用的结构将会更多，这里就需要用到常量池了。
 
-![image-20210510145947122](https://img-blog.csdnimg.cn/img_convert/86cc8ce43ce5bcc9b2b167188b839a1b.png)
+![image-20210510145947122](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051445503.png)
 
 #### 常量池中有什么?
 
@@ -311,33 +311,33 @@ public class MethodAreaDemo {
 }
 ```
 
-![image-20210510151436251](https://img-blog.csdnimg.cn/img_convert/b5b9e7f8efd1cf8e889650cea5318b61.png)
+![image-20210510151436251](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051445325.png)
 
-![image-20210510151504259](https://img-blog.csdnimg.cn/img_convert/84396fa6be6164ffc54868e78c59dde6.png)
+![image-20210510151504259](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051445447.png)
 
-![image-20210510151520952](https://img-blog.csdnimg.cn/img_convert/2214af3dfe294eec73899c935589f569.png)
+![image-20210510151520952](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051445816.png)
 
-![image-20210510151609566](https://img-blog.csdnimg.cn/img_convert/64b6b95d37e97205b2f23a089addf321.png)
+![image-20210510151609566](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051445813.png)
 
-![image-20210510151648231](https://img-blog.csdnimg.cn/img_convert/692908400668791ac383561affed3520.png)
+![image-20210510151648231](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051445569.png)
 
-![image-20210510151753579](https://img-blog.csdnimg.cn/img_convert/922d24be85f3ac3bf951e81bc1101e3d.png)
+![image-20210510151753579](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051445586.png)
 
-![image-20210510151829404](https://img-blog.csdnimg.cn/img_convert/67615b1384f553cab185a32460e607eb.png)
+![image-20210510151829404](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051445519.png)
 
-![image-20210510151918342](https://img-blog.csdnimg.cn/img_convert/4b80397e4e7a553cc7d7f0f9a8b38d1d.png)
+![image-20210510151918342](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051446502.png)
 
-![image-20210510151951327](https://img-blog.csdnimg.cn/img_convert/bcc93f31b5dc95f4676dbd49ecc095d7.png)
+![image-20210510151951327](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051446592.png)
 
-![image-20200708205708057](https://img-blog.csdnimg.cn/img_convert/dfba814e0c1b198df7175fe93284c3e0.png)
+![image-20200708205708057](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051446780.png)
 
-![image-20210510152102989](https://img-blog.csdnimg.cn/img_convert/35be7c27bee2aa8c0930cffbefa07cd8.png)
+![image-20210510152102989](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051448537.png)
 
-![image-20210510152138492](https://img-blog.csdnimg.cn/img_convert/5f2935ec0858f5a74f512018e582f19c.png)
-![image-20210510195824437](https://img-blog.csdnimg.cn/img_convert/f584ed9e2b6d99499b2a451a63f12449.png)
+![image-20210510152138492](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051446395.png)
+![image-20210510195824437](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051446883.png)
 
-![image-20210510195911639](https://img-blog.csdnimg.cn/img_convert/b4428f7f351048601296fe211c40185e.png)
-![image-20210510152243933](https://img-blog.csdnimg.cn/img_convert/bf50cc494594b4588794984df6448303.png)
+![image-20210510195911639](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051446253.png)
+![image-20210510152243933](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051446694.png)
 
 ## 7.6. 方法区的演进细节
 
@@ -349,17 +349,17 @@ public class MethodAreaDemo {
 | **JDK1.7** | **有永久代，但已经逐步 “去永久代”，字符串常量池，静态变量移除，保存在堆中** |
 | **JDK1.8** | **无永久代，类型信息，字段，方法，常量保存在本地内存的元空间，但字符串常量池、静态变量仍然在堆中。** |
 
-![image-20200708211541300](https://img-blog.csdnimg.cn/img_convert/1a3aa55257c3150d78327542e5ca230e.png)
+![image-20200708211541300](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051446990.png)
 
-![image-20200708211609911](https://img-blog.csdnimg.cn/img_convert/e0f65fc4228d9b6573ae1b23d9a1558b.png)
+![image-20200708211609911](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051446111.png)
 
-![image-20200708211637952](https://img-blog.csdnimg.cn/img_convert/c3ed969b0d2bad704c22481208e5dd10.png)
+![image-20200708211637952](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051446795.png)
 
 ### 7.6.1. 为什么永久代要被元空间替代？
 
 官网地址：[JEP 122: Remove the Permanent Generation (java.net)](http://openjdk.java.net/jeps/122)
 
-![image-20210510163843564](https://img-blog.csdnimg.cn/img_convert/36feeb020d5de3a8c31056f27b27efc4.png)
+![image-20210510163843564](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051446863.png)
 
 JRockit 是和 HotSpot 融合后的结果，因为 JRockit 没有永久代，所以他们不需要配置永久代
 
@@ -420,11 +420,11 @@ public class StaticFieldTest {
 
 使用 JHSDB 工具进行分析，这里细节略掉
 
-![image-20200708215218078](https://img-blog.csdnimg.cn/img_convert/e8ced63603ee4a62c9eb7d4c48ae94dd.png)
+![image-20200708215218078](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051446788.png)
 
 staticobj 随着 Test 的类型信息存放在方法区，instanceobj 随着 Test 的对象实例存放在 Java 堆，localobject 则是存放在 foo()方法栈帧的局部变量表中。
 
-![image-20200708215025527](https://img-blog.csdnimg.cn/img_convert/e7c6b3dd5175466ee891da9e84577418.png)
+![image-20200708215025527](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051446407.png)
 
 测试发现：三个对象的数据在内存中的地址都落在 Eden 区范围内，所以结论：只要是对象实例必然会在 Java 堆中分配。
 
@@ -465,7 +465,7 @@ Java 虚拟机被允许对满足上述三个条件的无用类进行回收，这
 
 ## 总结
 
-![image-20200708220303243](https://img-blog.csdnimg.cn/img_convert/f73315a70302396e391a532dcf87ce26.png)
+![image-20200708220303243](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051446630.png)
 
 ## 常见面试题
 

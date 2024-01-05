@@ -29,11 +29,11 @@
 *   本地方法接口
 *   本地方法库
 
-![image-20200705080719531](https://gitee.com/wowosong/pic-md/raw/master/202306061249299.png)
+![image-20200705080719531](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051434210.png)
 
 
 
-![image-20200705080911284](https://gitee.com/wowosong/pic-md/raw/master/202306061250169.png)
+![image-20200705080911284](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051434283.png)
 
 如果自己想手写一个 Java 虚拟机的话，主要考虑哪些结构呢？
 
@@ -44,7 +44,7 @@
 
 **类加载器子系统作用**
 
-![image-20200705081813409](https://gitee.com/wowosong/pic-md/raw/master/202306061250924.png)
+![image-20200705081813409](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051434581.png)
 
  
 
@@ -54,7 +54,7 @@
 
 **类加载器 ClasLoader 角色**
 
-![image-20200705081913538](https://gitee.com/wowosong/pic-md/raw/master/202306061251032.png)
+![image-20200705081913538](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051434004.png)
 
 *   class file 存在于本地硬盘上，可以理解为设计师画在纸上的模板，而最终这个模板在执行的时候是要加载到 JVM 当中来根据这个文件实例化出 n 个一模一样的实例。
 *   class file 加载到 JVM 中，被称为 **DNA 元数据模板，放在方法区**。
@@ -75,11 +75,11 @@ public class HelloLoader {
 
 用流程图表示上述示例代码：
 
-![image-20200705082255746](https://gitee.com/wowosong/pic-md/raw/master/202306061251777.png)
+![image-20200705082255746](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051434115.png)
 
 ### 加载阶段
 
-![image-20200705082601441](https://gitee.com/wowosong/pic-md/raw/master/202306061251702.png)
+![image-20200705082601441](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051434798.png)
 
 *   1.  通过一个类的全限定名获取定义此类的二进制字节流
 *   2.  将这个字节流所代表的**静态存储结构转化为方法区的运行时数据结构**
@@ -112,12 +112,12 @@ public class HelloLoader {
 
 ### 初始化阶段
 
-*   初始化阶段就是执行类构造器方法<clinit>()的过程。
+*   初始化阶段就是执行类构造器方法\<clinit>()的过程。
 *   此方法不需定义，是 javac 编译器自动收集类中的所有类变量的赋值动作和静态代码块中的语句合并而来。
 *   构造器方法中指令按语句在源文件中出现的顺序执行。
-*   <clinit>()不同于类的构造器。（关联：构造器是虚拟机视角下的<init>()）
-*   若该类具有父类，JVM 会保证子类的<clinit>()执行前，父类的<clinit>()已经执行完毕。
-*   虚拟机必须保证一个类的<clinit>()方法在多线程下被同步加锁。
+*   \<clinit>()不同于类的构造器。（关联：构造器是虚拟机视角下的\<init>()）
+*   若该类具有父类，JVM 会保证子类的\<clinit>()执行前，父类的\<clinit>()已经执行完毕。
+*   虚拟机必须保证一个类的\<clinit>()方法在多线程下被同步加锁。
 
 ## 2.3. 类加载器分类
 
@@ -127,7 +127,7 @@ JVM 支持两种类型的类加载器 。分别为**引导类加载器（Bootstr
 
 无论类加载器的类型如何划分，在程序中我们最常见的类加载器始终只有 3 个，如下所示：
 
-![image-20200705094149223](https://gitee.com/wowosong/pic-md/raw/master/202306081745615.png)
+![image-20200705094149223](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051435708.png)
 
 这里的四者之间的关系是包含关系。**不是上层下层，也不是子父类的继承关系**。
 
@@ -187,7 +187,7 @@ ClassLoader 类是一个抽象类，其后所有的类加载器都继承自 Clas
 
 sun.misc.Launcher 它是一个 java 虚拟机的入口应用
 
-![image-20200705103636003](https://gitee.com/wowosong/pic-md/raw/master/202306081746606.png)
+![image-20200705103636003](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051435757.png)
 
 **获取 ClassLoader 的途径**
 
@@ -226,13 +226,13 @@ Java 虚拟机对 class 文件采用的是**按需加载的方式**，也就是�
 *   2）如果父类加载器还存在其父类加载器，则进一步向上委托，依次递归，请求最终将到达顶层的**启动类加载器**；
 *   3）如果父类加载器可以完成类加载任务，就成功返回，**倘若父类加载器无法完成此加载任务，子加载器才会尝试自己去加载，这就是双亲委派模式。**
 
-![image-20200705105151258](https://gitee.com/wowosong/pic-md/raw/master/202306081751469.png)
+![image-20200705105151258](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051435709.png)
 
 **举例**
 
 当我们加载 jdbc.jar 用于实现数据库连接的时候，首先我们需要知道的是 **jdbc.jar 是基于 SPI 接口进行实现的**，所以在加载的时候，会进行双亲委派，**最终从根加载器中加载 SPI 核心类，然后在加载 SPI 接口类，接着在进行反向委派，通过线程上下文类加载器进行实现类 jdbc.jar 的加载。**
 
-![image-20200705105810107](https://gitee.com/wowosong/pic-md/raw/master/202306081755295.png)
+![image-20200705105810107](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051435897.png)
 
 **优势**
 

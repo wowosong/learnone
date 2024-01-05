@@ -31,7 +31,7 @@ MinorGC（或 young GC 或 YGC）日志：
 [GC (Allocation Failure) [PSYoungGen: 31744K->2192K (36864K) ] 31744K->2200K (121856K), 0.0139308 secs] [Times: user=0.05 sys=0.01, real=0.01 secs]
 ```
 
-![image-20210506202126562](https://img-blog.csdnimg.cn/img_convert/df81757685ca21a927d9335273f561c5.png)
+![image-20210506202126562](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051526014.png)
 
 ![image-20210506202156090](https://img-blog.csdnimg.cn/img_convert/b9a7575380bcdb91b54c0556557d8ad9.png)
 
@@ -41,7 +41,7 @@ MinorGC（或 young GC 或 YGC）日志：
 [Full GC (Metadata GC Threshold) [PSYoungGen: 5104K->0K (132096K) ] [Par01dGen: 416K->5453K (50176K) ]5520K->5453K (182272K), [Metaspace: 20637K->20637K (1067008K) ], 0.0245883 secs] [Times: user=0.06 sys=0.00, real=0.02 secs]
 ```
 
-![image-20210506202330868](https://img-blog.csdnimg.cn/img_convert/0dcb239f0928bc374ac1b376b4189295.png)
+![image-20210506202330868](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051526284.png)
 
 ![image-20210506202349072](https://img-blog.csdnimg.cn/img_convert/7817f28a52c836d5ed08a4b992823f64.png)
 
@@ -102,7 +102,7 @@ GCEasy 是一款在线的 GC 日志分析器，可以通过 GC 日志分析进�
 
 **GCViewer**
 
-GCViewer 是一款离线的 GC 日志分析器，用于可视化 Java VM 选项 -verbose:gc 和 .NET 生成的数据 -Xloggc:<file>。还可以计算与垃圾回收相关的性能指标（吞吐量、累积的暂停、最长的暂停等）。当通过更改世代大小或设置初始堆大小来调整特定应用程序的垃圾回收时，此功能非常有用。
+GCViewer 是一款离线的 GC 日志分析器，用于可视化 Java VM 选项 -verbose:gc 和 .NET 生成的数据 -Xloggc:\<file>。还可以计算与垃圾回收相关的性能指标（吞吐量、累积的暂停、最长的暂停等）。当通过更改世代大小或设置初始堆大小来调整特定应用程序的垃圾回收时，此功能非常有用。
 
 源码下载：[https://github.com/chewiebug/GCViewer](https://github.com/chewiebug/GCViewer)
 
@@ -117,25 +117,3 @@ GCViewer 是一款离线的 GC 日志分析器，用于可视化 Java VM 选项 
 
 *   工具很强大，但是只能打开由以下参数生成的 GC log，-verbose:gc -Xloggc:gc.log。添加其他参数生成的 gc.log 无法打开
 *   HPjmeter 集成了以前的 HPjtune 功能，可以分析在 HP 机器上产生的垃圾回收日志文件
-
-[上一篇<JVM下篇：性能监控与调优篇>04-JVM运行时参数
-
-](https://www.cnblogs.com/vectorx/p/14737039.html)
-
-[下一篇<JVM上篇：内存与垃圾回收篇>01-JVM与Java体系结构
-
-](https://www.cnblogs.com/vectorx/p/14738695.html)
-
-本文作者：VectorX
-
-本文链接：https://www.cnblogs.com/vectorx/p/14737043.html
-
-版权声明：本作品采用知识共享署名-非商业性使用-禁止演绎 2.5 中国大陆许可协议进行许可。
-
-[关注我](javascript:) [收藏该文](javascript:)
-
-0
-
-0
-
-posted @ 2021-05-06 21:56  [VectorX](https://www.cnblogs.com/vectorx/)  阅读(197)  评论(0)  [编辑](https://i.cnblogs.com/EditPosts.aspx?postid=14737043)  [收藏](javascript:)  [举报](javascript:)

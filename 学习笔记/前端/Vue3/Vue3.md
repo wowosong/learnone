@@ -1551,4 +1551,4 @@ Vue3.x写法
 *   Vue3官方文档 [v3.cn.vuejs.org/](https://link.juejin.cn/?target=https%3A%2F%2Fv3.cn.vuejs.org%2F "https://v3.cn.vuejs.org/")
 *   Vite官方文档 [cn.vitejs.dev/](https://link.juejin.cn/?target=https%3A%2F%2Fcn.vitejs.dev%2F "https://cn.vitejs.dev/")
 *   Vue-cli官方文档 [cli.vuejs.org/zh/](https://link.juejin.cn/?target=https%3A%2F%2Fcli.vuejs.org%2Fzh%2F "https://cli.vuejs.org/zh/")
-*   尚硅谷Vue3视频 [www.bilibili.com/video/BV1Zy…](https://link.juejin.cn/?target=https%3A%2F%2Fwww.bilibili.com%2Fvideo%2FBV1Zy4y1K7SH%3Fp%3D136 "https://www.bilibili.com/video/BV1Zy4y1K7SH?p=136")
+*   尚硅谷Vue3视频 [www.bilibili.com/video/BV1Zy…](https://link.juejin.cn/?target=https%3A%2F%2Fwww.bilibili.com%2Fvideo%2FBV1Zy4y1K7SH%3Fp%3D136 "https://www.bilibili.com/video/BV1Zy4y1K7SH?p=136") 

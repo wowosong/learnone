@@ -61,14 +61,13 @@
 
 # 1\. 概述
 
-![img](https://img-blog.csdnimg.cn/img_convert/630bca9b1bbeeeb4f772fea5f94d43fc.png)![img](https://img-blog.csdnimg.cn/img_convert/74bb5f23ad01f05a39f8eb171d205390.png)![img](https://img-blog.csdnimg.cn/img_convert/bb3c57508713e377f3f4084409abaa30.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051527520.png)![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051527877.png)![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051527657.png)
 
 # 2\. 加载与存储指令
 
-![0ca8044c-f78d-4787-aeac-c986a35f9cdf](https://img-blog.csdnimg.cn/img_convert/3585fe67d5d83aff5db707d8eedccbae.png)
-![16e3afaf-b7d8-4a23-8897-9fe02586aafd](assets/1685462098-ad62964f9758f48bb67862cf053ee220.png)
+![0ca8044c-f78d-4787-aeac-c986a35f9cdf](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051527106.png)
 
-![08e01fd0-a33e-47e4-8fd2-34c2935db71d](https://img-blog.csdnimg.cn/img_convert/8e911caaa5c0502b038af324c16edce8.png)
+![08e01fd0-a33e-47e4-8fd2-34c2935db71d](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051529996.png)
 
 * * *
 
@@ -152,7 +151,7 @@
 
 ## 局部变量压栈指令剖析
 
-![1](https://img-blog.csdnimg.cn/img_convert/a34d465c4c8c83b3fcedc3ba31401732.png)
+![1](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051529990.png)
 
 ```java
 public void load(int num, Object obj, long count, boolean flag, short[] arr) {
@@ -164,7 +163,7 @@ public void load(int num, Object obj, long count, boolean flag, short[] arr) {
 }
 ```
 
-![3](https://img-blog.csdnimg.cn/img_convert/deb49e69ed62ed9d71c7059748299b59.png)
+![3](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051530949.png)
 
 * * *
 
@@ -225,7 +224,7 @@ public void load(int num, Object obj, long count, boolean flag, short[] arr) {
 
 ## 常量入栈指令剖析
 
-![437a717e-98e2-4847-b52e-e6632d0745a4](https://img-blog.csdnimg.cn/img_convert/fafa61a6702b5fc88179c404ba736029.png)![ffd7246e-2e46-41e0-9fd6-1e65ace5dbd1](https://img-blog.csdnimg.cn/img_convert/c0a6284e1deaf76669089e669916f440.png)
+![437a717e-98e2-4847-b52e-e6632d0745a4](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051530639.png)![ffd7246e-2e46-41e0-9fd6-1e65ace5dbd1](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051530709.png)
 
 | 类型 | 常数指令 | 范围 |
 | --- | --- | --- |
@@ -242,7 +241,7 @@ public void load(int num, Object obj, long count, boolean flag, short[] arr) {
 | reference | aconst | null |
 | ldc | String literal, Class literal |
 
-![566b9397-5afe-4a3f-9e17-9ebf504dfc80](https://img-blog.csdnimg.cn/img_convert/59982d71dc70f7d7b873f50130281c21.png)![b59702d2-4c93-44df-87f1-01a5dfe53b61](https://img-blog.csdnimg.cn/img_convert/cd990ebc801bf53b4f7b1966d9974345.png)
+![566b9397-5afe-4a3f-9e17-9ebf504dfc80](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051530870.png)![b59702d2-4c93-44df-87f1-01a5dfe53b61](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051530663.png)
 
 * * *
 
@@ -330,8 +329,8 @@ public void load(int num, Object obj, long count, boolean flag, short[] arr) {
 
 ## 出栈装入局部变量表指令剖析
 
-![1](https://img-blog.csdnimg.cn/img_convert/52b46ba6b57aa1ab8581cb022da7e58e.png)![2](https://img-blog.csdnimg.cn/img_convert/4adce45129332dd04b89f4aa8ffc6e28.png)
-![3](https://img-blog.csdnimg.cn/img_convert/e4665e8fc25e2d63bff2e8423b60b1dc.png)
+![1](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051530893.png)![2](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051530295.png)
+![3](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051530129.png)
 
 * * *
 
@@ -438,7 +437,7 @@ public void load(int num, Object obj, long count, boolean flag, short[] arr) {
 | 按位异或指令 | ixor | lxor |  |  |
 | 比较指令 |  | lcmp | fcmpg / fcmpl | dcmpg / dcmpl |
 
-![img](https://img-blog.csdnimg.cn/img_convert/39ac5dc0cb406c2d75b50b10226322b0.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051530088.png)
 
 > 注意：NaN(Not a Number)表示不是一个数字
 
@@ -452,7 +451,7 @@ public static int bar(int i) {
 }
 ```
 
-![a54c2ac8-dd36-49f4-a49d-9afd725e8365](https://img-blog.csdnimg.cn/img_convert/256d8a8ec2309b6d396795e9a7e79959.png)
+![a54c2ac8-dd36-49f4-a49d-9afd725e8365](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051530072.png)
 
 ### 举例2
 
@@ -464,10 +463,10 @@ public void add() {
 }
 ```
 
-![image-20210424210710750](https://img-blog.csdnimg.cn/img_convert/58c6064f2d2103610c6e2f9c9472f122.png)![2](https://img-blog.csdnimg.cn/img_convert/d0257760ed00864d7e36421c2df971ca.png)
-![3](https://img-blog.csdnimg.cn/img_convert/df724aebb307c6dda0780bbf5d4e1f92.png)
+![image-20210424210710750](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051530148.png)![2](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051530744.png)
+![3](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051531866.png)
 
-![img](https://img-blog.csdnimg.cn/img_convert/f2edaef3312398b63decea146718f2d6.gif)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051531566.gif)
 
 ### 举例3
 
@@ -481,7 +480,7 @@ public static void main(String[] args) {
 }
 ```
 
-![c43c0407-020f-4ec4-bd27-e4c109640b39](https://img-blog.csdnimg.cn/img_convert/ce924815ec9c6ddc5cd98f18538c250e.png)![04282df1-4e52-4c3d-a47b-84023159b624](https://img-blog.csdnimg.cn/img_convert/918a9850ced5114086db35ce59e651af.png)
+![c43c0407-020f-4ec4-bd27-e4c109640b39](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051531154.png)![04282df1-4e52-4c3d-a47b-84023159b624](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051531889.png)
 
 * * *
 
@@ -643,7 +642,7 @@ Java是面向对象的程序设计语言，虚拟机平台从字节码层面就�
 | anewarray | 创建引用类型数组 |
 | multilanewarra | 创建多维数组 |
 
-![img](https://img-blog.csdnimg.cn/img_convert/44ec8eda0028b78f02951aa5edc14751.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051531139.png)
 
 ## 5.2. 字段访问指令
 
@@ -652,7 +651,7 @@ Java是面向对象的程序设计语言，虚拟机平台从字节码层面就�
 | getstatic、putstatic | 访问类字段（static字段，或者称为类变量）的指令 |
 | getfield、 putfield | 访问类实例字段（非static字段，或者称为实例变量）的指令 |
 
-![img](https://img-blog.csdnimg.cn/img_convert/c95da4b9bcb174f367617ca977451b14.png)![img](https://img-blog.csdnimg.cn/img_convert/6f7033f9caaf3216c6ca6795de12f6a4.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051531037.png)![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051531546.png)
 
 ## 5.3. 数组操作指令
 
@@ -661,7 +660,7 @@ Java是面向对象的程序设计语言，虚拟机平台从字节码层面就�
 | **xaload** | baload | caload | saload | iaload | laload | faload | daload | aaload |
 | **xastore** | bastore | castore | sastore | iastore | lastore | fastore | dastore | aastore |
 
-![img](https://img-blog.csdnimg.cn/img_convert/a25e46492ce58084d3bb1ee9a4255ac4.png)![img](https://img-blog.csdnimg.cn/img_convert/4d55c1e67881b686d4dcb75118f257c5.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051531236.png)![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051531501.png)
 
 ## 5.4. 类型检查指令
 
@@ -670,7 +669,7 @@ Java是面向对象的程序设计语言，虚拟机平台从字节码层面就�
 | instanceof | 检查类型强制转换是否可以进行 |
 | checkcast | 判断给定对象是否是某一个类的实例 |
 
-![img](https://img-blog.csdnimg.cn/img_convert/df1e056d6e977d38b6c5974a428a040a.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051531964.png)
 
 * * *
 
@@ -710,7 +709,7 @@ Java是面向对象的程序设计语言，虚拟机平台从字节码层面就�
 | invokestatic | 调用命名类中的类方法（static方法） |
 | invokedynamic | 调用动态绑定的方法 |
 
-![img](https://img-blog.csdnimg.cn/img_convert/6b6c265e506611b1fa05134d7ede3f30.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051531682.png)
 
 ## 6.2. 方法返回指令
 
@@ -718,8 +717,8 @@ Java是面向对象的程序设计语言，虚拟机平台从字节码层面就�
 | --- | --- | --- | --- | --- | --- | --- |
 | **xreturn** | return | ireturn | lreturn | freutrn | dreturn | areturn |
 
-![image-20210425222017858](https://img-blog.csdnimg.cn/img_convert/8940d3d81dff02c08bf83cf0c66f3fea.png)
-![img](https://img-blog.csdnimg.cn/img_convert/386375c9f516af716a5d8dec10177444.png)
+![image-20210425222017858](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051531437.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051531034.png)
 
 ```java
 public int methodReturn() {
@@ -731,7 +730,7 @@ public int methodReturn() {
 }
 ```
 
-![image-20210425222245665](https://img-blog.csdnimg.cn/img_convert/3fbd1f2ca9f4300eee5e0c4a0227a441.png)
+![image-20210425222245665](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051531638.png)
 
 * * *
 
@@ -759,8 +758,8 @@ public int methodReturn() {
 > 
 > swap 交换栈顶部两个字长内容
 
-![img](https://img-blog.csdnimg.cn/img_convert/316306469dcd1360c16578931cd064fa.png)
-![img](https://img-blog.csdnimg.cn/img_convert/0d8d5d90fc84398f114eae5d1119cf6b.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051532877.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051532758.png)
 
 * * *
 
@@ -850,7 +849,7 @@ public int methodReturn() {
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | iflt | ifle | ifeq | ifng | ifge | ifgt | ifnull | ifnonnull |
 
-![img](https://img-blog.csdnimg.cn/img_convert/e59234f41d6946ead781b686455783d9.png)![img](https://img-blog.csdnimg.cn/img_convert/85374206e3cdbb00f45971b1429c6d34.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051532138.png)![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051532776.png)
 
 ## 8.3. 比较条件跳转指令
 
@@ -858,17 +857,17 @@ public int methodReturn() {
 | --- | --- | --- | --- | --- | --- |
 | if\_icmplt | if\_icmple | if\_icmpeq、if\_acmpeq | if\_icmpne、if\_acmpne | if\_icmpge | if\_icmpgt |
 
-![img](https://img-blog.csdnimg.cn/img_convert/7ffa349a864e62f3e0298b63acb904ae.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051532248.png)
 
 ## 8.4. 多条件分支跳转
 
-![img](https://img-blog.csdnimg.cn/img_convert/f6f973613d257f1d172e0fcee504cd97.png)  
-![img](https://img-blog.csdnimg.cn/img_convert/57c7b57b096f8a8cfcdcdd1b5d4e179b.png)
-![img](https://img-blog.csdnimg.cn/img_convert/a709c4fcd4bf627ad47d53ac062db47b.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051532827.png)  
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051532036.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051532578.png)
 
 ## 8.5. 无条件跳转
 
-![img](https://img-blog.csdnimg.cn/img_convert/9e86f7429623e68e353ce9d1962a1267.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051532514.png)
 
 * * *
 
@@ -884,10 +883,10 @@ public int methodReturn() {
 > 
 > rct 从子例程返回
 
-![img](https://img-blog.csdnimg.cn/img_convert/196b81557c33474cf2cfa2032aa65340.png)
-![img](https://img-blog.csdnimg.cn/img_convert/9e9883544cea41b6148e535da4417d78.png)  
-![img](https://img-blog.csdnimg.cn/img_convert/daa25784fc259c12af58bb094d6ffc52.png) 
-![img](https://img-blog.csdnimg.cn/img_convert/cba1429ffc09988d78008f5309a6374a.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051532781.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051532281.png)  
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051532487.png) 
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051532667.png)
 
 * * *
 
@@ -903,7 +902,7 @@ Java虚拟机支持两种同步结构：方法级的同步和方法内部一段�
 
 ## 10.1. 方法级的同步
 
-![img](https://img-blog.csdnimg.cn/img_convert/20b7bf14a51e1be4f90dac5e305d2ea3.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051532345.png)
 
 ```java
 private int i = 0;
@@ -912,36 +911,12 @@ public synchronized void add() {
 }
 ```
 
-![img](https://img-blog.csdnimg.cn/img_convert/098e9fef1897cf213d14f145db04c9f1.png)
-![img](https://img-blog.csdnimg.cn/img_convert/84ff4ef05baf1b5774f43b203d6a6e23.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051533809.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051533141.png)
 
 ## 10.2. 方法内指令指令序列的同步
 
-![img](https://img-blog.csdnimg.cn/img_convert/697b683f5fba682a6ed9772950f719a7.png)  
-![img](https://img-blog.csdnimg.cn/img_convert/71ab99d8f145e61b31daa03a233f2596.png)
-![img](https://img-blog.csdnimg.cn/img_convert/ac36b8a792107c77956ef642afba2154.png)
-![img](https://img-blog.csdnimg.cn/img_convert/89199776b49d72ff70615f9b0ca8cbe2.png)
-
-* * *
-
-[上一篇＜JVM中篇：字节码与类的加载篇＞01-Class字节码文件结构
-
-](https://www.cnblogs.com/vectorx/p/14725403.html)
-
-[下一篇＜JVM中篇：字节码与类的加载篇＞03-类的加载过程（类的生命周期）详解
-
-](https://www.cnblogs.com/vectorx/p/14725419.html)
-
-本文作者：VectorX
-
-本文链接：https://www.cnblogs.com/vectorx/p/14725414.html
-
-版权声明：本作品采用知识共享署名-非商业性使用-禁止演绎 2.5 中国大陆许可协议进行许可。
-
-[关注我](javascript:) [收藏该文](javascript:)
-
-1
-
-0
-
-posted @ 2021-05-02 11:19  [VectorX](https://www.cnblogs.com/vectorx/)  阅读(308)  评论(0)  [编辑](https://i.cnblogs.com/EditPosts.aspx?postid=14725414)  [收藏](javascript:)  [举报](javascript:)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051533279.png)  
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051533443.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051533318.png)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051533267.png)
