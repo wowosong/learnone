@@ -268,25 +268,25 @@ public class Car {
 
 - 字面值
 
-  1. 字面值：可用字符串表示的值，可以通过 \<value> 元素标签或 value 属性进行注入。
+1. 字面值：可用字符串表示的值，可以通过 \<value> 元素标签或 value 属性进行注入。
 
-    ```xml
-    <constructor-arg  type="java.lang.String">
-        <value>"上海"</value>
-    </constructor-arg>
-    ```
+```xml
+<constructor-arg  type="java.lang.String">
+    <value>"上海"</value>
+</constructor-arg>
+```
 
-  2. 基本数据类型及其封装类、String 等类型都可以采取字面值注入的方式
+2. 基本数据类型及其封装类、String 等类型都可以采取字面值注入的方式
 
-  3. 若字面值中包含特殊字符，可以使用 \<![CDATA[]]> 把字面值包裹起来。
+3. 若字面值中包含特殊字符，可以使用 \<![CDATA[]]> 把字面值包裹起来。
 
-    ```xml
-    <constructor-arg index="1" type="java.lang.String">
-        <!--            如果字面值包含特殊字符可以使用[<![CDATA[]]> 包裹起来-->
-        <!--            属性值也可以使用value子节点进行配置-->
-        <value>[<![CDATA[Shanghai]]>]</value>
-    </constructor-arg>
-    ```
+```xml
+<constructor-arg index="1" type="java.lang.String">
+    <!--            如果字面值包含特殊字符可以使用[<![CDATA[]]> 包裹起来-->
+    <!--            属性值也可以使用value子节点进行配置-->
+    <value>[<![CDATA[Shanghai]]>]</value>
+</constructor-arg>
+```
 
 ## 引用其它 Bean
 
@@ -663,101 +663,100 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
 
 * 字面量的表示：
 
-  ```properties
-  整数：<property name="count" value="#{5}"/>
-  小数：<property name="frequency" value="#{89.7}"/>
-  科学计数法：<property name="capacity" value="#{1e4}"/>
-  String可以使用单引号或者双引号作为字符串的定界符号：
-  <property name="name" value="#{'Chuck'}"/>
-  或 <property name='name' value='#{"Chuck"}'/>
-  Boolean：<property name="enabled" value="#{false}"/>
-  ```
+```properties
+整数：<property name="count" value="#{5}"/>
+小数：<property name="frequency" value="#{89.7}"/>
+科学计数法：<property name="capacity" value="#{1e4}"/>
+String可以使用单引号或者双引号作为字符串的定界符号：
+<property name="name" value="#{'Chuck'}"/>
+或 <property name='name' value='#{"Chuck"}'/>
+Boolean：<property name="enabled" value="#{false}"/>
+```
 
 * SpEL：引用 Bean、属性和方法（1）
 
-  - **引用其他对象：**
+- **引用其他对象：**
 
-    <! --  通过value属性和SpEl配置Bean之间的应用关系-->
+<! --  通过value属性和SpEl配置Bean之间的应用关系-->
 
-    ```properties
-    <property name="prefix" value="#{prefixGenerator}"></property>
-    ```
-  
-  - **引用其他对象的属性**
-  
-    ```properties
-    <! --  通过value属性和SpEl配置suffix属性值为另外一个Bean的suffix的属性值-->
-    
-    <property name="suffix" value="#{sequenceGenerator2.suffix}"></property>
-    ```
-  
-  - **调用其他方法，还可以链式操作**
-  
-    ```properties
-    <! --  通过value属性和SpEl配置suffix属性值为另外一个Bean的方法的返回值-->
-    
-    <property name="suffix" value="#{sequenceGenerator2.toString()}"></property>
-    
-    <! --  方法的连缀-->
-    
-    <property name="suffix" value="#{sequenceGenerator2.toString(),toUpperCase()}"></property>
-    ```
+```properties
+<property name="prefix" value="#{prefixGenerator}"></property>
+```
+
+- **引用其他对象的属性**
+
+```properties
+<! --  通过value属性和SpEl配置suffix属性值为另外一个Bean的suffix的属性值-->
+
+<property name="suffix" value="#{sequenceGenerator2.suffix}"></property>
+```
+
+- **调用其他方法，还可以链式操作**
+```properties
+<! --  通过value属性和SpEl配置suffix属性值为另外一个Bean的方法的返回值-->
+
+<property name="suffix" value="#{sequenceGenerator2.toString()}"></property>
+
+<! --  方法的连缀-->
+
+<property name="suffix" value="#{sequenceGenerator2.toString(),toUpperCase()}"></property>
+```
 
 * SpEL支持的运算符号（1）
 
-  - **算术运算符**：+，-，*，/，%，^:
+- **算术运算符**：+，-，*，/，%，^:
 
-    ```properties
-    <property name="adjustedAmount" value="#{counter.total+42}"/>
-    
-    <property name="adjustedAmount" value="#{counter.total-20}"/>
-    
-    <property name="circumference" value="#{2 * T(java.lang.Math).PI * circle.radius}"/>
-    
-    <property name="average" value="#{counter.total/counter.count}"/>
-    
-    <property name="adjustedAmount" value="#{counter.total%counter.count}"/>
-    
-    <property name="area" value="#{T(java.lang.Math).PI * circle.radius ^ 2}"/>
-    ```
+```properties
+<property name="adjustedAmount" value="#{counter.total+42}"/>
 
-  - **加号还可以用作字符串连接**：
+<property name="adjustedAmount" value="#{counter.total-20}"/>
 
-    ```properties
-    <constructor-arg value ="#{performer.firstName+ ''+ performer.lastName}"/>
-    ```
-  
-  - **比较运算符： <，>，==，<=，>=，lt，gt，eq，le，ge**
+<property name="circumference" value="#{2 * T(java.lang.Math).PI * circle.radius}"/>
 
-    ```properties
-    <property name="equal" value="#{counter.total == 20}"/>
-    
-    <property name="hasCapacity" value="#{counter.total le 10000}"/>
-    ```
-  
+<property name="average" value="#{counter.total/counter.count}"/>
+
+<property name="adjustedAmount" value="#{counter.total%counter.count}"/>
+
+<property name="area" value="#{T(java.lang.Math).PI * circle.radius ^ 2}"/>
+```
+
+- **加号还可以用作字符串连接**：
+
+```properties
+<constructor-arg value ="#{performer.firstName+ ''+ performer.lastName}"/>
+```
+
+- **比较运算符： <，>，==，<=，>=，lt，gt，eq，le，ge**
+
+```properties
+<property name="equal" value="#{counter.total == 20}"/>
+
+<property name="hasCapacity" value="#{counter.total le 10000}"/>
+```
+
 * SpEL支持的运算符号（2）
 
-  - 逻辑运算符： and，or，not， |
+- 逻辑运算符： and，or，not， |
 
-    ```properties
-    <property name="largeCircle" value="#{shape.kind=='circle' and shape.perimeter gt 10000}"/>
-    
-    <property name="outOfStock" value="#{not product.available}"/>
-    
-    <property name="outOfStock" value="#{not product.available}"/>
-    ```
+```properties
+<property name="largeCircle" value="#{shape.kind=='circle' and shape.perimeter gt 10000}"/>
 
-  - if-else运算符：？:(ternary),?:(Elvis)
+<property name="outOfStock" value="#{not product.available}"/>
 
-    ```properties
-    <constructor-arg value ="#{songSelector.selectSong()=='Jingle Bells'?piano:'Jingle Bells'}"/>
-    ```
+<property name="outOfStock" value="#{not product.available}"/>
+```
 
-  - 正则表达式： matches
+- if-else运算符：？:(ternary),?:(Elvis)
 
-    ```properties
-    <constructor-arg value ="#{admin.email matches '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}'}"/>
-    ```
+```properties
+<constructor-arg value ="#{songSelector.selectSong()=='Jingle Bells'?piano:'Jingle Bells'}"/>
+```
+
+- 正则表达式： matches
+
+```properties
+<constructor-arg value ="#{admin.email matches '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}'}"/>
+```
 
 * SpEL：引用 Bean、属性和方法（2）
 
@@ -804,41 +803,41 @@ Spring 提供了一个 PropertyPlaceholderConfigurer 的 BeanFactory 后置处�
 
 * 在 Bean 的声明里设置 init-method 和 destroy-method 属性, 为 Bean 指定初始化和销毁方法.
 
-  ```xml
-  <bean id="car" class="com.hbd.wowosong.cycle.Car" init-method="init" destroy-method="destory">
-      <property name="brand" value="Audo A7"></property>
-  </bean>
-  ```
+```xml
+<bean id="car" class="com.hbd.wowosong.cycle.Car" init-method="init" destroy-method="destory">
+  <property name="brand" value="Audo A7"></property>
+</bean>
+```
 
-  ```java
-  public class Car {
-      public Car() {
-          System.out.println("Car's Constructor。。。。");
-      }
-      private String brand;
-  
-      public String getBrand() {
-          return brand;
-      }
-  
-      public void setBrand(String brand) {
-          this.brand = brand;
-      }
-      public void init(){
-          System.out.println("init.....");
-      }
-      public void destory(){
-          System.out.println("destory....");
-      }
-  
-      @Override
-      public String toString() {
-          return "Car{" +
-              "brand='" + brand + '\'' +
-              '}';
-      }
+```java
+public class Car {
+  public Car() {
+      System.out.println("Car's Constructor。。。。");
   }
-  ```
+  private String brand;
+
+  public String getBrand() {
+      return brand;
+  }
+
+  public void setBrand(String brand) {
+      this.brand = brand;
+  }
+  public void init(){
+      System.out.println("init.....");
+  }
+  public void destory(){
+      System.out.println("destory....");
+  }
+
+  @Override
+  public String toString() {
+      return "Car{" +
+          "brand='" + brand + '\'' +
+          '}';
+  }
+}
+```
 
 ### **创建 Bean 后置处理器**
 
@@ -1098,19 +1097,19 @@ public class CarFactoryBean implements FactoryBean<Car> {
 
 7. 如果仅希望扫描特定的类而非基包下的所有类，可使用 resource-pattern 属性过滤特定的类，示例:
 
-    ```properties
-    <context:component-scan base-package="com.hbd.wowosong.annotation"  resource-pattern="/autowire/*.class">
-    ```
+```properties
+<context:component-scan base-package="com.hbd.wowosong.annotation"  resource-pattern="/autowire/*.class">
+```
 
 8. <context:include-filter> 子节点表示要包含的目标类
 
-   ```xml
-   <context:component-scan base-package="com.hbd.wowosong.annotation">
-       <context:exclude-filter type="annotation"expression="org.springframework.stereotype.Repository"/>
-   </context:component-scan>
-   <!--指定SpringIOC容器扫描的包-->
-   ```
-   
+```xml
+<context:component-scan base-package="com.hbd.wowosong.annotation">
+   <context:exclude-filter type="annotation"expression="org.springframework.stereotype.Repository"/>
+</context:component-scan>
+<!--指定SpringIOC容器扫描的包-->
+```
+
 9. <context:exclude-filter> 子节点表示要排除在外的目标类
 
 10. <context:component-scan> 下可以拥有若干个 <context:include-filter> 和 <context:exclude-filter> 子节点
@@ -1821,59 +1820,59 @@ public <T> t queryForObject(String sql,ParameterizedRowMapper<T> rm,Object... ar
 
 * Spring JDBC 框架还提供了一个 JdbcDaoSupport 类来简化 DAO 实现. 该类声明了 jdbcTemplate 属性, 它可以从 IOC 容器中注入, 或者自动从数据源中创建.
 
-  ```java
-  public class Main {
-  
-      private ApplicationContext ctx = null;
-      private JdbcTemplate jdbcTemplate = null;
-  
-      {
-          ctx = new ClassPathXmlApplicationContext("beans-jdbctemplate.xml");
-          jdbcTemplate = ((JdbcTemplate) ctx.getBean("jdbcTemplate"));
-      }
-  
-      @Test
-      public void test() {
-          DataSource bean = ctx.getBean(DataSource.class);
-          System.out.println(bean);
-      }
-  
-      @Test
-      public void test_insert() {
-          int update = jdbcTemplate.update("update student set learnNo=1234 where id =?", 1);
-          System.out.println(update);
-      }
-      @Test
-      public void test_queryForObject() {
-          String sql="select id,name,age,position,hire_time hireTime from employees  where id =?";
-          Employee employee = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<Employee>(Employee.class),4);
-  
-          System.out.println(employee);
-      }
-      @Test
-      public void test_queryForList() {
-          String sql="select id,name,age,position,hire_time hireTime from employees  where id >?";
-          List<Employee> query = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Employee>(Employee.class), 100004);
-          System.out.println(query);
-      }
-      @Test
-      public void test_querycount() {
-          String sql="select count(id)from employees  where id >?";
-          Long count= jdbcTemplate.queryForObject(sql, Long.class,12000);
-          System.out.println(count);
-      }
-      @Test
-      public void test_BatchInsert() {
-          String sql ="insert into student(id,learnNo,birthday,sex,name)  values(?,?,?,?,?) ";
-          List<Object[]> list=new ArrayList<>();
-          list.add(new Object[]{5,51000,"2010-12-15","男","test05"});
-          list.add(new Object[]{6,61000,"2010-12-16","女","test06"});
-          list.add(new Object[]{7,71000,"2010-12-17","男","test07"});
-          int[] ints = jdbcTemplate.batchUpdate(sql, list);
-          System.out.println(ints);
-      }
+```java
+public class Main {
+
+  private ApplicationContext ctx = null;
+  private JdbcTemplate jdbcTemplate = null;
+
+  {
+      ctx = new ClassPathXmlApplicationContext("beans-jdbctemplate.xml");
+      jdbcTemplate = ((JdbcTemplate) ctx.getBean("jdbcTemplate"));
   }
-  ```
+
+  @Test
+  public void test() {
+      DataSource bean = ctx.getBean(DataSource.class);
+      System.out.println(bean);
+  }
+
+  @Test
+  public void test_insert() {
+      int update = jdbcTemplate.update("update student set learnNo=1234 where id =?", 1);
+      System.out.println(update);
+  }
+  @Test
+  public void test_queryForObject() {
+      String sql="select id,name,age,position,hire_time hireTime from employees  where id =?";
+      Employee employee = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<Employee>(Employee.class),4);
+
+      System.out.println(employee);
+  }
+  @Test
+  public void test_queryForList() {
+      String sql="select id,name,age,position,hire_time hireTime from employees  where id >?";
+      List<Employee> query = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Employee>(Employee.class), 100004);
+      System.out.println(query);
+  }
+  @Test
+  public void test_querycount() {
+      String sql="select count(id)from employees  where id >?";
+      Long count= jdbcTemplate.queryForObject(sql, Long.class,12000);
+      System.out.println(count);
+  }
+  @Test
+  public void test_BatchInsert() {
+      String sql ="insert into student(id,learnNo,birthday,sex,name)  values(?,?,?,?,?) ";
+      List<Object[]> list=new ArrayList<>();
+      list.add(new Object[]{5,51000,"2010-12-15","男","test05"});
+      list.add(new Object[]{6,61000,"2010-12-16","女","test06"});
+      list.add(new Object[]{7,71000,"2010-12-17","男","test07"});
+      int[] ints = jdbcTemplate.batchUpdate(sql, list);
+      System.out.println(ints);
+  }
+}
+```
 
 ### 注入 JDBC 模板示例代码
 
@@ -1902,62 +1901,62 @@ public <T> t queryForObject(String sql,ParameterizedRowMapper<T> rm,Object... ar
 
 * **具名参数只在 NamedParameterJdbcTemplate 中得到支持**
 
-  ```xml
-  <bean id="parameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-      <constructor-arg ref="dataSource"></constructor-arg>
-  </bean>
-  ```
+```xml
+<bean id="parameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+  <constructor-arg ref="dataSource"></constructor-arg>
+</bean>
+```
 
-  ```java
-  @Test
-  public void test_nameparmeter() {
-      String sql="insert into student(id,learnNo,birthday,sex,name)  values(:id,:learnNo,:birthday,:sex,:name) ";
-      Map<String,Object> map=new HashMap<>();
-      map.put("id",111);
-      map.put("learnNo",789);
-      map.put("birthday","2017-10-20");
-      map.put("sex","女");
-      map.put("name","test1234");
-      int update = namedParameterJdbcTemplate.update(sql, map);
-      System.out.println(update);
-  }
-  ```
+```java
+@Test
+public void test_nameparmeter() {
+  String sql="insert into student(id,learnNo,birthday,sex,name)  values(:id,:learnNo,:birthday,:sex,:name) ";
+  Map<String,Object> map=new HashMap<>();
+  map.put("id",111);
+  map.put("learnNo",789);
+  map.put("birthday","2017-10-20");
+  map.put("sex","女");
+  map.put("name","test1234");
+  int update = namedParameterJdbcTemplate.update(sql, map);
+  System.out.println(update);
+}
+```
 
   * 在SQL语句中使用具名参数时，可以在一个Map中提供参数值，参数名为键；
 
   * 也可以使用SqlParameterSource参数
   
   * 批量更新时可以提供Map或SqlParameterSource的数组
-  
-    ```java
-    public int update(String sql,Map args) throws DataAccessException 
-    
-    public int update(String sql,SqlParamterSource args) throws DataAccessException 
-    
-    public int[] batchUpdate(String sql,Map[] batchValue) 
-    
-    public int[] update(String sql,SqlParamterSource args) 
-    ```
-  
-  ```java
-  /**
-  * 使用具名参数时，可以使用update(String sql,SqlParameterSource paramSource)方法进行更新操作
-  * 1.SQL语句中的参数名和类的属性一致
-  * 2.使用SqlParameterSource的BeanPropertySqlParameterSource 实现类作为参数
-  */
-  @Test
-  public void test_nameparmeter() {
-      String sql="insert into student(id,learnNo,birthday,sex,name)  values(:id,:learnNo,:birthday,:sex,:name) ";
-      Map<String,Object> map=new HashMap<>();
-      map.put("id",1111);
-      map.put("learnNo",789);
-      map.put("birthday","2017-10-20");
-      map.put("sex","女");
-      map.put("name","test1234");
-      int update = namedParameterJdbcTemplate.update(sql, map);
-      System.out.println(update);
-  }
-  ```
+
+```java
+public int update(String sql,Map args) throws DataAccessException 
+
+public int update(String sql,SqlParamterSource args) throws DataAccessException 
+
+public int[] batchUpdate(String sql,Map[] batchValue) 
+
+public int[] update(String sql,SqlParamterSource args) 
+```
+
+```java
+/**
+* 使用具名参数时，可以使用update(String sql,SqlParameterSource paramSource)方法进行更新操作
+* 1.SQL语句中的参数名和类的属性一致
+* 2.使用SqlParameterSource的BeanPropertySqlParameterSource 实现类作为参数
+*/
+@Test
+public void test_nameparmeter() {
+  String sql="insert into student(id,learnNo,birthday,sex,name)  values(:id,:learnNo,:birthday,:sex,:name) ";
+  Map<String,Object> map=new HashMap<>();
+  map.put("id",1111);
+  map.put("learnNo",789);
+  map.put("birthday","2017-10-20");
+  map.put("sex","女");
+  map.put("name","test1234");
+  int update = namedParameterJdbcTemplate.update(sql, map);
+  System.out.println(update);
+}
+```
 
 ## Spring  中的事务管理
 
@@ -2295,19 +2294,19 @@ public void purcharse(String username, String isbn) {
 
 * 超时和只读属性可以在 @Transactional 注解中定义.超时属性以秒为单位来计算.
 
-  ```java
-  //1.使用propagation指定事务的传播行为，即当前事务方法被另个事务方法调用
-  //默认为require
-  //REQUIRES_NEW:事务自己的事务，调用的事务方法的事务被挂起
-  //2.使用isolation来设置事务的隔离级别，常用的是read_commited
-  //3.默认情况下spring对所有异常情况都进行回滚，也可以通过对应的属性进行设置
-  //@Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED,
-  //noRollbackFor = UserAccountException.class)
-  //4.使用readonly 指定事务为只读，表示这个事务只读数据不更新数据，可以数据库引擎进行优化事务;若真的是一个只读数据的方法，应设置readonly=true
-  //5.timeout可以指定事务强制回滚前，事务可以占用的时间
-  @Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED,readOnly = false,timeout = 3)
-  ```
-  
+```java
+//1.使用propagation指定事务的传播行为，即当前事务方法被另个事务方法调用
+//默认为require
+//REQUIRES_NEW:事务自己的事务，调用的事务方法的事务被挂起
+//2.使用isolation来设置事务的隔离级别，常用的是read_commited
+//3.默认情况下spring对所有异常情况都进行回滚，也可以通过对应的属性进行设置
+//@Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED,
+//noRollbackFor = UserAccountException.class)
+//4.使用readonly 指定事务为只读，表示这个事务只读数据不更新数据，可以数据库引擎进行优化事务;若真的是一个只读数据的方法，应设置readonly=true
+//5.timeout可以指定事务强制回滚前，事务可以占用的时间
+@Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED,readOnly = false,timeout = 3)
+```
+
 * 在 Spring 2.x 事务通知中, 超时和只读属性可以在 <tx:method> 元素中进行指定.
 
 ```xml
