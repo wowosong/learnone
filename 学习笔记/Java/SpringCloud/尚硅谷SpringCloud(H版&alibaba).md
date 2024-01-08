@@ -1,7 +1,6 @@
 SpringCloud升级，部分ss组件停用:
 
-![image-20220625183733401
-](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071550986.png)
+![image-20220625183733401](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071550986.png)
 
 1. Eureka停用，可以使用zk作为服务注册中心
 2. 服务调用，Ribbon准备停更，代替为LoadBalance
@@ -417,20 +416,20 @@ public class PaymentController {
 4. 主启动类
 5. 业务类
 
-### **1.pom**
+### 1.pom
 
-### **2.yml配置文件**
+### 2.yml配置文件
 
 ```yml
 server:
 	port: 80
 ```
 
-### **3.主启动类**
+### 3.主启动类
 
-### **4.复制pay模块的实体类，entity类**
+### 4.复制pay模块的实体类，entity类
 
-### **5.写controller类**
+### 5.写controller类
 
  因为这里是消费者类，主要是消费，那么就没有service和dao，需要调用pay模块的方法， 并且这里还没有微服务的远程调用，那么如果要调用另外一个模块，则需要使用基本的api调用，使用RestTemplate调用pay模块，RestTemplate提供了多种便捷访问远程Http服务的方法，是一种简单便捷的访问restful服务模版类，是Spring提供的用于访问Rest服务的客户端模版工具类。
 
@@ -560,11 +559,11 @@ rpc远程框架中，都会有一个注册中心（存放服务地址相关信�
 
 Eureka Server将会从服务注册表中把这个服务节点移除(默认90秒)
 
-### **单机版eureka:**
+### 单机版eureka:
 
-#### **1.创建项目cloud_eureka_server_7001**
+#### 1.创建项目cloud_eureka_server_7001
 
-#### **2.引入pom依赖**
+#### 2.引入pom依赖
 
  eurka最新的依赖变了
 
@@ -625,9 +624,9 @@ public class EurekaMain7001 {
 }
 ```
 
-#### **5.此时就可以启动当前项目了**
+#### 5.此时就可以启动当前项目了
 
-#### **6.其他服务注册到eureka:**
+#### 6.其他服务注册到eureka:
 
 比如此时pay模块加入eureka:
 
@@ -692,7 +691,7 @@ eureka:
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071551752.png)
 
-#### **构建新erueka项目**
+#### 构建新erueka项目
 
 名字:cloud\_eureka\_server\_7002
 
@@ -772,19 +771,19 @@ eureka:
 
  名称: cloud\_pay\_8002
 
-#### 1，pom文件，复制8001的
+#### 1,pom文件，复制8001的
 
-#### 2，pom文件复制8001的
+#### 2,pom文件复制8001的
 
-#### 3，配置文件复制8001的
+#### 3,配置文件复制8001的
 
  端口修改一下，改为8002
 
  服务名称不用改，用一样的
 
-#### 4.主启动类，复制8001的
+#### 4,主启动类，复制8001的
 
-#### 5，mapper，service，controller都复制一份
+#### 5,mapper，service，controller都复制一份
 
  然后就启动服务即可
 
@@ -905,7 +904,7 @@ public class PaymentMain8001{
 
 <span style="color:red">**在自我保护模式中，EurekaServer会保护服务注册表中的信息，不再注销任何服务实例。**</span>
 
-它的设计哲学就是宁可保留错误的服务注册信息，也不盲目注销任何可能健康的服务实例。\-\-\-\><span style="color:red">**一句话讲解：好死不如赖活**</span>
+它的设计哲学就是宁可保留错误的服务注册信息，也不盲目注销任何可能健康的服务实例。\=\=\=><span style="color:red">**一句话讲解：好死不如赖活**</span>
 
 综上，自我保护模式就是一种应对网络异常的安全保护措施。它的架构哲学是<span style="color:red">**宁可同时保留所有微服务（健康的微服务和不健康的微服务都会保留）也不盲目注销任何健康的微服务**</span>。使用自我保护模式，可以让Eureka集群更加的健壮、稳定。
 
@@ -1156,17 +1155,17 @@ Consul是一套开源的分布式服务发现和配置管理系统，由HashiCor
 - 管网安装说明：https://learn.hashicorp.com/consul/getting-started/install.html
 - 下载完成后只有一个consul.exe文件：硬盘路径下双击运行，查看版本号信息
 - 使用开发模式启动：
-  - 启动命令：consul agent -dev
+  - 启动命令：consul agent \-dev
   - 通过一下地址可以访问Consul的首页：http://localhost:8500
   - 结果页面
 
-启动是一个命令行界面，需要输入consul agen-dev启动
+启动是一个命令行界面，需要输入consul agen\-dev启动
 
 ### 2，创建新的pay模块，8006
 
 #### 1，项目名字
 
-cloud_consule_pay_8006
+cloud\_consule\_pay\_8006
 
 #### 2，pom依赖
 
@@ -1484,7 +1483,7 @@ public class OrderMain80 {
 
 ##### 1，ribbon的轮询算法原理
 
-<span style="color:red">**负载均衡算法：rest接口第几次请求数 % 服务器集群总数量 = 实际调用服务器位置下标，每次服务重启动后rest接口计数从1开始**</span>
+<span style="color:red">**负载均衡算法：rest接口第几次请求数 % 服务器集群总数量 \= 实际调用服务器位置下标，每次服务重启动后rest接口计数从1开始**</span>
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071554633.png)
 
@@ -1620,7 +1619,7 @@ Feign旨在使编写Java HTTP客户端变得更容易，就是远程调用其他
 
 #### 1，新建一个order项目，用于feign测试
 
-名字cloud_order_feign-80
+名字cloud\_order\_feign\-80
 
 #### 2，pom文件
 
@@ -1892,7 +1891,7 @@ public class paymentController {
 
 #### 2，创建带降级的order模块:
 
-##### 1，名字:  cloud-hystrix-order-80
+##### 1，名字:  cloud\-hystrix\-order\-80
 
 ##### 2，pom
 
@@ -2079,11 +2078,11 @@ public String paymentglobalHandler() {
 
 ###### 3，业务方法使用默认降级方法:
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555015.png)
+![202311071555015](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555015.png)
 
 ###### 4，测试:
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555801.png) 
+![202311071555801](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555801.png) 
 
 ##### 解决代码耦合度的问题:
 
@@ -2091,7 +2090,7 @@ public String paymentglobalHandler() {
 
 ###### 1，Payservice接口是远程调用pay模块的，我们这里创建一个类实现service接口，在实现类中统一处理异常
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555912.png)
+![202311071555912](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555912.png)
 
 ###### 2，修改配置文件:添加:
 
@@ -2103,14 +2102,14 @@ feign:
 
 ###### 3，让PayService的实现类生效:
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555631.png)
+![202311071555631](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071555631.png)
 
 **它的运行逻辑是:
 	当请求过来，首先还是通过Feign远程调用pay模块对应的方法，但是如果pay模块报错，调用失败，那么就会调用PayMentFalbackService类的当前同名的方法，作为降级方法**
 
 ###### 4，启动测试
 
-启动order和pay正常访问--ok
+启动order和pay正常访问\-\-ok
 
 **此时将pay服务关闭，order再次访问**
 
@@ -2170,7 +2169,7 @@ public String paymenetCircuitBreaker(@PathVariable("id") Integer id)
 
 IdUtil是Hutool包下的类，这个Hutool就是整合了所有的常用方法，比如UUID，反射，IO流等工具方法什么的都整合了
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071556752.png)
+![202311071556752](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071556752.png)
 
 断路器的打开和关闭，是按照一下5步决定的
     1，并发此时是否达到我们指定的阈值
@@ -2200,11 +2199,11 @@ public String paymentCircuitBreaker(@PathVariable("id") Integer id) {
 
 <span style="background-color:yellow">多次访问，并且错误率超过60%:</span>
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071557811.png) 
+![202311071557811](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071557811.png) 
 
 此时服务熔断，此时即使访问正确的也会报错:
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071557593.png) 
+![202311071557593](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071557593.png) 
 
 **但是，当过了几秒后，又恢复了**
 
@@ -2216,11 +2215,11 @@ public String paymentCircuitBreaker(@PathVariable("id") Integer id) {
 
  以后需要什么属性，查看这个类即可
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071557987.png) 
+![202311071557987](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071557987.png) 
 
 ### 总结:
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558776.png)
+![202311071558776](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558776.png)
 
 **当断路器开启后:**
 
@@ -2233,20 +2232,20 @@ public String paymentCircuitBreaker(@PathVariable("id") Integer id) {
 
 **其他参数:**
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558006.png)
+![202311071558006](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558006.png)
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558526.png)
+![202311071558526](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558526.png)
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558446.png)
+![202311071558446](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558446.png)
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558039.png)
+![202311071558039](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558039.png)
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558278.png)
+![202311071558278](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071558278.png)
 
 **熔断整体流程:**
 
 - 1.请求进来，首先查询缓存，如果缓存有，直接返回
-    如果缓存没有，--->2
+    如果缓存没有，\=\=\=\>2
 -  2.查看断路器是否开启，如果开启的，Hystrix直接将请求转发到降级返回，然后返回
     如果断路器是关闭的，
     - 判断线程池等资源是否已经满了，如果已经满了，也会走降级方法
@@ -2347,19 +2346,19 @@ public class PaymentHystrix8001 {
 
 **然后在web界面，指定9001要监控8001:**
 
-![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071559133.png)
+![202311071559133](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071559133.png)
 
 ##### 
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071559108.png)
+![202311071559108](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071559108.png)
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071600786.png)
+![202311071600786](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071600786.png)
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071600277.png)
+![202311071600277](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071600277.png)
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071600496.png)
+![202311071600496](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071600496.png)
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202212291705063.png)
+![202212291705063](https://gitee.com/wowosong/pic-md/raw/master/202212291705063.png)
 
 # 5.服务网关:
 
@@ -2377,7 +2376,7 @@ Spring Cloud Gateway的目标提供统一的路由方式且基于Filter链的方
 
 **Gateway之所以性能好，因为底层使用WebFlux，而webFlux底层使用netty通信(NIO)**
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071600418.png)
+![202311071600418](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071600418.png)
 
 ### GateWay的特性:
 
@@ -2397,7 +2396,7 @@ Spring Cloud Gateway具有如下特性：
 在Spring Cloud Finchley正式版之前，Spring Cloud推荐的网关是Netflix提供的Zuul：
 
 1. Zuul 1.x，是一个基于阻塞I/O的API Gateway
-2. Zuul 1.x<span style="color:red">**基于Servlet 2.5使用阻塞架构**</span>它不支持**<u>任何长连接(如WebSocket)</u>**Zuul的设计模式和Nginx较像，<u>**每次I/O操作**</u>都是从<u>**工作线程中选择一个执行**</u>，<u>**请求线程被阻塞到工作线程完成**</u>，但是差别是Nginx用C++实现，Zuul用Java实现，而JVM本身会有第一次加载较慢的情况，使得Zuul的性能相对较差。
+2. Zuul 1.x<span style="color:red">**基于Servlet 2.5使用阻塞架构**</span>它不支持**<u>任何长连接(如WebSocket)</u>**Zuul的设计模式和Nginx较像，<u>**每次I/O操作**</u>都是从<u>**工作线程中选择一个执行**</u>，<u>**请求线程被阻塞到工作线程完成**</u>，但是差别是Nginx用C\+\+实现，Zuul用Java实现，而JVM本身会有第一次加载较慢的情况，使得Zuul的性能相对较差。
 3. Zuul 2.x理念更先进，想**<u>基于Netty非阻塞和支持长连接</u>**，但SpringCloud目前还没有整合。Zuul2.x的性能较Zuul1.x有较大提升。在性能方面，根据官方提供的基准测试，SpringCloud Gateway的RPS(每秒请求数)是Zuul的1.6倍。
 4. Spring Cloud Gateway建立在Spring Framework 5、Project Reactor和Spring Boot 2之上，使用**<u>非阻塞API</u>**。
 5. Spring Cloud Gateway还支持WebSocket，并且与Spring紧密集成拥有更好的开发体验

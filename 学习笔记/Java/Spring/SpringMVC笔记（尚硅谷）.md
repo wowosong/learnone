@@ -51,11 +51,11 @@ Spring版本：5.3.1
 
 ### 2、创建maven工程
 
-##### a>添加web模块
+##### a.添加web模块
 
-##### b>打包方式：war
+##### b.打包方式：war
 
-##### c>引入依赖
+##### c.引入依赖
 
 ```xml
 <dependencies>
@@ -98,9 +98,9 @@ Spring版本：5.3.1
 
 注册SpringMVC的前端控制器DispatcherServlet
 
-##### a>默认配置方式
+##### a.默认配置方式
 
-此配置作用下，SpringMVC的配置文件默认位于WEB-INF下，**默认名称为\<servlet-name>-servlet.xml，例如，以下配置所对应SpringMVC的配置文件位于WEB-INF下，文件名为springMVC-servlet.xml**
+此配置作用下，SpringMVC的配置文件默认位于WEB-INF下，**默认名称为\<servlet-name>-servlet.xml\</servlet-name>，例如，以下配置所对应SpringMVC的配置文件位于WEB-INF下，文件名为springMVC-servlet.xml**
 
 ```xml
 <!-- 配置SpringMVC的前端控制器，对浏览器发送的请求统一进行处理 -->
@@ -119,7 +119,7 @@ Spring版本：5.3.1
 </servlet-mapping>
 ```
 
-##### b>扩展配置方式
+##### b.扩展配置方式
 
 可通过init-param标签设置SpringMVC配置文件的位置和名称，通过load-on-startup标签设置SpringMVC前端控制器DispatcherServlet的初始化时间
 
@@ -230,7 +230,7 @@ public class HelloController {
 
 ### 6、测试HelloWorld
 
-##### a>实现对首页的访问
+##### a.实现对首页的访问
 
 在请求控制器中创建处理请求的方法
 
@@ -245,7 +245,7 @@ public String index() {
 }
 ```
 
-##### b>通过超链接跳转到指定页面
+##### b.通过超链接跳转到指定页面
 
 在主页index.html中设置超链接
 
@@ -337,7 +337,7 @@ public String testRequestMapping(){
 若当前请求的请求地址满足请求映射的value属性，但是请求方式不满足method属性，则浏览器报错405：Request method 'POST' not supported
 
 ```html
-<a th:href="@{/test}">测试@RequestMapping的value属性-->/test</a><br>
+<a th:href="@{/test}">测试@RequestMapping的value属性-->/test</a>
 <form th:action="@{/test}" method="post">
     <input type="submit">
 </form>
@@ -383,23 +383,23 @@ public String testRequestMapping(){
 "param!=value"：要求请求映射所匹配的请求必须携带param请求参数但是param!=value
 
 ```html
-<a th:href="@{/test(username='admin',password=123456)">测试@RequestMapping的params属性-->/test</a><br>
+<a th:href="@{/test(username='admin',password=123456)}">测试RequestMapping的params属性test</a>
 ```
 
 ```java
 @RequestMapping(
-        value = {"/testRequestMapping", "/test"}
-        ,method = {RequestMethod.GET, RequestMethod.POST}
-        ,params = {"username","password!=123456"}
+    value = {"/testRequestMapping", "/test"}
+    ,method = {RequestMethod.GET, RequestMethod.POST}
+    ,params = {"username","password!=123456"}
 )
 public String testRequestMapping(){
     return "success";
 }
 ```
 
-> 注：
->
-> 若当前请求满足@RequestMapping注解的value和method属性，但是不满足params属性，此时页面回报错400：Parameter conditions "username, password!=123456" not met for actual request parameters: username={admin}, password={123456}
+```
+注：若当前请求满足@RequestMapping注解的value和method属性，但是不满足params属性，此时页面回报错400：Parameter conditions "username, password!=123456" not met for actual request parameters: username={admin}, password={123456}
+```
 
 ### 6、@RequestMapping注解的headers属性（了解）
 
@@ -436,7 +436,7 @@ rest方式：/deleteUser/1
 SpringMVC路径中的占位符常用于RESTful风格中，当请求路径中将某些数据通过路径的方式传输到服务器中，就可以在相应的@RequestMapping注解的value属性中通过占位符{xxx}表示传输的数据，再通过@PathVariable注解，将占位符所表示的数据赋值给控制器方法的形参
 
 ```html
-<a th:href="@{/testRest/1/admin}">测试路径中的占位符-->/testRest</a><br>
+<a th:href="@{/testRest/1/admin}">测试路径中的占位符testRest</a>
 ```
 
 ```java
@@ -469,7 +469,7 @@ public String testParam(HttpServletRequest request){
 在控制器方法的形参位置，设置和请求参数同名的形参，当浏览器发送请求，匹配到请求映射时，在DispatcherServlet中就会将请求参数赋值给相应的形参
 
 ```html
-<a th:href="@{/testParam(username='admin',password=123456)}">测试获取请求参数-->/testParam</a><br>
+<a th:href="@{/testParam(username='admin',password=123456)}">测试获取请求参数-->testParam</a><
 ```
 
 ```java
@@ -480,13 +480,12 @@ public String testParam(String username, String password){
 }
 ```
 
-> 注：
->
-> **若请求所传输的请求参数中有多个同名的请求参数，此时可以在控制器方法的形参中设置字符串数组或者字符串类型的形参接收此请求参数**
->
-> **若使用字符串数组类型的形参，此参数的数组中包含了每一个数据**
->
-> **若使用字符串类型的形参，此参数的值为每个数据中间使用逗号拼接的结果**
+```
+注：
+若请求所传输的请求参数中有多个同名的请求参数，此时可以在控制器方法的形参中设置字符串数组或者字符串类型的形参接收此请求参数
+若使用字符串数组类型的形参，此参数的数组中包含了每一个数据
+若使用字符串类型的形参，此参数的值为每个数据中间使用逗号拼接的结果
+```
 
 ### 3、@RequestParam
 
@@ -562,9 +561,11 @@ public String testPOJO(User user){
 </filter-mapping>
 ```
 
-> 注：
->
-> SpringMVC中处理编码的过滤器一定要配置到其他过滤器之前，否则无效
+```
+注：
+
+SpringMVC中处理编码的过滤器一定要配置到其他过滤器之前，否则无效
+```
 
 # 五、域对象共享数据
 
@@ -718,9 +719,9 @@ public String testRedirect(){
 
 ![image-20210706201602267](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061725430.png)
 
-> 注：
->
-> 重定向视图在解析时，会先将redirect:前缀去掉，然后会判断剩余部分是否以/开头，若是则会自动拼接上下文路径
+```
+注：重定向视图在解析时，会先将redirect:前缀去掉，然后会判断剩余部分是否以/开头，若是则会自动拼接上下文路径
+```
 
 ### 4、视图控制器view-controller
 
@@ -733,33 +734,30 @@ public String testRedirect(){
 -->
 <mvc:view-controller path="/testView" view-name="success"></mvc:view-controller>
 ```
-
-> 注：
->
-> 当SpringMVC中设置任何一个view-controller时，其他控制器中的请求映射将全部失效，此时需要在SpringMVC的核心配置文件中设置开启mvc注解驱动的标签：
->
-> <mvc:annotation-driven />
+```
+注：当SpringMVC中设置任何一个view-controller时，其他控制器中的请求映射将全部失效，此时需要在SpringMVC的核心配置文件中设置开启mvc注解驱动的标签：<mvc:annotation-driven />
+```
 
 ### 5、InternalResourceViewResolver
 
 ```xml
- <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/templates/"/>
-        <!-- 视图后缀 -->
-        <property name="suffix" value=".jsp"/>
-    </bean>
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix" value="/WEB-INF/templates/"/>
+    <!-- 视图后缀 -->
+    <property name="suffix" value=".jsp"/>
+</bean>
 ```
 
 ```jsp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-    <a>首页</a>
-<a href="${pageContext.request.contextPath}/success">success.jsp</a>
-</body>
+    <head>
+        <title>Title</title>
+    </head>
+    <body>
+        <a>首页</a>
+        <a href="${pageContext.request.contextPath}/success">success.jsp</a>
+    </body>
 </html>
 ```
 
@@ -771,15 +769,15 @@ public String testRedirect(){
 
 REST：**Re**presentational **S**tate **T**ransfer，表现层资源状态转移。
 
-##### a>资源
+##### a.资源
 
 资源是一种看待服务器的方式，即，将服务器看作是由很多离散的资源组成。每个资源是服务器上一个可命名的抽象概念。因为资源是一个抽象的概念，所以它不仅仅能代表服务器文件系统中的一个文件、数据库中的一张表等等具体的东西，可以将资源设计的要多抽象有多抽象，只要想象力允许而且客户端应用开发者能够理解。与面向对象设计类似，资源是以名词为核心来组织的，首先关注的是名词。一个资源可以由一个或多个URI来标识。URI既是资源的名称，也是资源在Web上的地址。对某个资源感兴趣的客户端应用，可以通过资源的URI与其进行交互。
 
-##### b>资源的表述
+##### b.资源的表述
 
 资源的表述是一段对于资源在某个特定时刻的状态的描述。可以在客户端-服务器端之间转移（交换）。资源的表述可以有多种格式，例如HTML/XML/JSON/纯文本/图片/视频/音频等等。资源的表述格式可以通过协商机制来确定。请求-响应方向的表述通常使用不同的格式。
 
-##### c>状态转移
+##### c.状态转移
 
 状态转移说的是：在客户端和服务器端之间转移（transfer）代表资源状态的表述。通过转移和操作资源的表述，来间接实现操作资源的目的。
 
@@ -839,7 +837,7 @@ b>当前请求必须传输请求参数_method
 >
 > - 而 HiddenHttpMethodFilter 恰恰有一个获取请求方式的操作：
 >
-> - ```
+> - ```java
 >   String paramValue = request.getParameter(this.methodParam);
 >   ```
 
@@ -977,31 +975,31 @@ b>当前请求必须传输请求参数_method
 
 ### 3、具体功能：访问首页
 
-##### a>配置view-controller
+##### a.配置view-controller
 
 ```xml
 <mvc:view-controller path="/" view-name="index"/>
 ```
 
-##### b>创建页面
+##### b.创建页面
 
 ```html
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8" >
-    <title>Title</title>
-</head>
-<body>
-<h1>首页</h1>
-<a th:href="@{/employee}">访问员工信息</a>
-</body>
+    <head>
+        <meta charset="UTF-8" >
+        <title>Title</title>
+    </head>
+    <body>
+        <h1>首页</h1>
+        <a th:href="@{/employee}">访问员工信息</a>
+    </body>
 </html>
 ```
 
 ### 4、具体功能：查询所有员工数据
 
-##### a>控制器方法
+##### a.控制器方法
 
 ```java
 @RequestMapping(value = "/employee", method = RequestMethod.GET)
@@ -1012,47 +1010,47 @@ public String getEmployeeList(Model model){
 }
 ```
 
-##### b>创建employee_list.html
+##### b.创建employee_list.html
 
 ```html
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Employee Info</title>
-    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Employee Info</title>
+        <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+    </head>
+    <body>
 
-    <table border="1" cellpadding="0" cellspacing="0" style="text-align: center;" id="dataTable">
-        <tr>
-            <th colspan="5">Employee Info</th>
-        </tr>
-        <tr>
-            <th>id</th>
-            <th>lastName</th>
-            <th>email</th>
-            <th>gender</th>
-            <th>options(<a th:href="@{/toAdd}">add</a>)</th>
-        </tr>
-        <tr th:each="employee : ${employeeList}">
-            <td th:text="${employee.id}"></td>
-            <td th:text="${employee.lastName}"></td>
-            <td th:text="${employee.email}"></td>
-            <td th:text="${employee.gender}"></td>
-            <td>
-                <a class="deleteA" @click="deleteEmployee" th:href="@{'/employee/'+${employee.id}}">delete</a>
-                <a th:href="@{'/employee/'+${employee.id}}">update</a>
-            </td>
-        </tr>
-    </table>
-</body>
+        <table border="1" cellpadding="0" cellspacing="0" style="text-align: center;" id="dataTable">
+            <tr>
+                <th colspan="5">Employee Info</th>
+            </tr>
+            <tr>
+                <th>id</th>
+                <th>lastName</th>
+                <th>email</th>
+                <th>gender</th>
+                <th>options(<a th:href="@{/toAdd}">add</a>)</th>
+            </tr>
+            <tr th:each="employee : ${employeeList}">
+                <td th:text="${employee.id}"></td>
+                <td th:text="${employee.lastName}"></td>
+                <td th:text="${employee.email}"></td>
+                <td th:text="${employee.gender}"></td>
+                <td>
+                    <a class="deleteA" @click="deleteEmployee" th:href="@{'/employee/'+${employee.id}}">delete</a>
+                    <a th:href="@{'/employee/'+${employee.id}}">update</a>
+                </td>
+            </tr>
+        </table>
+    </body>
 </html>
 ```
 
 ### 5、具体功能：删除
 
-##### a>创建处理delete请求方式的表单
+##### a.创建处理delete请求方式的表单
 
 ```html
 <!-- 作用：通过超链接控制表单的提交，将post请求转换为delete请求 -->
@@ -1062,7 +1060,7 @@ public String getEmployeeList(Model model){
 </form>
 ```
 
-##### b>删除超链接绑定点击事件
+##### b.删除超链接绑定点击事件
 
 引入vue.js
 
@@ -1099,7 +1097,7 @@ public String getEmployeeList(Model model){
 </script>
 ```
 
-##### c>控制器方法
+##### c.控制器方法
 
 ```java
 @RequestMapping(value = "/employee/{id}", method = RequestMethod.DELETE)
@@ -1111,13 +1109,13 @@ public String deleteEmployee(@PathVariable("id") Integer id){
 
 ### 6、具体功能：跳转到添加数据页面
 
-##### a>配置view-controller
+##### a.配置view-controller
 
 ```xml
 <mvc:view-controller path="/toAdd" view-name="employee_add"></mvc:view-controller>
 ```
 
-##### b>创建employee_add.html
+##### b.创建employee_add.html
 
 ```html
 <!DOCTYPE html>
@@ -1142,7 +1140,7 @@ public String deleteEmployee(@PathVariable("id") Integer id){
 
 ### 7、具体功能：执行保存
 
-##### a>控制器方法
+##### a.控制器方法
 
 ```java
 @RequestMapping(value = "/employee", method = RequestMethod.POST)
@@ -1154,13 +1152,13 @@ public String addEmployee(Employee employee){
 
 ### 8、具体功能：跳转到更新数据页面
 
-##### a>修改超链接
+##### a.修改超链接
 
 ```html
 <a th:href="@{'/employee/'+${employee.id}}">update</a>
 ```
 
-##### b>控制器方法
+##### b.控制器方法
 
 ```java
 @RequestMapping(value = "/employee/{id}", method = RequestMethod.GET)
@@ -1171,38 +1169,38 @@ public String getEmployeeById(@PathVariable("id") Integer id, Model model){
 }
 ```
 
-##### c>创建employee_update.html
+##### c.创建employee_update.html
 
 ```html
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Update Employee</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Update Employee</title>
+    </head>
+    <body>
 
-<form th:action="@{/employee}" method="post">
-    <input type="hidden" name="_method" value="put">
-    <input type="hidden" name="id" th:value="${employee.id}">
-    lastName:<input type="text" name="lastName" th:value="${employee.lastName}"><br>
-    email:<input type="text" name="email" th:value="${employee.email}"><br>
-    <!--
-        th:field="${employee.gender}"可用于单选框或复选框的回显
-        若单选框的value和employee.gender的值一致，则添加checked="checked"属性
-    -->
-    gender:<input type="radio" name="gender" value="1" th:field="${employee.gender}">male
-    <input type="radio" name="gender" value="0" th:field="${employee.gender}">female<br>
-    <input type="submit" value="update"><br>
-</form>
+        <form th:action="@{/employee}" method="post">
+            <input type="hidden" name="_method" value="put">
+            <input type="hidden" name="id" th:value="${employee.id}">
+            lastName:<input type="text" name="lastName" th:value="${employee.lastName}"><br>
+            email:<input type="text" name="email" th:value="${employee.email}"><br>
+            <!--
+th:field="${employee.gender}"可用于单选框或复选框的回显
+若单选框的value和employee.gender的值一致，则添加checked="checked"属性
+-->
+            gender:<input type="radio" name="gender" value="1" th:field="${employee.gender}">male
+            <input type="radio" name="gender" value="0" th:field="${employee.gender}">female<br>
+            <input type="submit" value="update"><br>
+        </form>
 
-</body>
+    </body>
 </html>
 ```
 
 ### 9、具体功能：执行更新
 
-##### a>控制器方法
+##### a.控制器方法
 
 ```java
 @RequestMapping(value = "/employee", method = RequestMethod.PUT)
@@ -1258,8 +1256,13 @@ public String testRequestEntity(RequestEntity<String> requestEntity){
 ```
 
 输出结果：
+
+```
 requestHeader:[host:"localhost:8080", connection:"keep-alive", content-length:"27", cache-control:"max-age=0", sec-ch-ua:"" Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90"", sec-ch-ua-mobile:"?0", upgrade-insecure-requests:"1", origin:"http://localhost:8080", user-agent:"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36"]
 requestBody:username=admin&password=123
+```
+
+
 
 ### 3、@ResponseBody
 
@@ -1309,7 +1312,9 @@ public User testResponseUser(){
 
 浏览器的页面中展示的结果：
 
+```
 {"id":1001,"username":"admin","password":"123456","age":23,"sex":"男"}
+```
 
 ### 5、SpringMVC处理ajax
 
@@ -1522,15 +1527,15 @@ SpringMVC提供了自定义的异常处理器SimpleMappingExceptionResolver，�
 <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
     <property name="exceptionMappings">
         <props>
-        	<!--
-        		properties的键表示处理器方法执行过程中出现的异常
-        		properties的值表示若出现指定异常时，设置一个新的视图名称，跳转到指定页面
-        	-->
+            <!--
+          properties的键表示处理器方法执行过程中出现的异常
+          properties的值表示若出现指定异常时，设置一个新的视图名称，跳转到指定页面
+         -->
             <prop key="java.lang.ArithmeticException">error</prop>
         </props>
     </property>
     <!--
-    	exceptionAttribute属性设置一个属性名，将出现的异常信息在请求域中进行共享
+     exceptionAttribute属性设置一个属性名，将出现的异常信息在请求域中进行共享
     -->
     <property name="exceptionAttribute" value="ex"></property>
 </bean>
@@ -1736,7 +1741,7 @@ DispatcherServlet 本质上是一个 Servlet，所以天然的遵循 Servlet 的
 
 ![images](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061726660.png)
 
-##### a>初始化WebApplicationContext
+##### a.初始化WebApplicationContext
 
 所在类：org.springframework.web.servlet.FrameworkServlet
 
@@ -1797,7 +1802,7 @@ protected WebApplicationContext initWebApplicationContext() {
 }
 ```
 
-##### b>创建WebApplicationContext
+##### b.创建WebApplicationContext
 
 所在类：org.springframework.web.servlet.FrameworkServlet
 
@@ -1827,7 +1832,7 @@ protected WebApplicationContext createWebApplicationContext(@Nullable Applicatio
 }
 ```
 
-##### c>DispatcherServlet初始化策略
+##### c.DispatcherServlet初始化策略
 
 FrameworkServlet创建WebApplicationContext后，刷新容器，调用onRefresh(wac)，此方法在DispatcherServlet中进行了重写，调用了initStrategies(context)方法，初始化策略，即初始化DispatcherServlet的各个组件
 
@@ -1849,7 +1854,7 @@ protected void initStrategies(ApplicationContext context) {
 
 ### 3、DispatcherServlet调用组件处理请求
 
-##### a>processRequest()
+##### a.processRequest()
 
 FrameworkServlet重写HttpServlet中的service()和doXxx()，这些方法中调用了processRequest(request, response)
 
@@ -1897,7 +1902,7 @@ protected final void processRequest(HttpServletRequest request, HttpServletRespo
 }
 ```
 
-##### b>doService()
+##### b.doService()
 
 所在类：org.springframework.web.servlet.DispatcherServlet
 
@@ -1958,7 +1963,7 @@ protected void doService(HttpServletRequest request, HttpServletResponse respons
 }
 ```
 
-##### c>doDispatch()
+##### c.doDispatch()
 
 所在类：org.springframework.web.servlet.DispatcherServlet
 
@@ -2058,7 +2063,7 @@ protected void doDispatch(HttpServletRequest request, HttpServletResponse respon
 }
 ```
 
-##### d>processDispatchResult()
+##### d.processDispatchResult()
 
 ```java
 private void processDispatchResult(HttpServletRequest request, HttpServletResponse response,
@@ -2153,3 +2158,4 @@ d) 数据验证： 验证数据的有效性（长度、格式等），**验证�
 10) 渲染视图完毕执行拦截器的afterCompletion(…)方法【逆向】。
 
 11) 将渲染结果返回给客户端。
+

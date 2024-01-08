@@ -67,11 +67,11 @@ http://www.gulixueyuan.com/ 谷粒学院
 
 整合maven进来；
 
-![idea设置](./Spring%20Boot.assets/20210826101804.png)
+![idea设置](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081629104.png)
 
 
 
-![images/](./Spring%20Boot.assets/20210826101826.png)
+![images/](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081629769.png)
 
 ## 4、Spring Boot HelloWorld
 
@@ -258,7 +258,7 @@ public @interface EnableAutoConfiguration {
 
 ​		将所有需要导入的组件以全类名的方式返回；这些组件就会被添加到容器中；
 
-​		会给容器中导入非常多的自动配置类（xxxAutoConfiguration）；就是给容器中导入这个场景需要的所有组件，并配置好这些组件；		![自动配置类](./Spring%20Boot.assets/20210826101837.png)
+​		会给容器中导入非常多的自动配置类（xxxAutoConfiguration）；就是给容器中导入这个场景需要的所有组件，并配置好这些组件；		![自动配置类](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081629950.png)
 
 有了自动配置类，免去了我们手动编写配置注入功能组件等的工作；
 
@@ -464,7 +464,7 @@ public class Person {
 
 调整
 
-![idea配置乱码](./Spring%20Boot.assets/20210826101857.png)
+![idea配置乱码](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081629365.png)
 
 #### 2、@Value获取值和@ConfigurationProperties获取值比较
 
@@ -690,7 +690,9 @@ SpringBoot会从这四个位置全部加载主配置文件；**互补配置**；
 
 **项目打包好以后，我们可以使用命令行参数的形式，启动项目的时候来指定配置文件的新位置；指定配置文件和默认加载的这些配置文件共同起作用形成互补配置；**
 
+```
 java -jar spring-boot-02-config-02-0.0.1-SNAPSHOT.jar --spring.config.location=G:/application.properties
+```
 
 ## 7、外部配置加载顺序
 
@@ -700,7 +702,9 @@ java -jar spring-boot-02-config-02-0.0.1-SNAPSHOT.jar --spring.config.location=G
 
 所有的配置都可以在命令行上进行指定
 
+```
 java -jar spring-boot-02-config-02-0.0.1-SNAPSHOT.jar --server.port=8087  --server.context-path=/abc
+```
 
 多个配置用空格分开； --配置项=值
 
@@ -758,7 +762,7 @@ java -jar spring-boot-02-config-02-0.0.1-SNAPSHOT.jar --server.port=8087  --serv
 
 - 可以查看selectImports()方法的内容；
 
-- List<String> configurations = getCandidateConfigurations(annotationMetadata,      attributes);获取候选的配置
+- List\<String> configurations = getCandidateConfigurations(annotationMetadata,      attributes);获取候选的配置
 
   - ```java
     SpringFactoriesLoader.loadFactoryNames()
@@ -1063,7 +1067,7 @@ public class HelloWorld {
 
 图示；
 
-![images/concrete-bindings.png](./Spring%20Boot.assets/20210826101938.png)
+![images/concrete-bindings.png](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081630351.png)
 
 每一个日志的实现框架都有自己的配置文件。使用slf4j以后，**配置文件还是做成日志实现框架自己本身的配置文件；**
 
@@ -1073,7 +1077,7 @@ a（slf4j+logback）: Spring（commons-logging）、Hibernate（jboss-logging）
 
 统一日志记录，即使是别的框架和我一起统一使用slf4j进行输出？
 
-![](./Spring%20Boot.assets/20210826101943.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081630598.png)
 
 **如何让系统中所有的日志都统一到slf4j；**
 
@@ -1105,7 +1109,7 @@ SpringBoot使用它来做日志功能；
 
 底层依赖关系
 
-![](./Spring%20Boot.assets/20210826101949.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081630062.png)
 
 总结：
 
@@ -1124,7 +1128,7 @@ public abstract class LogFactory {
     static LogFactory logFactory = new SLF4JLogFactory();
 ```
 
-![](./Spring%20Boot.assets/20210826101952.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081630964.png)
 
 
 
@@ -1176,15 +1180,17 @@ SpringBoot默认帮我们配置好了日志；
 
 
 
-        日志输出格式：
-    		%d表示日期时间，
-    		%thread表示线程名，
-    		%-5level：级别从左显示5个字符宽度
-    		%logger{50} 表示logger名字最长50个字符，否则按照句点分割。 
-    		%msg：日志消息，
-    		%n是换行符
-        -->
-        %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n
+```properties
+    日志输出格式：
+		%d表示日期时间，
+		%thread表示线程名，
+		%-5level：级别从左显示5个字符宽度
+		%logger{50} 表示logger名字最长50个字符，否则按照句点分割。 
+		%msg：日志消息，
+		%n是换行符
+    -->
+    %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n
+```
 SpringBoot修改日志的默认配置
 
 ```properties
@@ -1424,7 +1430,7 @@ public class ResourceProperties implements ResourceLoaderAware {
 
 http://www.webjars.org/
 
-![](./Spring%20Boot.assets/20210826102005.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081631654.png)
 
 localhost:8080/webjars/jquery/3.3.1/jquery.js
 
@@ -1463,7 +1469,7 @@ localhost:8080/abc ===  去静态资源文件夹里面找abc
 
 JSP、Velocity、Freemarker、Thymeleaf
 
-![](./Spring%20Boot.assets/20210826102010.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081631057.png)
 
 
 
@@ -1541,7 +1547,7 @@ public class ThymeleafProperties {
 
 ​	th：任意html属性；来替换原生属性的值
 
-![](./Spring%20Boot.assets/20210826102018.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081631256.png)
 
 
 
@@ -1648,11 +1654,11 @@ Spring Boot 自动配置好了SpringMVC
   - `Formatter`  格式化器；  2017.12.17===Date；
 
 ```java
-		@Bean
-		@ConditionalOnProperty(prefix = "spring.mvc", name = "date-format")//在文件中配置日期格式化的规则
-		public Formatter<Date> dateFormatter() {
-			return new DateFormatter(this.mvcProperties.getDateFormat());//日期格式化组件
-		}
+@Bean
+@ConditionalOnProperty(prefix = "spring.mvc", name = "date-format")//在文件中配置日期格式化的规则
+public Formatter<Date> dateFormatter() {
+    return new DateFormatter(this.mvcProperties.getDateFormat());//日期格式化组件
+}
 ```
 
 ​	==自己添加的格式化器转换器，我们只需要放在容器中即可==
@@ -1863,7 +1869,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 
 1）、编写国际化配置文件，抽取页面需要显示的国际化消息
 
-![](./Spring%20Boot.assets/20210826102038.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081631398.png)
 
 
 
@@ -1904,7 +1910,7 @@ public class MessageSourceAutoConfiguration {
 
 3）、去页面获取国际化的值；
 
-![](./Spring%20Boot.assets/20210826102042.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081631003.png)
 
 
 
@@ -2347,17 +2353,9 @@ insert的公共片段在div标签中
 
 ​		1）、浏览器，返回一个默认的错误页面
 
-![](images/搜狗截图20180226173408.png)
-
-  浏览器发送请求的请求头：
-
-![](images/搜狗截图20180226180347.png)
+  浏览器发送请求的请求头
 
 ​		2）、如果是其他客户端，默认响应一个json数据
-
-![](images/搜狗截图20180226173527.png)
-
-​		![](images/搜狗截图20180226180504.png)
 
 原理：
 
@@ -2572,7 +2570,7 @@ public class MyErrorAttributes extends DefaultErrorAttributes {
 
 最终的效果：响应是自适应的，可以通过定制ErrorAttributes改变需要返回的内容，
 
-![](./Spring%20Boot.assets/20210826102130.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081632012.png)
 
 
 
@@ -2580,7 +2578,7 @@ public class MyErrorAttributes extends DefaultErrorAttributes {
 
 SpringBoot默认使用Tomcat作为嵌入式的Servlet容器；
 
-![](./Spring%20Boot.assets/20210826102136.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081632424.png)
 
 
 
@@ -2689,7 +2687,7 @@ public ServletRegistrationBean dispatcherServletRegistration(
 
 ### 3）、替换为其他嵌入式Servlet容器
 
-![](./Spring%20Boot.assets/20210826102144.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081632378.png)
 
 默认支持：
 
@@ -2819,11 +2817,11 @@ public interface EmbeddedServletContainerFactory {
 }
 ```
 
-![](./Spring%20Boot.assets/20210826102151.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081632644.png)
 
 2）、EmbeddedServletContainer：（嵌入式的Servlet容器）
 
-![](./Spring%20Boot.assets/20210826102154.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081632037.png)
 
 
 
@@ -3094,7 +3092,7 @@ Spring的web模块里面有这个文件：**org.springframework.web.SpringServle
 
 4）、每一个WebApplicationInitializer都调用自己的onStartup；
 
-![](./Spring%20Boot.assets/20210826102206.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081632267.png)
 
 5）、相当于我们的SpringBootServletInitializer的类会被创建对象，并执行onStartup方法
 
@@ -3195,11 +3193,11 @@ Docker支持将软件编译成一个镜像；然后在镜像中各种软件做�
 
 运行中的这个镜像称为容器，容器启动是非常快速的。
 
-![](./Spring%20Boot.assets/20210826102212.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081633177.png)
 
 
 
-![](./Spring%20Boot.assets/20210826102220.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081633726.png)
 
 ## 2、核心概念
 
@@ -3213,7 +3211,7 @@ docker镜像(Images)：软件打包好的镜像；放在docker仓库中；
 
 docker容器(Container)：镜像启动后的实例称为一个容器；容器是独立运行的一个或一组应用
 
-![](./Spring%20Boot.assets/20210826102223.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081633912.png)
 
 使用Docker的步骤：
 
@@ -3540,7 +3538,7 @@ public class DruidConfig {
 		</dependency>
 ```
 
-![](./Spring%20Boot.assets/20210826102238.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081633718.png)
 
 步骤：
 
@@ -3625,7 +3623,7 @@ http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/
 
 ### 1）、SpringData简介
 
-![](./Spring%20Boot.assets/20210826102245.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081633435.png)
 
 ### 2）、整合SpringData JPA
 
@@ -3715,9 +3713,9 @@ private void initialize(Object[] sources) {
 }
 ```
 
-![](./Spring%20Boot.assets/20210826102254.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081633539.png)
 
-![](./Spring%20Boot.assets/20210826102259.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081633293.png)
 
 ## 2、运行run方法
 

@@ -202,14 +202,14 @@ public class HelloWorldController {
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>1.5.9.RELEASE</version>
 </parent>
-他的父项目是
+<!--他的父项目是 -->
 <parent>
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-dependencies</artifactId>
   <version>1.5.9.RELEASE</version>
   <relativePath>../../spring-boot-dependencies</relativePath>
 </parent>
-他来真正管理Spring Boot应用里面的所有依赖版本；
+<!--他来真正管理Spring Boot应用里面的所有依赖版本；-->
 ```
 
 Spring Boot的版本仲裁中心；以后我们导入依赖默认是不需要写版本；（**没有在dependencies里面管理的依赖自然需要声明版本号）**
@@ -231,7 +231,7 @@ spring-boot-starter-web：spring-boot场景启动器；帮我们导入了web模�
 
 **3、自动配置**
 
-• 1、xxxAutoConfiguration
+1、xxxAutoConfiguration
 
 – Spring Boot中存在大量的这些类，这些类的作用就是帮我们进行自动配置
 
@@ -731,7 +731,7 @@ Profile是Spring对不同环境提供不同配置功能的支持，可以通过�
 
 – 格式：application-{profile}.properties/yml： 
 
-• application-dev.properties、application-prod.properties
+application-dev.properties、application-prod.properties
 
 #### 2、yml支持多文档块方式
 
@@ -793,7 +793,9 @@ SpringBoot会从这四个位置全部加载主配置文件；**互补配置**；
 
 **项目打包好以后，我们可以使用命令行参数的形式，启动项目的时候来指定配置文件的新位置；指定配置文件和默认加载的这些配置文件共同起作用形成互补配置；**
 
+```
 java -jar spring-boot-02-config-02-0.0.1-SNAPSHOT.jar - spring.config.location=G:/application.properties
+```
 
 ### 2.2.7、外部配置加载顺序
 
@@ -803,7 +805,9 @@ java -jar spring-boot-02-config-02-0.0.1-SNAPSHOT.jar - spring.config.location=G
 
 所有的配置都可以在命令行上进行指定
 
+```
 java -jar spring-boot-02-config-02-0.0.1-SNAPSHOT.jar --server.port=8087  --server.context-path=/abc
+```
 
 多个配置用空格分开； --配置项=值
 
@@ -853,7 +857,7 @@ java -jar spring-boot-02-config-02-0.0.1-SNAPSHOT.jar --server.port=8087  --serv
 
  -  利用EnableAutoConfigurationImportSelector给容器中导入一些组件？
 -  可以查看selectImports()方法的内容；
--  List<String> configurations = getCandidateConfigurations(annotationMetadata,  attributes);获取候选的自动配置
+-  List\<String> configurations = getCandidateConfigurations(annotationMetadata,  attributes);获取候选的自动配置
 
 ```java
 SpringFactoriesLoader.loadFactoryNames()
@@ -1235,7 +1239,7 @@ SpringBoot默认帮我们配置好了日志；
 	}
 ```
 
-```
+```properties
   日志输出格式：
 		%d表示日期时间，
 		%thread表示线程名，
@@ -1601,7 +1605,7 @@ SpringBoot推荐的Thymeleaf；
     <artifactId>spring-boot-starter-thymeleaf</artifactId>
     2.1.6
 </dependency>
-切换thymeleaf版本
+<!--切换thymeleaf版本 -->
 <properties>
     <thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
     <!-- 布局功能的支持程序  thymeleaf3主程序  layout2以上版本 -->

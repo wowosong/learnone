@@ -7,7 +7,7 @@ Java Caching定义了5个核心接口，分别是**CachingProvider, CacheManager
 * **CachingProvider**定义了创建、配置、获取、管理和控制多个CacheManager。一个应用可以在运行期访问多个CachingProvider。
 * **CacheManager**定义了创建、配置、获取、管理和控制多个唯一命名的Cache，这些Cache存在于CacheManager的上下文中。一个CacheManager仅被一个CachingProvider所拥有。
 * **Cache**是一个类似Map的数据结构并临时存储以Key为索引的值。一个Cache仅被一个CacheManager所拥有。
-* **Entry**是一个存储在Cache中的key-value对。
+* **Entry**是一个存储在Cache中的key\-value对。
 * **Expiry** 每一个存储在Cache中的条目有一个定义的有效期。一旦超过这个时间，条目为过期的状态。一旦过期，条目将不可访问、更新和删除。缓存有效期可以通过ExpiryPolicy设置。
 
 ![image-20220117222233535](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081403419.png)
@@ -17,10 +17,15 @@ Java Caching定义了5个核心接口，分别是**CachingProvider, CacheManager
 Spring从3.1开始定义了org.springframework.cache.Cache和org.springframework.cache.CacheManager接口来统一不同的缓存技术；并支持使用**JCache（JSR-107）**注解简化我们开发；
 
 * Cache接口为缓存的组件规范定义，包含缓存的各种操作集合；
+
 * Cache接口下Spring提供了各种xxxCache的实现；如RedisCache，EhCacheCache , ConcurrentMapCache等；
+
 * 每次调用需要缓存功能的方法时，Spring会检查检查指定参数的指定的目标方法是否已经被调用过；如果有就直接从缓存中获取方法调用后的结果，如果没有就调用方法并缓存结果后返回给用户。下次调用直接从缓存中获取。
+
 * 使用Spring缓存抽象时我们需要关注以下两点；
+  
   1、确定方法需要被缓存以及他们的缓存策略
+  
   2、从缓存中读取之前缓存存储的数据
 
 ![image-20220117222402373](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081403809.png)
@@ -29,7 +34,7 @@ Spring从3.1开始定义了org.springframework.cache.Cache和org.springframework
 
 | **Cache**          | **缓存接口，定义缓存操作。实现有：**RedisCache**、**EhCacheCache**、**ConcurrentMapCache**等** |
 | ------------------ | ------------------------------------------------------------ |
-| **CacheManager**   | **缓存管理器，管理各种缓存（**Cache）组件                    |
+| **CacheManager**   | **缓存管理器，管理各种缓存（Cache）组件**                    |
 | **@Cacheable**     | **主要针对方法配置，能够根据方法的请求参数对其结果进行缓存** |
 | **@CacheEvict**    | **清空缓存**                                                 |
 | **@CachePut**      | **保证方法被调用，又希望结果被缓存。**                       |
@@ -37,9 +42,9 @@ Spring从3.1开始定义了org.springframework.cache.Cache和org.springframework
 | **keyGenerator**   | **缓存数据时key生成策略**                                    |
 | **serialize**      | **缓存数据时value序列化策略**                                |
 
-| @Cacheable                          | @CachePut                                                    | @CacheEvict** **主要的参数                                   |
+| @Cacheable                          | @CachePut                                                    | @CacheEvict主要的参数                                        |
 | ----------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| value                               | value缓存的名称，在 spring 配置文件中定义，必须指定至少一个  | 例如：@Cacheable(value=”mycache”) 或者 @Cacheable(value={”cache1”,”cache2”} |
+| value| value缓存的名称，在 spring 配置文件中定义，必须指定至少一个  | 例如：@Cacheable(value=”mycache”) 或者 @Cacheable(value={”cache1”,”cache2”}) |
 | key                                 | 缓存的 key，可以为空，如果指定要按照 SpEL 表达式编写，如果不指定，则缺省按照方法的所有参数进行组合 | 例如：@Cacheable(value=”testcache”,key=”#userName”)          |
 | condition                           | 缓存的条件，可以为空，使用 SpEL 编写，返回 true 或者 false，只有为 true 才进行缓存/清除缓存，在调用方法之前之后都能判断 | 例如：@Cacheable(value=”testcache”,<condition=”#userName.length()>2”) |
 | allEntries (**@CacheEvict** )       | 是否清空所有缓存内容，缺省为 false，如果指定为 true，则方法调用后将立即清空所有缓存 | 例如：@CachEvict(value=”testcache”,allEntries=true)          |
@@ -61,7 +66,7 @@ Spring从3.1开始定义了org.springframework.cache.Cache和org.springframework
 
 ## 四、缓存使用
 
-1、引入spring-boot-starter-cache模块
+1、引入spring\-boot\-starter\-cache模块
 2、@EnableCaching开启缓存
 3、使用缓存注解
 4、切换为其他缓存
@@ -94,7 +99,7 @@ Spring从3.1开始定义了org.springframework.cache.Cache和org.springframework
 
 ![image-20220627153737491](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081405838.png) 
 
-1. 引入spring-boot-starter-data-redis
+1. 引入spring\-boot\-starter\-data\-redis
 2. application.yml配置redis连接地址
 3. 使用RestTemplate操作redis
    1. redisTemplate.opsForValue();//操作字符串
@@ -115,7 +120,7 @@ Spring从3.1开始定义了org.springframework.cache.Cache和org.springframework
          消息代理（message broker）和目的地（destination）
   当消息发送者发送消息以后，将由消息代理接管，消息代理保证消息传递到指定目的地。
 * 消息队列主要有两种形式的目的地
-  * 队列（queue）：点对点消息通信（point-to-point）
+  * 队列（queue）：点对点消息通信（point\-to\-point）
   * 主题（topic）：发布（publish）/订阅（subscribe）消息通信
 
 ![image-20220117233429841](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081405450.png)
@@ -162,7 +167,7 @@ RabbitMQ是一个由erlang开发的AMQP(Advanved Message Queue Protocol)的开�
 
 **核心概念**
 **Message**
-消息，消息是不具名的，它由消息头和消息体组成。消息体是不透明的，而消息头则由一系列的可选属性组成，这些属性包括routing-key（路由键）、priority（相对于其他消息的优先权）、delivery-mode（指出该消息可能需要持久性存储）等。
+消息，消息是不具名的，它由消息头和消息体组成。消息体是不透明的，而消息头则由一系列的可选属性组成，这些属性包括routing\-key（路由键）、priority（相对于其他消息的优先权）、delivery-mode（指出该消息可能需要持久性存储）等。
 
 **Publisher**
 消息的生产者，也是一个向交换器发布消息的客户端应用程序。
@@ -201,21 +206,21 @@ AMQP 中的消息路由
 
 * AMQP 中消息的路由过程和 **Java 开发者熟悉的 JMS** 存在一些差别，AMQP 中增加了 Exchange 和 Binding 的角色。生产者把消息发布到 Exchange 上，消息最终到达队列并被消费者接收，而 Binding 决定交换器的消息应该发送到那个队列。
 
-<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406319.png" alt="image-20220117234117408" style="zoom:67%;" /> 
+  ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406319.png) 
 
 #### Exchange 类型
 
 * Exchange分发消息时根据类型的不同分发策略有区别，目前共四种类型：**direct、fanout、topic、headers 。**headers 匹配 AMQP 消息的 header 而不是路由键， headers 交换器和 direct 交换器完全一致，但性能差很多，目前几乎用不到了，所以直接看另外三种类型：
 
-<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406004.png" alt="image-20220117234231798" style="zoom:67%;" /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406004.png)
 
 消息中的路由键（routing key）如果和 Binding 中的 binding key 一致， 交换器就将消息发到对应的队列中。路由键与队列名完全匹配，如果一个队列绑定到交换机要求路由键为“dog”，则只转发 routing key 标记为“dog”的消息，不会转发“dog.puppy”，也不会转发“dog.guard”等等。它是完全匹配、单播的模式。
 
-<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406533.png" alt="image-20220117234322249" style="zoom:50%;" /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406533.png)
 
 每个发到 fanout 类型交换器的消息都会分到所有绑定的队列上去。fanout 交换器不处理路由键，只是简单的将队列绑定到交换器上，每个发送到交换器的消息都会被转发到与该交换器绑定的所有队列上。很像子网广播，每台子网内的主机都获得了一份复制的消息。fanout 类型转发消息是最快的。
 
-<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406999.png" alt="image-20220117234357568" style="zoom:50%;" /> 
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406999.png)
 
 topic 交换器通过模式匹配分配消息的路由键属性，将路由键和某个模式进行匹配，此时队列需要绑定到一个模式上。它将路由键和绑定键的字符串切分成单词，这些单词之间用点隔开。它同样也会识别两个通配符：符号“#”和符号“*”。#匹配0个或多个单词，*匹配一个单词。
 
@@ -261,42 +266,46 @@ Elasticsearch是一个分布式搜索服务，提供Restful API，底层基于Lu
 ElasticsearchRepository、 ElasticsearchTemplate、 Jest
 • 测试ElasticSearch
 
+```
 -> Password for the **elastic** user (reset with `bin/elasticsearch-reset-password -u elastic`):
+```
 
  **UIfcSlL*SitDhC0h+Phg**
 
+```
 -> HTTP CA certificate SHA-256 fingerprint:
+```
 
  **f337e4754f78844795f545e7668d728f6df4079181fd1ae8c133066496e02905**
 
 
 
+```
 -> Configure Kibana to use this cluster:
+```
 
 \* Run Kibana and click the configuration link in the terminal when Kibana starts.
 
 \* Copy the following enrollment token and paste it into Kibana in your browser (valid for the next 30 minutes):
 
- **eyJ2ZXIiOiI4LjIuMyIsImFkciI6WyIxNzIuMTguMC4yOjkyMDAiXSwiZmdyIjoiZjMzN2U0NzU0Zjc4ODQ0Nzk1ZjU0NWU3NjY4ZDcyOGY2ZGY0MDc5MTgxZmQxYWU4YzEzMzA2NjQ5NmUwMjkwNSIsImtleSI6Im8tUjZwWUVCVzFpa09hZ25CZ3FXOlMwdWJ6cmFwUVotak9NS21RZDk2dGcifQ==**
+```
+**eyJ2ZXIiOiI4LjIuMyIsImFkciI6WyIxNzIuMTguMC4yOjkyMDAiXSwiZmdyIjoiZjMzN2U0NzU0Zjc4ODQ0Nzk1ZjU0NWU3NjY4ZDcyOGY2ZGY0MDc5MTgxZmQxYWU4YzEzMzA2NjQ5NmUwMjkwNSIsImtleSI6Im8tUjZwWUVCVzFpa09hZ25CZ3FXOlMwdWJ6cmFwUVotak9NS21RZDk2dGcifQ==**
+```
 
-
-
+```
 -> Configure other nodes to join this cluster:
+```
 
 \* Copy the following enrollment token and start new Elasticsearch nodes with `bin/elasticsearch --enrollment-token <token>` (valid for the next 30 minutes):
 
- **eyJ2ZXIiOiI4LjIuMyIsImFkciI6WyIxNzIuMTguMC4yOjkyMDAiXSwiZmdyIjoiZjMzN2U0NzU0Zjc4ODQ0Nzk1ZjU0NWU3NjY4ZDcyOGY2ZGY0MDc5MTgxZmQxYWU4YzEzMzA2NjQ5NmUwMjkwNSIsImtleSI6Im9lUjZwWUVCVzFpa09hZ25CZ3B6OjU1UjlsZVRZVFNHSGMwMFRndUtuOEEifQ==**
+```
+eyJ2ZXIiOiI4LjIuMyIsImFkciI6WyIxNzIuMTguMC4yOjkyMDAiXSwiZmdyIjoiZjMzN2U0NzU0Zjc4ODQ0Nzk1ZjU0NWU3NjY4ZDcyOGY2ZGY0MDc5MTgxZmQxYWU4YzEzMzA2NjQ5NmUwMjkwNSIsImtleSI6Im9lUjZwWUVCVzFpa09hZ25CZ3B6OjU1UjlsZVRZVFNHSGMwMFRndUtuOEEifQ==
+```
 
-http_cart文件，在/user/huangjiusong下
+http\_cart文件，在/user/huangjiusong下
 
-
-
-
-
-
-
---------------------------------------------------------------------------------------------------------------------------------------------------
--> Elasticsearch security features have been automatically configured!
+```
+> Elasticsearch security features have been automatically configured!
 -> Authentication is enabled and cluster connections are encrypted.
 
 ->  Password for the elastic user (reset with `bin/elasticsearch-reset-password -u elastic`):
@@ -306,25 +315,24 @@ http_cart文件，在/user/huangjiusong下
   df626351c57d1178de36317cd43283321b94c9ad26aff8b61e25fec8e4bb9f5d
 
 ->  Configure Kibana to use this cluster:
+
 * Run Kibana and click the configuration link in the terminal when Kibana starts.
 * Copy the following enrollment token and paste it into Kibana in your browser (valid for the next 30 minutes):
   eyJ2ZXIiOiI4LjIuMyIsImFkciI6WyIxNzIuMTkuMC4yOjkyMDAiXSwiZmdyIjoiZGY2MjYzNTFjNTdkMTE3OGRlMzYzMTdjZDQzMjgzMzIxYjk0YzlhZDI2YWZmOGI2MWUyNWZlYzhlNGJiOWY1ZCIsImtleSI6Ill3cjFwNEVCQmtBX3dHMmUtbDhBOjkzWWlFd3FkUm5xa0JpNEtxR095bncifQ==
 
 -> Configure other nodes to join this cluster:
+
 * Copy the following enrollment token and start new Elasticsearch nodes with `bin/elasticsearch --enrollment-token <token>` (valid for the next 30 minutes):
   eyJ2ZXIiOiI4LjIuMyIsImFkciI6WyIxNzIuMTkuMC4yOjkyMDAiXSwiZmdyIjoiZGY2MjYzNTFjNTdkMTE3OGRlMzYzMTdjZDQzMjgzMzIxYjk0YzlhZDI2YWZmOGI2MWUyNWZlYzhlNGJiOWY1ZCIsImtleSI6IlpBcjFwNEVCQmtBX3dHMmUtbDhEOlVGbFItWnpGVHVHUWgtd3duNFRFbncifQ==
 
   If you're running in Docker, copy the enrollment token and run:
   `docker run -e "ENROLLMENT_TOKEN=<token>" docker.elastic.co/elasticsearch/elasticsearch:8.2.3`
+  
+  
+   docker run -e ES_JAVA_OPTS="-Xms128m -Xmx128m" --name es01 --net elastic -p 9200:9200 -p 9300:9300   -v /root/es-cluster/es01/plugins:/usr/share/elasticsearch/plugins -v /root/es-cluster/es01/logs:/usr/share/elasticsearch/logs -v /root/es-cluster/es01/data:/usr/share/elasticsearch/data -v /root/es-cluster/es01/config/elasticsearch.yml:/usr/share/elasticsearch/data/config/elasticsearch.yml docker.elastic.co/elasticsearch/elasticsearch:8.2.3
+```
 
-
-
- docker run -e ES_JAVA_OPTS="-Xms128m -Xmx128m" --name es01 --net elastic -p 9200:9200 -p 9300:9300   -v /root/es-cluster/es01/plugins:/usr/share/elasticsearch/plugins -v /root/es-cluster/es01/logs:/usr/share/elasticsearch/logs -v /root/es-cluster/es01/data:/usr/share/elasticsearch/data -v /root/es-cluster/es01/config/elasticsearch.yml:/usr/share/elasticsearch/data/config/elasticsearch.yml docker.elastic.co/elasticsearch/elasticsearch:8.2.3
-
-
-
-
-
+```
 --------------------------- Security autoconfiguration information ------------------------------
 
 Authentication and authorization are enabled.
@@ -333,7 +341,7 @@ TLS for the transport and HTTP layers is enabled and configured.
 The generated password for the elastic built-in superuser is : uF1dgjgH5O+DIWN-iYyR
 
 If this node should join an existing cluster, you can reconfigure this with
-'/usr/share/elasticsearch/bin/elasticsearch-reconfigure-node --enrollment-token <token-here>'
+'/usr/share/elasticsearch/bin/elasticsearch-reconfigure-node --enrollment-token \<token-here>'
 after creating an enrollment token on your existing cluster.
 
 You can complete the following actions at any time:
@@ -359,6 +367,9 @@ You can start elasticsearch service by executing
 
 Installed:
   elasticsearch.x86_64 0:8.2.3-1
+```
+
+
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -381,7 +392,7 @@ Installed:
 
 ## 三、邮件任务
 
-• 邮件发送需要引入spring-boot-starter-mail
+• 邮件发送需要引入spring\-boot\-starter\-mail
 
 • Spring Boot 自动配置MailSenderAutoConfiguration
 
@@ -399,7 +410,7 @@ Installed:
 
 ## 一、安全
 
-Spring Security是针对Spring项目的安全框架，也是Spring Boot底层安全模块默认的技术选型。他可以实现强大的web安全控制。对于安全控制，我们仅需引入spring-boot-starter-security模块，进行少量的配置，即可实现强大的
+Spring Security是针对Spring项目的安全框架，也是Spring Boot底层安全模块默认的技术选型。他可以实现强大的web安全控制。对于安全控制，我们仅需引入spring\-boot\-starter\-security模块，进行少量的配置，即可实现强大的
 
 安全管理。
 
@@ -409,7 +420,9 @@ WebSecurityConfigurerAdapter：自定义Security策略
 
 AuthenticationManagerBuilder：自定义认证策略
 
-@EnableWebSecurity：开启WebSecurity模式• 应用程序的两个主要区域是“认证”和“授权”（或者访问控制）。
+@EnableWebSecurity：开启WebSecurity模式
+
+应用程序的两个主要区域是“认证”和“授权”（或者访问控制）。
 
 这两个主要区域是Spring Security 的两个目标。 
 
@@ -423,25 +436,21 @@ AuthenticationManagerBuilder：自定义认证策略
 
 1. 登陆/注销
 
- – HttpSecurity配置登陆、注销功能
+- HttpSecurity配置登陆、注销功能
 
 2. Thymeleaf提供的SpringSecurity标签支持
 
-– 需要引入thymeleaf-extras-springsecurity4
-
-– sec:authentication=“name”获得当前用户的用户名
-
-– sec:authorize=“hasRole(‘ADMIN’)”当前用户必须拥有ADMIN权限时才会显示标签内容
+-  需要引入thymeleaf\-extras\-springsecurity4
+- sec:authentication=“name”获得当前用户的用户名
+- sec:authorize=“hasRole(‘ADMIN’)”当前用户必须拥有ADMIN权限时才会显示标签内容
 
 3. remember me
 
-– 表单添加remember-me的checkbox
+- 表单添加remember\-me的checkbox
+- 配置启用remember\-me功能
 
-– 配置启用remember-me功能
-
-4. CSRF（Cross-site request forgery）跨站请求伪造
-
-– HttpSecurity启用csrf功能，会为表单添加_csrf的值，提交携带来预防CSRF；
+4. CSRF（Cross\-site request forgery）跨站请求伪造
+- HttpSecurity启用csrf功能，会为表单添加_csrf的值，提交携带来预防CSRF；
 
 # 六、Spring Boot与分布式
 
@@ -451,19 +460,19 @@ AuthenticationManagerBuilder：自定义认证策略
 
 在分布式系统中，国内常用zookeeper+dubbo组合，而Spring Boot推荐使用全栈的Spring，Spring Boot+Spring Cloud。
 
-分布式系统： **单一应用架构**
+分布式系统： **单一应用架构**
 
 当网站流量很小时，只需一个应用，将所有功能都部署在一起，以减少部署节点和成本。此时，用于简化增删改查工作量的数据访问框架(ORM)是关键。
 
- **垂直应用架构**
+**垂直应用架构**
 
 当访问量逐渐增大，单一应用增加机器带来的加速度越来越小，将应用拆成互不相干的几个应用，以提升效率。此时，用于加速前端页面开发的Web框架(MVC)是关键。
 
- **分布式服务架构**
+ **分布式服务架构**
 
 当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。此时，用于提高业务复用及整合的分布式服务框架(RPC)是关键。
 
- **流动计算架构**
+ **流动计算架构**
 
 当服务越来越多，容量的评估，小服务资源的浪费等问题逐渐显现，此时需增加一个调度中心基于访问压力实时管理集群容量，提高集群利用率。此时，用于提高机器利用率的资源调度和治理中心(SOA)是关键二、Zookeeper和Dubbo
 
@@ -626,3 +635,4 @@ Spring官方提供的热部署程序，实现修改类文件的热部署
 – 关闭http端点
 
 • management.port=-1
+
