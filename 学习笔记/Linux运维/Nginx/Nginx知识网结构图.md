@@ -12,7 +12,7 @@ Nginx 的知识网结构图如下：
 
 **正向代理：**局域网中的电脑用户想要直接访问网络是不可行的，只能通过代理服务器来访问，这种代理服务就被称为正向代理。
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151417229.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401082030602.webp)
 
 ## 反向代理
 
@@ -182,9 +182,9 @@ location 指令说明，该语法用来匹配 url，语法如上：
 
 新建文件内容分别添加 8080！！！和 8081！！！
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151418468.webp)
+![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401082031693.webp)
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151419942)
+![202212151419942](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401082035223.webp)
 
 响应如下图：
 
@@ -242,7 +242,7 @@ location 指令说明，该语法用来匹配 url，语法如上：
 
 ④在地址栏回车，就会分发到不同的 Tomcat 服务器上：
 
-![图片](https://gitee.com/wowosong/pic-md/raw/master/202212151419876)
+![202212151419876](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401082034252.webp)
 
 ![图片](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071140368.webp)
 

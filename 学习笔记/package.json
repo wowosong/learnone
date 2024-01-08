@@ -4,7 +4,7 @@
         "vitepress": "^1.0.0-rc.35"
     },
     "scripts": {
-        "docs:dev": "vitepress dev --host 192.168.199.228",
+        "docs:dev": "vitepress dev",
         "docs:build": "vitepress build --host 121.36.53.227",
         "docs:preview": "vitepress preview"
     },
