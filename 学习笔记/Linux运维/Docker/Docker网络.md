@@ -40,7 +40,7 @@ Linux网络栈包括哪些部分？显然，是一系列网络设备。还有别
 
 我们可以快速创建一个并不复杂的脚本inspect-net-stack.sh：
 
-```
+```shell
 #!/usr/bin/env bash 
 echo  "> Network devices" 
 ip link 
@@ -54,13 +54,13 @@ iptables --list-rules
 
 在运行脚本前，让我们修改下iptable rule：
 
-```
+```shell
 $ sudo iptables -N ROOT_NS
 ```
 
 这之后，在机器上执行上面的脚本，输出如下：
 
-```
+```shell
 $ sudo ./inspect-net-stack.sh 
     > Network devices 
     1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 

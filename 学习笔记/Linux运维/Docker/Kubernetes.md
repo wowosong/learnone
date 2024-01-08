@@ -150,7 +150,7 @@ Kubernetes 校验节点可用依赖于 ID。在当前的版本中，有两个接
 
 下面这张图完整展示了 Kubernetes 的运行原理。
 
-<img src="https://vuepress.mirror.docker-practice.com/assets/img/k8s_architecture.1cde0882.png" alt="Kubernetes 架构" />
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401082041959.png" alt="Kubernetes 架构" />
 
 
 
