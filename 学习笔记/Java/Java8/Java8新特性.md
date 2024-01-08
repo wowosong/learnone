@@ -173,12 +173,12 @@ public void  test4(){
 
 ###  Java内置四大核心函数式接口
 
-| 函数式接口             | 参数类型 | 返回类型 | 用途                                                         |
-| ---------------------- | -------- | -------- | ------------------------------------------------------------ |
-| Consumer<T>消费性接口  | T        | void     | 对类型为T的对应应用操作，包括方法：void accept(T t)          |
-| Supplier<T>供给型接口  | 无       | T        | 返回类型为T的对象，包含方法：T get();                        |
-| Function<T>函数型接口  | T        | R        | 对类型为T的对象应用操作，并返回结果。结果是R类型的对象。包含方法：R apply(T t); |
-| Predicate<T>断定型接口 | T        | boolean  | 确定类型为T的对象是否满足某约束，并返回boolean值。包含方法boolean test(T t); |
+| 函数式接口              | 参数类型 | 返回类型 | 用途                                                         |
+| ----------------------- | -------- | -------- | ------------------------------------------------------------ |
+| Consumer\<T>消费性接口  | T        | void     | 对类型为T的对应应用操作，包括方法：void accept(T t)          |
+| Supplier\<T>供给型接口  | 无       | T        | 返回类型为T的对象，包含方法：T get();                        |
+| Function\<T>函数型接口  | T        | R        | 对类型为T的对象应用操作，并返回结果。结果是R类型的对象。包含方法：R apply(T t); |
+| Predicate\<T>断定型接口 | T        | boolean  | 确定类型为T的对象是否满足某约束，并返回boolean值。包含方法boolean test(T t); |
 
 #### 消费性接口
 
@@ -254,14 +254,14 @@ public List<String> filterString(List<String> list, Predicate<String> predicate)
 
 #### 其他接口
 
-| 函数式接口                                             | 参数类型                 | 返回类型                 | 用途                                                         |
-| ------------------------------------------------------ | ------------------------ | ------------------------ | ------------------------------------------------------------ |
-| BiFunction<T,U,R>                                      | T,U                      | R                        | 对类型为T,U参数应用操作，返回R类型的结果。包含方法为R apply(T t,U u); |
-| UnaryOperator<T> (Funciton子接口)                      | T                        | T                        | 对类型为T的对象进行一元运算，并返回T类型的结果。包含方法为T apply(T t); |
-| BinaryOperator<T>(BiFunction子接口)                    | T,T                      | T                        | 对类型为T的对象进行二元运算，并返回T类型的结果。包含方法为 T apply(T t1,T t2); |
-| BiConsumer<T,U>                                        | T,U                      | void                     | 对类型为T，U参数应用操作。包含方法为void accept(T t,U u)     |
-| ToIntFunction<T> ToLongFunction<T> ToDoubleFunction<T> | T                        | int <br/>long<br/>double | 分别计算int/long/double值的函数                              |
-| IntFunction<R> <br> LongFunction<R> DoubleFunction<R>  | int <br/>long<br/>double | R                        | 参数分别为int/long/double类型的函数                          |
+| 函数式接口                                                | 参数类型       | 返回类型        | 用途                                                         |
+| --------------------------------------------------------- | -------------- | --------------- | ------------------------------------------------------------ |
+| BiFunction<T,U,R>                                         | T,U            | R               | 对类型为T,U参数应用操作，返回R类型的结果。包含方法为R apply(T t,U u); |
+| UnaryOperator\<T> (Funciton子接口)                        | T              | T               | 对类型为T的对象进行一元运算，并返回T类型的结果。包含方法为T apply(T t); |
+| BinaryOperator\<T>(BiFunction子接口)                      | T,T            | T               | 对类型为T的对象进行二元运算，并返回T类型的结果。包含方法为 T apply(T t1,T t2); |
+| BiConsumer<T,U>                                           | T,U            | void            | 对类型为T，U参数应用操作。包含方法为void accept(T t,U u)     |
+| ToIntFunction\<T> ToLongFunction\<T> ToDoubleFunction\<T> | T              | int long double | 分别计算int/long/double值的函数                              |
+| IntFunction\<R>  LongFunction\<R> DoubleFunction\<R>      | int longdouble | R               | 参数分别为int/long/double类型的函数                          |
 
 ## 3-方法引用与构造器引用
 
@@ -367,9 +367,9 @@ Java8 中的 Collection 接口被扩展，提供了
 
 两个获取流的方法： 
 
-⚫ default Stream<E> stream() : 返回一个顺序流
+⚫ default Stream\<E> stream() : 返回一个顺序流
 
-⚫ default Stream<E> parallelStream() : 返回一个并行流
+⚫ default Stream\<E> parallelStream() : 返回一个并行流
 
 ```java
 //1.通过Collection系列集合提供的stream或parallelstream()
@@ -382,7 +382,7 @@ Stream<String> stringStream1 = list.parallelStream();
 
 **Java8 中的 Arrays 的静态方法 stream() 可以获取数组流：** 
 
-⚫ static <T> Stream<T> stream(T[] array): 返回一个流
+⚫ static \<T> Stream\<T> stream(T[] array): 返回一个流
 
 **重载形式，能够处理对应基本类型的数组：** 
 
@@ -404,7 +404,7 @@ Stream<Employee> employeeStream = Arrays.stream(employees);
 
 创建一个流。它可以接收任意数量的参数。 
 
-⚫ public static<T> Stream<T> of(T... values) : 返回一个流
+⚫ public static\<T> Stream\<T> of(T... values) : 返回一个流
 
 ```java
 //3.通过Stream类中的静态方法of（）
@@ -417,11 +417,11 @@ Stream<String> stringStream = Stream.of("111", "222", "333");
 
 ⚫ 迭代
 
-public static<T> Stream<T> iterate(final T seed, final UnaryOperator<T> f) 
+public static\<T> Stream\<T> iterate(final T seed, final UnaryOperator\<T> f) 
 
 ⚫ 生成
 
-public static<T> Stream<T> generate(Supplier<T> s) :
+public static\<T> Stream\<T> generate(Supplier\<T> s) :
 
 ```java
 //4.创建无限流
@@ -507,10 +507,10 @@ Optional<Integer> min = employeeList.stream().map(Employee::getAge).min(Integer:
 
 **规约**
 
-| 方法                             | 描述                                                    |
-| -------------------------------- | ------------------------------------------------------- |
-| reduce(T iden，BinaryOperator b) | 可以将流中元素反复结合起来，得到一个值。返回T           |
-| reduce(BinaryOperator b)         | 可以将流中元素反复结合起来，得到一个值。返回Optional<T> |
+| 方法                             | 描述                                                     |
+| -------------------------------- | -------------------------------------------------------- |
+| reduce(T iden，BinaryOperator b) | 可以将流中元素反复结合起来，得到一个值。返回T            |
+| reduce(BinaryOperator b)         | 可以将流中元素反复结合起来，得到一个值。返回Optional\<T> |
 
 备注：map和reduce的连接通常称为map-reduce模式，因Google用它来进行网络搜索而出名。
 
@@ -688,7 +688,7 @@ System.out.println(now1);
 
 ## 6-**Optional** **类**
 
-**Optional<T> 类(java.util.Optional) 是一个容器类，代表一个值存在或不存在，原来用 null 表示一个值不存在，现在 Optional 可以更好的表达这个概念。并且可以避免空指针异常。**
+**Optional\<T> 类(java.util.Optional) 是一个容器类，代表一个值存在或不存在，原来用 null 表示一个值不存在，现在 Optional 可以更好的表达这个概念。并且可以避免空指针异常。**
 
 **常用方法：**
 

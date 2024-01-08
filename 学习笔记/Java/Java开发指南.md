@@ -1,6 +1,6 @@
 # Java基础
 
-![img](./Java%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97.assets/20210610222515.jpeg)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401051709200.jpeg)
 
 ## 集合
 

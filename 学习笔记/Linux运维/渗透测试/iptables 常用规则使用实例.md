@@ -95,7 +95,7 @@ iptables -A OUTPUT -o ens160 -p tcp -m multiport --dports 80,443 -m state --stat
 iptables -A INPUT -i ens160 -p tcp -m multiport --sports 80,443 -m state --state ESTABLISHED -j ACCEPT
 ```
 
-![图片](/Users/jiusonghuang/pic-md/202203071102222.webp)
+
 
 
 
@@ -122,7 +122,7 @@ iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
 iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
 ```
 
-![image-20210611225430618](/Users/jiusonghuang/pic-md/20210611225430.png)**
+![image-20210611225430618](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081010917.png)**
 
 
 
