@@ -32,18 +32,18 @@ IO 的操作方式通常分为几种：同步阻塞 BIO、同步非阻塞 NIO、
 （1）在 BIO 模式中，服务器会为每个客户端请求建立一个线程，由该线程单独负责处理一个客户请求，这种模式虽然简单方便，但由于服务器为每个客户端的连接都采用一个线程去处理，使得资源占用非常大。因此，当连接数量达到上限时，如果再有用户请求连接，直接会导致资源瓶颈，严重的可能会直接导致服务器崩溃。
 （2）大多数情况下为了避免上述问题，**都采用了线程池模型**。也就是创建一个固定大小的线程池，如果有客户端请求，就从线程池中取一个空闲线程来处理，当客户端处理完操作之后，就会**释放对线程的占用**。因此这样就避免为每一个客户端都要创建线程带来的资源浪费，使得线程可以重用。但线程池也有它的弊端，如果连接大多是长连接，可能会导致在一段时间内，线程池中的线程都被占用，那么当再有客户端请求连接时，由于没有空闲线程来处理，就会导致客户端连接失败。传统的 BIO 模式如下图所示：
 
-![image-20220524143429787](./NIO.assets/image-20220524143429787-16533740711041.png)
+![image-20220524143429787](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081027995.png)
 
 ## 1.3 非阻塞 IO(NIO)
 
 基于 BIO 的各种弊端，在 JDK1.4 开始出现了**高性能 IO 设计模式非阻塞 IO（NIO）**。
 （1）NIO 采用非阻塞模式，基于 Reactor 模式的工作方式，I/O 调用不会被阻塞，它的实现过程是：会先对每个客户端注册感兴趣的事件，然后有一个线程专门去轮询每个客户端是否有事件发生，当有事件发生时，便顺序处理每个事件，当所有事件处理完之后，便再转去继续轮询。如下图所示：
 
-![image-20220524143507857](./NIO.assets/image-20220524143507857-16533741088792.png)
+![image-20220524143507857](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081027832.png)
 
 （2)NIO 中实现非阻塞 I/O 的核心对象就是 **Selector**，Selector 就是**注册各种 I/O事件地方**，而且当我们感兴趣的事件发生时，就是这个对象告诉我们所发生的事件，如下图所示：
 
-![image-20220524143638299](./NIO.assets/image-20220524143638299.png)
+![image-20220524143638299](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081027506.png)
 
 （3）NIO 的最重要的地方是当一个连接创建后，不需要对应一个线程，这个连接会被注册到**多路复用器**上面，一个**选择器线程可以同时处理成千上万个连接**，系统不必创建大量的线程，也不必维护这些线程，从而大大减小了系统的开销。
 
@@ -83,11 +83,11 @@ Selector 运行单线程处理多个 Channel，如果你的应用打开了多个
 
 （1）一个 Channel 就像一个流，只是 Channel 是双向的，**Channel 读数据到 Buffer，Buffer 写数据到 Channel**。
 
-![image-20220524143734094](./NIO.assets/image-20220524143734094.png)
+![image-20220524143734094](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081027717.png)
 
 （2)一个 selector 允许一个线程处理多个 channel。
 
-![image-20220524143753149](./NIO.assets/image-20220524143753149-16533742742564.png)
+![image-20220524143753149](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081027312.png)
 
 # 第 2 章 Java NIO（Channel）
 
@@ -100,7 +100,7 @@ Java NIO 的通道类似流，但又有些不同：
 - 通道中的数据总是要先读到一个 Buffer，或者总是要从一个 Buffer 中写入。
   正如上面所说，从通道读取数据到缓冲区，从缓冲区写入数据到通道。如下图所示：
 
-![image-20220524143823234](./NIO.assets/image-20220524143823234-16533743042805.png)
+![image-20220524143823234](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081027367.png)
 
 ## 2.2 Channel 实现
 
@@ -124,7 +124,7 @@ Java NIO 的通道类似流，但又有些不同：
 
 FileChannel 类可以实现常用的 read，write 以及 scatter/gather 操作，同时它也提供了很多专用于文件的新方法。这些方法中的许多都是我们所熟悉的文件操作。
 
-![image-20220524143912583](./NIO.assets/image-20220524143912583-16533743535456.png)
+![image-20220524143912583](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081027535.png)
 
 下面是一个使用 FileChannel 读取数据到 Buffer 中的示例：
 
@@ -312,7 +312,7 @@ scatter / gather 经常用于需要将传输的数据分开处理的场合，例
 
 Scattering Reads 是指数据从一个 channel 读取到多个buffer 中。如下图描述：
 
-![image-20220525143812194](./NIO.assets/image-20220525143812194-16534606933885.png)
+![image-20220525143812194](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081027594.png)
 
 ```java
 ByteBuffer header = ByteBuffer.allocate(128);
@@ -329,7 +329,7 @@ Scattering Reads 在**移动下一个 buffer 前，必须填满当前的 buffer*
 
 Gathering Writes 是指数据从多个 buffer 写入到同一个channel。如下图描述：
 
-![image-20220525143845278](D:/hjs/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/Netty/NIO.assets/image-20220525143845278-16534607267146.png)
+![image-20220525143845278](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081027981.png)
 
 
 
@@ -409,7 +409,7 @@ public class FileChannelAccept {
 }
 ```
 
-![image-20220525112823364](./NIO.assets/image-20220525112823364-16534493047652.png)
+![image-20220525112823364](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081027680.png)
 
 （1）打开 ServerSocketChannel
 通过调用 ServerSocketChannel.open() 方法来打开 ServerSocketChannel.
@@ -438,7 +438,7 @@ serverSocketChannel.close();
 
 （4）阻塞模式
 
-![image-20220524174948472](./NIO.assets/image-20220524174948472.png)
+![image-20220524174948472](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081027649.png)
 
 会在 SocketChannel sc = ssc.accept();这里阻塞住进程。
 （5）非阻塞模式
@@ -689,13 +689,13 @@ DatagramChannel connChannel= DatagramChannel.open();
 
 Java NIO 中的 Buffer 用于和 NIO 通道进行交互。**数据是从通道读入缓冲区，从缓冲区写入到通道中的。**
 
-![image-20220525144539845](./NIO.assets/image-20220525144539845-16534611411598.png)
+![image-20220525144539845](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081028838.png)
 
 缓冲区本质上是一块可以写入数据，然后可以从中读取数据的内存。这块内存被包装成 NIO Buffer 对象，并提供了一组方法，用来方便的访问该块内存。**缓冲区实际上是一个容器对象，更直接的说，其实就是一个数组，在 NIO 库中，所有数据都是用缓冲区处理的。**在读取数据时，它是直接读到缓冲区中的； 在写入数据时，它也是写入到
 缓冲区中的；任何时候访问 NIO 中的数据，都是将它放到**缓冲区**中。而在面向流 I/O系统中，所有数据都是直接写入或者直接将数据读取到 Stream 对象中。
 在 NIO 中，所有的缓冲区类型都继承于抽象类 Buffer，最常用的就是 ByteBuffer，对于 Java 中的基本类型，基本都有一个具体 Buffer 类型与之相对应，它们之间的继承关系如下图所示：
 
-![image-20220525142053181](./NIO.assets/image-20220525142053181-16534596542213.png)
+![image-20220525142053181](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081028327.png)
 
 ## 4.2 Buffer 的基本用法
 
@@ -761,7 +761,7 @@ public void testConect3() throws IOException {
 position 和 limit 的含义取决于 Buffer 处在读模式还是写模式。不管 Buffer 处在什么模式，capacity 的含义总是一样的。
 这里有一个关于 capacity，position 和 limit 在读写模式中的说明
 
-![image-20220525144455273](./NIO.assets/image-20220525144455273-16534610964247.png)
+![image-20220525144455273](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081028600.png)
 
 （1）capacity
 作为一个**内存块**，Buffer 有一个固定的大小值，也叫“capacity”。你只能往里写capacity 个 byte、long，char 等类型。一旦 Buffer 满了，需要将其清空（通过读数据或者清除数据）才能继续写数据往里写数据。
@@ -982,7 +982,7 @@ static public void main(String args[]) throws Exception {
 
 Selector 一般称 为选择器 ，也可以翻译为 **多路复用器** 。它是 Java NIO 核心组件中的一个，用于检查一个或多个 NIO Channel（通道）的状态是否处于**可读、可写**。如此可以实现单线程管理多个 channels,也就是可以管理多个网络链接。
 
-![image-20220526105916667](./NIO.assets/image-20220526105916667-16535339582192.png)
+![image-20220526105916667](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081028177.png)
 
 使用 Selector 的好处在于： 使用更少的线程来就可以来处理通道了， 相比使用多个线程，避免了线程上下文切换带来的开销。
 
@@ -992,7 +992,7 @@ Selector 一般称 为选择器 ，也可以翻译为 **多路复用器** 。它
 （2）**SelectableChannel 类提供了实现通道的可选择性所需要的公共方法**。它是所有支持就绪检查的通道类的父类。所有 socket 通道，都继承了 SelectableChannel 类都是可选择的，包括从管道(Pipe)对象的中获得的通道。而 FileChannel 类，没有继承 SelectableChannel，因此是不是可选通道。
 （3）**一个通道可以被注册到多个选择器上，但对每个选择器而言只能被注册一次**。**通道和选择器之间的关系，使用注册的方式完成。SelectableChannel 可以被注册到Selector 对象上，在注册的时候，需要指定通道的哪些操作，是 Selector 感兴趣的。**
 
-![image-20220526110018192](./NIO.assets/image-20220526110018192-16535340193223.png)
+![image-20220526110018192](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081028401.png)
 
 ### **3、 Channel 注册到 Selector**
 
@@ -1166,7 +1166,7 @@ try {
 } 
 ```
 
-![image-20220526154412619](./NIO.assets/image-20220526154412619-16535510537944.png)
+![image-20220526154412619](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081028173.png)
 
 # 第6 章 Java NIO（Pipe 和 FileLock）
 
@@ -1174,7 +1174,7 @@ try {
 
 Java NIO 管道是 **2 个线程之间的单向数据连接**。**Pipe 有一个 source 通道和一个 sink通道。数据会被写到 sink 通道，从 source 通道读取。**
 
-![image-20220526154505335](./NIO.assets/image-20220526154505335-16535511063705.png)
+![image-20220526154505335](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081028699.png)
 
 ### 1、创建管道
 
@@ -1411,7 +1411,7 @@ System.out.println("path2 = " + path2);
 
 输出结果：**标准化的路径不包含 projects\..部分**
 
-![image-20220526162550012](./NIO.assets/image-20220526162550012-16535535511756.png)
+![image-20220526162550012](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081028464.png)
 
 ## 7.2 Files
 

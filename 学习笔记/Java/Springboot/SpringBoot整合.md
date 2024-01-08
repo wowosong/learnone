@@ -10,7 +10,7 @@ Java Caching定义了5个核心接口，分别是**CachingProvider, CacheManager
 * **Entry**是一个存储在Cache中的key-value对。
 * **Expiry** 每一个存储在Cache中的条目有一个定义的有效期。一旦超过这个时间，条目为过期的状态。一旦过期，条目将不可访问、更新和删除。缓存有效期可以通过ExpiryPolicy设置。
 
-![image-20220117222233535](https://gitee.com/wowosong/pic-md/raw/master/202301060933841.png)
+![image-20220117222233535](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081403419.png)
 
 ## 二、Spring缓存抽象
 
@@ -23,7 +23,7 @@ Spring从3.1开始定义了org.springframework.cache.Cache和org.springframework
   1、确定方法需要被缓存以及他们的缓存策略
   2、从缓存中读取之前缓存存储的数据
 
-![image-20220117222402373](https://gitee.com/wowosong/pic-md/raw/master/202301060934804.png)
+![image-20220117222402373](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081403809.png)
 
 ## 三、几个重要概念&缓存注解
 
@@ -37,14 +37,14 @@ Spring从3.1开始定义了org.springframework.cache.Cache和org.springframework
 | **keyGenerator**   | **缓存数据时key生成策略**                                    |
 | **serialize**      | **缓存数据时value序列化策略**                                |
 
-| @Cacheable<br/>                     | @CachePut<br/>                                               | @CacheEvict**<br/> **主要的参数                              |
+| @Cacheable                          | @CachePut                                                    | @CacheEvict** **主要的参数                                   |
 | ----------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| value                               | value缓存的名称，在 spring 配置文件中定义，必须指定至少一个  | 例如：@Cacheable(value=”mycache”) <br/>或者 @Cacheable(value={”cache1”,”cache2”} |
-| key                                 | 缓存的 key，可以为空，如果指定要按照 SpEL 表达式编写，如果不指定，则缺省按照方法的所有参数进行组合 | 例如：@Cacheable(value=”testcache”,<br/>key=”#userName”)     |
-| condition                           | 缓存的条件，可以为空，使用 SpEL 编写，返回 true 或者 false，只有为 true 才进行缓存/清除缓存，在调用方法之前之后都能判断 | 例如：@Cacheable(value=”testcache”,<br/>condition=”#userName.length()>2”) |
-| allEntries (**@CacheEvict** )       | 是否清空所有缓存内容，缺省为 false，如果指定为 true，则方法调用后将立即清空所有缓存 | 例如：@CachEvict(value=”testcache”,<br/>allEntries=true)     |
+| value                               | value缓存的名称，在 spring 配置文件中定义，必须指定至少一个  | 例如：@Cacheable(value=”mycache”) 或者 @Cacheable(value={”cache1”,”cache2”} |
+| key                                 | 缓存的 key，可以为空，如果指定要按照 SpEL 表达式编写，如果不指定，则缺省按照方法的所有参数进行组合 | 例如：@Cacheable(value=”testcache”,key=”#userName”)          |
+| condition                           | 缓存的条件，可以为空，使用 SpEL 编写，返回 true 或者 false，只有为 true 才进行缓存/清除缓存，在调用方法之前之后都能判断 | 例如：@Cacheable(value=”testcache”,<condition=”#userName.length()>2”) |
+| allEntries (**@CacheEvict** )       | 是否清空所有缓存内容，缺省为 false，如果指定为 true，则方法调用后将立即清空所有缓存 | 例如：@CachEvict(value=”testcache”,allEntries=true)          |
 | beforeInvocation **(@CacheEvict)**  | 是否在方法执行前就清空，缺省为 false，如果指定为 true，则在方法还没有执行的时候就清空缓存，缺省情况下，如果方法执行抛出异常，则不会清空缓存 | 例如： @CachEvict(value=”testcache”，beforeInvocation=true)  |
-| unless **(@CachePut) (@Cacheable)** | 用于否决缓存的，不像condition，该表达式只在方法执行之后判断，此时可以拿到返回值result进行判断。条件为true不会缓存，fasle才缓存 | 例如：@Cacheable(value=”testcache”,<br/>unless=”#result == null”) |
+| unless **(@CachePut) (@Cacheable)** | 用于否决缓存的，不像condition，该表达式只在方法执行之后判断，此时可以拿到返回值result进行判断。条件为true不会缓存，fasle才缓存 | 例如：@Cacheable(value=”testcache”,unless=”#result == null”) |
 
 **Cache SpEL available metadata**
 
@@ -66,33 +66,33 @@ Spring从3.1开始定义了org.springframework.cache.Cache和org.springframework
 3、使用缓存注解
 4、切换为其他缓存
 
-![image-20220627114851679](https://gitee.com/wowosong/pic-md/raw/master/202301060934709.png) 
+![image-20220627114851679](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081404496.png) 
 
-![image-20220627115130140](https://gitee.com/wowosong/pic-md/raw/master/202301060934027.png) 
+![image-20220627115130140](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081404009.png) 
 
-![image-20220627131527748](https://gitee.com/wowosong/pic-md/raw/master/202301060934114.png) 
+![image-20220627131527748](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081404642.png) 
 
-![image-20220627135738442](https://gitee.com/wowosong/pic-md/raw/master/202301060934569.png) 
+![image-20220627135738442](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081404419.png) 
 
-![image-20220627140026120](https://gitee.com/wowosong/pic-md/raw/master/202301060934639.png) 
+![image-20220627140026120](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081404777.png) 
 
-![image-20220627140359524](https://gitee.com/wowosong/pic-md/raw/master/202301060934544.png) 
+![image-20220627140359524](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081404012.png) 
 
-![image-20220627140922254](https://gitee.com/wowosong/pic-md/raw/master/202301060935822.png) 
+![image-20220627140922254](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081404184.png) 
 
-![image-20220627141218115](https://gitee.com/wowosong/pic-md/raw/master/202301060935445.png) 
+![image-20220627141218115](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081404500.png) 
 
-![image-20220627143301330](https://gitee.com/wowosong/pic-md/raw/master/202301060935456.png) 
+![image-20220627143301330](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081404599.png) 
 
-![image-20220627150606110](https://gitee.com/wowosong/pic-md/raw/master/202301060935006.png) 
+![image-20220627150606110](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081404619.png) 
 
-![image-20220627150653794](https://gitee.com/wowosong/pic-md/raw/master/202301060935939.png) 
+![image-20220627150653794](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081405040.png) 
 
 ## 五、整合redis实现缓存
 
-![image-20220627151921595](https://gitee.com/wowosong/pic-md/raw/master/202301060935815.png) 
+![image-20220627151921595](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081405037.png) 
 
-![image-20220627153737491](https://gitee.com/wowosong/pic-md/raw/master/202301060935857.png) 
+![image-20220627153737491](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081405838.png) 
 
 1. 引入spring-boot-starter-data-redis
 2. application.yml配置redis连接地址
@@ -118,9 +118,9 @@ Spring从3.1开始定义了org.springframework.cache.Cache和org.springframework
   * 队列（queue）：点对点消息通信（point-to-point）
   * 主题（topic）：发布（publish）/订阅（subscribe）消息通信
 
-![image-20220117233429841](https://gitee.com/wowosong/pic-md/raw/master/202301060935015.png)
+![image-20220117233429841](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081405450.png)
 
-![image-20220117233451041](https://gitee.com/wowosong/pic-md/raw/master/202301060936110.png)
+![image-20220117233451041](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081405850.png)
 
 * 点对点式：
   - 消息发送者发送消息，消息代理将其放入一个队列中，消息接收者从队列中获取消息内容，消息读取后被移出队列
@@ -138,9 +138,9 @@ Spring从3.1开始定义了org.springframework.cache.Cache和org.springframework
 | 定义         | Java api                                                     | 网络线级协议                                                 |
 | 跨语言       | 否                                                           | 是                                                           |
 | 跨平台       | 否                                                           | 是                                                           |
-| Model        | 提供两种消息模型：（1）、Peer-2-Peer（2）、Pub/sub           | 提供了五种消息模型：<br/>（1）、direct exchange<br/>（2）、fanout exchange<br/>（3）、topic change<br/>（4）、headers exchange<br/>（5）、system exchange本质来讲，后四种和JMS的pub/sub模型没有太大差别，仅是在路由机制上做了更详细的划分； |
-| 支持消息类型 | 多种消息类型：TextMessage<br/>MapMessage<br/>BytesMessage<br/>StreamMessage<br/>ObjectMessageMessage （只有消息头和属性） | byte[]当实际应用时，有复杂的消息，可以将消息序列化后发送。   |
-| 综合评价     | JMS 定义了JAVA API层面的标准；在java体系中，<br/>多个client均可以通过JMS进行交互，不需要应用修改代码，但是其对跨平台的支持较差； | AMQP定义了wire-level层的协议标准；天然具有跨平台、跨语言特性。 |
+| Model        | 提供两种消息模型：（1）、Peer-2-Peer（2）、Pub/sub           | 提供了五种消息模型：（1）、direct exchange（2）、fanout exchange（3）、topic change（4）、headers exchange（5）、system exchange本质来讲，后四种和JMS的pub/sub模型没有太大差别，仅是在路由机制上做了更详细的划分； |
+| 支持消息类型 | 多种消息类型：TextMessage MapMessage BytesMessage StreamMessage ObjectMessageMessage （只有消息头和属性 | byte[]当实际应用时，有复杂的消息，可以将消息序列化后发送。   |
+| 综合评价     | JMS 定义了JAVA API层面的标准；在java体系中，多个client均可以通过JMS进行交互，不需要应用修改代码，但是其对跨平台的支持较差； | AMQP定义了wire-level层的协议标准；天然具有跨平台、跨语言特性。 |
 
 * Spring支持 
 
@@ -193,7 +193,7 @@ Exchange 和Queue的绑定可以是多对多的关系。
 **Broker**
 表示消息队列服务器实体
 
-![image-20220117234131378](https://gitee.com/wowosong/pic-md/raw/master/202301060936307.png) 
+![image-20220117234131378](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406480.png) 
 
 ## 三、RabbitMQ运行机制
 
@@ -201,21 +201,21 @@ AMQP 中的消息路由
 
 * AMQP 中消息的路由过程和 **Java 开发者熟悉的 JMS** 存在一些差别，AMQP 中增加了 Exchange 和 Binding 的角色。生产者把消息发布到 Exchange 上，消息最终到达队列并被消费者接收，而 Binding 决定交换器的消息应该发送到那个队列。
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202301060936607.png" alt="image-20220117234117408" style="zoom:67%;" /> 
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406319.png" alt="image-20220117234117408" style="zoom:67%;" /> 
 
 #### Exchange 类型
 
 * Exchange分发消息时根据类型的不同分发策略有区别，目前共四种类型：**direct、fanout、topic、headers 。**headers 匹配 AMQP 消息的 header 而不是路由键， headers 交换器和 direct 交换器完全一致，但性能差很多，目前几乎用不到了，所以直接看另外三种类型：
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202301060936166.png" alt="image-20220117234231798" style="zoom:67%;" /> 
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406004.png" alt="image-20220117234231798" style="zoom:67%;" /> 
 
 消息中的路由键（routing key）如果和 Binding 中的 binding key 一致， 交换器就将消息发到对应的队列中。路由键与队列名完全匹配，如果一个队列绑定到交换机要求路由键为“dog”，则只转发 routing key 标记为“dog”的消息，不会转发“dog.puppy”，也不会转发“dog.guard”等等。它是完全匹配、单播的模式。
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202301060936400.png" alt="image-20220117234322249" style="zoom:50%;" /> 
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406533.png" alt="image-20220117234322249" style="zoom:50%;" /> 
 
 每个发到 fanout 类型交换器的消息都会分到所有绑定的队列上去。fanout 交换器不处理路由键，只是简单的将队列绑定到交换器上，每个发送到交换器的消息都会被转发到与该交换器绑定的所有队列上。很像子网广播，每台子网内的主机都获得了一份复制的消息。fanout 类型转发消息是最快的。
 
-<img src="https://gitee.com/wowosong/pic-md/raw/master/202301060936592.png" alt="image-20220117234357568" style="zoom:50%;" /> 
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406999.png" alt="image-20220117234357568" style="zoom:50%;" /> 
 
 topic 交换器通过模式匹配分配消息的路由键属性，将路由键和某个模式进行匹配，此时队列需要绑定到一个模式上。它将路由键和绑定键的字符串切分成单词，这些单词之间用点隔开。它同样也会识别两个通配符：符号“#”和符号“*”。#匹配0个或多个单词，*匹配一个单词。
 
@@ -227,9 +227,9 @@ topic 交换器通过模式匹配分配消息的路由键属性，将路由键�
   - AmqpAdmin：管理组件
   - RabbitTemplate：消息发送处理组件
 
-![image-20220117234459577](https://gitee.com/wowosong/pic-md/raw/master/202301060936252.png)
+![image-20220117234459577](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406776.png)
 
-![image-20220627171754406](https://gitee.com/wowosong/pic-md/raw/master/202301060936756.png) 
+![image-20220627171754406](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406962.png) 
 
 # 三、 Spring Boot与检索
 
@@ -250,7 +250,7 @@ Elasticsearch是一个分布式搜索服务，提供Restful API，底层基于Lu
 – 文档-表中的记录
 – 属性-列
 
-![image-20220627213846409](https://gitee.com/wowosong/pic-md/raw/master/202301060937601.png)
+![image-20220627213846409](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406711.png)
 
 ## 三、整合ElasticSearch测试
 
@@ -377,7 +377,7 @@ Installed:
 项目开发中经常需要执行一些定时任务，比如需要在每天凌晨时候，分析一次前一天的日志信息。 Spring为我们提供了异步执行任务调度的方式，提供TaskExecutor 、 TaskScheduler 接口。
 两个注解： @EnableScheduling、 @Scheduled
 
-![image-20220627223715172](https://gitee.com/wowosong/pic-md/raw/master/202301060939767.png)
+![image-20220627223715172](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406413.png)
 
 ## 三、邮件任务
 
@@ -391,7 +391,7 @@ Installed:
 
 • 测试邮件发送
 
-![image-20220628115003942](https://gitee.com/wowosong/pic-md/raw/master/202301060939636.png)
+![image-20220628115003942](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081406602.png)
 
 # 五、Spring Boot与安全
 
@@ -475,7 +475,7 @@ ZooKeeper 是一个分布式的，开放源码的分布式应用程序协调服�
 
 Dubbo是Alibaba开源的分布式服务框架，它最大的特点是按照分层的方式来架构，使用这种方式可以使各个层之间解耦合（或者最大限度地松耦合）。从服务模型的角度来看，Dubbo采用的是一种非常简单的模型，要么是提供方提供服务，要么是消费方消费服务，所以基于这一点可以抽象出服务提供方（Provider）和服务消费方（Consumer）两个角色。
 
-![image-20220628163406831](https://gitee.com/wowosong/pic-md/raw/master/202301060940622.png) 
+![image-20220628163406831](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081407019.png) 
 
 • 1、安装zookeeper作为注册中心
 
@@ -485,16 +485,16 @@ Dubbo是Alibaba开源的分布式服务框架，它最大的特点是按照分�
 
 • 4、整合dubbo
 
-```
-<dependency>**
+```xml
+<dependency>
 
-**<groupId>com.alibaba.spring.boot</groupId>**
+<groupId>com.alibaba.spring.boot</groupId>
 
-**<artifactId>dubbo-spring-boot-starter</artifactId>**
+<artifactId>dubbo-spring-boot-starter</artifactId>
 
-**<version>2.0.0</version>**
+<version>2.0.0</version>
 
-**</dependency>**
+</dependency>
 ```
 
 三、Spring Boot和Spring Cloud
@@ -521,7 +521,7 @@ Spring Cloud是一个分布式的整体解决方案。Spring Cloud 为开发者�
 
 • 分布式配置——Spring Cloud Config微服务
 
-![image-20220628163456888](https://gitee.com/wowosong/pic-md/raw/master/202301060940596.png)• Spring Cloud 入门
+![image-20220628163456888](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081408701.png)• Spring Cloud 入门
 
 – 1、创建provider
 
@@ -563,7 +563,7 @@ Spring官方提供的热部署程序，实现修改类文件的热部署
 
 – 引入依赖
 
-```
+```xml
 <dependency> 
 
 <groupId>org.springframework.boot</groupId> 
@@ -601,7 +601,7 @@ Spring官方提供的热部署程序，实现修改类文件的热部署
 
 ​	–  可进行shutdown（POST 提交，此端点默认关闭）
 
-![image-20220628163556586](https://gitee.com/wowosong/pic-md/raw/master/202301060940274.png)
+![image-20220628163556586](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081408857.png)
 
 ## 二、定制端点信息
 

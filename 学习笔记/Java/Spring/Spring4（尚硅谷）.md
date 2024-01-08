@@ -1415,7 +1415,7 @@ System.out.println(add);
 #### 在 Spring 中启用 AspectJ 注解支持
 
 1. 要在 Spring 应用中使用 AspectJ 注解， 必须在 classpath 下包含 AspectJ 类库: aopalliance.jar、aspectj.weaver.jar 和 spring-aspects.jar
-2. 将 aop Schema 添加到 <beans> 根元素中.
+2. 将 aop Schema 添加到 \<beans> 根元素中.
 3. 要在 Spring IOC 容器中启用 AspectJ 注解支持, 只要在 Bean 配置文件中定义一个空的 XML 元素 <aop:aspectj-autoproxy>
 4. 当 Spring IOC 容器侦测到 Bean 配置文件中的 <aop:aspectj-autoproxy> 元素时, 会自动为与 AspectJ 切面匹配的 Bean 创建代理.
 

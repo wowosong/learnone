@@ -136,7 +136,7 @@ Spring Cloud Alibaba also provide rich [examples](https://github.com/alibaba/spr
 
 ## 依赖管理
 
-If you’re a Maven Central user, add our BOM to your pom.xml <dependencyManagement> section. This will allow you to omit versions for any of the Maven dependencies and instead delegate versioning to the BOM.
+If you’re a Maven Central user, add our BOM to your pom.xml \<dependencyManagement> section. This will allow you to omit versions for any of the Maven dependencies and instead delegate versioning to the BOM.
 
 ```xml
 <dependencyManagement>
@@ -185,7 +185,7 @@ For details about how to download and start Nacos, refer to the [Nacos Website](
 
 After Nacos Server starts, go to [http://ip:8848](http://ip:8848/) to view the console (default account name/password is nacos/nacos):
 
-![TB1XEfwbQH0gK0jSZPiXXavapXa 2790 1060](/Users/jiusonghuang/pic-md/20220123121642.png)
+![TB1XEfwbQH0gK0jSZPiXXavapXa 2790 1060](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081151673.png)
 
 Figure 1. Nacos Dashboard
 
@@ -475,7 +475,7 @@ Nacos Config uses DataId and GROUP to determine a configuration.
 
 The following figure shows that the DataId uses `myDataid`, GROUP uses `DEFAULT_GROUP`, and configures a configuration item of the format Properties:
 
-![TB1N2nxbRr0gK0jSZFnXXbRRXXa 2448 1194](/Users/jiusonghuang/pic-md/20220123121727.png)
+![TB1N2nxbRr0gK0jSZFnXXbRRXXa 2448 1194](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081152725.png)
 
 Figure 2. Nacos Config Item
 
@@ -920,8 +920,6 @@ public class TestController {
 Sentinel dashboard is a lightweight console that provides functions such as machine discovery, single-server resource monitoring, overview of cluster resource data, as well as rule management. To use these features, you only need to complete a few steps.
 
 **Note**: The statistics overview for clusters only supports clusters with less than 500 nodes, and has a latency of about 1 to 2 seconds.
-
-![dashboard](./assets/1642911335-c90e226562df084927080ab3fe13aab4.png)
 
 Figure 3. Sentinel Dashboard
 
@@ -1467,8 +1465,6 @@ For example, `Kafka` uses `KafkaMessageChannelBinder`, `RabbitMQ` uses `RabbitMe
 
 Binding serves as a bridge between message middleware and the provider and consumer of the applications. Developers only need to use the Provider or Consumer to produce or consume data, and do not need to worry about the interactions with the message middleware.
 
-![SCSt overview](assets/1642911335-d73deb1158b6f4d4cae428d477700b05.png)
-
 Figure 4. Spring Cloud Stream
 
 Now let’s use Spring Cloud Stream to write a simple code for sending and receiving messages:
@@ -1516,7 +1512,7 @@ Alternatively, you can also use the Spring Cloud Stream RocketMQ Starter:
 
 This is the implementation architecture of Spring Cloud Stream RocketMQ Binder:
 
-![TB1v8rcbUY1gK0jSZFCXXcwqXXa 1236 773](/Users/jiusonghuang/pic-md/20220123122507.png)
+![TB1v8rcbUY1gK0jSZFCXXcwqXXa 1236 773](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081155322.png)
 
 Figure 5. SCS RocketMQ Binder
 

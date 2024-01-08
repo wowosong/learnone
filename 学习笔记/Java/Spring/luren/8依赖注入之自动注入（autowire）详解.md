@@ -571,7 +571,7 @@ public class DiAutowireByTypeExtend {
 
 > @1,@2,@3,@4：定义了4个属性，都是泛型类型的，都有对应的set方法。
 > 
-> @5：参数类型是List<BaseServie>，这个集合集合中元素的类型是BaseServie，spring会找到容器中所有满足BaseServie.isAssignableFrom(bean的类型)的bean列表，将其通过@5的set方法进行注入。
+> @5：参数类型是List\<BaseServie>，这个集合集合中元素的类型是BaseServie，spring会找到容器中所有满足BaseServie.isAssignableFrom(bean的类型)的bean列表，将其通过@5的set方法进行注入。
 > 
 > @6：同@5的代码
 > 
