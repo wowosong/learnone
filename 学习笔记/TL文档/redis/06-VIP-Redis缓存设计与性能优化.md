@@ -1,6 +1,6 @@
 # 多级缓存架构
 
-![https://note.youdao.com/yws/public/resource/7b6df00d88f1554d79b2d688c23148a2/xmlnote/0E66B6FC979C49A9AE9F2AB4D54C9F64/80946](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061738667.bin)
+![image-20240109173754782](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091737619.png)
 
 ## 缓存设计
 
@@ -21,7 +21,6 @@
 #### 1、缓存空对象
 
 ```java
-
 String get(String key) {
     // 从缓存中获取数据
     String cacheValue = cache.get(key);
@@ -46,7 +45,7 @@ String get(String key) {
 
 对于恶意攻击，向服务器请求大量不存在的数据造成的缓存穿透，还可以用布隆过滤器先做一次过滤，对于不存在的数据布隆过滤器一般都能够过滤掉，不让请求再往后端发送。**当布隆过滤器说某个值存在时，这个值可能不存在；当它说不存在时，那就肯定不存在。**
 
-![https://note.youdao.com/yws/public/resource/7b6df00d88f1554d79b2d688c23148a2/xmlnote/CB877F64DE984480871C578364D570B4/81509](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061738219.bin)
+![image-20240109173832720](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091739099.png)
 
 布隆过滤器就是**一个大型的位数组和几个不一样的无偏 hash 函数**。所谓无偏就是能够把元素的 hash 值算得比较均匀。
 
@@ -134,8 +133,6 @@ String get(String key) {
         return cacheValue;
     }
 }
-
-
 ```
 
 注意：布隆过滤器不能删除数据，如果要删除得重新初始化数据。
@@ -147,7 +144,6 @@ String get(String key) {
 示例伪代码：
 
 ```java
-
 String get(String key) {
     // 从缓存中获取数据
     String cacheValue = cache.get(key);
@@ -202,7 +198,6 @@ String get(String key) {
 示例伪代码：
 
 ```java
-
 String get(String key) {
     // 从Redis中获取数据
     String value = redis.get(key);
@@ -233,11 +228,11 @@ String get(String key) {
 
 1、双写不一致情况
 
-![https://note.youdao.com/yws/public/resource/7b6df00d88f1554d79b2d688c23148a2/xmlnote/945558B040344331BB8700A95196FA54/103029](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061738541.bin)
+![image-20240109174014441](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091740029.png)
 
 2、读写并发不一致
 
-![https://note.youdao.com/yws/public/resource/7b6df00d88f1554d79b2d688c23148a2/xmlnote/D3A6251CC98B4F1380A4B88CCF5FAAD3/103137](./06-VIP-Redis%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%20.assets/20220308212540.bin)
+![image-20240109174039973](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091740369.png)
 
 解决方案：
 
@@ -249,7 +244,7 @@ String get(String key) {
 
 4、也可以用阿里开源的canal通过监听数据库的binlog日志及时的去修改缓存，但是引入了新的中间件，增加了系统的复杂度。
 
-![https://note.youdao.com/yws/public/resource/7b6df00d88f1554d79b2d688c23148a2/xmlnote/D15959DC028946E9867FD696EA6357C5/103108](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061738256.bin)
+![image-20240109174052522](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091740540.png)
 
 总结：
 
@@ -337,7 +332,7 @@ big hash：可以讲数据分段存储，比如一个大的key，假设存了1�
 
 反例：
 
-```shell
+```
 set user:1:name tom
 
 set user:1:age 19
@@ -371,7 +366,7 @@ hmset user:1 name tom age 19 favor football
 
 4.【推荐】使用批量操作提高效率
 
-```shell
+```
 原生命令：例如mget、mset。
 
 非原生命令
@@ -383,7 +378,7 @@ hmset user:1 name tom age 19 favor football
 
 注意两者不同：
 
-```shell
+```
 1. 原生命令是原子操作，pipeline是非原子操作。
 
 2. pipeline可以打包不同的命令，原生命令做不到
@@ -466,7 +461,6 @@ minIdle（最小空闲连接数），与其说是最小空闲连接数，不如�
 连接池预热示例代码：
 
 ```java
-
 List<Jedis> minIdleJedisList = new ArrayList<Jedis>(jedisPoolConfig.getMinIdle());
 for (int i = 0; i < jedisPoolConfig.getMinIdle(); i++) {
     Jedis jedis = null;
@@ -625,12 +619,11 @@ slowlog get 5 #获取最新的5条慢查询日志。慢查询日志由四个属�
 slowlog reset #重置慢查询日志
 ```
 
-
-
-```plain
+```
 文档：06-VIP-Redis缓存设计与性能优化.note
 ```
 
-```plain
+```
 链接：http://note.youdao.com/noteshare?id=7b6df00d88f1554d79b2d688c23148a2&sub=7AECEFE5E2FC4416B9FFED2323C53B40
 ```
+
