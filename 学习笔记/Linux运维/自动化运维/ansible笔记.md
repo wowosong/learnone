@@ -210,7 +210,7 @@ ansible ansible-doc  ansible-playbook  ansible-vault  ansible-console  ansible-g
 
 ### **1、ansible-doc 显示模块帮助**
 
-ansible-doc [options][module]
+ansible-doc \[options][module]
 
 -a  显示所有模块文档
 
@@ -256,15 +256,15 @@ all：表示所有Inventory中的所有主机
 
 *：通配符
 
-ansible “*” -m ping
+ansible "*" -m ping
 
 ansible 192.168.1.* -m ping
 
-ansible “*srvs” -m ping
+ansible "*srvs" -m ping
 
 或关系
 
-ansible “webserver:dbserver” -m ping
+ansible "webserver:dbserver" -m ping
 
 ansible "webserver:dbserver" -m ping #执行在web组并且在dbserver组中的主机（忽略重复的）
 
@@ -332,7 +332,7 @@ ansible srv -m shell -a ‘echo magedu | passwd --stdin wang’
 
 **script**：运行脚本
 
--a “/PATH/TO/SCRIPT_FILE”
+-a "/PATH/TO/SCRIPT_FILE"
 
 ansible webserver -m script -a f1.sh
 
@@ -352,7 +352,7 @@ ansible all -m fetch -a ‘src=/root/a.sh dest=/data/f2.sh'
 
 **file**:设置文件属性（状态，属组，属主，权限）
 
-ansible all -m file -a “path=/root/a.sh owner=zhang mode=755”
+ansible all -m file -a "path=/root/a.sh owner=zhang mode=755"
 
 ansible all -m file -a 'src=/data/test1 dest=/tmp/test state=link'
 
@@ -370,7 +370,7 @@ ansible all -m file -a ’src=/etc/fstab dest=/data/fstab.link state=link‘
 
 **hostname** 管理主机名
 
-ansible 192.168.10.24 -m hostname -a “name=kso-bj6-zw-zhangwei”#永久生效（但hosts文件需要手动更改）
+ansible 192.168.10.24 -m hostname -a "name=kso-bj6-zw-zhangwei"#永久生效（但hosts文件需要手动更改）
 
 **cron** 计划任务
 
@@ -510,7 +510,7 @@ root@dbserver (2)[f:5]$ service name=httpd state=restart
 
 ![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203466.png)
 
-playbook是由一个或者多个“play”组成的列表
+playbook是由一个或者多个"play"组成的列表
 
 play的主要功能在于将事先归并为一组的主机装扮成事先通过ansible中的task定义好的角色。从根本上来讲，所谓task无非是调用ansible的一个module。将多个play组织在一个playbook中，即可以让他们联同起来按照事先编排的机制同唱一台大戏。
 
@@ -544,7 +544,7 @@ YAML表达能力强，扩展性好
 
 （1）、注意
 
-在单一档案中，可以连续三个连字号（---）区分多个档案。另外，还有选择性的连续三个点号（...）用来表示档案结尾
+在单一档案中，可以连续三个连字号（\-\-\-）区分多个档案。另外，还有选择性的连续三个点号（...）用来表示档案结尾
 
 次行动开始正常些playbook的内容，一般建议些明该playbook的功能
 
@@ -566,47 +566,45 @@ v可是一个字符串，也可是另一个列表
 
 YAML文件扩展名通常为yml或者yaml
 
-（2）list：列表，其所有元素均使用“-”打头
+（2）list：列表，其所有元素均使用"-"打头
 
 示例：
 
-\# Alist of tasty fruits
-
-\- Apple
-
-\- Orange
-
-\- Strawberry
-
-\- Mango
+```
+# Alist of tasty fruits
+- Apple
+- Orange
+- Strawberry
+- Mango
+```
 
  （3）Dictionary：字典，通常由说个key与value构成
 
 示例：
 
-\---
-
-\# An employee record
+```
+# An employee record
 
 name:Example Developer
 
  job:Developer
 
 skill:Elite
+```
 
-也可将key:value放置于{}中进行表示，用“，”分隔多个key:value
+也可将key:value放置于{}中进行表示，用"，"分隔多个key:value
 
 示例：
 
-\---
-
-\# An employee record
-
+```
+---
+# An employee record
 {name:Example Developer,job:Developer,skill:Elite}
+```
 
-YAML的语法和其他高阶语言类似，并且可以简单表达清单，散列表、标量等数据结构。其	机构（Structure）通过空格来展示，序列（Sequence）里的项目“-”来代表，Map李的键值对用“：”分割。
+YAML的语法和其他高阶语言类似，并且可以简单表达清单，散列表、标量等数据结构。其	机构（Structure）通过空格来展示，序列（Sequence）里的项目"-"来代表，Map李的键值对用"："分割。
 
-**d.playbook的核心元素(**[**http://www.ansible.com.cn/**](http://www.ansible.com.cn/)**)中文网**
+**d.playbook的核心元素**
 
 hosts  执行的远程主机列表
 
@@ -628,6 +626,7 @@ playbook中的每一个play的目的都是为了让某个或某些主机以某�
 
 可以是如下形式：
 
+```
 one.example.com
 
 one.example.com:two.example.com
@@ -635,6 +634,7 @@ one.example.com:two.example.com
 192.168.1.50
 
 192.168.1.*
+```
 
 webserver:dbserver 两个组的并集
 
@@ -642,31 +642,29 @@ webserver:&dbserver 两个组的交集
 
 webserver:!dbserver 在webserver组中  但不在dbserver组中
 
+```
 示例： - hosts：webserver:sbserver
+```
 
 ![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203529.png)  
-
-
 
 remote_user:
 
 可用于Host和task中。也可以通过制定其通过sudo的方式在远程主机上执行任务，其可用于play全局或某任务；此外；甚至可以在sudo时使用sudo_user: root时切换到用户。
 
-\- hosts: web
+```
+- hosts: web
 
   remote_user: root
 
   tasks:
 
-​     \- name: test connection
-
-​       ping
-
-​       remote_user: zhangwei
-
-​       sudo: yes   #默认sudo为root
-
-​       sudo_user: wang   #sudo为wang
+     - name: test connection
+     ping
+     remote_user: zhangwei
+     sudo: yes   #默认sudo为root
+     sudo_user: wang   #sudo为wang
+```
 
 tasks：
 
@@ -684,33 +682,34 @@ tasks：
 
 示例：
 
+```
 tasks：
-
-   \- name: disable selinux
-
-​     command: /sbin/setenforce 0
+	- name: disable selinux
+		command: /sbin/setenforce 0
+```
 
 如果命令或脚本的退出码不为零，可以使用如下方式替代
 
+```
 tasks:
-
-   \- name: run this conamnd and ignore the result
-
-​      shell : /usr/bin/sommecommand || /bin/true
+   - name: run this conamnd and ignore the result
+      shell : /usr/bin/sommecommand || /bin/true
+```
 
 或者使用ignore_errors来忽略错误信息：
 
+```
 tasks:
-
-  \- name: run this conamnd and ignore the result
-
-​     shell : /usr/bin/sommecommand
-
-​     ignore_errors: True
+  - name: run this conamnd and ignore the result
+     shell : /usr/bin/sommecommand
+     ignore_errors: True
+```
 
 运行playbook方式
 
+```
 ansible-playbook   ... [options]
+```
 
 常见选项
 
@@ -724,6 +723,7 @@ ansible-playbook   ... [options]
 
 示例：
 
+```
 ansible-playbook file.yml --check 只检测
 
 ansible-playbook file.yml
@@ -735,6 +735,7 @@ ansible-playbook file.yml --list-hosts  # 查看主机
 ansible-playbook file.yml --list-tasks  #查看任务列表
 
 ansible-playbook file.yml --list-tags  # 查看标签
+```
 
 **练习**
 
@@ -770,10 +771,8 @@ notify 此action可用于在每个play的最后被出发，这样可以避免多
  		service: name=httpd state=started enabled=yes  
  handlers:    
  - name: service restart    
- 		service: name=httpd state=restarted    
+ 		service: name=httpd state=restarted          
 ```
-
-​          
 
 小贴士：selinux的开启导致apache更换端口后启动不成功。
 
@@ -783,11 +782,13 @@ notify 此action可用于在每个play的最后被出发，这样可以避免多
 
 ​    ![0](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203373.png)
 
+```
 ansible-playbook -t conf httpd.yml    **【使用-t 指定标签名字】**
 
 ansible-playbook -t conf,service httpd.yml
 
 ansible-playbook  httpd.yml --list-tsgs  #查看标签列表
+```
 
 注意：tags标签命名可以相同，不通模块下写入相同tags标签，执行时，打入标签的模块会同时执行
 
@@ -801,9 +802,10 @@ ansible-playbook  httpd.yml --list-tsgs  #查看标签列表
 
 eg：ansible all -m setup #查看远程主机的所有变量
 
-​        ansible all -m setup -a 'filter=ansible_hostname'#过滤主机中的变量
-
-​        ansible all -m setup -a 'filter=ansible_hostname' ##过滤主机的主机全名 
+```
+ ansible all -m setup -a 'filter=ansible_hostname'#过滤主机中的变量
+ ansible all -m setup -a 'filter=ansible_hostname' ##过滤主机的主机全名 
+```
 
 这里查找到的变量可以直接在playbook中调用
 
@@ -821,7 +823,9 @@ eg：ansible all -m setup #查看远程主机的所有变量
 
 （3）通过命令行指定变量，优先级最高
 
+```
 ansible-playbook -e varname=value
+```
 
 eg：
 
@@ -841,19 +845,23 @@ tasks:
 
 ```
 
-​                ansible-playbook -e 'pkname=httpd'    test.yml              
+```
+ ansible-playbook -e 'pkname=httpd'    test.yml              
+```
 
 （4）在playbook中定义
 
+```
 vars: 
-
-​          \- var1: value1
-
-​           \- var2: value2
+      - var1: value1
+      - var2: value2
+```
 
 ​    ![0](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071203476.png)
 
-​                ansible-playbook  test.yml              
+```
+ansible-playbook  test.yml              
+```
 
 （5）在role中定义
 
@@ -881,7 +889,7 @@ var2: httpd  #注意空格
 
   remote_user: root
 
-  vars_files:    #注意是var_files。“s”
+  vars_files:    #注意是var_files。"s"
 
     - vars.yml 
 
@@ -899,8 +907,9 @@ var2: httpd  #注意空格
 
 **变量的优先级：命令行中的-e > playbook中定义的变量 > 主机清单中定义的变量**
 
-**9、****模板templates**
+9、**模板templates**
 
+```
 文本文件，嵌套有脚本（使用模板编程语言编写）
 
 jinja2语言，使用字面量，有下面形式:
@@ -924,6 +933,7 @@ jinja2语言，使用字面量，有下面形式:
 逻辑运算：and,or,not
 
 流表达式：For If When（循环语句）
+```
 
 小记：在模板目录template下写入模板文件，文件中可以直接调用setup变量（src可以直接书写模板目录下的文件）
 
@@ -950,7 +960,7 @@ when语句
 
 迭代：当有需要重复执行的任务时，可以使用迭代机制
 
-对迭代项的引用，固定变量名为“iftem”
+对迭代项的引用，固定变量名为"iftem"
 
 要在task中使用with_items给定要迭代的元素列表
 
@@ -1047,21 +1057,21 @@ yml文件
 **yml文件**
 
 ```
-                --- 
-                - hosts: web  
-                remote_user: root 
-                vars:   
-                  ports:      
-                    - web1:       
-                      port: 81        
-                      name: web1.magedu.com        
-                      rootdir: /data/website1      
-                    - web2:       
-                      port: 82        
-                      #name: web2.magedu.com      
-                      rootdir: /data/website2   
-                tasks:    - name: copy conf     
-                template: src=if.conf.j2 dest=/data/if.conf  
+--- 
+- hosts: web  
+remote_user: root 
+vars:   
+  ports:      
+    - web1:       
+      port: 81        
+      name: web1.magedu.com        
+      rootdir: /data/website1      
+    - web2:       
+      port: 82        
+      #name: web2.magedu.com      
+      rootdir: /data/website2   
+tasks:    - name: copy conf     
+template: src=if.conf.j2 dest=/data/if.conf  
 ```
 
 ​            
@@ -1069,15 +1079,15 @@ yml文件
 **模板文件：**
 
 ```
-                {% for p in ports %} 
-                server{     
-                listen {{ p.port }}
-                {% if p.name is defined %} 
-                #如果p.name被定义就执行下面的servername，否则不执行     
-                servername {{ p.name }} {% endif %}    
-                documentroot {{ p.rootdir }} 
-                } 
-                {% endfor %}      
+{% for p in ports %} 
+server{     
+listen {{ p.port }}
+{% if p.name is defined %} 
+#如果p.name被定义就执行下面的servername，否则不执行     
+servername {{ p.name }} {% endif %}    
+documentroot {{ p.rootdir }} 
+} 
+{% endfor %}      
 ```
 
 ​        
