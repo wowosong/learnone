@@ -34,7 +34,7 @@
 
 **如何设计一个权限系统？**
 
-![](https://gitee.com/wowosong/pic-md/raw/master/202306151546568.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091315184.png)
 
 ## 二、一个自己实现的权限模型 BasicAuth： 
 
@@ -118,7 +118,7 @@
 
 项目整体机构如下：
 
-![](./SpringSecurity.assets/20220109131603.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091317904.png)
 
 pom依赖非常简单，只需要引入spring-boot-starter 和 spring-boot-starter-web两个依赖。
 
@@ -603,7 +603,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 ### 1、项目搭建步骤
 
-​		1、创建maven工程。
+​	1、创建maven工程。
 
 ​	父工程我们依然使用上面示例中的同一个父工程。
 
@@ -752,8 +752,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MyWebConfig implements WebMvcConfigurer {
     //默认Url根路径跳转到/login，此url为spring security提供
     @Override
-    public void addViewControllers(ViewControllerRegistry registry)
-    {
+    public void addViewControllers(ViewControllerRegistry registry){
         registry.addViewController("/").setViewName("redirect:/login");
     }
     /**
@@ -763,7 +762,7 @@ public class MyWebConfig implements WebMvcConfigurer {
     @Bean
     public PasswordEncoder getPassWordEncoder(){
         return new BCryptPasswordEncoder(10);
-//        return NoOpPasswordEncoder.getInstance();
+        //        return NoOpPasswordEncoder.getInstance();
     }
 
     /**
@@ -774,11 +773,9 @@ public class MyWebConfig implements WebMvcConfigurer {
      */
     @Bean
     public UserDetailsService userDetailsService(){
-        InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager(User.withUsername("admin").password(passwordEncoder().encode("admin")).authorities("mobile","salary").build(),
-                                                                                       User.withUsername("manager").password(passwordEncoder().encode("manager")).authorities("salary").build(),
-                                                                                       User.withUsername("worker").password(passwordEncoder().encode("worker")).authorities("worker").build());
+        InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager(User.withUsername("admin").password(passwordEncoder().encode("admin")).authorities("mobile","salary").build(),                                                                        User.withUsername("manager").password(passwordEncoder().encode("manager")).authorities("salary").build(),                                                                           User.withUsername("worker").password(passwordEncoder().encode("worker")).authorities("worker").build());
         return userDetailsManager;
-//      return new JdbcUserDetailsManager(DataSource dataSource);
+        //      return new JdbcUserDetailsManager(DataSource dataSource);
     }
 }
 
@@ -876,11 +873,11 @@ public class LoginController {
 
 这样就可以启动任务进行测试了。启动后，可以访问security默认提供的登录页面 http://localhost:8080/login
 
-![security_login_page](./SpringSecurity.assets/20220109131650.png)
+![security_login_page](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091315927.png)
 
 然后就可以使用之前创建的三个用户分别登陆，登陆后进入测试主页面。
 
-![](./SpringSecurity.assets/20220109131927.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091315694.png)
 
 测试页面中，登出 使用的是Security框架提供的默认登出地址 /logout。分别访问mobile和salary下的服务可以看到权限有控制。
 
@@ -906,7 +903,7 @@ public class LoginController {
 
 而登录页面的一些逻辑处理，可以参考系统提供的默认登录页。但是这里依然要注意登录页的访问权限。而关于登录页的源码，可以在DefaultLoginPageGeneratingFilter中找到。
 
-​	**记住我功能**：登录页面提供了记住我功能，此功能只需要往登录时提交一个remeber-me的参数，值可以是 on 、yes 、1 、 true，就会记住当前登录用户的token到cookie中。http.rememberMe().rememberMeParameter("remeber-me")，使用这个配置可以定制参数名。而在登出时，会清除记住我功能的cookie。
+​	**记住我功能**：登录页面提供了记住我功能，此功能只需要往登录时提交一个remeber\-me的参数，值可以是 on 、yes 、1 、 true，就会记住当前登录用户的token到cookie中。http.rememberMe().rememberMeParameter("remeber-me")，使用这个配置可以定制参数名。而在登出时，会清除记住我功能的cookie。
 
 ​	**拦截策略**：antMachers()方法设置路径匹配，可以用两个星号代表多层路径，一个星号代表一个或多个字符，问号代表一个字符。然后配置对应的安全策略：
 
@@ -922,7 +919,7 @@ csrf全称是Cross—Site Request Forgery 跨站点请求伪造。这是一种�
 
 我们在示例中是使用http.csrf().disable()方法简单的关闭了CSRF检查。而其实Spring Security针对CSRF是有一套专门的检查机制的。他的思想就是在后台的session中加入一个csrf的token值，然后向后端发送请求时，对于GET、HEAD、TRACE、OPTIONS以外的请求，例如POST、PUT、DELETE等，会要求带上这个token值进行比对。
 
-当我们打开csrf的检查，再访问默认的登录页时，可以看到在页面的登录form表单中，是有一个name为csrf的隐藏字段的，这个就是csrf的token。例如我们在freemarker的模板语言中可以使用<input type="hidden" name="${csrf.parameterName}"  value="${_csrf.token}"/>添加这个参数。
+当我们打开csrf的检查，再访问默认的登录页时，可以看到在页面的登录form表单中，是有一个name为csrf的隐藏字段的，这个就是csrf的token。例如我们在freemarker的模板语言中可以使用`<input type="hidden" name="${csrf.parameterName}"  value="${_csrf.token}"/>`添加这个参数。
 
 而在查看Spring Security后台，有一个CsrfFilter专门负责对Csrf参数进行检查。他会调用HttpSessionCsrfTokenRepository生成一个CsrfToken，并将值保存到Session中。
 
@@ -934,21 +931,21 @@ csrf全称是Cross—Site Request Forgery 跨站点请求伪造。这是一种�
 
 ### 	1、 结构总览
 
-​		Spring Security是解决安全访问控制的问题，说白了就是**认证和授权**两个问题。而至于像之前示例中页面控件的查看权限，是属于资源具体行为。Spring Security虽然也提供了类似的一些支持，但是这些不是Spring Security控制的重点。Spring Security功能的重点是对所有进入系统的请求进行拦截，校验每个请求是否能够访问它所期望的资源。而Spring Security对Web资源的保护是通过Filter来实现的，所以要从Filter入手，逐步深入Spring Security原理。
+​	Spring Security是解决安全访问控制的问题，说白了就是**认证和授权**两个问题。而至于像之前示例中页面控件的查看权限，是属于资源具体行为。Spring Security虽然也提供了类似的一些支持，但是这些不是Spring Security控制的重点。Spring Security功能的重点是对所有进入系统的请求进行拦截，校验每个请求是否能够访问它所期望的资源。而Spring Security对Web资源的保护是通过Filter来实现的，所以要从Filter入手，逐步深入Spring Security原理。
 
 当初始化Spring Security时，在org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration中会往Spring容器中注入一个名为**SpringSecurityFilterChain**的Servlet过滤器，类型为org.springframework.security.web.FilterChainProxy。它实现了javax.servlet.Filter，因此外部的请求都会经过这个类。
 
-![](./SpringSecurity.assets/20220109131936.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091315910.png)
 
 
 
 而FilterChainProxy是一个代理，真正起作用的是FilterChainProxy中SecurityFilterChain所包含的各个Filter，同时，这些**Filter都已经注入到Spring容器中**，他们是Spring Security的核心，各有各的职责。但是他们并不直接处理用户的认证和授权，而是把他们交给了**认证管理器(AuthenticationManager)和决策管理器(AccessDecisionManager)**进行处理。下面是FilterChainProxy相关类的UML图示：
 
-![](./SpringSecurity.assets/20220109131943.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091318049.png)
 
 Spring Security的功能实现主要就是由一系列**过滤器链**相互配合完成的。在启动过程中可以看到有info日志。
 
-![](./SpringSecurity.assets/20220109131950.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091318282.png)
 
 下面介绍过滤器链中主要的几个过滤器及其作用：
 
@@ -962,7 +959,7 @@ Spring Security的功能实现主要就是由一系列**过滤器链**相互配�
 
 ### 2、认证流程
 
-![](./SpringSecurity.assets/20220109131957.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091318442.png)
 
 让我们仔细分析认证过程：
 
@@ -972,31 +969,34 @@ Spring Security的功能实现主要就是由一系列**过滤器链**相互配�
 
 3、认证成功后， AuthenticationManager 身份管理器返回一个被填充满了信息的（包括上面提到的权限信息，身份信息，细节信息，但密码通常会被移除） Authentication 实例。
 
-4、SecurityContextHolder 安全上下文容器将第3步填充了信息的 Authentication ，通过SecurityContextHolder.getContext().setAuthentication(…)方法，设置到其中。可以看出AuthenticationManager接口（认证管理器）是认证相关的核心接口，也是发起认证的出发点，它的实现类为ProviderManager。而Spring Security支持多种认证方式，因此ProviderManager维护着一个List<AuthenticationProvider> 列表，存放多种认证方式，最终实际的认证工作是由AuthenticationProvider完成的。咱们知道web表单的对应的AuthenticationProvider实现类为DaoAuthenticationProvider，它的内部又维护着一个UserDetailsService负责UserDetails的获取。最终AuthenticationProvider将UserDetails填充至Authentication。
+4、SecurityContextHolder 安全上下文容器将第3步填充了信息的 Authentication ，通过SecurityContextHolder.getContext().setAuthentication(…)方法，设置到其中。可以看出AuthenticationManager接口（认证管理器）是认证相关的核心接口，也是发起认证的出发点，它的实现类为ProviderManager。而Spring Security支持多种认证方式，因此ProviderManager维护着一个List\<AuthenticationProvider> 列表，存放多种认证方式，最终实际的认证工作是由AuthenticationProvider完成的。咱们知道web表单的对应的AuthenticationProvider实现类为DaoAuthenticationProvider，它的内部又维护着一个UserDetailsService负责UserDetails的获取。最终AuthenticationProvider将UserDetails填充至Authentication。
 
-> 调试代码从UsernamePasswordAuthenticationFilter 开始跟踪。
->
-> 最后的认证流程在AbstractUserDetailsAuthenticationProvider的authenticate方法中。获取用户在retrieveUser方法。**密码比较在DaoAuthenticationProvider的additionalAuthenticationChecks方法**
+```
+调试代码从UsernamePasswordAuthenticationFilter 开始跟踪。
+最后的认证流程在AbstractUserDetailsAuthenticationProvider的authenticate方法中。获取用户在retrieveUser方法。
+密码比较在DaoAuthenticationProvider的additionalAuthenticationChecks方法
+```
 
 几个核心的组件的调用流程：
 
-![](./SpringSecurity.assets/20220109132009.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091318783.png)
 
 #### 2.1 AuthenticationProvider接口：认证处理器
 
 ```java
 public interface AuthenticationProvider {
     //认证的方法
-   Authentication authenticate(Authentication authentication) throws AuthenticationException;
+    Authentication authenticate(Authentication authentication) throws AuthenticationException;
     //支持哪种认证 
-   boolean supports(Class<?> var1); }
+    boolean supports(Class<?> var1); 
+}
 ```
 
 这里对于AbstractUserDetailsAuthenticationProvider，他的support方法就表明他可以处理用户名密码这样的认证。
 
 ```java
 public boolean supports(Class<?> authentication) {
-  return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
+    return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
 }
 ```
 
@@ -1006,16 +1006,16 @@ public boolean supports(Class<?> authentication) {
 
 ```java
 public interface Authentication extends Principal, Serializable {
-		//获取权限信息列表
+    //获取权限信息列表
     Collection<? extends GrantedAuthority> getAuthorities();
-  
-	//获取凭证信息。用户输入的密码字符串，在认证过后通常会被移除，用于保障安全。
+
+    //获取凭证信息。用户输入的密码字符串，在认证过后通常会被移除，用于保障安全。
     Object getCredentials();
-  
-	//细节信息，web应用中的实现接口通常为 WebAuthenticationDetails，它记录了访问者的ip地 址和sessionId的值。
+
+    //细节信息，web应用中的实现接口通常为 WebAuthenticationDetails，它记录了访问者的ip地 址和sessionId的值。
     Object getDetails();
-  
-	//身份信息，大部分情况下返回的是UserDetails接口的实现类
+
+    //身份信息，大部分情况下返回的是UserDetails接口的实现类
     Object getPrincipal();
 
     boolean isAuthenticated();
@@ -1093,13 +1093,13 @@ public interface PasswordEncoder {、
 
 授权是在用户认证通过后，对访问资源的权限进行检查的过程。Spring Security可以通过http.authorizeRequests()对web请求进行授权保护。**Spring Security使用标准Filter建立了对web请求的拦截，最终实现对资源的授权访问。**
 
-![](./SpringSecurity.assets/20220109132029.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091318019.png)
 
 授权的流程：
 
 1、**拦截请求**，已认证用户访问受保护的web资源将被SecurityFilterChain中(实现类为DefaultSecurityFilterChain)的 FilterSecurityInterceptor 的子类拦截。
 
-2、**获取资源访问策略**，FilterSecurityInterceptor会从 SecurityMetadataSource 的子类DefaultFilterInvocationSecurityMetadataSource 获取要访问当前资源所需要的权限Collection<ConfigAttribute> 。 
+2、**获取资源访问策略**，FilterSecurityInterceptor会从 SecurityMetadataSource 的子类DefaultFilterInvocationSecurityMetadataSource 获取要访问当前资源所需要的权限Collection\<ConfigAttribute> 。 
 
 **SecurityMetadataSource其实就是读取访问策略的抽象**，而读取的内容，其实就是我们配置的访问规则，读取访问策略如：
 
@@ -1121,10 +1121,10 @@ http.csrf().disable()//关闭csrf跨域检查
 
 ```java
 public interface AccessDecisionManager {
-	//通过传递的参数来决定用户是否有访问对应受保护资源的权限
-	void decide(Authentication authentication, Object object,
-			Collection<ConfigAttribute> configAttributes) throws AccessDeniedException,
-			InsufficientAuthenticationException;
+    //通过传递的参数来决定用户是否有访问对应受保护资源的权限
+    void decide(Authentication authentication, Object object,
+                Collection<ConfigAttribute> configAttributes) throws AccessDeniedException,
+    InsufficientAuthenticationException;
 }
 ```
 
@@ -1140,11 +1140,13 @@ public interface AccessDecisionManager {
 
 在AccessDecisionManager的实现类ConsensusBased中，是使用投票的方式来确定是否能够访问受保护的资源。
 
-![](./SpringSecurity.assets/20220109132038.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091318709.png)
 
 AccessDecisionManager（访问决策管理器）中包含了一系列的AccessDecisionVoter（访问决策投票）将会被用来对Authentication是否有权访问受保护对象进行投票，AccessDecisionManager根据投票结果，做出最终角色。
 
-> 为什么要投票？ 因为权限可以从多个方面来进行配置，有角色但是没有资源怎么办？这就需要有不同的处理策略
+```
+为什么要投票？ 因为权限可以从多个方面来进行配置，有角色但是没有资源怎么办？这就需要有不同的处理策略
+```
 
 AccessDecisionVoter是一个接口，定义了三个方法
 
@@ -1214,10 +1216,10 @@ public AccessDecisionManager accessDecisionManager() {
 @Override
 protected void configure(HttpSecurity http) throws Exception {
     http
-    ...
-    .anyRequest()
-    .authenticated()
-    .accessDecisionManager(accessDecisionManager());
+        ...
+        .anyRequest()
+        .authenticated()
+        .accessDecisionManager(accessDecisionManager());
 }
 ```
 
@@ -1226,20 +1228,20 @@ protected void configure(HttpSecurity http) throws Exception {
 #### 4.1、自定义登录页面及登录过程
 
 ```java
- //配置安全拦截机制
+//配置安全拦截机制
 @Override
 protected void configure(HttpSecurity http) throws Exception {
-   http
-     .authorizeRequests()
-     .antMatchers("/r/**").authenticated()    
-     .anyRequest().permitAll()                
-     .and()
-     .formLogin()//允许表单登录
-     .loginPage("/login‐view")//自定义登录页面
-     .loginProcessingUrl("/login")//自定义登录处理地址
-     .defaultSuccessUrl("/main.html")//指定登录成功后的跳转地址-页面重定向
-     // .successForwardUrl("/login‐success")//指定登录成功后的跳转URL - 后端跳转
-     .permitAll();
+    http
+        .authorizeRequests()
+        .antMatchers("/r/**").authenticated()    
+        .anyRequest().permitAll()                
+        .and()
+        .formLogin()//允许表单登录
+        .loginPage("/login‐view")//自定义登录页面
+        .loginProcessingUrl("/login")//自定义登录处理地址
+        .defaultSuccessUrl("/main.html")//指定登录成功后的跳转地址-页面重定向
+        // .successForwardUrl("/login‐success")//指定登录成功后的跳转URL - 后端跳转
+        .permitAll();
 } 
 ```
 
@@ -1275,15 +1277,15 @@ hasIpAddress(String ipaddressExpression) 限制IP地址或子网
 ​	**注解方式需要先在启动加载的类中打开 @EnableGlobalMethodSecurity(securedEnabled=true) 注解，然后在需要权限管理的方法上使用@Secured(Resource)的方式配合权限。其中**
 
 ```java
-@EnableGlobalMethodSecurity(securedEnabled=true) 开启@Secured 注解过滤权限
+@EnableGlobalMethodSecurity(securedEnabled=true) //开启@Secured 注解过滤权限
 //打开后@Secured({"ROLE_manager","ROLE_admin"}) 表示方法需要有manager和admin两个角色才能访问
 //另外@Secured注解有些关键字，比如IS_AUTHENTICATED_ANONYMOUSLY 表示可以匿名登录。
-@EnableGlobalMethodSecurity(jsr250Enabled=true)	开启@RolesAllowed 注解过滤权限 
-@EnableGlobalMethodSecurity(prePostEnabled=true) 使用表达式时间方法级别的安全性，打开后可以使用一下几个注解。
-@PreAuthorize 在方法调用之前,基于表达式的计算结果来限制对方法的访问。例如@PreAuthorize("hasRole('normal') AND hasRole('admin')")
-@PostAuthorize 允许方法调用,但是如果表达式计算结果为false,将抛出一个安全性异常。此注释支持使用returnObject来表示返回的对象。例如@PostAuthorize(" returnObject!=null && returnObject.username == authentication.name")''
-@PostFilter 允许方法调用,但必须按照表达式来过滤方法的结果
-@PreFilter 允许方法调用,但必须在进入方法之前过滤输入值
+@EnableGlobalMethodSecurity(jsr250Enabled=true)	//开启@RolesAllowed 注解过滤权限 
+@EnableGlobalMethodSecurity(prePostEnabled=true) //使用表达式时间方法级别的安全性，打开后可以使用一下几个注解。
+@PreAuthorize //在方法调用之前,基于表达式的计算结果来限制对方法的访问。例如@PreAuthorize("hasRole('normal') AND hasRole('admin')")
+@PostAuthorize //允许方法调用,但是如果表达式计算结果为false,将抛出一个安全性异常。此注释支持使用returnObject来表示返回的对象。例如@PostAuthorize(" returnObject!=null && returnObject.username == authentication.name")''
+@PostFilter //允许方法调用,但必须按照表达式来过滤方法的结果
+@PreFilter //允许方法调用,但必须在进入方法之前过滤输入值
 ```
 
 ### 5、会话控制
@@ -1330,8 +1332,8 @@ public class LoginController {
 ```java
 @Override
 protected void configure(HttpSecurity http) throws Exception {
-  http.sessionManagement()
-       .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) }
+    http.sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) }
 ```
 
 这个属性有几个选项：
@@ -1446,7 +1448,7 @@ http
 
 ​	这种方式依然是由服务端保存统一的用户信息。只是在分布式环境下，将Session信息同步到各个服务中，并对请求进行均衡的负载。
 
-![](./SpringSecurity.assets/20220109132107.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091318478.png)
 
 这种方案下，通常有以下几种做法：
 
@@ -1462,7 +1464,7 @@ http
 
 基于Token的认证方式，服务端不再存储认证数据，易维护，扩展性强。客户端可以把Token存在任意地方，并且可以实现**web和app统一认证机制**。其缺点也很明显，客户端信息容易泄露，token由于包含了大量信息，因此一般数据量较大，而且每次请求都需要传递，因此比较占带宽。另外，token的签名延签操作也会给系统带来额外的负担。
 
-![](./SpringSecurity.assets/20220109132118.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091319424.png)
 
 ### 3、方案选型
 
@@ -1474,7 +1476,7 @@ http
 
 ​	而**API网关**会作为整个分布式系统的唯一入口，API网关为接入方提供API结合。它本身还可能具有其他辅助职责，如**身份验证、监控、负载均衡、缓存、协议转换**等功能。**API网关方式的核心要点是，所有的接入方和消费端都通过统一的网关接入微服务，在网关层处理所有与业务无关的功能**。正题流程如下图：
 
-![](./SpringSecurity.assets/20220109132127.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091319613.png)
 
 
 
@@ -1498,19 +1500,19 @@ OAuth协议：https://tools.ietf.org/html/rfc6749
 
 2.1 用户希望登录百度，访问百度登录后的资源。而用户可以选择使用微信账号进行登录，实际是将授权认证的流程交由**微信(独立第三方)来进行担保**。
 
-![](./SpringSecurity.assets/20220109132159.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091319453.png)
 
 2.2 用户以扫描二维码的方式，在微信完成登录认证。
 
-![](./SpringSecurity.assets/20220109132206.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091319740.png)
 
 2.3 用户选择同意后，进入百度的流程。这时，百度会获取用户的微信身份信息，与百度自己的一个注册账号完成绑定。绑定完成了之后，就会用这个绑定后的账号完成自己的登录流程。
 
-![](./SpringSecurity.assets/20220109132217.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091319144.png)
 
 以上这个过程，实际上就是一个典型的OAuth2.0的认证流程。在这个登录认证的过程中，实际上是只有用户和百度之间有资源访问的关系，而微信就是作为一个独立的第三方，使用用户在微信里的身份信息，来对用户的身份进行了一次担保认证。**认证完成后，百度就可以获取到用户的微信身份信息，进入自己的后续流程，与百度内部的一个用户信息完成绑定及登录。**整个流程大致是这样：
 
-![](./SpringSecurity.assets/20220109132224.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091319057.png)
 
 我们来分析这整个过程，其中最重要的问题，显然是如何让用户、百度和微信这三方实现权限认证的共信。这其中涉及到非常多的细节问题，而**OAuth2.0协议**就是用来定义这个过程中，各方的行为标准。
 
@@ -1518,7 +1520,7 @@ OAuth协议：https://tools.ietf.org/html/rfc6749
 
 接下来，我们引用OAuth2.0的官方图，来深入了解下OAuth2.0协议：
 
-![](./SpringSecurity.assets/20220109132246.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091319789.png)
 
 OAuth2.0协议包含以下几个角色：
 
@@ -1570,7 +1572,7 @@ OAuth2.0协议包含以下几个角色：
 
 我们搭建的示例项目大致如下：
 
-![](./SpringSecurity.assets/20220109132254.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091319069.png)
 
 ​	其中，**distributed-security-uaa模块将用来实现认证授权服务，而distributed-security-salary模块用来实现资源服务**。认证的大致流程如下：
 
@@ -1968,23 +1970,23 @@ Client Details客户端详情，能够在应用程序运行的时候进行更新
 示例中我们暂时使用内存方式存储客户端详情信息，配置如下：
 
 ```java
-    @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        //内存配置的方式配置用户信息
-        clients.inMemory()//内存方式
-                .withClient("c1") //client_id
-                .secret(new BCryptPasswordEncoder().encode("secret"))//客户端秘钥
-                .resourceIds("order")//客户端拥有的资源列表
-                .authorizedGrantTypes("authorization_code",
-                        "password", "client_credentials", "implicit", "refresh_token")//该client允许的授权类型
-                .scopes("all")//允许的授权范围
-                .autoApprove(false)//跳转到授权页面
-                .redirectUris("http://www.baidu.com");//回调地址
-//                .and() //继续注册其他客户端
-//                .withClient()
-//                ...
-//   加载自定义的客户端管理服务 //   clients.withClientDetails(clientDetailsService);
-    }
+@Override
+public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+    //内存配置的方式配置用户信息
+    clients.inMemory()//内存方式
+        .withClient("c1") //client_id
+        .secret(new BCryptPasswordEncoder().encode("secret"))//客户端秘钥
+        .resourceIds("order")//客户端拥有的资源列表
+        .authorizedGrantTypes("authorization_code",
+                              "password", "client_credentials", "implicit", "refresh_token")//该client允许的授权类型
+        .scopes("all")//允许的授权范围
+        .autoApprove(false)//跳转到授权页面
+        .redirectUris("http://www.baidu.com");//回调地址
+    //                .and() //继续注册其他客户端
+    //                .withClient()
+    //                ...
+    //   加载自定义的客户端管理服务 //   clients.withClientDetails(clientDetailsService);
+}
 ```
 
 管理令牌
@@ -2011,6 +2013,7 @@ public class TokenConfig {
         //使用基于内存的普通令牌
         return new InMemoryTokenStore();
     }
+}
 ```
 
 2、注入AuthorizationServerTokenService
@@ -2018,21 +2021,21 @@ public class TokenConfig {
 在AuthorizationServer中定义AuthorizationServerTokenServices
 
 ```java
-  @Autowired
-	private TokenStore tokenStore;
-	//会通过之前的ClientDetailsServiceConfigurer注入到Spring容器中
-	@Autowired
-	private ClientDetailsService clientDetailsService;
-   
-    public AuthorizationServerTokenServices tokenService() {
-        DefaultTokenServices service = new DefaultTokenServices();
-        service.setClientDetailsService(clientDetailsService); //客户端详情服务
-        service.setSupportRefreshToken(true); //允许令牌自动刷新
-        service.setTokenStore(tokenStore); //令牌存储策略-内存
-        service.setAccessTokenValiditySeconds(7200); // 令牌默认有效期2小时
-        service.setRefreshTokenValiditySeconds(259200); // 刷新令牌默认有效期3天
-        return service;
-    }
+@Autowired
+private TokenStore tokenStore;
+//会通过之前的ClientDetailsServiceConfigurer注入到Spring容器中
+@Autowired
+private ClientDetailsService clientDetailsService;
+
+public AuthorizationServerTokenServices tokenService() {
+    DefaultTokenServices service = new DefaultTokenServices();
+    service.setClientDetailsService(clientDetailsService); //客户端详情服务
+    service.setSupportRefreshToken(true); //允许令牌自动刷新
+    service.setTokenStore(tokenStore); //令牌存储策略-内存
+    service.setAccessTokenValiditySeconds(7200); // 令牌默认有效期2小时
+    service.setRefreshTokenValiditySeconds(259200); // 刷新令牌默认有效期3天
+    return service;
+}
 ```
 
 ### 7.3.3 令牌访问端点配置
@@ -2053,47 +2056,47 @@ AuthorizationServerEndpointsConfigurer对于不同类型的授权类型，也需
 
 AuthorizationServerEndpointsConfifigurer这个配置对象首先可以通过pathMapping()方法来配置断点URL的链接地址。即将oauth默认的连接地址替代成其他的URL链接地址。例如spring security默认的授权同意页面/auth/confirm_access非常简陋，就可以通过passMapping()方法映射成自己定义的授权同意页面。
 
-> 框架默认的URL链接有如下几个：
->
-> /oauth/authorize ： 授权端点
->
-> /auth/token ： 令牌端点
->
-> /oauth/confirm_access ： 用户确认授权提交的端点
->
-> /oauth/error : 授权服务错误信息端点。
->
-> /oauth/check_token ： 用于资源服务访问的令牌进行解析的端点
->
-> /oauth/token_key ： 使用Jwt令牌需要用到的提供公有密钥的端点。
->
-> 需要注意的是，这几个授权端点应该被Spring Security保护起来只供授权用户访问。
+框架默认的URL链接有如下几个：
+
+/oauth/authorize ： 授权端点
+
+/auth/token ： 令牌端点
+
+/oauth/confirm_access ： 用户确认授权提交的端点
+
+/oauth/error : 授权服务错误信息端点。
+
+/oauth/check_token ： 用于资源服务访问的令牌进行解析的端点
+
+/oauth/token_key ： 使用Jwt令牌需要用到的提供公有密钥的端点。
+
+需要注意的是，这几个授权端点应该被Spring Security保护起来只供授权用户访问。
 
 在AuthorizationServer配置令牌访问端点
 
 ```java
-   @Autowired
-	private AuthorizationCodeServices authorizationCodeServices;
-	@Autowired
-	private AuthenticationManager authenticationManager;
-   
-   @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints
-          //                .pathMapping("/oauth/confirm_access","/customer/confirm_access")//定制授权同意页面
-          .authenticationManager(authenticationManager)//认证管理器
-          .userDetailsService(userDetailsService)//密码模式的用户信息管理
-          .authorizationCodeServices(authorizationCodeServices)//授权码服务
-          .tokenServices(tokenService())//令牌管理服务
-          .allowedTokenEndpointRequestMethods(HttpMethod.POST);
-    }
-    
-        //设置授权码模式的授权码如何存取，暂时用内存方式。
-    @Bean
-    public AuthorizationCodeServices authorizationCodeServices(){
-        return new InMemoryAuthorizationCodeServices();
-        //JdbcAuthorizationCodeServices
-    }
+@Autowired
+private AuthorizationCodeServices authorizationCodeServices;
+@Autowired
+private AuthenticationManager authenticationManager;
+
+@Override
+public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    endpoints
+        //                .pathMapping("/oauth/confirm_access","/customer/confirm_access")//定制授权同意页面
+        .authenticationManager(authenticationManager)//认证管理器
+        .userDetailsService(userDetailsService)//密码模式的用户信息管理
+        .authorizationCodeServices(authorizationCodeServices)//授权码服务
+        .tokenServices(tokenService())//令牌管理服务
+        .allowedTokenEndpointRequestMethods(HttpMethod.POST);
+}
+
+//设置授权码模式的授权码如何存取，暂时用内存方式。
+@Bean
+public AuthorizationCodeServices authorizationCodeServices(){
+    return new InMemoryAuthorizationCodeServices();
+    //JdbcAuthorizationCodeServices
+}
 ```
 
 ### 7.3.4 令牌端点的安全约束
@@ -2101,13 +2104,13 @@ AuthorizationServerEndpointsConfifigurer这个配置对象首先可以通过path
 AuthorizationServerSecurityConfifigurer , 用来配置令牌端点(Token Endpoint)的安全约束，在AuthorizationServer中配置如下：
 
 ```java
-    @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security
-                .tokenKeyAccess("permitAll()") // oauth/token_key公开
-                .checkTokenAccess("permitAll()") // oauth/check_token公开
-                .allowFormAuthenticationForClients(); // 表单认证，申请令牌
-    }
+@Override
+public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+    security
+        .tokenKeyAccess("permitAll()") // oauth/token_key公开
+        .checkTokenAccess("permitAll()") // oauth/check_token公开
+        .allowFormAuthenticationForClients(); // 表单认证，申请令牌
+}
 ```
 
 ### 7.3.5 授权服务配置总结：
@@ -2156,7 +2159,7 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-//        return NoOpPasswordEncoder.getInstance();
+        //        return NoOpPasswordEncoder.getInstance();
         return new BCryptPasswordEncoder();
     }
     //从父类加载认证管理器
@@ -2168,8 +2171,8 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService(){
         InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager(User.withUsername("admin").password(passwordEncoder().encode("admin")).authorities("mobile","salary").build()
-                ,User.withUsername("manager").password(passwordEncoder().encode("manager")).authorities("salary").build()
-                ,User.withUsername("worker").password(passwordEncoder().encode("worker")).authorities("worker").build());
+                                                                                       ,User.withUsername("manager").password(passwordEncoder().encode("manager")).authorities("salary").build()
+                                                                                       ,User.withUsername("worker").password(passwordEncoder().encode("worker")).authorities("worker").build());
         return userDetailsManager;
     }
 
@@ -2178,10 +2181,10 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //链式配置拦截策略
         http.csrf().disable()//关闭csrf跨域检查
-                .authorizeRequests()
-                .anyRequest().authenticated() //其他请求需要登录
-                .and() //并行条件
-                .formLogin(); //可从默认的login页面登录，并且登录后跳转到main.html
+            .authorizeRequests()
+            .anyRequest().authenticated() //其他请求需要登录
+            .and() //并行条件
+            .formLogin(); //可从默认的login页面登录，并且登录后跳转到main.html
     }
 }
 ```
@@ -2200,7 +2203,7 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 这种模式是最简单的模式，流程如下：
 
-![](./SpringSecurity.assets/oauth_grant_type_client.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091320858.png)
 
  (1) 客户端向授权服务器发送自己的身份信息，请求令牌access_token。请求地址：
 
@@ -2219,7 +2222,7 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 用POSTMAN进行测试的截图如下：
 
-![](./SpringSecurity.assets/20220109132432.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091320297.png)
 
 这种模式是最方便但是也最不安全的模式，代表了授权服务器对客户端的完全互信。因此，这种模式一般可以用在授权服务器对客户端完全信任的场景，例如内部系统或者协议合作方系统对接。
 
@@ -2227,7 +2230,7 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 该模式的流程如下：
 
-![](./SpringSecurity.assets/20220109132443.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091320623.png)
 
 (1) 资源拥有者将用户名、密码发送给客户端
 
@@ -2254,7 +2257,7 @@ client_id=c1&client_secret=secret&grant_type=password&username=admin&password=ad
 
   用POSTMAN测试的示例如下：
 
-  ![](./SpringSecurity.assets/20220109132451.png)
+  ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091320575.png)
 
   这种模式用户会把用户名和密码直接泄漏给客户端，代表了资源拥有者和授权服务器对客户端的绝对互信，相信客户端不会做坏事。一般适用于内部开发的客户端的场景。
 
@@ -2262,7 +2265,7 @@ client_id=c1&client_secret=secret&grant_type=password&username=admin&password=ad
 
 这种模式的流程如下：
 
-![](./SpringSecurity.assets/20220109132500.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091320737.png)
 
 (1)用户访问客户端，客户端将向授权服务器申请授权。
 
@@ -2276,17 +2279,17 @@ client_id=c1&client_secret=secret&grant_type=password&username=admin&password=ad
 
 (1)客户端引导用户，直接访问授权服务器的授权申请地址： http://localhost:53020/uaa/oauth/authorize?client_id=c1&response_type=token&scope=all&redirect_uri=http://www.baidu.com。此时，会跳转到授权服务器的登录页面，需要用户自己输入用户名密码，进行登录。
 
-![](./SpringSecurity.assets/20220109132508.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091320434.png)
 
 (2)用户使用admin/admin登录后，进入授权确认页面
 
-![](./SpringSecurity.assets/20220109132513.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091320362.png)
 
 (3)用户在页面选择同意，并提交。
 
 (4)此时页面就会跳转到指定的redirect uri(我们配置的www.baidu.com。此地址需要授权服务器预先配置，同时客户端需要提交参数)。在跳转地址上，直接带上了access_token，这个就是访问令牌。
 
-![](./SpringSecurity.assets/20220109132523.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091320417.png)
 
 这种方案下，一般redirect uri会配置成客户端自己的一个相应地址。这个相应地址接收到授权服务器推送过来的访问令牌后，就可以将访问令牌在本地进行保存，然后在需要调用资源服务时，再拿出来通过资源服务的认证。
 
@@ -2298,7 +2301,7 @@ client_id=c1&client_secret=secret&grant_type=password&username=admin&password=ad
 
 微信登录就是采用的这种模式。这种模式的流程如下：
 
-![](./SpringSecurity.assets/20220109132531.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091321244.png)
 
 相比上面的简化模式，就是在后面第4步，授权服务器先返回给客户端一个授权码，也就是authorization_code。客户端拿到授权码后，再向授权服务器申请令牌。
 
@@ -2306,19 +2309,19 @@ client_id=c1&client_secret=secret&grant_type=password&username=admin&password=ad
 
 (1)用户申请access_token时(访问地址http://localhost:53020/uaa/oauth/authorize?client_id=c1&response_type=code&scope=all&redirect_uri=http://www.baidu.com)，会首先跳转登录页面，需要用户进行登录。--微信中，将这个登录页面定制成了扫二维码登录的页面。
 
-![](./SpringSecurity.assets/20220109132546.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091321486.png)
 
 (2)使用admin用户登录完成后，会弹出默认的授权页面。--微信将授权页面进行了定制
 
-![](./SpringSecurity.assets/20220109132551.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091321291.png)
 
 (3)选择同意后，会跳转到我们指定的百度网页，并带上了授权码code。--实际项目中应该是指向自己客户端工程的一个路径，后台获取code后保存起来。
 
-![](./SpringSecurity.assets/20220109132603.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091321824.png)
 
 拿到code后，就可以向UAA工程申请access_token
 
-![](./SpringSecurity.assets/20220109132610.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091321189.png)
 
 以这种方式就能获得access_token。这里注意，redirect_uri需要与上一步一致。
 
@@ -2328,7 +2331,7 @@ client_id=c1&client_secret=secret&grant_type=password&username=admin&password=ad
 
 最后还一个授权类型refresh_token，这个其实严格来说不算是一种授权类型，只是代表一个刷新令牌的端口。当令牌access_token超时后，可以申请这个端口获取更新的令牌。
 
-![](./SpringSecurity.assets/20220109132620.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091321213.png)
 
 这里用到的refresh_token是随access_token一起申请到的。
 
@@ -2336,7 +2339,7 @@ client_id=c1&client_secret=secret&grant_type=password&username=admin&password=ad
 
 这个接口也是oauth的统一定义端口，他的权限不在客户端配置中配置，而是在AuthorizationServerSecurityConfigurer对象中配置。这里只是一并进行测试：
 
-![](./SpringSecurity.assets/20220109132628.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091321429.png)
 
 ### 7.5 资源服务配置
 
@@ -2386,22 +2389,22 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.resourceId(RESOURCE_SALARY) //资源ID
-                .tokenServices(tokenServices()) //使用远程服务验证令牌的服务
-                .stateless(true); //无状态模式
+            .tokenServices(tokenServices()) //使用远程服务验证令牌的服务
+            .stateless(true); //无状态模式
     }
 
     //配置安全策略
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests() //校验请求
-                .antMatchers("/order/**") // 路径匹配规则。
-                .access("#oauth2.hasScope('all')") // 需要匹配scope
-                .and().csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            .antMatchers("/order/**") // 路径匹配规则。
+            .access("#oauth2.hasScope('all')") // 需要匹配scope
+            .and().csrf().disable()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
     //配置access_token远程验证策略。
     public ResourceServerTokenServices tokenServices(){
-//        DefaultTokenServices services = new DefaultTokenServices();
+        //        DefaultTokenServices services = new DefaultTokenServices();
         RemoteTokenServices services = new RemoteTokenServices();
         services.setCheckTokenEndpointUrl("http://localhost:53020/uaa/oauth/check_token");
         services.setClientId("c1");
@@ -2418,14 +2421,14 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
 ```java
 @Override
 public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-   security.tokenKeyAccess("permitAll()")// /oauth/token_key 允许访问
-   .checkTokenAccess("permitAll()") // /oauth/check_token 允许访问
+    security.tokenKeyAccess("permitAll()")// /oauth/token_key 允许访问
+        .checkTokenAccess("permitAll()") // /oauth/check_token 允许访问
 }
 ```
 
 而这个/oauth/check_token端点可以获取到access_token对应到的客户信息。
 
-![](./SpringSecurity.assets/20220109132647.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091321911.png)
 
 #### 7.5.3 编写资源
 
@@ -2469,11 +2472,11 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/salary/**")
-//                .hasAuthority("salary") //这里采用了注解的方法级权限配置。
-                .authenticated()
-                .anyRequest().permitAll();
+            .authorizeRequests()
+            .antMatchers("/salary/**")
+            //                .hasAuthority("salary") //这里采用了注解的方法级权限配置。
+            .authenticated()
+            .anyRequest().permitAll();
     }
 }
 
@@ -2496,11 +2499,11 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 然后，我们随意提交一个错误的访问令牌。这里要注意的是，在向资源服务器提交access_token时，需要在请求的headers上添加一个Authorization参数来提交令牌，而令牌的内容需要先加上token的类型，是Bearer。然后空格，再加上access_token。
 
-![](./SpringSecurity.assets/20220109132707.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091321872.png)
 
 然后，我们重新申请一个正确的access_token，重新访问资源
 
-![](./SpringSecurity.assets/20220109132714.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091321136.png)
 
 > 测试到这里要注意的有两点
 >
@@ -2520,7 +2523,7 @@ JWT令牌全称JSON WebToken，是一个开放的行业标准(RFC 7519)，它定
 
 JWT官网：https://jwt.io/
 
-![](./SpringSecurity.assets/20220109132723.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091321816.png)
 
 RFC 7519标准：https://tools.ietf.org/html/rfc7519
 
@@ -2599,26 +2602,26 @@ public class TokenConfig {
 2、在MyAuthorizationConfig中使用注入的accessTokenConvert声明tokenService
 
 ```java
-    //使用JWT令牌
-    @Autowired
-    private JwtAccessTokenConverter accessTokenConverter;
-    ...
+//使用JWT令牌
+@Autowired
+private JwtAccessTokenConverter accessTokenConverter;
+...
     public AuthorizationServerTokenServices tokenService() {
-        DefaultTokenServices service = new DefaultTokenServices();
-        service.setClientDetailsService(clientDetailsService); //客户端详情服务
-        service.setSupportRefreshToken(true); //允许令牌自动刷新
-        service.setTokenStore(tokenStore); //令牌存储策略-内存
-    	//使用JWT令牌
-        service.setTokenEnhancer(accessTokenConverter);
-        service.setAccessTokenValiditySeconds(7200); // 令牌默认有效期2小时
-        service.setRefreshTokenValiditySeconds(259200); // 刷新令牌默认有效期3天
-        return service;
-    }
+    DefaultTokenServices service = new DefaultTokenServices();
+    service.setClientDetailsService(clientDetailsService); //客户端详情服务
+    service.setSupportRefreshToken(true); //允许令牌自动刷新
+    service.setTokenStore(tokenStore); //令牌存储策略-内存
+    //使用JWT令牌
+    service.setTokenEnhancer(accessTokenConverter);
+    service.setAccessTokenValiditySeconds(7200); // 令牌默认有效期2小时
+    service.setRefreshTokenValiditySeconds(259200); // 刷新令牌默认有效期3天
+    return service;
+}
 ```
 
 3、然后就可以测试生成的JWT令牌。
 
-![](./SpringSecurity.assets/20220109132738.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091322044.png)
 
 可以看到，申请到的令牌已经变成了JWT格式，比之前长了很多。
 
@@ -2632,12 +2635,11 @@ public class TokenConfig {
 
 ```java
 
-    //使用JWT令牌，需要引入与uaa一致的tokenStore，存储策略。
-    @Autowired
-    private TokenStore tokenStore;
-    ...
-    //    使用JWT令牌就不再需要远程解析服务了，资源服务可以在本地进行解析。
-    //    public ResourceServerTokenServices tokenServices(){
+//使用JWT令牌，需要引入与uaa一致的tokenStore，存储策略。
+@Autowired
+private TokenStore tokenStore;
+//    使用JWT令牌就不再需要远程解析服务了，资源服务可以在本地进行解析。
+//    public ResourceServerTokenServices tokenServices(){
 ////        DefaultTokenServices services = new DefaultTokenServices();
 //        RemoteTokenServices services = new RemoteTokenServices();
 //        services.setCheckTokenEndpointUrl("http://localhost:53020/uaa/oauth/check_token");
@@ -2646,21 +2648,21 @@ public class TokenConfig {
 //        return services;
 //    }
 
-    @Override
-    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.resourceId(RESOURCE_SALARY) //资源ID
-//                .tokenServices(tokenServices()) //使用远程服务验证令牌的服务
-                //使用JWT令牌验证，就不需要调用远程服务了，用本地验证方式就可以了。
-                .tokenStore(tokenStore)
-                .stateless(true); 
-    }
+@Override
+public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+    resources.resourceId(RESOURCE_SALARY) //资源ID
+        //                .tokenServices(tokenServices()) //使用远程服务验证令牌的服务
+        //使用JWT令牌验证，就不需要调用远程服务了，用本地验证方式就可以了。
+        .tokenStore(tokenStore)
+        .stateless(true); 
+}
 
 
 ```
 
 3、然后这样我们就可以对资源服务器进行测试了。 
 
-![](./SpringSecurity.assets/20220109132756.png)
+![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091322099.png)
 
 ## 八、主线问题总结
 
