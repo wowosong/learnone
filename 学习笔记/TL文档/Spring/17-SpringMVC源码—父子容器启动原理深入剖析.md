@@ -125,7 +125,7 @@ SPI 我们叫他服务接口扩展,(Service Provider Interface) 直译服务提�
 
 1.在固定的目录放上接口的文件名
 
-![img](/Users/jiusonghuang/pic-md/.png)
+
 
 2.文件中放入实现类（该实现类由你实现）：
 
