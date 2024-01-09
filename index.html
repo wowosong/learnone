@@ -9,6 +9,10 @@
     <meta name="description" content="Description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+    <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/dolphin.css"> -->
+    <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/dark.css"> -->
+    <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/pure.css"> -->
+    <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/buble.css"> -->
     <style>
         .sidebar ul li.active>a {
             text-decoration: none;
@@ -16,48 +20,48 @@
             font-weight: bolder;
             color: rgb(235, 17, 24);
         }
-        
+
         .sidebar ul li:hover>a {
             background-color: #f3f6f3;
             padding-left: 5px;
         }
-        
+
         .sidebar ul li:hover>a {
             text-decoration: none;
         }
-        
+
         .app-sub-sidebar li:before {
             content: "" !important;
         }
-        
+
         .sidebar ul li a {
             font-size: 14px;
             color: rgb(57, 164, 93);
         }
-        
+
         .sidebar-nav a {
             text-decoration: none;
         }
-        
+
         .sidebar ul li a:hover {
             text-decoration: none;
             background-color: #f3f6f3;
         }
-        
+
         .anchor span {
-            color: rgb(57, 164, 93)!important;
+            color: rgb(57, 164, 93) !important;
             text-decoration: none;
         }
-        
+
         .anchor {
             text-decoration: none;
         }
-        
-         :root {
+
+        :root {
             --zoomimage-overlay-background: rgba(0, 0, 0, 0.875);
         }
-        
-         :root {
+
+        :root {
             --copycode-background: #808080;
             --copycode-color: #fff;
         }
@@ -66,6 +70,7 @@
 
 <body>
     <div id="app">
+        {docsify-updated}
     </div>
 
     <script>
@@ -74,10 +79,29 @@
             // repo: 'https://gitee.com/wowosong/learn.git',
             loadNavbar: true,
             onlyCover: true,
+            auto2top: true,
+            formatUpdated: '{YYYY}-{MM}-{DD} {HH}:{mm}:{ss}',
+            requestHeaders: {
+                'cache-control': 'max-age=600',
+            },
+            plugins:[
+                function(hook,vm){
+                    hook.beforeEach(function(html){
+                        var editHtml='[📝 EDIT DOCUMENT]()\n';
+                        var editHtmlEnd='[🖊 Edit Document]()\n';
+                        return html+'\n---\n'+'> Last Modified {docsify-updated}'+editHtmlEnd
+                    })
+                }
+            ],
             loadSidebar: true, // 增加：自动加载侧边栏
             subMaxLevel: 4,
             coverpage: true, //开启封面
             disqus: 'shortname', //开启评论
+            // 页面右侧toc
+            toc: {
+                tocMaxLevel: 2,
+                target: "h2, h3, h4, h5, h6",
+            },
             footer: {
                 copy: '<span id="sitetime" style="font-size:14px"></span><br/><span style="font-size:14px">  Copyright <a href="https://t.1yb.co/sBOZ" target="_blank" style="font-size:14px"> 🏷️ <strong>wowosong</strong> </a>  &nbsp;  &copy; 2021.12.11 - 至今 &nbsp; <a href="http://fxc.wowosong.top/" target="_blank" style="font-size:14px"> <strong>蜀ICP备20005008号-1</strong></a></span>',
                 auth: '<br/><span style="font-size:14px"> 种一颗树最好的时间是十年前，其次是现在🌲️</span>',
@@ -102,10 +126,28 @@
                 depth: 4, //搜索标题的最大层级
                 maxAge: 86400000, // 过期时间，单位毫秒，默认一天
             }, //增加搜索框
-            // toc: {
-            //   tocMaxLevel: 5,
-            //   target: 'h2, h3, h4, h5, h6'
-            // },
+            // 底部导航
+            pagination: {
+                previousText: "上一页",
+                nextText: "下一页",
+                crossChapter: true,
+                crossChapterText: true,
+            },
+            // 字数统计
+            count: {
+                countable: true,
+                position: "top",
+                margin: "10px",
+                float: "right",
+                fontsize: "0.9em",
+                color: "red",
+                language: "chinese",
+                localization: {
+                    words: "",
+                    minute: "",
+                },
+                isExpected: true,
+            },
         }
     </script>
     <!-- Docsify v4 -->
@@ -113,8 +155,17 @@
     <!-- <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script> -->
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-cmake.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-java.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-csharp.min.js"></script>     
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-docker.min.js"></script>  
+	<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-powershell.min.js"></script>  
     <!-- Theme: Simple Dark -->
 
+    <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1/dist/docsify-tabs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/external-script.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/gax.min.js"></script> -->
     <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
     <script src="//cdn.bootcss.com/docsify/4.5.9/plugins/search.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
@@ -157,9 +208,11 @@
             var diffDays = Math.floor((diff / days) - diffYears * 365);
             var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
             var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
-            var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+            var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+                minutes) / seconds);
             if (document.getElementById("sitetime")) {
-                document.getElementById("sitetime").innerHTML = " 喔喔松的笔记已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分 " + diffSeconds + " 秒 ";
+                document.getElementById("sitetime").innerHTML = " 喔喔松的笔记已运行 " + diffYears + " 年 " + diffDays + " 天 " +
+                    diffHours + " 小时 " + diffMinutes + " 分 " + diffSeconds + " 秒 ";
             }
         }
         siteTime();
@@ -167,7 +220,7 @@
     <!--百度统计-->
     <script>
         var _hmt = _hmt || [];
-        (function() {
+        (function () {
             var hm = document.createElement("script");
             hm.src = "https://hm.baidu.com/hm.js?254a318865cb5705ab2eb4576eabf78a";
             var s = document.getElementsByTagName("script")[0];
@@ -176,6 +229,20 @@
     </script>
     <!-- 图片缩小方法-->
     <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+    <!-- 侧边栏目录折叠 -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
+
+    <!-- 页面右侧 TOC -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify-plugin-toc@1.1.0/dist/docsify-plugin-toc.min.js"></script>
+
+    <!-- emoji -->
+    <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+    <!-- 底部 上一页下一页 -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/external-script.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/ga.min.js"></script>
 </body>
 
 </html>

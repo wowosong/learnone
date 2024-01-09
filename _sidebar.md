@@ -122,7 +122,7 @@
       - [Spring注解驱动开发](学习笔记/Spring/Spring注解驱动开发.md)
       
       
-    - [Spring图灵]
+    - Spring图灵
       - [01-Spring底层核心原理解析](学习笔记/TL文档/Spring/01-Spring底层核心原理解析.md)
       - [02-手写模拟Spring底层原理](学习笔记/TL文档/Spring/02-手写模拟Spring底层原理.md)
       - [03-Spring之底层架构核心概念解析](学习笔记/TL文档/Spring/03-Spring之底层架构核心概念解析.md)
@@ -200,10 +200,10 @@
       - [54.集成junit](/学习笔记/路人系列/Spring/54.集成junit.md)
       - [55.Spring上下文生命周期](/学习笔记/路人系列/Spring/55.Spring上下文生命周期.md)
       - [56.循环依赖不用三级缓存可以么？](/学习笔记/路人系列/Spring/56.循环依赖不用三级缓存可以么？.md) 
-    - SpringMvc
+    - SpringMVC
       - [SpringMvc](/学习笔记/SpringMVC/SpringMVC笔记（尚硅谷）.md)
       
-    - SpringMvc路人系列
+    - SpringMVC路人系列
       - [1.Helloword](学习笔记/路人系列/SpringMVC/1.Helloword.md)
       - [2.Controller&RequestMapping](学习笔记/路人系列/SpringMVC/2.Controller&RequestMapping.md)
       - [3.接口测试利器HTTPClient](学习笔记/路人系列/SpringMVC/3.接口测试利器HTTPClient.md)
