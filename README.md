@@ -6,7 +6,7 @@
       - [Vue](/学习笔记/前端/Vue.md)
       - [JavaScript](/学习笔记/前端/JavaScript.md)
   
-    - Mysql
+  - Mysql
       - [Mysql语法](/学习笔记/数据库/mysql/Mysql语法.md)
       - [SQL速成](/学习笔记/数据库/mysql/SQL速成.md)
       - [MySQL基础](/学习笔记/数据库/mysql/MySQL基础.md)
@@ -17,7 +17,7 @@
       - [程序员必须清楚的10个高级SQL概念](/学习笔记/数据库/mysql/程序员必须清楚的10个高级SQL概念.md)  
       - [神奇的GroupBy](/学习笔记/数据库/mysql/神奇的Group-By.md)
       - [Mysql进阶](/学习笔记/TL文档/mysql.md)
-    - Mysql路人系列
+  - Mysql路人系列
       - [1.MySQL的一些基础知识](学习笔记/数据库/mysql/mysql路人系列/1.MySQL的一些基础知识.md)
       - [2.MySQL中数据类型介绍](学习笔记/数据库/mysql/mysql路人系列/2.MySQL中数据类型介绍.md)
       - [3.MySQL管理员常用的一些命令](学习笔记/数据库/mysql/mysql路人系列/3.MySQL管理员常用的一些命令.md)
@@ -47,7 +47,7 @@
       - [27.MySQL如何确保数据不丢失的？有几点我们可以借鉴](学习笔记/数据库/mysql/mysql路人系列/27.MySQL如何确保数据不丢失的？有几点我们可以借鉴.md)
       - [28.MySQL系列测试库脚本](学习笔记/数据库/mysql/mysql路人系列/28.MySQL系列测试库脚本.md)
       - [29.win10安装mysql5.7.20解压版](学习笔记/数据库/mysql/mysql路人系列/29.win10安装mysql5.7.20解压版.md)
-    - Redis
+  - Redis
       - [Redis](/学习笔记/数据库/redis/Redis（尚硅谷）.md)
       - [Redis中的数据结构](/学习笔记/数据库/redis/Redis中的数据结构.md)
       - [Redis中的跳跃表](/学习笔记/数据库/redis/Redis中的跳跃表.md)
@@ -57,7 +57,7 @@
       - [Redis实现分布式锁](/学习笔记/数据库/redis/Redis实现分布式锁.md)
       <!-- - Spring -->
       <!-- - [Spring笔记](/学习笔记/Java/Spring/Spring系列.md) -->
-    - Spring路人系列
+  - Spring路人系列
       - [1.Spring是什么？我们为什么要学习它？](/学习笔记/Java/Spring/luren/1Spring是什么？我们为什么要学习它？.md)
       - [2.控制反转（IoC）与依赖注入（DI）](/学习笔记/Java/Spring/luren/2控制反转（IoC）与依赖注入（DI）.md)
       - [3.Spring容器基本使用及原理](/学习笔记/Java/Spring/luren/3Spring容器基本使用及原理.md)
@@ -114,7 +114,7 @@
       - [54.集成junit](/学习笔记/Java/Spring/luren/54.集成junit.md)
       - [55.Spring上下文生命周期](/学习笔记/Java/Spring/luren/55.Spring上下文生命周期.md)
       - [56.循环依赖不用三级缓存可以么？](/学习笔记/Java/Spring/luren/56.循环依赖不用三级缓存可以么？.md) 
-    - SpringMvc路人系列
+  - SpringMvc路人系列
       - [1.Helloword](学习笔记/Java/Spring/springmvc/1.Helloword.md)
       - [2.Controller&RequestMapping](学习笔记/Java/Spring/springmvc/2.Controller&RequestMapping.md)
       - [3.接口测试利器HTTPClient](学习笔记/Java/Spring/springmvc/3.接口测试利器HTTPClient.md)
@@ -139,12 +139,12 @@
       - [22.CORS通信](学习笔记/Java/Spring/springmvc/22.CORS通信.md)
       - [23.浏览器安全策略&CORS](学习笔记/Java/Spring/springmvc/23.浏览器安全策略&CORS.md)
       - [24.Http中的Content-Type详解](学习笔记/Java/Spring/springmvc/24.Http中的Content-Type详解.md)
-    - SpringMvc
+  - SpringMvc
       - [SpringMVC笔记](学习笔记/Java/Spring/SpringMVC笔记（尚硅谷）.md)
-    - SpringBoot
+  - SpringBoot
       - [SpringBoot官方文档](/学习笔记/Java/Springboot/Springboot官方参考文档.md)
       - [SpringBoot](/学习笔记/Java/Springboot/Springboot（尚硅谷）.md)
-    - Mybatis
+  - Mybatis
       - [Mybatis官方文档](/学习笔记/Java/mybatis/Mybatis官方文档.md)
       - [Mybatis传参方式](/学习笔记/Java/mybatis/mybatis传参方式.md)
       - [Mybatis传参方式](/学习笔记/Java/mybatis/mybatis传参方式.md)
@@ -152,29 +152,29 @@
       - [Mybatis-plus实践及架构原理](/学习笔记/Java/mybatis/mybatis-plus实践及架构原理.md)
       - [Mybatis](/学习笔记/Java/mybatis/Mybatis.md)
       - [通用mapper](/学习笔记/Java/mybatis/通用mapper（尚硅谷）.md)
-    - 设计模式
+  - 设计模式
       - [工作中常用到哪些设计模式](学习笔记/Java/设计模式/designpattern/工作中常用到哪些设计模式.md)
       - [设计模式总结篇](学习笔记/Java/设计模式/designpattern/设计模式总结篇.md)
-    - Java8
+  - Java8
       - [感受JavaLambda之美](/学习笔记/Java/Java8/感受JavaLambda之美.md)
       - [Java8 List快速转map](/学习笔记/Java/Java8/Java8-List快速转map.md)
       - [Java8新特性](/学习笔记/Java/Java8/Java8新特性.md)
       - [HashMap](/学习笔记/Java/Java8/HashMap.md)
-    - SpringCloud
+  - SpringCloud
       - [SpringCloud(H版&alibaba)](/学习笔记/Java/SpringCloud/尚硅谷SpringCloud(H版&alibaba).md)
-    - Java
+  - Java
       - [Java 基础](/学习笔记/Java/Java基础)
       - [Idea使用](/学习笔记/Java/Idea使用)
-    - 第三方开源
+  - 第三方开源
       - [RabbitMQ](/学习笔记/Java/第三方开源/RabbitMQ.md)
-    - 自动化运维
+  - 自动化运维
       - [Ansible笔记](/学习笔记/Linux运维/自动化运维/ansible笔记)
       - [Ansible实践](/学习笔记/Linux运维/自动化运维/Ansible实践)
-    - Docker
+  - Docker
       - [Docker底层原理浅析](/学习笔记/Linux运维/Docker/Docker底层原理浅析.md)
       - [Docker网络](/学习笔记/Linux运维/Docker/Docker网络.md)
       - [Kubernetes](/学习笔记/Linux运维/Docker/Kubernetes.md)
-    - Nginx
+  - Nginx
       - [KeepalivedNginx高可用集群](/学习笔记/Linux运维/Nginx/KeepalivedNginx高可用集群.md)
       - [Keepalived配置详解](/学习笔记/Linux运维/Nginx/Keepalived配置详解.md)
       - [Nginx知识网结构图](/学习笔记/Linux运维/Nginx/Nginx知识网结构图.md)

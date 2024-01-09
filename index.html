@@ -84,12 +84,12 @@
             requestHeaders: {
                 'cache-control': 'max-age=600',
             },
-            plugins:[
-                function(hook,vm){
-                    hook.beforeEach(function(html){
-                        var editHtml='[📝 EDIT DOCUMENT]()\n';
-                        var editHtmlEnd='[🖊 Edit Document]()\n';
-                        return html+'\n---\n'+'> Last Modified {docsify-updated}'+editHtmlEnd
+            plugins: [
+                function (hook, vm) {
+                    hook.beforeEach(function (html) {
+                        var editHtml = '[📝 EDIT DOCUMENT]()\n';
+                        var editHtmlEnd = '[🖊 Edit Document]()\n';
+                        return html + '\n---\n' + '> Last Modified {docsify-updated}' + editHtmlEnd
                     })
                 }
             ],
@@ -158,9 +158,9 @@
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-cmake.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-java.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-csharp.min.js"></script>     
-    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-docker.min.js"></script>  
-	<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-powershell.min.js"></script>  
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-csharp.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-docker.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-powershell.min.js"></script>
     <!-- Theme: Simple Dark -->
 
     <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1/dist/docsify-tabs.min.js"></script>
