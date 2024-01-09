@@ -40,8 +40,6 @@
 
 ### 1.2.1. 效果 (01_HelloWorld/test.html)
 
-01_helloworld.gif
-
 ### 1.2.2. 编码
 
 ```vue
@@ -63,16 +61,16 @@
 
 ### 1.2.3. 使用 vue 开发者工具调试
 
+```
 Vue.js
 devtools_3.1.2_0.crx
+```
 
 ### 1.2.4. 理解 Vue 的 MVVM
 
 ## 1.3. 模板语法
 
 ### 1.3.1. 效果 (02_模板语法/test.html)
-
-02_模板语法.gif
 
 ### 1.3.2. 模板的理解
 
@@ -107,17 +105,20 @@ v-on:keyup.enter='xxx'
 ### 1.3.6. 编码
 
 ```vue
-<h2>1. 双大括号表达式</h2>
-<p>{{msg}}</p>
-<p>{{msg.toUpperCase()}}</p>
-<h2>2. 指令一: 强制数据绑定</h2>
-<a href="url">访问指定站点</a><br><!--不能使用-->
-<a v-bind:href="url">访问指定站点 2</a><br>
-<a :href="url">访问指定站点 3</a><br>
-<h2>3. 指令二: 绑定事件监听</h2>
-<button v-on:click="handleClick">点我</button>
-<button @click="handleClick">点我 2</button>
-</div>
+<template>
+<div>
+    <h2>1. 双大括号表达式</h2>
+    <p>{{msg}}</p>
+    <p>{{msg.toUpperCase()}}</p>
+    <h2>2. 指令一: 强制数据绑定</h2>
+    <a href="url">访问指定站点</a><br><!--不能使用-->
+    <a v-bind:href="url">访问指定站点 2</a><br>
+    <a :href="url">访问指定站点 3</a><br>
+    <h2>3. 指令二: 绑定事件监听</h2>
+    <button v-on:click="handleClick">点我</button>
+    <button @click="handleClick">点我 2</button>
+    </div>
+</template>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
     new Vue({
@@ -138,45 +139,35 @@ v-on:keyup.enter='xxx'
 
 ## 1.4. 计算属性和监视
 
-
-
 ### 1.4.1. 效果 (03_计算属性和监视/test.html)
-
-03_计算属性和监视.gif
-
-
 
 ### 1.4.2. 计算属性
 
 1) 在 computed 属性对象中定义计算属性的方法
 2) 在页面中使用{{方法名}}来显示计算的结果
 
-
-
 ### 1.4.3. 监视属性
 
 1) 通过通过 vm 对象的$watch()或 watch 配置来监视指定的属性
 2) 当属性变化时, 回调函数自动调用, 在函数内部进行计算
-
-
 
 ### 1.4.4. 计算属性高级
 
 1) 通过 getter/setter 实现对属性数据的显示和监视
 2) 计算属性存在缓存, 多次读取只执行一次 getter 计算
 
-
-
 ### 1.4.5. 编码
 
 ```vue
+<template>
 <div>
     姓: <input type="text" placeholder="First Name" v-model="firstName"><br>
     名: <input type="text" placeholder="Last Name" v-model="lastName"><br>
     姓名 1(单向): <input type="text" placeholder="Full Name" v-model="fullName1"><br>
     姓名 2(单向): <input type="text" placeholder="Full Name" v-model="fullName2"><br>
     姓名 3(双向): <input type="text" placeholder="Full Name2" v-model="fullName3"><br>
-</div>
+    </div>
+</template>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
     var vm = new Vue({
@@ -213,17 +204,9 @@ v-on:keyup.enter='xxx'
 </script>
 ```
 
-
-
 ## 1.5. class 与 style 绑定
 
-
-
-### 1.5.1. 效果 (04_class 与 style 绑定/test.html)
-
-04_class与style绑定.gif
-
-
+### 1.5.1. 效果 (04\_class 与 style 绑定test.html)
 
 ### 1.5.2. 理解
 
@@ -233,7 +216,7 @@ v-on:keyup.enter='xxx'
 ### 1.5.3. class 绑定
 1) :class='xxx'
 2) 表达式是字符串: 'classA'
-3) 表达式是对象: {classA:isA, classB: isB}
+3) 表达式是对象: `{classA:isA, classB: isB}`
 4) 表达式是数组: ['classA', 'classB']
 
 ### 1.5.4. style 绑定
@@ -253,6 +236,7 @@ v-on:keyup.enter='xxx'
         font-size: 20px;
     }
 </style>
+<template>
 <div id="demo">
     <h2>1. class 绑定: :class='xxx'</h2>
     <p class="classB" :class="a">表达式是字符串: 'classA'</p>
@@ -263,6 +247,7 @@ v-on:keyup.enter='xxx'
         'px' }"</p>
     <button @click="update">更新</button>
 </div>
+</template>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
     new Vue({
@@ -290,8 +275,6 @@ v-on:keyup.enter='xxx'
 ## 1.6. 条件渲染
 
 ### 1.6.1. 效果 (05_条件渲染/test.html)
-05_条件渲染.gif
-
 ### 1.6.2. 条件渲染指令
 1) v-if 与 v-else
 2) v-show
@@ -323,8 +306,9 @@ v-on:keyup.enter='xxx'
 
 ##  1.7. 列表渲染
 ### 1.7.1. 效果 (06_列表渲染/test.html)
-06_列表渲染.gif 06_列表的过滤和
+_06_列表的过滤和
 排序.gif
+
 1) 列表显示指令
 数组: v-for / index
 对象: v-for / key
@@ -381,18 +365,19 @@ v-on:keyup.enter='xxx'
 
 ### 1.7.3. 编码 2
 ```vue
-<div> 
+<template><div> 
     <input type="text" name="searchName" placeholder="搜索指定用户名"
            v-model="searchName">
     <ul>
         <li v-for="(p, index) in filterPerson" :key="index">
             {{index}}--{{p.name}}--{{p.age}}
-        </li>
+    </li>
     </ul>
     <button @click="setOrderType(1)">年龄升序</button>
     <button @click="setOrderType(2)">年龄降序</button>
     <button @click="setOrderType(0)">原本顺序</button>
-</div>
+    </div>
+</template>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
     new Vue({
@@ -438,8 +423,6 @@ v-on:keyup.enter='xxx'
 ## 1.8. 事件处理
 
 ### 1.8.1. 效果 (07_事件处理/test.html)
-07_事件处理.gif
-
 ### 1.8.2. 绑定监听:
 
 1) v-on:xxx="fun"
@@ -458,7 +441,7 @@ v-on:keyup.enter='xxx'
 
 ### 1.8.5. 编码
 ```vue
-<div>
+<template><div>
     <h2>1. 绑定监听</h2>
     <button v-on:click="test1">Greet</button>
     <button @click="test1">Greet2</button>
@@ -477,6 +460,7 @@ v-on:keyup.enter='xxx'
     <input @keyup.8="test6">
     <input @keyup.enter="test6">
 </div>
+</template>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
     new Vue({
@@ -514,9 +498,6 @@ v-on:keyup.enter='xxx'
 ## 1.9. 表单输入绑定
 
 ### 1.9.1. 效果 (08_表单输入绑定/test.html)
-08_表单输入绑定.
-gif
-
 ### 1.9.2. 使用 v-model 对表单数据自动收集
 1) text/textarea
 2) checkbox
@@ -577,9 +558,6 @@ gif
 ## 1.10. Vue 实例生命周期
 
 ### 1.10.1. 效果 (09_Vue 实例_生命周期/test.html)
-09_Vue实例_生命
-周期.gif
-
 ### 1.10.2. 生命周期流程图 
 
 ### 1.10.3. vue 生命周期分析
@@ -823,8 +801,6 @@ xxx-enter/xxx-leave-to: 指定隐藏时的样式
 
 ### 1.13.1. 效果 (12_指令/test.html)
 
-12_指令_内置指令.gif
-
 ### 1.13.2. 常用内置指令
 
 1) v:text : 更新元素的 textContent
@@ -946,8 +922,6 @@ new Vue({
 
 ### 1.14.1. 效果 (13_插件/test.html)
 
-13_插件.gif
-
 ### 1.14.2. 说明
 
 1) Vue 插件是一个包含 install 方法的对象
@@ -1019,14 +993,18 @@ new Vue({
 3) 作用: 从 https://github.com/vuejs-templates 下载模板项目 
 
 ### 2.1.2. 创建 vue 项目
+```
 npm install -g vue-cli
 vue init webpack vue_demo
 cd vue_demo
 npm install
 npm run dev
+```
+
 访问: http://localhost:8080/
 
 ### 2.1.3. 模板项目的结构
+```
 |-- build : webpack 相关的配置文件夹(基本不需要修改)
 |-- dev-server.js : 通过 express 启动后台服务器
 |-- config: webpack 相关的配置文件夹(基本不需要修改)
@@ -1044,26 +1022,42 @@ npm run dev
 |-- index.html: 主页面文件
 |-- package.json: 应用包配置文件
 |-- README.md: 应用描述说明的 readme 文件
+```
 
 ### 2.1.4. 效果 
 
 ## 2.2. 项目的打包与发布
 
 ### 2.2.1. 打包:
+```
 npm run build
+```
+
+
 
 ### 2.2.2. 发布 1: 使用静态服务器工具包
+```
 npm install -g serve
 serve dist
+```
+
 访问: http://localhost:5000
 
 ### 2.2.3. 发布 2: 使用动态 web 服务器(tomcat)
 修改配置: webpack.prod.conf.js
+
+```
 output: {
-publicPath: '/xxx/' //打包文件夹的名称
+	publicPath: '/xxx/' //打包文件夹的名称
 }
+```
+
 重新打包:
+
+```
 npm run build
+```
+
 修改 dist 文件夹为项目名称: xxx
 将 xxx 拷贝到运行的 tomcat 的 webapps 目录下
 访问: http://localhost:8080/xxx 
@@ -1115,7 +1109,8 @@ components: { App }
 ### 2.4.1. vue 文件的组成(3 个部分)
 1) 模板页面
 ```vue
-<template>页面模板
+<template>
+	页面模板
 </template>
 ```
 2) JS 模块对象
@@ -1183,18 +1178,27 @@ export default {
 
 ### 2.6.2. 定义 MyComponent 时
 1) 在组件内声明所有的 props
-2) 方式一: 只指定名称
-props: ['name', 'age', 'setName']
-3) 方式二: 指定名称和类型
-props: {
-name: String,
-age: Number,
-setNmae: Function
-} 
-4) 方式三: 指定名称/类型/必要性/默认值
-props: {
-name: {type: String, required: true, default:xxx},
-}
+2. 方式一: 只指定名称
+
+  ```
+  props: ['name', 'age', 'setName']
+  ```
+3. 方式二: 指定名称和类型
+
+  ```
+  props: {
+  name: String,
+  age: Number,
+  setNmae: Function
+  } 
+  ```
+4. 方式三: 指定名称/类型/必要性/默认值
+
+  ```
+  props: {
+  name: {type: String, required: true, default:xxx},
+  }
+  ```
 
 ### 2.6.3. 注意
 1) 此方式用于父组件向子组件传递数据
@@ -1228,10 +1232,18 @@ this.$emit(eventName, data)
 ## 2.8. 组件间通信 3: 消息订阅与发布(PubSubJS 库)
 
 ### 2.8.1. 订阅消息
+```
 PubSub.subscribe('msg', function(msg, data){})
+```
+
+
 
 ### 2.8.2. 发布消息
+```
 PubSub.publish('msg', data)
+```
+
+
 
 ### 2.8.3. 注意
 1) 优点: 此方式可实现任意关系组件间通信(数据)
@@ -1272,13 +1284,11 @@ PubSub.publish('msg', data)
 ```
 
 ## 2.10. demo1: comment manage
-demo1_commen
-t manage.gif
+ 
 
 ## 2.11. demo2: todo list
 
-demo2_todo
-list.gif 
+ 
 
 # 第 3 章： vue-ajax
 
@@ -1296,7 +1306,9 @@ vue 插件, 非官方库, vue1.x 使用广泛
 https://github.com/pagekit/vue-resource/blob/develop/docs/http.md
 
 ### 3.2.2. 下载
+```
 npm install vue-resource --save
+```
 
 ### 3.2.3. 编码
 ```javascript
@@ -1317,13 +1329,13 @@ this.$http.get('/someUrl').then((response) => {
 ## 3.3. axios 的使用
 
 ### 3.3.1. 效果
-ajax_test.gif
-
 ## 3.2. 在线文档
 https://github.com/pagekit/vue-resource/blob/develop/docs/http.md
 
 ## 3.3. 下载:
+```
 npm install axios --save
+```
 
 ## 3.4. 编码
 ```javascript
@@ -1344,8 +1356,7 @@ axios.get(url)
 接口 2: https://api.github.com/search/users?q=aa
 
 ## 3.5. demo3: github users
-demo3_user
-search.gif
+ 
 
 # 第 4 章： vue UI 组件库
 
@@ -1360,19 +1371,33 @@ b. 说明: 饿了么开源的基于 vue 的 PC 端 UI 组件库
 ## 4.2. 使用 Mint UI
 
 ### 4.2.1. 下载:
-npm install --save mint-ui 
+```
+npm install --save mint-ui
+```
 
 ### 4.2.2. 实现按需打包
 1. 下载
+    
+    ```
     npm install --save-dev babel-plugin-component
-
+    ```
+    
 2. 修改 babel 配置
-    "plugins": ["transform-runtime",["component", [
-    {
-    "libraryName": "mint-ui",
-    "style": true
-    }
-    ]]]
+    
+    ```json
+    "plugins": ["transform-runtime",
+                ["component",
+                 [
+                     {
+                         "libraryName": "mint-ui",
+                         "style": true
+                     }
+                 ]
+                ]
+               ]
+    ```
+    
+    
 
 
 ### 4.2.3. mint-ui 组件分类
@@ -1427,10 +1452,13 @@ npm install --save mint-ui
 3) 中文文档: http://router.vuejs.org/zh-cn/
 4) 下载: npm install vue-router --save 
 ### 5.1.2. 相关 API 说明
-1) VueRouter(): 用于创建路由器的构建函数
-new VueRouter({
-// 多个配置项
-})
+1. VueRouter(): 用于创建路由器的构建函数
+
+  ```
+  new VueRouter({
+  // 多个配置项
+  })
+  ```
 2. 路由配置
 
   ```javascript
@@ -1468,8 +1496,6 @@ new VueRouter({
 ## 5.2. 基本路由
 
 ### 5.2.1. 效果
-基本路由.gif 
-
 ### 5.2.2. 路由组件
 Home.vue
 About.vue
@@ -1534,8 +1560,6 @@ linkActiveClass: 'active', // 指定选中的路由链接的 class
 ## 5.3. 嵌套路由
 
 ### 5.3.1. 效果
-嵌套路由.gif 
-
 ### 5.3.2. 子路由组件
 News.vue
 Message.vue
@@ -1569,8 +1593,6 @@ Message.vue
 ## 5.4. 向路由组件传递数据
 
 ###  5.4.1. 效果
-向路由组件传递数据.gif 
-
 ### 5.4.2. 方式 1: 路由路径携带参数(param/query)
 1. 配置路由
 
@@ -1587,7 +1609,10 @@ Message.vue
   <router-link :to="'/home/message/mdetail/'+m.id">{{m.title}}</router-link>
   ```
 3. 路由组件中读取请求参数
+    
+    ```
     this.$route.params.id
+    ```
 
 
 ### 5.4.3. 方式 2: \<router-view>属性携带数据
@@ -1613,8 +1638,6 @@ Message.vue
 ## 5.6. 编程式路由导航
 
 ### 5.6.1. 效果
-编程导航.gif
-
 ### 5.6.2. 相关 API
 1) this.$router.push(path): 相当于点击路由链接(可以返回到当前路由界面)
 2) this.$router.replace(path): 用新路由替换当前路由(不可以返回到当前路由界面)
@@ -1647,10 +1670,13 @@ b. 将数据以及操作数据的行为传递给需要的各个子组件(有可�
 
 ### 6.2.1. state
 1) vuex 管理的状态对象 
-2) 它应该是唯一的
-const state = {
-xxx: initValue
-}
+2. 它应该是唯一的
+
+  ```javascript
+  const state = {
+  	xxx: initValue
+  }
+  ```
 
 ### 6.2.2. mutations
 1) 包含多个直接更新 state 的方法(回调函数)的对象
@@ -1740,8 +1766,6 @@ getters: 注册的 getters 对象
 dispatch(actionName, data): 分发调用 action
 
 ## 6.3. demo1: 计数器
-
-counter.gif
 
 ### 6.3.1. store.js
 
@@ -1869,7 +1893,8 @@ export default {
     }
 }
 </script>
-<style></style>
+<style>
+</style>
 ```
 
 ### 6.3.4. app2.vue(优化后)
@@ -1898,8 +1923,6 @@ export default {
 ```
 
 ## 6.4. demo2: todo list
-todo list.gif
-
 ### 6.3.1. store/types.js
 ```javascript
 /**

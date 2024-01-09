@@ -76,7 +76,7 @@ Spring Security 是 Spring 家族中的一个安全管理框架，实际上，�
 
 ### **1.4** **模块划分**
 
-<img src="./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20220109134934.png" alt="image-20211202203837012" style="zoom:33%;" />
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090921904.png" alt="image-20211202203837012" style="zoom:33%;" />
 
 ## **2. SpringSecurity** **入门案例**
 
@@ -122,7 +122,7 @@ public class WebMvcConfig extends WebSecurityConfigurerAdapter {
 
 访问 localhost:8080
 
-![image-20211202205019134](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211202205022.png)
+![image-20211202205019134](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090921155.png)
 
 默认的用户名：user；可以设置自定义密码
 
@@ -140,7 +140,7 @@ spring:
 
 输入用户名，密码，这样表示可以访问了，404 表示我们没有这个控制器，但是我们可以访问了。
 
-![image-20211202205154590](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211202205202.png)
+![image-20211202205154590](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090921240.png)
 
 ### **2.3** **权限管理中的相关概念**
 
@@ -179,7 +179,7 @@ public class LoginController {
 }
 ```
 
-![image-20211202205859466](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211202205859.png)
+![image-20211202205859466](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090921249.png)
 
 ### **2.5 SpringSecurity** **基本原理**
 
@@ -290,7 +290,7 @@ public Authentication attemptAuthentication(HttpServletRequest request， HttpSe
 	}
 ```
 
-![image-20211202214233710](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211202214233.png)
+![image-20211202214233710](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090921182.png)
 
 ### **2.6 UserDetailsService** **接口讲解**
 
@@ -342,11 +342,11 @@ boolean isEnabled();
 
 以下是 UserDetails 实现类
 
-![image-20211202212701029](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211202212704.png)
+![image-20211202212701029](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090921099.png)
 
 以后我们只需要使用 User 这个实体类即可！
 
-![image-20211202212912706](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211202212912.png)
+![image-20211202212912706](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090922155.png)
 
 ⚫ **方法参数** **username**
 
@@ -367,7 +367,7 @@ default boolean upgradeEncoding(String encodedPassword) {
 
 **接口实现类**
 
-![image-20211202213325763](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211202213325.png)
+![image-20211202213325763](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090922974.png)
 
 BCryptPasswordEncoder 是 Spring Security 官方推荐的密码解析器，平时多使用这个解析器。
 
@@ -592,7 +592,7 @@ return new User(users.getUsername()
 
 #### **3.2.6** **测试访问**
 
-![image-20211203210013743](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211203210014.png)
+![image-20211203210013743](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090922609.png)
 
 ### **3.3** **未认证请求跳转到登录页**
 
@@ -687,7 +687,7 @@ username，password
 在执行登录的时候会走一个过滤器 UsernamePasswordAuthenticationFilter
 ```
 
-![image-20211203220632269](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211203220635.png)
+![image-20211203220632269](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090922033.png)
 
 如果修改配置可以调用 usernameParameter()和 passwordParameter()方法。
 
@@ -699,7 +699,7 @@ username，password
 </form>
 ```
 
-![image-20211203220724247](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211203220724.png)
+![image-20211203220724247](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090922896.png)
 
 ### **3.4** **基于角色或权限进行访问控制**
 
@@ -734,11 +734,11 @@ return new User(users.getUsername()， new BCryptPasswordEncoder().encode(users.
 
 登录失败
 
-![image-20211208145414281](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202112081502638.png)
+![image-20211208145414281](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090922938.png)
 
 认证完成之后返回登录成功
 
-![image-20211208150325341](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202112081503848.png)
+![image-20211208150325341](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090922210.png)
 
 #### **3.4.2 hasAnyAuthority** **方法**
 
@@ -748,7 +748,7 @@ true.
 
 访问 http://localhost:8080/index
 
-```
+```java
  http.formLogin()//自己定义的登录页面
                 .loginPage("/login")//登录页面
                 .loginProcessingUrl("/login")//登录访问路径
@@ -772,13 +772,13 @@ true.
 
 底层源码：
 
-![image-20211208150832535](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202112081508719.png)
+![image-20211208150832535](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090923802.png)
 
 给用户添加角色：
 
-```
- // 第三个参数表示权限
-        return new User(users.getUsername()， new BCryptPasswordEncoder().encode(users.getPassword())，
+```java
+// 第三个参数表示权限
+return new User(users.getUsername()， new BCryptPasswordEncoder().encode(users.getPassword())，
                 AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_sale"));
 ```
 
@@ -786,7 +786,7 @@ true.
 
 注意配置文件中不需要添加”ROLE_“，因为上述的底层代码会自动添加与之进行匹配。
 
-![image-20211208152825098](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202112081528820.png)
+![image-20211208152825098](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090923588.png)
 
 **3.4.4 hasAnyRole**
 
@@ -794,11 +794,11 @@ true.
 
 给用户添加角色：
 
-![image-20211208152844034](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202112081528148.png)
+![image-20211208152844034](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090923668.png)
 
 修改配置文件：
 
-![image-20211208152902825](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202112081529990.png)
+![image-20211208152902825](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090923065.png)
 
 ### 3.5自定义403页面
 
@@ -814,9 +814,9 @@ http.exceptionHandling().accessDeniedPage("/unauth");
 
 ### **3.6** **基于数据库实现权限认证**
 
-![image-20211208211703518](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211208211703.png)
+![image-20211208211703518](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090923595.png)
 
-![image-20211208211826766](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211208211826.png)
+![image-20211208211826766](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090923739.png)
 
 #### **3.6.1** **添加实体类**
 
@@ -846,19 +846,18 @@ datasource:
 创建配置类
 
 ```java
+@Autowired
+private DataSource dataSource;
 
-    @Autowired
-    private DataSource dataSource;
-
-    @Bean
-    public PersistentTokenRepository persistentTokenRepository() {
-        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
-        // 赋值数据源
-        jdbcTokenRepository.setDataSource(dataSource);
-        // 自动创建表，第一次执行会创建，以后要执行就要删除掉！
-        //jdbcTokenRepository.setCreateTableOnStartup(true);
-        return jdbcTokenRepository;
-    }
+@Bean
+public PersistentTokenRepository persistentTokenRepository() {
+    JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+    // 赋值数据源
+    jdbcTokenRepository.setDataSource(dataSource);
+    // 自动创建表，第一次执行会创建，以后要执行就要删除掉！
+    //jdbcTokenRepository.setCreateTableOnStartup(true);
+    return jdbcTokenRepository;
+}
 ```
 
 #### **3.6.4** **页面添加记住我复选框**
@@ -867,7 +866,7 @@ datasource:
 记住我：<input type="checkbox" name="remember-me" title="记住密码"/><br/>
 ```
 
-此处：name 属性值必须为 remember-me.不能改为其他值
+此处：name 属性值必须为 remember\-me.不能改为其他值
 
 #### **3.6.5** **设置有效期**
 
@@ -876,9 +875,9 @@ datasource:
 在配置文件中设置
 
 ```java
- http.and().rememberMe().tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(60)
-                .userDetailsService(loginService)
+http.and().rememberMe().tokenRepository(persistentTokenRepository())
+    .tokenValiditySeconds(60)
+    .userDetailsService(loginService)
 ```
 
 ### **3.7** **注解使用**
@@ -895,9 +894,10 @@ datasource:
 @SpringBootApplication
 @EnableGlobalMethodSecurity(securedEnabled=true)
 public class DemosecurityApplication {
-public static void main(String[] args) {
-SpringApplication.run(DemosecurityApplication.class， args);
-} }
+    public static void main(String[] args) {
+        SpringApplication.run(DemosecurityApplication.class， args);
+    } 
+}
 ```
 
 在控制器方法上添加注解
@@ -908,7 +908,7 @@ SpringApplication.run(DemosecurityApplication.class， args);
 @ResponseBody
 @Secured({"ROLE_normal"，"ROLE_admin"})
 public String helloUser() {
-	return "hello，user"; 
+    return "hello，user"; 
 }
 @Secured({"ROLE_normal"，"ROLE_管理员"})
 ```
@@ -917,7 +917,7 @@ public String helloUser() {
 
 将上述的角色改为 @Secured({**"ROLE_normal，ROLE_管理员"**})即可访问
 
-![image-20211208204444532](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211208204444.png)
+![image-20211208204444532](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090924970.png)
 
 #### **3.7.2 @PreAuthorize**
 
@@ -933,8 +933,8 @@ public String helloUser() {
 //@PreAuthorize("hasRole('ROLE_管理员')")
 @PreAuthorize("hasAnyAuthority('admin')")
 public String preAuthorize(){
-  System.out.println("preAuthorize");
-  return "preAuthorize"; 
+    System.out.println("preAuthorize");
+    return "preAuthorize"; 
 }
 ```
 
@@ -951,8 +951,8 @@ public String preAuthorize(){
 @ResponseBody
 @PostAuthorize("hasAnyAuthority('menu:system')")
 public String postAuthorize(){
-  System.out.println("test--PostAuthorize");
-  return "PostAuthorize";
+    System.out.println("test--PostAuthorize");
+    return "PostAuthorize";
 }
 ```
 
@@ -968,10 +968,10 @@ public String postAuthorize(){
 @PostFilter("filterObject.username == 'admin1'")
 @ResponseBody
 public List<UserInfo> getAllUser(){
-  ArrayList<UserInfo> list = new ArrayList<>();
-  list.add(new UserInfo(1l，"admin1"，"6666"));
-  list.add(new UserInfo(2l，"admin2"，"888"));
-  return list;
+    ArrayList<UserInfo> list = new ArrayList<>();
+    list.add(new UserInfo(1l，"admin1"，"6666"));
+    list.add(new UserInfo(2l，"admin2"，"888"));
+    return list;
 }
 ```
 
@@ -979,17 +979,16 @@ public List<UserInfo> getAllUser(){
 
 @PreFilter: 进入控制器之前对数据进行过滤
 
-```
+```java
 @RequestMapping("getTestPreFilter")
 @PreAuthorize("hasRole('ROLE_管理员')")
 @PreFilter(value = "filterObject.id%2==0")
 @ResponseBody
-public List<UserInfo> getTestPreFilter(@RequestBody List<UserInfo> 
-list){
-  list.forEach(t-> {
-  System.out.println(t.getId()+"\t"+t.getUsername());
-  });
-  return list;
+public List<UserInfo> getTestPreFilter(@RequestBody List<UserInfo> list){
+    list.forEach(t-> {
+        System.out.println(t.getId()+"\t"+t.getUsername());
+    });
+    return list;
 }
 ```
 
@@ -1039,31 +1038,31 @@ http.logout().logoutUrl(**"/logout"**).logoutSuccessUrl(**"/index"**).permitAll(
 // http.csrf().disable();
 ```
 
-![image-20211208222312032](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211208222312.png)
+![image-20211208222312032](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090925593.png)
 
 **3.9.3 Spring Security** **实现** **CSRF** **的原理：**
 
-![image-20211208221509220](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211208221509.png)
+![image-20211208221509220](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090925099.png)
 
 1. 生成 csrfToken 保存到 HttpSession 或者 Cookie 中。
 
-![image-20211208221354271](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211208221354.png)
+![image-20211208221354271](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090925145.png)
 
 ![image-20211208221407767](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211208221407.png)
 
 SaveOnAccessCsrfToken 类有个接口 CsrfTokenRepository
 
-![image-20211208221431682](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211208221431.png)
+![image-20211208221431682](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090925186.png)
 
 ![image-20211208221446409](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211208221446.png)
 
 当前接口实现类：HttpSessionCsrfTokenRepository，CookieCsrfTokenRepository
 
-![image-20211208221536184](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211208221536.png)
+![image-20211208221536184](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090925393.png)
 
 2. 请求到来时，从请求中提取 csrfToken，和保存的 csrfToken 做比较，进而判断当前请求是否合法。主要通过 CsrfFilter 过滤器来完成。
 
-![image-20211208221616071](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211208221616.png)
+![image-20211208221616071](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090925336.png)
 
 ## **4. SpringSecurity** **微服务权限方案**
 
@@ -1095,31 +1094,31 @@ SaveOnAccessCsrfToken 类有个接口 CsrfTokenRepository
 
 （2）如果是 token，则是解析出 token，然后将当前请求加入到 Spring-security 管理的权限信息中去
 
-![image-20211208221856555](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211208221856.png)
+<img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090925304.png" alt="image-20211208221856555" style="zoom:50%;" />
 
-![image-20211208224000090](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211208224000.png)
+![image-20211208224000090](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090925744.png)
 
-![image-20220105162737113](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201051627470.png)
+![image-20220105162737113](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090926897.png)
 
 **如果系统的模块众多，每个模块都需要进行授权与认证，所以我们选择基于 token 的形式进行授权与认证，用户根据用户名密码认证成功，然后获取当前用户角色的一系列权限值，并以用户名为 key，权限列表为 value 的形式存入 redis 缓存中，根据用户名相关信息生成 token 返回，浏览器将 token 记录到 cookie 中，每次调用 api 接口都默认将 token 携带到 header 请求头中，Spring-security 解析 header 头获取 token 信息，解析 token 获取当前用户名，根据用户名就可以从 redis 中获取权限列表，这样 Spring-security 就能够判断当前请求是否有权限访问**
 
 #### **2、权限管理数据模型**
 
-![image-20211208222026277](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/20211208222026.png)
+![image-20211208222026277](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090926964.png)
 
-![17-微服务权限方案-编写代码（权限工具类）](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201051705204.png)
+![17-微服务权限方案-编写代码（权限工具类）](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090926699.png)
 
 ### 4.3 jwt 介绍
 
 #### **1、访问令牌的类型**  
 
-![image-20220105143806370](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201051438761.png)
+![image-20220105143806370](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090926056.png)
 
 #### **2、 JWT 的组成**
 
 典型的，一个 JWT 看起来如下图：  
 
-![image-20220105143933022](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201051439182.png)
+![image-20220105143933022](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090926432.png)
 
 该对象为一个很长的字符串，字符之间通过"."分隔符分为三个子串。
 每一个子串表示了一个功能块，总共有以下三个部分： JWT 头、有效载荷和签名  
@@ -1168,7 +1167,7 @@ HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(claims)， secret)在
 
 ### 4.4 具体代码实现  
 
-![image-20220105144513655](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201051445823.png)
+![image-20220105144513655](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090926233.png)
 
 #### 4.4.1 编写核心配置类
 
@@ -1242,7 +1241,7 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 #### 4.4.2 创建认证授权相关的工具类  
 
-![image-20220105173554573](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201051735739.png)
+![image-20220105173554573](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090926039.png)
 
 （1） DefaultPasswordEncoder：密码处理的方法  
 
@@ -1356,7 +1355,7 @@ public class UnauthorizedEntryPoint implements AuthenticationEntryPoint {
 
 #### 4.4.3 创建认证授权实体类  
 
-![image-20220106104259006](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201061043306.png)
+![image-20220106104259006](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090926321.png)
 
 **(1) SecutityUser**  
 
@@ -1453,7 +1452,7 @@ public class User implements Serializable {
 
 #### 4.3.3 创建认证和授权的 filter  
 
-![image-20220106104547797](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201061045948.png)
+![image-20220106104547797](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090926423.png)
 
 **（ 1） TokenLoginFilter：认证的 filter**  
 
@@ -1578,7 +1577,7 @@ https://editor.foxitsoftware.cn?MD=shanchu
 
 ###  5.2 SpringSecurity 基本流程
 
-Spring Security 采取过滤链实现认证与授权，只有当前过滤器通过，才能进入下一个过滤器：  ![image-20220111124708826](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111247204.png)
+Spring Security 采取过滤链实现认证与授权，只有当前过滤器通过，才能进入下一个过滤器：  ![image-20220111124708826](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090926244.png)
 
 绿色部分是认证过滤器，需要我们自己配置，可以配置多个认证过滤器。认证过滤器可以使用 Spring Security 提供的认证过滤器，也可以自定义过滤器（例如：短信验证）。认证过滤器要在 configure(HttpSecurity http)方法中配置，没有配置不生效。下面会重点介绍以下三个过滤器：
 **UsernamePasswordAuthenticationFilter 过滤器**：该过滤器会拦截前端提交的 POST 方式的登录表单请求，并进行身份认证。
@@ -1589,61 +1588,61 @@ Spring Security 采取过滤链实现认证与授权，只有当前过滤器通�
 
 认证流程是在 UsernamePasswordAuthenticationFilter 过滤器中处理的，具体流程如下所示：  
 
-![image-20220111124843649](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111248800.png)
+![image-20220111124843649](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090926386.png)
 
 #### 5.3.1 UsernamePasswordAuthenticationFilter 源码
 
-当前端提交的是一个 POST 方式的登录表单请求，就会被该过滤器拦截，并进行身份认证。该过滤器的 doFilter() 方法实现在其抽象父类AbstractAuthenticationProcessingFilter 中，查看相关源码：  ![image-20220111124938899](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111249049.png)
+当前端提交的是一个 POST 方式的登录表单请求，就会被该过滤器拦截，并进行身份认证。该过滤器的 doFilter() 方法实现在其抽象父类AbstractAuthenticationProcessingFilter 中，查看相关源码：  ![image-20220111124938899](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927898.png)
 
-![image-20220111124947172](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111249310.png)
+![image-20220111124947172](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927046.png)
 
-![image-20220111124957333](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111249410.png)
+![image-20220111124957333](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927074.png)
 
 ![image-20220111125005421](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111250535.png)
 
-![image-20220111125014371](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111250489.png)
+![image-20220111125014371](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927963.png)
 
 上述的 第二 过程调用了 UsernamePasswordAuthenticationFilter 的attemptAuthentication() 方法，源码如下：  
 
-![image-20220111125059243](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111250350.png)
+![image-20220111125059243](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927634.png)
 
-![image-20220111125109644](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111251739.png)
+![image-20220111125109644](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927002.png)
 
-![image-20220111125119017](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111251125.png)
+![image-20220111125119017](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927490.png)
 
 **上述的（ 3）过程创建的 UsernamePasswordAuthenticationToken 是Authentication 接口的实现类，该类有两个构造器，一个用于封装前端请求传入的未认证的用户信息，一个用于封装认证成功后的用户信息：**  
 
-![image-20220111125158040](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111251161.png)
+![image-20220111125158040](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927093.png)
 
-**Authentication 接口的实现类用于存储用户认证信息，查看该接口具体定义：**  ![image-20220111125244317](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111252425.png)
+**Authentication 接口的实现类用于存储用户认证信息，查看该接口具体定义：**  ![image-20220111125244317](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927430.png)
 
 #### 5.3.2 ProviderManager 源码
 
 上述过程中， UsernamePasswordAuthenticationFilter 过滤器的attemptAuthentication() 方法的（ 5）过程将未认证的 Authentication 对象传入ProviderManager 类的 authenticate() 方法进行身份认证。  ProviderManager 是 AuthenticationManager 接口的实现类，该接口是认证相关的核心接口，也是认证的入口。在实际开发中，我们可能有多种不同的认证方式，例如：用户名+密码、邮箱+密码、手机号+验证码等，而这些认证方式的入口始终只有一个，那就是AuthenticationManager。在该接口的常用实现类 ProviderManager 内部会维护一个
-List<AuthenticationProvider>列表，存放多种认证方式，实际上这是委托者模式（ Delegate）的应用。每种认证方式对应着一个 AuthenticationProvider，AuthenticationManager 根据认证方式的不同（根据传入的 Authentication 类型判断）委托对应的 AuthenticationProvider 进行用户认证。  ![image-20220111125343280](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111253427.png)
+List<AuthenticationProvider>列表，存放多种认证方式，实际上这是委托者模式（ Delegate）的应用。每种认证方式对应着一个 AuthenticationProvider，AuthenticationManager 根据认证方式的不同（根据传入的 Authentication 类型判断）委托对应的 AuthenticationProvider 进行用户认证。  ![image-20220111125343280](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927350.png)
 
-![image-20220111125350286](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111253397.png)
+![image-20220111125350286](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927268.png)
 
-![image-20220111125358079](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111253180.png)
+![image-20220111125358079](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927136.png)
 
-![image-20220111125407195](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111254314.png)
+![image-20220111125407195](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927577.png)
 
 上述认证成功之后的（ 6）过程，调用 CredentialsContainer 接口定义的eraseCredentials() 方法去除敏感信息。查看
 UsernamePasswordAuthenticationToken 实现的 eraseCredentials() 方法，该方法实现在其父类中：  
 
-![image-20220111125428821](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111254939.png)
+![image-20220111125428821](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927482.png)
 
 #### 5.3.3 认证成功/失败处理
 
-上述过程就是认证流程的最核心部分，接下来重新回到UsernamePasswordAuthenticationFilter 过滤器的 doFilter() 方法，查看认证成功/失败的处理：  ![image-20220111125452384](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111254485.png)
+上述过程就是认证流程的最核心部分，接下来重新回到UsernamePasswordAuthenticationFilter 过滤器的 doFilter() 方法，查看认证成功/失败的处理：  ![image-20220111125452384](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927139.png)
 
-![image-20220111125500092](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111255176.png)
+![image-20220111125500092](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090928840.png)
 
-![image-20220111125508114](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111255232.png)
+![image-20220111125508114](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927208.png)
 
-![image-20220111125516414](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111255563.png)
+![image-20220111125516414](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090928588.png)
 
-![image-20220111125522543](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111255728.png)
+![image-20220111125522543](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090928330.png)
 
 ### 5.4 SpringSecurity 权限访问流程
 
@@ -1653,15 +1652,15 @@ UsernamePasswordAuthenticationToken 实现的 eraseCredentials() 方法，该方
 
 该过滤器是用于处理异常的，不需要我们配置，对于前端提交的请求会直接放行，捕获后续抛出的异常并进行处理（例如：权限访问限制）。具体源码如下：  
 
-![image-20220111125616481](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111256641.png)
+![image-20220111125616481](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090928628.png)
 
 #### 5.4.2 FilterSecurityInterceptor 过滤器
 
 FilterSecurityInterceptor 是过滤器链的最后一个过滤器，该过滤器是过滤器链的最后一个过滤器，根据资源权限配置来判断当前请求是否有权限访问对应的资源。如果访问受限会抛出相关异常，最终所抛出的异常会由前一个过滤器ExceptionTranslationFilter 进行捕获和处理。具体源码如下：  
 
-![image-20220111125656540](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111256657.png)
+![image-20220111125656540](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090928129.png)
 
-![image-20220111125702524](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111257629.png)
+![image-20220111125702524](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090928732.png)
 
 需要注意， Spring Security 的过滤器链是配置在 SpringMVC 的核心组件DispatcherServlet 运行之前。也就是说，请求通过 Spring Security 的所有过滤器，不意味着能够正常访问资源，该请求还需要通过 SpringMVC 的拦截器链。  
 
@@ -1669,29 +1668,29 @@ FilterSecurityInterceptor 是过滤器链的最后一个过滤器，该过滤器
 
 一般认证成功后的用户信息是通过 Session 在多个请求之间共享，那么 SpringSecurity 中是如何实现将已认证的用户信息对象 Authentication 与 Session 绑定的进行具体分析。  
 
-![image-20220111125736405](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111257565.png)
+![image-20220111125736405](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090928367.png)
 
-⚫ 在前面讲解认证成功的处理方法 successfulAuthentication() 时，有以下代码：  ![image-20220111125752052](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111257175.png)
+⚫ 在前面讲解认证成功的处理方法 successfulAuthentication() 时，有以下代码：  ![image-20220111125752052](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090928722.png)
 
 ⚫ 查 看 SecurityContext 接 口 及 其 实 现 类 SecurityContextImpl ， 该 类 其 实 就 是 对Authentication 的封装：
 ⚫ 查 看 SecurityContextHolder 类 ， 该 类 其 实 是 对 ThreadLocal 的 封 装 ， 存 储SecurityContext 对象：  
 
-![image-20220111125812785](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111258897.png)
+![image-20220111125812785](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090928944.png)
 
-![image-20220111125819654](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111258769.png)
+![image-20220111125819654](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090928369.png)
 
-![image-20220111125826100](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111258229.png)
+![image-20220111125826100](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090928722.png)
 
-![image-20220111125834080](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111258199.png)
+![image-20220111125834080](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090928263.png)
 
-![image-20220111125842702](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111258824.png)
+![image-20220111125842702](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090928888.png)
 
 #### 5.5.1 SecurityContextPersistenceFilter 过滤器
 
 前面提到过，在 UsernamePasswordAuthenticationFilter 过滤器认证成功之后，会在认证成功的处理方法中将已认证的用户信息对象 Authentication 封装进SecurityContext，并存入 SecurityContextHolder。之后，响应会通过 SecurityContextPersistenceFilter 过滤器，该过滤器的位置在所有过滤器的最前面，请求到来先进它，响应返回最后一个通过它，所以在该过滤器中处理已认证的用户信息对象 Authentication 与 Session 绑定。  
 
-认证成功的响应通过 SecurityContextPersistenceFilter 过滤器时，会从SecurityContextHolder 中取出封装了已认证用户信息对象 Authentication 的SecurityContext，放进 Session 中。当请求再次到来时，请求首先经过该过滤器，该过滤器会判断当前请求的 Session 是否存有 SecurityContext 对象，如果有则将该对象取出再次放入SecurityContextHolder 中，之后该请求所在的线程获得认证用户信息，后续的资源访问不需要进行身份认证；当响应再次返回时，该过滤器同样从 SecurityContextHolder 取出SecurityContext 对象，放入 Session 中。具体源码如下：  ![image-20220111125950712](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111259819.png)
+认证成功的响应通过 SecurityContextPersistenceFilter 过滤器时，会从SecurityContextHolder 中取出封装了已认证用户信息对象 Authentication 的SecurityContext，放进 Session 中。当请求再次到来时，请求首先经过该过滤器，该过滤器会判断当前请求的 Session 是否存有 SecurityContext 对象，如果有则将该对象取出再次放入SecurityContextHolder 中，之后该请求所在的线程获得认证用户信息，后续的资源访问不需要进行身份认证；当响应再次返回时，该过滤器同样从 SecurityContextHolder 取出SecurityContext 对象，放入 Session 中。具体源码如下：  ![image-20220111125950712](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090928280.png)
 
-![image-20220111125959258](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111259394.png)
+![image-20220111125959258](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090928372.png)
 
-![image-20220111130008006](./SpringSecurity(%E5%B0%9A%E7%A1%85%E8%B0%B7).assets/202201111300113.png)
+![image-20220111130008006](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090929647.png)
