@@ -71,7 +71,7 @@ Redis 的单线程主要是指 Redis 的网络 IO 和键值对读写是由一个
 
 Redis的IO多路复用：redis利用epoll来实现IO多路复用，将连接信息和事件放到队列中，依次放到文件事件分派器，事件分派器将事件分发给事件处理器。
 
-![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061735146.bin)
+![image-20240109175823282](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091758130.png)
 
 ```shell
 # 查看redis支持的最大连接数，在redis.conf文件中可修改，# maxclients 10000
