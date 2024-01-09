@@ -6,7 +6,7 @@
 
 Spring 是非常流行和成功的 Java 应用开发框架，Spring Security 正是 Spring 家族中的成员。Spring Security 基于 Spring 框架，提供了一套 Web 应用安全性的完整解决方案。
 
-正如你可能知道的关于安全方面的两个主要区域是“**认证**”和“**授权**”（或者访问控制），一般来说，Web 应用的安全性包括**用户认证（Authentication）和用户授权（Authorization）**两个部分，这两点也是 Spring Security 重要核心功能。
+正如你可能知道的关于安全方面的两个主要区域是"**认证**"和"**授权**"（或者访问控制），一般来说，Web 应用的安全性包括**用户认证（Authentication）和用户授权（Authorization）**两个部分，这两点也是 Spring Security 重要核心功能。
 
 （1）用户认证指的是：验证某个用户是否为系统中的合法主体，也就是说用户能否访问该系统。用户认证一般要求用户提供用户名和密码。系统通过校验用户名和密码来完成认证过程。**通俗点说就是系统认为用户是否能登录**
 
@@ -14,9 +14,9 @@ Spring 是非常流行和成功的 Java 应用开发框架，Spring Security 正
 
 ### **1.2** **历史**
 
-“Spring Security 开始于 2003 年年底，“spring 的 acegi 安全系统”。 起因是 Spring开发者邮件列表中的一个问题，有人提问是否考虑提供一个基于 spring 的安全实现。
+"Spring Security 开始于 2003 年年底，"spring 的 acegi 安全系统"。 起因是 Spring开发者邮件列表中的一个问题，有人提问是否考虑提供一个基于 spring 的安全实现。
 
-Spring Security 以“The Acegi Secutity System for Spring” 的名字始于 2013 年晚些时候。一个问题提交到 Spring 开发者的邮件列表，询问是否已经有考虑一个基于Spring 的安全性社区实现。那时候 Spring 的社区相对较小（相对现在）。实际上 Spring 在2013 年只是一个存在于 ScourseForge 的项目，这个问题的回答是一个值得研究的领域，虽然目前时间的缺乏组织了我们对它的探索。
+Spring Security 以"The Acegi Secutity System for Spring" 的名字始于 2013 年晚些时候。一个问题提交到 Spring 开发者的邮件列表，询问是否已经有考虑一个基于Spring 的安全性社区实现。那时候 Spring 的社区相对较小（相对现在）。实际上 Spring 在2013 年只是一个存在于 ScourseForge 的项目，这个问题的回答是一个值得研究的领域，虽然目前时间的缺乏组织了我们对它的探索。
 
 考虑到这一点，一个简单的安全实现建成但是并没有发布。几周后，Spring 社区的其他成员询问了安全性，这次这个代码被发送给他们。其他几个请求也跟随而来。到 2014 年一月大约有 20 万人使用了这个代码。这些创业者的人提出一个 SourceForge 项目加入是为了，这是在 2004 三月正式成立。
 
@@ -154,7 +154,7 @@ spring:
 
 英文单词：**authentication**
 
-权限管理系统确认一个主体的身份，允许主体进入系统。简单说就是“主体”证明自己是谁。
+权限管理系统确认一个主体的身份，允许主体进入系统。简单说就是"主体"证明自己是谁。
 
 笼统的认为就是以前所做的登录操作。
 
@@ -162,7 +162,7 @@ spring:
 
 英文单词：authorization
 
-将操作系统的“权力”“授予”“主体”，这样主体就具备了操作系统中特定功能的能力。
+将操作系统的"权力""授予""主体"，这样主体就具备了操作系统中特定功能的能力。
 
 **所以简单来说，授权就是给用户分配权限。**
 
@@ -321,7 +321,7 @@ UserDetailsService接口： 查询数据库用户名的密码过程
 
 ⚫ **返回值** **UserDetails** 
 
-这个类是系统默认的用户“**主体**”
+这个类是系统默认的用户"**主体**"
 
 ```java
 // 表示获取登录用户所有权限
@@ -784,7 +784,7 @@ return new User(users.getUsername()， new BCryptPasswordEncoder().encode(users.
 
 修改配置文件：
 
-注意配置文件中不需要添加”ROLE_“，因为上述的底层代码会自动添加与之进行匹配。
+注意配置文件中不需要添加"ROLE_"，因为上述的底层代码会自动添加与之进行匹配。
 
 ![image-20211208152825098](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090923588.png)
 
@@ -884,7 +884,7 @@ http.and().rememberMe().tokenRepository(persistentTokenRepository())
 
 #### **3.7.1 @Secured**
 
-判断是否具有角色，另外需要注意的是这里匹配的字符串需要添加前缀“ROLE_“。
+判断是否具有角色，另外需要注意的是这里匹配的字符串需要添加前缀"ROLE_"。
 
 使用注解先要开启注解功能！
 
@@ -1082,7 +1082,7 @@ SaveOnAccessCsrfToken 类有个接口 CsrfTokenRepository
 
 **3、微服务本质**
 
-（1）微服务，关键其实不仅仅是微服务本身，而是系统要提供一套基础的架构，这种架构使得微服务可以独立的部署、运行、升级，不仅如此，这个系统架构还让微服务与微服务之间在结构上“松耦合”，而在功能上则表现为一个统一的整体。**这种所谓的“统一的整体”表现出来的是统一风格的界面，统一的权限管理，统一的安全策略，统一的上线过程，统一的日志和审计方法，统一的调度方式，统一的访问入口等等。**
+（1）微服务，关键其实不仅仅是微服务本身，而是系统要提供一套基础的架构，这种架构使得微服务可以独立的部署、运行、升级，不仅如此，这个系统架构还让微服务与微服务之间在结构上"松耦合"，而在功能上则表现为一个统一的整体。**这种所谓的"统一的整体"表现出来的是统一风格的界面，统一的权限管理，统一的安全策略，统一的上线过程，统一的日志和审计方法，统一的调度方式，统一的访问入口等等。**
 
 （2）微服务的目的是有效的拆分应用，实现敏捷开发和部署。
 
@@ -1474,12 +1474,12 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
     //1 获取表单提交用户名和密码
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request， HttpServletResponse response)
-            throws AuthenticationException {
+        throws AuthenticationException {
         //获取表单提交数据
         try {
             User user = new ObjectMapper().readValue(request.getInputStream()， User.class);
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername()， user.getPassword()，
-                    new ArrayList<>()));
+                                                                                              new ArrayList<>()));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -1490,7 +1490,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request，
                                             HttpServletResponse response， FilterChain chain， Authentication authResult)
-            throws IOException， ServletException {
+        throws IOException， ServletException {
         //认证成功，得到认证成功之后用户信息
         SecurityUser user = (SecurityUser) authResult.getPrincipal();
         //根据用户名生成token
@@ -1503,7 +1503,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     //3 认证失败调用的方法
     protected void unsuccessfulAuthentication(HttpServletRequest request， HttpServletResponse response， AuthenticationException failed)
-            throws IOException， ServletException {
+        throws IOException， ServletException {
         ResponseUtil.out(response， R.error());
     }
 }
@@ -1559,7 +1559,7 @@ public class TokenAuthFilter extends BasicAuthenticationFilter {
 
 SpringSecurity 采用的是责任链的设计模式，它有一条很长的过滤器链。现在对这条过滤器链的 15 个过滤器进行说明:
 （1） WebAsyncManagerIntegrationFilter：将 Security 上下文与 Spring Web 中用于处理异步请求映射的 WebAsyncManager 进行集成。
-（2） SecurityContextPersistenceFilter：在每次请求处理之前将该请求相关的安全上下文信息加载到 SecurityContextHolder 中，然后在该次请求处理完成之后，将SecurityContextHolder 中关于这次请求的信息存储到一个“仓储” 中，然后将SecurityContextHolder 中的信息清除，例如在 Session 中维护一个用户的安全信息就是这个过滤器处理的。
+（2） SecurityContextPersistenceFilter：在每次请求处理之前将该请求相关的安全上下文信息加载到 SecurityContextHolder 中，然后在该次请求处理完成之后，将SecurityContextHolder 中关于这次请求的信息存储到一个"仓储" 中，然后将SecurityContextHolder 中的信息清除，例如在 Session 中维护一个用户的安全信息就是这个过滤器处理的。
 （3） HeaderWriterFilter：用于将头信息加入响应中。
 https://editor.foxitsoftware.cn?MD=shanchu
 （ 4） CsrfFilter：用于处理跨站请求伪造。
@@ -1619,7 +1619,7 @@ Spring Security 采取过滤链实现认证与授权，只有当前过滤器通�
 #### 5.3.2 ProviderManager 源码
 
 上述过程中， UsernamePasswordAuthenticationFilter 过滤器的attemptAuthentication() 方法的（ 5）过程将未认证的 Authentication 对象传入ProviderManager 类的 authenticate() 方法进行身份认证。  ProviderManager 是 AuthenticationManager 接口的实现类，该接口是认证相关的核心接口，也是认证的入口。在实际开发中，我们可能有多种不同的认证方式，例如：用户名+密码、邮箱+密码、手机号+验证码等，而这些认证方式的入口始终只有一个，那就是AuthenticationManager。在该接口的常用实现类 ProviderManager 内部会维护一个
-List<AuthenticationProvider>列表，存放多种认证方式，实际上这是委托者模式（ Delegate）的应用。每种认证方式对应着一个 AuthenticationProvider，AuthenticationManager 根据认证方式的不同（根据传入的 Authentication 类型判断）委托对应的 AuthenticationProvider 进行用户认证。  ![image-20220111125343280](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927350.png)
+List\<AuthenticationProvider>列表，存放多种认证方式，实际上这是委托者模式（ Delegate）的应用。每种认证方式对应着一个 AuthenticationProvider，AuthenticationManager 根据认证方式的不同（根据传入的 Authentication 类型判断）委托对应的 AuthenticationProvider 进行用户认证。  ![image-20220111125343280](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927350.png)
 
 ![image-20220111125350286](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927268.png)
 
