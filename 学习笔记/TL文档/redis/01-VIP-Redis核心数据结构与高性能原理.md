@@ -309,7 +309,7 @@ SINTER  os:android  cpu:brand:intel  ram:8G   {P40，mi-10}
 
 keys：全量遍历键，用来列出所有满足特定正则字符串规则的key，当redis数据量比较大时，性能比较差，要避免使用
 
-![imgs](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061736267.bin)
+![image-20240109175630842](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091756254.png)
 
 ## scan：渐进式遍历键
 
