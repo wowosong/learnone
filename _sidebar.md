@@ -1,45 +1,9 @@
 <!-- 侧边栏 docs/_sidebar.md -->
 
 - [📙喔喔松学习笔记](https://gitee.com/wowosong/learnone)
-    - 前端
+    
       
-      - [CSS3官网](https://developer.mozilla.org/zh-CN/docs/Web/CSS)
-      
-      - [Vue官网](https://cn.vuejs.org/)
-      
-      - [HTML/CSS](/学习笔记/前端/Html&Css.md)
-      - [Vue](/学习笔记/前端/Vue.md)
-      - [Vue2](/学习笔记/前端/Vue2&Vue3/1.Vue核心-Vue简介-初识.md)
-        - [1.Vue核心-Vue简介-初识](/学习笔记/前端/Vue2&Vue3/1.Vue核心-Vue简介-初识.md)
-        - [2.Vue核心-模板语法](/学习笔记/前端/Vue2&Vue3/2.Vue核心-模板语法.md)
-        - [3.Vue核心-数据绑定](/学习笔记/前端/Vue2&Vue3/3.Vue核心-数据绑定)
-        - [4.Vue核心-el与data的两种写法](/学习笔记/前端/Vue2&Vue3/4.Vue核心-el与data的两种写法.md)
-        - [5.Vue核心-MVVM模型](/学习笔记/前端/Vue2&Vue3/5.Vue核心-MVVM模型.md)
-        - [6.Vue核心-数据代理](/学习笔记/前端/Vue2&Vue3/6.Vue核心-数据代理.md)
-        - [7.Vue核心-事件处理](/学习笔记/前端/Vue2&Vue3/7.Vue核心-事件处理.md)
-        - [8.Vue核心-计算属性](/学习笔记/前端/Vue2&Vue3/8.Vue核心-计算属性.md)
-        - [9.Vue核心-监视属性](/学习笔记/前端/Vue2&Vue3/9.Vue核心-监视属性.md)
-        - [10.Vue核心-绑定样式-条件渲染](/学习笔记/前端/Vue2&Vue3/10.Vue核心-绑定样式-条件渲染.md)
-        - [11.Vue核心-列表渲染](/学习笔记/前端/Vue2&Vue3/11.Vue核心-列表渲染.md)
-        - [12.Vue核心-表单收集-过滤器](/学习笔记/前端/Vue2&Vue3/12.Vue核心-表单收集-过滤器.md)
-        - [13.Vue核心-实例生命周期](/学习笔记/前端/Vue2&Vue3/13.Vue核心-实例生命周期.md)
-        - [14.Vue核心-组件化编程](/学习笔记/前端/Vue2&Vue3/14.Vue核心-组件化编程.md)
-        - [15.Vue核心-初始化脚手架](/学习笔记/前端/Vue2&Vue3/15.Vue核心-初始化脚手架.md)
-        - [16.Vue核心-Vue-Cli-ref-props-mixin-plugin-scoped](/学习笔记/前端/Vue2&Vue3/16.Vue核心-Vue-Cli-ref-props-mixin-plugin-scoped.md)
-      - [Vue3](/学习笔记/前端/Vue3/Vue3.md)
-      - [Axois](/学习笔记/前端/Axois.md)
-      - [ES6](/学习笔记/前端/ES6.md)
-      - [Vue-Family](/学习笔记/前端/Vue-family.md)
-      - [Axois](/学习笔记/前端/Axois.md)
-      - [Promise](/学习笔记/前端/Promise.md)
-      - [Ajax](/学习笔记/前端/Ajax.md)
-      - [JavaScript](/学习笔记/前端/JavaScript.md)
-      - [Echart](/学习笔记/前端/echarts.md)
-      
-    - WebGIS
-    	- [Openlayer](https://openlayers.org/)
-    	- [Leaflet](https://leafletjs.cn/reference.html#map-example)
-    	
+    
     - Mysql
       - [Mysql高级](/学习笔记/数据库/mysql/MySQL数据库笔记.md)
       - [Mysql语法](/学习笔记/数据库/mysql/Mysql语法.md)
@@ -113,6 +77,46 @@
       - [redis底层设计（三）redis数据类型](学习笔记/数据库/redis/redis底层设计（三）redis数据类型.md)
       - [redis底层设计（四）功能的实现](学习笔记/数据库/redis/redis底层设计（四）功能的实现.md)
       
+    
+    - SpringBoot
+      - [SpringBoot官方文档](/学习笔记/Springboot/Springboot官方参考文档.md)
+      - [SpringBoot](/学习笔记/Springboot/Springboot（尚硅谷）.md)
+      
+    - SpringBoot2
+      - [01.Spring与SpringBoot](学习笔记/Springboot2/01.Spring与SpringBoot.md)
+      - [02.SpringBoot2入门](学习笔记/Springboot2/02.SpringBoot2入门.md)
+      - [03.了解自动配置原理](学习笔记/Springboot2/03.了解自动配置原理.md)
+      - [04.配置文件](学习笔记/Springboot2/04.配置文件.md)
+      - [05.Web开发](学习笔记/Springboot2/05.Web开发.md)
+      - [06.数据访问](学习笔记/Springboot2/06.数据访问.md)
+      - [07.单元测试](学习笔记/Springboot2/07.单元测试.md)
+      - [08.指标监控](学习笔记/Springboot2/08.指标监控.md)
+      - [09.原理解析](学习笔记/Springboot2/09.原理解析.md)
+      
+    - Mybatis
+      - [Mybatis官方文档](/学习笔记/Mybatis/Mybatis官方文档.md)
+      - [Mybatis传参方式](/学习笔记/Mybatis/mybatis传参方式.md)
+      - [Mybatis-plus使用](/学习笔记/Mybatis/mybatis-plus使用.md)
+      - [Mybatis-plus实践及架构原理](/学习笔记/Mybatis/mybatis-plus实践及架构原理.md)
+      - [Mybatis](/学习笔记/Mybatis/MyBatis.md)
+      - [通用mapper](/学习笔记/Mybatis/通用mapper（尚硅谷）.md)
+      
+    - 设计模式
+      - [工作中常用到哪些设计模式](学习笔记/设计模式/designpattern/工作中常用到哪些设计模式.md)
+      - [设计模式总结篇](学习笔记/设计模式/designpattern/设计模式总结篇.md)
+      
+    - Java8
+      - [感受JavaLambda之美](/学习笔记/Java/Java8/感受JavaLambda之美.md)
+      - [Java8 List快速转map](/学习笔记/Java/Java8/Java8-List快速转map.md)
+      - [Java8新特性](/学习笔记/Java/Java8/Java8新特性.md)
+      - [HashMap](/学习笔记/Java/Java8/HashMap.md)
+    - 高并发
+      - [JUC](/学习笔记/高并发/JUC高并发.md)
+    - SpringCloud
+      
+      - [SpringCloud(H版&alibaba )](/学习笔记/SpringCloud/尚硅谷SpringCloud(H版&alibaba).md) 
+      
+      - [SpringCloud](/学习笔记/SpringCloud/SpringCloud.md)
     - Spring
       - [Spring4](/学习笔记/Spring/Spring4（尚硅谷）.md)
       - [Spring注解驱动开发](学习笔记/Spring/Spring注解驱动开发.md)
@@ -225,45 +229,37 @@
       - [23.浏览器安全策略&CORS](学习笔记/路人系列/SpringMVC/23.浏览器安全策略&CORS.md)
       - [24.Http中的Content-Type详解](学习笔记/路人系列/SpringMVC/24.Http中的Content-Type详解.md)
       
-    - SpringBoot
-      - [SpringBoot官方文档](/学习笔记/Springboot/Springboot官方参考文档.md)
-      - [SpringBoot](/学习笔记/Springboot/Springboot（尚硅谷）.md)
-      
-    - SpringBoot2
-      - [01.Spring与SpringBoot](学习笔记/Springboot2/01.Spring与SpringBoot.md)
-      - [02.SpringBoot2入门](学习笔记/Springboot2/02.SpringBoot2入门.md)
-      - [03.了解自动配置原理](学习笔记/Springboot2/03.了解自动配置原理.md)
-      - [04.配置文件](学习笔记/Springboot2/04.配置文件.md)
-      - [05.Web开发](学习笔记/Springboot2/05.Web开发.md)
-      - [06.数据访问](学习笔记/Springboot2/06.数据访问.md)
-      - [07.单元测试](学习笔记/Springboot2/07.单元测试.md)
-      - [08.指标监控](学习笔记/Springboot2/08.指标监控.md)
-      - [09.原理解析](学习笔记/Springboot2/09.原理解析.md)
-      
-    - Mybatis
-      - [Mybatis官方文档](/学习笔记/Mybatis/Mybatis官方文档.md)
-      - [Mybatis传参方式](/学习笔记/Mybatis/mybatis传参方式.md)
-      - [Mybatis-plus使用](/学习笔记/Mybatis/mybatis-plus使用.md)
-      - [Mybatis-plus实践及架构原理](/学习笔记/Mybatis/mybatis-plus实践及架构原理.md)
-      - [Mybatis](/学习笔记/Mybatis/MyBatis.md)
-      - [通用mapper](/学习笔记/Mybatis/通用mapper（尚硅谷）.md)
-      
-    - 设计模式
-      - [工作中常用到哪些设计模式](学习笔记/设计模式/designpattern/工作中常用到哪些设计模式.md)
-      - [设计模式总结篇](学习笔记/设计模式/designpattern/设计模式总结篇.md)
-      
-    - Java8
-      - [感受JavaLambda之美](/学习笔记/Java/Java8/感受JavaLambda之美.md)
-      - [Java8 List快速转map](/学习笔记/Java/Java8/Java8-List快速转map.md)
-      - [Java8新特性](/学习笔记/Java/Java8/Java8新特性.md)
-      - [HashMap](/学习笔记/Java/Java8/HashMap.md)
-      
-    - SpringCloud
-      
-      - [SpringCloud(H版&alibaba )](/学习笔记/SpringCloud/尚硅谷SpringCloud(H版&alibaba).md) 
-      
-      - [SpringCloud](/学习笔记/SpringCloud/SpringCloud.md)
-      
+    - 前端
+      - [CSS3官网](https://developer.mozilla.org/zh-CN/docs/Web/CSS)
+      - [Vue官网](https://cn.vuejs.org/)
+      - [HTML/CSS](/学习笔记/前端/Html&Css.md)
+      - [Vue](/学习笔记/前端/Vue.md)
+      - [Vue2](/学习笔记/前端/Vue2&Vue3/1.Vue核心-Vue简介-初识.md)
+        - [1.Vue核心-Vue简介-初识](/学习笔记/前端/Vue2&Vue3/1.Vue核心-Vue简介-初识.md)
+        - [2.Vue核心-模板语法](/学习笔记/前端/Vue2&Vue3/2.Vue核心-模板语法.md)
+        - [3.Vue核心-数据绑定](/学习笔记/前端/Vue2&Vue3/3.Vue核心-数据绑定)
+        - [4.Vue核心-el与data的两种写法](/学习笔记/前端/Vue2&Vue3/4.Vue核心-el与data的两种写法.md)
+        - [5.Vue核心-MVVM模型](/学习笔记/前端/Vue2&Vue3/5.Vue核心-MVVM模型.md)
+        - [6.Vue核心-数据代理](/学习笔记/前端/Vue2&Vue3/6.Vue核心-数据代理.md)
+        - [7.Vue核心-事件处理](/学习笔记/前端/Vue2&Vue3/7.Vue核心-事件处理.md)
+        - [8.Vue核心-计算属性](/学习笔记/前端/Vue2&Vue3/8.Vue核心-计算属性.md)
+        - [9.Vue核心-监视属性](/学习笔记/前端/Vue2&Vue3/9.Vue核心-监视属性.md)
+        - [10.Vue核心-绑定样式-条件渲染](/学习笔记/前端/Vue2&Vue3/10.Vue核心-绑定样式-条件渲染.md)
+        - [11.Vue核心-列表渲染](/学习笔记/前端/Vue2&Vue3/11.Vue核心-列表渲染.md)
+        - [12.Vue核心-表单收集-过滤器](/学习笔记/前端/Vue2&Vue3/12.Vue核心-表单收集-过滤器.md)
+        - [13.Vue核心-实例生命周期](/学习笔记/前端/Vue2&Vue3/13.Vue核心-实例生命周期.md)
+        - [14.Vue核心-组件化编程](/学习笔记/前端/Vue2&Vue3/14.Vue核心-组件化编程.md)
+        - [15.Vue核心-初始化脚手架](/学习笔记/前端/Vue2&Vue3/15.Vue核心-初始化脚手架.md)
+        - [16.Vue核心-Vue-Cli-ref-props-mixin-plugin-scoped](/学习笔记/前端/Vue2&Vue3/16.Vue核心-Vue-Cli-ref-props-mixin-plugin-scoped.md)
+      - [Vue3](/学习笔记/前端/Vue3/Vue3.md)
+      - [Axois](/学习笔记/前端/Axois.md)
+      - [ES6](/学习笔记/前端/ES6.md)
+      - [Vue-Family](/学习笔记/前端/Vue-family.md)
+      - [Axois](/学习笔记/前端/Axois.md)
+      - [Promise](/学习笔记/前端/Promise.md)
+      - [Ajax](/学习笔记/前端/Ajax.md)
+      - [JavaScript](/学习笔记/前端/JavaScript.md)
+      - [Echart](/学习笔记/前端/echarts.md)
     - Java
       - [Java 基础](/学习笔记/Java/Java基础)
       - [Idea使用](/学习笔记/Java/Idea使用)
@@ -293,6 +289,8 @@
       - [Nginx知识网结构图](/学习笔记/Linux运维/Nginx/Nginx知识网结构图.md)
       - [Nginx最强使用指南](/学习笔记/Linux运维/Nginx/nginx最强使用指南.md)
       - [Nginx最全配置](/学习笔记/Linux运维/Nginx/nginx最全配置.md)
-      
-    - 高并发
-      - [JUC](/学习笔记/高并发/JUC高并发.md)
+    - WebGIS
+    	- [Openlayer](https://openlayers.org/)
+    	- [Leaflet](https://leafletjs.cn/reference.html#map-example)
+    	  
+    
