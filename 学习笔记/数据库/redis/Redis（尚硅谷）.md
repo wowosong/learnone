@@ -224,7 +224,7 @@ PONG
 
 ### Redis介绍相关知识
 
-| 端口6379从何而来Alessia  Merz | 默认16个数据库，类似数组下标从0开始，初始默认使用0号库<br>使用命令 select  <dbid>来切换数据库。如: select 8 统一密码管理，所有库同样密码。<br>dbsize查看当前数据库的key的数量flushdb清空当前库flushall通杀全部库 |
+| 端口6379从何而来Alessia  Merz | 默认16个数据库，类似数组下标从0开始，初始默认使用0号库；使用命令 select  \<dbid>来切换数据库。如: select 8 统一密码管理，所有库同样密码。；dbsize查看当前数据库的key的数量flushdb清空当前库flushall通杀全部库 |
 | ----------------------------- | ------------------------------------------------------------ |
 
 Redis是单线程+多路IO复用技术
@@ -243,7 +243,7 @@ Redis是单线程+多路IO复用技术
 
 ## Redis键(key)
 
-keys *   查看当前库所有key   (匹配：keys *1) 线上执行，会导致单线程执行，阻塞所有业务，导致系统问题
+keys \*   查看当前库所有key   (匹配：keys \*1) 线上执行，会导致单线程执行，阻塞所有业务，导致系统问题
 
 exists key  判断某个key是否存在
 
@@ -257,7 +257,7 @@ unlink key  根据value选择非阻塞删除
 
 expire key 10  10秒钟：为给定的key设置过期时间
 
-ttl key 查看还有多少秒过期，-1表示永不过期，-2表示已过期
+ttl key 查看还有多少秒过期，\-1表示永不过期，\-2表示已过期
 
 select命令切换数据库
 
@@ -279,39 +279,39 @@ String类型是Redis最基本的数据类型，**一个Redis中字符串value最
 
 ### 常用命令
 
-set  <key><value>添加键值对
+set  \<key>\<value>添加键值对
 
 ![image-20211028213207178](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061652699.png)
 
-***NX**：当数据库中key不存在时，可以将key-value添加数据库
+**NX**：当数据库中key不存在时，可以将key-value添加数据库
 
-***XX**：当数据库中key存在时，可以将key-value添加数据库，与NX参数互斥
+**XX**：当数据库中key存在时，可以将key-value添加数据库，与NX参数互斥
 
-***EX**：key的超时秒数
+**EX**：key的超时秒数
 
-***PX**：key的超时毫秒数，与EX互斥
-
- 
-
-get  <key>查询对应键值
-
-append  <key> <value>将给定的<value> 追加到原值的末尾
-
-strlen  <key>获得值的长度
-
-setnx  <key><value>只有在 key 不存在时   设置 key 的值
+**PX**：key的超时毫秒数，与EX互斥
 
  
 
-incr  <key>
+get  \<key>查询对应键值
+
+append  \<key> \<value>将给定的\<value> 追加到原值的末尾
+
+strlen  \<key>获得值的长度
+
+setnx  \<key>\<value>只有在 key 不存在时   设置 key 的值
+
+ 
+
+incr  \<key>
 
 将 key 中储存的数字值增1，只能对数字值操作，如果为空，新增值为1
 
-decr  <key>
+decr  \<key>
 
 将 key 中储存的数字值减1，只能对数字值操作，如果为空，新增值为-1
 
-incrby / decrby  <key><步长>将 key 中储存的数字值增减。自定义步长。
+incrby / decrby  \<key><步长>将 key 中储存的数字值增减。自定义步长。
 
 原子性
 
@@ -331,17 +331,17 @@ incrby / decrby  <key><步长>将 key 中储存的数字值增减。自定义步
 
 <img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061652383.png" alt="image-20211028213531346" style="zoom: 50%;" />
 
-incrby / decrby  <key><步长>将 key 中储存的数字值增减。自定义步长。
+incrby / decrby  \<key><步长>将 key 中储存的数字值增减。自定义步长。
 
-mset  <key1><value1><key2><value2>  ..... 
+mset  \<key1>\<value1>\<key2>\<value2>  ..... 
 
 同时设置一个或多个 key-value对  
 
-mget  <key1><key2><key3> .....
+mget  \<key1>\<key2>\<key3> .....
 
 同时获取一个或多个 value  
 
-msetnx <key1><value1><key2><value2>  ..... 
+msetnx \<key1>\<value1>\<key2>\<value2>  ..... 
 
 同时设置一个或多个 key-value 对，当且仅当所有给定 key 都不存在。
 
@@ -349,21 +349,21 @@ msetnx <key1><value1><key2><value2>  .....
 
  
 
-getrange  <key><起始位置><结束位置>
+getrange  \<key><起始位置><结束位置>
 
 获得值的范围，类似java中的substring，**前包，后包**
 
-setrange  <key><起始位置><value>
+setrange  \<key><起始位置>\<value>
 
-用 <value>  覆写<key>所储存的字符串值，从<起始位置>开始(**索引从0开始**)。
+用 \<value>  覆写\<key>所储存的字符串值，从<起始位置>开始(**索引从0开始**)。
 
  
 
-**setex  <key><过期时间**\><value>
+**setex  \<key><过期时间**\>\<value>
 
 设置键值的同时，设置过期时间，单位秒。
 
-getset <key><value>
+getset \<key>\<value>
 
 以新换旧，设置了新值同时获得旧值。
 
@@ -389,33 +389,33 @@ Redis 列表是简单的字符串列表，按照插入顺序排序。你可以�
 
 ### 常用命令
 
-lpush/rpush  <key><value1><value2><value3> .... 从左边/右边插入一个或多个值。
+lpush/rpush  \<key>\<value1>\<value2>\<value3> .... 从左边/右边插入一个或多个值。
 
-lpop/rpop  <key>从左边/右边吐出一个值。**值在键在，值光键亡。**
-
- 
-
-rpoplpush  <key1><key2>从<key1>列表右边吐出一个值，插到<key2>列表左边。
+lpop/rpop  \<key>从左边/右边吐出一个值。**值在键在，值光键亡。**
 
  
 
-lrange <key><start><stop>
+rpoplpush  \<key1>\<key2>从\<key1>列表右边吐出一个值，插到\<key2>列表左边。
+
+ 
+
+lrange \<key>\<start>\<stop>
 
 按照索引下标获得元素(从左到右)
 
 lrange mylist 0 -1  0左边第一个，-1右边第一个，（0-1表示获取所有）
 
-lindex <key><index>按照索引下标获得元素(从左到右)
+lindex \<key>\<index>按照索引下标获得元素(从左到右)
 
-llen <key>获得列表长度 
+llen \<key>获得列表长度 
 
  
 
-linsert <key>  before <value><newvalue>在<value>的后面插入<newvalue>插入值
+linsert \<key>  before \<value>\<newvalue>在\<value>的后面插入\<newvalue>插入值
 
-lrem <key><n><value>从左边删除n个value(从左到右)
+lrem \<key>\<n>\<value>从左边删除n个value(从左到右)
 
-lset<key><index><value>将列表key下标为index的值替换成value
+lset\<key>\<index>\<value>将列表key下标为index的值替换成value
 
  
 
@@ -447,29 +447,29 @@ Redis的Set是string类型的无序集合。它底层其实是一个value为null
 
 ### 常用命令
 
-sadd <key><value1><value2> ..... 
+sadd \<key>\<value1>\<value2> ..... 
 
 将一个或多个 member 元素加入到集合 key 中，已经存在的 member 元素将被忽略
 
-smembers <key>取出该集合的所有值。
+smembers \<key>取出该集合的所有值。
 
-sismember <key><value>判断集合<key>是否为含有该<value>值，有1，没有0
+sismember \<key>\<value>判断集合\<key>是否为含有该\<value>值，有1，没有0
 
-scard<key>返回该集合的元素个数。
+scard\<key>返回该集合的元素个数。
 
-srem <key><value1><value2> .... 删除集合中的某个元素。
+srem \<key>\<value1>\<value2> .... 删除集合中的某个元素。
 
-spop <key>**随机从该集合中吐出一个值。**
+spop \<key>**随机从该集合中吐出一个值。**
 
-srandmember <key><n>随机从该集合中取出n个值。不会从集合中删除 。
+srandmember \<key>\<n>随机从该集合中取出n个值。不会从集合中删除 。
 
-smove <source><destination>value把集合中一个值从一个集合移动到另一个集合
+smove \<source>\<destination>value把集合中一个值从一个集合移动到另一个集合
 
-sinter <key1><key2>返回两个集合的交集元素。
+sinter \<key1>\<key2>返回两个集合的交集元素。
 
-sunion <key1><key2>返回两个集合的并集元素。
+sunion \<key1>\<key2>返回两个集合的并集元素。
 
-sdiff <key1><key2>返回两个集合的**差集**元素(key1中的，不包含key2中的)
+sdiff \<key1>\<key2>返回两个集合的**差集**元素(key1中的，不包含key2中的)
 
 ###  **数据结构**
 
@@ -506,21 +506,21 @@ Redis hash是一个string类型的field和value的映射表，hash特别适合�
 
 ### 常用命令
 
-hset <key><field><value>给<key>集合中的  <field>键赋值<value>
+hset \<key>\<field>\<value>给\<key>集合中的  \<field>键赋值\<value>
 
-hget <key1><field>从<key1>集合<field>取出 value 
+hget \<key1>\<field>从\<key1>集合\<field>取出 value 
 
-hmset <key1><field1><value1><field2><value2>... 批量设置hash的值
+hmset \<key1>\<field1>\<value1>\<field2>\<value2>... 批量设置hash的值
 
-hexists<key1><field>查看哈希表 key 中，给定域 field 是否存在。 
+hexists\<key1>\<field>查看哈希表 key 中，给定域 field 是否存在。 
 
-hkeys <key>列出该hash集合的所有field
+hkeys \<key>列出该hash集合的所有field
 
-hvals <key>列出该hash集合的所有value
+hvals \<key>列出该hash集合的所有value
 
-hincrby <key><field><increment>为哈希表 key 中的域 field 的值加上增量 1  -1
+hincrby \<key>\<field>\<increment>为哈希表 key 中的域 field 的值加上增量 1  -1
 
-hsetnx <key><field><value>将哈希表 key 中的域 field 的值设置为 value ，当且仅当域 field 不存在 .
+hsetnx \<key>\<field>\<value>将哈希表 key 中的域 field 的值设置为 value ，当且仅当域 field 不存在 .
 
 ### 数据结构
 
@@ -540,13 +540,13 @@ Redis有序集合zset与普通集合set非常相似，是一个没有重复元�
 
 ### 常用命令
 
-zadd  <key><score1><value1><score2><value2>…
+zadd  \<key>\<score1>\<value1>\<score2>\<value2>…
 
 将一个或多个 member 元素及其 score 值加入到有序集 key 当中。
 
-**zrange <key><start><stop>  [WITHSCORES]**  
+**zrange \<key>\<start>\<stop>  [WITHSCORES]**  
 
-返回有序集 key 中，下标在<start><stop>之间的元素
+返回有序集 key 中，下标在\<start>\<stop>之间的元素
 
 带WITHSCORES，可以让分数一起和值返回到结果集。
 
@@ -558,13 +558,13 @@ zrevrangebyscore key maxmin [withscores] [limit offset count]
 
 同上，改为从大到小排列。 
 
-zincrby <key><increment><value>    为元素的score加上增量
+zincrby \<key>\<increment>\<value>    为元素的score加上增量
 
-zrem  <key><value>删除该集合下，指定值的元素 
+zrem  \<key>\<value>删除该集合下，指定值的元素 
 
-zcount <key><min><max>统计该集合，分数区间内的元素个数 
+zcount \<key>\<min>\<max>统计该集合，分数区间内的元素个数 
 
-zrank <key><value>返回该值在集合中的排名，从0开始。
+zrank \<key>\<value>返回该值在集合中的排名，从0开始。
 
 案例：如何利用zset实现一个文章访问量的排行榜？
 
@@ -716,7 +716,7 @@ zset底层使用了两个数据结构
 
 ### databases 16 
 
-设定库的数量 默认16，默认数据库为0，可以使用SELECT <dbid>命令在连接上指定数据库id
+设定库的数量 默认16，默认数据库为0，可以使用SELECT \<dbid>命令在连接上指定数据库id
 
 ![image-20211031001143527](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061655398.png)
 
@@ -748,7 +748,7 @@ zset底层使用了两个数据结构
 
 ### maxmemory 
 
-Ø 建议***\*必须设置\****，否则，将内存占满，造成服务器宕机
+Ø 建议**必须设置**，否则，将内存占满，造成服务器宕机
 
 Ø 设置redis可以使用的内存量。一旦到达内存使用上限，redis将会试图移除内部数据，移除规则可以通过maxmemory-policy来指定。
 
@@ -852,11 +852,11 @@ publish channel1 hello
 
 （1）格式
 
-setbit<key><offset><value>设置Bitmaps中某个偏移量的值（0或1）
+setbit\<key>\<offset>\<value>设置Bitmaps中某个偏移量的值（0或1）
 
 ![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061656561.jpg) 
 
-*offset:偏移量从0开始
+\*offset:偏移量从0开始
 
 （2）实例
 
@@ -880,7 +880,7 @@ unique:users:20201106代表2020-11-06这天的独立访问用户的Bitmaps
 
 （1）格式
 
-getbit<key><offset>获取Bitmaps中某个偏移量的值
+getbit\<key>\<offset>获取Bitmaps中某个偏移量的值
 
 ![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061657332.jpg) 
 
@@ -902,7 +902,7 @@ getbit<key><offset>获取Bitmaps中某个偏移量的值
 
 （1）格式
 
-bitcount<key>[start end] 统计字符串从start字节到end字节比特值为1的数量
+bitcount\<key>[start end] 统计字符串从start字节到end字节比特值为1的数量
 
 ![image-20211031123512522](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061657700.png)
 
@@ -936,7 +936,7 @@ bitcount K1 0 -2  ： 统计下标0到下标倒数第2，字节组中bit=1的个
 
 (1)格式
 
-bitop and(or/not/xor) <destkey> [key…]
+bitop and(or/not/xor) \<destkey> [key…]
 
 ![image-20211031124451895](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061659193.png)
 
@@ -1044,7 +1044,7 @@ Bitmaps分别存储活跃用户可以得到表
 
 （1）格式
 
-pfadd <key>< element> [element ...]  添加指定元素到 HyperLogLog 中
+pfadd \<key>< element> [element ...]  添加指定元素到 HyperLogLog 中
 
  ![image-20211031131157809](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061700711.png)
 
@@ -1058,7 +1058,7 @@ pfcount
 
 （1）格式
 
-pfcount<key> [key ...] 计算HLL的近似基数，可以计算多个HLL，比如用HLL存储每天的UV，计算一周的UV可以使用7天的UV合并计算即可
+pfcount\<key> [key ...] 计算HLL的近似基数，可以计算多个HLL，比如用HLL存储每天的UV，计算一周的UV可以使用7天的UV合并计算即可
 
 ![image-20211031131248070](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061700059.png)
 
@@ -1070,7 +1070,7 @@ pfcount<key> [key ...] 计算HLL的近似基数，可以计算多个HLL，比如
 
 （1）格式
 
-pfmerge<destkey><sourcekey> [sourcekey ...]  将一个或多个HLL合并后的结果存储在另一个HLL中，比如每月活跃用户可以使用每天的活跃用户来合并计算可得
+pfmerge\<destkey>\<sourcekey> [sourcekey ...]  将一个或多个HLL合并后的结果存储在另一个HLL中，比如每月活跃用户可以使用每天的活跃用户来合并计算可得
 
 ![image-20211031131431406](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061700238.png)
 
@@ -1092,7 +1092,7 @@ Redis 3.2 中增加了对GEO类型的支持。GEO，Geographic，地理信息的
 
 （1）格式
 
-geoadd<key>< longitude><latitude><member> [longitude latitude member...]  添加地理位置（经度，纬度，名称）
+geoadd\<key>< longitude>\<latitude>\<member> [longitude latitude member...]  添加地理位置（经度，纬度，名称）
 
 ![image-20211031131640980](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061700231.png)
 
@@ -1116,7 +1116,7 @@ geoadd china:city 106.50 29.53 chongqing 114.05 22.52 shenzhen 116.38 39.90 beij
 
 （1）格式
 
-geopos  <key><member> [member...]  获得指定地区的坐标值
+geopos  \<key>\<member> [member...]  获得指定地区的坐标值
 
 ![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061700471.jpg) 
 
@@ -1130,7 +1130,7 @@ geopos  <key><member> [member...]  获得指定地区的坐标值
 
 （1）格式
 
-geodist<key><member1><member2>  [m|km|ft|mi ]  获取两个位置之间的直线距离
+geodist\<key>\<member1>\<member2>  [m|km|ft|mi ]  获取两个位置之间的直线距离
 
 ![image-20211031131814869](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061701001.png)
 
@@ -1160,7 +1160,7 @@ ft 表示单位为英尺。
 
 （1）格式
 
-georadius<key>< longitude><latitude>radius m|km|ft|mi  以给定的经纬度为中心，找出某一半径内的元素
+georadius\<key>< longitude>\<latitude>radius m|km|ft|mi  以给定的经纬度为中心，找出某一半径内的元素
 
 ![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061701273.jpg) 
 
@@ -1174,7 +1174,7 @@ georadius<key>< longitude><latitude>radius m|km|ft|mi  以给定的经纬度为�
 
 ## Jedis所需要的jar包
 
-```java
+```xml
 <dependency>
   <groupId>redis.clients</groupId>
  		<artifactId>jedis</artifactId>
@@ -1197,12 +1197,12 @@ redis.conf中注释掉bind 127.0.0.1 ,然后 protected-mode no
 ### 创建测试程序
 
 ```java
- public static void main(String[] args) {
+public static void main(String[] args) {
 
-        Jedis jedis=new Jedis("127.0.0.1",16309);
-        jedis.auth("rootredis");
-        System.out.println(jedis.ping());
-    }
+    Jedis jedis=new Jedis("127.0.0.1",16309);
+    jedis.auth("rootredis");
+    System.out.println(jedis.ping());
+}
 ```
 
 ## 测试相关数据类型
@@ -1302,49 +1302,49 @@ for (String e : zrange) {
 //        String s = generCode();
 //        System.out.println(s);
 //每天每个手机只能发送三次验证码，并放到redis中，并设置过期时间
-        verifyCode("18280018107");
-        getCode("18280018107","300007");
+verifyCode("18280018107");
+getCode("18280018107","300007");
 
+}
+public static void getCode(String phone,String code){
+    String key="VerifyCode"+phone+":code";
+    Jedis redis = redisUtil.getRedis();
+    String s = redis.get(key);
+    if(Objects.equals(code,s)){
+        System.out.println("验证成功");
+    }else {
+        System.out.println("验证失败");
     }
-    public static void getCode(String phone,String code){
-        String key="VerifyCode"+phone+":code";
-        Jedis redis = redisUtil.getRedis();
-        String s = redis.get(key);
-        if(Objects.equals(code,s)){
-            System.out.println("验证成功");
-        }else {
-            System.out.println("验证失败");
-        }
+}
+public static void verifyCode(String phone){
+    Jedis redis = redisUtil.getRedis();
+    String key="VerifyCode"+phone+":code";
+    String keyCount="VerifyCode"+phone+":count";
+    String s = redis.get(keyCount);
+    if(s==null){
+        redis.setex(keyCount,24*60*60,"1");
+    }else if (Integer.parseInt(s)<=2){
+        redis.incr(keyCount);
+    }else{
+        System.out.println("发送短信超过三次");
     }
-    public static void verifyCode(String phone){
-        Jedis redis = redisUtil.getRedis();
-        String key="VerifyCode"+phone+":code";
-        String keyCount="VerifyCode"+phone+":count";
-        String s = redis.get(keyCount);
-        if(s==null){
-            redis.setex(keyCount,24*60*60,"1");
-        }else if (Integer.parseInt(s)<=2){
-            redis.incr(keyCount);
-        }else{
-            System.out.println("发送短信超过三次");
-        }
-        String code1 = generCode();
-        String s1 = redis.get(key);
-        if(s1==null){
-            redis.setex(key,120,code1);
-        }
-        redisUtil.closeRedis(redis);
+    String code1 = generCode();
+    String s1 = redis.get(key);
+    if(s1==null){
+        redis.setex(key,120,code1);
     }
+    redisUtil.closeRedis(redis);
+}
 
-    public static String generCode(){
-        String code="";
-        Random random = new Random();
-        for (int i=0;i<6;i++){
-            int rand=random.nextInt(10);
-            code+=rand;
-        }
-        return code;
+public static String generCode(){
+    String code="";
+    Random random = new Random();
+    for (int i=0;i<6;i++){
+        int rand=random.nextInt(10);
+        code+=rand;
     }
+    return code;
+}
 }
 ```
 
@@ -1631,7 +1631,9 @@ ab -n 2000 -c 200 -k -p postfile -T 'application/x-www-form-urlencoded' http://1
 
 增加-r参数，-r  Don't exit on socket receive errors.
 
-***\*ab -n 2000 -c 100 -r -p postfile -T 'application/x-www-form-urlencoded'\**** [***\*http://192.168.\*******\*140\*******\*.1:8080/seckill/doseckill\****](http://192.168.140.1:8080/seckill/doseckill)
+**ab -n 2000 -c 100 -r -p postfile -T 'application/x-www-form-urlencoded'**
+
+* [http://192.168.140.1:8080/seckill/doseckill](http://192.168.140.1:8080/seckill/doseckill)
 
 ### 已经秒光，可是还有库存
 
@@ -1849,7 +1851,7 @@ RDB是整个内存的压缩过的Snapshot，RDB的数据结构，可以配置复
 
 先通过config get dir  查询rdb文件的目录 
 
-将*.rdb的文件拷贝到别的地方
+将\*.rdb的文件拷贝到别的地方
 
 rdb的恢复
 
@@ -1980,7 +1982,7 @@ Redis会记录上次重写时的AOF大小，默认配置是当AOF文件大小是
 
 （4）1).子进程写完新的AOF文件后，向主进程发信号，父进程更新统计信息。
 
-​			2).主进程把aof_rewrite_buf中的数据写入到新的AOF文件。
+​	2).主进程把aof_rewrite_buf中的数据写入到新的AOF文件。
 
 （5）使用新的AOF文件覆盖旧的AOF文件，完成AOF重写。
 
@@ -2105,7 +2107,7 @@ info replication
 
 ### 配从(库)不配主(库)
 
-slaveof  <ip><port>
+slaveof  \<ip>\<port>
 
 成为某个实例的从服务器
 
@@ -2147,7 +2149,7 @@ slaveof  <ip><port>
 
 上一个Slave可以是下一个slave的Master，Slave同样可以接收其他 slaves的连接和同步请求，那么该slave作为了链条中下一个的master, 可以有效减轻master的写压力,去中心化降低风险。
 
-用 slaveof  <ip><port>
+用 slaveof  \<ip>\<port>
 
 中途变更转向:会清除之前的数据，重新建立拷贝最新的
 
@@ -2245,7 +2247,7 @@ redis做压测可以用自带的redis-benchmark工具
 private static JedisSentinelPool jedisSentinelPool=null;
 
 public static  Jedis getJedisFromSentinel(){
-      if(jedisSentinelPool==null){
+    if(jedisSentinelPool==null){
         Set<String> sentinelSet=new HashSet<>();
         sentinelSet.add("192.168.11.103:26379");
 
@@ -2259,9 +2261,9 @@ public static  Jedis getJedisFromSentinel(){
 
         jedisSentinelPool=new JedisSentinelPool("mymaster",sentinelSet,jedisPoolConfig);
         return jedisSentinelPool.getResource();
-      }else{
-				return jedisSentinelPool.getResource();
-      }
+    }else{
+        return jedisSentinelPool.getResource();
+    }
 }
 ```
 
@@ -2414,13 +2416,13 @@ redis-cli客户端提供了 –c 参数实现自动重定向。
 
 ## 查询集群中的值
 
-CLUSTER GETKEYSINSLOT <slot><count> 返回 count 个 slot 槽中的键。
+CLUSTER GETKEYSINSLOT \<slot>\<count> 返回 count 个 slot 槽中的键。
 
 ![image-20211102194956160](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061709244.png)
 
 ## 故障恢复
 
-如果主节点下线？从节点能否自动升为主节点？注意：***\*15秒超时\****
+如果主节点下线？从节点能否自动升为主节点？注意：**15秒超时**
 
 ![image-20211102195520578](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061710511.png)
 
@@ -2805,9 +2807,9 @@ Lua 脚本详解：
 
 1. 定义key，key应该是为每个sku定义的，也就是每个sku有一把锁。
 
-String locKey =***\*"lock:"\****+skuId; **//** **锁住的是每个商品的数据**
+String locKey =**"lock:"+skuId; **// **锁住的是每个商品的数据**
 
-Boolean lock = ***\*redisTemplate\****.opsForValue().setIfAbsent(locKey, uuid,3,TimeUnit.***\**SECONDS\**\***);
+Boolean lock = **redisTemplate**.opsForValue().setIfAbsent(locKey, uuid,3,TimeUnit.**SECONDS**);
 
 ![image-20211102234532521](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061712364.png)
 
@@ -2861,7 +2863,7 @@ testLock();
 
 Redis ACL是Access Control List（访问控制列表）的缩写，该功能允许根据可以执行的命令和可以访问的键来限制某些连接。
 
-在Redis 5版本之前，Redis 安全规则只有密码控制 还有通过rename 来调整高危命令比如 flushdb ， KEYS* ， shutdown 等。Redis 6 则提供ACL的功能对用户进行更细粒度的权限控制 ：
+在Redis 5版本之前，Redis 安全规则只有密码控制 还有通过rename 来调整高危命令比如 flushdb ， KEYS\* ， shutdown 等。Redis 6 则提供ACL的功能对用户进行更细粒度的权限控制 ：
 
 （1）接入权限:用户名和密码 
 
@@ -2904,13 +2906,13 @@ Redis ACL是Access Control List（访问控制列表）的缩写，该功能允�
 | 类型                 | 参数                                                         | 说明                                               |
 | 启动和禁用用户       | **on**                                                       | 激活某用户账号                                     |
 | **off**              | 禁用某用户账号。注意，已验证的连接仍然可以工作。如果默认用户被标记为off，则新连接将在未进行身份验证的情况下启动，并要求用户使用AUTH选项发送AUTH或HELLO，以便以某种方式进行身份验证。 |                                                    |
-| 权限的添加删除       | **+<command>**                                               | 将指令添加到用户可以调用的指令列表中               |
-| **-<command>**       | 从用户可执行指令列表移除指令                                 |                                                    |
-| **+@<category>**     | 添加该类别中用户要调用的所有指令，有效类别为@admin、@set、@sortedset…等，通过调用ACL CAT命令查看完整列表。特殊类别@all表示所有命令，包括当前存在于服务器中的命令，以及将来将通过模块加载的命令。 |                                                    |
-| -@<actegory>         | 从用户可调用指令中移除类别                                   |                                                    |
+| 权限的添加删除       | **+\<command>**                                              | 将指令添加到用户可以调用的指令列表中               |
+| **-\<command>**      | 从用户可执行指令列表移除指令                                 |                                                    |
+| **+@\<category>**    | 添加该类别中用户要调用的所有指令，有效类别为@admin、@set、@sortedset…等，通过调用ACL CAT命令查看完整列表。特殊类别@all表示所有命令，包括当前存在于服务器中的命令，以及将来将通过模块加载的命令。 |                                                    |
+| -@\<actegory>        | 从用户可调用指令中移除类别                                   |                                                    |
 | **allcommands**      | +@all的别名                                                  |                                                    |
 | **nocommand**        | -@all的别名                                                  |                                                    |
-| 可操作键的添加或删除 | **~<pattern>**                                               | 添加可作为用户可操作的键的模式。例如~*允许所有的键 |
+| 可操作键的添加或删除 | **~\<pattern>**                                              | 添加可作为用户可操作的键的模式。例如~*允许所有的键 |
 
 2）通过命令创建新用户默认权限
 
