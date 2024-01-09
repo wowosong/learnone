@@ -125,7 +125,7 @@ set session optimizer_switch='derived_merge=on'; #还原默认配置
 
 这一列表示 explain 的一行正在访问哪个表。 
 
-**当 from 子句中有子查询时，table列是 <derivenN> 格式，表示当前查询依赖 id=N 的查询，于是先执行 id=N 的查询。**
+**当 from 子句中有子查询时，table列是 \<derivenN> 格式，表示当前查询依赖 id=N 的查询，于是先执行 id=N 的查询。**
 
 **当有 union 时，UNION RESULT 的 table 列的值为<union1,2>，1和2表示参与 union 的 select 行id。** 
 
