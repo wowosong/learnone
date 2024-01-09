@@ -2835,7 +2835,7 @@ public class ResultTest {
 可以发现，似乎并没有懒加载，直接一次把所有 sql 发出去了，这是因为我们还没有开启 MyBatis 的懒加载功能
 
 ```shell
-## 先发送查询Employee表的ssql
+## 先发送查询Employee表的sql
 [main] [org.hong.mapper.EmployeeMapper.getAll]-[DEBUG] ==>  Preparing: select * from employee 
 [main] [org.hong.mapper.EmployeeMapper.getAll]-[DEBUG] ==> Parameters: 
 ## 再发送查询Dept表的sql
@@ -3647,7 +3647,7 @@ int update(Blog blog);
 
 
 
-### choose{when, otherwise}
+### choose\{when, otherwise\}
 
 有时候，我们不想使用所有的条件，而只是想从多个条件中选择一个使用。针对这种情况，MyBatis 提供了 choose 元素，它有点像 Java 中的 switch 语句。<span style ="color:red">`（choose --> switch，when --> case，otherwise --> default）`</span>
 
