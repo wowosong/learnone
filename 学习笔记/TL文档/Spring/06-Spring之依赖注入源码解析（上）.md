@@ -119,7 +119,7 @@
 另外两个：
 
 1. no，表示关闭autowire
-1. default，表示默认值，我们一直演示的某个bean的autowire，而也可以直接在<beans>标签中设置autowire，如果设置了，那么<bean>标签中设置的autowire如果为default，那么则会用<beans>标签中设置的autowire。
+1. default，表示默认值，我们一直演示的某个bean的autowire，而也可以直接在\<beans>标签中设置autowire，如果设置了，那么\<bean>标签中设置的autowire如果为default，那么则会用\<beans>标签中设置的autowire。
 
 
 
