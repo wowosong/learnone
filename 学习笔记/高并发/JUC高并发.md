@@ -260,11 +260,11 @@ lock()方法是平常使用得最多的一个方法，就是用来获取锁。�
 Lock lock = ...;
 lock.lock();
 try{
-//处理任务
+    //处理任务
 }catch(Exception ex){
 
 }finally{
-	lock.unlock(); //释放锁
+    lock.unlock(); //释放锁
 }
 ```
 
@@ -450,23 +450,23 @@ package com.atguigu.test;
  * volatile 关键字实现线程交替加减
  */
 public class TestVolatile {
-   /*  
+    /*  
      交替加减
      @param args
     */
-   public static void main(String[] args){
-     DemoClass demoClass = new DemoClass();
-     new Thread(() ->{
-       for (int i = 0; i < 5; i++) {
-       		demoClass.increment();
-       }
-     }, "线程 A").start();
-     new Thread(() ->{
-       for (int i = 0; i < 5; i++) {
-       		demoClass.decrement();
-       }
-     }, "线程 B").start();
-   } 
+    public static void main(String[] args){
+        DemoClass demoClass = new DemoClass();
+        new Thread(() ->{
+            for (int i = 0; i < 5; i++) {
+                demoClass.increment();
+            }
+        }, "线程 A").start();
+        new Thread(() ->{
+            for (int i = 0; i < 5; i++) {
+                demoClass.decrement();
+            }
+        }, "线程 B").start();
+    } 
 }
 
 
@@ -514,16 +514,16 @@ class DemoClass1 {
 
     public void increament() {
         try {
-             //用if，存在虚假唤醒问题，
+            //用if，存在虚假唤醒问题，
             while (number != 0) {
                 //等待并释放锁，在哪里睡就在哪里醒
                 //会跳过if判断条件
-                 contional.await();
+                contional.await();
             }
             number++;
             System.out.println(""+Thread.currentThread().getName()+"加一成功,值为:" +number);
-						//通知其他线程
-           condition.signalAll();
+            //通知其他线程
+            condition.signalAll();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -565,89 +565,89 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 class DemoClass{
- //通信对象:0--打印 A 1---打印 B 2----打印 C
- private int number = 0;
- //声明锁
- private Lock lock = new ReentrantLock();
- //声明钥匙 A
- private Condition conditionA = lock.newCondition();
- //声明钥匙 B
- private Condition conditionB = lock.newCondition();
- //声明钥匙 C
- private Condition conditionC = lock.newCondition(); 
- /*  
+    //通信对象:0--打印 A 1---打印 B 2----打印 C
+    private int number = 0;
+    //声明锁
+    private Lock lock = new ReentrantLock();
+    //声明钥匙 A
+    private Condition conditionA = lock.newCondition();
+    //声明钥匙 B
+    private Condition conditionB = lock.newCondition();
+    //声明钥匙 C
+    private Condition conditionC = lock.newCondition(); 
+    /*  
  	* A 打印 5 次
   */
- public void printA(int j){
-   try {
-     lock.lock();
-     while (number != 0){
-     conditionA.await();
-   }
-   System.out.println(Thread.currentThread().getName() + "输出 A,第" + j + "轮开始");
-   //输出 5 次 A
-   for (int i = 0; i < 5; i++) {
-   		System.out.println("A");
-   }
-   //开始打印 B
-   	number = 1;
-   //唤醒 B
-   	conditionB.signal();
-   }catch (Exception e){
-   		e.printStackTrace();
-   }finally {
-   	lock.unlock();
-   }
- } 
- /* 
+    public void printA(int j){
+        try {
+            lock.lock();
+            while (number != 0){
+                conditionA.await();
+            }
+            System.out.println(Thread.currentThread().getName() + "输出 A,第" + j + "轮开始");
+            //输出 5 次 A
+            for (int i = 0; i < 5; i++) {
+                System.out.println("A");
+            }
+            //开始打印 B
+            number = 1;
+            //唤醒 B
+            conditionB.signal();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
+        }
+    } 
+    /* 
   * B 打印 10 次
   */
- public void printB(int j){
-   try {
-     lock.lock();
-     while (number != 1){
-        conditionB.await();
-     }
-   System.out.println(Thread.currentThread().getName() + "输出 B,第" + j + "轮开始");
-   //输出 10 次 B
-   for (int i = 0; i < 10; i++) {
-      System.out.println("B");
-   }
-     //开始打印 C
-     number = 2;
-     //唤醒 C
-     conditionC.signal();
-   }catch (Exception e){
-    e.printStackTrace();
-   }finally {
-   lock.unlock();
-   }
- } 
- /* 
+    public void printB(int j){
+        try {
+            lock.lock();
+            while (number != 1){
+                conditionB.await();
+            }
+            System.out.println(Thread.currentThread().getName() + "输出 B,第" + j + "轮开始");
+            //输出 10 次 B
+            for (int i = 0; i < 10; i++) {
+                System.out.println("B");
+            }
+            //开始打印 C
+            number = 2;
+            //唤醒 C
+            conditionC.signal();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
+        }
+    } 
+    /* 
  *C 打印 15 次
  */
- public void printC(int j){
-   try {
-     lock.lock();
-     while (number != 2){
-     conditionC.await();
-   }
-   System.out.println(Thread.currentThread().getName() + "输出 C,第" + j + "轮开始");
-   //输出 15 次 C
-   for (int i = 0; i < 15; i++) {
-  	 System.out.println("C");
-   }
-     System.out.println("-----------------------------------------");
-     //开始打印 A
-     number = 0;
-     //唤醒 A
-     conditionA.signal();
-   }catch (Exception e){
-   		e.printStackTrace();
-   }finally {
-   		lock.unlock();
-   } 
-   } 
+    public void printC(int j){
+        try {
+            lock.lock();
+            while (number != 2){
+                conditionC.await();
+            }
+            System.out.println(Thread.currentThread().getName() + "输出 C,第" + j + "轮开始");
+            //输出 15 次 C
+            for (int i = 0; i < 15; i++) {
+                System.out.println("C");
+            }
+            System.out.println("-----------------------------------------");
+            //开始打印 A
+            number = 0;
+            //唤醒 A
+            conditionA.signal();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
+        } 
+    } 
 }
 ```
 
@@ -659,29 +659,29 @@ package com.atguigu.test;
 *  volatile 关键字实现线程交替加减
  */
 public class TestVolatile {
- /*   
+    /*   
  *   交替加减
  *   @param args
  */
- public static void main(String[] args){
+    public static void main(String[] args){
 
-   DemoClass demoClass = new DemoClass();
-   new Thread(() ->{
-     for (int i = 1; i <= 10; i++) {
-     		demoClass.printA(i);
-     }
-   }, "A 线程").start();
-   new Thread(() ->{
-     for (int i = 1; i <= 10; i++) {
-       demoClass.printB(i);
-     }
-   }, "B 线程").start();
-   new Thread(() ->{
-     for (int i = 1; i <= 10; i++) {
-      	demoClass.printC(i);
-     }
-   }, "C 线程").start();
-   } 
+        DemoClass demoClass = new DemoClass();
+        new Thread(() ->{
+            for (int i = 1; i <= 10; i++) {
+                demoClass.printA(i);
+            }
+        }, "A 线程").start();
+        new Thread(() ->{
+            for (int i = 1; i <= 10; i++) {
+                demoClass.printB(i);
+            }
+        }, "B 线程").start();
+        new Thread(() ->{
+            for (int i = 1; i <= 10; i++) {
+                demoClass.printC(i);
+            }
+        }, "C 线程").start();
+    } 
 }
 ```
 
@@ -711,21 +711,21 @@ import java.util.UUID;
   *
   */
 public class NotSafeDemo {
-/*  
+    /*  
 *  多个线程同时对集合进行修改
 *  @param args
 */
 
-public static void main(String[] args) {
+    public static void main(String[] args) {
 
-  List list = new ArrayList();
-  for (int i = 0; i < 100; i++) {
-    new Thread(() ->{
-      list.add(UUID.randomUUID().toString());
-      	System.out.println(list);
-    	}, "线程" + i).start();
+        List list = new ArrayList();
+        for (int i = 0; i < 100; i++) {
+            new Thread(() ->{
+                list.add(UUID.randomUUID().toString());
+                System.out.println(list);
+            }, "线程" + i).start();
+        } 
     } 
-  } 
 }
 ```
 
@@ -738,17 +738,17 @@ java.util.ConcurrentModificationException **并发修改异常**
 查看 ArrayList 的 add 方法源码
 
 ```java
-		/**
-     * Appends the specified element to the end of this list.
-     *
-     * @param e element to be appended to this list
-     * @return <tt>true</tt> (as specified by {@link Collection#add})
-     */
-    public boolean add(E e) {
-        ensureCapacityInternal(size + 1);  // Increments modCount!!
-        elementData[size++] = e;
-        return true;
-    }
+/**
+ * Appends the specified element to the end of this list.
+ *
+ * @param e element to be appended to this list
+ * @return <tt>true</tt> (as specified by {@link Collection#add})
+ */
+public boolean add(E e) {
+    ensureCapacityInternal(size + 1);  // Increments modCount!!
+    elementData[size++] = e;
+    return true;
+}
 ```
 
 ==  那么我们如何去解决 List 类型的线程安全问题?  ==
@@ -785,14 +785,14 @@ public class NotSafeDemo {
 *   @param args
 */
 
-public static void main(String[] args) {
-  List list = new Vector();
-    for (int i = 0; i < 100; i++) {
-      new Thread(() ->{
-      	list.add(UUID.randomUUID().toString());System.out.println(list);
-      }, "线程" + i).start();
+    public static void main(String[] args) {
+        List list = new Vector();
+        for (int i = 0; i < 100; i++) {
+            new Thread(() ->{
+                list.add(UUID.randomUUID().toString());System.out.println(list);
+            }, "线程" + i).start();
+        } 
     } 
-  } 
 }
 ```
 
@@ -801,19 +801,19 @@ public static void main(String[] args) {
 查看 Vector 的 add 方法
 
 ```java
- 		/**
-     * Appends the specified element to the end of this Vector.
-     *
-     * @param e element to be appended to this Vector
-     * @return {@code true} (as specified by {@link Collection#add})
-     * @since 1.2
-     */
-    public synchronized boolean add(E e) {
-        modCount++;
-        ensureCapacityHelper(elementCount + 1);
-        elementData[elementCount++] = e;
-        return true;
-    }
+/**
+ * Appends the specified element to the end of this Vector.
+ *
+ * @param e element to be appended to this Vector
+ * @return {@code true} (as specified by {@link Collection#add})
+ * @since 1.2
+ */
+public synchronized boolean add(E e) {
+    modCount++;
+    ensureCapacityHelper(elementCount + 1);
+    elementData[elementCount++] = e;
+    return true;
+}
 ```
 
   add 方法被 synchronized 同步修饰，线程安全!因此没有并发异常  
@@ -841,12 +841,12 @@ import java.util. ;
 public static void main(String[] args) {
     List list = Collections.synchronizedList(new ArrayList<>());
     for (int i = 0; i < 100; i++) {
-      new Thread(() ->{
-        list.add(UUID.randomUUID().toString());
-        System.out.println(list);
-      }, "线程" + i).start();
+        new Thread(() ->{
+            list.add(UUID.randomUUID().toString());
+            System.out.println(list);
+        }, "线程" + i).start();
     } 
-  } 
+} 
 }
 ```
 
@@ -880,9 +880,9 @@ public static void main(String[] args) {
  */
 public static <T> List<T> synchronizedList(List<T> list) {
 
-  return (list instanceof RandomAccess ? 
-          new SynchronizedRandomAccessList<>(list) :
-          new SynchronizedList<>(list));
+    return (list instanceof RandomAccess ? 
+            new SynchronizedRandomAccessList<>(list) :
+            new SynchronizedList<>(list));
 }
 ```
 
@@ -924,21 +924,21 @@ import java.util.concurrent.CopyOnWriteArrayList;
 *  集合线程安全案例
 */
 public class NotSafeDemo {
-/*  
+    /*  
 *  多个线程同时对集合进行修改
 *  @param args
 */
 
-public static void main(String[] args) {
+    public static void main(String[] args) {
 
-  List list = new CopyOnWriteArrayList();
-  for (int i = 0; i < 100; i++) {
-    new Thread(() ->{
-      list.add(UUID.randomUUID().toString());
-      System.out.println(list);
-      }, "线程" + i).start();
+        List list = new CopyOnWriteArrayList();
+        for (int i = 0; i < 100; i++) {
+            new Thread(() ->{
+                list.add(UUID.randomUUID().toString());
+                System.out.println(list);
+            }, "线程" + i).start();
+        } 
     } 
-  } 
 }
 ```
 
@@ -984,17 +984,17 @@ public static void main(String[] args) {
 
 ```java
 class Phone {
- 	 public static synchronized void sendSMS() throws Exception {
-     //停留4秒
-     TimeUnit.SECONDS.sleep(4);
-     System.out.println("------sendSMS");
-   }
-   public synchronized void sendEmail() throws Exception {
-   		System.out.println("------sendEmail");
-   }
-   public void getHello() {
-  		System.out.println("------getHello");
-   }
+    public static synchronized void sendSMS() throws Exception {
+        //停留4秒
+        TimeUnit.SECONDS.sleep(4);
+        System.out.println("------sendSMS");
+    }
+    public synchronized void sendEmail() throws Exception {
+        System.out.println("------sendEmail");
+    }
+    public void getHello() {
+        System.out.println("------getHello");
+    }
 }
 ```
 
@@ -1075,23 +1075,23 @@ synchronized 实现同步的基础：Java 中的每一个对象都可以作为�
 ### 5.2 公平锁与非公平锁(LsaleTicket.java)
 
 ```java
- 		/**
-     * Creates an instance of {@code ReentrantLock}.
-     * This is equivalent to using {@code ReentrantLock(false)}.
-     */
-    public ReentrantLock() {
-        sync = new NonfairSync();
-    }
+/**
+ * Creates an instance of {@code ReentrantLock}.
+ * This is equivalent to using {@code ReentrantLock(false)}.
+ */
+public ReentrantLock() {
+    sync = new NonfairSync();
+}
 
-    /**
-     * Creates an instance of {@code ReentrantLock} with the
-     * given fairness policy.
-     *
-     * @param fair {@code true} if this lock should use a fair ordering policy
-     */
-    public ReentrantLock(boolean fair) {
-        sync = fair ? new FairSync() : new NonfairSync();
-    }
+/**
+ * Creates an instance of {@code ReentrantLock} with the
+ * given fairness policy.
+ *
+ * @param fair {@code true} if this lock should use a fair ordering policy
+ */
+public ReentrantLock(boolean fair) {
+    sync = fair ? new FairSync() : new NonfairSync();
+}
 ```
 
 ![image-20220419102207201](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071103646.png)
@@ -1132,10 +1132,10 @@ synchronized 实现同步的基础：Java 中的每一个对象都可以作为�
 
 ```java
 class MyThread implements Runnable{
-  @Override
-  public void run() {
-    
-  }
+    @Override
+    public void run() {
+
+    }
 }
 ```
 
@@ -1143,10 +1143,10 @@ class MyThread implements Runnable{
 
 ```java
 class MyThread2 implements Callable<Integer>{
-  @Override
-  public Integer call() throws Exception {
-  	return 200; 
-  }
+    @Override
+    public Integer call() throws Exception {
+        return 200; 
+    }
 }
 ```
 
@@ -1197,67 +1197,68 @@ CallableDemo 案例
  *  CallableDemo 案列
  */
 public class CallableDemo {
- /*
+    /*
  *  实现 runnable 接口
  */
- static class MyThread1 implements Runnable{
- /* 
+    static class MyThread1 implements Runnable{
+        /* 
  *  run 方法
  */
 
- @Override
- public void run() {
+        @Override
+        public void run() {
 
-   try { 
-      System.out.println(Thread.currentThread().getName() + "线程进入了 run方法");
-   }catch (Exception e){
-      e.printStackTrace();
-   }
-   }
- }
-/*  
+            try { 
+                System.out.println(Thread.currentThread().getName() + "线程进入了 run方法");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+    /*  
  *  实现 callable 接口
  */
 
- static class MyThread2 implements Callable{
+    static class MyThread2 implements Callable{
 
- /* 
+        /* 
  *  call 方法
  *  @return
  *  @throws Exception
  */
 
- @Override
- public Long call() throws Exception {
-   try {
-     System.out.println(Thread.currentThread().getName() + "线程进入了 call方法,开始准备睡觉");
-     Thread.sleep(1000);
-     System.out.println(Thread.currentThread().getName() + "睡醒了");
-   }catch (Exception e){
-      e.printStackTrace();
-   } 
-   return System.currentTimeMillis();
-   }
- }
+        @Override
+        public Long call() throws Exception {
+            try {
+                System.out.println(Thread.currentThread().getName() + "线程进入了 call方法,开始准备睡觉");
+                Thread.sleep(1000);
+                System.out.println(Thread.currentThread().getName() + "睡醒了");
+            }catch (Exception e){
+                e.printStackTrace();
+            } 
+            return System.currentTimeMillis();
+        }
+    }
 
- public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception{
 
- //声明 runable
- Runnable runable = new MyThread1();
- //声明 callable
- Callable callable = new MyThread2();
- //future-callable
- FutureTask<Long> futureTask2 = new FutureTask(callable);
- //线程二
+        //声明 runable
+        Runnable runable = new MyThread1();
+        //声明 callable
+        Callable callable = new MyThread2();
+        //future-callable
+        FutureTask<Long> futureTask2 = new FutureTask(callable);
+        //线程二
 
- new Thread(futureTask2, "线程二").start();
- for (int i = 0; i < 10; i++) {
-   Long result1 = futureTask2.get();
-   System.out.println(result1);
- }
- //线程一
- 	new Thread(runable,"线程一").start();
- } 
+        new Thread(futureTask2, "线程二").start();
+        for (int i = 0; i < 10; i++) {
+            Long result1 = futureTask2.get();
+            System.out.println(result1);
+        }
+        //线程一
+        new Thread(runable,"线程一").start();
+    } 
+}
 ```
 
 ###   6.5 小结(重点)   
@@ -1306,38 +1307,38 @@ import java.util.concurrent.CountDownLatch;
  */
 public class CountDownLatchDemo {
 
- /*  
+    /*  
  *  6 个同学陆续离开教室后值班同学才可以关门
  *  @param args
  */
-public static void main(String[] args) throws Exception{
- //定义一个数值为 6 的计数器
- CountDownLatch countDownLatch = new CountDownLatch(6);
- //创建 6 个同学
+    public static void main(String[] args) throws Exception{
+        //定义一个数值为 6 的计数器
+        CountDownLatch countDownLatch = new CountDownLatch(6);
+        //创建 6 个同学
 
- for (int i = 1; i <= 6; i++) {
-   new Thread(() ->{
-     try{
-        if(Thread.currentThread().getName().equals("同学6")){
-            Thread.sleep(2000);
+        for (int i = 1; i <= 6; i++) {
+            new Thread(() ->{
+                try{
+                    if(Thread.currentThread().getName().equals("同学6")){
+                        Thread.sleep(2000);
+                    }
+                    System.out.println(Thread.currentThread().getName() + "离开了");
+
+                    //计数器减一,不会阻塞 
+                    countDownLatch.countDown();
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }, "同学" + i).start();
         }
-       System.out.println(Thread.currentThread().getName() + "离开了");
 
-       //计数器减一,不会阻塞 
-        countDownLatch.countDown();
-
-     }catch (Exception e){
-        e.printStackTrace();
-     }
- 	}, "同学" + i).start();
- }
-
- 	//主线程 await 休息
- 	System.out.println("主线程睡觉");
- 	countDownLatch.await();
- //全部离开后自动唤醒主线程
- 	System.out.println("全部离开了,现在的计数器为" + countDownLatch.getCount());
- } 
+        //主线程 await 休息
+        System.out.println("主线程睡觉");
+        countDownLatch.await();
+        //全部离开后自动唤醒主线程
+        System.out.println("全部离开了,现在的计数器为" + countDownLatch.getCount());
+    } 
 }
 ```
 
@@ -1358,37 +1359,37 @@ import java.util.concurrent.CyclicBarrier;
  * CyclicBarrierDemo 案列
  */
 public class CyclicBarrierDemo {
- //定义神龙召唤需要的龙珠总数
- private final static int NUMBER = 7;
- /*
+    //定义神龙召唤需要的龙珠总数
+    private final static int NUMBER = 7;
+    /*
   * 集齐 7 颗龙珠就可以召唤神龙
   *  @param args
 	*/
- public static void main(String[] args) {
+    public static void main(String[] args) {
 
- //定义循环栅栏
- CyclicBarrier cyclicBarrier = new CyclicBarrier(NUMBER, () ->{
-		 System.out.println("集齐" + NUMBER + "颗龙珠,现在召唤神龙!!!!!!!!!");
- });
+        //定义循环栅栏
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(NUMBER, () ->{
+            System.out.println("集齐" + NUMBER + "颗龙珠,现在召唤神龙!!!!!!!!!");
+        });
 
- //定义 7 个线程分别去收集龙珠
- for (int i = 1; i <= 7; i++) {
-     new Thread(()->{
-       try {
-         if(Thread.currentThread().getName().equals("龙珠 3 号")){
-           System.out.println("龙珠 3 号抢夺战开始,孙悟空开启超级赛亚人模式!");
-           Thread.sleep(5000);
-           System.out.println("龙珠 3 号抢夺战结束,孙悟空打赢了,拿到了龙珠 3 号!");
-         }else{
-           System.out.println(Thread.currentThread().getName() + "收集到了!!!!");
-         }
-         cyclicBarrier.await();
-       }catch (Exception e){
-	       e.printStackTrace();
-       }
-     }, "龙珠" + i + "号").start();
-    }
-  } 
+        //定义 7 个线程分别去收集龙珠
+        for (int i = 1; i <= 7; i++) {
+            new Thread(()->{
+                try {
+                    if(Thread.currentThread().getName().equals("龙珠 3 号")){
+                        System.out.println("龙珠 3 号抢夺战开始,孙悟空开启超级赛亚人模式!");
+                        Thread.sleep(5000);
+                        System.out.println("龙珠 3 号抢夺战结束,孙悟空打赢了,拿到了龙珠 3 号!");
+                    }else{
+                        System.out.println(Thread.currentThread().getName() + "收集到了!!!!");
+                    }
+                    cyclicBarrier.await();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }, "龙珠" + i + "号").start();
+        }
+    } 
 }
 ```
 
@@ -1422,7 +1423,7 @@ public class SemaphoreDemo {
             new Thread(() -> {
                 try {
                     System.out.println(Thread.currentThread().getName() + "找车位 ing");
-//                    抢占车位
+                    //                    抢占车位
                     semaphore.acquire();
                     System.out.println(Thread.currentThread().getName() + "汽车停车成功!");
                     Thread.sleep(new Random().nextInt(5));
@@ -1430,7 +1431,7 @@ public class SemaphoreDemo {
                     e.printStackTrace();
                 } finally {
                     System.out.println(Thread.currentThread().getName() + "溜了溜了");
-//                    释放车位
+                    //                    释放车位
                     semaphore.release();
                 }
             }, "汽车" + i).start();
@@ -1486,42 +1487,42 @@ ReentrantReadWriteLock 类的整体结构
 ```java
 public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializable {
 
- /*读锁*/
- private final ReentrantReadWriteLock.ReadLock readerLock;
- /*写锁*/
- private final ReentrantReadWriteLock.WriteLock writerLock;
- final Sync sync;
- /*使用默认（非公平）的排序属性创建一个新的ReentrantReadWriteLock  */
+    /*读锁*/
+    private final ReentrantReadWriteLock.ReadLock readerLock;
+    /*写锁*/
+    private final ReentrantReadWriteLock.WriteLock writerLock;
+    final Sync sync;
+    /*使用默认（非公平）的排序属性创建一个新的ReentrantReadWriteLock  */
 
- public ReentrantReadWriteLock() {
- 		this(false);
- }
- /*使用给定的公平策略创建一个新的 ReentrantReadWriteLock  */
- public ReentrantReadWriteLock(boolean fair) {
-   sync = fair ? new FairSync() : new NonfairSync();
-   readerLock = new ReadLock(this);
-   writerLock = new WriteLock(this); 
- }
+    public ReentrantReadWriteLock() {
+        this(false);
+    }
+    /*使用给定的公平策略创建一个新的 ReentrantReadWriteLock  */
+    public ReentrantReadWriteLock(boolean fair) {
+        sync = fair ? new FairSync() : new NonfairSync();
+        readerLock = new ReadLock(this);
+        writerLock = new WriteLock(this); 
+    }
 
- /*返回用于写入操作的锁  */
- public ReentrantReadWriteLock.WriteLock writeLock() {
-   return writerLock;
- }
+    /*返回用于写入操作的锁  */
+    public ReentrantReadWriteLock.WriteLock writeLock() {
+        return writerLock;
+    }
 
- /*返回用于读取操作的锁  */
- public ReentrantReadWriteLock.ReadLock readLock() { 
-   return readerLock;
- }
+    /*返回用于读取操作的锁  */
+    public ReentrantReadWriteLock.ReadLock readLock() { 
+        return readerLock;
+    }
 
- abstract static class Sync extends AbstractQueuedSynchronizer {}
+    abstract static class Sync extends AbstractQueuedSynchronizer {}
 
- static final class NonfairSync extends Sync {}
+    static final class NonfairSync extends Sync {}
 
- static final class FairSync extends Sync {}
+    static final class FairSync extends Sync {}
 
- public static class ReadLock implements Lock, java.io.Serializable {}
+    public static class ReadLock implements Lock, java.io.Serializable {}
 
- public static class WriteLock implements Lock, java.io.Serializable {}
+    public static class WriteLock implements Lock, java.io.Serializable {}
 
 }
 ```
@@ -1535,49 +1536,49 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 ####   8.3.1 实现案例  
 
 ```java
- //资源类 
-  class   MyCache {
-  //创建map集合 
-   private volatile   Map<String,Object> map = new HashMap<>();
-  //  创建读写锁对象 
-   private   ReadWriteLock  rwLock = new ReentrantReadWriteLock();
-  //  放数据 
-   public void  put(String key,Object value) {
-    //  添加写锁 
-     rwLock.writeLock().lock();
-     try{
-        System.out.println(Thread.currentThread().getName()+"正在写操作"+key);
-        //  暂停一会 
-        TimeUnit.MICROSECONDS.sleep(300);
-        //  放数据 
-        map.put(key,value);
-        System.out.println(Thread.currentThread ().getName()+"写完了"+key);
-   } catch(InterruptedException e) {
-       e.printStackTrace();
-   }finally{
-    //  释放写锁 
-     rwLock.writeLock().unlock();
-   }
- }
-  //  取数据 
- public  Object get(String key) {
-  //  添加读锁 
-   rwLock.readLock().lock();
- 	 Object result =   null  ;
-   try{
- 			System.out.println(Thread.currentThread ().getName()+ "正在读操作"+key);
-  		//  暂停一会 
-		 TimeUnit.MICROSECONDS.sleep(300);
-		 result =  map.get(key);
-		 System.out.println(Thread.currentThread ().getName()+"取完了"+key);
-   }catch  (InterruptedException e) { 
-       e.printStackTrace();
-   }finally {
-    //  释放读锁 
-     rwLock.readLock().unlock();
-   }
-     return  result;
- } 
+//资源类 
+class   MyCache {
+    //创建map集合 
+    private volatile   Map<String,Object> map = new HashMap<>();
+    //  创建读写锁对象 
+    private   ReadWriteLock  rwLock = new ReentrantReadWriteLock();
+    //  放数据 
+    public void  put(String key,Object value) {
+        //  添加写锁 
+        rwLock.writeLock().lock();
+        try{
+            System.out.println(Thread.currentThread().getName()+"正在写操作"+key);
+            //  暂停一会 
+            TimeUnit.MICROSECONDS.sleep(300);
+            //  放数据 
+            map.put(key,value);
+            System.out.println(Thread.currentThread ().getName()+"写完了"+key);
+        } catch(InterruptedException e) {
+            e.printStackTrace();
+        }finally{
+            //  释放写锁 
+            rwLock.writeLock().unlock();
+        }
+    }
+    //  取数据 
+    public  Object get(String key) {
+        //  添加读锁 
+        rwLock.readLock().lock();
+        Object result =   null  ;
+        try{
+            System.out.println(Thread.currentThread ().getName()+ "正在读操作"+key);
+            //  暂停一会 
+            TimeUnit.MICROSECONDS.sleep(300);
+            result =  map.get(key);
+            System.out.println(Thread.currentThread ().getName()+"取完了"+key);
+        }catch  (InterruptedException e) { 
+            e.printStackTrace();
+        }finally {
+            //  释放读锁 
+            rwLock.readLock().unlock();
+        }
+        return  result;
+    } 
 }
 ```
 
@@ -1683,47 +1684,47 @@ import java.util.concurrent.TimeUnit;
 
 public class BlockingQueueDemo {
 
-public static void main(String[] args) throws InterruptedException {
-  // List list = new ArrayList();
-  BlockingQueue<String> blockingQueue = new ArrayBlockingQueue<>(3);
+    public static void main(String[] args) throws InterruptedException {
+        // List list = new ArrayList();
+        BlockingQueue<String> blockingQueue = new ArrayBlockingQueue<>(3);
 
-  //第一组
-  // System.out.println(blockingQueue.add("a"));
-  // System.out.println(blockingQueue.add("b"));
-  // System.out.println(blockingQueue.add("c"));
-  // System.out.println(blockingQueue.element());
-  //System.out.println(blockingQueue.add("x"));
-  // System.out.println(blockingQueue.remove());
-  // System.out.println(blockingQueue.remove());
-  // System.out.println(blockingQueue.remove());
-  // System.out.println(blockingQueue.remove());
+        //第一组
+        // System.out.println(blockingQueue.add("a"));
+        // System.out.println(blockingQueue.add("b"));
+        // System.out.println(blockingQueue.add("c"));
+        // System.out.println(blockingQueue.element());
+        //System.out.println(blockingQueue.add("x"));
+        // System.out.println(blockingQueue.remove());
+        // System.out.println(blockingQueue.remove());
+        // System.out.println(blockingQueue.remove());
+        // System.out.println(blockingQueue.remove());
 
-  // 第二组
-  // System.out.println(blockingQueue.offer("a"));
-  // System.out.println(blockingQueue.offer("b"));
-  // System.out.println(blockingQueue.offer("c"));
-  // System.out.println(blockingQueue.offer("x"));
-  // System.out.println(blockingQueue.poll());
-  // System.out.println(blockingQueue.poll());
-  // System.out.println(blockingQueue.poll());
-  // System.out.println(blockingQueue.poll());
+        // 第二组
+        // System.out.println(blockingQueue.offer("a"));
+        // System.out.println(blockingQueue.offer("b"));
+        // System.out.println(blockingQueue.offer("c"));
+        // System.out.println(blockingQueue.offer("x"));
+        // System.out.println(blockingQueue.poll());
+        // System.out.println(blockingQueue.poll());
+        // System.out.println(blockingQueue.poll());
+        // System.out.println(blockingQueue.poll());
 
-  // 第三组
-  // blockingQueue.put("a");
-  // blockingQueue.put("b");
-  // blockingQueue.put("c");
-  // //blockingQueue.put("x");
-  // System.out.println(blockingQueue.take());
-  // System.out.println(blockingQueue.take());
-  // System.out.println(blockingQueue.take());
-  // System.out.println(blockingQueue.take());
+        // 第三组
+        // blockingQueue.put("a");
+        // blockingQueue.put("b");
+        // blockingQueue.put("c");
+        // //blockingQueue.put("x");
+        // System.out.println(blockingQueue.take());
+        // System.out.println(blockingQueue.take());
+        // System.out.println(blockingQueue.take());
+        // System.out.println(blockingQueue.take());
 
-  // 第四组
-  System.out.println(blockingQueue.offer("a"));
-  System.out.println(blockingQueue.offer("b"));
-  System.out.println(blockingQueue.offer("c"));
-  System.out.println(blockingQueue.offer("a",3L, TimeUnit.SECONDS));
-} 
+        // 第四组
+        System.out.println(blockingQueue.offer("a"));
+        System.out.println(blockingQueue.offer("b"));
+        System.out.println(blockingQueue.offer("c"));
+        System.out.println(blockingQueue.offer("a",3L, TimeUnit.SECONDS));
+    } 
 }
 ```
 
@@ -1885,7 +1886,7 @@ LinkedBlockingDeque 是一个由链表结构组成的双向阻塞队列，即可
 
 public static ExecutorService newCachedThreadPool(){
 
-/*  
+    /*  
 *  corePoolSize 线程池的核心线程数
 *  maximumPoolSize 能容纳的最大线程数
 *  keepAliveTime 空闲线程存活时间
@@ -1895,7 +1896,7 @@ public static ExecutorService newCachedThreadPool(){
 *  handler 等待队列满后的拒绝策略:可以省略
 */
 
-return new ThreadPoolExecutor(0,Integer.MAX_VALUE,60L,TimeUnit.SECONDS,new SynchronousQueue<>(),Executors.defaultThreadFactory(),new ThreadPoolExecutor.AbortPolicy())
+    return new ThreadPoolExecutor(0,Integer.MAX_VALUE,60L,TimeUnit.SECONDS,new SynchronousQueue<>(),Executors.defaultThreadFactory(),new ThreadPoolExecutor.AbortPolicy())
 }
 ```
 
@@ -1923,7 +1924,7 @@ return new ThreadPoolExecutor(0,Integer.MAX_VALUE,60L,TimeUnit.SECONDS,new Synch
 
 public static ExecutorService newFixedThreadPool(){
 
-/* 
+    /* 
 *  corePoolSize 线程池的核心线程数
 *  maximumPoolSize 能容纳的最大线程数
 *  keepAliveTime 空闲线程存活时间
@@ -1933,7 +1934,7 @@ public static ExecutorService newFixedThreadPool(){
 *  handler 等待队列满后的拒绝策略:可以省略
  */
 
-return new ThreadPoolExecutor(10,10,0L,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),Executors.defaultThreadFactory(),new ThreadPoolExecutor.AbortPolicy());
+    return new ThreadPoolExecutor(10,10,0L,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),Executors.defaultThreadFactory(),new ThreadPoolExecutor.AbortPolicy());
 }
 ```
 
@@ -1954,7 +1955,7 @@ return new ThreadPoolExecutor(10,10,0L,TimeUnit.SECONDS,new LinkedBlockingQueue<
 */
 public static ExecutorService newSingleThreadExecutor(){
 
-/*  
+    /*  
 *  corePoolSize 线程池的核心线程数
 *  maximumPoolSize 能容纳的最大线程数
 *  keepAliveTime 空闲线程存活时间
@@ -1964,7 +1965,7 @@ public static ExecutorService newSingleThreadExecutor(){
 *  handler 等待队列满后的拒绝策略:可以省略
 */
 
-return new ThreadPoolExecutor(1, 1,0L,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),Executors.defaultThreadFactory(),new ThreadPoolExecutor.AbortPolicy());
+    return new ThreadPoolExecutor(1, 1,0L,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),Executors.defaultThreadFactory(),new ThreadPoolExecutor.AbortPolicy());
 }
 ```
 
@@ -1984,8 +1985,8 @@ return new ThreadPoolExecutor(1, 1,0L,TimeUnit.SECONDS,new LinkedBlockingQueue<>
 
 ```java
 public static ScheduledExecutorService newScheduledThreadPool(int
-corePoolSize, ThreadFactory threadFactory) {
-			return new ScheduledThreadPoolExecutor(corePoolSize, threadFactory);
+                                                              corePoolSize, ThreadFactory threadFactory) {
+    return new ScheduledThreadPoolExecutor(corePoolSize, threadFactory);
 }
 ```
 
@@ -2000,13 +2001,13 @@ jdk1.8 提供的线程池，底层使用的是 ForkJoinPool 实现，创建一�
 ```java
 public static ExecutorService newWorkStealingPool(int parallelism) {
 
-/*  
+    /*  
 *  parallelism：并行级别，通常默认为 JVM 可用的处理器个数
 *  factory：用于创建 ForkJoinPool 中使用的线程。
 *  handler：用于处理工作线程未处理的异常，默认为 null
 *  asyncMode：用于控制 WorkQueue 的工作模式:队列---反队列
 */
-return 	newForkJoinPool(parallelism,ForkJoinPool.defaultForkJoinWorkerThreadFactory,null,true);
+    return 	newForkJoinPool(parallelism,ForkJoinPool.defaultForkJoinWorkerThreadFactory,null,true);
 }
 ```
 
@@ -2027,36 +2028,36 @@ import java.util.concurrent. ;
 
 public class ThreadPoolDemo1 {
 
-/* 
+    /* 
 *  火车站 3 个售票口, 10 个用户买票
 *  @param args
 */
 
-public static void main(String[] args) {
+    public static void main(String[] args) {
 
-//定时线程次:线程数量为 3---窗口数为 3
+        //定时线程次:线程数量为 3---窗口数为 3
 
-ExecutorService threadService = new ThreadPoolExecutor(3, 3,60L,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),Executors.defaultThreadFactory(),new ThreadPoolExecutor.DiscardOldestPolicy());
-try {
-  //10 个人买票
-  for (int i = 1; i <= 10; i++) {
-    threadService.execute(()->{
-    try {
-      System.out.println(Thread.currentThread().getName() + "窗口,开始卖票");
-      Thread.sleep(5000);
-      System.out.println(Thread.currentThread().getName() + "窗口买票结束");
-    }catch (Exception e){
-    	e.printStackTrace();
-    }
-    });
-  } 
-  }catch (Exception e){
-  		e.printStackTrace();
-  }finally {
-  	//完成后结束
-  	threadService.shutdown();
-  } 
-  } 
+        ExecutorService threadService = new ThreadPoolExecutor(3, 3,60L,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),Executors.defaultThreadFactory(),new ThreadPoolExecutor.DiscardOldestPolicy());
+        try {
+            //10 个人买票
+            for (int i = 1; i <= 10; i++) {
+                threadService.execute(()->{
+                    try {
+                        System.out.println(Thread.currentThread().getName() + "窗口,开始卖票");
+                        Thread.sleep(5000);
+                        System.out.println(Thread.currentThread().getName() + "窗口买票结束");
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                });
+            } 
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            //完成后结束
+            threadService.shutdown();
+        } 
+    } 
 }
 ```
 
@@ -2148,33 +2149,33 @@ ForkJoinTask 数组负责将存放以及将程序提交给 ForkJoinPool，而For
 
 ```java
 public final ForkJoinTask<V> fork() {
-        Thread t;
-        if ((t = Thread.currentThread()) instanceof ForkJoinWorkerThread)
-            ((ForkJoinWorkerThread)t).workQueue.push(this);
-        else
-            ForkJoinPool.common.externalPush(this);
-        return this;
-    }
+    Thread t;
+    if ((t = Thread.currentThread()) instanceof ForkJoinWorkerThread)
+        ((ForkJoinWorkerThread)t).workQueue.push(this);
+    else
+        ForkJoinPool.common.externalPush(this);
+    return this;
+}
 ```
 
 pushTask 方法把当前任务存放在 ForkJoinTask 数组队列里。然后再调用ForkJoinPool 的 signalWork()方法唤醒或创建一个工作线程来执行任务。代码如下：
 
 ```java
 final void push(ForkJoinTask<?> task) {
-            ForkJoinTask<?>[] a; ForkJoinPool p;
-            int b = base, s = top, n;
-            if ((a = array) != null) {    // ignore if queue removed
-                int m = a.length - 1;     // fenced write for task visibility
-                U.putOrderedObject(a, ((m & s) << ASHIFT) + ABASE, task);
-                U.putOrderedInt(this, QTOP, s + 1);
-                if ((n = s - b) <= 1) {
-                    if ((p = pool) != null)
-                        p.signalWork(p.workQueues, this);
-                }
-                else if (n >= m)
-                    growArray();
-            }
+    ForkJoinTask<?>[] a; ForkJoinPool p;
+    int b = base, s = top, n;
+    if ((a = array) != null) {    // ignore if queue removed
+        int m = a.length - 1;     // fenced write for task visibility
+        U.putOrderedObject(a, ((m & s) << ASHIFT) + ABASE, task);
+        U.putOrderedInt(this, QTOP, s + 1);
+        if ((n = s - b) <= 1) {
+            if ((p = pool) != null)
+                p.signalWork(p.workQueues, this);
         }
+        else if (n >= m)
+            growArray();
+    }
+}
 ```
 
 ###   11.3 join 方法  
@@ -2182,12 +2183,12 @@ final void push(ForkJoinTask<?> task) {
 Join 方法的主要作用是阻塞当前线程并等待获取结果。让我们一起看看ForkJoinTask 的 join 方法的实现，代码如下：
 
 ```java
- public final V join() {
-   int s;
-   if ((s = doJoin() & DONE_MASK) != NORMAL)
-     reportException(s);
-   return getRawResult();
- }
+public final V join() {
+    int s;
+    if ((s = doJoin() & DONE_MASK) != NORMAL)
+        reportException(s);
+    return getRawResult();
+}
 ```
 
 它首先调用 doJoin 方法，通过 doJoin()方法得到当前任务的状态来判断返回
@@ -2205,28 +2206,28 @@ Join 方法的主要作用是阻塞当前线程并等待获取结果。让我们
 让我们分析一下 doJoin 方法的实现private int doJoin() {
 
 ```java
- private int doJoin() {
-   int s; Thread t; ForkJoinWorkerThread wt; ForkJoinPool.WorkQueue w;
-   return (s = status) < 0 ? s :
-   ((t = Thread.currentThread()) instanceof ForkJoinWorkerThread) ?
-     (w = (wt = (ForkJoinWorkerThread)t).workQueue).
-     tryUnpush(this) && (s = doExec()) < 0 ? s :
-   wt.pool.awaitJoin(w, this, 0L) :
-   externalAwaitDone();
- }
+private int doJoin() {
+    int s; Thread t; ForkJoinWorkerThread wt; ForkJoinPool.WorkQueue w;
+    return (s = status) < 0 ? s :
+    ((t = Thread.currentThread()) instanceof ForkJoinWorkerThread) ?
+        (w = (wt = (ForkJoinWorkerThread)t).workQueue).
+        tryUnpush(this) && (s = doExec()) < 0 ? s :
+    wt.pool.awaitJoin(w, this, 0L) :
+    externalAwaitDone();
+}
 
 final int doExec() {
-  int s; boolean completed;
-  if ((s = status) >= 0) {
-    try {
-      completed = exec();
-    } catch (Throwable rex) {
-      return setExceptionalCompletion(rex);
+    int s; boolean completed;
+    if ((s = status) >= 0) {
+        try {
+            completed = exec();
+        } catch (Throwable rex) {
+            return setExceptionalCompletion(rex);
+        }
+        if (completed)
+            s = setCompletion(NORMAL);
     }
-    if (completed)
-      s = setCompletion(NORMAL);
-  }
-  return s;
+    return s;
 }
 ```
 
@@ -2257,51 +2258,51 @@ import java.util.concurrent.RecursiveTask;
 */
 
 public class TaskExample extends RecursiveTask<Long> {
-  private int start;
-  private int end;
-  private long sum;
+    private int start;
+    private int end;
+    private long sum;
 
-  /*  
+    /*  
   *  构造函数
   *  @param start
   *  @param end
   */
 
-  public TaskExample(int start, int end){
-    this.start = start;
-    this.end = end; 
-  }
+    public TaskExample(int start, int end){
+        this.start = start;
+        this.end = end; 
+    }
 
-  /*  
+    /*  
   *  The main computation performed by this task.
   *  @return the result of the computation
   */
-  @Override
-  protected Long compute() {
+    @Override
+    protected Long compute() {
 
-    System.out.println("任务" + start + "=========" + end + "累加开始");
+        System.out.println("任务" + start + "=========" + end + "累加开始");
 
-    //大于 100 个数相加切分,小于直接加
-    if(end - start <= 100){
-      for (int i = start; i <= end; i++) {
-        //累加
-        sum += i; 
-      } 
-      }else {
-        //切分为 2 块
-        int middle = start + 100;
-        //递归调用,切分为 2 个小任务
-        TaskExample taskExample1 = new TaskExample(start, middle);
-        TaskExample taskExample2 = new TaskExample(middle + 1, end);
-        //执行:异步
-        taskExample1.fork();
-        taskExample2.fork();
-        //同步阻塞获取执行结果
-        sum = taskExample1.join() + taskExample2.join();
-      }
-      //加完返回
-      return sum; 
-     } 
+        //大于 100 个数相加切分,小于直接加
+        if(end - start <= 100){
+            for (int i = start; i <= end; i++) {
+                //累加
+                sum += i; 
+            } 
+        }else {
+            //切分为 2 块
+            int middle = start + 100;
+            //递归调用,切分为 2 个小任务
+            TaskExample taskExample1 = new TaskExample(start, middle);
+            TaskExample taskExample2 = new TaskExample(middle + 1, end);
+            //执行:异步
+            taskExample1.fork();
+            taskExample2.fork();
+            //同步阻塞获取执行结果
+            sum = taskExample1.join() + taskExample2.join();
+        }
+        //加完返回
+        return sum; 
+    } 
 }
 
 package com.atguigu.test;
@@ -2315,27 +2316,27 @@ import java.util.concurrent.ForkJoinTask;
 */
 public class ForkJoinPoolDemo {
 
- /*  
+    /*  
  *  生成一个计算任务，计算 1+2+3.........+1000
  *  @param args
  */
 
- public static void main(String[] args) {
-   //定义任务
-   TaskExample taskExample = new TaskExample(1, 1000);
-   //定义执行对象
-   ForkJoinPool forkJoinPool = new ForkJoinPool();
-   //加入任务执行
-   ForkJoinTask<Long> result = forkJoinPool.submit(taskExample);
-   //输出结果
-   try {
-   		System.out.println(result.get());
-   }catch (Exception e){
-   		e.printStackTrace();
-   }finally {
-   		forkJoinPool.shutdown();
-   }
-  } 
+    public static void main(String[] args) {
+        //定义任务
+        TaskExample taskExample = new TaskExample(1, 1000);
+        //定义执行对象
+        ForkJoinPool forkJoinPool = new ForkJoinPool();
+        //加入任务执行
+        ForkJoinTask<Long> result = forkJoinPool.submit(taskExample);
+        //输出结果
+        try {
+            System.out.println(result.get());
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            forkJoinPool.shutdown();
+        }
+    } 
 }
 ```
 
@@ -2385,18 +2386,18 @@ Future 的 API 没有任何的异常处理的 api，所以在异步运行时，�
 
 public static void main(String[] args) throws Exception{
 
-		CompletableFuture<String> future = new CompletableFuture<>();
+    CompletableFuture<String> future = new CompletableFuture<>();
 
-		new Thread(() -> {
-    	try{
-        System.out.println(Thread.currentThread().getName() + "子线程开始干活");
-        //子线程睡 5 秒
-        Thread.sleep(5000);
-        //在子线程中完成主线程
-        future.complete("success");
-      }catch (Exception e){
-     		e.printStackTrace();
-      }
+    new Thread(() -> {
+        try{
+            System.out.println(Thread.currentThread().getName() + "子线程开始干活");
+            //子线程睡 5 秒
+            Thread.sleep(5000);
+            //在子线程中完成主线程
+            future.complete("success");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }, "A").start();
     //主线程调用 get 方法阻塞
     System.out.println("主线程调用 get 方法获取结果为: " + future.get());
@@ -2414,20 +2415,20 @@ public static void main(String[] args) throws Exception{
 
 public static void main(String[] args) throws Exception{
 
- System.out.println("主线程开始");
- //运行一个没有返回值的异步任务
- CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-   try {
-     System.out.println("子线程启动干活");
-     Thread.sleep(5000);
-     System.out.println("子线程完成");
-   } catch (Exception e) {
-   		e.printStackTrace();
-   }
-   });
-   //主线程阻塞
-   future.get();
-   System.out.println("主线程结束");
+    System.out.println("主线程开始");
+    //运行一个没有返回值的异步任务
+    CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+        try {
+            System.out.println("子线程启动干活");
+            Thread.sleep(5000);
+            System.out.println("子线程完成");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    });
+    //主线程阻塞
+    future.get();
+    System.out.println("主线程结束");
 }
 ```
 
@@ -2440,21 +2441,21 @@ public static void main(String[] args) throws Exception{
 
 public static void main(String[] args) throws Exception{
 
-   System.out.println("主线程开始");
-   //运行一个有返回值的异步任务
-   CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
-   try {
-     System.out.println("子线程开始任务");
-     Thread.sleep(5000);
-   } catch (Exception e) {
-   	 e.printStackTrace();
-   }
-   return "子线程完成了!";
-   });
-   //主线程阻塞
-   String s = future.get();
-   System.out.println("主线程结束, 子线程的结果为:" + s);
- }
+    System.out.println("主线程开始");
+    //运行一个有返回值的异步任务
+    CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+        try {
+            System.out.println("子线程开始任务");
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "子线程完成了!";
+    });
+    //主线程阻塞
+    String s = future.get();
+    System.out.println("主线程结束, 子线程的结果为:" + s);
+}
 }
 ```
 
@@ -2470,21 +2471,21 @@ private static Integer num = 10;
 */
 
 public static void main(String[] args) throws Exception{
- System.out.println("主线程开始");
- CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
-   try {
-       System.out.println("加 10 任务开始");
-       num += 10;
-     } catch (Exception e) {
-     		e.printStackTrace();
-     }
-   		return num;
-   }).thenApply(integer -> {
-   		return num*num;
-   });
-   Integer integer = future.get();
-   System.out.println("主线程结束, 子线程的结果为:" + integer);
- }
+    System.out.println("主线程开始");
+    CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
+        try {
+            System.out.println("加 10 任务开始");
+            num += 10;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return num;
+    }).thenApply(integer -> {
+        return num*num;
+    });
+    Integer integer = future.get();
+    System.out.println("主线程结束, 子线程的结果为:" + integer);
+}
 ```
 
 ####   12.3.5 消费处理结果  
@@ -2494,23 +2495,23 @@ thenAccept 消费处理结果, 接收任务的处理结果，并消费处理，�
 ```java
 public static void main(String[] args) throws Exception{
 
- System.out.println("主线程开始");
- CompletableFuture.supplyAsync(() -> {
-   try {
-     System.out.println("加 10 任务开始");
-     num += 10;
-   } catch (Exception e) {
-     e.printStackTrace();
-   }
-   return num;
-   }).thenApply(integer -> {
-   		return num*num;
-   }).thenAccept(new Consumer<Integer>() {
-   @Override
-   public void accept(Integer integer) {
-   		System.out.println("子线程全部处理完成,最后调用了 accept,结果为:" + integer);
-   }
- });
+    System.out.println("主线程开始");
+    CompletableFuture.supplyAsync(() -> {
+        try {
+            System.out.println("加 10 任务开始");
+            num += 10;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return num;
+    }).thenApply(integer -> {
+        return num*num;
+    }).thenAccept(new Consumer<Integer>() {
+        @Override
+        public void accept(Integer integer) {
+            System.out.println("子线程全部处理完成,最后调用了 accept,结果为:" + integer);
+        }
+    });
 }
 ```
 
@@ -2521,17 +2522,17 @@ public static void main(String[] args) throws Exception{
 ```java
 public static void main(String[] args) throws Exception{
 
- System.out.println("主线程开始");
- CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
- int i= 1/0;
- System.out.println("加 10 任务开始");
- num += 10;
- return num;
- }).exceptionally(ex -> {
- System.out.println(ex.getMessage());
- return -1;
- });
- System.out.println(future.get());
+    System.out.println("主线程开始");
+    CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
+        int i= 1/0;
+        System.out.println("加 10 任务开始");
+        num += 10;
+        return num;
+    }).exceptionally(ex -> {
+        System.out.println(ex.getMessage());
+        return -1;
+    });
+    System.out.println(future.get());
 }
 ```
 
@@ -2563,21 +2564,20 @@ thenCompose 合并两个有依赖关系的 CompletableFutures 的执行结果
 
 ```java
 public static void main(String[] args) throws Exception{
-  System.out.println("主线程开始");
-  //第一步加 10
-  CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
-    System.out.println("加 10 任务开始");
-    num += 10;
-    return num;
-  });
-  //合并
-  CompletableFuture<Integer> future1 = future.thenCompose(i ->
+    System.out.println("主线程开始");
+    //第一步加 10
+    CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
+        System.out.println("加 10 任务开始");
+        num += 10;
+        return num;
+    });
+    //合并
     //再来一个 CompletableFuture
-    CompletableFuture.supplyAsync(() -> {
-    return i + 1;
-  }));
-  System.out.println(future.get());
-  System.out.println(future1.get());
+    CompletableFuture<Integer> future1 = future.thenCompose(i -> CompletableFuture.supplyAsync(() -> {
+        return i + 1;
+    }));
+    System.out.println(future.get());
+    System.out.println(future1.get());
 }
 ```
 
@@ -2586,29 +2586,28 @@ thenCombine 合并两个没有依赖关系的 CompletableFutures 任务
 ```java
 public static void main(String[] args) throws Exception{
 
-  System.out.println("主线程开始");
-  CompletableFuture<Integer> job1 = CompletableFuture.supplyAsync(() -> {
-    System.out.println("加 10 任务开始");
-    num += 10;
-    return num;
-  });
-  CompletableFuture<Integer> job2 = CompletableFuture.supplyAsync(() ->{
-    System.out.println("乘以 10 任务开始");
-    num = num*10;
-    return num;
-  });
-  //合并两个结果
-  CompletableFuture<Object> future = job1.thenCombine(job2, new
-    BiFunction<Integer, Integer, List<Integer>>() {
-    @Override
-    public List<Integer> apply(Integer a, Integer b) {
-      List<Integer> list = new ArrayList<>();
-      list.add(a);
-      list.add(b);
-      return list; 
-    }
-  });
-  System.out.println("合并结果为:" + future.get());
+    System.out.println("主线程开始");
+    CompletableFuture<Integer> job1 = CompletableFuture.supplyAsync(() -> {
+        System.out.println("加 10 任务开始");
+        num += 10;
+        return num;
+    });
+    CompletableFuture<Integer> job2 = CompletableFuture.supplyAsync(() ->{
+        System.out.println("乘以 10 任务开始");
+        num = num*10;
+        return num;
+    });
+    //合并两个结果
+    CompletableFuture<Object> future = job1.thenCombine(job2, new BiFunction<Integer, Integer, List<Integer>>() {
+        @Override
+        public List<Integer> apply(Integer a, Integer b) {
+            List<Integer> list = new ArrayList<>();
+            list.add(a);
+            list.add(b);
+            return list; 
+        }
+    });
+    System.out.println("合并结果为:" + future.get());
 }
 ```
 
@@ -2624,37 +2623,37 @@ public static void main(String[] args) throws Exception{
 
 public static void main(String[] args) throws Exception{
 
-  System.out.println("主线程开始");
-  List<CompletableFuture> list = new ArrayList<>();
-  CompletableFuture<Integer> job1 = CompletableFuture.supplyAsync(() -> {
-    System.out.println("加 10 任务开始");
-    num += 10;
-    return num;
-  });
-  list.add(job1);
-  CompletableFuture<Integer> job2 = CompletableFuture.supplyAsync(() -> {
-    System.out.println("乘以 10 任务开始");
-    num = num * 10;
-    return num;
-  });
+    System.out.println("主线程开始");
+    List<CompletableFuture> list = new ArrayList<>();
+    CompletableFuture<Integer> job1 = CompletableFuture.supplyAsync(() -> {
+        System.out.println("加 10 任务开始");
+        num += 10;
+        return num;
+    });
+    list.add(job1);
+    CompletableFuture<Integer> job2 = CompletableFuture.supplyAsync(() -> {
+        System.out.println("乘以 10 任务开始");
+        num = num * 10;
+        return num;
+    });
 
-  list.add(job2);
-  CompletableFuture<Integer> job3 = CompletableFuture.supplyAsync(() -> {
-    System.out.println("减以 10 任务开始");
-    num = num*10;
-    return num;
-  });
-  list.add(job3);
-  CompletableFuture<Integer> job4 = CompletableFuture.supplyAsync(() -> {
-    System.out.println("除以 10 任务开始");
-    num = num*10;
-    return num;
-  });
-  list.add(job4);
-  //多任务合并
-  List<Integer> collect =
-  list.stream().map(CompletableFuture<Integer>::join).collect(Collectors.toList());
-  System.out.println(collect);
+    list.add(job2);
+    CompletableFuture<Integer> job3 = CompletableFuture.supplyAsync(() -> {
+        System.out.println("减以 10 任务开始");
+        num = num*10;
+        return num;
+    });
+    list.add(job3);
+    CompletableFuture<Integer> job4 = CompletableFuture.supplyAsync(() -> {
+        System.out.println("除以 10 任务开始");
+        num = num*10;
+        return num;
+    });
+    list.add(job4);
+    //多任务合并
+    List<Integer> collect =
+        list.stream().map(CompletableFuture<Integer>::join).collect(Collectors.toList());
+    System.out.println(collect);
 }
 ```
 
@@ -2667,54 +2666,54 @@ public static void main(String[] args) throws Exception{
 */
 
 public static void main(String[] args) throws Exception{
-  System.out.println("主线程开始");
-  CompletableFuture<Integer>[] futures = new CompletableFuture[4];
-  CompletableFuture<Integer> job1 = CompletableFuture.supplyAsync(() -> {
-  try{
-    Thread.sleep(5000);
-    System.out.println("加 10 任务开始");
-    num += 10;
-    return num; 
-  }catch (Exception e){
-  	return 0; 
-  }
-  });
-  futures[0] = job1;
-  CompletableFuture<Integer> job2 = CompletableFuture.supplyAsync(() -> {
-  try{
-    Thread.sleep(2000);
-    System.out.println("乘以 10 任务开始");
-    num = num*10;
-  	return num; 
-  }catch (Exception e){
-  	return 1; 
-  }
-  });
-  futures[1] = job2;
-  CompletableFuture<Integer> job3 = CompletableFuture.supplyAsync(() -> {
-  try{
-    Thread.sleep(3000);
-    System.out.println("减以 10 任务开始");
-    num = num *10;
-    return num; 
-  }catch (Exception e){
- 	 return 2; 
-  }
-  });
-  futures[2] = job3;
-  CompletableFuture<Integer> job4 = CompletableFuture.supplyAsync(() -> {
-  try{
-    Thread.sleep(4000);
-    System.out.println("除以 10 任务开始");
-    num = num/10;
-    return num; 
-  }catch (Exception e){
-  	return 3; 
-  }
-  });
-  futures[3] = job4;
-  CompletableFuture<Object> future = CompletableFuture.anyOf(futures);
-  System.out.println(future.get());
+    System.out.println("主线程开始");
+    CompletableFuture<Integer>[] futures = new CompletableFuture[4];
+    CompletableFuture<Integer> job1 = CompletableFuture.supplyAsync(() -> {
+        try{
+            Thread.sleep(5000);
+            System.out.println("加 10 任务开始");
+            num += 10;
+            return num; 
+        }catch (Exception e){
+            return 0; 
+        }
+    });
+    futures[0] = job1;
+    CompletableFuture<Integer> job2 = CompletableFuture.supplyAsync(() -> {
+        try{
+            Thread.sleep(2000);
+            System.out.println("乘以 10 任务开始");
+            num = num*10;
+            return num; 
+        }catch (Exception e){
+            return 1; 
+        }
+    });
+    futures[1] = job2;
+    CompletableFuture<Integer> job3 = CompletableFuture.supplyAsync(() -> {
+        try{
+            Thread.sleep(3000);
+            System.out.println("减以 10 任务开始");
+            num = num *10;
+            return num; 
+        }catch (Exception e){
+            return 2; 
+        }
+    });
+    futures[2] = job3;
+    CompletableFuture<Integer> job4 = CompletableFuture.supplyAsync(() -> {
+        try{
+            Thread.sleep(4000);
+            System.out.println("除以 10 任务开始");
+            num = num/10;
+            return num; 
+        }catch (Exception e){
+            return 3; 
+        }
+    });
+    futures[3] = job4;
+    CompletableFuture<Object> future = CompletableFuture.anyOf(futures);
+    System.out.println(future.get());
 }
 ```
 

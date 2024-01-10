@@ -9,11 +9,17 @@ Spring 是什么(1)
 # Spring 是什么(2)
 
 具体描述 Spring·
+
 轻量级：Spring 是非侵入性的 - 基于 Spring 开发的应用中的对象可以不依赖于 Spring 的 API
+
 依赖注入(DI --- dependency injection、IOC)
+
 面向切面编程(AOP --- aspect oriented programming)
+
 容器: Spring 是一个容器, 因为它包含并且管理应用对象的生命周期
+
 框架: Spring 实现了使用简单的组件配置组合成一个复杂的应用. 在 Spring 中可以使用 XML 和 Java 注解组合这些对象
+
 一站式：在 IOC 和 AOP 的基础上可以整合各种企业应用的开源框架和优秀的第三方类库 （实际上 Spring 自身也提供了展现层的 SpringMVC 和 持久层的 Spring JDBC）
 
 ![image-20210626114512017](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061721999.png)
@@ -30,7 +36,9 @@ spring-core-5.2.3.RELEASE.jar
 spring-expression-5.2.3.RELEASE.jar
 ```
 
-Spring 的配置文件: 一个典型的 Spring 项目需要创建一个或多个 Bean 配置文件, 这些配置文件用于在 Spring IOC 容器里配置 Bean. Bean 的配置文件可以放在 classpath 下, 也可以放在其它目录下.
+Spring 的配置文件: 一个典型的 Spring 项目需要创建一个或多个 Bean 配置文件, 这些配置文件用于在 Spring IOC 容器里配置 Bean. 
+
+Bean 的配置文件可以放在 classpath 下, 也可以放在其它目录下.
 
 # 建立 Spring 项目
 
@@ -113,9 +121,15 @@ hello  wowosong
 
 ## IOC & DI 概述
 
-IOC(Inversion of Control)：其思想是反转资源获取的方向。传统的资源查找方式要求组件向容器发起请求查找资源。作为回应, 容器适时的返回资源。而应用了 IOC 之后, 则是容器主动地将资源推送给它所管理的组件, 组件所要做的仅是选择一种合适的方式来接受资源。这种行为也被称为查找的被动形式
+IOC(Inversion of Control)：其思想是反转资源获取的方向。传统的资源查找方式要求组件向容器发起请求查找资源。作为回应, 容器适时
 
-DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些预先定义好的方式(例如: setter 方法)接受来自如容器的资源注入. 相对于 IOC 而言，这种表述更直接
+的返回资源。而应用了 IOC 之后, 则是容器主动地将资源推送给它所管理的组件, 组件所要做的仅是选择一种合适的方式来接受资源。这种
+
+行为也被称为查找的被动形式
+
+DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些预先定义好的方式(例如: setter 方法)接受来自如容器的资源注入. 相
+
+对于 IOC 而言，这种表述更直接
 
 ![image-20210626170713309](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061721827.png)
 
@@ -148,9 +162,15 @@ DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些�
    - 在 Spring IOC 容器读取 Bean 配置创建 Bean 实例之前, 必须对它进行实例化。 只有在容器实例化后, 才可以从 IOC 容器里获取 Bean 实例并使用。
 
    - Spring 提供了两种类型的 IOC 容器实现. 
+     
      **BeanFactory: IOC 容器的基本实现.**
+     
      **ApplicationContext: 提供了更多的高级特性. 是 BeanFactory 的子接口.**
-     BeanFactory 是 Spring 框架的基础设施，面向 Spring 本身；**ApplicationContext 面向使用 Spring 框架的开发者，几乎所有的应用场合都直接使用 ApplicationContext 而非底层的 BeanFactory**
+     
+     BeanFactory 是 Spring 框架的基础设施，面向 Spring 本身；**ApplicationContext 面向使用 Spring 框架的开发者，几乎所有的应**
+     
+     **用场合都直接使用 ApplicationContext 而非底层的 BeanFactory**
+     
      无论使用何种方式, 配置文件时相同的.
 
 ### ApplicationContext
@@ -158,9 +178,12 @@ DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些�
  1. ApplicationContext 的主要实现类：
 
    ClassPathXmlApplicationContext：从 类路径下加载配置文件
+
    FileSystemXmlApplicationContext: 从文件系统中加载配置文件
 
- 2. ConfigurableApplicationContext 扩展于 ApplicationContext，新增加两个主要方法：**refresh() 和 close()**， 让 ApplicationContext 具有启动、刷新和关闭上下文的能力
+ 2. ConfigurableApplicationContext 扩展于 ApplicationContext，新增加两个主要方法：**refresh() 和 close()**， 让 
+
+    ApplicationContext 具有启动、刷新和关闭上下文的能力
 
  3. ApplicationContext 在初始化上下文时就实例化所有单例的 Bean。
 
@@ -199,16 +222,16 @@ DI(Dependency Injection) — IOC 的另一种表述方式：即组件以一些�
 
 2. 构造器注入在 \<constructor-arg> 元素里声明属性, \<constructor-arg> 中没有 name 属性
 
-   ```xml
-   <!--
-     通过构造方法配置bean的属性,xml中配置的属性应该与bean中构造器中的属性一致，否则提示异常
-     -->
-   <bean id="car" class="com.hbd.beans.Car">
-       <constructor-arg value="Audo"></constructor-arg>
-       <constructor-arg value="123"></constructor-arg>
-       <constructor-arg value="1200"></constructor-arg>
-   </bean>
-   ```
+```xml
+<!--
+ 通过构造方法配置bean的属性,xml中配置的属性应该与bean中构造器中的属性一致，否则提示异常
+ -->
+<bean id="car" class="com.hbd.beans.Car">
+   <constructor-arg value="Audo"></constructor-arg>
+   <constructor-arg value="123"></constructor-arg>
+   <constructor-arg value="1200"></constructor-arg>
+</bean>
+```
 
 ```java
 package com.hbd.beans;
@@ -294,27 +317,31 @@ public class Car {
 
  2. 在 Bean 的配置文件中, 可以通过 \<ref> 元素或 ref  属性为 Bean 的属性或构造器参数指定对 Bean 的引用. 
 
-   ```xml
-   <bean id="person" class="com.hbd.beans.Person">
-       <constructor-arg value="wowosong"></constructor-arg>
-       <constructor-arg value="12"></constructor-arg>
-       <constructor-arg name="car" ref="car"></constructor-arg>
-   </bean>
-   
-   <bean id="person" class="com.hbd.beans.Person">
-       <property name="name" value="wowosong"></property>
-       <property name="age" value="12"></property>
-       <!--- 可以通过property的ref属性建立bean之间的引用关系--->
-       <property name="car" >
-           <ref bean="car">
-               </property>
-           <property name="car" ref="car"></property>
-           </bean>
-   ```
+```xml
+<bean id="person" class="com.hbd.beans.Person">
+    <constructor-arg value="wowosong"></constructor-arg>
+    <constructor-arg value="12"></constructor-arg>
+    <constructor-arg name="car" ref="car"></constructor-arg>
+</bean>
+
+<bean id="person" class="com.hbd.beans.Person">
+    <property name="name" value="wowosong"></property>
+    <property name="age" value="12"></property>
+    <!--- 可以通过property的ref属性建立bean之间的引用关系--->
+    <property name="car" >
+        <ref bean="car">
+            </property>
+        <property name="car" ref="car">
+        </property>
+    </property>
+</bean>
+```
 
  3. 也可以在属性或构造器里包含 Bean 的声明, 这样的 Bean 称为内部 Bean
 
-   当 Bean 实例仅仅给一个特定的属性使用时, 可以将其声明为内部 Bean. 内部 Bean 声明直接包含在 \<property> 或 \<constructor-arg> 元素里， 不需要设置任何 id 或 name 属性
+   当 Bean 实例仅仅给一个特定的属性使用时, 可以将其声明为内部 Bean. 内部 Bean 声明直接包含在 \<property> 或 \<constructor-arg> 
+
+元素里， 不需要设置任何 id 或 name 属性
 
    **内部 Bean 不能使用在任何其他地方**
 
@@ -399,7 +426,9 @@ public void setCorp(String corp) {
 Person{name='wowosong', age=1100, carList=[Car{brand='Mazada', corp='Xi'an', price=123.0, maxSpeed=1111111111}, Car{brand='Audo', corp='<上海>', price=0.0, maxSpeed=123}]}
 ```
 
-2. 配置 java.util.List 类型的属性, 需要指定 \<list>  标签, 在标签里包含一些元素. 这些标签可以通过 \<value> 指定简单的常量值, 通过 \<ref> 指定对其他 Bean 的引用. 通过\<bean> 指定内置 Bean 定义. 通过 \<null/> 指定空元素. 甚至可以内嵌其他集合.
+2. 配置 java.util.List 类型的属性, 需要指定 \<list>  标签, 在标签里包含一些元素. 这些标签可以通过 \<value> 指定简单的常量值, 通过 
+
+   \<ref> 指定对其他 Bean 的引用. 通过\<bean> 指定内置 Bean 定义. 通过 \<null/> 指定空元素. 甚至可以内嵌其他集合.
 
 3. 数组的定义和 List 一样, 都使用 \<list>
 
@@ -573,10 +602,15 @@ Spring 允许继承 bean 的配置， 被继承的 bean 称为父 bean. 继承�
 ```
 
 Spring 允许继承 bean 的配置, 被继承的 bean 称为父 bean. 继承这个父 Bean 的 Bean 称为子 Bean
+
 子 Bean 从父 Bean 中继承配置, 包括 Bean 的属性配置
+
 子 Bean 也可以覆盖从父 Bean 继承过来的配置
+
 父 Bean 可以作为配置模板, 也可以作为 Bean 实例. **若只想把父 Bean 作为模板, 可以设置 \<bean> 的abstract 属性为 true, 这样 Spring 将不会实例化这个 Bean**
+
 并不是 \<bean> 元素里的所有属性都会被继承. 比如: autowire, abstract 等.
+
 也可以忽略父 Bean 的 class 属性, 让子 Bean 指定自己的类, 而共享相同的属性配置. 但此时 abstract 必须设为 true
 
 ## bean 的作用域
@@ -693,11 +727,11 @@ Boolean：<property name="enabled" value="#{false}"/>
 
 - **调用其他方法，还可以链式操作**
 ```properties
-<! --  通过value属性和SpEl配置suffix属性值为另外一个Bean的方法的返回值-->
+<! --  通过value属性和SpEl配置suffix属性值为另外一个Bean的方法的返回值 -->
 
 <property name="suffix" value="#{sequenceGenerator2.toString()}"></property>
 
-<! --  方法的连缀-->
+<! --  方法的连缀 -->
 
 <property name="suffix" value="#{sequenceGenerator2.toString(),toUpperCase()}"></property>
 ```
@@ -811,31 +845,31 @@ Boolean：<property name="enabled" value="#{false}"/>
 
 ```java
 public class Car {
-  public Car() {
-      System.out.println("Car's Constructor。。。。");
-  }
-  private String brand;
+    public Car() {
+        System.out.println("Car's Constructor。。。。");
+    }
+    private String brand;
 
-  public String getBrand() {
-      return brand;
-  }
+    public String getBrand() {
+        return brand;
+    }
 
-  public void setBrand(String brand) {
-      this.brand = brand;
-  }
-  public void init(){
-      System.out.println("init.....");
-  }
-  public void destory(){
-      System.out.println("destory....");
-  }
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+    public void init(){
+        System.out.println("init.....");
+    }
+    public void destory(){
+        System.out.println("destory....");
+    }
 
-  @Override
-  public String toString() {
-      return "Car{" +
-          "brand='" + brand + '\'' +
-          '}';
-  }
+    @Override
+    public String toString() {
+        return "Car{" +
+            "brand='" + brand + '\'' +
+            '}';
+    }
 }
 ```
 
@@ -1007,7 +1041,7 @@ public class InstanceCarFactory {
     factory-bean属性：执行实例工厂方法的bean
     factory-method：指向静态工厂方法的名字
     constructor-arg：如果工厂方法需要传入参数，则使用constructor-arg来配置参数
-    -->
+-->
 
 <bean id="car2" factory-bean="carFactory" factory-method="getCar">
     <constructor-arg value="audi"></constructor-arg>
@@ -1263,6 +1297,7 @@ public interface ArithmeticCaculator {
 ### 问题
 
 代码混乱：越来越多的非业务需求(日志和验证等)加入后, 原有的业务方法急剧膨胀.  每个方法在处理核心逻辑的同时还必须兼顾其他多个关注点. 
+
 代码分散: 以日志需求为例, 只是为了满足这个单一需求, 就不得不在多个模块（方法）里多次重复相同的日志代码. 如果日志需求发生变化, 必须修改所有模块.
 
 ### 使用动态代理解决上述问题
@@ -1422,13 +1457,21 @@ System.out.println(add);
 #### 用 AspectJ 注解声明切面
 
 1. 要在 Spring 中声明 AspectJ 切面, 只需要在 IOC 容器中将切面声明为 Bean 实例. 当在 Spring IOC 容器中初始化 AspectJ 切面之后, Spring IOC 容器就会为那些与 AspectJ 切面相匹配的 Bean 创建代理.
+
 2. 在 AspectJ 注解中, **切面只是一个带有 @Aspect 注解的 Java 类**. 
+
 3. 通知是标注有某种注解的简单的 Java 方法.
+
 4. AspectJ 支持 5 种类型的通知注解: 
+
    **@Before: 前置通知, 在方法执行之前执行**
+
    **@After: 后置通知, 在方法执行之后执行** 
+
    **@AfterRunning: 返回通知, 在方法返回结果之后执行**
+
    **@AfterThrowing: 异常通知, 在方法抛出异常之后**
+
    **@Around: 环绕通知, 围绕着方法执行**
 
 #### 前置通知
@@ -1460,11 +1503,11 @@ public class LoggingAspect {
 #### 利用方法签名编写 AspectJ 切入点表达式
 
 1. 最典型的切入点表达式时根据方法的签名来匹配各种方法:
-2. execution * com.atguigu.spring.ArithmeticCalculator.*(..): 匹配 ArithmeticCalculator 中声明的所有方法,第一个 * 代表任意修饰符及任意返回值. 第二个 * 代表任意方法. .. 匹配任意数量的参数. 若目标类与接口与该切面在同一个包中, 可以省略包名.
-3. execution public * ArithmeticCalculator.*(..): 匹配 ArithmeticCalculator 接口的所有公有方法.
-4. **execution public double ArithmeticCalculator.***(..): 匹配 ArithmeticCalculator 中返回 double 类型数值的方法
-5. execution public double ArithmeticCalculator.*(double, ..): 匹配第一个参数为 double 类型的方法, .. 匹配任意数量任意类型的参数
-6. **execution public double ArithmeticCalculator.***(double, double): 匹配参数类型为 double, double 类型的方法.
+2. execution \* com.atguigu.spring.ArithmeticCalculator.\*(..): 匹配 ArithmeticCalculator 中声明的所有方法,第一个 \* 代表任意修饰符及任意返回值. 第二个 \* 代表任意方法. .. 匹配任意数量的参数. 若目标类与接口与该切面在同一个包中, 可以省略包名.
+3. execution public \* ArithmeticCalculator.\*(..): 匹配 ArithmeticCalculator 接口的所有公有方法.
+4. execution public double ArithmeticCalculator.\*(..): 匹配 ArithmeticCalculator 中返回 double 类型数值的方法
+5. execution public double ArithmeticCalculator.\*(double, ..): 匹配第一个参数为 double 类型的方法, .. 匹配任意数量任意类型的参数
+6. execution public double ArithmeticCalculator.\*(double, double): 匹配参数类型为 double, double 类型的方法.
 
 #### 合并切入点表达式
 
@@ -1497,7 +1540,7 @@ public void BeforeMethod(JoinPoint joinPoint) {
 }
 ```
 
-标识这个方法是一个前置通知，切点表达式表示执行任意类的所有方法。第一个*代表匹配任意修饰符及任意返回值，第二个\*代表任意类的对象，第三个\*代表任意方法，参数列表中的...匹配任意数量的参数
+标识这个方法是一个前置通知，切点表达式表示执行任意类的所有方法。第一个\*代表匹配任意修饰符及任意返回值，第二个\*代表任意类的对象，第三个\*代表任意方法，参数列表中的...匹配任意数量的参数
 
 #### 后置通知
 
@@ -1626,10 +1669,10 @@ public void  AfterReturning(JoinPoint joinPoint,Object result){
 
 ```java
 /**
-     * 在方法异常后的执行代码
-     *
-     * @param joinPoint
-     */
+ * 在方法异常后的执行代码
+ *
+ * @param joinPoint
+ */
 @AfterThrowing(value = "execution(* com.hbd.wowosong.aopimpl.ArithmeticCaculatorImpl.*(int,int))", throwing = "ex")
 public void AfterThrowing(JoinPoint joinPoint, Exception ex) {
     String name = joinPoint.getSignature().getName();
@@ -1792,12 +1835,12 @@ public int[] batchUpdate(String sql,List<Object[]> batchArgs)
 ```java
 //* 查询单行：
 public <T> t queryForObject(String sql,ParameterizedRowMapper<T> rm,Object... args) throw DataAccessException
-    //* 便利的BeanPropertyRowMapper实现
-    org.springframework.jdbc.core.sample.ParameterizedRowMapper<T>
-    //* 查询多行：
-    public <T> List<T> query(String sql,ParameterizedRowMapper<T> rm,Object... args) throw DataAccessException
-    //* 单值查询：
-    public <T> T queryForObject(String sql,Class<T> requireType,Object... args) throws DataAccesException
+//* 便利的BeanPropertyRowMapper实现
+org.springframework.jdbc.core.sample.ParameterizedRowMapper<T>
+//* 查询多行：
+public <T> List<T> query(String sql,ParameterizedRowMapper<T> rm,Object... args) throw DataAccessException
+//* 单值查询：
+public <T> T queryForObject(String sql,Class<T> requireType,Object... args) throws DataAccesException
 ```
 
 ```java

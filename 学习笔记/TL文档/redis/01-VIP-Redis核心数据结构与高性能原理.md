@@ -321,7 +321,7 @@ scan 参数提供了三个参数，第一个是 cursor 整数值(hash桶的�
 
 ![imgs](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311061736150.bin)
 
-![img](./01-VIP-Redis%E6%A0%B8%E5%BF%83%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E9%AB%98%E6%80%A7%E8%83%BD%E5%8E%9F%E7%90%86.assets/202203011033119.bin)
+![img](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401091801473.bin)
 
 
 
