@@ -20,48 +20,48 @@
             font-weight: bolder;
             color: rgb(235, 17, 24);
         }
-
+        
         .sidebar ul li:hover>a {
             background-color: #f3f6f3;
             padding-left: 5px;
         }
-
+        
         .sidebar ul li:hover>a {
             text-decoration: none;
         }
-
+        
         .app-sub-sidebar li:before {
             content: "" !important;
         }
-
+        
         .sidebar ul li a {
             font-size: 14px;
             color: rgb(57, 164, 93);
         }
-
+        
         .sidebar-nav a {
             text-decoration: none;
         }
-
+        
         .sidebar ul li a:hover {
             text-decoration: none;
             background-color: #f3f6f3;
         }
-
+        
         .anchor span {
             color: rgb(57, 164, 93) !important;
             text-decoration: none;
         }
-
+        
         .anchor {
             text-decoration: none;
         }
-
-        :root {
+        
+         :root {
             --zoomimage-overlay-background: rgba(0, 0, 0, 0.875);
         }
-
-        :root {
+        
+         :root {
             --copycode-background: #808080;
             --copycode-color: #fff;
         }
@@ -80,13 +80,13 @@
             loadNavbar: true,
             onlyCover: true,
             auto2top: true,
-            formatUpdated: '{YYYY}-{MM}-{DD} {HH}:{mm}:{ss}',
+            loadSidebar: formatUpdated: '{YYYY}-{MM}-{DD} {HH}:{mm}:{ss}',
             requestHeaders: {
                 'cache-control': 'max-age=600',
             },
             plugins: [
-                function (hook, vm) {
-                    hook.beforeEach(function (html) {
+                function(hook, vm) {
+                    hook.beforeEach(function(html) {
                         var editHtml = '[📝 EDIT DOCUMENT]()\n';
                         var editHtmlEnd = '[🖊 Edit Document]()\n';
                         return html + '\n---\n' + '> Last Modified {docsify-updated}' + editHtmlEnd
@@ -220,7 +220,7 @@
     <!--百度统计-->
     <script>
         var _hmt = _hmt || [];
-        (function () {
+        (function() {
             var hm = document.createElement("script");
             hm.src = "https://hm.baidu.com/hm.js?254a318865cb5705ab2eb4576eabf78a";
             var s = document.getElementsByTagName("script")[0];
