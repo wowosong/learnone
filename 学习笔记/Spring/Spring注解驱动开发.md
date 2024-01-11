@@ -967,11 +967,11 @@ public class MainConfigOfAOP {
 
 ```
 /** AbstractAutoProxyCreator.setBeanFactory()
-* AbstractAutoProxyCreator.有后置处理器的逻辑;
+* 	AbstractAutoProxyCreator.有后置处理器的逻辑;
 * 
-*AbstractAdvisorAutoProxyCreator.setBeanFactory()重写setBeanFactory-》并调用initBeanFactory()
+*	AbstractAdvisorAutoProxyCreator.setBeanFactory()重写setBeanFactory-》并调用initBeanFactory()
 * 
-* AnnotationAwareAspectJAutoProxyCreator.initBeanFactory()重写
+* 	AnnotationAwareAspectJAutoProxyCreator.initBeanFactory()重写
 /
 ```
 
@@ -1085,14 +1085,14 @@ public class MainConfigOfAOP {
  * 				如果是MethodInterceptor,直接加入到集合中
  * 				如果不是,使用AdvisorAdapter将增强器转为MethodInterceptor;
      			if (adapter.supportsAdvice(advice)) {
-						interceptors.add(adapter.getInterceptor(advisor));
-					}
+                    interceptors.add(adapter.getInterceptor(advisor));
+                }
  * 				转换完成返回MethodInterceptor数组;
  * 		3）、如果没有拦截器链,直接执行目标方法;
  * 			拦截器链（每一个通知方法又被包装为方法拦截器,利用MethodInterceptor机制）
  * 		4）、如果有拦截器链,把需要执行的目标对象,目标方法,
  * 			拦截器链等信息传入创建一个 CglibMethodInvocation 对象,
- * 			并调用Object retVal =new CglibMethodInvocation(proxy, target, method, args, targetClass, chain, methodProxy).proceed();
+ 			并调用Object retVal =  new CglibMethodInvocation(proxy, target, method, args, targetClass, chain, methodProxy).proceed();
  * /
 ```
 
