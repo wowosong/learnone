@@ -50,10 +50,10 @@
       - [JVM下篇-性能监控与调优篇-05-分析GC日志](/学习笔记/JVM/JVM下篇-性能监控与调优篇-05-分析GC日志.md)
       - [JVM下篇-性能监控与调优篇-补充-使用OQL语言查询对象信息](/学习笔记/JVM/JVM下篇-性能监控与调优篇-补充-使用OQL语言查询对象信息.md)
       - [JVM下篇-性能监控与调优篇-补充-浅堆深堆与内存泄露](/学习笔记/JVM/JVM下篇-性能监控与调优篇-补充-浅堆深堆与内存泄露.md)
-      - [JVM中篇-字节码与类的加载篇01-Class字节码文件结构](/学习笔记/JVM/JVM中篇-字节码与类的加载篇01-Class字节码文件结构.md)
-      - [JVM中篇-字节码与类的加载篇02-字节码指令集](/学习笔记/JVM/JVM中篇-字节码与类的加载篇02-字节码指令集.md)
-      - [JVM中篇-字节码与类的加载篇03-类的加载过程-类的生命周期-详解](/学习笔记/JVM/JVM中篇-字节码与类的加载篇03-类的加载过程-类的生命周期-详解.md)
-      - [JVM中篇-字节码与类的加载篇04-再谈类的加载器](/学习笔记/JVM/JVM中篇-字节码与类的加载篇04-再谈类的加载器.md)
+      - [JVM中篇-字节码与类的加载篇01-Class字节码文件结构](/学习笔记/JVM/JVM中篇-字节码与类的加载篇 01-Class字节码文件结构.md)
+      - [JVM中篇-字节码与类的加载篇02-字节码指令集](/学习笔记/JVM/JVM中篇-字节码与类的加载篇 02-字节码指令集.md)
+      - [JVM中篇-字节码与类的加载篇03-类的加载过程-类的生命周期-详解](/学习笔记/JVM/JVM中篇-字节码与类的加载篇 03-类的加载过程-类的生命周期-详解.md)
+      - [JVM中篇-字节码与类的加载篇04-再谈类的加载器](/学习笔记/JVM/JVM中篇-字节码与类的加载篇 04-再谈类的加载器.md)
    - Linux运维
       - Docker
          - [Docker](/学习笔记/Linux运维/Docker/Docker.md)
@@ -77,7 +77,7 @@
       - Ubuntu
          - [Ubuntu系统](/学习笔记/Linux运维/Ubuntu/Ubuntu系统.md)
       - 渗透测试
-         - [Iptables常用规则使用实例](/学习笔记/Linux运维/渗透测试/iptables常用规则使用实例.md)
+         - [Iptables常用规则使用实例](/学习笔记/Linux运维/渗透测试/iptables 常用规则使用实例.md)
          - [Kali](/学习笔记/Linux运维/渗透测试/Kali.md)
          - [防火墙](/学习笔记/Linux运维/渗透测试/防火墙.md)
       - 运维监控
@@ -97,7 +97,7 @@
       - [Netty](/学习笔记/Netty/Netty.md)
       - [NIO](/学习笔记/Netty/NIO.md)
    - Spring
-      - [SpringValidation实践](/学习笔记/Spring/SpringValidation实践.md)
+      - [SpringValidation实践](/学习笔记/Spring/Spring Validation实践.md)
       - [Spring4（尚硅谷）](/学习笔记/Spring/Spring4（尚硅谷）.md)
       - [Spring注解驱动开发](/学习笔记/Spring/Spring注解驱动开发.md)
    - Springboot

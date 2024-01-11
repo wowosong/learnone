@@ -25,7 +25,7 @@ function list(srcpath, exclude = {}, level = 1) {
 
             } else {
                 sidebarTxt1 += '\n' + repeats + '- [' + transUpperInFisrtLetter(item.name.replace(".md", "")).replace("D:/huangjiusong/learnone/", "").replace(" ", "") + '](' +
-                    item.path.replace("D:/huangjiusong/learnone", "").replace(" ", "") + ')';
+                    item.path.replace("D:/huangjiusong/learnone", "") + ')';
             }
         })
 
