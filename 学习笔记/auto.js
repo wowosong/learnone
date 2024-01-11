@@ -21,11 +21,11 @@ function list(srcpath, exclude = {}, level = 1) {
             console.log(item.path)
             if (item.children != null) {
                 var str = list(item.path, exclude, level)
-                sidebarTxt1 += '\n' + repeats + '- ' + transUpperInFisrtLetter(item.name.replace(" ", "")) + str;
+                sidebarTxt1 += '\n' + repeats + '- ' + transUpperInFisrtLetter(item.name).replace(" ", "") + str;
 
             } else {
-                sidebarTxt1 += '\n' + repeats + '- [' + transUpperInFisrtLetter(item.name.replace(".md", "").replace(" ", "")) + '](' +
-                    item.path + ')';
+                sidebarTxt1 += '\n' + repeats + '- [' + transUpperInFisrtLetter(item.name.replace(".md", "")).replace("D:/huangjiusong/learnone", "").replace(" ", "") + '](' +
+                    item.path.replace("D:/huangjiusong/learnone", "").replace(" ", "") + ')';
             }
         })
 
