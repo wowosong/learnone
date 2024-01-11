@@ -2778,7 +2778,7 @@ MySQL的空间数据类型（Spatial Data Type）对应于OpenGIS类，包括单
 
 - 查看某个表已有的约束
 
-```mysql
+```sql
 #information_schema数据库名（系统库） 
 #table_constraints表名称（专门存储各个表的约束）
 SELECT * FROM information_schema.table_constraints 
@@ -2806,7 +2806,7 @@ NOT NULL
 
 （1）建表时
 
-```mysql
+```sql
 CREATE TABLE 表名称( 
     字段名 数据类型, 
     字段名 数据类型 NOT NULL, 
@@ -2816,14 +2816,14 @@ CREATE TABLE 表名称(
 
 （2）建表后
 
-```mysql
+```sql
 ALTER TABLE 表名称 
 MODIFY 字段名 数据类型 NOT NULL;
 ```
 
 ##### **2.5** **删除非空约束**
 
-```mysql
+```sql
 # 方式一：
 ALTER TABLE 表名称 
 MODIFY 字段名 数据类型 NULL; 
@@ -2854,7 +2854,7 @@ UNIQUE
 
 （1）建表时
 
-```mysql
+```sql
 CREATE TABLE 表名称( 
     字段名 数据类型, 
     字段名 数据类型 UNIQUE [KEY], 
@@ -2870,7 +2870,7 @@ CREATE TABLE 表名称(
 
 （2）建表后指定唯一键约束
 
-```mysql
+```sql
 #字段列表中如果是一个字段，表示该列的值唯一。如果是两个或更多个字段，那么复合唯一，即多个字段的组合是唯一的
 #方式1： 
 ALTER TABLE 表名称 

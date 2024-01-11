@@ -97,7 +97,7 @@
       - [Netty](/学习笔记/Netty/Netty.md)
       - [NIO](/学习笔记/Netty/NIO.md)
    - Spring
-      - [SpringValidation实践](/学习笔记/Spring/Spring Validation实践.md)
+      - [SpringValidation实践](/学习笔记/Spring/SpringValidation实践.md)
       - [Spring4（尚硅谷）](/学习笔记/Spring/Spring4（尚硅谷）.md)
       - [Spring注解驱动开发](/学习笔记/Spring/Spring注解驱动开发.md)
    - Springboot
@@ -122,7 +122,6 @@
       - [Zookeeper](/学习笔记/SpringCloud/zookeeper.md)
       - [尚硅谷SpringCloud(H版&alibaba)](/学习笔记/SpringCloud/尚硅谷SpringCloud(H版&alibaba).md)
    - SpringCloud微服务
-      - [微服务](/学习笔记/SpringCloud微服务/微服务.md)
       - [微服务环境部署记录](/学习笔记/SpringCloud微服务/微服务环境部署记录.md)
    - SpringMVC
       - [SpringMVC笔记（尚硅谷）](/学习笔记/SpringMVC/SpringMVC笔记（尚硅谷）.md)

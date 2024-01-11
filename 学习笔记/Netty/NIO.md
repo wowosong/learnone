@@ -20,16 +20,21 @@ Java 网络编程系列之 NIO
 ## 1.1 IO 概述
 
 IO 的操作方式通常分为几种：同步阻塞 BIO、同步非阻塞 NIO、异步非阻塞 AIO。
+
 （1）在 JDK1.4 之前，我们建立网络连接的时候采用的是 **BIO 模式**。
+
 （2）Java NIO（New IO 或 Non Blocking IO）是从 Java 1.4 版本开始引入的一个新的IO API，可以替代标准的 Java IO API。NIO 支持面向**缓冲区的、基于通道**的 IO 操作。NIO 将以更加高效的方式进行文件的读写操作。BIO 与 NIO 一个比较重要的不同是，我们使用 BIO 的时候往往会引入多线程，每个连接对应一个单独的线程；而 NIO 则是
 使用单线程或者只使用少量的多线程，让连接共用一个线程。
+
 （3）AIO 也就是 NIO 2，在 Java 7 中引入了 NIO 的改进版 NIO 2，它是异步非阻塞的IO 模型。
 下面我们来详细介绍这几种 IO 方式
 
 ## 1.2 阻塞 IO (BIO)
 
 阻塞 IO（BIO）是最传统的一种 IO 模型，即在读写数据过程中会发生**阻塞**现象，直至有可供读取的数据或者数据能够写入。
+
 （1）在 BIO 模式中，服务器会为每个客户端请求建立一个线程，由该线程单独负责处理一个客户请求，这种模式虽然简单方便，但由于服务器为每个客户端的连接都采用一个线程去处理，使得资源占用非常大。因此，当连接数量达到上限时，如果再有用户请求连接，直接会导致资源瓶颈，严重的可能会直接导致服务器崩溃。
+
 （2）大多数情况下为了避免上述问题，**都采用了线程池模型**。也就是创建一个固定大小的线程池，如果有客户端请求，就从线程池中取一个空闲线程来处理，当客户端处理完操作之后，就会**释放对线程的占用**。因此这样就避免为每一个客户端都要创建线程带来的资源浪费，使得线程可以重用。但线程池也有它的弊端，如果连接大多是长连接，可能会导致在一段时间内，线程池中的线程都被占用，那么当再有客户端请求连接时，由于没有空闲线程来处理，就会导致客户端连接失败。传统的 BIO 模式如下图所示：
 
 ![image-20220524143429787](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081027995.png)
@@ -37,6 +42,7 @@ IO 的操作方式通常分为几种：同步阻塞 BIO、同步非阻塞 NIO、
 ## 1.3 非阻塞 IO(NIO)
 
 基于 BIO 的各种弊端，在 JDK1.4 开始出现了**高性能 IO 设计模式非阻塞 IO（NIO）**。
+
 （1）NIO 采用非阻塞模式，基于 Reactor 模式的工作方式，I/O 调用不会被阻塞，它的实现过程是：会先对每个客户端注册感兴趣的事件，然后有一个线程专门去轮询每个客户端是否有事件发生，当有事件发生时，便顺序处理每个事件，当所有事件处理完之后，便再转去继续轮询。如下图所示：
 
 ![image-20220524143507857](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081027832.png)
@@ -56,14 +62,18 @@ IO 的操作方式通常分为几种：同步阻塞 BIO、同步非阻塞 NIO、
 ## 1.4 异步非阻塞 IO(AIO)
 
 （1）AIO 也就是 NIO 2，在 Java 7 中引入了 NIO 的改进版 NIO 2,它是异步非阻塞的 IO 模型。异步 IO 是基于事件和回调机制实现的，也就是说 AIO 模式不需要selector 操作，而是是事件驱动形式，也就是当客户端发送数据之后，会主动通知服务器，接着服务器再进行读写操作。
+
 （2）Java 的 AIO API 其实就是 Proactor 模式的应用，和 Reactor 模式类似。Reactor 和 Proactor 模式的主要区别就是真正的读取和写入操作是有谁来完成的，Reactor 中需要应用程序自己读取或者写入数据，而 Proactor 模式中，应用程序不需要进行实际的读写过程，它只需要从缓存区读取或者写入即可，操作系统会读取缓存区或者写入缓存区到真正的 IO 设备。
 
 ## 1.5 NIO 概述
 
 Java NIO 由以下几个核心部分组成：
 **\- Channels**
+
 **\- Buffers**
+
 **\- Selectors**
+
 虽然 Java NIO 中除此之外还有很多类和组件，但 **Channel，Buffer 和 Selector** 构成了核心的 API。其它组件，如 Pipe 和 FileLock，只不过是与三个核心组件共同使用的工具类。
 
 ### 1.5.1 Channel
@@ -115,9 +125,13 @@ Java NIO 的通道类似流，但又有些不同：
 - ServerSocketChannel
 
   （1）FileChannel 从文件中读写数据。
+  
   （2）DatagramChannel 能通过 UDP 读写网络中的数据。
+  
   （3）SocketChannel 能通过 TCP 读写网络中的数据。
+  
   （4）ServerSocketChannel 可以监听新进来的 TCP 连接，像 Web 服务器那样。对每一个新进来的**连接都会创建一个 SocketChannel**。
+  
   正如你所看到的，这些通道涵盖了 UDP 和 TCP 网络 IO，以及文件 IO
 
 ## 2.3 FileChannel 介绍和示例
@@ -130,30 +144,34 @@ FileChannel 类可以实现常用的 read，write 以及 scatter/gather 操作�
 
 ```java
 public class ChannelDemo {
-    public static void main(String[] args) throws IOException {
-        RandomAccessFile file = new RandomAccessFile("D:\\ChromeCoreDownloads\\课件代码\\课件\\123test.txt", "rw");
-        FileChannel channel = file.getChannel();
-        ByteBuffer buffer = ByteBuffer.allocate(48);
-        int bytesRead = channel.read(buffer);//每次都从channel读取48个字符到buffer
-        while (bytesRead != -1) {//没有取完就循环取
-            System.out.println("bytesRead:" + bytesRead);//每次读取的字符数
-            buffer.flip();
-            while (buffer.hasRemaining()) {
-                System.out.print((char) buffer.get());
-            }
-            buffer.clear();//清空buffer
-            bytesRead = channel.read(buffer);//再从channel中取48个字符到buffer
-        }
-        file.close();
-        System.out.println("操作结束");
+  public static void main(String[] args) throws IOException {
+    RandomAccessFile file = new RandomAccessFile("D:\\ChromeCoreDownloads\\课件代码\\课件\\123test.txt", "rw");
+    FileChannel channel = file.getChannel();
+    ByteBuffer buffer = ByteBuffer.allocate(48);
+    int bytesRead = channel.read(buffer);//每次都从channel读取48个字符到buffer
+    while (bytesRead != -1) {//没有取完就循环取
+      System.out.println("bytesRead:" + bytesRead);//每次读取的字符数
+      buffer.flip();
+      while (buffer.hasRemaining()) {
+        System.out.print((char) buffer.get());
+      }
+      buffer.clear();//清空buffer
+      bytesRead = channel.read(buffer);//再从channel中取48个字符到buffer
     }
+    file.close();
+    System.out.println("操作结束");
+  }
 }
 ```
 
 Buffer 通常的操作
+
 **将数据写入缓冲区**
+
 **调用 buffer.flip() 反转读写模式**
+
 **从缓冲区读取数据**
+
 **调用 buffer.clear() 或 buffer.compact() 清除缓冲区内容**
 
 ## 2.4 FileChannel 操作详解
@@ -186,24 +204,24 @@ int bytesRead = inChannel.read(buf);
 
 ```java
 public class FileChannelDemo {
-public static void main(String[] args) throws IOException {
-//        创建FileChannel
-        RandomAccessFile file = new RandomAccessFile("D:\\ChromeCoreDownloads\\课件代码\\课件\\test.txt", "rw");
-        FileChannel channel = file.getChannel();
-//        创建buffer
-        ByteBuffer buffer = ByteBuffer.allocate(48);
-        buffer.clear();
-        String message = "New File:" + System.currentTimeMillis();
-        buffer.put(message.getBytes());
-        buffer.flip();
-        while (buffer.hasRemaining()) {
-//          buffer.get();//会取出buffer的数据，
-            channel.write(buffer);
-        }
-        file.close();
-        channel.close();
-        System.out.println("操作结束");
+  public static void main(String[] args) throws IOException {
+    //        创建FileChannel
+    RandomAccessFile file = new RandomAccessFile("D:\\ChromeCoreDownloads\\课件代码\\课件\\test.txt", "rw");
+    FileChannel channel = file.getChannel();
+    //        创建buffer
+    ByteBuffer buffer = ByteBuffer.allocate(48);
+    buffer.clear();
+    String message = "New File:" + System.currentTimeMillis();
+    buffer.put(message.getBytes());
+    buffer.flip();
+    while (buffer.hasRemaining()) {
+      //          buffer.get();//会取出buffer的数据，
+      channel.write(buffer);
     }
+    file.close();
+    channel.close();
+    System.out.println("操作结束");
+  }
 } 
 ```
 
@@ -346,8 +364,10 @@ buffers 数组是 write()方法的入参，write()方法会按照 buffer 在数�
 # 第 3 章 Java NIO（SocketChannel）
 
 （1）SocketChannel 就是 NIO 对于非阻塞 socket 操作的支持的组件，其在 socket 上封装了一层，主要是支持了非阻塞的读写。同时改进了传统的单向流 API，Channel同时支持读写。
+
 （2）socket 通道类主要分为 **DatagramChannel、SocketChannel 和ServerSocketChannel**，它们在被实例化时都会创建一个对等 socket 对象。要把一个socket 通道置于非阻塞模式，我们要依靠所有 socket 通道类的公有超级类：
 **SelectableChannel**。就绪选择（readiness selection）是一种可以用来查询通道的机制，该查询可以判断通道是否准备好执行一个目标操作，如读或写。非阻塞 I/O 和可选择性是紧密相连的，那也正是管理阻塞模式的 API 代码要在 SelectableChannel超级类中定义的原因。
+
 （3）设置或重新设置一个通道的阻塞模式是很简单的，只要调用configureBlocking( )方法即可，传递参数值为 true 则设为阻塞模式，参数值为 false值设为非阻塞模式。可以通过调用 isBlocking( )方法来判断某个 socket 通道当前处于哪种模式。
 AbstractSelectableChannel.java 中实现的 configureBlocking()方法如下：
 
@@ -372,10 +392,12 @@ public final SelectableChannel configureBlocking(boolean block)throws IOExceptio
 ## 3.1 ServerSocketChannel
 
 ServerSocketChannel 是一个基于通道的 socket 监听器。它同我们所熟悉的java.net.ServerSocket 执行相同的任务，不过它增加了通道语义，因此能够在非阻塞模式下运行。
+
 由于 ServerSocketChannel 没有 bind()方法**，因此有必要取出对等的 socket 并使用它来绑定到一个端口以开始监听连接**。我们也是使用对等 ServerSocket 的 API 来根据需要设置其他的 socket 选项。
+
 同 java.net.ServerSocket 一样，ServerSocketChannel 也有 accept( )方法。
-ServerSocketChannel 的 accept()方法会返回 SocketChannel 类型对象，
-SocketChannel 可以在非阻塞模式下运行。
+
+ServerSocketChannel 的 accept()方法会返回 SocketChannel 类型对象，SocketChannel 可以在非阻塞模式下运行。
 以下代码演示了如何使用一个非阻塞的 accept( )方法：
 
 ```java
@@ -384,7 +406,7 @@ public class FileChannelAccept {
   public static void main(String[] argv) throws Exception {
     int port = 1234; // default
     if (argv.length > 0) {
-    	port = Integer.parseInt(argv[0]);
+      port = Integer.parseInt(argv[0]);
     }
 
     ByteBuffer buffer = ByteBuffer.wrap(GREETING.getBytes());
@@ -399,7 +421,7 @@ public class FileChannelAccept {
         Thread.sleep(2000);
       } else {
         System.out.println("Incoming connection from: " +
-        sc.socket().getRemoteSocketAddress());
+                           sc.socket().getRemoteSocketAddress());
         buffer.rewind();
         sc.write(buffer);
         sc.close();
@@ -463,9 +485,10 @@ while (true) {
 ### 3.2.1、 SocketChannel 介绍
 
 Java NIO 中的 SocketChannel 是一个连接到 TCP 网络套接字的通道。
+
 A selectable channel for stream-oriented connecting sockets.
-以上是 Java docs 中对于 SocketChannel 的描述：SocketChannel 是一种面向流连接
-sockets 套接字的可选择通道。从这里可以看出：
+
+以上是 Java docs 中对于 SocketChannel 的描述：SocketChannel 是一种面向流连接sockets 套接字的可选择通道。从这里可以看出：
 
 * SocketChannel 是用来连接 Socket 套接字
 * SocketChannel 主要用途用来处理网络 I/O 的通道
@@ -475,10 +498,15 @@ sockets 套接字的可选择通道。从这里可以看出：
 ### 3.2.2、 SocketChannel 特征
 
 （1）对于已经存在的 socket 不能创建 SocketChannel
+
 （2）SocketChannel 中提供的 open 接口创建的 Channel 并没有进行网络级联，需要使用 connect 接口连接到指定地址
+
 （3）未进行连接的 SocketChannle 执行 I/O 操作时，会抛出NotYetConnectedException
+
 （4）SocketChannel 支持两种 I/O 模式：阻塞式和非阻塞式
+
 （5）SocketChannel 支持异步关闭。如果 SocketChannel 在一个线程上 read 阻塞，另一个线程对该 SocketChannel 调用 shutdownInput，则读阻塞的线程将返回-1 表示没有读取任何数据；如果 SocketChannel 在一个线程上 write 阻塞，另一个线程对该SocketChannel 调用 shutdownWrite，则写阻塞的线程将抛出AsynchronousCloseException
+
 （6）SocketChannel 支持设定参数
 
 | SO_SNDBUF                 | 套接字发送缓冲区大小                                  |
@@ -691,8 +719,8 @@ Java NIO 中的 Buffer 用于和 NIO 通道进行交互。**数据是从通道�
 
 ![image-20220525144539845](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081028838.png)
 
-缓冲区本质上是一块可以写入数据，然后可以从中读取数据的内存。这块内存被包装成 NIO Buffer 对象，并提供了一组方法，用来方便的访问该块内存。**缓冲区实际上是一个容器对象，更直接的说，其实就是一个数组，在 NIO 库中，所有数据都是用缓冲区处理的。**在读取数据时，它是直接读到缓冲区中的； 在写入数据时，它也是写入到
-缓冲区中的；任何时候访问 NIO 中的数据，都是将它放到**缓冲区**中。而在面向流 I/O系统中，所有数据都是直接写入或者直接将数据读取到 Stream 对象中。
+缓冲区本质上是一块可以写入数据，然后可以从中读取数据的内存。这块内存被包装成 NIO Buffer 对象，并提供了一组方法，用来方便的访问该块内存。**缓冲区实际上是一个容器对象，更直接的说，其实就是一个数组，在 NIO 库中，所有数据都是用缓冲区处理的。**在读取数据时，它是直接读到缓冲区中的； 在写入数据时，它也是写入到缓冲区中的；任何时候访问 NIO 中的数据，都是将它放到**缓冲区**中。而在面向流 I/O系统中，所有数据都是直接写入或者直接将数据读取到 Stream 对象中。
+
 在 NIO 中，所有的缓冲区类型都继承于抽象类 Buffer，最常用的就是 ByteBuffer，对于 Java 中的基本类型，基本都有一个具体 Buffer 类型与之相对应，它们之间的继承关系如下图所示：
 
 ![image-20220525142053181](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401081028327.png)
@@ -700,11 +728,17 @@ Java NIO 中的 Buffer 用于和 NIO 通道进行交互。**数据是从通道�
 ## 4.2 Buffer 的基本用法
 
 1、使用 Buffer 读写数据，一般遵循以下四个步骤：
+
 **（1）写入数据到 Buffer**
+
 **（2）调用 flip()方法**
+
 **（3）从 Buffer 中读取数据**
+
 **（4）调用 clear()方法或者 compact()方法**
+
 当向 buffer 写入数据时，buffer 会记录下写了多少数据。一旦要读取数据，**需要通过flip()方法将 Buffer 从写模式切换到读模式**。在读模式下，可以读取之前写入到 buffer的所有数据。一旦读完了所有的数据，**就需要清空缓冲区，让它可以再次被写入**。有两种方式能清空缓冲区：调用 clear()或 compact()方法。clear()方法会清空整个缓冲区。compact()方法只会清除已经读过的数据。任何未读的数据都被移到缓冲区的起始处，新写入的数据将放到缓冲区未读数据的后面。
+
 2、使用 Buffer 的例子
 
 ```java
@@ -755,9 +789,13 @@ public void testConect3() throws IOException {
 ## 4.3 Buffer 的 capacity、position 和 limit
 
 为了理解 Buffer 的工作原理，需要熟悉它的三个属性：
+
 **\- Capacity**
+
 **\- Position**
+
 **\- limit**
+
 position 和 limit 的含义取决于 Buffer 处在读模式还是写模式。不管 Buffer 处在什么模式，capacity 的含义总是一样的。
 这里有一个关于 capacity，position 和 limit 在读写模式中的说明
 
@@ -765,24 +803,39 @@ position 和 limit 的含义取决于 Buffer 处在读模式还是写模式。�
 
 （1）capacity
 作为一个**内存块**，Buffer 有一个固定的大小值，也叫“capacity”。你只能往里写capacity 个 byte、long，char 等类型。一旦 Buffer 满了，需要将其清空（通过读数据或者清除数据）才能继续写数据往里写数据。
+
 （2）position
+
 1）**写数据到 Buffer 中时**，position 表示写入数据的当前位置，position 的初始值为0。当一个 byte、long 等数据写到 Buffer 后， position 会向下移动到下一个可插入数据的 Buffer 单元。position 最大可为 capacity – 1（因为position 的初始值为 0）.
+
 2）**读数据到 Buffer 中时**，position 表示读入数据的当前位置，如 position=2 时表示已开始读入了 3 个 byte，或从第 3 个 byte 开始读取**。通过 ByteBuffer.flip()切换到读模式时 position 会被重置为 0，**当 Buffer 从 position 读入数据后，position 会下移到下一个可读入的数据 Buffer 单元。
+
 （3）limit
+
 1）**写数据时**，limit 表示可对 Buffer 最多写入多少个数据。写模式下，limit 等于Buffer 的capacity。
+
 2）**读数据时**，limit 表示 Buffer 里有多少可读数据（not null 的数据），因此能读到之前写入的所有数据（limit 被设置成已写数据的数量，这个值在写模式下就是position）。
 
 ## 4.4 Buffer 的类型
 
 Java NIO 有以下 Buffer 类型
+
 **\- ByteBuffer**
+
 **\- MappedByteBuffer**
+
 **\- CharBuffer**
+
 **\- DoubleBuffer**
+
 **\- FloatBuffer**
+
 **\- IntBuffer**
+
 **\- LongBuffer**
+
 **\- ShortBuffer**
+
 这些 Buffer 类型代表了不同的数据类型。换句话说，就是可以通过 char，short，int，long，float 或 double 类型来操作缓冲区中的字节。
 
 ## 4.5 Buffer 分配和写数据
@@ -828,13 +881,20 @@ flip 方法将 Buffer 从写模式切换到读模式。调用 flip()方法会将
 ## 4.6 从 Buffer 中读取数据
 
 从 Buffer 中读取数据有两种方式：
+
 （1）从 Buffer 读取数据到 Channel。
+
 （2）使用 get()方法从 Buffer 中读取数据。
+
 从 Buffer 读取数据到 Channel 的例子：
+
 //read from buffer into channel.
 int bytesWritten = inChannel.write(buf);
+
 使用 get()方法从 Buffer 中读取数据的例子
+
 byte aByte = buf.get();
+
 get 方法有很多版本，允许你以不同的方式从 Buffer 中读取数据。例如，从指定position 读取，或者从 Buffer 中读取数据到字节数组。
 
 ## 4.7 Buffer 几个方法
@@ -846,8 +906,11 @@ Buffer.rewind()将 position 设回 0，所以你可以重读 Buffer 中的所有
 ### 2、**clear()与 compact()方法**
 
 一旦读完 Buffer 中的数据，需要让 Buffer 准备好再次被写入。可以通过 clear()或compact()方法来完成。
+
 如果调用的是 clear()方法，position 将被设回 0，limit 被设置成 capacity 的值。换句话说，Buffer 被清空了。Buffer 中的数据并未清除，只是这些标记告诉我们可以从哪里开始往 Buffer 里写数据。
+
 如果 Buffer 中有一些未读的数据，调用 clear()方法，数据将“被遗忘”，意味着不再有任何标记会告诉你哪些数据被读过，哪些还没有。
+
 如果 Buffer 中仍有未读的数据，且后续还需要这些数据，但是此时想要先先写些数据，那么使用 compact()方法。
 compact()方法将所有未读的数据拷贝到 Buffer 起始处。然后将 position 设到最后一个未读元素正后面。limit 属性依然像 clear()方法一样，设置成 capacity。现在Buffer 准备好写数据了，但是不会覆盖未读的数据。
 
@@ -956,7 +1019,9 @@ public void testConect5() throws IOException {
 ### 4、内存映射文件 I/O
 
 内存映射文件 I/O 是一种读和写文件数据的方法，它可以比常规的基于流或者基于通道的 I/O 快的多。**内存映射文件 I/O 是通过使文件中的数据出现为内存数组的内容来完成的**，这其初听起来似乎不过就是将整个文件读到内存中，但是事实上并不是这样。
+
 一般来说，**只有文件中实际读取或者写入的部分才会映射到内存中。**
+
 示例代码：
 
 ```java
@@ -997,34 +1062,46 @@ Selector 一般称 为选择器 ，也可以翻译为 **多路复用器** 。它
 ### **3、 Channel 注册到 Selector**
 
 （1）使用 Channel.register（Selector sel，int ops）方法，将一个通道注册到一个选择器时。第一个参数，指定通道要注册的选择器。第二个参数指定选择器需要查询的**通道操作**。
+
 （2）可以供选择器查询的通道操作，从类型来分，包括以下四种：
+
 **\- 可读 : SelectionKey.OP_READ**
+
 **\- 可写 : SelectionKey.OP_WRITE**
+
 **\- 连接 : SelectionKey.OP_CONNECT**
+
 **\- 接收 : SelectionKey.OP_ACCEPT**
+
 如果 Selector 对通道的多操作类型感兴趣，可以用“位或”操作符来实现：
+
 比如：int key = SelectionKey.OP_READ | SelectionKey.OP_WRITE ;
+
 （3）选择器查询的不是通道的操作，而是**通道的某个操作的一种就绪状态**。什么是操作的就绪状态？一旦通道具备完成某个操作的条件，**表示该通道的某个操作已经就绪，就可以被 Selector 查询到，程序可以对通道进行对应的操作**。比方说，某个SocketChannel 通道可以连接到一个服务器，则处于“连接就绪”(OP_CONNECT)。再比方说，一个 ServerSocketChannel 服务器通道准备好接收新进入的连接，则处于“接收就绪”（OP_ACCEPT）状态。还比方说，一个有数据可读的通道，可以说是“读就绪”(OP_READ)。一个等待写数据的通道可以说是“写就绪”(OP_WRITE)。
 
 ### **4、 选择键(SelectionKey)**
 
 （1）Channel 注册到后，并且一旦通道处于**某种就绪**的状态，就可以被选择器查询到。这个工作，使用选择器 Selector 的 select（）方法完成。select 方法的作用，对感兴趣的通道操作，进行就绪状态的查询。
+
 （2）Selector 可以不断的查询 Channel 中发生的操作的就绪状态。并且挑选感兴趣的操作就绪状态。一旦通道有操作的就绪状态达成，并且是 Selector 感兴趣的操作，就会被 Selector 选中，放入**选择键集合**中。
+
 （3）一个选择键，首先是包含了注册在 Selector 的通道操作的类型，比方说SelectionKey.OP_READ。**也包含了特定的通道与特定的选择器之间的注册关系。**
+
 **开发应用程序是，选择键是编程的关键。NIO 的编程，就是根据对应的选择键，进行不同的业务逻辑处理。**
+
 （4）选择键的概念，和事件的概念比较相似。一个选择键类似监听器模式里边的一个事件。**由于 Selector 不是事件触发的模式，而是主动去查询的模式**，所以不叫事件Event，而是叫 SelectionKey 选择键。
 
 ## 5.2 Selector 的使用方法
 
 1. ### **Selector 的创建**
-   
+
    通过调用 Selector.open()方法创建一个 Selector 对象，如下：
-   
+
    ```java
    // 1、获取 Selector 选择器
    Selector selector = Selector.open();
    ```
-   
+
 2.  **注册 Channel 到 Selector**
    要实现 Selector 管理 Channel，需要将 channel 注册到相应的 Selector 上
 
@@ -1042,18 +1119,26 @@ Selector 一般称 为选择器 ，也可以翻译为 **多路复用器** 。它
    ```
 
    上面通过调用通道的 register()方法会将它注册到一个选择器上。
+
    首先需要注意的是：
-   （1）与 Selector 一起使用时，**Channel 必须处于非阻塞模式下，否则将抛出异常IllegalBlockingModeException**。这意味着，**FileChannel 不能与 Selector 一起使用，因为 FileChannel 不能切换到非阻塞模式，而套接字相关的所有的通道都可以**。
+
+   （1）与 Selector 一起使用时，**Channel 必须处于非阻塞模式下，否则将抛出异常**IllegalBlockingModeException**。这意味着，**FileChannel 不能与 Selector 一起使用，因为 FileChannel 不能切换到非阻塞模式，而套接字相关的所有的通道都可以。
    （2）一个通道，并没有一定要**支持所有的四种操作**。比如服务器通道ServerSocketChannel 支持 Accept 接受操作，而 SocketChannel 客户端通道则不支持。可以通过通道上的 **validOps**()方法，来获取特定通道下所有支持的操作集合。
 
 3. **轮询查询就绪操作**
    （1）通过 Selector 的 **select（）方法，可以查询出已经就绪的通道操作**，这些就绪的状态集合，包存在一个元素是 SelectionKey 对象的 Set 集合中。
    （2）下面是 Selector 几个重载的查询 select()方法：
-   \**- select():阻塞到至少有一个通道在你注册的事件上就绪了。**
+
+   \- select():阻塞到至少有一个通道在你注册的事件上就绪了。
+
    **\- select(long timeout)：和 select()一样，但最长阻塞事件为 timeout 毫秒。**
+
    **\- selectNow():非阻塞，只要有通道就绪就立刻返回。**
+
    select()方法返回的 int 值，表示有多少通道已经就绪，更准确的说，是自前一次 select方法以来到这一次 select 方法之间的时间段上，有多少通道变成就绪状态。
+
    例如：首次调用 select()方法，如果有一个通道变成就绪状态，返回了 1，若再次调用select()方法，如果另一个通道就绪了，它会再次返回 1。如果对第一个就绪的channel 没有做任何操作，现在就有两个就绪的通道，但在每次 select()方法调用之间，只有一个通道就绪了。
+
    一旦调用 select()方法，并且返回值不为 0 时，在 Selector 中有一个 selectedKeys()方法，**用来访问已选择键集合，迭代集合的每一个选择键元素，根据就绪操作的类型，完成对应的操作：**
 
    ```java
@@ -1076,8 +1161,11 @@ Selector 一般称 为选择器 ，也可以翻译为 **多路复用器** 。它
 
 **4.停止选择的方法**
 选择器执行选择的过程，系统底层会依次询问每个通道是否已经就绪，这个过程可能会造成调用线程进入阻塞状态,那么我们有以下三种方式可以唤醒在 select（）方法中阻塞的线程。
+
 **wakeup()方法** ：通过调用 Selector 对象的 wakeup（）方法让处在阻塞状态的select()方法立刻返回
+
 该方法使得选择器上的第一个还没有返回的选择操作立即返回。如果当前没有进行中的选择操作，那么下一次对 select()方法的一次调用将立即返回。
+
 **close()方法** ：通过 close（）方法关闭 Selector，该方法使得任何一个在选择操作中阻塞的线程都被唤醒（类似 wakeup()），同时使得**注册到该 Selector 的所有 Channel 被注销，所有的键将被取消，但是 Channel本身并不会关闭。**
 
 ## **5.3 N**IO 编程步骤
