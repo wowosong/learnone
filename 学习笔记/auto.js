@@ -31,9 +31,9 @@ function list(srcpath, exclude = {}, level = 1) {
     }
 
 }
-fs.writeFile(path.resolve('./') + '/_sidebar.md', list(path.resolve(__dirname, "../学习笔记"), {
+fs.writeFile('D:\\huangjiusong\\learnone\\' + '/_sidebar.md', list(path.resolve(__dirname, "../学习笔记"), {
     extensions: /\.md$/,
-    exclude: /\.assets$|node_modules$|\.history$|\.vitepress$|(.+?)examples|图灵商城|Python|公司文档|分析图|自动化运维|截图|assets/,
+    exclude: /\.assets$|node_modules$|\.history$|\.vitepress$|(.+?)examples|图灵商城|Python|公司文档|分析图|自动化运维|截图|assets|_sidebar/,
     normalizePath: true,
     type: ""
 }), function(err) {
