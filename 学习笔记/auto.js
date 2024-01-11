@@ -21,7 +21,7 @@ function list(srcpath, exclude = {}, level = 1) {
 
             } else {
                 sidebarTxt1 += '\n' + repeats + '- [' + item.name.replace(".md", "").replace(" ", "") + '](' +
-                    item.path.replace("D:/huangjiusong/learnone/学习笔记", "/学习笔记") + ')';
+                    item.path.replace(srcpath, "/学习笔记") + ')';
             }
         })
 
