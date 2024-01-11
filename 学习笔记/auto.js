@@ -24,7 +24,7 @@ function list(srcpath, exclude = {}, level = 1) {
                 sidebarTxt1 += '\n' + repeats + '- ' + transUpperInFisrtLetter(item.name).replace(" ", "") + str;
 
             } else {
-                sidebarTxt1 += '\n' + repeats + '- [' + transUpperInFisrtLetter(item.name.replace(".md", "")).replace("D:/huangjiusong/learnone", "").replace(" ", "") + '](' +
+                sidebarTxt1 += '\n' + repeats + '- [' + transUpperInFisrtLetter(item.name.replace(".md", "")).replace("D:/huangjiusong/learnone/", "").replace(" ", "") + '](' +
                     item.path.replace("D:/huangjiusong/learnone", "").replace(" ", "") + ')';
             }
         })
