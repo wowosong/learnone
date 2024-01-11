@@ -9,15 +9,19 @@ function list(srcpath, exclude = {}, level = 1) {
     const srcDir = dirTree(srcpath, exclude);
     const repeats = '   '.repeat(level)
         // console.log(srcDir)
-    sidebarTxt += '- ' + srcDir.path + '';
+        // sidebarTxt += '- ' + srcDir.path + '';
     if (srcDir.children != null) {
         level++;
         var sidebarTxt1 = '';
         srcDir.children.forEach((item) => {
+            console.log(item.path)
             if (item.children != null) {
-                sidebarTxt1 += '\n' + repeats + '- [' + item.name.replace(".md", "").replace(" ", "") + '](' + list(item.path, exclude, level).replace(srcpath, "/学习笔记") + ')\n  ';
+                var str = list(item.path, exclude, level)
+                sidebarTxt1 += '\n' + repeats + '- ' + item.name.replace(" ", "") + str;
+
             } else {
-                sidebarTxt1 += '\n' + repeats + '- [' + item.name.replace(".md", "").replace(" ", "") + '](' + item.path.replace(srcpath, "/学习笔记") + ')';
+                sidebarTxt1 += '\n' + repeats + '- [' + item.name.replace(".md", "").replace(" ", "") + '](' +
+                    item.path.replace("D:/huangjiusong/learnone/学习笔记", "/学习笔记") + ')';
             }
         })
 
