@@ -1,8 +1,12 @@
 const dirTree = require('directory-tree');
 const path = require('path');
 const fs = require('fs');
-const srcpath = path.resolve(__dirname, "../学习笔记")
-console.log(srcpath)
+const srcpath1 = path.resolve(__dirname, "../学习笔记")
+console.log("123", srcpath1)
+
+function transUpperInFisrtLetter(str) {
+    return str.charAt(0).toUpperCase() + str.substring(1, str.length);
+}
 
 function list(srcpath, exclude = {}, level = 1) {
     var sidebarTxt = '';
@@ -17,11 +21,11 @@ function list(srcpath, exclude = {}, level = 1) {
             console.log(item.path)
             if (item.children != null) {
                 var str = list(item.path, exclude, level)
-                sidebarTxt1 += '\n' + repeats + '- ' + item.name.replace(" ", "") + str;
+                sidebarTxt1 += '\n' + repeats + '- ' + transUpperInFisrtLetter(item.name.replace(" ", "")) + str;
 
             } else {
-                sidebarTxt1 += '\n' + repeats + '- [' + item.name.replace(".md", "").replace(" ", "") + '](' +
-                    item.path.replace(srcpath, "/学习笔记") + ')';
+                sidebarTxt1 += '\n' + repeats + '- [' + transUpperInFisrtLetter(item.name.replace(".md", "").replace(" ", "")) + '](' +
+                    item.path + ')';
             }
         })
 
