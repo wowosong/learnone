@@ -40,7 +40,7 @@ fs.writeFile(srcpath2.replace("学习笔记", "") + '/_sidebar.md', list(path.re
     extensions: /\.md$/,
     exclude: /\.assets$|node_modules$|\.history$|\.vitepress$|(.+?)examples|图灵商城|Python|公司文档|分析图|自动化运维|截图|assets|_sidebar/,
     normalizePath: true,
-    type: ""
+    type: "directory"
 }), function(err) {
     if (err) {
         //console.error(err);
