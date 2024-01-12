@@ -97,8 +97,8 @@
       - [Netty](/学习笔记/Netty/Netty.md)
       - [NIO](/学习笔记/Netty/NIO.md)
    - Spring
-      - [SpringValidation实践](/学习笔记/Spring/SpringValidation实践.md)
       - [Spring4（尚硅谷）](/学习笔记/Spring/Spring4（尚硅谷）.md)
+      - [SpringValidation实践](/学习笔记/Spring/SpringValidation实践.md)
       - [Spring注解驱动开发](/学习笔记/Spring/Spring注解驱动开发.md)
    - Springboot
       - [SpringBoot](/学习笔记/Springboot/SpringBoot.md)
