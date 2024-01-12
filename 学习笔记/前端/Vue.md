@@ -1284,7 +1284,7 @@ PubSub.publish('msg', data)
 ```
 
 ## 2.10. demo1: comment manage
- 
+
 
 ## 2.11. demo2: todo list
 
@@ -1356,7 +1356,7 @@ axios.get(url)
 接口 2: https://api.github.com/search/users?q=aa
 
 ## 3.5. demo3: github users
- 
+
 
 # 第 4 章： vue UI 组件库
 
@@ -1377,13 +1377,13 @@ npm install --save mint-ui
 
 ### 4.2.2. 实现按需打包
 1. 下载
-    
+   
     ```
     npm install --save-dev babel-plugin-component
     ```
     
 2. 修改 babel 配置
-    
+   
     ```json
     "plugins": ["transform-runtime",
                 ["component",
@@ -1454,7 +1454,7 @@ npm install --save mint-ui
 ### 5.1.2. 相关 API 说明
 1. VueRouter(): 用于创建路由器的构建函数
 
-  ```
+  ```javascript
   new VueRouter({
   // 多个配置项
   })
@@ -1477,7 +1477,7 @@ npm install --save mint-ui
 
 3. 注册路由器
 
-  ```js
+  ```javascript
   import router from './router'
   new Vue({
       router
@@ -1497,6 +1497,7 @@ npm install --save mint-ui
 
 ### 5.2.1. 效果
 ### 5.2.2. 路由组件
+
 Home.vue
 About.vue
 
@@ -1610,7 +1611,7 @@ Message.vue
   <router-link :to="'/home/message/mdetail/'+m.id">{{m.title}}</router-link>
   ```
 3. 路由组件中读取请求参数
-    
+   
     ```
     this.$route.params.id
     ```
