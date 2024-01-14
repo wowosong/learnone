@@ -168,7 +168,7 @@ puts markdown.to_html
 
 $h_\theta(x)=\theta_0+\theta_1x$
 
-```
+```latex
  h_\theta(x) = \theta_0+\theta_1x
 ```
 
