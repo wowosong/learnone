@@ -728,7 +728,7 @@ const useCounterStore = defineStore('counter', {
 })
 ```
 
-### 使用 `setup()` 
+### 使用 `setup()`
 
 虽然并不是每个开发者都会使用组合式 API，但 `setup()` 钩子依旧可以使 Pinia 在选项式 API 中更易用。并且不需要额外的映射辅助函数!
 
@@ -814,9 +814,7 @@ unsubscribe()
 
 默认情况下，*action 订阅器*会被绑定到添加它们的组件上(如果 store 在组件的 `setup()` 内)。这意味着，当该组件被卸载时，它们将被自动删除。如果你想在组件卸载后依旧保留它们，请将 `true` 作为第二个参数传递给 *action 订阅器*，以便将其从当前组件中分离：
 
-vue
-
-```
+```vue
 <script setup>
 const someStore = useSomeStore()
 // 此订阅器即便在组件卸载之后仍会被保留
