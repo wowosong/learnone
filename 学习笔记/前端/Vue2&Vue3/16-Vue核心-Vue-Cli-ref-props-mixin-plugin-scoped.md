@@ -123,7 +123,7 @@ export default {
 
 src/components/Student.vue
 
-```javascript
+```vue
 <template>
   <!-- 组件结构 -->
   <div class="demo">
@@ -229,7 +229,7 @@ export default {
 
 ​      （1）全局混入：Vue.mixin(xxx)
 
-​        (2) 局部混入：mixins:['xxx']
+​        (2)   局部混入：mixins:['xxx']
 
 备注：
 
@@ -246,15 +246,15 @@ export const hunhe2={
 }
 data() {
     return {
-      name: "尚硅谷",
-      address: "成都",
-      x:2100
+        name: "尚硅谷",
+        address: "成都",
+        x:2100
     };
-  },
-  created() {
-    console.log(this.$data)
-    address: "成都",name: "尚硅谷",x: 2100,y: 200
-  },
+},
+    created() {
+        console.log(this.$data)
+        address: "成都",name: "尚硅谷",x: 2100,y: 200
+    },
 ```
 
  2.同名生命周期钩子将合并为一个数组，因此都将被调用。另外，混入对象的钩子将在组件自身钩子前调用
@@ -271,7 +271,7 @@ export const hunhe={
     },
 }
 mounted() {
-	console.log("mixin...")
+    console.log("mixin...")
 },
 ```
 
@@ -340,7 +340,7 @@ export default{
 
 src/components/StudentMixin.vue
 
-```javascript
+```vue
 <template>
   <!-- 组件结构 -->
   <div class="demo">

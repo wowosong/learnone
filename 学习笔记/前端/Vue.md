@@ -1452,6 +1452,7 @@ npm install --save mint-ui
 3) 中文文档: http://router.vuejs.org/zh-cn/
 4) 下载: npm install vue-router --save 
 ### 5.1.2. 相关 API 说明
+
 1. VueRouter(): 用于创建路由器的构建函数
 
   ```javascript
@@ -1496,6 +1497,7 @@ npm install --save mint-ui
 ## 5.2. 基本路由
 
 ### 5.2.1. 效果
+
 ### 5.2.2. 路由组件
 
 Home.vue
@@ -1562,11 +1564,13 @@ linkActiveClass: 'active', // 指定选中的路由链接的 class
 ## 5.3. 嵌套路由
 
 ### 5.3.1. 效果
+
 ### 5.3.2. 子路由组件
 News.vue
 Message.vue
 
 ### 5.3.3. 配置嵌套路由: router.js
+
 ```javascript
 {
     path: '/home',
@@ -1612,9 +1616,9 @@ Message.vue
   ```
 3. 路由组件中读取请求参数
    
-    ```
-    this.$route.params.id
-    ```
+```javascript
+this.$route.params.id
+```
 
 
 ### 5.4.3. 方式 2: \<router-view>属性携带数据
@@ -1625,9 +1629,9 @@ Message.vue
 ## 5.5. 缓存路由组件对象
 
 ### 5.5.1. 理解
+
 1) 默认情况下, 被切换的路由组件对象会死亡释放, 再次回来时是重新创建的
 2) 如果可以缓存路由组件对象, 可以提高用户体验
-
 
 ### 5.5.2. 编码实现
 

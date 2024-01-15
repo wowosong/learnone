@@ -278,7 +278,7 @@
 关于VueComponent：
     1.school组件本质是一个名为VueCOmponent的构造函数，且不是程序员定义的，是Vue.extend生成的
 
-​    2.我们只需要写<school></school>或<school/>，Vue解析时会帮我们创建school组件的实例对象
+​    2.我们只需要写\<school>\</school>或\<school/>，Vue解析时会帮我们创建school组件的实例对象
 
 ​        即Vue帮我们执行的：new VueComponent(options)
 

@@ -1111,7 +1111,6 @@ export default function() {
     *   作用：将一个由`reactive`生成的**响应式对象**转为**普通对象**。
     *   使用场景：用于读取响应式对象对应的普通对象，对这个普通对象的所有操作，不会引起页面更新。
 *   `markRaw`
-    
     *   作用：标记一个对象，使其永远不会再成为响应式对象。
     *   应用场景:
         1.  有些值不应被设置为响应式的，例如复杂的第三方类库等。
@@ -1168,6 +1167,7 @@ export default {
 ```
 
 ## 5\. `provide` 与 `inject`
+
 <img src="https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311062214124.png" style="zoom:50%;" /> 
 
 *   作用：实现**祖与后代组件间**通信

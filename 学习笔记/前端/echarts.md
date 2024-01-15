@@ -130,7 +130,7 @@ legend：图例，用于筛选系列，需要和series配合使用
 
 ## dimensions
 
-```
+```javascript
 // 用 dimensions 指定了维度的顺序。直角坐标系中，如果 X 轴 type 为 category，
 // 默认把第一个维度映射到 X 轴上，后面维度映射到 Y 轴上。
 // 如果不指定 dimensions，也可以通过指定 series.encode
@@ -504,7 +504,7 @@ myChart.on('click', function(event) {
 
 ECharts5 除了一贯的默认主题外，还内置了`'dark'`主题。可以像这样切换成深色模式;
 
-```
+```javascript
 var chart = echarts.init(dom, 'dark');
 ```
 
@@ -520,7 +520,7 @@ var chart = echarts.init(dom, 'dark');
   
 - 线性渐变
   
-```html
+```javascript
 itemStyle:{
     color: {
           type: 'linear',
@@ -543,7 +543,7 @@ itemStyle:{
 
 - 径向渐变
   
-```
+```javascript
 itemStyle:{
     color: {
           type: 'radial',
@@ -584,7 +584,7 @@ itemStyle:{
 
   - 在事件处理函数中调佣Echarts实例对象的resize即可
 
-```js
+```javascript
 window.onresize=function(){
     mychart,resize();
 }
@@ -699,9 +699,9 @@ window.onresize=function(){
 
 - 一般和window对象的resize事件结合使用
 
-  ```
+  ```javascript
   window.onresize=function(){
-  	mychart.resize();
+      mychart.resize();
   }
   ```
 

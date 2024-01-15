@@ -186,7 +186,9 @@
       - [ES6](/学习笔记/前端/ES6.md)
       - [Html&Css](/学习笔记/前端/Html&Css.md)
       - [JavaScript](/学习笔记/前端/JavaScript.md)
+      - [Pinia](/学习笔记/前端/Pinia.md)
       - [Promise](/学习笔记/前端/Promise.md)
+      - [Vite](/学习笔记/前端/Vite.md)
       - [Vue-family](/学习笔记/前端/Vue-family.md)
       - [Vue](/学习笔记/前端/Vue.md)
       - Vue2&Vue3
@@ -208,6 +210,7 @@
          - [16-Vue核心-Vue-Cli-ref-props-mixin-plugin-scoped](/学习笔记/前端/Vue2&Vue3/16-Vue核心-Vue-Cli-ref-props-mixin-plugin-scoped.md)
       - Vue3
          - [Vue3](/学习笔记/前端/Vue3/Vue3.md)
+      - [Webpack](/学习笔记/前端/Webpack.md)
       - 尚品汇
          - [Day-01](/学习笔记/前端/尚品汇/day-01.md)
          - [Day-02](/学习笔记/前端/尚品汇/day-02.md)
