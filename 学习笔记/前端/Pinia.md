@@ -1210,4 +1210,6 @@ const myPlugin: Plugin = ({ $pinia }) => {
 export default myPlugin
 ```
 
+
+
 注意上面的例子使用的是 TypeScript。如果你使用的是 `.js` 文件，你必须删除类型标注 `PiniaPluginContext` 和 `Plugin` 以及它们的导入语句。
