@@ -1148,6 +1148,7 @@ CSS中共有四种定位方式：
 ```
 
 # 背景
+
 - background-color 背景颜色
 
 - background-image 背景图片
