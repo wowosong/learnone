@@ -90,7 +90,3 @@ Redis的跳跃表由zSkipListNode和skipList两个结构定义，其中zSkipList
 - Redis的跳跃表实现由 zskiplist和 zskiplistnode两个结构组成,其中 zskiplist用于保存跳跃表信息(比如表头节点、表尾节点、长度),而zskiplistnode则用于表示跳跃表节点
 - Redis每个跳跃表节点的层高都是1至32之间的随机数
 - 在同一个跳跃表中,多个节点可以包含相同的分值,但每个节点的成员对象必须是唯一的，跳跃表中的节点按照分值大小进行排序,当分值相同时,节点按照成员对象的大小进行排序。
-
-## 来源
-
-https://www.cnblogs.com/hunternet/p/11248192.html
