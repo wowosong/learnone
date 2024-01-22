@@ -20,17 +20,29 @@ http://www.ecma-international.org/publications/standards/Standard.htm
 
 ECMA-262（ECMAScript）历史版本查看网址
 http://www.ecma-international.org/publications/standards/Ecma-262-arch.htm
+
 第 1 版 1997 年 制定了语言的基本语法
+
 第 2 版 1998 年 较小改动
+
 第 3 版 1999 年 引入正则、异常处理、格式化输出等。 IE 开始支持
+
 第 4 版 2007 年 过于激进，未发布
+
 第 5 版 2009 年 引入严格模式、 JSON，扩展对象、数组、原型、字符串、日期方法
+
 第 6 版 2015 年 模块化、面向对象语法、Promise、箭头函数、 let、const、数组解构赋值等等
+
 第 7 版 2016 年 幂运算符、数组扩展、Async/await 关键字
+
 第 8 版 2017 年 Async/await、字符串扩展
+
 第 9 版 2018 年 对象解构赋值、正则扩展
+
 第 10 版 2019 年 扩展对象、数组方法3
+
 ES.next 动态指向下一个版本
+
 注：从 ES6 开始，每年发布一个版本，版本号比年份最后一位大 1
 
 ## 1.5.谁在维护 ECMA-262
@@ -40,7 +52,9 @@ TC39（Technical Committee 39） 是推进 ECMAScript 发展的委员会。其�
 ## 1.6.为什么要学习 ES6
 
 ⚫ ES6 的版本变动内容最多，具有里程碑意义
+
 ⚫ ES6 加入许多新的语法特性，编程实现更简单、高效
+
 ⚫ ES6 是前端发展趋势，就业必备技能
 
 ## 1.7. ES6 兼容性
@@ -58,7 +72,7 @@ let 关键字用来声明变量，使用 let 声明的变量有几个特点：
 
 2. 块儿级作用域
 
-3. **不存在变量提升**
+3. ==**不存在变量提升**==
 
 4. 不影响作用域链
     **应用场景：以后声明变量使用 let 就对了**
@@ -577,7 +591,9 @@ ES6 之前的模块化规范有：
 ### 3.1. Array.prototype.includes
 
 Includes 方法用来检测数组中是否包含某个元素，返回布尔类型值
+
 ## 3.2.指数操作符
+
 在 ES7 中引入指数运算符「**」，用来实现幂运算，功能与 Math.pow 结果相同
 
 # 第 4 章 ECMASript 8 新特性
@@ -688,7 +704,9 @@ console.log(data);
 ## 6.4. Symbol.prototype.description
 
 # 第 7 章 ECMASript 11 新特性
+
 ## 7.1. String.prototype.matchAll
+
 ## 7.2.类的私有属性
 ## 7.3. Promise.allSettled
 ## 7.4.可选链操作符
