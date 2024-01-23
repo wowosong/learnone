@@ -898,6 +898,7 @@ switch(语句){
 while(条件表达式){
 	语句...
 }
+    
 ```
 
 • 和if一样while中的条件表达式将会被转换为布尔类型，只要该值为真，则代码块将会一直重复执行。
@@ -916,6 +917,12 @@ while(条件表达式){
 do{
 	语句...
 }while(条件表达式);
+var i = 0;
+do {
+  i += 1;
+  console.log(i);
+} while (i < 5);
+
 ```
 
 • 相比于while，do...while的使用情况并不是很多。
@@ -934,6 +941,67 @@ do{
 for(初始化表达式 ; 条件表达式 ; 更新表达式){
 	语句...
 }
+```
+
+### for...in语句
+
+`for...in`语句循环一个指定的变量来循环一个对象所有可枚举的属性。JavaScript 会为每一个不同的属性执行指定的语句。
+
+```
+for (variable in object) {
+  statements
+}
+```
+
+下面的函数通过它的参数得到一个对象和这个对象的名字。然后循环这个对象的所有属性并且返回一个列出属性名和该属性值的字符串。
+
+```js
+function dump_props(obj, obj_name) {
+  var result = "";
+  for (var i in obj) {
+    result += obj_name + "." + i + " = " + obj[i] + "<br>";
+  }
+  result += "<hr>";
+  return result;
+}
+```
+
+对于一个拥有 `make` 和 `model` 属性的 `car` 对象来说，执行结果 `result` 是：
+
+```
+car.make = Ford
+car.model = Mustang
+```
+
+#### 数组
+
+虽然使用 **for...in** 来迭代数组 [`Array`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array) 元素听起来很诱人，但是它返回的东西除了数字索引外，还有可能是你自定义的属性名字。因此还是用带有数字索引的传统的 [`for`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for) 循环来迭代一个数组比较好，因为，如果你想改变数组对象，比如添加属性或者方法，**for...in** 语句迭代的是自定义的属性，而不是数组的元素。（译者注：下面的 `for...of` 语句，和 [`forEach()`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)，也是理想的选择。）
+
+### `for...of` 语句
+
+[`for...of`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...of) 语句在[可迭代对象](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols)（包括[`Array`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array)、[`Map`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map)、[`Set`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Set)、[`arguments`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/arguments) 等等）上创建了一个循环，对值的每一个独特属性调用一次迭代。
+
+```js
+for (variable of object) {
+  statement
+}
+```
+
+下面的这个例子展示了 `for...of` 和 [`for...in`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...in) 两种循环语句之间的区别。<span  style='color:red'> **`for...in` 循环遍历的结果是数组元素的下标，而 `for...of` 遍历的结果是元素的值：**</span>
+
+```js
+let arr = [3, 5, 7];
+arr.foo = "hello";
+
+for (let i in arr) {
+  console.log(i); // 输出 "0", "1", "2", "foo"
+}
+
+for (let i of arr) {
+  console.log(i); // 输出 "3", "5", "7"
+}
+
+// 注意 for...of 的输出没有出现 "hello"
 ```
 
 ### break和continue
@@ -981,6 +1049,16 @@ start:
 for (var i=0; i < count; i++) {
 	alert(i);
 } 
+var num = 0;
+outPoint: for (var i = 0; i < 10; i++) {
+  for (var j = 0; j < 10; j++) {
+    if (i == 5 && j == 5) {
+      break outPoint; // 在 i = 5，j = 5 时，跳出所有循环，
+      // 返回到整个 outPoint 下方，继续执行
+    }
+    num++;
+  }
+}
 ```
 
 • 这个例子中定义的 start 标签可以在将来由 break 或 continue 语句引用。加标签的语句一般都要与 for 语句等循环语句配合使用。

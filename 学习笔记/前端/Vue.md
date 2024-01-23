@@ -1163,11 +1163,11 @@ export default {
 2) 数据在哪, 更新数据的行为(函数)就应该定义在哪
 
 ### 2.5.2. vue 组件间通信方式
-1) props
-2) vue 的自定义事件
-3) 消息订阅与发布(如: pubsub 库)
-4) slot
-5) vuex(后面单独讲)
+1) **props**
+2) **vue 的自定义事件**
+3) **消息订阅与发布(如: pubsub 库)**
+4) **slot**
+5) **vuex(后面单独讲)**
 
 ## 2.6. 组件间通信 1: props
 
@@ -1180,23 +1180,23 @@ export default {
 1) 在组件内声明所有的 props
 2. 方式一: 只指定名称
 
-  ```
+  ```js
   props: ['name', 'age', 'setName']
   ```
 3. 方式二: 指定名称和类型
 
-  ```
+  ```vue
   props: {
-  name: String,
-  age: Number,
-  setNmae: Function
+      name: String,
+      age: Number,
+      setNmae: Function
   } 
   ```
 4. 方式三: 指定名称/类型/必要性/默认值
 
-  ```
+  ```javascript
   props: {
-  name: {type: String, required: true, default:xxx},
+  	name: {type: String, required: true, default:xxx},
   }
   ```
 
@@ -1210,6 +1210,7 @@ b. 兄弟组件间也不能直接 props 通信, 必须借助父组件才可以
 ## 2.7. 组件间通信 2: vue 自定义事件
 
 ### 2.7.1. 绑定事件监听
+
 ```javascript
 // 方式一: 通过 v-on 绑定
 @delete_todo="deleteTodo"
@@ -1232,14 +1233,14 @@ this.$emit(eventName, data)
 ## 2.8. 组件间通信 3: 消息订阅与发布(PubSubJS 库)
 
 ### 2.8.1. 订阅消息
-```
+```js
 PubSub.subscribe('msg', function(msg, data){})
 ```
 
 
 
 ### 2.8.2. 发布消息
-```
+```js
 PubSub.publish('msg', data)
 ```
 
@@ -1254,7 +1255,9 @@ PubSub.publish('msg', data)
   - 事件名(类型): click/focus
   - 回调函数: function(event){}
 2) 触发事件 (发布消息)
+   
     DOM 事件: 用户在浏览器上对应的界面上做对应的操作
+    
     自定义: 编码手动触发
 
 ## 2.9. 组件间通信 4: slot
@@ -1306,7 +1309,7 @@ vue 插件, 非官方库, vue1.x 使用广泛
 https://github.com/pagekit/vue-resource/blob/develop/docs/http.md
 
 ### 3.2.2. 下载
-```
+```shell
 npm install vue-resource --save
 ```
 
@@ -1333,7 +1336,7 @@ this.$http.get('/someUrl').then((response) => {
 https://github.com/pagekit/vue-resource/blob/develop/docs/http.md
 
 ## 3.3. 下载:
-```
+```shell
 npm install axios --save
 ```
 
@@ -1378,13 +1381,13 @@ npm install --save mint-ui
 ### 4.2.2. 实现按需打包
 1. 下载
    
-    ```
-    npm install --save-dev babel-plugin-component
-    ```
-    
+```
+ npm install --save-dev babel-plugin-component
+```
+
 2. 修改 babel 配置
    
-    ```json
+```json
     "plugins": ["transform-runtime",
                 ["component",
                  [
@@ -1395,9 +1398,9 @@ npm install --save mint-ui
                  ]
                 ]
                ]
-    ```
-    
-    
+```
+
+​    
 
 
 ### 4.2.3. mint-ui 组件分类
@@ -1666,12 +1669,17 @@ this.$route.params.id
 6. actions: 响应在 view 上的用户输入导致的状态变化(包含 n 个更新状态的方法)
 
 ### 6.1.3. 多组件共享状态的问题
-1) 多个视图依赖于同一状态
-2) 来自不同视图的行为需要变更同一状态
-3) 以前的解决办法
-a. 将数据以及操作数据的行为都定义在父组件
-b. 将数据以及操作数据的行为传递给需要的各个子组件(有可能需要多级传递)
-4) vuex 就是用来解决这个问题的
+1. 多个视图依赖于同一状态
+
+2. 来自不同视图的行为需要变更同一状态
+
+3. 以前的解决办法
+
+  a. 将数据以及操作数据的行为都定义在父组件
+
+  b. 将数据以及操作数据的行为传递给需要的各个子组件(有可能需要多级传递)
+
+4. vuex 就是用来解决这个问题的
 ## 6.2. vuex 核心概念和 API
 
 ### 6.2.1. state
