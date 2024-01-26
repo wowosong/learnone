@@ -4,7 +4,7 @@
 
 # vim 安装
 
-```
+```shelll
 [root@localhost ~]# rpm -ivh /mnt/Packages/vim-minimal-7.2.411-1.6.el6.x86_64.rpm 
 
 warning: /mnt/Packages/vim-minimal-7.2.411-1.6.el6.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID fd431d51: NOKEY
@@ -98,7 +98,7 @@ package vim-enhanced-2:7.2.411-1.6.el6.x86_64 is already installed
 
 ​	:%s/old/new/g
 
-:1,5 s/old/new/g
+​	:1,5 s/old/new/g
 
  
 

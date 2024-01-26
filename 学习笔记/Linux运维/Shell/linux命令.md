@@ -62,3 +62,4 @@ scp  -P 2026 -r root@ssh.hanboard.com.cn:/data/solr-8.3.0   /data/solr-8.3.0/
 
 ### 公钥拷贝到所有被管理机
 
+**拷贝公钥到服务器的.ssh下的authorized_keys，并修改文件权限chmod 600 authorized_keys 和.ssh下的文件权限**
