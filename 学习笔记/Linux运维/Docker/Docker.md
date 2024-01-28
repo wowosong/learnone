@@ -219,7 +219,7 @@ docker exec -it mynginx /bin/bash
 docker ps
 docker inspect nginx:latest
 docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mynginx
-dokcer top mynginx
+docker top mynginx
 docker attach mynginx
 docker events -f "images"="nginx:latest" --since="2021-10-01"
 docker logs --since="2016-07-01" --tail=10 mynginx

@@ -1900,6 +1900,16 @@ Person.prototype.sayName = function(){
 * 但是第一种我们使用了一个new关键字和一个Object()函数。
 * 这个函数就是专门用来创建一个Object对象并返回的，像这种函数我们称为构造函数。
 
+# `in`
+
+[`in`操作符](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/in)，如果所指定的**属性**确实存在于所指定的对象中，则会返回`true`，语法如下：
+
+```
+propNameOrNumber in objectName;
+```
+
+**在这里 `propNameOrNumber`可以是一个代表着属性名的字符串或者是一个代表着数组索引的数值表达式，而`objectName`则是一个对象名。**
+
 # Array
 
 * Array用于表示一个有序的数组。
