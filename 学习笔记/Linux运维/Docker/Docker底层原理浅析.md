@@ -8,7 +8,7 @@
 
 Vagarant 是笔者最早接触到的一个解决环境配置不统一的技术方案。它使用 Ruby 语言编写，由 HashCorp 公司在 2010 年 1 月发布。Vagrant 的底层是虚拟机，最开始选用的是 virtualbox。一个个已经配置好的虚拟机被称作 box。用户可自由在虚拟机内部的安装依赖库和软件服务，并将 box 发布。通过简单的命令，就能够拉取 box，将环境搭建起来。
 
-```
+```shell
 // 拉取一个ubuntu12.04的box
 $ vagrant init hashicorp/precise32
 

@@ -29,7 +29,7 @@ apply(thisArg, argsArray)
 
 ## [描述](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/apply#描述)
 
-**备注：** 这个函数与 [`call()`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/call) 几乎完全相同，只是函数参数在 `call()` 中逐个作为列表传递，而在 `apply()` 中它们会组合在一个对象中，通常是一个数组——例如，`func.call(this, "eat", "bananas")` 与 `func.apply(this, ["eat", "bananas"])`。
+**备注：** **这个函数与 [`call()`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/call) 几乎完全相同，只是函数参数在 `call()` 中逐个作为列表传递，而在 `apply()` 中它们会组合在一个对象中**，通常是一个数组——例如，`func.call(this, "eat", "bananas")` 与 `func.apply(this, ["eat", "bananas"])`。
 
 通常情况下，在调用函数时，函数内部的 [`this`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this) 的值是访问该函数的对象。使用 `apply()`，你可以在调用现有函数时将任意值分配给 `this`，而无需先将函数作为属性附加到对象上。这使得你可以将一个对象的方法用作通用的实用函数。
 

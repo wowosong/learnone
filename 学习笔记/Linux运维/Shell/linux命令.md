@@ -18,11 +18,13 @@ scp  -P 2026 -r root@ssh.hanboard.com.cn:/data/solr-8.3.0   /data/solr-8.3.0/
 
 ## tail
 
+## tar
+
 ## curl
 
 ## ifconfig
 
-## ip 
+## ip
 
 ## brctl
 
