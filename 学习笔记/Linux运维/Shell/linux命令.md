@@ -10,7 +10,41 @@ scp -r root@192.168.62.10:/root/ /home/administrator/Desktop/new/
 
 scp  -P 2026 -r root@ssh.hanboard.com.cn:/data/solr-8.3.0   /data/solr-8.3.0/ 
 
+## netstat
 
+## grep
+
+## find
+
+## tail
+
+## curl
+
+## ifconfig
+
+## ip 
+
+## brctl
+
+## ssh
+
+## cp
+
+## df 
+
+## tree
+
+## du
+
+## top
+
+## ps
+
+## sed
+
+## nmap
+
+## telnet
 
 # vim字符操作
 
