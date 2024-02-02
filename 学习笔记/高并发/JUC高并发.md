@@ -1108,7 +1108,7 @@ public ReentrantLock(boolean fair) {
 
 ##   6 Callable&Future 接口   
 
-###   6.1 Callable 接口   
+###   6.1 Callable 接口
 
 目前我们学习了有两种创建线程的方法-一种是通过创建 Thread 类，另一种是通过使用 Runnable 创建线程。但是，**Runnable 缺少的一项功能是，当线程终止时（即 run（）完成时），我们无法使线程返回结果**。为了支持此功能，Java 中提供了 Callable 接口。
 
@@ -2101,7 +2101,7 @@ public class ThreadPoolDemo1 {
 - threadFactory 创建线程的工厂类
 - handler 等待队列满后的拒绝策略
 
-3. 为什么不允许适用不允许 Executors.的方式手动创建线程池,如下图
+3. 为什么不允许使用Executors.的方式手动创建线程池,如下图
 
 ![image-20220418111345105](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071109228.png)
 
@@ -2348,7 +2348,7 @@ CompletableFuture 在 Java 里面被用于异步编程，异步通常意味着�
 
 CompletableFuture 实现了 Future, CompletionStage 接口，实现了 Future接口就可以兼容现在有线程池框架，而 CompletionStage 接口才是异步编程的接口抽象，里面定义多种异步方法，通过这两者集合，从而打造出了强大的CompletableFuture 类。
 
-###   12.2 Future 与 CompletableFuture  
+###   12.2 Future 与 CompletableFuture
 
 Futrue 在 Java 里面，通常用来表示一个异步任务的引用，比如我们将任务提交到线程池里面，然后我们会得到一个 Futrue，在 Future 里面有 isDone 方法来 判断任务是否处理结束，还有 get 方法可以一直阻塞直到任务结束然后获取结果，但整体来说这种方式，还是同步的，因为需要客户端不断阻塞等待或者不断轮询才能知道任务是否完成。
 
