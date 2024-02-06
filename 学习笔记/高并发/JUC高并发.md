@@ -28,7 +28,7 @@
 
 ##   1 什么是 JUC   
 
-###   1.1 JUC 简介   
+###   1.1 JUC 简介
 
 在 Java 中，线程部分是一个重点，本篇文章说的 JUC 也是关于线程的。JUC就是 java.util .concurrent 工具包的简称。这是一个处理线程的工具包，JDK 1.5 开始出现的。
 
@@ -1736,17 +1736,17 @@ public class BlockingQueueDemo {
 
 ArrayBlockingQueue 在生产者放入数据和消费者获取数据，都是**共用同一个锁对象**，由此也意味着两者无法真正并行运行，这点尤其不同于LinkedBlockingQueue；按照实现原理来分析，ArrayBlockingQueue 完全可以采用**分离锁**，从而实现生产者和消费者操作的完全并行运行。Doug Lea 之所以没这样去做，也许是因为 ArrayBlockingQueue 的数据写入和获取操作已经足够轻巧，以至于引入独立的锁机制，除了给代码带来额外的复杂性外，其在性能上完全占不到任何便宜。 ArrayBlockingQueue 和LinkedBlockingQueue 间还有一个明显的不同之处在于，前者在插入或删除元素时不会产生或销毁任何额外的对象实例，而后者则会生成一个额外的Node 对象。这在长时间内需要高效并发地处理大批量数据的系统中，其对于GC 的影响还是存在一定的区别。而在创建 ArrayBlockingQueue 时，我们还可以控制对象的内部锁是否采用公平锁，默认采用非公平锁。
 
-**==  一句话总结: 由数组结构组成的有界阻塞队列。  ==**
+==**一句话总结: 由数组结构组成的有界阻塞队列。**==
 
-####   9.4.2 LinkedBlockingQueue(常用)  
+####   9.4.2 LinkedBlockingQueue(常用)
 
 基于链表的阻塞队列，同 ArrayListBlockingQueue 类似，其内部也维持着一个数据缓冲队列（该队列由一个**链表构成**），当生产者往队列中放入一个数据时，队列会从生产者手中获取数据，并缓存在队列内部，而生产者立即返回；只有当队列缓冲区达到最大值缓存容量时（LinkedBlockingQueue 可以通过构造函数指定该值），才会阻塞生产者队列，直到消费者从队列中消费掉一份数据，生产者线程会被唤醒，反之对于消费者这端的处理也基于同样的原理。而 LinkedBlockingQueue 之所以能够高效的处理并发数据，还因为其对于**生产者端和消费者端分别采用了独立的锁来控制数据同步**，这也意味着在高并发的情况下生产者和消费者可以并行地操作队列中的数据，以此来提高整个队列的并发性能。
 
   **ArrayBlockingQueue 和 LinkedBlockingQueue 是两个最普通也是最常用的阻塞队列，一般情况下，在处理多线程间的生产者消费者问题，使用这两个类足以。**  
 
-**==  一句话总结: 由链表结构组成的有界（但大小默认值为**  **integer.MAX_VALUE）阻塞队列。  ==**
+==**一句话总结: 由链表结构组成的有界（但大小默认值为**  **integer.MAX_VALUE）阻塞队列。**==
 
-####   9.4.3 DelayQueue  
+####   9.4.3 DelayQueue
 
 DelayQueue 中的元素只有当其指定的延迟时间到了，才能够从队列中获取到该元素。DelayQueue 是一个**没有大小限制的队列**，因此往队列中插入数据的操作（生产者）永远不会被阻塞，而只**有获取数据的操作（消费者）才会被阻塞**。
 
@@ -1760,7 +1760,7 @@ DelayQueue 中的元素只有当其指定的延迟时间到了，才能够从队
 
 在实现 PriorityBlockingQueue 时，内部控制线程同步的锁采用的是  **公平锁**  。
 
-**==  一句话总结: 支持优先级排序的无界阻塞队列。  ==**
+**==一句话总结: 支持优先级排序的无界阻塞队列==**
 
 ####   9.4.5 SynchronousQueue
 
@@ -1776,17 +1776,17 @@ DelayQueue 中的元素只有当其指定的延迟时间到了，才能够从队
 
 某些生产者或者是消费者的数据永远都得不到处理。
 
-**==  一句话总结: 不存储元素的阻塞队列，也即单个元素的队列。  ==**
+**==一句话总结: 不存储元素的阻塞队列，也即单个元素的队列。==**
 
-####   9.4.6 LinkedTransferQueue  
+####   9.4.6 LinkedTransferQueue
 
 LinkedTransferQueue 是一个由链表结构组成的无界阻塞 TransferQueue 队列。相对于其他阻塞队列，LinkedTransferQueue 多了 tryTransfer 和transfer 方法。
 
 LinkedTransferQueue 采用一种预占模式。意思就是消费者线程取元素时，如果队列不为空，则直接取走数据，若队列为空，那就生成一个节点（节点元素为 null）入队，然后消费者线程被等待在这个节点上，后面生产者线程入队时发现有一个元素为 null 的节点，生产者线程就不入队了，直接就将元素填充到该节点，并唤醒该节点等待的线程，被唤醒的消费者线程取走元素，从调用的方法返回。
 
-**==  一句话总结: 由链表组成的无界阻塞队列。  ==**
+**==一句话总结: 由链表组成的无界阻塞队列==**
 
-####   9.4.7 LinkedBlockingDeque  
+####   9.4.7 LinkedBlockingDeque
 
 LinkedBlockingDeque 是一个由链表结构组成的双向阻塞队列，即可以从队列的两端插入和移除元素。
 
@@ -1796,9 +1796,9 @@ LinkedBlockingDeque 是一个由链表结构组成的双向阻塞队列，即可
 
 - 读取元素时: 如果当前队列为空会阻塞住直到队列不为空然后返回元素，同样可以通过设置超时参数
 
-**==  一句话总结: 由链表组成的双向阻塞队列  ==**
+**==一句话总结: 由链表组成的双向阻塞队列==**
 
-###   9.5 小结  
+###   9.5 小结
 
 1. **在多线程领域：所谓阻塞，在某些情况下会挂起线程（即阻塞），一旦条件满足，被挂起的线程又会自动被唤起**  
 
@@ -1852,7 +1852,7 @@ LinkedBlockingDeque 是一个由链表结构组成的双向阻塞队列，即可
 
 总结起来，也就是一句话，**当提交的任务数大于（workQueue.size() +   maximumPoolSize ），就会触发线程池的拒绝策略  。**
 
-####   10.2.2 拒绝策略(重点)  
+####   10.2.2 拒绝策略(重点)
 
   **CallerRunsPolicy**  : 当触发拒绝策略，只要线程池没有关闭的话，则使用**调用线程**直接运行任务。一般并发比较小，性能要求不高，不允许失败。但是，由于调用者自己运行任务，如果任务提交速度过快，可能导致程序阻塞，性能效率上必然的损失较大
 
@@ -1984,15 +1984,14 @@ public static ExecutorService newSingleThreadExecutor(){
   创建方式:  
 
 ```java
-public static ScheduledExecutorService newScheduledThreadPool(int
-                                                              corePoolSize, ThreadFactory threadFactory) {
+public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize, ThreadFactory threadFactory) {
     return new ScheduledThreadPoolExecutor(corePoolSize, threadFactory);
 }
 ```
 
   场景:   适用于需要多个后台线程执行周期任务的场景
 
-####   10.3.5 newWorkStealingPool  
+####   10.3.5 newWorkStealingPool
 
 jdk1.8 提供的线程池，底层使用的是 ForkJoinPool 实现，创建一个拥有多个任务队列的线程池，可以减少连接数，创建当前可用 cpu 核数的线程来并行执行任务
 
@@ -2077,13 +2076,13 @@ public class ThreadPoolDemo1 {
 
     2.4 如果队列满了且正在运行的线程数量大于或等于 maximumPoolSize，那么线程池会启动饱和拒绝策略来执行。
 
-3. 当一个线程完成任务时，它会从队列中取下一个任务来执行
+3. 当一个线程完成任务时，它会从**队列**中**取下一个任务**来执行
 
 4. 当一个线程无事可做超过一定的时间（keepAliveTime）时，线程会判断：
 
-   4.1 如果当前运行的线程数大于 corePoolSize，那么这个线程就被停掉。
+   4.1 如果**当前运行的线程数大于 corePoolSize**，那么这个线程就被停掉。
 
-   4.2 所以线程池的所有任务完成后，它最终会收缩到 corePoolSize 的大小。  
+   **4.2 所以线程池的所有任务完成后，它最终会收缩到 corePoolSize 的大小。**  
    
    ![image-20220418111324714](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071106827.png)
 
@@ -2105,7 +2104,7 @@ public class ThreadPoolDemo1 {
 
 ![image-20220418111345105](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071109228.png)
 
-##   11 Fork/Join   
+##   11 Fork/Join
 
 ###   11.1 Fork/Join 框架简介  
 
