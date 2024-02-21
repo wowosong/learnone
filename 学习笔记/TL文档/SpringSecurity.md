@@ -484,11 +484,7 @@ public class TestData {
 
     public UserBean qeryUser(UserBean user){
         List<UserBean> allUser = this.getAllUser();
-        List<UserBean> userList = allUser.stream().filter(userBean ->
-                userBean.getUserName().equals(user.getUserPass())
-                        && userBean.getUserPass().equals(user.getUserPass())
-        ).collect(Collectors.toList());
-
+        List<UserBean> userList = allUser.stream().filter(userBean ->                                                        userBean.getUserName().equals(user.getUserPass()) && userBean.getUserPass().equals(user.getUserPass())).collect(Collectors.toList());
         return userList.size()>0?userList.get(0):null;
     }
 }
@@ -574,10 +570,10 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             UserBean currentUser = (UserBean) request.getSession().getAttribute(MyConstants.FLAG_CURRENTUSER);
             //3、已登录用户，判断是否有资源访问权限
             if (requestURI.startsWith("/"+MyConstants.RESOURCE_MOBILE+"/")
-                    && currentUser.havaPermission(MyConstants.RESOURCE_MOBILE)) {
+                && currentUser.havaPermission(MyConstants.RESOURCE_MOBILE)) {
                 return true;
             } else if (requestURI.startsWith("/"+MyConstants.RESOURCE_SALARY+"/")
-                    && currentUser.havaPermission(MyConstants.RESOURCE_SALARY)) {
+                       && currentUser.havaPermission(MyConstants.RESOURCE_SALARY)) {
                 return true;
             } else {
                 response.setCharacterEncoding("UTF-8");
@@ -801,16 +797,16 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //链式配置拦截策略
         http.csrf().disable()//关闭csrf跨域检查
-                .authorizeRequests()
-                .antMatchers("/mobile/**").hasAuthority("mobile") //配置资源权限
-                .antMatchers("/salary/**").hasAuthority("salary")
-                .antMatchers("/common/**").permitAll() //common下的请求直接通过
-                .anyRequest().authenticated() //其他请求需要登录
-                .and() //并行条件
+            .authorizeRequests()
+            .antMatchers("/mobile/**").hasAuthority("mobile") //配置资源权限
+            .antMatchers("/salary/**").hasAuthority("salary")
+            .antMatchers("/common/**").permitAll() //common下的请求直接通过
+            .anyRequest().authenticated() //其他请求需要登录
+            .and() //并行条件
             .formLogin()
-          .defaultSuccessUrl("/main.html")
-          .failureUrl("/common/loginFailed"); 
-      //可从默认的login页面登录，并且登录后跳转到main.html
+            .defaultSuccessUrl("/main.html")
+            .failureUrl("/common/loginFailed"); 
+        //可从默认的login页面登录，并且登录后跳转到main.html
     }
 }
 
@@ -1105,14 +1101,14 @@ public interface PasswordEncoder {、
 
 ```java
 http.csrf().disable()//关闭csrf跨域检查
-        //这里注意matchers是有顺序的。
-        .authorizeRequests()
-        .antMatchers("/mobile/**").hasAuthority("mobile")
-        .antMatchers("/salary/**").hasAuthority("salary")
-        .antMatchers("/common/**").permitAll() //common下的请求直接通过
-        .anyRequest().authenticated() //其他请求需要登录
-        .and() //并行条件
-        .formLogin().defaultSuccessUrl("/main.html").failureUrl("/common/loginFailed");
+    //这里注意matchers是有顺序的。
+    .authorizeRequests()
+    .antMatchers("/mobile/**").hasAuthority("mobile")
+    .antMatchers("/salary/**").hasAuthority("salary")
+    .antMatchers("/common/**").permitAll() //common下的请求直接通过
+    .anyRequest().authenticated() //其他请求需要登录
+    .and() //并行条件
+    .formLogin().defaultSuccessUrl("/main.html").failureUrl("/common/loginFailed");
 ```
 
 3、**最后**，FilterSecurityInterceptor会调用 AccessDecisionManager **进行授权决策，若决策通过，则允许访问资源，否则将禁止访问。**
@@ -1152,16 +1148,16 @@ AccessDecisionVoter是一个接口，定义了三个方法
 
 ```java
 public interface AccessDecisionVoter<S> {
-   int ACCESS_GRANTED = 1;
-   int ACCESS_ABSTAIN = 0;
-   int ACCESS_DENIED = -1;
+    int ACCESS_GRANTED = 1;
+    int ACCESS_ABSTAIN = 0;
+    int ACCESS_DENIED = -1;
 
-   boolean supports(ConfigAttribute attribute);
+    boolean supports(ConfigAttribute attribute);
 
-   boolean supports(Class<?> clazz);
+    boolean supports(Class<?> clazz);
 
-   int vote(Authentication authentication, S object,
-         Collection<ConfigAttribute> attributes);
+    int vote(Authentication authentication, S object,
+             Collection<ConfigAttribute> attributes);
 }
 ```
 
@@ -1201,7 +1197,7 @@ Spring Security内置了三个基于投票的实现类，分别是AffirmativeBas
 @Bean
 public AccessDecisionManager accessDecisionManager() {
     List<AccessDecisionVoter<? extends Object>> decisionVoters 
-      = Arrays.asList(
+        = Arrays.asList(
         new WebExpressionVoter(),
         new RoleVoter(),
         new AuthenticatedVoter(),

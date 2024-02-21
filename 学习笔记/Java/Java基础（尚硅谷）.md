@@ -42,36 +42,35 @@
 第一代：机器语言
 第二代：汇编语言
 第三代：高级语言
-
-> 面向过程：C,Pascal、Fortran
-> 面向对象：Java,JS,Python,Scala,...
-> 3.Java语言版本迭代概述
-> 1991年 Green项目，开发语言最初命名为Oak (橡树)
-> 1994年，开发组意识到Oak 非常适合于互联网
-> 1996年，发布JDK 1.0，约8.3万个网页应用Java技术来制作
-> 1997年，发布JDK 1.1，JavaOne会议召开，创当时全球同类会议规模之最
-> 1998年，发布JDK 1.2，同年发布企业平台J2EE
-> 1999年，Java分成J2SE、J2EE和J2ME，JSP/Servlet技术诞生
-> 2004年，发布里程碑式版本：JDK 1.5，为突出此版本的重要性，更名为JDK 5.0
-> 2005年，J2SE -> JavaSE，J2EE -> JavaEE，J2ME -> JavaME
-> 2009年，Oracle公司收购SUN，交易价格74亿美元
-> 2011年，发布JDK 7.0
-> 2014年，发布JDK 8.0，是继JDK 5.0以来变化最大的版本
-> 2017年，发布JDK 9.0，最大限度实现模块化
-> 2018年3月，发布JDK 10.0，版本号也称为18.3
-> 2018年9月，发布JDK 11.0，版本号也称为18.9
+\> 面向过程：C,Pascal、Fortran
+\> 面向对象：Java,JS,Python,Scala,...
+3.Java语言版本迭代概述
+\> 1991年 Green项目，开发语言最初命名为Oak (橡树)
+\> 1994年，开发组意识到Oak 非常适合于互联网
+\> 1996年，发布JDK 1.0，约8.3万个网页应用Java技术来制作
+\> 1997年，发布JDK 1.1，JavaOne会议召开，创当时全球同类会议规模之最
+\> 1998年，发布JDK 1.2，同年发布企业平台J2EE
+\> 1999年，Java分成J2SE、J2EE和J2ME，JSP/Servlet技术诞生
+\> 2004年，发布里程碑式版本：JDK 1.5，为突出此版本的重要性，更名为JDK 5.0
+\> 2005年，J2SE -> JavaSE，J2EE -> JavaEE，J2ME -> JavaME
+\> 2009年，Oracle公司收购SUN，交易价格74亿美元
+\> 2011年，发布JDK 7.0
+\> 2014年，发布JDK 8.0，是继JDK 5.0以来变化最大的版本
+\> 2017年，发布JDK 9.0，最大限度实现模块化
+\> 2018年3月，发布JDK 10.0，版本号也称为18.3
+\> 2018年9月，发布JDK 11.0，版本号也称为18.9
 
 4.Java语言应用的领域：
->Java Web开发：后台开发
->大数据开发：
->Android应用程序开发：客户端开发
->5.Java语言的特点
->面向对象性：
->两个要素：类、对象
->三个特征：封装、继承、多态
->健壮性：① 去除了C语言中的指针 ②自动的垃圾回收机制 -->仍然会出现内存溢出、内存泄漏
->跨平台型：write once,run anywhere:一次编译，到处运行
->功劳归功于：JVM
+\>Java Web开发：后台开发
+\>大数据开发：
+\>Android应用程序开发：客户端开发
+5.Java语言的特点
+\>面向对象性：
+\>两个要素：类、对象
+\>三个特征：封装、继承、多态
+\>健壮性：① 去除了C语言中的指针 ②自动的垃圾回收机制 -->仍然会出现内存溢出、内存泄漏
+\>跨平台型：write once,run anywhere:一次编译，到处运行
+\>功劳归功于：JVM
 
 ![image-20211214151743391](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312071446119.png)
 
@@ -82,16 +81,24 @@
 
 ![image-20211214151813910](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312071449211.png)
 
-
 1.2 JDK的下载、安装
+
 下载：官网，github
+
 安装：傻瓜式安装：JDK 、JRE
+
    注意问题：安装软件的路径中不能包含中文、空格。
 
 1.3 path环境变量的配置
+
+
+
 1.3.1 为什么配置path环境变量？
+
 path环境变量：windows操作系统执行命令时所要搜寻的路径
+
 为什么要配置path:希望java的开发工具（javac.exe,java.exe)在任何的文件路径下都可以执行成功。
+
 1.3.2 如何配置？
 
 ![image-20211214151842473](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202312071449498.png)
@@ -114,8 +121,11 @@ class HelloChina{
 ```
 
 1.2 编译：
+
 javac HelloWorld.java
+
 1.3 运行：
+
 java HelloChina
 
 2.常见问题的解决
@@ -127,8 +137,11 @@ java HelloChina
 3.总结第一个程序
 
 1. java程序编写-编译-运行的过程
+
     编写：我们将编写的java代码保存在以".java"结尾的源文件中
+
     编译：使用javac.exe命令编译我们的java源文件。格式：javac 源文件名.java
+
     运行：使用java.exe命令解释运行我们的字节码文件。 格式：java 类名
 
 2. 在一个java源文件中可以声明多个class。但是，只能最多有一个类声明为public的。

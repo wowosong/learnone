@@ -56,9 +56,9 @@ Apache 旗下的轻量级权限控制框架。特点：
 
 ⚫ 通用性。
 
-​		◼好处：不局限于 Web 环境，可以脱离 Web 环境使用。
+​	◼好处：不局限于 Web 环境，可以脱离 Web 环境使用。
 
-​		◼缺陷：在 Web 环境下一些特定的需求需要手动编写代码定制。
+​	◼缺陷：在 Web 环境下一些特定的需求需要手动编写代码定制。
 
 Spring Security 是 Spring 家族中的一个安全管理框架，实际上，在 Spring Boot 出现之前，Spring Security 就已经发展了多年了，但是使用的并不多，安全管理这个领域，一直是 Shiro 的天下。
 
@@ -104,16 +104,16 @@ Pom.xml
 ```
 
 ```java
-添加一个配置类：
+//添加一个配置类：
 @Configuration
 public class WebMvcConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.formLogin() // 表单登录
-                .and()
-                .authorizeRequests() // 认证配置
-                .anyRequest() // 任何请求
-                .authenticated(); // 都需要身份验证
+            .and()
+            .authorizeRequests() // 认证配置
+            .anyRequest() // 任何请求
+            .authenticated(); // 都需要身份验证
     }
 }
 ```
@@ -211,25 +211,25 @@ org.springframework.security.web.access.intercept.FilterSecurityInterceptor
 
 ```java
 public void invoke(FilterInvocation filterInvocation) throws IOException， ServletException {
-		if (isApplied(filterInvocation) && this.observeOncePerRequest) {
-			// filter already applied to this request and user wants us to observe
-			// once-per-request handling， so don't re-do security checking
-			filterInvocation.getChain().doFilter(filterInvocation.getRequest()， filterInvocation.getResponse());
-			return;
-		}
-		// first time this request being called， so perform security checking
-		if (filterInvocation.getRequest() != null && this.observeOncePerRequest) {
-			filterInvocation.getRequest().setAttribute(FILTER_APPLIED， Boolean.TRUE);
-		}
-		InterceptorStatusToken token = super.beforeInvocation(filterInvocation);
-		try {
-			filterInvocation.getChain().doFilter(filterInvocation.getRequest()， filterInvocation.getResponse());
-		}
-		finally {
-			super.finallyInvocation(token);
-		}
-		super.afterInvocation(token， null);
-	}
+    if (isApplied(filterInvocation) && this.observeOncePerRequest) {
+        // filter already applied to this request and user wants us to observe
+        // once-per-request handling， so don't re-do security checking
+        filterInvocation.getChain().doFilter(filterInvocation.getRequest()， filterInvocation.getResponse());
+        return;
+    }
+    // first time this request being called， so perform security checking
+    if (filterInvocation.getRequest() != null && this.observeOncePerRequest) {
+        filterInvocation.getRequest().setAttribute(FILTER_APPLIED， Boolean.TRUE);
+    }
+    InterceptorStatusToken token = super.beforeInvocation(filterInvocation);
+    try {
+        filterInvocation.getChain().doFilter(filterInvocation.getRequest()， filterInvocation.getResponse());
+    }
+    finally {
+        super.finallyInvocation(token);
+    }
+    super.afterInvocation(token， null);
+}
 ```
 
 super.beforeInvocation(fi) 表示查看之前的 filter 是否通过。
@@ -240,32 +240,32 @@ filterInvocation.getChain().doFilter(filterInvocation.getRequest()， filterInvo
 
 ```java
 private void doFilter(HttpServletRequest request， HttpServletResponse response， FilterChain chain)
-			throws IOException， ServletException {
-		try {
-			chain.doFilter(request， response);
-		}
-		catch (IOException ex) {
-			throw ex;
-		}
-		catch (Exception ex) {
-			// Try to extract a SpringSecurityException from the stacktrace
-			Throwable[] causeChain = this.throwableAnalyzer.determineCauseChain(ex);
-			RuntimeException securityException = (AuthenticationException) this.throwableAnalyzer
-					.getFirstThrowableOfType(AuthenticationException.class， causeChain);
-			if (securityException == null) {
-				securityException = (AccessDeniedException) this.throwableAnalyzer
-						.getFirstThrowableOfType(AccessDeniedException.class， causeChain);
-			}
-			if (securityException == null) {
-				rethrow(ex);
-			}
-			if (response.isCommitted()) {
-				throw new ServletException("Unable to handle the Spring Security Exception "
-						+ "because the response is already committed."， ex);
-			}
-			handleSpringSecurityException(request， response， chain， securityException);
-		}
-	}
+    throws IOException， ServletException {
+    try {
+        chain.doFilter(request， response);
+    }
+    catch (IOException ex) {
+        throw ex;
+    }
+    catch (Exception ex) {
+        // Try to extract a SpringSecurityException from the stacktrace
+        Throwable[] causeChain = this.throwableAnalyzer.determineCauseChain(ex);
+        RuntimeException securityException = (AuthenticationException) this.throwableAnalyzer
+            .getFirstThrowableOfType(AuthenticationException.class， causeChain);
+        if (securityException == null) {
+            securityException = (AccessDeniedException) this.throwableAnalyzer
+                .getFirstThrowableOfType(AccessDeniedException.class， causeChain);
+        }
+        if (securityException == null) {
+            rethrow(ex);
+        }
+        if (response.isCommitted()) {
+            throw new ServletException("Unable to handle the Spring Security Exception "
+                                       + "because the response is already committed."， ex);
+        }
+        handleSpringSecurityException(request， response， chain， securityException);
+    }
+}
 
 ```
 
@@ -274,20 +274,20 @@ private void doFilter(HttpServletRequest request， HttpServletResponse response
 ```java
 @Override
 public Authentication attemptAuthentication(HttpServletRequest request， HttpServletResponse response)
-			throws AuthenticationException {
-		if (this.postOnly && !request.getMethod().equals("POST")) {
-			throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
-		}
-		String username = obtainUsername(request);
-		username = (username != null) ? username : "";
-		username = username.trim();
-		String password = obtainPassword(request);
-		password = (password != null) ? password : "";
-		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username， password);
-		// Allow subclasses to set the "details" property
-		setDetails(request， authRequest);
-		return this.getAuthenticationManager().authenticate(authRequest);
-	}
+    throws AuthenticationException {
+    if (this.postOnly && !request.getMethod().equals("POST")) {
+        throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
+    }
+    String username = obtainUsername(request);
+    username = (username != null) ? username : "";
+    username = username.trim();
+    String password = obtainPassword(request);
+    password = (password != null) ? password : "";
+    UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username， password);
+    // Allow subclasses to set the "details" property
+    setDetails(request， authRequest);
+    return this.getAuthenticationManager().authenticate(authRequest);
+}
 ```
 
 ![image-20211202214233710](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090921182.png)
@@ -300,17 +300,17 @@ public Authentication attemptAuthentication(HttpServletRequest request， HttpSe
 
 ```java
 /**
-	 * Locates the user based on the username. In the actual implementation， the search
-	 * may possibly be case sensitive， or case insensitive depending on how the
-	 * implementation instance is configured. In this case， the <code>UserDetails</code>
-	 * object that comes back may have a username that is of a different case than what
-	 * was actually requested..
-	 * @param username the username identifying the user whose data is required.
-	 * @return a fully populated user record (never <code>null</code>)
-	 * @throws UsernameNotFoundException if the user could not be found or the user has no
-	 * GrantedAuthority
-	 */
-	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+ * Locates the user based on the username. In the actual implementation， the search
+ * may possibly be case sensitive， or case insensitive depending on how the
+ * implementation instance is configured. In this case， the <code>UserDetails</code>
+ * object that comes back may have a username that is of a different case than what
+ * was actually requested..
+ * @param username the username identifying the user whose data is required.
+ * @return a fully populated user record (never <code>null</code>)
+ * @throws UsernameNotFoundException if the user could not be found or the user has no
+ * GrantedAuthority
+ */
+UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 ```
 
 ```
@@ -378,17 +378,17 @@ BCryptPasswordEncoder 是对 bcrypt 强散列方法的具体实现。是基于 H
 ```java
 @Test
 public void test01(){
-  // 创建密码解析器
-  BCryptPasswordEncoder bCryptPasswordEncoder = new 
-  BCryptPasswordEncoder();
-  // 对密码进行加密
-  String atguigu = bCryptPasswordEncoder.encode("atguigu");
-  // 打印加密之后的数据
-  System.out.println("加密之后数据：\t"+atguigu);
-  //判断原字符加密后和加密之前是否匹配
-  boolean result = bCryptPasswordEncoder.matches("atguigu"， atguigu);
-  // 打印比较结果
-  System.out.println("比较结果：\t"+result);
+    // 创建密码解析器
+    BCryptPasswordEncoder bCryptPasswordEncoder = new 
+        BCryptPasswordEncoder();
+    // 对密码进行加密
+    String atguigu = bCryptPasswordEncoder.encode("atguigu");
+    // 打印加密之后的数据
+    System.out.println("加密之后数据：\t"+atguigu);
+    //判断原字符加密后和加密之前是否匹配
+    boolean result = bCryptPasswordEncoder.matches("atguigu"， atguigu);
+    // 打印比较结果
+    System.out.println("比较结果：\t"+result);
 }
 ```
 
@@ -438,7 +438,7 @@ public class LoginService implements UserDetailsService {
         List<GrantedAuthority> list=AuthorityUtils.commaSeparatedStringToAuthorityList("admin");
         // 第三个参数表示权限
         return new User("wowosong"， new BCryptPasswordEncoder().encode("123456")，
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+                        AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
 }
 ```
@@ -467,38 +467,38 @@ public class SecurityDefintion  extends WebSecurityConfigurerAdapter {
 
 ```sql
 create table users(
-  id bigint primary key auto_increment,
-  username varchar(20) unique not null,
-  password varchar(100)
+    id bigint primary key auto_increment,
+    username varchar(20) unique not null,
+    password varchar(100)
 );
 -- 密码 atguigu
 insert into users values(1，'san','$2a$10$2R/M6iU3mCZt3ByG7kwYTeeW0w7/UqdeXrb27zkBIizBvAven0/na');
 -- 密码 atguigu
 insert into users values(2，'si','$2a$10$2R/M6iU3mCZt3ByG7kwYTeeW0w7/UqdeXrb27zkBIizBvAven0/na');
 create table role(
-  id bigint primary key auto_increment,
-  name varchar(20)
+    id bigint primary key auto_increment,
+    name varchar(20)
 );
 insert into role values(1，'管理员');
 insert into role values(2，'普通用户');
 create table role_user(
-  uid bigint,
-  rid bigint
+    uid bigint,
+    rid bigint
 );
 insert into role_user values(1，1);
 insert into role_user values(2，2);
 create table menu(
-  id bigint primary key auto_increment，
-  name varchar(20),
-  url varchar(100),
-  parentid bigint,
-  permission varchar(20)
+    id bigint primary key auto_increment，
+    name varchar(20),
+    url varchar(100),
+    parentid bigint,
+    permission varchar(20)
 );
 insert into menu values(1,'系统管理','',0，'menu:system');
 insert into menu values(2,'用户管理','',0，'menu:user');
 create table role_menu(
-  mid bigint,
-  rid bigint
+    mid bigint,
+    rid bigint
 );
 insert into role_menu values(1,1);
 insert into role_menu values(2,1);
@@ -509,28 +509,28 @@ insert into role_menu values(2,2);
 
 ```xml
 <dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-test</artifactId>
-  <version>2.5.6</version>
-  <scope>test</scope>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <version>2.5.6</version>
+    <scope>test</scope>
 </dependency>
 <!--mybatis-plus-->
 <dependency>
-  <groupId>com.baomidou</groupId>
-  <artifactId>mybatis-plus-boot-starter</artifactId>
-  <version>3.4.0</version>
+    <groupId>com.baomidou</groupId>
+    <artifactId>mybatis-plus-boot-starter</artifactId>
+    <version>3.4.0</version>
 </dependency>
 <!--mysql-->
 <dependency>
-  <groupId>mysql</groupId>
-  <artifactId>mysql-connector-java</artifactId>
-  <version>5.1.30</version>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>5.1.30</version>
 </dependency>
 <!--lombok 用来简化实体类-->
 <dependency>
-  <groupId>org.projectlombok</groupId>
-  <artifactId>lombok</artifactId>
-  <version>1.18.20</version>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.20</version>
 </dependency>
 ```
 
@@ -551,10 +551,9 @@ public class Users {
 #### **3.2.4** **整合** **MybatisPlus** **制作** **mapper**
 
 ```java
-
 @Repository
 public interface UserMapper extends BaseMapper<Users> {
-  
+
 }
 ```
 
@@ -575,18 +574,18 @@ public class MyUserDetailsService implements UserDetailsService {
     private UsersMapper usersMapper;
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-      QueryWrapper<Users> wrapper = new QueryWrapper();
-      wrapper.eq("username",s);
-      Users users = usersMapper.selectOne(wrapper);
-      if(users == null) {
-      	throw new UsernameNotFoundException("用户名不存在！");
-      }
-      System.out.println(users);
-      List<GrantedAuthority> auths =
-      AuthorityUtils.commaSeparatedStringToAuthorityList("role");
-return new User(users.getUsername()
-                newBCryptPasswordEncoder().encode(users.getPassword()),auths);
-	} 
+        QueryWrapper<Users> wrapper = new QueryWrapper();
+        wrapper.eq("username",s);
+        Users users = usersMapper.selectOne(wrapper);
+        if(users == null) {
+            throw new UsernameNotFoundException("用户名不存在！");
+        }
+        System.out.println(users);
+        List<GrantedAuthority> auths =
+            AuthorityUtils.commaSeparatedStringToAuthorityList("role");
+        return new User(users.getUsername()
+                        newBCryptPasswordEncoder().encode(users.getPassword()),auths);
+    } 
 }
 ```
 
@@ -600,8 +599,8 @@ return new User(users.getUsername()
 
 ```xml
 <dependency> 
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-thymeleaf</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-thymeleaf</artifactId>
 </dependency>
 ```
 
@@ -614,15 +613,15 @@ return new User(users.getUsername()
 ```java
 @Controller
 public class IndexController {
-  @GetMapping("index")
-  public String index(){
-  	return "login";
+    @GetMapping("index")
+    public String index(){
+        return "login";
     }
-  @GetMapping("findAll")
-  @ResponseBody
-  public String findAll(){
-  	return "findAll";
-  }
+    @GetMapping("findAll")
+    @ResponseBody
+    public String findAll(){
+        return "findAll";
+    }
 }
 ```
 
@@ -631,14 +630,14 @@ public class IndexController {
 ```java
 @Override
 protected void configure(HttpSecurity http) throws Exception {
-  http.formLogin()//自己定义的登录页面
-  .loginPage("/login.html")//登录页面
-  .loginProcessingUrl("/user/login")//登录访问路径
-  .defaultSuccessUrl("/test/index").permitAll()//登录成功后，跳转路径
-  .and().authorizeRequests()
-  .antMatchers("/"， "/test/hello"， "/user/login").permitAll()
-  .anyRequest().authenticated()
-  .and().csrf().disable();
+    http.formLogin()//自己定义的登录页面
+        .loginPage("/login.html")//登录页面
+        .loginProcessingUrl("/user/login")//登录访问路径
+        .defaultSuccessUrl("/test/index").permitAll()//登录成功后，跳转路径
+        .and().authorizeRequests()
+        .antMatchers("/"， "/test/hello"， "/user/login").permitAll()
+        .anyRequest().authenticated()
+        .and().csrf().disable();
 }
 ```
 
@@ -647,37 +646,39 @@ protected void configure(HttpSecurity http) throws Exception {
 ```java
 @Override
 protected void configure(HttpSecurity http) throws Exception {
-  // 配置认证
-  http.formLogin()
-  .loginPage("/index") // 配置哪个 url 为登录页面
-  .loginProcessingUrl("/login") // 设置哪个是登录的 url。
-  .successForwardUrl("/success") // 登录成功之后跳转到哪个 url
-  .failureForwardUrl("/fail");// 登录失败之后跳转到哪个 url
-  
-  http.authorizeRequests()
-  .antMatchers("/layui/**"，"/index") //表示配置请求路径
-  .permitAll() // 指定 URL 无需保护。
-  .anyRequest() // 其他请求
-  .authenticated(); //需要认证
-  // 关闭 csrf
-  http.csrf().disable();
+    // 配置认证
+    http.formLogin()
+        .loginPage("/index") // 配置哪个 url 为登录页面
+        .loginProcessingUrl("/login") // 设置哪个是登录的 url。
+        .successForwardUrl("/success") // 登录成功之后跳转到哪个 url
+        .failureForwardUrl("/fail");// 登录失败之后跳转到哪个 url
+
+    http.authorizeRequests()
+        .antMatchers("/layui/**"，"/index") //表示配置请求路径
+        .permitAll() // 指定 URL 无需保护。
+        .anyRequest() // 其他请求
+        .authenticated(); //需要认证
+    // 关闭 csrf
+    http.csrf().disable();
 }
 ```
 
 ```java
-控制器
+//控制器
 @PostMapping("/success")
 public String success(){
-	return "success"; 
+    return "success"; 
 }
 @PostMapping("/fail")
 public String fail(){
-	return "fail";
+    return "fail";
 }
+```
+```html
 <form action="/login"method="post">
-用户名:<input type="text"name="username"/><br/>
-密码：<input type="password"name="password"/><br/>
-<input type="submit"value="提交"/>
+    用户名:<input type="text"name="username"/><br/>
+    密码：<input type="password"name="password"/><br/>
+    <input type="submit"value="提交"/>
 </form>
 ```
 
@@ -693,9 +694,9 @@ username，password
 
 ```html
 <form action="/login"method="post">
-用户名:<input type="text"name="loginAcct"/><br/>
-密码：<input type="password"name="userPswd"/><br/>
-<input type="submit"value="提交"/>
+    用户名:<input type="text"name="loginAcct"/><br/>
+    密码：<input type="password"name="userPswd"/><br/>
+    <input type="submit"value="提交"/>
 </form>
 ```
 
@@ -711,23 +712,23 @@ username，password
 
 ```java
 http.formLogin()//自己定义的登录页面
-                .loginPage("/login")//登录页面
-                .loginProcessingUrl("/login")//登录访问路径
-                //.successForwardUrl("/success")//登录成功后，跳转路径
-                .failureForwardUrl("/login")
-                .defaultSuccessUrl("/success").permitAll()//登录成功后，跳转路径
-                .and().authorizeRequests()
-                .antMatchers("success").hasAnyRole("role")
-                .antMatchers("/index").hasAnyRole("admin")
-                .antMatchers("/"，"hello"， "/login").permitAll()
-                .anyRequest().authenticated()
-                .and().csrf().disable();
+    .loginPage("/login")//登录页面
+    .loginProcessingUrl("/login")//登录访问路径
+    //.successForwardUrl("/success")//登录成功后，跳转路径
+    .failureForwardUrl("/login")
+    .defaultSuccessUrl("/success").permitAll()//登录成功后，跳转路径
+    .and().authorizeRequests()
+    .antMatchers("success").hasAnyRole("role")
+    .antMatchers("/index").hasAnyRole("admin")
+    .antMatchers("/"，"hello"， "/login").permitAll()
+    .anyRequest().authenticated()
+    .and().csrf().disable();
 ```
 
 ⚫ 给用户登录主体赋予权限
 
 ```java
- // 第三个参数表示权限
+// 第三个参数表示权限
 return new User(users.getUsername()， new BCryptPasswordEncoder().encode(users.getPassword())，
                 AuthorityUtils.commaSeparatedStringToAuthorityList("role"));
 ```
@@ -749,19 +750,19 @@ true.
 访问 http://localhost:8080/index
 
 ```java
- http.formLogin()//自己定义的登录页面
-                .loginPage("/login")//登录页面
-                .loginProcessingUrl("/login")//登录访问路径
-                //.successForwardUrl("/success")//登录成功后，跳转路径
-                .failureForwardUrl("/login")
-                .defaultSuccessUrl("/success").permitAll()//登录成功后，跳转路径
-                .and().authorizeRequests()
-                .antMatchers("success").hasAnyRole("role")
-                .antMatchers("/index").hasAnyAuthority("role"，"admin")
-                .antMatchers("/"，"hello"， "/login").permitAll()
-                .anyRequest().authenticated()
-                .and().csrf().disable();
-    }
+http.formLogin()//自己定义的登录页面
+    .loginPage("/login")//登录页面
+    .loginProcessingUrl("/login")//登录访问路径
+    //.successForwardUrl("/success")//登录成功后，跳转路径
+    .failureForwardUrl("/login")
+    .defaultSuccessUrl("/success").permitAll()//登录成功后，跳转路径
+    .and().authorizeRequests()
+    .antMatchers("success").hasAnyRole("role")
+    .antMatchers("/index").hasAnyAuthority("role"，"admin")
+    .antMatchers("/"，"hello"， "/login").permitAll()
+    .anyRequest().authenticated()
+    .and().csrf().disable();
+}
 ```
 
 **3.4.3 hasRole** **方法**
@@ -807,9 +808,9 @@ return new User(users.getUsername()， new BCryptPasswordEncoder().encode(users.
 http.exceptionHandling().accessDeniedPage("/unauth");
 
 @GetMapping("/unauth")
-    public String accessDenyPage() {
-        return "unauth";
-    }
+public String accessDenyPage() {
+    return "unauth";
+}
 ```
 
 ### **3.6** **基于数据库实现权限认证**
@@ -822,12 +823,12 @@ http.exceptionHandling().accessDeniedPage("/unauth");
 
 ```sql
 CREATE TABLE `persistent_logins` (
-`username` varchar(64) NOT NULL，
-`series` varchar(64) NOT NULL，
-`token` varchar(64) NOT NULL，
-`last_used` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE 
-CURRENT_TIMESTAMP，
-PRIMARY KEY (`series`)
+    `username` varchar(64) NOT NULL，
+    `series` varchar(64) NOT NULL，
+    `token` varchar(64) NOT NULL，
+    `last_used` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE 
+    CURRENT_TIMESTAMP，
+    PRIMARY KEY (`series`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
@@ -1191,7 +1192,7 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
     public TokenWebSecurityConfig(UserDetailsService userDetailsService，
                                   DefaultPasswordEncoder defaultPasswordEncoder，
                                   TokenManager tokenManager， RedisTemplate
-                                          redisTemplate) {
+                                  redisTemplate) {
         this.userDetailsService = userDetailsService;
         this.defaultPasswordEncoder = defaultPasswordEncoder;
         this.tokenManager = tokenManager;
@@ -1201,22 +1202,22 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 配置设置
      */
-		//设置退出的地址和 token， redis 操作地址
+    //设置退出的地址和 token， redis 操作地址
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.exceptionHandling()
-                .authenticationEntryPoint(new UnauthorizedEntryPoint())
-                .and().csrf().disable()
-                .authorizeRequests()
-                .anyRequest().authenticated()
-                .and().logout().logoutUrl("/admin/acl/index/logout")
-                .addLogoutHandler(new
-                        TokenLogoutHandler(tokenManager， redisTemplate)).and()
-                .addFilter(new TokenLoginFilter(authenticationManager()，
-                        tokenManager， redisTemplate))
-                .addFilter(new
-                        TokenAuthenticationFilter(authenticationManager()， tokenManager，
-                        redisTemplate)).httpBasic();
+            .authenticationEntryPoint(new UnauthorizedEntryPoint())
+            .and().csrf().disable()
+            .authorizeRequests()
+            .anyRequest().authenticated()
+            .and().logout().logoutUrl("/admin/acl/index/logout")
+            .addLogoutHandler(new
+                              TokenLogoutHandler(tokenManager， redisTemplate)).and()
+            .addFilter(new TokenLoginFilter(authenticationManager()，
+                                            tokenManager， redisTemplate))
+            .addFilter(new
+                       TokenAuthenticationFilter(authenticationManager()， tokenManager，
+                                                 redisTemplate)).httpBasic();
     }
 
     /**
@@ -1226,7 +1227,7 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(defaultPasswordEnc
-                oder);
+                                                                    oder);
     }
 
     /**
@@ -1235,8 +1236,8 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/api/**"， "/swagger-ui.html/**);
-    }
-}
+                                   }
+                                   }
 ```
 
 #### 4.4.2 创建认证授权相关的工具类  
@@ -1293,8 +1294,8 @@ public class TokenManager {
     //根据用户名生成token
     public String createToken(String username) {
         String token = Jwts.builder().setSubject(username).setExpiration(new Date(System.currentTimeMillis() + tokenExpiration))
-                .signWith(SignatureAlgorithm.HS512，
-                        tokenSignKey).compressWith(CompressionCodecs.GZIP).compact();
+            .signWith(SignatureAlgorithm.HS512，
+                      tokenSignKey).compressWith(CompressionCodecs.GZIP).compact();
         return token;
     }
 
@@ -1634,7 +1635,9 @@ UsernamePasswordAuthenticationToken 实现的 eraseCredentials() 方法，该方
 
 #### 5.3.3 认证成功/失败处理
 
-上述过程就是认证流程的最核心部分，接下来重新回到UsernamePasswordAuthenticationFilter 过滤器的 doFilter() 方法，查看认证成功/失败的处理：  ![image-20220111125452384](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927139.png)
+上述过程就是认证流程的最核心部分，接下来重新回到UsernamePasswordAuthenticationFilter 过滤器的 doFilter() 方法，查看认证成功/失败的处理： 
+
+ ![image-20220111125452384](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090927139.png)
 
 ![image-20220111125500092](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401090928840.png)
 

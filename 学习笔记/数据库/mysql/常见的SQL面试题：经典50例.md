@@ -1266,10 +1266,10 @@ select st.learnNo,st.`name`,sc.courseNo, cc.courseName from student st left join
 -- 考察case表达式
 select 课程号,
 sum(case when 成绩>=60 then 1 
-  else 0 
+    else 0 
     end) as 及格人数,
 sum(case when 成绩 <  60 then 1 
-  else 0 
+    else 0 
     end) as 不及格人数
 from score
 group by 课程号;
