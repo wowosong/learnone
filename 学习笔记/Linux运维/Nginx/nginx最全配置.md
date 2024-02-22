@@ -29,7 +29,7 @@ Nginx 的最重要的几个使用场景：
 
 使用 `yum` 安装 `Nginx` ：
 
-```
+```SHELL
 yum install nginx -y
 ```
 
@@ -188,7 +188,7 @@ http {
 
 指定运行 `Nginx` 的 `woker` 子进程的属主和属组，其中组可以不指定。
 
-```
+```SHELL
 user USERNAME [GROUP]
 
 user nginx lion; # 用户是nginx;组是lion
@@ -198,7 +198,7 @@ user nginx lion; # 用户是nginx;组是lion
 
 指定运行 `Nginx` `master` 主进程的 `pid` 文件存放路径。
 
-```
+```SHELL
 pid /opt/nginx/logs/nginx.pid # master主进程的的pid存放在nginx.pid的文件
 ```
 
@@ -206,7 +206,7 @@ pid /opt/nginx/logs/nginx.pid # master主进程的的pid存放在nginx.pid的文
 
 指定 `worker` 子进程可以打开的最大文件句柄数。
 
-```
+```SHELL
 worker_rlimit_nofile 20480; # 可以理解成每个worker子进程的最大连接数量。
 ```
 
@@ -232,7 +232,7 @@ worker_processes auto; # 与当前cpu物理核心数一致
 
 将每个 `worker` 子进程与我们的 `cpu` 物理核心绑定。
 
-```
+```SHELL
 worker_cpu_affinity 0001 0010 0100 1000; # 4个物理核心，4个worker子进程
 ```
 
@@ -286,7 +286,7 @@ daemon off; # 默认是on，后台运行模式
 
 `Nginx` 使用何种事件驱动模型。
 
-```
+```shell
 use method; # 不推荐配置它，让nginx自己选择
 
 method 可选值为：select、poll、kqueue、epoll、/dev/poll、eventport
@@ -420,7 +420,7 @@ location /image {
 
 它也是指定静态资源目录位置，它只能写在 `location` 中。
 
-```
+```SHELL
 location /image {
  alias /opt/nginx/static/image/;
 }
@@ -869,7 +869,7 @@ keepalive connections;
 
 ### 配置实例
 
-```
+```shell
 upstream back_end{
  server 127.0.0.1:8081 weight=3 max_conns=1000 fail_timeout=10s max_fails=2;
   keepalive 32;
@@ -927,7 +927,7 @@ location /bbs/{
 
 带 `/` 的用法：
 
-```
+```shell
 location /bbs/{
   proxy_pass http://127.0.0.1:8080/;
 }
@@ -949,7 +949,7 @@ location /bbs/{
 
 我们把 `121.42.11.34` 服务器作为上游服务器，做如下配置：
 
-```
+```shell
 # /etc/nginx/conf.d/proxy.conf
 server{
   listen 8080;
@@ -971,7 +971,7 @@ server{
 
 把 `121.5.180.193` 服务器作为代理服务器，做如下配置：
 
-```
+```shell
 # /etc/nginx/conf.d/proxy.conf
 upstream back_end {
   server 121.42.11.34:8080 weight=2 max_conns=1000 fail_timeout=10s max_fails=3;
@@ -1013,7 +1013,7 @@ server {
 
 我们把 `121.42.11.34` 服务器作为上游服务器，做如下配置（ `/etc/nginx/conf.d/balance.conf`）：
 
-```
+```shell
 server{
   listen 8020;
   location / {
@@ -1166,7 +1166,7 @@ server {
 
 存储一些之前被访问过、而且可能将要被再次访问的资源，使用户可以直接从代理服务器获得，从而减少上游服务器的压力，加快整个访问速度。
 
-```
+```shell
 语法：proxy_cache zone | off ; # zone 是共享内存的名称
 
 默认值：proxy_cache off;
@@ -1178,7 +1178,7 @@ server {
 
 设置缓存文件的存放路径。
 
-```
+```shell
 语法：proxy_cache_path path [level=levels] ...可选参数省略，下面会详细列举
 
 默认值：proxy_cache_path off
@@ -1197,7 +1197,7 @@ server {
 
 设置缓存文件的 `key` 。
 
-```
+```shell
 语法：proxy_cache_key
 
 默认值：proxy_cache_key $scheme$proxy_host$request_uri;

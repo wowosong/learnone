@@ -407,11 +407,11 @@ public class HelloTest {
 
 10) 部署到 Tomcat 上运行
 
-# **第** **3** **章 在** **Eclipse** **中使用** **Git**
+## **第** **3** **章 在** **Eclipse** **中使用** **Git**
 
-## **3.1** **全局配置**
+### **3.1** **全局配置**
 
-### **3.1.1** **配置用户名和邮箱**
+#### **3.1.1** **配置用户名和邮箱**
 
 1) 点击 Window→Preferences→Team→Git→Configuration
 
@@ -429,7 +429,7 @@ public class HelloTest {
 
 ![image-20210825224459550](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071305111.png)
 
-### **3.1.2** **配置忽略的文件**
+#### **3.1.2** **配置忽略的文件**
 
 1) 在用户目录（其他目录也可以）创建 Java.gitignore 文件，添加以下内容
 

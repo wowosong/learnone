@@ -48,11 +48,11 @@ String json2 = "[{"id":12,"name":"Tom"},{"id":12,"name":"Tom"}]"
 
 ## 3.2_将 json 格式字符串转换为 java 对象（包含集合）
 
-![image-20210618230834652](https://gitee.com/wowosong/pic-md/raw/master/202212151715408.png)
+![image-20210618230834652](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202402221547122.png)
 
 ## 3.3_Json 和 Java 之间转换关系
 
-![image-20210618231110022](https://gitee.com/wowosong/pic-md/raw/master/202212151715782.png)
+![image-20210618231110022](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202402221547491.png)
 
 # 4_JSON 解析技术
 
@@ -385,7 +385,7 @@ private void jsonToJavaOfSpecial() {
 
 ## 4.2_GSON 框架技术
 
-![image-20210620004759540](https://gitee.com/wowosong/pic-md/raw/master/202212151716038.png)
+![image-20210620004759540](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202402221547814.png)
 
 1）特点：编码简洁，谷歌官方推荐
 
@@ -628,7 +628,7 @@ private void javaToJsonList() {
 
 ## 4.3_FastJson 框架技术
 
-![image-20210620004726110](https://gitee.com/wowosong/pic-md/raw/master/202212151717730.png)
+![image-20210620004726110](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202402221548032.png)
 
 1）特点：Fastjson 是一个 Java 语言编写的高性能功能完善的 JSON 库。它采用一种“假定有序快速匹配”的算法，把 JSON Parse 的性能提升到极致，是目前 Java 语言中最快的 JSON 库。
 

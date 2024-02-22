@@ -199,8 +199,8 @@ http {
             index  index.html index.htm;
         }
         location ^~  \.(gif|jpg|jpeg|png|css|js|ico)$ {
-        alias  /root/dev-flask/fanxiangce-master/app/static;
-        expires 1h;
+       	 	alias  /root/dev-flask/fanxiangce-master/app/static;
+        	expires 1h;
         }
 
         #error_page  404              /404.html;
@@ -301,7 +301,7 @@ http {
 
 # 六、读后提问?
 
-```
+```shell
 location = / {
    #规则A
 }

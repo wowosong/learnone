@@ -13,8 +13,7 @@ with t1 as (
 ) 
 select
 	id,
-	string_agg ( invno,
-                ',' ) as invno,
+	string_agg ( invno,',' ) as invno,
 	SUM (invmoney) as invmoney
 from
 	t1
@@ -23,35 +22,35 @@ group by
 ```
 # 触发器
 ```sql
-CREATE TABLE departments
- ( department_id INTEGER NOT NULL PRIMARY KEY
-  , department_name CHARACTER VARYING(30) NOT NULL
- ) ;
+CREATE TABLE departments( 
+    department_id INTEGER NOT NULL PRIMARY KEY
+    , department_name CHARACTER VARYING(30) NOT NULL
+) ;
 
-CREATE TABLE employees
- ( employee_id INTEGER NOT NULL
-  , first_name CHARACTER VARYING(20)
-  , last_name CHARACTER VARYING(25) NOT NULL
-  , email CHARACTER VARYING(25) NOT NULL
-  , phone_number CHARACTER VARYING(20)
-  , hire_date DATE NOT NULL
-  , salary NUMERIC(8,2)
-  , commission_pct NUMERIC(2,2)
-  , manager_id INTEGER
-  , department_id INTEGER
-  , CONSTRAINT emp_emp_id_pk
-  PRIMARY KEY (employee_id)
-  , CONSTRAINT emp_salary_min
-  CHECK (salary > 0) 
-  , CONSTRAINT emp_email_uk
-  UNIQUE (email)
-  , CONSTRAINT emp_dept_fk
-  FOREIGN KEY (department_id)
-  REFERENCES departments(department_id)
-  , CONSTRAINT emp_manager_fk
-  FOREIGN KEY (manager_id)
-  REFERENCES employees(employee_id)
- ) ;
+CREATE TABLE employees( 
+    employee_id INTEGER NOT NULL, 
+    first_name CHARACTER VARYING(20),
+    last_name CHARACTER VARYING(25) NOT NULL,
+    email CHARACTER VARYING(25) NOT NULL, 
+    phone_number CHARACTER VARYING(20),
+    hire_date DATE NOT NULL, 
+    salary NUMERIC(8,2), 
+    commission_pct NUMERIC(2,2), 
+    manager_id INTEGER, 
+    department_id INTEGER,
+    CONSTRAINT emp_emp_id_pk
+    PRIMARY KEY (employee_id),
+    CONSTRAINT emp_salary_min
+    CHECK (salary > 0) , 
+    CONSTRAINT emp_email_uk
+    UNIQUE (email)  ,
+    CONSTRAINT emp_dept_fk
+    FOREIGN KEY (department_id)
+    REFERENCES departments(department_id) , 
+    CONSTRAINT emp_manager_fk
+    FOREIGN KEY (manager_id)
+    REFERENCES employees(employee_id)
+) ;
 
 
 create table employees_history (
@@ -78,21 +77,19 @@ function track_employees_change()
 $$
 begin
  if tg_op = 'INSERT' then
- insert
-	into
-	employees_history(employee_id,
-                      first_name,
-                      last_name,
-                      email,
-                      phone_number,
-                      hire_date,
-                      job_id,
-                      salary,
-                      commission_pct,
-                      manager_id,
-                      department_id,
-                      action_type,
-                      change_dt)
+ insert into employees_history(employee_id,
+                               first_name,
+                               last_name,
+                               email,
+                               phone_number,
+                               hire_date,
+                               job_id,
+                               salary,
+                               commission_pct,
+                               manager_id,
+                               department_id,
+                               action_type,
+                               change_dt)
 values(new.employee_id,
        new.first_name,
        new.last_name,

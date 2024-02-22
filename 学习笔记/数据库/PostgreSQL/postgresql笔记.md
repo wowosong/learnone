@@ -45,7 +45,7 @@ EXPLAIN SELECT * FROM tenk1;
 
 回到我们的例子：
 
-```
+```sql
 EXPLAIN SELECT * FROM tenk1;
 
                          QUERY PLAN
@@ -65,7 +65,7 @@ SELECT relpages, reltuples FROM pg_class WHERE relname = 'tenk1';
 
 现在让我们修改查询并增加一个`WHERE`条件：
 
-```
+```sql
 EXPLAIN SELECT * FROM tenk1 WHERE unique1 < 7000;
 
                          QUERY PLAN
