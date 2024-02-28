@@ -21,8 +21,8 @@
 ```java
 public V put(K key, V value)
 {
-    ......
-        //计算Hash值
+    ......;
+    //计算Hash值
     int hash = hash(key.hashCode());
     int i = indexFor(hash, table.length);
     //各种校验吧
@@ -64,7 +64,7 @@ void resize(int newCapacity)
 {
     Entry[] oldTable = table;
     int oldCapacity = oldTable.length;
-    ......
+    ......;
     //创建一个新的Hash Table
     Entry[] newTable = new Entry[newCapacity];
 
@@ -276,7 +276,7 @@ synchronized (f) {
             Node<K,V> p;
             binCount = 2;
             if ((p = ((TreeBin<K,V>)f).putTreeVal(hash, key,
-                                           value)) != null) {
+                                                  value)) != null) {
                 oldVal = p.val;
                 if (!onlyIfAbsent)
                     p.val = value;
