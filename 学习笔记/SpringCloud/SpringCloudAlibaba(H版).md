@@ -151,7 +151,20 @@ public class paymentController {
 
 #### 2，配置文件
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071626970.png) 
+```yml
+server:
+	port:83
+spring:
+	application
+		name:nacos-order-consumer
+	cloud:
+		nacos:
+			discovery:
+				server-addr:localhost:8848
+#消费者将要去访问的微服务名称(注册成功nacos的微服务提供者)
+service-url:
+	nacos-user-service:http://nacos-payment-provider 
+```
 
 **这个server-url的作用是，我们在controller，需要使用RestTempalte远程调用9001，这里是指定9001的地址**
 
@@ -300,11 +313,11 @@ public class NacosConfigController {
 
 默认的命名方式:
 
-```
+```yml
 ${prefix}-${spring.profile.active}.${file-extension} 
 ```
 
-```
+```yml
 prefix:
     默认就是当前服务的服务名称
     也可以通过spring.cloud.necos.config.prefix配置
@@ -377,7 +390,22 @@ NameSpace默认有一个：public名称空间
 
 ![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071631139.png)
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071631925.png)
+**默认情况：**
+**Namespace=public,Group=DEFAULT_GROUP,默认Cluster是DEFAULT**
+
+Nacos默认的命名空间是**public**,Namespace主要用来实现**隔离**。
+
+比方说我们现在有三个环境：开发、测试、生产环境，我们就可以创建三个**Namespace，**不同的Namespace之间是隔离的。
+
+Group默认是DEFAULT_GROUP,Group可以把**不同的微服务**划分到同一个分组里面去
+
+Service就是微服务；一个Service可以包含多个Cluster(集群),**Nacos默认Cluster是DEFAULT，**Cluster是对指定微服务的一个虚拟划分。
+
+比方说为了容灾，将Service微服务分别部署在了杭州机房和广州机房，
+
+这时就可以给杭州机房的Service微服务起一个集群名称(HZ),
+
+给广州机房的Service微服务起一个集群名称(GZ),还可以尽量让同一个机房的微服务互相调用，以提升性能。
 
 #### 1，配置不同DataId:
 
@@ -455,7 +483,14 @@ Nacos默认有自带嵌入式数据库，derby，但是如果做集群模式的�
 
 **数据库时区serverTimezone=UTC 可能会导致访问不到数据库**
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071633961.png)
+```properties
+spring.datasource.platform=mysql
+
+db.num=1
+db.url.O=jdbc:mysql://127.0.0.1:3306/nacos_config?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true
+db.user=root
+db.password=123456
+```
 
 **3，此时可以重启nacos，那么就会改为使用我们自己的mysql**
 
@@ -477,7 +512,7 @@ Nacos默认有自带嵌入式数据库，derby，但是如果做集群模式的�
 
  就是上面windos版要修改的几个属性
 
-```
+```properties
 ### If use MySQL as datasource:
 
 spring.datasource.platform=mysql
@@ -499,7 +534,7 @@ db.password=password
 
  这里使用3333，4444，5555作为三个Nacos节点监听的端口
 
-```
+```properties
 192.168.111.144:3333
 192.168.111.144:4444
 192.168.111.144:5555 
@@ -548,7 +583,19 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
  如果可以进入nacos的web界面，就证明安装成功了
 
 9，将微服务注册到Nacos集群:
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071635450.png)
+
+```yml
+spring:
+	application:
+		name:nacos-payment-provider
+	cloud:
+		nacos:
+			discovery:
+				#server-addr:localhost:8848 #配置Nacos地址
+				#换成nginx的1111端口，做集群
+				server-addr:192.168.111.144:1111 
+				#换成nginx的即可，由nginx代理到其中一个节点
+```
 
 10，进入Nacos的web界面
 
@@ -590,7 +637,29 @@ nacos2.0.3 版本不用修改port，直接复制实例文件，然后修改clust
 
 2. 配置文件
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071635986.png) 
+```yml
+server:
+	port:8401
+spring:
+    application:
+		name:cloudalibaba-sentinel-service
+	cloud:
+		nacos:
+			discovery:
+                #Nacos服务注册中心地址
+                server-addr:localhost:8848
+		sentinel:
+            transport:
+                #配置Sentinel dashboard地址
+                dashboard:localhost:8080
+                #默认8719端口，假如被占用会自动从8719开始依次+1扫描，直至找到未被占用的端口
+                port:8719
+management:
+	endpoints:
+		web:
+			exposure:
+				include: '*'
+```
 
 3. 主启动类
 
@@ -737,9 +806,9 @@ Sentinel熔断降级会在调用链路中<span style='text-decoration:underline'
 ```java
 @GetMapping("/testD")
 public String testD(){
-	//暂停几秒钟线程
+    //暂停几秒钟线程
     try{
-		TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(1);
     }catch{
         log.info("testD 测试RT");
         return "------testD";

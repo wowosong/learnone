@@ -28,7 +28,7 @@ mybatis运行原理：
 
 #### 搭建数据库MySQL
 
-```mysql
+```sql
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
