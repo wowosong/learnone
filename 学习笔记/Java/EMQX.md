@@ -19,6 +19,7 @@
 # 第一章MQTT协议与EMQ
 
 学习目标
+
 目标1: 能够说出MQTT协议的概念，特点及作用
 
 目标2:能够说出发布/订阅，代理，主题，会话，服务质量的相关概念，MQTT协议中的动作
@@ -37,7 +38,9 @@
 
 ![image-20240122214208073](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401222142543.png)
 
-![image-20240122215735412](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202401222157117.png)
+mqtt官网：http://mgtt.org/
+
+mqtt中文网：http://mqtt.p2hp.com/
 
 ### 1.1 MQTT简介
 
@@ -163,7 +166,7 @@ MQTT服务器以称为"消息代理"(Broker),可以是一个应用程序或一�
 ​	订阅者(Subscriber)会向**消息服务器(Broker)**订阅一个主题(Topic)。成功订阅后，消息服务器会将该主题下的消息转发给所有的订阅者。
 ​	主题(Topic)以/为分隔符区分不同的层级。包含通配符'+'或'#的主题又称为**主题过滤器(Topic Filters)**;不含通配符的称为**主题名(Topic Names)**例如：
 
-```
+```shell
 chat/room/1
 
 sensor/10/temperature
@@ -291,11 +294,12 @@ Payload是消息内容，也只在某些报文类型中出现，其内容和格�
 
 ​	MQTT属于是物联网的通信协议，在MQTT协议中有两大角色：客户端(发布者/订阅者),服务端(Mqttbroker);针对客户端和服务端需要有遵循该协议的的具体实现，EMQ/EMQ X就是MQTT Broker的一种实现。
 
-​	EMQ官网：<https://www.emqx.io/cn/
+​	EMQ官网：https://www.emqx.io/cn/
 
 ### 4.1 EMQ X是什么
 
 ​	EMQX基于Erlang/OTP平台开发的MQTT消息服务器，是开源社区中最流行的MQTT消息服务器。
+
 ​	EMQX是开源百万级分布式MQTT消息服务器(MQTT Messaging Broker),用于支持各种接入标准MQTT协议的设备，实现从设备端到服务器端的消息传递，以及从服务器端到设备端的设备控制消息转发。从而实现物联网设备的数据采集，和对设备的操作和控制。
 
 ### 4.2为什么选择EMQ X
