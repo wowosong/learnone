@@ -397,3 +397,7 @@ macOS 10.14
 macOS 10.15
 
 Windows Server 2019
+
+![image-20240302100820649](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202403021008890.png)
+
+![image-20240302101056623](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202403021010731.png)
