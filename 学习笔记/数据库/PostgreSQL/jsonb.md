@@ -21,6 +21,7 @@ group by
 	id,invno
 ```
 # 触发器
+
 ```sql
 CREATE TABLE departments( 
     department_id INTEGER NOT NULL PRIMARY KEY
@@ -340,5 +341,57 @@ INSERT INTO stock_product_price (
               total_inventory = (select new_inventory from stock_product_price_record where id = #{recordId}),
                                  cost_price = (select new_cost_price from stock_product_price_record where id = #{recordId}),
                                                total_price = (select new_total_price from stock_product_price_record where id = #{recordId})
+```
+
+```sql
+WITH regional_sales AS (
+    SELECT region, SUM(amount) AS total_sales
+    FROM orders
+    GROUP BY region
+), top_regions AS (
+    SELECT region
+    FROM regional_sales
+    WHERE total_sales > (SELECT SUM(total_sales)/10 FROM regional_sales)
+)
+SELECT region,
+       product,
+       SUM(quantity) AS product_units,
+       SUM(amount) AS product_sales
+FROM orders
+WHERE region IN (SELECT region FROM top_regions)
+GROUP BY region, product;
+
+
+WITH RECURSIVE t(n) AS (
+    VALUES (1)
+    UNION ALL
+    SELECT n+1 FROM t WHERE n < 100
+)
+SELECT sum(n) FROM t;
+
+WITH RECURSIVE included_parts(id, sf_name, parent_id) AS (
+    SELECT id, sf_name,parent_id FROM system_feature WHERE parent_id is  null 
+
+    UNION ALL
+    SELECT p.id, p.sf_name, p.parent_id
+    FROM included_parts pr, system_feature p
+    WHERE p.parent_id = pr.id and p.deleted=0
+)
+SELECT id, sf_name,parent_id
+FROM included_parts where sf_name like '%风险%';
+```
+
+```sql
+SELECT count(lld.id)                                                    as "all",
+               COALESCE(SUM(CAST(lld.DATA ->> 'plength' AS NUMERIC(8, 2))), 0) AS "plength",
+			   count(lld.id ) filter (where lld.ID NOT IN (SELECT lng_line_id FROM lng_line_risk_group_line WHERE deleted = 0) ) as "all",
+               COALESCE(SUM(CAST(lld.DATA  ->> 'plength' AS NUMERIC(8, 2)))  
+                        filter (where lld.ID NOT IN (SELECT lng_line_id FROM lng_line_risk_group_line WHERE deleted = 0) ), 0) AS "plength"
+        FROM lng_line_data lld
+                 INNER JOIN lng_point_data curlpd ON lld.p_no = curlpd.p_no  
+                 INNER JOIN lng_point_data prelpd ON lld.pp_no = prelpd.p_no  
+                 INNER JOIN lng_project lp ON lp.deleted = 0 AND lld.project_id = lp.id AND lp.status = 4
+        WHERE lld.deleted = 0 
+        AND lld."discard" = FALSE
 ```
 
