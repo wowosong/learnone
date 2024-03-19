@@ -1168,7 +1168,7 @@ EXTRACT(type FROM date)函数中type的取值与含义：
 
 | 函数                                                         | 用法                                           |
 | ------------------------------------------------------------ | ---------------------------------------------- |
-| DATE_ADD(datetime, INTERVAL expr   type)，ADDDATE(date,INTERVAL expr  type) | 返回与给定日期时间相差INTERVAL时间段的日期时间 |
+| DATE_ADD(datetime, INTERVAL expr   type)，<br/>ADDDATE(date,INTERVAL expr  type) | 返回与给定日期时间相差INTERVAL时间段的日期时间 |
 | DATE_SUB(date,INTERVAL expr  type)，<br>SUBDATE(date,INTERVAL expr  type) | 返回与date相差INTERVAL时间间隔的日期           |
 
 上述函数中type的取值：
