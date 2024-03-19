@@ -1,3 +1,7 @@
-![image-20230910153603118](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071237621.png)
+**最先进的开源对象-关系型数据库**
+开源：用户可以基于任何目的使用、修改、发布PostgreSQL。
+先进：高度兼容SQL标准，支持事务的ACID原则。
+功能丰富：基本数据类型、数组、范围类型、JSON、XML、几何类型；完整性约束；索引；复杂查询；先进的查询优化器；分区表；异步、同步、逻辑复制；安全认证；全文检索。
+可扩展性：存储过程(C、PL/pgSQL、Perl、Python、Java等)；FDW；自定义类型和索引；存储引擎；大量衍生产品。
 
 ![image-20230910153647952](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071237120.png)

@@ -382,7 +382,8 @@ FROM included_parts where sf_name like '%风险%';
 ```
 
 ```sql
-SELECT count(lld.id)                                                    as "all",
+SELECT 
+			   count(lld.id) as "all",
                COALESCE(SUM(CAST(lld.DATA ->> 'plength' AS NUMERIC(8, 2))), 0) AS "plength",
 			   count(lld.id ) filter (where lld.ID NOT IN (SELECT lng_line_id FROM lng_line_risk_group_line WHERE deleted = 0) ) as "all",
                COALESCE(SUM(CAST(lld.DATA  ->> 'plength' AS NUMERIC(8, 2)))  
@@ -395,3 +396,48 @@ SELECT count(lld.id)                                                    as "all"
         AND lld."discard" = FALSE
 ```
 
+### LAG()窗口函数返回分区中当前行之前行（可以指定第几行）的值。 如果没有行，则返回null
+
+LAG(col,n,DEFAULT) 用于统计窗口内往上第n行值
+
+> 第一个参数为列名，
+>  第二个参数为往上第n行（可选，默认为1），
+>  第三个参数为默认值（当往上第n行为NULL时候，取默认值，如不指定，则为NULL）
+
+#### 查询语句
+
+```sql
+select 
+  cookieid, 
+  createtime, 
+  url, 
+  row_number() over (partition by cookieid order by createtime) as rn, 
+  LAG(createtime,1,'1970-01-01 00:00:00') over (partition by cookieid order by createtime) as last_1_time, 
+  LAG(createtime,2) over (partition by cookieid order by createtime) as last_2_time
+from cookie.cookie4;
+```
+
+### LEAD()窗口函数返回分区中当前行后面行（可以指定第几行）的值。 如果没有行，则返回null。
+
+与LAG相反
+
+LEAD(col,n,DEFAULT) 用于统计窗口内往下第n行值
+
+> 第一个参数为列名，
+>  第二个参数为往下第n行（可选，默认为1），
+>  第三个参数为默认值（当往下第n行为NULL时候，取默认值，如不指定，则为NULL）
+
+### FIRST_VALUE窗口函数返回相对于窗口中第一行的指定列的值。
+
+#### 查询语句
+
+```sql
+select 
+  cookieid, 
+  createtime, 
+  url, 
+  row_number() over (partition by cookieid order by createtime) as rn, 
+  first_value(url) over (partition by cookieid order by createtime) as first1 
+```
+
+https://zhuanlan.zhihu.com/p/629460362
