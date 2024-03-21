@@ -308,11 +308,11 @@ public interface UserRepository extends Repository<User, Long> {
 
 ## 4.2 自定义查询方法
 
-在 `Repository` 接口中可以定义自定义查询方法，实现按照指定规则查询数据。Spring Data JPA 支持三种方式定义自定义查询方法：方法名称查询、参数设置查询、使用 `@Query` 注解查询。
+在 `Repository` 接口中可以定义自定义查询方法，实现按照指定规则查询数据。**Spring Data JPA 支持三种方式定义自定义查询方法：方法名称查询、参数设置查询、使用 `@Query` 注解查询。**
 
 ### 4.2.1 方法名称查询
 
-方法名称查询是 Spring Data JPA 中最简单的一种自定义查询方法，**并且不需要额外的注解或 XML 配置**。**它通过方法名来推断出查询的条件**，例如以 `findBy` 开头的方法表示按照某些条件查询，以 `deleteBy` 开头的方法表示按照某些条件删除数据。**根据方法名by后的字段来匹配查询字段**
+方法名称查询是 Spring Data JPA 中最简单的一种自定义查询方法，**并且不需要额外的注解或 XML 配置**。**它通过方法名来推断出查询的条件**，例如以 `findBy` 开头的方法表示按照某些条件查询，以 `deleteBy` 开头的方法表示按照某些条件删除数据。<span style='color:red'>**根据方法名by后的字段来匹配查询字段**</span>
 
 示例代码：
 
@@ -334,7 +334,7 @@ public interface UserRepository extends Repository<User, Long> {
 
 ### 4.2.2 查询参数设置
 
-除了方法名称查询外，还可以使用参数设置方式进行自定义查询。它通过在方法上使用 `@Query` 注解来指定查询语句，然后使用 `@Param` 注解来指定方法参数与查询语句中的参数对应关系。
+除了方法名称查询外，还可以使用参数设置方式进行自定义查询。**它通过在方法上使用 `@Query` 注解来指定查询语句，然后使用 `@Param` 注解来指定方法参数与查询语句中的参数对应关系**。
 
 示例代码：
 
@@ -352,7 +352,7 @@ public interface UserRepository extends Repository<User, Long> {
 
 ### 4.2.3 使用@Query注解
 
-在自定义查询方法时，还可以使用 `@Query` 注解直接指定查询语句。`@Query` 注解的 value 属性表示查询语句，可以使用占位符 ?1、?2 等表示方法参数。
+在自定义查询方法时，还可以使用 `@Query` 注解直接指定查询语句。**`@Query` 注解的 value 属性表示查询语句，可以使用占位符 ?1、?2 等表示方法参数。**
 
 示例代码：
 
@@ -415,7 +415,7 @@ List<User> userList = page.getContent();
 
 ## 4.4 使用 @Modifying 注解进行修改
 
-在 Spring Data JPA 中，**使用 `update` 和 `delete` 语句需要使用 `@Modifying` 注解标注，并且需要添加 `@Transactional` 注解开启事务。需要注意的是，`@Modifying` 注解只支持 DML 语句。**
+在 Spring Data JPA 中，<span style='color:red'>**使用 `update` 和 `delete` 语句需要使用 `@Modifying` 注解标注，并且需要添加 `@Transactional` 注解开启事务。需要注意的是，`@Modifying` 注解只支持 DML 语句。**</span>
 
 示例代码：
 

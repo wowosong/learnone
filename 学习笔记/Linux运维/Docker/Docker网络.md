@@ -23,7 +23,7 @@
 
 任意Linux发行版都可以。本文的所有例子都是在vagrant CentOS 8的虚拟机上执行的：
 
-```
+```shell
 $ vagrant init centos/8 
 $ vagrant up 
 $ vagrant ssh 
@@ -81,7 +81,7 @@ $ sudo ./inspect-net-stack.sh
 
 创建网络命名空间的一种方法是ip工具——是iproute2的一部分：
 
-```
+```shell
 $ sudo ip netns add netns0 
 $ ip netns 
 netns0
@@ -89,17 +89,17 @@ netns0
 
 如何使用刚才创建的命名空间呢？一个很好用的命令nsenter。进入一个或多个特定的命名空间，然后执行指定的脚本：
 
-```
+```shell
 $ sudo nsenter --net=/var/run/netns/netns0 bash
-     # 新建的bash进程在netns0里
- $ sudo ./inspect-net-stack.sh 
-    > Network devices 1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN mode DEFAULT group default qlen 1000 
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 
-    > Route table 
-    > Iptables rules 
-    -P INPUT ACCEPT 
-    -P FORWARD ACCEPT 
-    -P OUTPUT ACCEPT
+# 新建的bash进程在netns0里
+$ sudo ./inspect-net-stack.sh 
+> Network devices 1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN mode DEFAULT group default qlen 1000 
+link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 
+> Route table 
+> Iptables rules 
+-P INPUT ACCEPT 
+-P FORWARD ACCEPT 
+-P OUTPUT ACCEPT
 ```
 
 从上面的输出可以清楚地看到bash进程运行在netns0命名空间，这时看到的是完全不同的网络栈。这里没有路由规则，没有自定义的iptables chain，只有一个loopback的网络设备。
@@ -112,13 +112,13 @@ $ sudo nsenter --net=/var/run/netns/netns0 bash
 
 虚拟Ethernet设备通常都成对出现。不用担心，先看一下创建的脚本：
 
-```
+```shell
 $ sudo ip link add veth0 type veth peer name ceth0
 ```
 
 用这条简单的命令，我们就可以创建一对互联的虚拟Ethernet设备。默认选择了veth0和ceth0这两个名称。
 
-```
+```shell
 $ ip link 
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000 
  link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 
@@ -132,7 +132,7 @@ $ ip link
 
 创建的veth0和ceth0都在主机的网络栈（也称为root网络命名空间）上。将netns0命名空间连接到root命名空间，需要将一个设备留在root命名空间，另一个挪到netns0里：
 
-```
+```shell
 $ sudo ip link set ceth0 netns netns0 
     # 列出所有设备，可以看到ceth0已经从root栈里消失了 
    $ ip link 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000 
@@ -145,14 +145,14 @@ $ sudo ip link set ceth0 netns netns0
 
 一旦启用设备并且分配了合适的IP地址，其中一个设备上产生的包会立刻出现在其配对设备里，从而连接起两个命名空间。从root命名空间开始：
 
-```
+```shell
 $ sudo ip link set veth0 up 
 $ sudo ip addr add 172.18.0.11/16 dev veth0
 ```
 
 然后是netns0：
 
-```
+```shell
 $ sudo nsenter --net=/var/run/netns/netns0 
 $ ip link set lo up 
 $ ip link set ceth0 up 
@@ -170,63 +170,63 @@ $ ip link
 
 检查连通性：
 
-```
+```shell
 # 在netns0里ping root的 veth0 
- $ ping -c 2 172.18.0.11 
- PING 172.18.0.11 (172.18.0.11) 56(84) bytes of data. 
- 64 bytes from 172.18.0.11: icmp_seq=1 ttl=64 time=0.038 ms 
- 64 bytes from 172.18.0.11: icmp_seq=2 ttl=64 time=0.040 ms 
- --- 172.18.0.11 ping statistics --- 
- 2 packets transmitted, 2 received, 0% packet loss, time 58ms 
- rtt min/avg/max/mdev = 0.038/0.039/0.040/0.001 ms 
-     # 离开 netns0
-   $ exit  
-      # 在root命名空间里ping ceth0 
-      $ ping -c 2 172.18.0.10 
-      PING 172.18.0.10 (172.18.0.10) 56(84) bytes of data. 
-      64 bytes from 172.18.0.10: icmp_seq=1 ttl=64 time=0.073 ms 
-      64 bytes from 172.18.0.10: icmp_seq=2 ttl=64 time=0.046 ms 
-      --- 172.18.0.10 ping statistics --- 
-      2 packets transmitted, 2 received, 0% packet loss, time 3ms 
-      rtt min/avg/max/mdev = 0.046/0.059/0.073/0.015 ms
+$ ping -c 2 172.18.0.11 
+PING 172.18.0.11 (172.18.0.11) 56(84) bytes of data. 
+64 bytes from 172.18.0.11: icmp_seq=1 ttl=64 time=0.038 ms 
+64 bytes from 172.18.0.11: icmp_seq=2 ttl=64 time=0.040 ms 
+--- 172.18.0.11 ping statistics --- 
+2 packets transmitted, 2 received, 0% packet loss, time 58ms 
+rtt min/avg/max/mdev = 0.038/0.039/0.040/0.001 ms 
+# 离开 netns0
+$ exit  
+# 在root命名空间里ping ceth0 
+$ ping -c 2 172.18.0.10 
+PING 172.18.0.10 (172.18.0.10) 56(84) bytes of data. 
+64 bytes from 172.18.0.10: icmp_seq=1 ttl=64 time=0.073 ms 
+64 bytes from 172.18.0.10: icmp_seq=2 ttl=64 time=0.046 ms 
+--- 172.18.0.10 ping statistics --- 
+2 packets transmitted, 2 received, 0% packet loss, time 3ms 
+rtt min/avg/max/mdev = 0.046/0.059/0.073/0.015 ms
 ```
 
 同时，如果尝试从netns0命名空间访问其他地址，也同样可以成功：
 
-```
+```shell
 # 在 root 命名空间 
-   $ ip addr show dev eth0 
-   2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000 
-    link/ether 52:54:00:e3:27:77 brd ff:ff:ff:ff:ff:ff 
-    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute eth0 
-  valid_lft 84057sec preferred_lft 84057sec
-    inet6 fe80::5054:ff:fee3:2777/64 scope link 
-     valid_lft forever preferred_lft forever 
-    # 记住这里IP是10.0.2.15 
-    $ sudo nsenter --net=/var/run/netns/netns0 
-    # 尝试ping主机的eth0 
-    $ ping 10.0.2.15 
-    connect: Network is unreachable 
-    # 尝试连接外网
-    $ ping 8.8.8.8 
-    connect: Network is unreachable
+$ ip addr show dev eth0 
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000 
+link/ether 52:54:00:e3:27:77 brd ff:ff:ff:ff:ff:ff 
+inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute eth0 
+valid_lft 84057sec preferred_lft 84057sec
+inet6 fe80::5054:ff:fee3:2777/64 scope link 
+valid_lft forever preferred_lft forever 
+# 记住这里IP是10.0.2.15 
+$ sudo nsenter --net=/var/run/netns/netns0 
+# 尝试ping主机的eth0 
+$ ping 10.0.2.15 
+connect: Network is unreachable 
+# 尝试连接外网
+$ ping 8.8.8.8 
+connect: Network is unreachable
 ```
 
 这也很好理解。在netns0路由表里没有这类包的路由。唯一的entry是如何到达172.18.0.0/16网络：
 
-```
+```shell
 # 在netns0命名空间: 
-    $ ip route 
-    172.18.0.0/16 dev ceth0 proto kernel scope link src 172.18.0.10
+$ ip route 
+172.18.0.0/16 dev ceth0 proto kernel scope link src 172.18.0.10
 ```
 
 Linux有好几种方式建立路由表。其中一种是直接从网络接口上提取路由。记住，命名空间创建后， netns0里的路由表是空的。但是随后我们添加了ceth0设备并且分配了IP地址172.18.0.0/16。因为我们使用的不是简单的IP地址，而是地址和子网掩码的组合，网络栈可以从其中提取出路由信息。目的地是172.18.0.0/16的每个网络包都会通过ceth0设备。但是其他包会被丢弃。类似的，root命名空间也有了个新的路由：
 
-```
+```shell
 # 在root命名空间: 
-    $ ip route 
-    # ... 忽略无关行 ... 
-    172.18.0.0/16 dev veth0 proto kernel scope link src 172.18.0.11
+$ ip route 
+# ... 忽略无关行 ... 
+172.18.0.0/16 dev veth0 proto kernel scope link src 172.18.0.11
 ```
 
 这里，就可以回答第一个问题了。我们了解了如何隔离，虚拟化并且连接Linux网络栈。
@@ -237,7 +237,7 @@ Linux有好几种方式建立路由表。其中一种是直接从网络接口上
 
 容器化思想的驱动力是高效的资源共享。所以，一台机器上只运行一个容器并不常见。相反，最终目标是尽可能地在共享的环境上运行更多的隔离进程。因此，如果按照上述veth方案，在同一台主机上放置多个容器的话会发生什么呢？让我们尝试添加第二个容器。
 
-```
+```shell
 # 从 root 命名空间 
     $ sudo ip netns add netns1 
     $ sudo ip link add veth1 type veth peer name ceth1 
@@ -252,7 +252,7 @@ Linux有好几种方式建立路由表。其中一种是直接从网络接口上
 
 检查连通性：
 
-```
+```shell
 # 从netns1无法连通root 命名空间! 
     $ ping -c 2 172.18.0.21 
     PING 172.18.0.21 (172.18.0.21) 56(84) bytes of data. 
@@ -297,7 +297,7 @@ Linux有好几种方式建立路由表。其中一种是直接从网络接口上
 
 这里花了些时间来找到原因，不过很明显遇到的是路由问题。先查一下root命名空间的路由表：
 
-```
+```shell
 $ ip route 
     # ... 忽略无关行... # 
     172.18.0.0/16 dev veth0 proto kernel scope link src 172.18.0.11 
@@ -320,7 +320,7 @@ $ ip route
 
 试试这个工具。但是首先，需要清除已有设置，因为之前的一些配置现在不再需要了。删除网络命名空间：
 
-```
+```shell
 $ sudo ip netns delete netns0 
 $ sudo ip netns delete netns1 
 $ sudo ip link delete veth0 
@@ -331,7 +331,7 @@ $ sudo ip link delete ceth1
 
 快速重建两个容器。注意，我们没有给新的veth0和veth1设备分配任何IP地址：
 
-```
+```shell
 $ sudo ip netns add netns0 
 $ sudo ip link add veth0 type veth peer name ceth0 
 $ sudo ip link set veth0 up 
@@ -357,7 +357,7 @@ $ exit
 
 确保主机上没有新的路由：
 
-```
+```shell
 $ ip route 
 default via 10.0.2.2 dev eth0 proto dhcp metric 100 
 10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100
@@ -365,14 +365,14 @@ default via 10.0.2.2 dev eth0 proto dhcp metric 100
 
 最后创建网桥接口：
 
-```
+```shell
 $ sudo ip link add br0 type bridge 
 $ sudo ip link set br0 up
 ```
 
 将veth0和veth1接到网桥上：
 
-```
+```shell
 $ sudo ip link set veth0 master br0 
 $ sudo ip link set veth1 master br0
 ```
@@ -383,7 +383,7 @@ $ sudo ip link set veth1 master br0
 
 检查容器间的连通性：
 
-```
+```shell
 $ sudo nsenter --net=/var/run/netns/netns0 
 $ ping -c 2 172.18.0.20 
 PING 172.18.0.20 (172.18.0.20) 56(84) bytes of data. 
@@ -404,7 +404,7 @@ rtt min/avg/max/mdev = 0.037/0.063/0.089/0.026 ms
 
 太好了！工作得很好。用这种新方案，我们根本不需要配置veth0和veth1。只需要在ceth0和ceth1端点分配两个IP地址。但是因为它们都连接在相同的Ethernet上（记住，它们连接到虚拟switch上），之间在L2层是连通的：
 
-```
+```shell
 $ sudo nsenter --net=/var/run/netns/netns0 
 $ ip neigh 
 172.18.0.20 dev ceth0 lladdr 6e:9c:ae:02:60:de STALE 
@@ -424,7 +424,7 @@ $ exit
 
 容器间可以通信。但是它们能和主机，比如root命名空间，通信吗？
 
-```
+```shell
 $ sudo nsenter --net=/var/run/netns/netns0 
 $ ping 10.0.2.15 # eth0 address 
 connect: Network is unreachable
@@ -432,14 +432,14 @@ connect: Network is unreachable
 
 这里很明显，netns0没有路由：
 
-```
+```shell
 $ ip route 
 172.18.0.0/16 dev ceth0 proto kernel scope link src 172.18.0.10
 ```
 
 root命名空间不能和容器通信：
 
-```
+```shell
 # 首先使用 exit 离开netns0: 
     $ ping -c 2 172.18.0.10 
     PING 172.18.0.10 (172.18.0.10) 56(84) bytes of data. 
@@ -458,13 +458,13 @@ From 213.51.1.123 icmp_seq=2 Destination Net Unreachable
 
 要建立root和容器命名空间的连通性，我们需要给网桥网络接口分配IP地址：
 
-```
+```shell
 $ sudo ip addr add 172.18.0.1/16 dev br0
 ```
 
 一旦给网桥网络接口分配了IP地址，在主机的路由表里就会多一条路由：
 
-```
+```shell
 $ ip route 
     # ...忽略无关行 ... 
     172.18.0.0/16 dev br0 proto kernel scope link src 172.18.0.1 
@@ -490,7 +490,7 @@ rtt min/avg/max/mdev = 0.056/0.057/0.059/0.007 ms
 
 容器可能也可以ping网桥接口，但是它们还是无法连接到主机的eth0。需要为容器添加默认的路由：
 
-```
+```shell
 $ sudo nsenter --net=/var/run/netns/netns0 
 $ ip route add default via 172.18.0.1 
 $ ping -c 2 10.0.2.15 
@@ -511,14 +511,14 @@ rtt min/avg/max/mdev = 0.036/0.044/0.053/0.010 ms
 
 很好，我们将容器连接到root命名空间上。现在，继续尝试将它们连接到外部世界。Linux上默认disable了网络包转发（比如，路由功能）。我们需要先启用这个功能：
 
-```
+```shell
 # 在 root 命名空间 
     sudo bash -c 'echo 1 > /proc/sys/net/ipv4/ip_forward'
 ```
 
 再次检查连通性：
 
-```
+```shell
 $ sudo nsenter --net=/var/run/netns/netns0 
 $ ping 8.8.8.8 
     # hung住了...
@@ -526,7 +526,7 @@ $ ping 8.8.8.8
 
 还是不工作。哪里弄错了呢？如果容器可以向外部发包，那么目标服务器无法将包发回容器，因为容器的IP地址是私有的，那个特定IP的路由规则只有本地网络知道。并且有很多容器共享的是完全相同的私有IP地址172.18.0.10。这个问题的解决方法称为网络地址翻译（NAT）。在到达外部网络之前，容器发出的包会将源IP地址替换为主机的外部网络地址。主机还会跟踪所有已有的映射，会在将包转发回容器之前恢复之前被替换的IP地址。听上去很复杂，但是有一个好消息！iptables模块让我们只需要一条命令就可以完成这一切：
 
-```
+```shell
 $ sudo iptables -t nat -A POSTROUTING -s 172.18.0.0/16 ! -o br0 -j MASQUERADE
 ```
 
@@ -536,7 +536,7 @@ $ sudo iptables -t nat -A POSTROUTING -s 172.18.0.0/16 ! -o br0 -j MASQUERADE
 
 检查连通性：
 
-```
+```shell
 $ sudo nsenter --net=/var/run/netns/netns0 
 $ ping -c 2 8.8.8.8 PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data. 
 64 bytes from 8.8.8.8: icmp_seq=1 ttl=61 time=43.2 ms 
@@ -548,7 +548,7 @@ rtt min/avg/max/mdev = 36.815/40.008/43.202/3.199 ms
 
 要知道这里我们用的默认策略——允许所有流量，这在真实的环境里是非常危险的。主机的默认iptables策略是ACCEPT：
 
-```
+```shell
 sudo iptables -S 
 -P INPUT ACCEPT 
 -P FORWARD ACCEPT 
@@ -561,7 +561,7 @@ Docker默认限制所有流量，随后仅仅为已知的路径启用路由。
 
 如下是在CentOS 8机器上，单个容器暴露了端口5005时，由Docker daemon生成的规则：
 
-```
+```shell
 $ sudo iptables -t filter --list-rules 
 -P INPUT ACCEPT 
 -P FORWARD DROP 
@@ -618,30 +618,30 @@ $ sudo iptables -t raw --list-rules
 
 假设容器内运行着服务器：
 
-```
+```shell
 $ sudo nsenter --net=/var/run/netns/netns0 
 $ python3 -m http.server --bind 172.18.0.10 5000
 ```
 
 如果我们试着从主机上发送一个HTTP请求到这个服务器，一切都工作得很好（root命名空间和所有容器接口之间有链接，当然可以连接成功）：
 
-```
+```shell
 # 从 root 命名空间 
-    $ curl 172.18.0.10:5000 
-    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"  "http://www.w3.org/TR/html4/strict.dtd"> 
-    # ... 忽略无关行 ...
+$ curl 172.18.0.10:5000 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"  "http://www.w3.org/TR/html4/strict.dtd"> 
+# ... 忽略无关行 ...
 ```
 
 但是，如果要从外部访问这个服务器，应该使用哪个IP呢？我们知道的唯一IP是主机的外部接口地址eth0：
 
-```
+```shell
 $ curl 10.0.2.15:5000 
 curl: (7) Failed to connect to 10.0.2.15 port 5000: Connection refused
 ```
 
 因此，我们需要找到方法，能够将到达主机eth05000端口的所有包转发到目的地172.18.0.10:5000。又是iptables来帮忙！
 
-```
+```shell
 # 外部流量  
     sudo iptables -t nat -A PREROUTING -d 10.0.2.15 -p tcp -m tcp --dport 5000 -j DNAT --to-destination 172.18.0.10:5000 
     # 本地流量 (因为它没有通过 PREROUTING chain) 
@@ -650,13 +650,13 @@ curl: (7) Failed to connect to 10.0.2.15 port 5000: Connection refused
 
 另外，需要让iptables能够在桥接网络上截获流量：
 
-```
+```shell
 sudo modprobe br_netfilter
 ```
 
 测试：
 
-```
+```shell
 curl 10.0.2.15:5000 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"  "http://www.w3.org/TR/html4/strict.dtd">
       # ... 忽略无关行 ...
@@ -688,7 +688,7 @@ curl 10.0.2.15:5000
 
 Podman容器管理器的一个很好的特性是关注于rootless容器。但是，你可能注意到，本文使用了很多sudo命令。说明，没有root权限无法配置网络。Podman在root网络上的方案[2]和Docker非常相似。但是在rootless容器上，Podman使用了slirp4netns[3]项目：
 
-```
+```shell
 从Linux 3.8开始，非特权用户可以创建user_namespaces(7)的同时创建network_namespaces(7)。但是，非特权网络命名空间并不是很有用，因为在主机和网络命名空间之间创建veth(4)仍然需要root权限
 
 slirp4netns可以用完全非特权的方式将网络命名空间连接到Internet上，通过网络命名空间里的一个TAP设备连接到用户态的TCP/IP栈（slirp）。

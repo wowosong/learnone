@@ -19,7 +19,6 @@ docker-compose \[\-f\=<arg\>...\] \[options\] \[COMMAND\] \[ARGS...\]
 *   `--verbose` 输出更多调试信息。
     
 *   `-v, --version` 打印版本并退出。
-    
 
 ## 命令使用说明
 
