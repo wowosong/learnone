@@ -723,7 +723,7 @@ public class UserService {
 
 ### 7.1.1 数据库初始化
 
-在使用 Spring Data JPA 进行开发时，使用 `@Entity` 标注实体类，当应用程序启动时，JPA 会自动检测实体类上的注解，并在数据库中创建对应的表。
+在使用 Spring Data JPA 进行开发时，**使用 `@Entity` 标注实体类，当应用程序启动时，JPA 会自动检测实体类上的注解，并在数据库中创建对应的表。**
 
 以下示例代码演示了如何在 Spring Boot 应用程序中使用 JPA 创建表。
 
