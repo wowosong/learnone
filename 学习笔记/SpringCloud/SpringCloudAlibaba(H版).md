@@ -83,12 +83,12 @@ Apache Dubbo是一个高性能的Java RPC框架。
 
 ```xml
 <dependency>
-        <groupId>com.alibaba.cloud</groupId>
-        <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-        <version>2.1.0.RELEASE</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+    <version>2.1.0.RELEASE</version>
+    <type>pom</type>
+    <scope>import</scope>
+</dependency>
 ```
 
 9001的pom:
@@ -97,7 +97,22 @@ Apache Dubbo是一个高性能的Java RPC框架。
 
 #### 2，配置文件
 
-![](https://learnone.oss-cn-beijing.aliyuncs.com/pic/202311071626304.png) 
+```yml
+server:
+	port:9001
+spring:
+	application:
+		name: nacos-payment-provider
+	cloud:
+		nacos:
+			discovery:
+				server-addr: localhost:8848 #配置Nacos地址
+management:
+	endpoints:
+		web:
+			exposure:
+				include: '*' 
+```
 
 #### 3，启动类
 
@@ -160,8 +175,7 @@ spring:
 	cloud:
 		nacos:
 			discovery:
-				server-addr:localhost:8848
-#消费者将要去访问的微服务名称(注册成功nacos的微服务提供者)
+				server-addr:localhost:8848 #消费者将要去访问的微服务名称(注册成功nacos的微服务提供者)
 service-url:
 	nacos-user-service:http://nacos-payment-provider 
 ```
