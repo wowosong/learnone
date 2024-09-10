@@ -26,7 +26,7 @@
 
 • 12、CompletableFuture
 
-##   1 什么是 JUC   
+##   1 什么是 JUC
 
 ###   1.1 JUC 简介
 
@@ -225,7 +225,7 @@ class Ticket {
 
 因此就需要有一种机制可以不让等待的线程一直无期限地等待下去（比如只等待一定的时间或者能够响应中断），通过 Lock 就可以办到。
 
-###   2.2 什么是 Lock  
+###   2.2 什么是 Lock
 
 Lock 锁实现提供了比使用同步方法和语句可以获得的更广泛的锁操作。它们允许更灵活的结构，可能具有非常不同的属性，并且可能支持多个关联的条件对象。**Lock 提供了比 synchronized 更多的功能**。
 
@@ -1168,7 +1168,7 @@ class MyThread2 implements Callable<Integer>{
 
 **要创建线程，需要 Runnable。为了获得结果，需要 future。** 
 
-###   6.3 FutureTask   
+###   6.3 FutureTask
 
 Java 库具有具体的 FutureTask 类型，该类型实现 Runnable 和 Future，并方便地将两种功能组合在一起。 可以通过为其构造函数提供 Callable 来创建FutureTask。然后，将 FutureTask 对象提供给 Thread 的构造函数以创建Thread 对象。因此，间接地使用 Callable 创建线程。
 
@@ -1188,7 +1188,7 @@ Java 库具有具体的 FutureTask 类型，该类型实现 Runnable 和 Future�
 
 • **get 只计算一次,因此 get 方法放到最后**
 
-###   6.4 使用 Callable 和 Future   
+###   6.4 使用 Callable 和 Future
 
 CallableDemo 案例
 
@@ -2458,7 +2458,7 @@ public static void main(String[] args) throws Exception{
 }
 ```
 
-####   12.3.4 线程依赖 
+####   12.3.4 线程依赖
 
  当一个线程依赖另一个线程时，可以使用 thenApply 方法来把这两个线程串行化。
 
@@ -2514,7 +2514,7 @@ public static void main(String[] args) throws Exception{
 }
 ```
 
-####   12.3.6 异常处理 
+####   12.3.6 异常处理
 
  exceptionally 异常处理,出现异常时触发
 

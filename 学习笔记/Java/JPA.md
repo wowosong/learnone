@@ -255,6 +255,18 @@ public class Address {
 
     // 省略其他属性和方法
 }
+
+@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+@JoinTable(name = "hbd_user_role",
+        //joinColumns,当前对象在中间表中的外键
+        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+        //inverseJoinColumns，对方对象在中间表的外键
+        inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+private Set<AuthRole> roleSet;
+
+
+@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "roleSet")
+    private Set<AuthUser> userSet;
 ```
 
 在上例中，`User` 和 `Address` 之间是一对多的关系，所以在 `User` 实体类中使用了 `@OneToMany` 注解，在 `Address` 实体类中使用了 `@ManyToOne` 注解。`mappedBy` 属性用于指定关联的属性名称，这里是 `user`，表示 `Address` 实体类中的 `user` 属性与 `User` 实体类中的 `addresses` 属性相对应。`cascade` 属性表示级联操作，这里使用 **`CascadeType.ALL` 表示在删除 `User` 实体时同时删除其关联的所有 `Address` 实体**。`@JoinColumn` 注解用于指定外键名称，**这里是 `user_id`，表示 `Address` 表中的 `user_id` 列与 `User` 表中的主键相对应。**
@@ -307,6 +319,62 @@ public interface UserRepository extends Repository<User, Long> {
 ```
 
 ## 4.2 自定义查询方法
+
+### 支持的查询方式主语关键词
+
+下表列出了Spring数据存储库查询派生机制通常支持的主语关键字来表达谓词。有关受支持关键字的确切列表，请参阅特定文档，因为此处列出的某些关键字可能在特定商店中不受支持。
+
+| 关键词                                                       | 描述                                                         |
+| :----------------------------------------------------------- | :----------------------------------------------------------- |
+| `find…By`,,,,,,,`read…By``get…By``query…By``search…By``stream…By` | 一般查询方法通常返回存储库类型、a`Collection`或`Streamable`子类型或结果包装器（例如`Page`）`GeoResults`或任何其他特定于存储的结果包装器。可以用作`findBy…`或`findMyDomainTypeBy…`与其他关键字结合使用。 |
+| `exists…By`                                                  | 存在投影，通常返回`boolean`结果。                            |
+| `count…By`                                                   | 返回数字结果的计数投影。                                     |
+| `delete…By`,`remove…By`                                      | 删除查询方法返回不结果 ( `void`) 或删除计数。                |
+| `…First<number>…`,`…Top<number>…`                            | 将查询结果限制为第一个`<number>`结果。该关键字可以出现在`find`（以及其他关键字）和之间的主题中的任何位置`by`。 |
+| `…Distinct…`                                                 | 使用不同的查询仅返回唯一的结果。请参阅商店特定文档是否支持该功能。该关键字可以出现在`find`（以及其他关键字）和之间的主题中的任何位置`by`。 |
+
+### 支持的查询方法谓词关键字和修饰符
+
+下表列出了Spring数据存储库查询派生机制通常支持的谓词关键字。但是，请参阅特定于商店的文档以获取支持的关键字的确切列表，因为此处列出的某些关键字可能在特定商店中不受支持。
+
+| 逻辑关键字            | 关键词表达式                                  |
+| :-------------------- | :-------------------------------------------- |
+| `AND`                 | `And`                                         |
+| `OR`                  | `Or`                                          |
+| `AFTER`               | `After`,`IsAfter`                             |
+| `BEFORE`              | `Before`,`IsBefore`                           |
+| `CONTAINING`          | `Containing`, `IsContaining`,`Contains`       |
+| `BETWEEN`             | `Between`,`IsBetween`                         |
+| `ENDING_WITH`         | `EndingWith`, `IsEndingWith`,`EndsWith`       |
+| `EXISTS`              | `Exists`                                      |
+| `FALSE`               | `False`,`IsFalse`                             |
+| `GREATER_THAN`        | `GreaterThan`,`IsGreaterThan`                 |
+| `GREATER_THAN_EQUALS` | `GreaterThanEqual`,`IsGreaterThanEqual`       |
+| `IN`                  | `In`,`IsIn`                                   |
+| `IS`                  | `Is`, `Equals`, （或无关键字）                |
+| `IS_EMPTY`            | `IsEmpty`,`Empty`                             |
+| `IS_NOT_EMPTY`        | `IsNotEmpty`,`NotEmpty`                       |
+| `IS_NOT_NULL`         | `NotNull`,`IsNotNull`                         |
+| `IS_NULL`             | `Null`,`IsNull`                               |
+| `LESS_THAN`           | `LessThan`,`IsLessThan`                       |
+| `LESS_THAN_EQUAL`     | `LessThanEqual`,`IsLessThanEqual`             |
+| `LIKE`                | `Like`,`IsLike`                               |
+| `NEAR`                | `Near`,`IsNear`                               |
+| `NOT`                 | `Not`,`IsNot`                                 |
+| `NOT_IN`              | `NotIn`,`IsNotIn`                             |
+| `NOT_LIKE`            | `NotLike`,`IsNotLike`                         |
+| `REGEX`               | `Regex`, `MatchesRegex`,`Matches`             |
+| `STARTING_WITH`       | `StartingWith`, `IsStartingWith`,`StartsWith` |
+| `TRUE`                | `True`,`IsTrue`                               |
+| `WITHIN`              | `Within`,`IsWithin`                           |
+
+除了过滤谓词之外，还支持以下修饰符列表：
+
+| 关键词                            | 描述                                                         |
+| :-------------------------------- | :----------------------------------------------------------- |
+| `IgnoreCase`,`IgnoringCase`       | 与谓词关键字一起使用以进行不区分大小写的比较。               |
+| `AllIgnoreCase`,`AllIgnoringCase` | 忽略所有合适属性的大小写。在查询方法谓词中的某处使用。       |
+| `OrderBy…`                        | 指定静态排序顺序，后跟属性路径和方向（例如`OrderByFirstnameAscLastnameDesc`）。 |
 
 在 `Repository` 接口中可以定义自定义查询方法，实现按照指定规则查询数据。**Spring Data JPA 支持三种方式定义自定义查询方法：方法名称查询、参数设置查询、使用 `@Query` 注解查询。**
 
@@ -768,7 +836,7 @@ public class UserService {
 
 以下示例代码演示了如何在 Spring Boot 应用程序中使用 Flyway 进行数据库升级。
 
-1. 在 `pom.xml` 文件中添加依赖
+1. 在 pom.xml 文件中添加依赖
 
 ```xml
 <dependency>
@@ -1122,3 +1190,4 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 ## 9.3 适合使用 Spring Data JPA 的项目类型
 
 Spring Data JPA 适用于需求较为简单的 CRUD 操作的项目，特别是对于初学者来说，使用 Spring Data JPA  可以很快速的上手。对于一些需要进行关联操作的复杂查询场景，或者需要特定的 SQL 语句实现的场景，可以考虑使用 MyBatis 或者直接使用  Hibernate。但对于大多数项目而言，使用 Spring Data JPA 已经能够很好地满足需求。
+

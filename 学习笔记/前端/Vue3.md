@@ -1172,7 +1172,7 @@ export default {
 
 *   作用：实现**祖与后代组件间**通信
     
-*   套路：父组件有一个 `provide` 选项来提供数据，后代组件有一个 `inject` 选项来开始使用这些数据
+*   套路：**父组件有一个 `provide` 选项来提供数据，后代组件有一个 `inject` 选项来开始使用这些数据**
     
 *   具体写法：
     
@@ -1504,7 +1504,7 @@ Vue2.x写法
 
 Vue3.x写法
 
-```css
+```vue
 .v-enter-from,
 .v-leave-to {
   opacity: 0;

@@ -41,10 +41,10 @@ Lambda 是一个**匿名函数**，我们可以把 Lambda表达式理解为是**
 ```java
 //匿名内部类
 Runnable runnable=new Runnable() {
-  @Override
-  public void run() {
-    System.out.println("hello lamda");
-  }
+    @Override
+    public void run() {
+        System.out.println("hello lamda");
+    }
 };
 runnable.run();
 //Lambda表达式
@@ -169,16 +169,16 @@ public void  test4(){
 }
 ```
 
-作为参数传递 Lambda 表达式：为了将 Lambda 表达式作为参数传递，接收Lambda 表达式的参数类型必须是与该 Lambda 表达式兼容的函数式接口的类型。
+作为参数传递 Lambda 表达式：**为了将 Lambda 表达式作为参数传递，接收Lambda 表达式的参数类型必须是与该 Lambda 表达式兼容的函数式接口的类型。**
 
 ###  Java内置四大核心函数式接口
 
-| 函数式接口              | 参数类型 | 返回类型 | 用途                                                         |
-| ----------------------- | -------- | -------- | ------------------------------------------------------------ |
-| Consumer\<T>消费性接口  | T        | void     | 对类型为T的对应应用操作，包括方法：void accept(T t)          |
-| Supplier\<T>供给型接口  | 无       | T        | 返回类型为T的对象，包含方法：T get();                        |
-| Function\<T>函数型接口  | T        | R        | 对类型为T的对象应用操作，并返回结果。结果是R类型的对象。包含方法：R apply(T t); |
-| Predicate\<T>断定型接口 | T        | boolean  | 确定类型为T的对象是否满足某约束，并返回boolean值。包含方法boolean test(T t); |
+| 函数式接口               | 参数类型 | 返回类型 | 用途                                                         |
+| ------------------------ | -------- | -------- | ------------------------------------------------------------ |
+| Consumer\<T>  消费性接口 | T        | void     | 对类型为T的对应应用操作，包括方法：void accept(T t)          |
+| Supplier\<T> 供给型接口  | 无       | T        | 返回类型为T的对象，包含方法：T get();                        |
+| Function\<T>  函数型接口 | T        | R        | 对类型为T的对象应用操作，并返回结果。<br />结果是R类型的对象。包含方法：R apply(T t); |
+| Predicate\<T> 断定型接口 | T        | boolean  | 确定类型为T的对象是否满足某约束，并返回boolean值。<br />包含方法boolean test(T t); |
 
 #### 消费性接口
 

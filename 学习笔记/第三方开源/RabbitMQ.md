@@ -1525,46 +1525,46 @@ public class Consumer01 {
 
 ```xml
 <dependencies>
- <!--RabbitMQ 依赖-->
- <dependency>
-   <groupId>org.springframework.boot</groupId>
-   <artifactId>spring-boot-starter-amqp</artifactId>
- </dependency>
- <dependency>
-   <groupId>org.springframework.boot</groupId>
-   <artifactId>spring-boot-starter-web</artifactId>
- </dependency>
- <dependency>
-   <groupId>org.springframework.boot</groupId>
-   <artifactId>spring-boot-starter-test</artifactId>
- 	 <scope>test</scope>
- </dependency>
- <dependency>
-   <groupId>com.alibaba</groupId>
-   <artifactId>fastjson</artifactId>
-   <version>1.2.47</version>
- </dependency>
- <dependency>
-   <groupId>org.projectlombok</groupId>
-   <artifactId>lombok</artifactId>
- </dependency>
- <!--swagger-->
- <dependency>
-   <groupId>io.springfox</groupId>
-   <artifactId>springfox-swagger2</artifactId>
-   <version>2.9.2</version>
- </dependency>
- <dependency>
-   <groupId>io.springfox</groupId>
-   <artifactId>springfox-swagger-ui</artifactId>
-   <version>2.9.2</version>
- </dependency>
- <!--RabbitMQ 测试依赖-->
- <dependency>
-   <groupId>org.springframework.amqp</groupId>
-   <artifactId>spring-rabbit-test</artifactId>
-   <scope>test</scope>
- </dependency>
+    <!--RabbitMQ 依赖-->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-amqp</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>1.2.47</version>
+    </dependency>
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+    </dependency>
+    <!--swagger-->
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>2.9.2</version>
+    </dependency>
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>2.9.2</version>
+    </dependency>
+    <!--RabbitMQ 测试依赖-->
+    <dependency>
+        <groupId>org.springframework.amqp</groupId>
+        <artifactId>spring-rabbit-test</artifactId>
+        <scope>test</scope>
+    </dependency>
 </dependencies>
 ```
 
@@ -1615,7 +1615,7 @@ public class SwaggerConfig {
 
 TTL 是什么呢？TTL 是 RabbitMQ 中一个消息或者队列的属性，表明一条消息或者该队列中的所有消息的最大存活时间，单位是毫秒。换句话说，**如果一条消息设置了 TTL 属性或者进入了设置 TTL 属性的队列，那么这条消息如果在 TTL 设置的时间内没有被消费，则会成为"死信"**。如果同时配置了队列的 TTL 和消息的TTL，那么较小的那个值将会被使用，有两种方式设置 TTL。
 
-### **7.4.1.** **消息设置 TTL** 
+### **7.4.1.** **消息设置 TTL**
 
 另一种方式便是针对每条消息设置 TTL
 
@@ -1858,7 +1858,7 @@ public static final String DELAYED_ROUTING_KEY = "delayed.routingkey";
 
 @GetMapping("sendDelayMsg/{message}/{delayTime}")
 public void sendMsg01(@PathVariable("message") String message, @PathVariable("delayTime") Integer delayTime) {
-    rabbitTemplate.convertAndSend(DELAYED_EXCHANGE_NAME, DELAYED_ROUTING_KEY, message, correlationData -> {
+    rabbitTemplate.convertAndSend(DELAYED_EXCHANGE_NAME, DELAYED_ROUTING_KEY, message, correlationData-> {
         correlationData.getMessageProperties().setDelay(delayTime);
         return correlationData;
     });
