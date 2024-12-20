@@ -175,7 +175,6 @@
       - 高并发
          - [课程笔记](/学习笔记/TL文档/高并发/课程笔记.md)
    - WebGis
-      - Leaflet
       - [Leaflet](/学习笔记/WebGis/leaflet.md)
       - Openlayer
          - [Openlayer](/学习笔记/WebGis/Openlayer/openlayer.md)
