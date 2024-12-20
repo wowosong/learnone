@@ -118,9 +118,9 @@ Spring对配置类的处理主要分为2个阶段：
 
 类中有下面任意注解之一的就属于配置类：
 
-1.  类上有@Compontent注解
+1.  类上有@Component注解
 2.  类上有@Configuration注解
-3.  类上有@CompontentScan注解
+3.  类上有@ComponentScan注解
 4.  类上有@Import注解
 5.  类上有@ImportResource注解
 6.  类中有@Bean标注的方法
@@ -143,7 +143,7 @@ org.springframework.context.annotation.ConfigurationClassPostProcessor#processCo
 
 1.  通常我们会通过new AnnotationConfigApplicationContext()传入多个配置类来启动spring容器
 2.  spring对传入的多个配置类进行解析
-3.  配置类解析阶段：这个过程就是处理配置类上面6中注解的过程，此过程中又会发现很多新的配置类，比如@Import导入的一批新的类刚好也符合配置类，而被@CompontentScan扫描到的一些类刚好也是配置类；此时会对这些新产生的配置类进行同样的过程解析
+3.  配置类解析阶段：这个过程就是处理配置类上面6中注解的过程，此过程中又会发现很多新的配置类，比如@Import导入的一批新的类刚好也符合配置类，而被@ComponentScan扫描到的一些类刚好也是配置类；此时会对这些新产生的配置类进行同样的过程解析
 4.  bean注册阶段：配置类解析后，会得到一批配置类和一批需要注册的bean，此时spring容器会将这批配置类作为bean注册到spring容器，同样也会将这批需要注册的bean注册到spring容器
 5.  经过上面第3个阶段之后，spring容器中会注册很多新的bean，这些新的bean中可能又有很多新的配置类
 6.  Spring从容器中将所有bean拿出来，遍历一下，会过滤得到一批未处理的新的配置类，继续交给第3步进行处理

@@ -68,7 +68,7 @@
 先来说这种方式，因为其他几种方式最终都会采用这种方式来定义bean配置信息。
 
 **Spring容器启动的过程中，会将Bean解析成Spring内部的BeanDefinition结构**。  
-不管是是通过xml配置文件的`<Bean>`标签，还是通过注解配置的`@Bean`，还是`@Compontent`标注的类，还是扫描得到的类，它最终都会被解析成一个BeanDefinition对象，最后我们的Bean工厂就会根据这份Bean的定义信息，对bean进行实例化、初始化等等操作。
+不管是是通过xml配置文件的`<Bean>`标签，还是通过注解配置的`@Bean`，还是`@Component`标注的类，还是扫描得到的类，它最终都会被解析成一个BeanDefinition对象，最后我们的Bean工厂就会根据这份Bean的定义信息，对bean进行实例化、初始化等等操作。
 
 你可以把BeanDefinition丢给Bean工厂，然后Bean工厂就会根据这个信息帮你生产一个Bean实例，拿去使用。
 
@@ -860,7 +860,7 @@ ceo.$1=1000000                 // 设置构造函数第2个参数值，等同于
 
 常见的2种：
 
-1.  类上标注@Compontent注解来定义一个bean
+1.  类上标注@Component注解来定义一个bean
 2.  配置类中使用@Bean注解来定义bean
 
 ### 小结

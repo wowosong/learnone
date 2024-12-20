@@ -47,10 +47,10 @@ public @interface Scope {
 
 ### 常见2种用法
 
-1.  和@Compontent一起使用在类上
+1.  和@Component一起使用在类上
 2.  和@Bean一起标注在方法上
 
-### 案例1：和@Compontent一起使用在类上
+### 案例1：和@Component一起使用在类上
 
 ```java
 @Component
@@ -111,10 +111,10 @@ public @interface DependsOn {
 
 ### 常见2种用法
 
-1.  和@Compontent一起使用在类上
+1.  和@Component一起使用在类上
 2.  和@Bean一起标注在方法上
 
-### 案例1：和@Compontent一起使用在类上
+### 案例1：和@Component一起使用在类上
 
 下面定义3个bean：service1、service2、service3；service1需要依赖于其他2个service，需要确保容器在创建service1之前需要先将其他2个bean先创建好。
 
@@ -466,13 +466,13 @@ public @interface Lazy {
 
 ### 常用3种方式
 
-1.  和@Compontent一起标注在类上，可以是这个类延迟初始化
+1.  和@Component一起标注在类上，可以是这个类延迟初始化
 2.  和@Configuration一起标注在配置类中，可以让当前配置类中通过@Bean注册的bean延迟初始化
 3.  和@Bean一起使用，可以使当前bean延迟初始化
 
 来看一下这3种方式案例代码。
 
-### 案例1：和@Compontent一起使用
+### 案例1：和@Component一起使用
 
 #### Service1
 

@@ -609,7 +609,7 @@ public class User {
 > 
 > @3：给username赋值，通过uuid随机生成了一个
 
-**来个spring配置类，加载上面@Compontent标注的组件**
+**来个spring配置类，加载上面@Component标注的组件**
 
 ```java
 package com.javacode2018.lesson002.demo18.test3;

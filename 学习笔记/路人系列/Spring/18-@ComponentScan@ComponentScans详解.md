@@ -213,7 +213,7 @@ public class UserModel {
 
 上面几个类中，分别使用了4种注解。
 
-#### @CompontentScan修饰的类
+#### @ComponentScan修饰的类
 
 ```java
 package com.javacode2018.lesson001.demo22.test1;
@@ -354,7 +354,7 @@ public class Service2 {
 }
 ```
 
-#### 来一个@CompontentScan标记的类
+#### 来一个@ComponentScan标记的类
 
 ```java
 package com.javacode2018.lesson001.demo22.test6;
@@ -482,7 +482,7 @@ public class Service1 {
 }
 ```
 
-##### 再来一个类，使用spring中的@Compontent标注
+##### 再来一个类，使用spring中的@Component标注
 
 ```java
 package com.javacode2018.lesson001.demo22.test3;
@@ -494,7 +494,7 @@ public class Service2 {
 }
 ```
 
-##### 再来一个类，使用@CompontentScan标注
+##### 再来一个类，使用@ComponentScan标注
 
 ```java
 package com.javacode2018.lesson001.demo22.test3;
@@ -534,7 +534,7 @@ service2->com.javacode2018.lesson001.demo22.test3.Service2@2a798d51
 
 **Service1上标注了`@MyBean`注解，被注册到容器了，但是`Service2`上没有标注`@MyBean`啊，怎么也被注册到容器了？**
 
-**原因：Service2上标注了`@Compontent`注解，而@CompontentScan注解中的`useDefaultFilters`默认是`true`，表示也会启用默认的过滤器，而默认的过滤器会将标注有`@Component、@Repository、@Service、@Controller`这几个注解的类也注册到容器中**
+**原因：Service2上标注了`@Component`注解，而@ComponentScan注解中的`useDefaultFilters`默认是`true`，表示也会启用默认的过滤器，而默认的过滤器会将标注有`@Component、@Repository、@Service、@Controller`这几个注解的类也注册到容器中**
 
 如果我们只想将标注有`@MyBean`注解的bean注册到容器，需要将默认过滤器关闭，即：useDefaultFilters=false，我们修改一下ScanBean3的代码如下：
 
@@ -620,7 +620,7 @@ public class Service2 implements IService {
 }
 ```
 
-#### 来一个@CompontentScan标注的类
+#### 来一个@ComponentScan标注的类
 
 ```java
 package com.javacode2018.lesson001.demo22.test4;
@@ -777,7 +777,7 @@ public class MyFilter implements TypeFilter {
 }
 ```
 
-#### 来一个@CompontentScan标注的类
+#### 来一个@ComponentScan标注的类
 
 ```java
 package com.javacode2018.lesson001.demo22.test5;
@@ -853,7 +853,7 @@ public class ScanBean7 {
 
 ## Spring中这块的源码
 
-**@CompontentScan注解是被下面这个类处理的**
+**@ComponentScan注解是被下面这个类处理的**
 
 ```java
 org.springframework.context.annotation.ConfigurationClassPostProcessor
@@ -867,12 +867,12 @@ org.springframework.context.annotation.ConfigurationClassPostProcessor
 @PropertySource
 @Import
 @ImportResource
-@Compontent
+@Component
 ```
 
 **以上这些注解都是被ConfigurationClassPostProcessor这个类处理的，内部会递归处理这些注解，完成bean的注册。**
 
-**以@CompontentScan来说一下过程，第一次扫描之后会得到一批需要注册的类，然后会对这些需要注册的类进行遍历，判断是否有上面任意一个注解，如果有，会将这个类交给ConfigurationClassPostProcessor继续处理，直到递归完成所有bean的注册。**
+**以@ComponentScan来说一下过程，第一次扫描之后会得到一批需要注册的类，然后会对这些需要注册的类进行遍历，判断是否有上面任意一个注解，如果有，会将这个类交给ConfigurationClassPostProcessor继续处理，直到递归完成所有bean的注册。**
 
 **想成为高手，这个类是必看的。**
 

@@ -20,7 +20,7 @@
 到目前，我们知道的批量定义bean的方式有2种：
 
 1.  @Configuration结合@Bean注解的方式
-2.  @CompontentScan扫描包的方式
+2.  @ComponentScan扫描包的方式
 
 下面我们来看几个问题。
 
@@ -29,13 +29,13 @@
 如果需要注册的类是在第三方的jar中，那么我们如果想注册这些bean有2种方式：
 
 1.  通过@Bean标注方法的方式，一个个来注册
-2.  @CompontentScan的方式：默认的@CompontentScan是无能为力的，默认情况下只会注册@Compontent标注的类，此时只能自定义@CompontentScan中的过滤器来实现了
+2.  @ComponentScan的方式：默认的@ComponentScan是无能为力的，默认情况下只会注册@Component标注的类，此时只能自定义@ComponentScan中的过滤器来实现了
 
 这2种方式都不是太好，每次有变化，调整的代码都比较多。
 
 ### 问题2
 
-通常我们的项目中有很多子模块，可能每个模块都是独立开发的，最后通过jar的方式引进来，每个模块中都有各自的@Configuration、@Bean标注的类，或者使用@CompontentScan标注的类，**被@Configuration、@Bean、@CompontentScan标注的类，我们统称为bean配置类，配置类可以用来注册bean**，此时如果我们只想使用其中几个模块的配置类，怎么办？
+通常我们的项目中有很多子模块，可能每个模块都是独立开发的，最后通过jar的方式引进来，每个模块中都有各自的@Configuration、@Bean标注的类，或者使用@ComponentScan标注的类，**被@Configuration、@Bean、@ComponentScan标注的类，我们统称为bean配置类，配置类可以用来注册bean**，此时如果我们只想使用其中几个模块的配置类，怎么办？
 
 @Import可以很好的解决这2个问题，下面我们来看@Import怎么玩的。
 
@@ -76,7 +76,7 @@ public @interface Import {
 
 1.  **value为普通的类**
 2.  **value为@Configuration标注的类**
-3.  **value为@CompontentScan标注的类**
+3.  **value为@ComponentScan标注的类**
 4.  **value为ImportBeanDefinitionRegistrar接口类型**
 5.  **value为ImportSelector接口类型**
 6.  **value为DeferredImportSelector接口类型**
@@ -159,7 +159,7 @@ com.javacode2018.lesson001.demo24.test1.Service2->com.javacode2018.lesson001.dem
 2.  通过@Import导入的2个类，bean名称为完整的类名
     
 
-我们也可以指定被导入类的bean名称，使用@Compontent注解就可以了，如下：
+我们也可以指定被导入类的bean名称，使用@Component注解就可以了，如下：
 
 ```java
 @Component("service1")
@@ -266,9 +266,9 @@ com.javacode2018.lesson001.demo24.test2.ConfigModule2->com.javacode2018.lesson00
 module2->我是模块2配置类！
 ```
 
-## value为@CompontentScan标注的类
+## value为@ComponentScan标注的类
 
-项目中分多个模块，每个模块有各自独立的包，我们在每个模块所在的包中配置一个@CompontentScan类，然后通过@Import来导入需要启用的模块。
+项目中分多个模块，每个模块有各自独立的包，我们在每个模块所在的包中配置一个@ComponentScan类，然后通过@Import来导入需要启用的模块。
 
 ### 定义模块1
 
@@ -302,7 +302,7 @@ public class Module1Service2 {
 }
 ```
 
-#### 组件扫描类：CompontentScanModule1
+#### 组件扫描类：ComponentScanModule1
 
 负责扫描当前模块中的组件
 
@@ -316,7 +316,7 @@ import org.springframework.stereotype.Component;
  * 模块1的主键扫描
  */
 @ComponentScan
-public class CompontentScanModule1 {
+public class ComponentScanModule1 {
 }
 ```
 
@@ -352,7 +352,7 @@ public class Module2Service2 {
 }
 ```
 
-#### 组件扫描类：CompontentScanModule1
+#### 组件扫描类：ComponentScanModule1
 
 负责扫描当前模块中的组件
 
@@ -366,7 +366,7 @@ import org.springframework.stereotype.Component;
  * 模块2的组件扫描
  */
 @ComponentScan
-public class CompontentScanModule2 {
+public class ComponentScanModule2 {
 }
 ```
 
@@ -375,14 +375,14 @@ public class CompontentScanModule2 {
 ```java
 package com.javacode2018.lesson001.demo24.test3;
 
-import com.javacode2018.lesson001.demo24.test3.module1.CompontentScanModule1;
-import com.javacode2018.lesson001.demo24.test3.module2.CompontentScanModule2;
+import com.javacode2018.lesson001.demo24.test3.module1.ComponentScanModule1;
+import com.javacode2018.lesson001.demo24.test3.module2.ComponentScanModule2;
 import org.springframework.context.annotation.Import;
 
 /**
- * 通过@Import导入多个@CompontentScan标注的配置类
+ * 通过@Import导入多个@ComponentScan标注的配置类
  */
-@Import({CompontentScanModule1.class, CompontentScanModule2.class}) //@1
+@Import({ComponentScanModule1.class, ComponentScanModule2.class}) //@1
 public class MainConfig3 {
 }
 ```
@@ -416,12 +416,12 @@ module2Service1->com.javacode2018.lesson001.demo24.test3.module2.Module2Service1
 module2Service2->com.javacode2018.lesson001.demo24.test3.module2.Module2Service2@2a798d51
 ```
 
-两个模块中通过@Compontent定义的4个bean都输出了。
+两个模块中通过@Component定义的4个bean都输出了。
 
-如果只想注册模块1中的bean，只需要修改一下@Import，去掉CompontentScanModule2，如下：
+如果只想注册模块1中的bean，只需要修改一下@Import，去掉ComponentScanModule2，如下：
 
 ```java
-@Import({CompontentScanModule1.class})
+@Import({ComponentScanModule1.class})
 ```
 
 再次运行输出：
@@ -696,7 +696,7 @@ service2->Service2{service1=com.javacode2018.lesson001.demo24.test4.Service1@621
 public interface ImportSelector {
 
     /**
-     * 返回需要导入的类名的数组，可以是任何普通类，配置类（@Configuration、@Bean、@CompontentScan等标注的类）
+     * 返回需要导入的类名的数组，可以是任何普通类，配置类（@Configuration、@Bean、@ComponentScan等标注的类）
      * @importingClassMetadata：用来获取被@Import标注的类上面所有的注解信息
      */
     String[] selectImports(AnnotationMetadata importingClassMetadata);
@@ -1022,7 +1022,7 @@ public class MainConfig6 {
 }
 ```
 
-> 上面使用了@CompontentScan注解，此时会将Servce1和Service2这两个类注册到容器中。
+> 上面使用了@ComponentScan注解，此时会将Servce1和Service2这两个类注册到容器中。
 > 
 > @1：此处使用了@EnableMethodCostTime注解，而@EnableMethodCostTime注解上使用了@Import(MethodCostTimeImportSelector.class)，此时MethodCostTimeImportSelector类中的MethodCostTimeProxyBeanPostProcessor会被注册到容器，会拦截bean的创建，创建耗时代理对象。
 
@@ -1402,7 +1402,7 @@ name1
 org.springframework.context.annotation.ConfigurationClassPostProcessor
 ```
 
-> 前面介绍的@Configuration、@Bean、@CompontentScan、@CompontentScans都是被这个类处理的，这个类是高手必经之路，建议花点时间研究研究。
+> 前面介绍的@Configuration、@Bean、@ComponentScan、@ComponentScans都是被这个类处理的，这个类是高手必经之路，建议花点时间研究研究。
 
 ## 案例源码
 
