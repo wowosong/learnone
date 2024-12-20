@@ -125,7 +125,7 @@ public class ServiceB {
 }
 ```
 
-构造器的情况比较容易理解，实例化ServiceA的时候，需要有serviceB，而实例化ServiceB的时候需要有serviceA，构造器循环依赖是无法解决的，大家可以尝试一下使用编码的方式创建上面2个对象，是无法创建成功的！
+构造器的情况比较容易理解，实例化ServiceA的时候，需要有serviceB，而实例化ServiceB的时候需要有serviceA，**构造器循环依赖是无法解决的**，大家可以尝试一下使用编码的方式创建上面2个对象，是无法创建成功的！
 
 再来看看非构造器的方式注入相互依赖的bean，以set方式注入为例，下面是2个单例的bean：serviceA和serviceB：
 
