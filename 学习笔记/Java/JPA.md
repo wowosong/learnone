@@ -258,18 +258,44 @@ public class Address {
 
 @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 @JoinTable(name = "hbd_user_role",
-        //joinColumns,当前对象在中间表中的外键
-        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-        //inverseJoinColumns，对方对象在中间表的外键
-        inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+           //joinColumns,当前对象在中间表中的外键
+           joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+           //inverseJoinColumns，对方对象在中间表的外键
+           inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
 private Set<AuthRole> roleSet;
 
 
 @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "roleSet")
-    private Set<AuthUser> userSet;
+private Set<AuthUser> userSet;
 ```
 
 在上例中，`User` 和 `Address` 之间是一对多的关系，所以在 `User` 实体类中使用了 `@OneToMany` 注解，在 `Address` 实体类中使用了 `@ManyToOne` 注解。`mappedBy` 属性用于指定关联的属性名称，这里是 `user`，表示 `Address` 实体类中的 `user` 属性与 `User` 实体类中的 `addresses` 属性相对应。`cascade` 属性表示级联操作，这里使用 **`CascadeType.ALL` 表示在删除 `User` 实体时同时删除其关联的所有 `Address` 实体**。`@JoinColumn` 注解用于指定外键名称，**这里是 `user_id`，表示 `Address` 表中的 `user_id` 列与 `User` 表中的主键相对应。**
+
+1. @ManyToOne
+   - 表示多对一的关联关系，即一个实体可以关联多个其他实体，但每个其他实体只能关联一个该实体。
+   - 通常用于表示子实体（多的一方）和父实体（一的一方）之间的关系。
+   - 例如，一个订单（Order）只能属于一个客户（Customer），但一个客户可以有多个订单。
+   - `@ManyToOne`注解通常与`@JoinColumn`注解一起使用，以指定外键列。
+2. @OneToMany
+   - 表示一对多的关联关系，即一个实体可以关联多个其他实体。
+   - 通常用于表示父实体（一的一方）和子实体（多的一方）之间的关系。
+   - 例如，一个客户（Customer）可以有多个订单（Order）。
+   - **`@OneToMany`注解可以与`mappedBy`属性一起使用，该属性指定了反向关联的属性名，即子实体中用于指向父实体的属性。**
+   - **如果不使用`mappedBy`，则需要使用`@JoinColumn`或`@JoinTable`来定义关联表和外键。**
+3. @OneToOne
+   - 表示一对一的关联关系，即一个实体只能关联一个其他实体，反之亦然。
+   - 例如，一个用户（User）可以有一个地址（Address），且一个地址只能属于一个用户。
+   - **`@OneToOne`注解可以与`mappedBy`属性一起使用，也可以与`@JoinColumn`或`@JoinTable`一起使用来定义关联表和外键。**
+   - **当使用`mappedBy`时，关联是由反向实体管理的，即一个实体包含另一个实体的引用，并且该引用在数据库中有相应的外键约束。**
+   - **当使用`@JoinColumn`时，可以在当前实体的表中添加一个外键列来指向关联实体的主键。**
+   - **当使用`@JoinTable`时，会创建一个新的关联表来存储两个实体之间的关联关系。**
+
+这些注解的使用取决于实体之间的业务关系以及所需的数据库模式。在使用这些注解时，需要注意以下几点：
+
+- 确保关联关系的正确性，以避免数据完整性问题。
+- 在双向关联中，**通常会有一个实体作为关系的所有者（即包含`@JoinColumn`或`@JoinTable`注解的实体），而另一个实体则通过`mappedBy`属性来引用该关系。**
+- 考虑到性能问题，尤其是在使用`@OneToMany`和`@ManyToMany`注解时，因为默认的抓取策略可能会导致大量的数据被加载到内存中。可以通过设置`fetch`属性为`LAZY`（延迟加载）来优化性能。
+- 在使用`@JoinColumn`时，要仔细考虑外键列的名称和类型，以确保它们与数据库模式相匹配。
 
 # 四、Repository接口
 

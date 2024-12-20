@@ -164,7 +164,7 @@ public Object strHandler(MyFunction mf, String string){
 ```java
 @Test
 public void  test4(){
-    String test = (String) strHandler((x) ->x.toString().toUpperCase(), "test");
+    String test = (String) strHandler((x) ->x.().toUpperCase(), "test");
     System.out.println(test);
 }
 ```
